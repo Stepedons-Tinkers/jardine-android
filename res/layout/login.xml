@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="2" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@drawable/log_in_logo_jardine" >
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="#2f3233"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/login_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:layout_marginTop="37dp"
+            android:background="@drawable/email_bg"
+            android:ems="10"
+            android:gravity="left"
+            android:hint="Email"
+            android:inputType="textPersonName"
+            android:paddingBottom="9dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="9dp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <EditText
+            android:id="@+id/login_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="27dp"
+            android:background="@drawable/email_bg"
+            android:ems="10"
+            android:gravity="left"
+            android:hint="Password"
+            android:inputType="textPersonName"
+            android:paddingBottom="9dp"
+            android:paddingLeft="14dp"
+            android:paddingTop="9dp"
+            android:textColor="@android:color/white"
+            android:textSize="24sp" />
+
+        <Button
+            android:id="@+id/login_sign_in"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/signin_bg"
+            android:ems="10"
+            android:onClick="signInClicked" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginBottom="14dp" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:text="(C) Copyright 2014"
+                android:textColor="#737373" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

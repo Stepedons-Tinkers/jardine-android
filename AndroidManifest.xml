@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="co.nextix.jardine"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19" />
+
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name="co.nextix.jardine.JardineApp"
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@android:style/Theme.NoTitleBar" >
+        <activity
+            android:name="co.nextix.jardine.SplashScreenActivity"
+            android:label="@string/app_name"
+            android:noHistory="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Splash" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="DetailWorkPlanActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="WorkplanMenuBarActivity"
+            android:screenOrientation="landscape"
+            android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
+        </activity>
+        <activity
+            android:name="DashBoardActivity"
+            android:configChanges="mcc|mnc|orientation|screenSize"
+            android:logo="@drawable/actionbar_logo"
+            android:theme="@style/Theme.Example" >
+            <item android:name="android:windowBackground">
+@android:color/transparent
+            </item>
+        </activity>
+        <activity
+            android:name="LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+    </application>
+
+</manifest>

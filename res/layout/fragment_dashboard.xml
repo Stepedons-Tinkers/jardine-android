@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#e9eaea"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/date_today"
+        android:layout_width="match_parent"
+        android:layout_height="34dp"
+        android:background="@drawable/calendar_bar"
+        android:onClick="openCalendarView"
+        android:text="Today - Thursday, May 29, 2014"
+        android:textColor="@android:color/white" />
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:id="@+id/anim_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="159dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal" >
+
+                <Button
+                    android:id="@+id/checkin"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="14dp"
+                    android:layout_marginRight="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/check_in_tile"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:onClick="checkin"
+                    android:paddingTop="14dp"
+                    android:text="Start of the Day"
+                    android:textColor="@android:color/white" />
+
+                <Button
+                    android:id="@+id/checkout"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/check_out_tile"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:onClick="checkout"
+                    android:paddingTop="14dp"
+                    android:text="End of the Day"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="159dp"
+                android:layout_marginBottom="14dp"
+                android:layout_marginLeft="14dp"
+                android:layout_marginRight="14dp"
+                android:orientation="horizontal" >
+
+                <RelativeLayout
+                    android:id="@+id/activites"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/activities_tile"
+                    android:onClick="startActivity" >
+
+                    <TextView
+                        android:id="@+id/update_activities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="160dp"
+                        android:text="4 stocks left \n 0 updates for marketing intel"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
+
+                <Button
+                    android:id="@+id/workplan"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@drawable/workplan_tile"
+                    android:gravity="left"
+                    android:onClick="viewTodaysWorkplan"
+                    android:paddingLeft="14dp"
+                    android:paddingTop="67dp"
+                    android:text="View today&apos;s workplan"
+                    android:textColor="@android:color/white" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:text="Activites"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:text="It doesn&apos;t look like you have any activities today."
+                android:textColor="@android:color/darker_gray" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="14dp"
+                android:text="Workplan"
+                android:textColor="@android:color/black"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="28dp"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="7dp"
+                android:text="It doesn&apos;t look like you have any workplan for today."
+                android:textColor="@android:color/darker_gray" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

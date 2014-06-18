@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- dashboard -->
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+    <color name="counter_text_bg">#626262</color>
+    <color name="counter_text_color">#c5c4c4</color>
+
+    <!-- list layouts -->
+    <color name="list_header">#b0b0b0</color>
+    <color name="list_cell_white">#dcdcdc</color>
+    <color name="list_cell_gray">#cac9c9</color>
+
+    <!-- profile -->
+    <color name="text_color">#A9A9A9</color>
+
+    <!-- colors -->
+    <!-- <color name="white">#FFFFFF</color> -->
+    <color name="dirty_white">#e1ded9</color>
+    <color name="light_gray">#a8a7a6</color>
+    <color name="mild_gray">#868685</color>
+    <color name="gray">#605f5e</color>
+    <color name="dark_gray">#464645</color>
+    <color name="black">#000000</color>
+    
+    <color name="grey">#ffdedede</color>
+    <color name="blue">@android:color/holo_blue_dark</color>
+    <color name="red">@android:color/holo_red_light</color>
+    <color name="green">@android:color/holo_green_light</color>
+    <color name="white">@android:color/white</color>
+
+</resources>

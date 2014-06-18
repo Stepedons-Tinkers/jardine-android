@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">JardIn</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="drawer_open">Slider Menu Opened</string>
+    <string name="drawer_close">Slider Menu Closed</string>
+    <string name="search">Search</string>
+
+    <!-- Nav Drawer Menu Items -->
+    <string-array name="nav_drawer_items">
+        <item>Dashboard</item>
+        <item>Profile</item>
+        <item>Sync</item>
+        <item>Workplan</item>
+        <item>Activities</item>
+        <item>Customers</item>
+        <item>Collaterals</item>
+        <item>Logout</item>
+    </string-array>
+
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+        <item>@drawable/ic_profile</item>
+        <item>@drawable/ic_sync</item>
+        <item>@drawable/ic_workplan_menubar</item>
+        <item>@drawable/ic_activites_menubar</item>
+        <item>@drawable/ic_customers_menubar</item>
+        <item>@drawable/ic_collaterals_menubar</item>
+        <item>@drawable/logout</item>
+    </array>
+
+    <!-- Content Description -->
+    <string name="desc_list_item_icon">Item Icon</string>
+
+    <!-- Customer View -->
+    <string name="customer_header_id">ID</string>
+    <string name="customer_header_name">Name</string>
+    <string name="customer_header_type">Type</string>
+    <string name="customer_header_province">Province</string>
+
+    <!-- Profile -->
+    <string name="profile_information">Information</string>
+    <string name="profile_notification">Notifications</string>
+
+    <!-- Profile Info View -->
+    <string name="profile_info_userinformation">User Information</string>
+    <string name="profile_info_username">Username</string>
+    <string name="profile_info_firstname">First Name</string>
+    <string name="profile_info_lastname">Last Name</string>
+    <string name="profile_info_area">Area(s) assigned</string>
+    <string name="profile_info_syncinformation">Syncing Information</string>
+    <string name="profile_info_lastsync">Last sync</string>
+
+    <!-- Profile Notif View -->
+    <string name="profile_notif_date">Date</string>
+    <string name="profile_notif_notification">Notification</string>
+    <string name="profile_notif_action">Action</string>
+    <string name="profile_notif_remove">Remove</string>
+
+    <!-- Workplan View -->
+    <string name="workplan_title">Workplan</string>
+    <string name="workplan_header_id">WPID</string>
+    <string name="workplan_header_customer">Customer</string>
+    <string name="workplan_header_date">Date</string>
+    <string name="workplan_header_activity">Activity Type</string>
+
+    <!-- View Activity Details -->
+    <string name="activity_information">Activity Information</string>
+    <string name="jdi_product_stock_check">JDI Product Stock Check</string>
+    <string name="jdi_merchandising_check">JDI Merchandising Check</string>
+    <string name="competitor_product_stock_check">Competitor Product Stock Check</string>
+    <string name="marketing_intel"> Marketing Intel</string>
+    <string name="project_requirements">Project Requirements</string>
+    <string name="diy_or_supermarket_photos">DIY or Supermarket Photos</string>
+    <string name="customer_view_details">Customer Contact Person</string>
+    <string name="products">Products</string>
+
+    <!-- View Activity Details / General Information -->
+    <string name="general_info">General Information</string>
+    <string name="crm_no">CRM No.:</string>
+    <string name="start_time">Start Time:</string>
+    <string name="latitude">Latitude:</string>
+    <string name="objective">Objective:</string>
+    <string name="highlights">Highlights:</string>
+    <string name="follow_up_commitment_date">Follow-up Commitment Date:</string>
+    <string name="workplan_entry">Workplan Entry:</string>
+    <string name="first_time_visit">First Time Visit:</string>
+    <string name="created_time">Created Time:</string>
+    <string name="assigned_to">Assigned To:</string>
+    <string name="activity_gen">Activity:</string>
+    <string name="end_time">End Time:</string>
+    <string name="longitude">Longitude:</string>
+    <string name="notes">Notes:</string>
+    <string name="next_steps">Next Steps:</string>
+    <string name="activity_type">Activity Type:</string>
+    <string name="customer">Customer:</string>
+    <string name="planned_visit">Planned Visit:</string>
+    <string name="modified_time">Modified Time:</string>
+    <string name="edit_activity">Edit Activity</string>
+    <string name="back_to_activity">Back to Activity </string>
+
+    <!-- Create/Edit Activity Details / General Information -->
+    <string name="workplan_gen_info">Workplan</string>
+    <string name="venue">Venue:</string>
+    <string name="number_of_attendees">Number of Attendees:</string>
+    <string name="with_coSMRs">With CoSMRs</string>
+    <string name="smr">SMR:</string>
+    <string name="diy_or_supermarket_gen_info">DIY or Supermarket</string>
+    <string name="issues_identified">Issues Identified:</string>
+    <string name="feedback_from_customer">Feedback From Customer:</string>
+    <string name="ongoing_campaigns">Ongoing Campaigns:</string>
+    <string name="retail_visit">Retail Visit:</string>
+    <string name="last_delivery">Last Delivery:</string>
+    <string name="promo_stubs_details">Promo Stubs Details:</string>
+    <string name="project_visit_gen_info">Project Visit:</string>
+    <string name="project_name">Project Name:</string>
+    <string name="project_stage">Project Stage:</string>
+    <string name="project_category">Project Category:</string>
+    <string name="trainings_gen_info">Trainings</string>
+    <string name="all_training_types">All Training Types</string>
+    <string name="date_gen_info">Date:</string>
+    <string name="time_gen_info">Time:</string>
+    <string name="save">Save</string>
+    <string name="error">Error saving</string>
+    <string name="complete">Saved!</string>
+
+    <!-- JDI Product Stock Check ListView Details -->
+    <string name="crm_no_jdi">CRM No.</string>
+    <string name="activity_jdi">Activity</string>
+    <string name="product_jdi">Product</string>
+    <string name="jdi_stock_status">Stock Status</string>
+    <string name="jdi_quantity">Quantity</string>
+    <string name="loaded_on_shelves_jdi">Loaded On Shelves</string>
+    <string name="assigned_to_jdi">Assigned To</string>
+    <string name="action_jdi">Action</string>
+    <string name="add_jdi_product_stock_check"> Add JDI Product Stock Check</string>
+
+    <!-- JDI Product Stock Check Details -->
+    <string name="jdi_product_stock_check_details">JDI PRODUCT STOCK CHECK DETAILS</string>
+    <string name="supplier_jdi_product_stock_check">Supplier</string>
+    <string name="created_time_jdi_product_stock_check">Created Time</string>
+    <string name="modified_time_jdi_product_stock_check">Modified Time</string>
+    <string name="edit_jdi_product_stock_check_detail">Edit JDI Product Stock Check</string>
+    <string name="create">Create</string>
+
+    <!-- JDI Merchandising Check -->
+    <string name="crm_no_jdi_merchandising">CRM No</string>
+    <string name="activity_jdi_merchandising">Activity</string>
+    <string name="product_jdi_merchandising">Product</string>
+    <string name="status_jdi_merchandising">Status</string>
+    <string name="assigned_to_merchandising">Assigned To</string>
+    <string name="action_merchandising">Action</string>
+    <string name="add_jdi_merchandising_check">Add JDI Merchandising Check</string>
+
+    <!-- JDI Merchandising Check Detail -->
+    <string name="jdi_merchandising_check_details">JDI MERCHANDISING CHECK DETAILS</string>
+    <string name="created_time_jdi_merchandising">Created Time</string>
+    <string name="modified_time_jdi_merchandising">Modified Time</string>
+    <string name="edit_jdi_merchandising_check_details">Edit JDI Merchandising Check</string>
+
+    <!-- Competitor Product Stock Check -->
+    <string name="crm_no_competitor_stock_check">CRM No</string>
+    <string name="activity_competitor_stock_check">Activity</string>
+    <string name="competitor_product">Competitor Product</string>
+    <string name="stock_status_competitor_product">Stock Status</string>
+    <string name="loaded_on_shelves_competitor_product">Loaded On Shelves</string>
+    <string name="assigned_to_competitor_product">Assigned To</string>
+    <string name="action_competitor_product_stock_check">Action</string>
+    <string name="add_competitor_product_stock_check">Add Competitor Product Stock Check</string>
+
+    <!-- Competitor Product Stock Check Detail -->
+    <string name="competitor_product_stock_check_details">COMPETITOR PRODUCT STOCK CHECK DETAILS</string>
+    <string name="edit_competitor_product_stock_check_details">Edit Competitor Product Stock Check</string>
+    <string name="created_time_competitor_stock_check">Created Time</string>
+    <string name="modified_time_competitor_stock_check">Modified Time</string>
+
+    <!-- Marketing Intel -->
+    <string name="crm_no_marketing_intel">CRM No</string>
+    <string name="activity_marketing_intel">Activity</string>
+    <string name="competitor_marketing_intel">Competitor</string>
+    <string name="details_marketing_intel">Details</string>
+    <string name="remarks_marketing_intel">Remarks</string>
+    <string name="assigned_to_marketing_intel">Assigned To</string>
+    <string name="action_marketing_intel">Action</string>
+    <string name="add_marketing_intel">Add Marketing Intel</string>
+
+    <!-- Marketing Intel Details -->
+    <string name="marketing_intel_details">MARKETING INTEL DETAILS</string>
+    <string name="created_time_marketing_intel">Created Time</string>
+    <string name="modified_time_marketing_intel">Modified Time</string>
+    <string name="edit_marketing_intel">Edit Marketing Intel</string>
+
+    <!-- Project Requirements -->
+    <string name="crm_proj_requirements">CRM No</string>
+    <string name="activity_proj_requirements">Activity</string>
+    <string name="project_requirement_type">Project Requirement Type</string>
+    <string name="date_needed">Date Needed</string>
+    <string name="assigned_to_proj_requirement">Assigned To</string>
+    <string name="action_proj_requirement">Action</string>
+    <string name="add_proj_requirement">Add Project Requirement</string>
+
+    <!-- Project Requirements Detail -->
+    <string name="project_requirement_details">PROJECT REQUIREMENT DETAILS</string>
+    <string name="square_meters_proj_requirements">Square Meters</string>
+    <string name="products_used_proj_requirements">Products Used</string>
+    <string name="other_details_proj_requirements">Other Details</string>
+    <string name="created_time_proj_requirements">Created Time</string>
+    <string name="modified_time_proj_requirements">Modified Time</string>
+    <string name="edit_proj_requirements">Edit Project Requirement</string>
+
+    <!-- DIY or Supermarket Photos -->
+    <string name="title">Title</string>
+    <string name="filename">Filename</string>
+    <string name="modified_time_diy_supermarket_photos">Modified Time</string>
+    <string name="add_diy_or_supermarket_photos">Add DIY or Supermarket Photo</string>
+
+    <!-- Customer Contact Person -->
+    <string name="crm_no_contact_person">CRM No</string>
+    <string name="firstname_contact_person">First Name</string>
+    <string name="lastname_contact_person">Last Name</string>
+    <string name="position_contact_person">Position</string>
+    <string name="customer_contact_person">Customer</string>
+    <string name="mobile_no_contact_person">Mobile No</string>
+    <string name="assigned_to_contact_person">Assigned To</string>
+    <string name="action_contact_person">Action</string>
+    <string name="add_customer_contact_person">Add Customer Contact Person</string>
+    <string name="select_customer_contact_person">Select Customer Contact Person</string>
+
+    <!-- Customer Contact Person Details -->
+    <string name="customer_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
+    <string name="birthday_contact_person">Birthday</string>
+    <string name="email_contact_person">Email Address</string>
+    <string name="is_active_contact_person">Is Active</string>
+    <string name="created_time_contact_person">Created Time</string>
+    <string name="modified_time_contact_person">Modified Time</string>
+    <string name="edit_customer_contact_person">Edit Customer Contact Person</string>
+
+    <!-- Products -->
+    <string name="crm_no_products">CRM No</string>
+    <string name="product_number">Product Number</string>
+    <string name="product_brand">Product Brand</string>
+    <string name="product_desc">Product Description</string>
+    <string name="assigned_to_products">Assigned To</string>
+    <string name="action_products">Action</string>
+    <string name="select_products">Select Product</string>
+
+</resources>
