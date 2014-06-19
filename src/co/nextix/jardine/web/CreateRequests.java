@@ -22,6 +22,7 @@ import android.util.Log;
 
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.SMRtimeCardRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
@@ -36,6 +37,85 @@ public class CreateRequests {
 
 	private final String TAG = "Webservice_Create";
 	private final String operation = "creates";
+
+	public List<WebCreateModel> competitorProduct(
+			List<CompetitorProductRecord> records) {
+
+		List<WebCreateModel> model = null;
+
+		String sessionName, elements, elementType;
+		JSONObject requestList = new JSONObject();
+		try {
+			// String assignedUser, String date,
+			// String time, String entry
+
+			UserTable userTable = DatabaseAdapter.getInstance().getUser();
+			PSMRentryTypeTable smrEntry = DatabaseAdapter.getInstance()
+					.getSMRentryType();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+//				// get user id from db
+//				String id = userTable.getNoById(records.get(x).getUser());
+//				requestObject.put("assigned_user_id", id);
+//				requestObject.put("z_stc_date", records.get(x).getDate());
+//				requestObject.put("z_stc_time", records.get(x).getTimestamp());
+//				// get entry type from db
+//				String entryType = smrEntry.getById(
+//						records.get(x).getEntryType()).getName();
+//				requestObject.put("z_stc_picklist", entryType);
+
+				requestList.put(String.valueOf(records.get(x).getId()),
+						requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getJsonConnection(url, "POST");
+
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			dos.writeBytes(requestList.toString());
+
+			dos.flush();
+			dos.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
 
 	public List<WebCreateModel> smrTimecard(List<SMRtimeCardRecord> records) {
 
