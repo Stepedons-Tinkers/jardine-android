@@ -1,7 +1,5 @@
 package co.nextix.jardine.activities.update.fragments;
 
-import com.dd.CircularProgressButton;
-
 import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -10,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import co.nextix.jardine.R;
+import co.nextix.jardine.dd.CircularProgressButton;
 
 public class EditActivityInfoFragment extends Fragment {
 

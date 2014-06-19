@@ -5,8 +5,8 @@ import java.util.List;
 import co.nextix.jardine.utils.NetworkUtils;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.RetrieveRequests;
-import co.nextix.jardine.web.models.LoginModel;
 import co.nextix.jardine.web.models.WorkplanModel;
+import co.nextix.jardine.web.requesters.LoginModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -31,12 +31,16 @@ public class LoginActivity extends Activity {
 	}
 
 	public void signInClicked(View view) {
-		if (NetworkUtils.isNetworkAvailable(getApplicationContext()))
-			new LoginTask().execute();
-		else
-			Toast.makeText(getApplicationContext(),
-					"Please check internet connection", Toast.LENGTH_LONG)
-					.show();
+		// if (NetworkUtils.isNetworkAvailable(getApplicationContext()))
+		// new LoginTask().execute();
+		// else
+		// Toast.makeText(getApplicationContext(),
+		// "Please check internet connection", Toast.LENGTH_LONG)
+		// .show();
+
+		startActivity(new Intent(getApplicationContext(),
+				DashBoardActivity.class));
+		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
 	}
 
@@ -79,14 +83,14 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				// startActivity(new Intent(getApplicationContext(),
-				// DashBoardActivity.class));
-				// overridePendingTransition(R.anim.slide_in_left,
-				// R.anim.slide_out_left);
-				if (models != null)
-					Toast.makeText(getApplicationContext(),
-							"Workplan: " + models.get(0).getCrmNo(),
-							Toast.LENGTH_LONG).show();
+				startActivity(new Intent(getApplicationContext(),
+						DashBoardActivity.class));
+				overridePendingTransition(R.anim.slide_in_left,
+						R.anim.slide_out_left);
+				// if (models != null)
+				// Toast.makeText(getApplicationContext(),
+				// "Workplan: " + models.get(0).getCrmNo(),
+				// Toast.LENGTH_LONG).show();
 
 			} else {
 				Toast.makeText(getApplicationContext(), "Invalid credentials",

@@ -26,6 +26,7 @@ import co.nextix.jardine.database.records.SMRtimeCardRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
 import co.nextix.jardine.web.requesters.DefaultRequester;
+import co.nextix.jardine.web.requesters.WebCreateModel;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

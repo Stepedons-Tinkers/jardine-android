@@ -25,8 +25,8 @@ import org.apache.http.message.BasicNameValuePair;
 
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.web.models.LoginModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
+import co.nextix.jardine.web.requesters.LoginModel;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;

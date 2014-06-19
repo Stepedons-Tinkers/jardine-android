@@ -14,7 +14,7 @@ public class Modules {
 	public static String JDIMerchCheck = "XJDIMerchCheck";
 	public static String JDIProductStockCheck = "XJDIProductStockCheck";
 	public static String MarketingIntel = "XMarketingIntel";
-	public static String XMarketingMaterials = "XMarketingMat";
+	public static String MarketingMaterials = "XMarketingMat";
 	public static String Product = "XProduct";
 	public static String ProjectRequirement = "XProjectRequirement";
 	public static String SMR = "XSMR";

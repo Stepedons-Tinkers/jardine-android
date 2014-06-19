@@ -2,33 +2,28 @@ package co.nextix.jardine.web.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class MarketingMaterials {
+public class SMRtimeCardModel {
+	// CreatedTime: "2014-06-18 21:59:47"
+	// ModifiedTime: "2014-06-18 21:59:47"
+	// assigned_user_id: "1"
+	// z_stc_crmno: "STC0000002"
+	// z_stc_date: "2014-06-17"
+	// z_stc_time: "09:00:00"
+	// z_stc_picklist: "Check-in"
+	// record_id: 430
+	// record_module: "XSMRTimeCard"
 
-	// CreatedTime: "2014-06-14 16:51:49"
-	// ModifiedTime: "2014-06-14 16:52:36"
-	// assigned_user_id: "12"
-	// z_mm_crmno: "MKM0000002"
-	// z_mm_desc: "sdfgh"
-	// z_mm_lastup: "2014-06-14"
-	// z_mm_tags: "sdfgh"
-	// z_mm_isactv: "1"
-	// record_id: 408
-	// record_module: "XMarketingMat"
-
-	@SerializedName("z_mm_crmno")
+	@SerializedName("z_stc_crmno")
 	private String crm_no;
 
-	@SerializedName("z_mm_desc")
-	private String description;
+	@SerializedName("z_stc_date")
+	private String date;
 
-	@SerializedName("z_mm_lastup")
-	private String last_updat;
+	@SerializedName("z_stc_time")
+	private String time;
 
-	@SerializedName("z_mm_tags")
-	private String tags;
-
-	@SerializedName("z_evp_isactv")
-	private String isactive;
+	@SerializedName("z_stc_picklist")
+	private String entry;
 
 	@SerializedName("record_id")
 	private long record_id;
@@ -53,36 +48,28 @@ public class MarketingMaterials {
 		this.crm_no = crmNo;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public String getDate() {
+		return this.date;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDate(String date) {
+		this.date = date;
 	}
 
-	public String getLastUpdat() {
-		return this.last_updat;
+	public String getTime() {
+		return this.time;
 	}
 
-	public void setLastUpdat(String lastUpdat) {
-		this.last_updat = lastUpdat;
+	public void setTime(String time) {
+		this.time = time;
 	}
 
-	public String getTags() {
-		return this.tags;
+	public String getEntry() {
+		return this.entry;
 	}
 
-	public void setTags(String tags) {
-		this.tags = tags;
-	}
-
-	public String getIsActive() {
-		return this.isactive;
-	}
-
-	public void setIsActive(String isActive) {
-		this.isactive = isActive;
+	public void setEntry(String entry) {
+		this.entry = entry;
 	}
 
 	public long getRecordId() {
