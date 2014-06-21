@@ -13,8 +13,8 @@ import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -47,7 +47,7 @@ import co.nextix.jardine.model.NavDrawerItem;
 
 import com.squareup.timessquare.CalendarPickerView;
 
-public class DashBoardActivity extends ActionBarActivity {
+public class DashBoardActivity extends FragmentActivity {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -133,8 +133,8 @@ public class DashBoardActivity extends ActionBarActivity {
 		this.mDrawerList.setAdapter(adapter);
 
 		// enabling action bar app icon and behaving it as toggle button
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setHomeButtonEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setHomeButtonEnabled(true);
 
 		this.mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
 				R.drawable.ic_drawer, // nav menu toggle icon
@@ -144,14 +144,14 @@ public class DashBoardActivity extends ActionBarActivity {
 									// accessibility
 		) {
 			public void onDrawerClosed(View view) {
-				getSupportActionBar().setTitle(mTitle);
+				getActionBar().setTitle(mTitle);
 
 				// calling onPrepareOptionsMenu() to show action bar icons
 				invalidateOptionsMenu();
 			}
 
 			public void onDrawerOpened(View drawerView) {
-				getSupportActionBar().setTitle(mDrawerTitle);
+				getActionBar().setTitle(mDrawerTitle);
 
 				// calling onPrepareOptionsMenu() to hide action bar icons
 				invalidateOptionsMenu();
@@ -269,7 +269,7 @@ public class DashBoardActivity extends ActionBarActivity {
 	@Override
 	public void setTitle(CharSequence title) {
 		mTitle = title;
-		getSupportActionBar().setTitle(mTitle);
+		getActionBar().setTitle(mTitle);
 	}
 
 	/**

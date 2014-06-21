@@ -29,6 +29,8 @@ public class WorkplanRecord {
 	// Public constructors
 	// ===========================================================
 
+	public WorkplanRecord(){}
+	
 	public WorkplanRecord(long id, String no, String startDate, String endDate,
 			int status, String createdTime, String modifiedTime, long user) {
 

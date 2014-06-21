@@ -29,6 +29,8 @@ public class MarketingMaterialsRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public MarketingMaterialsRecord(){}
 
 	public MarketingMaterialsRecord(long id, String no, String description,
 			String lastUdpate, String tags, String createdTime,

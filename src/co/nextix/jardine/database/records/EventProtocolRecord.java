@@ -32,6 +32,8 @@ public class EventProtocolRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public EventProtocolRecord(){}
 
 	public EventProtocolRecord(long id, String no, String description,
 			String lastUpdate, String tags, long eventType, int isActive,
