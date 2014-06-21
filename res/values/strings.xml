@@ -248,5 +248,49 @@
     <string name="assigned_to_products">Assigned To</string>
     <string name="action_products">Action</string>
     <string name="select_products">Select Product</string>
+    
+        <!-- Collaterals -->
+    <string name="collaterals_event_protocols">EVENT PROTOCOLS</string>
+    <string name="collaterals_marketing_materials">MARKETING MATERIALS</string>
+    <string name="collaterals_event_protocols_detail">EVENT PROTOCOL DETAILS</string>
+    <string name="collaterals_event_protocols_files">FILES</string>
+    <string name="collaterals_ep_crm_no">CRM No</string>
+    <string name="collaterals_ep_description">Description</string>
+    <string name="collaterals_ep_event_type">Event Type</string>
+    <string name="collaterals_ep_is_active">Is Active</string>
+    <string name="collaterals_ep_last_update">Last Update</string>
+    <string name="collaterals_ep_assigned_to">Assigned To</string>
+    <string name="collaterals_ep_created_time">Created Time</string>
+    <string name="collaterals_ep_tags">Tags</string>
+    <string name="collaterals_ep_general_information">General Information</string>
+    <string name="collaterals_file_title">Title</string>
+    <string name="collaterals_filename">Filename</string>
+    <string name="collaterals_file_modified_time">Modified Time</string>
+
+    <!-- WorkPlan -->
+    
+    <string name="workplan_details">Workplan Details</string>
+    <string name="workplan_activities">Activities</string>
+    
+    <string name="workplan_customer">Customer</string>
+    <string name="workplan_date">Date</string>
+    <string name="workplan_activity_type">Actvity Type</string>
+    <string name="workplan_info_date">Date</string>
+    <string name="workplan_info_area">Area</string>
+    <string name="workplan_info_citytown">City or Town</string>
+    <string name="workplan_info_acttype">Activity Type</string>
+    <string name="workplan_info_createdtime">Created Time</string>
+    <string name="workplan_info_assignedto">Assigned To</string>
+    <string name="workplan_info_customer">Customer</string>
+    <string name="workplan_info_status">Status</string>
+    <string name="workplan_info_province">Province</string>
+    <string name="workplan_info_otherremarks">Other Remarks</string>
+    <string name="workplan_info_workplan">Workplan</string>
+    <string name="workplan_info_modifiedtime">Modified Time</string>
+
+    <string name="workplan_add_activity">Add Activity</string>
+    
+    <string name="workplan_start_time">Start Time</string>
+    <string name="workplan_end_time">End Time</string>
 
 </resources>

@@ -1,4 +1,4 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.workplan;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -13,17 +13,14 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.CollateralsEventFiles;
 import co.nextix.jardine.collaterals.CollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
-import co.nextix.jardine.collaterals.CollateralsMarketingMaterials;
 import co.nextix.jardine.view.group.utils.TabFactory;
 
-public class CollateralsMenuBarFragment extends Fragment implements
+public class WorkPlanFragmentDetails extends Fragment implements
 		OnTabChangeListener {
+
 	private View view;
 	private TabHost tabHost;
 	private String tab1, tab2;
-
-	public CollateralsMenuBarFragment() {
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -31,8 +28,7 @@ public class CollateralsMenuBarFragment extends Fragment implements
 
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		view = inflater
-				.inflate(R.layout.collaterals, container, false);
+		view = inflater.inflate(R.layout.collaterals, container, false);
 		initLayout();
 		return view;
 	}
@@ -40,9 +36,8 @@ public class CollateralsMenuBarFragment extends Fragment implements
 	private void initLayout() {
 
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
-		tab1 = getResources().getString(R.string.collaterals_event_protocols);
-		tab2 = getResources().getString(
-				R.string.collaterals_marketing_materials);
+		tab1 = getResources().getString(R.string.workplan_details);
+		tab2 = getResources().getString(R.string.workplan_activities	);
 		tabHost.setOnTabChangedListener(this);
 		setupTabHost();
 	}
@@ -69,13 +64,13 @@ public class CollateralsMenuBarFragment extends Fragment implements
 	@Override
 	public void onTabChanged(String tabId) {
 
-		Fragment fragment = new CollateralsEventProtocols();
+		Fragment fragment = new WorkPlanFragmentGeneralInfo();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			fragment = new CollateralsEventProtocols();
+			fragment = new WorkPlanFragmentGeneralInfo();
 			break;
 		case 1:
-			fragment = new CollateralsMarketingMaterials();
+			fragment = new WorkPlanFragmentActivities();
 			break;
 		}
 

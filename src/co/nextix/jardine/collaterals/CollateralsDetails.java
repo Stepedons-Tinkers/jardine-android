@@ -1,5 +1,7 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.collaterals;
 
+import co.nextix.jardine.R;
+import co.nextix.jardine.view.group.utils.TabFactory;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,21 +11,12 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
-import co.nextix.jardine.R;
-import co.nextix.jardine.collaterals.CollateralsEventFiles;
-import co.nextix.jardine.collaterals.CollateralsEventProtocols;
-import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
-import co.nextix.jardine.collaterals.CollateralsMarketingMaterials;
-import co.nextix.jardine.view.group.utils.TabFactory;
 
-public class CollateralsMenuBarFragment extends Fragment implements
-		OnTabChangeListener {
+public class CollateralsDetails extends Fragment implements OnTabChangeListener {
+
 	private View view;
 	private TabHost tabHost;
 	private String tab1, tab2;
-
-	public CollateralsMenuBarFragment() {
-	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -40,9 +33,10 @@ public class CollateralsMenuBarFragment extends Fragment implements
 	private void initLayout() {
 
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
-		tab1 = getResources().getString(R.string.collaterals_event_protocols);
+		tab1 = getResources().getString(
+				R.string.collaterals_event_protocols_detail);
 		tab2 = getResources().getString(
-				R.string.collaterals_marketing_materials);
+				R.string.collaterals_event_protocols_files);
 		tabHost.setOnTabChangedListener(this);
 		setupTabHost();
 	}
@@ -72,10 +66,10 @@ public class CollateralsMenuBarFragment extends Fragment implements
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			fragment = new CollateralsEventProtocols();
+			fragment = new CollateralsGeneralInformation();
 			break;
 		case 1:
-			fragment = new CollateralsMarketingMaterials();
+			fragment = new CollateralsEventFiles();
 			break;
 		}
 
