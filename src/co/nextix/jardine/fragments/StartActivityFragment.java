@@ -24,10 +24,10 @@ public class StartActivityFragment extends Fragment {
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 		View rootView = inflater.inflate(
-				R.layout.fragment_activity_static_fields, container, false);
+				R.layout.fragment_activites, container, false);
 		
-		((Button) rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		/*((Button) rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter(
+				new LightingColorFilter(0x0033FF, 0x0066FF));*/
 
 		return rootView;
 	}
