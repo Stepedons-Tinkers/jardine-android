@@ -16,6 +16,9 @@ public class JardineApp extends Application {
 	public static String COOKIES_HEADER = "Set-Cookie";
 	public static CookieManager CookieManager = new CookieManager();
 	public static HttpURLConnection httpConnection;
+	
+	public static DatabaseAdapter DB = DatabaseAdapter.getInstance();
+	
 	/** REQUESTS CONSTANTS **/
 	public static final String REQUEST_LINEEND = "\r\n";
 	public static final String REQUEST_TWOHYPHENS = "--";

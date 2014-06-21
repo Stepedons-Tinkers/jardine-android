@@ -66,8 +66,8 @@ public class LoginActivity extends Activity {
 				if (model != null) {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
-					RetrieveRequests retrieve = new RetrieveRequests();
-					models = retrieve.Workplan(new String[] { "422", "432" });
+//					RetrieveRequests retrieve = new RetrieveRequests();
+//					models = retrieve.Workplan(new String[] { "422", "432" });
 					return true;
 				} else {
 					return false;

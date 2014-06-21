@@ -12,7 +12,7 @@ public class Modules {
 	public static String SMR = "XSMR";
 	public static String SMRTimeCard = "XSMRTimeCard";
 	public static String Customers = "XCustomers";
-	public static String ContactPerson = "XCCPerson";
+	public static String CustomerContact = "XCCPerson";
 	public static String ActivityType = "XActivityType";
 	public static String Workplan = "XWorkplan";
 	public static String WorkplanEntry = "XWorkplanEntry";
