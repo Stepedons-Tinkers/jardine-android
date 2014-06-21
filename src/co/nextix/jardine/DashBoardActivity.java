@@ -300,18 +300,18 @@ public class DashBoardActivity extends FragmentActivity {
 		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 	}
 
-	public void next(View view) {
-		// adding one day to current date
-		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, 1);
-		Date tommrrow = WorkplanMenuBarFragment.c.getTime();
-		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(tommrrow));
-	}
-
-	public void prev(View view) {
-		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, -1);
-		Date yesterday = WorkplanMenuBarFragment.c.getTime();
-		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(yesterday));
-	}
+//	public void next(View view) {
+//		// adding one day to current date
+//		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, 1);
+//		Date tommrrow = WorkplanMenuBarFragment.c.getTime();
+//		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(tommrrow));
+//	}
+//
+//	public void prev(View view) {
+//		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, -1);
+//		Date yesterday = WorkplanMenuBarFragment.c.getTime();
+//		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(yesterday));
+//	}
 
 	public void openCalendarView(View view) {
 		final Calendar nextYear = Calendar.getInstance();
