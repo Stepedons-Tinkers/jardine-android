@@ -64,10 +64,9 @@ public class CompetitorTable {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
 				do {
-					long id = c.getLong(c
-							.getColumnIndex(KEY_COMPETITOR_ROWID));
-					String no = c.getString(c
-							.getColumnIndex(KEY_COMPETITOR_NO));
+					long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
+					String no = c
+							.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
 					String competitorName = c.getString(c
 							.getColumnIndex(KEY_COMPETITOR_NAME));
 					int isActive = c.getInt(c
@@ -76,8 +75,8 @@ public class CompetitorTable {
 							.getColumnIndex(KEY_COMPETITOR_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_COMPETITOR_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_COMPETITOR_USER));
+					long user = c
+							.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
 					list.add(new CompetitorRecord(id, no, competitorName,
 							isActive, createdTime, modifiedTime, user));
@@ -147,10 +146,8 @@ public class CompetitorTable {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c
-						.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
-				String no = c.getString(c
-						.getColumnIndex(KEY_COMPETITOR_NO));
+				long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
+				String no = c.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
 				String competitorName = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_NAME));
 				int isActive = c.getInt(c
@@ -159,8 +156,7 @@ public class CompetitorTable {
 						.getColumnIndex(KEY_COMPETITOR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITOR_USER));
+				long user = c.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
 				record = new CompetitorRecord(id, no, competitorName, isActive,
 						createdTime, modifiedTime, user);
@@ -174,6 +170,26 @@ public class CompetitorTable {
 		return record;
 	}
 
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_COMPETITOR_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_COMPETITOR_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public CompetitorRecord getByWebId(String ID) {
 		CompetitorRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -183,10 +199,8 @@ public class CompetitorTable {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c
-						.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
-				String no = c.getString(c
-						.getColumnIndex(KEY_COMPETITOR_NO));
+				long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
+				String no = c.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
 				String competitorName = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_NAME));
 				int isActive = c.getInt(c
@@ -195,8 +209,7 @@ public class CompetitorTable {
 						.getColumnIndex(KEY_COMPETITOR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITOR_USER));
+				long user = c.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
 				record = new CompetitorRecord(id, no, competitorName, isActive,
 						createdTime, modifiedTime, user);
@@ -238,8 +251,7 @@ public class CompetitorTable {
 	}
 
 	public boolean deleteUser(long rowId) {
-		if (mDb.delete(mDatabaseTable, KEY_COMPETITOR_ROWID + "=" + rowId,
-				null) > 0) {
+		if (mDb.delete(mDatabaseTable, KEY_COMPETITOR_ROWID + "=" + rowId, null) > 0) {
 			getRecords().deleteById(rowId);
 			return true;
 		} else {
@@ -256,8 +268,8 @@ public class CompetitorTable {
 		args.put(KEY_COMPETITOR_CREATEDTIME, createdTime);
 		args.put(KEY_COMPETITOR_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_COMPETITOR_USER, user);
-		if (mDb.update(mDatabaseTable, args, KEY_COMPETITOR_ROWID + "="
-				+ id, null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_COMPETITOR_ROWID + "=" + id,
+				null) > 0) {
 			getRecords().update(id, no, competitorName, isActive, createdTime,
 					modifiedTime, user);
 			return true;

@@ -32,8 +32,7 @@ public class PCustConPositionTable {
 	// Public constructor
 	// ===========================================================
 
-	public PCustConPositionTable(SQLiteDatabase database,
-			String tableName) {
+	public PCustConPositionTable(SQLiteDatabase database, String tableName) {
 		mDb = database;
 		mDatabaseTable = tableName;
 
@@ -147,6 +146,28 @@ public class PCustConPositionTable {
 		}
 
 		return record;
+	}
+
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_CONTACT_POSITION_NAME
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMER_CONTACT_POSITION_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_CONTACT_POSITION_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public PicklistRecord getByWebId(String ID) {

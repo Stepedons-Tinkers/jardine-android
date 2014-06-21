@@ -190,6 +190,26 @@ public class ProductTable {
 		return record;
 	}
 
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_PRODUCT_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_PRODUCT_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_PRODUCT_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public ProductRecord getByWebId(String ID) {
 		ProductRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

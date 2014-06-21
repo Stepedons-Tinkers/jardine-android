@@ -47,6 +47,10 @@ public class ActivityTable {
 	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
 	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
 	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
+	private final String KEY_ACTIVITY_DATE = "date";
+	private final String KEY_ACTIVITY_TIME = "time";
+	private final String KEY_ACTIVITY_VENUE = "venue";
+	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
 
 	// ===========================================================
 	// Private fields
@@ -140,6 +144,14 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String projectStage = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String date = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_DATE));
+					String time = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_TIME));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					String noOfAttendees = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
 
 					list.add(new ActivityRecord(id, no, workplan, startTime,
 							endTime, longitude, latitude, objectives, notes,
@@ -149,7 +161,8 @@ public class ActivityTable {
 							modifiedTime, user, smr, issuesIdentified,
 							feedBackFromCustomer, ongoingCampaigns,
 							lastDelivery, promoStubsDetails, projectName,
-							projectCategory, projectStage));
+							projectCategory, projectStage, date, time, venue,
+							noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -270,6 +283,12 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 				String projectStage = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
+				String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
+				String venue = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				String noOfAttendees = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
 
 				record = new ActivityRecord(id, no, workplan, startTime,
 						endTime, longitude, latitude, objectives, notes,
@@ -278,7 +297,8 @@ public class ActivityTable {
 						plannedVisit, createdTime, modifiedTime, user, smr,
 						issuesIdentified, feedBackFromCustomer,
 						ongoingCampaigns, lastDelivery, promoStubsDetails,
-						projectName, projectCategory, projectStage);
+						projectName, projectCategory, projectStage, date, time,
+						venue, noOfAttendees);
 			}
 		} finally {
 			if (c != null) {
@@ -287,6 +307,26 @@ public class ActivityTable {
 		}
 
 		return record;
+	}
+	
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM " + mDatabaseTable
+				+ " WHERE " + KEY_ACTIVITY_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public ActivityRecord getByWebId(String ID) {
@@ -352,6 +392,12 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 				String projectStage = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
+				String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
+				String venue = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				String noOfAttendees = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
 
 				record = new ActivityRecord(id, no, workplan, startTime,
 						endTime, longitude, latitude, objectives, notes,
@@ -360,7 +406,8 @@ public class ActivityTable {
 						plannedVisit, createdTime, modifiedTime, user, smr,
 						issuesIdentified, feedBackFromCustomer,
 						ongoingCampaigns, lastDelivery, promoStubsDetails,
-						projectName, projectCategory, projectStage);
+						projectName, projectCategory, projectStage, date, time,
+						venue, noOfAttendees);
 			}
 		} finally {
 			if (c != null) {
@@ -380,7 +427,8 @@ public class ActivityTable {
 			long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage) {
+			String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -415,6 +463,10 @@ public class ActivityTable {
 		initialValues.put(KEY_ACTIVITY_PROJECTNAME, projectName);
 		initialValues.put(KEY_ACTIVITY_PROJECTCATEGORY, projectCategory);
 		initialValues.put(KEY_ACTIVITY_PROJECTSTAGE, projectStage);
+		initialValues.put(KEY_ACTIVITY_DATE, date);
+		initialValues.put(KEY_ACTIVITY_TIME, time);
+		initialValues.put(KEY_ACTIVITY_VENUE, venue);
+		initialValues.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -425,7 +477,7 @@ public class ActivityTable {
 					modifiedTime, user, smr, issuesIdentified,
 					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
 					promoStubsDetails, projectName, projectCategory,
-					projectStage);
+					projectStage, date, time, venue, noOfAttendees);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -451,7 +503,8 @@ public class ActivityTable {
 			String modifiedTime, long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage) {
+			String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
 		args.put(KEY_ACTIVITY_WORKPLAN, workplan);
@@ -481,6 +534,10 @@ public class ActivityTable {
 		args.put(KEY_ACTIVITY_PROJECTNAME, projectName);
 		args.put(KEY_ACTIVITY_PROJECTCATEGORY, projectCategory);
 		args.put(KEY_ACTIVITY_PROJECTSTAGE, projectStage);
+		args.put(KEY_ACTIVITY_DATE, date);
+		args.put(KEY_ACTIVITY_TIME, time);
+		args.put(KEY_ACTIVITY_VENUE, venue);
+		args.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
 			getRecords().update(id, no, workplan, startTime, endTime,
@@ -490,7 +547,7 @@ public class ActivityTable {
 					createdTime, modifiedTime, user, smr, issuesIdentified,
 					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
 					promoStubsDetails, projectName, projectCategory,
-					projectStage);
+					projectStage, date, time, venue, noOfAttendees);
 			return true;
 		} else {
 			return false;
@@ -557,7 +614,8 @@ public class ActivityTable {
 				String issuesIdentified, String feedBackFromCustomer,
 				String ongoingCampaigns, String lastDelivery,
 				String promoStubsDetails, String projectName,
-				String projectCategory, String projectStage) {
+				String projectCategory, String projectStage, String date,
+				String time, String venue, String noOfAttendees) {
 			list.add(new ActivityRecord(id, no, workplan, startTime, endTime,
 					longitude, latitude, objectives, notes, highlights,
 					nextSteps, followUpCommitmentDate, activityType,
@@ -565,7 +623,7 @@ public class ActivityTable {
 					createdTime, modifiedTime, user, smr, issuesIdentified,
 					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
 					promoStubsDetails, projectName, projectCategory,
-					projectStage));
+					projectStage, date, time, venue, noOfAttendees));
 		}
 
 		private void clear() {
@@ -586,7 +644,9 @@ public class ActivityTable {
 				long user, long smr, String issuesIdentified,
 				String feedBackFromCustomer, String ongoingCampaigns,
 				String lastDelivery, String promoStubsDetails,
-				String projectName, String projectCategory, String projectStage) {
+				String projectName, String projectCategory,
+				String projectStage, String date, String time, String venue,
+				String noOfAttendees) {
 			ActivityRecord record = getById(id);
 			record.setNo(no);
 			record.setStartTime(startTime);
@@ -615,6 +675,10 @@ public class ActivityTable {
 			record.setProjectName(projectName);
 			record.setProjectCategory(projectCategory);
 			record.setProjectStage(projectStage);
+			record.setDate(date);
+			record.setTime(time);
+			record.setVenue(venue);
+			record.setNoOfAttendees(noOfAttendees);
 		}
 
 		@Override

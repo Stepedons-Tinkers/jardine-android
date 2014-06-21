@@ -177,6 +177,26 @@ public class SMRTable {
 		return record;
 	}
 
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_SMR_NO + " FROM " + mDatabaseTable
+				+ " WHERE " + KEY_SMR_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_SMR_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public SMRRecord getByWebId(String ID) {
 		SMRRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

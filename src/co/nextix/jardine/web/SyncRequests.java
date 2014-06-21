@@ -494,7 +494,7 @@ public class SyncRequests {
 		SyncRequester<List<CustomerContactModel>>.Result result = null;
 
 		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.ContactPerson + "&sessionName="
+				+ Modules.CustomerContact + "&sessionName="
 				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
 				+ "&operation=" + operation;
 

@@ -18,7 +18,6 @@ import org.json.JSONObject;
 
 import android.text.TextUtils;
 import android.util.Log;
-
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.ActivityModel;
@@ -42,6 +41,7 @@ import co.nextix.jardine.web.models.SupplierModel;
 import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.RetrieveRequester;
+import co.nextix.jardine.web.requesters.RetrieveRequester.Result;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -52,11 +52,12 @@ public class RetrieveRequests {
 	private final String TAG = "Webservice_Create";
 	private final String operation = "retrieves";
 
-	public List<BusinessUnitModel> BusinessUnit(String[] ids) {
+	public List<RetrieveRequester<BusinessUnitModel>.Result> BusinessUnit(
+			String[] ids) {
 		// GET
 		// http://115.85.42.163/Jardine/webservice.php?elementType=XMarketingIntel&sessionName=11290558539c19875257b&ids={"0":412}&operation=retrieves
 
-		List<BusinessUnitModel> model = null;
+		List<RetrieveRequester<BusinessUnitModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -85,12 +86,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<BusinessUnitModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<BusinessUnitModel>>() {
 				}.getType();
-				RetrieveRequester<List<BusinessUnitModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<BusinessUnitModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<BusinessUnitModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<BusinessUnitModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -107,9 +108,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<MarketingMaterialsModel> MarketingMaterials(String[] ids) {
+	public List<RetrieveRequester<MarketingMaterialsModel>.Result> MarketingMaterials(
+			String[] ids) {
 
-		List<MarketingMaterialsModel> model = null;
+		List<RetrieveRequester<MarketingMaterialsModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -138,12 +140,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<MarketingMaterialsModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<MarketingMaterialsModel>>() {
 				}.getType();
-				RetrieveRequester<List<MarketingMaterialsModel>> requester = gson
+				RetrieveRequester<MarketingMaterialsModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<MarketingMaterialsModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<MarketingMaterialsModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -160,9 +162,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<EventProtocolModel> EventProtocol(String[] ids) {
+	public List<RetrieveRequester<EventProtocolModel>.Result> EventProtocol(
+			String[] ids) {
 
-		List<EventProtocolModel> model = null;
+		List<RetrieveRequester<EventProtocolModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -191,12 +194,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<EventProtocolModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<EventProtocolModel>>() {
 				}.getType();
-				RetrieveRequester<List<EventProtocolModel>> requester = gson
+				RetrieveRequester<EventProtocolModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<EventProtocolModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<EventProtocolModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -213,9 +216,9 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<ProductModel> Product(String[] ids) {
+	public List<RetrieveRequester<ProductModel>.Result> Product(String[] ids) {
 
-		List<ProductModel> model = null;
+		List<RetrieveRequester<ProductModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -243,11 +246,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<ProductModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<ProductModel>>() {
 				}.getType();
-				RetrieveRequester<List<ProductModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<ProductModel>) requester.getResult().getDetails();
+				RetrieveRequester<ProductModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<ProductModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -264,9 +268,9 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<SupplierModel> Supplier(String[] ids) {
+	public List<RetrieveRequester<SupplierModel>.Result> Supplier(String[] ids) {
 
-		List<SupplierModel> model = null;
+		List<RetrieveRequester<SupplierModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -294,12 +298,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<SupplierModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<SupplierModel>>() {
 				}.getType();
-				RetrieveRequester<List<SupplierModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<SupplierModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<SupplierModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<SupplierModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -316,9 +320,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<CompetitorModel> Competitor(String[] ids) {
+	public List<RetrieveRequester<CompetitorModel>.Result> Competitor(
+			String[] ids) {
 
-		List<CompetitorModel> model = null;
+		List<RetrieveRequester<CompetitorModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -347,12 +352,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<CompetitorModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<CompetitorModel>>() {
 				}.getType();
-				RetrieveRequester<List<CompetitorModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<CompetitorModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<CompetitorModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<CompetitorModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -369,9 +374,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<CompetitorProductModel> CompetitorProduct(String[] ids) {
+	public List<RetrieveRequester<CompetitorProductModel>.Result> CompetitorProduct(
+			String[] ids) {
 
-		List<CompetitorProductModel> model = null;
+		List<RetrieveRequester<CompetitorProductModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -400,12 +406,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<CompetitorProductModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<CompetitorProductModel>>() {
 				}.getType();
-				RetrieveRequester<List<CompetitorProductModel>> requester = gson
+				RetrieveRequester<CompetitorProductModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<CompetitorProductModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<CompetitorProductModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -422,9 +428,9 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<SMRModel> SMR(String[] ids) {
+	public List<RetrieveRequester<SMRModel>.Result> SMR(String[] ids) {
 
-		List<SMRModel> model = null;
+		List<RetrieveRequester<SMRModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -452,11 +458,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<SMRModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<SMRModel>>() {
 				}.getType();
-				RetrieveRequester<List<SMRModel>> requester = gson.fromJson(
+				RetrieveRequester<SMRModel> requester = gson.fromJson(
 						getReader(), typeOfT);
-				model = (List<SMRModel>) requester.getResult().getDetails();
+				model = (List<RetrieveRequester<SMRModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -473,9 +480,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<SMRtimeCardModel> SMRtimeCard(String[] ids) {
+	public List<RetrieveRequester<SMRtimeCardModel>.Result> SMRtimeCard(
+			String[] ids) {
 
-		List<SMRtimeCardModel> model = null;
+		List<RetrieveRequester<SMRtimeCardModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -504,12 +512,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<SMRtimeCardModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<SMRtimeCardModel>>() {
 				}.getType();
-				RetrieveRequester<List<SMRtimeCardModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<SMRtimeCardModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<SMRtimeCardModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<SMRtimeCardModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -526,9 +534,9 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<CustomerModel> Customer(String[] ids) {
+	public List<RetrieveRequester<CustomerModel>.Result> Customer(String[] ids) {
 
-		List<CustomerModel> model = null;
+		List<RetrieveRequester<CustomerModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -556,12 +564,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<CustomerModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<CustomerModel>>() {
 				}.getType();
-				RetrieveRequester<List<CustomerModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<CustomerModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<CustomerModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<CustomerModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -578,9 +586,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<CustomerContactModel> CustomerContact(String[] ids) {
+	public List<RetrieveRequester<CustomerModel>.Result> CustomerContact(
+			String[] ids) {
 
-		List<CustomerContactModel> model = null;
+		List<RetrieveRequester<CustomerModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -591,7 +600,7 @@ public class RetrieveRequests {
 		}
 
 		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.ContactPerson + "&sessionName="
+				+ Modules.CustomerContact + "&sessionName="
 				+ JardineApp.SESSION_NAME + "&ids=" + jsonArray.toString()
 				+ "&operation=" + operation;
 
@@ -609,12 +618,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<CustomerContactModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<CustomerModel>>() {
 				}.getType();
-				RetrieveRequester<List<CustomerContactModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<CustomerContactModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<CustomerModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<CustomerModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -631,9 +640,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<ActivityTypeModel> ActivityType(String[] ids) {
+	public List<RetrieveRequester<ActivityTypeModel>.Result> ActivityType(
+			String[] ids) {
 
-		List<ActivityTypeModel> model = null;
+		List<RetrieveRequester<ActivityTypeModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -662,12 +672,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<ActivityTypeModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<ActivityTypeModel>>() {
 				}.getType();
-				RetrieveRequester<List<ActivityTypeModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<ActivityTypeModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<ActivityTypeModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<ActivityTypeModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -684,11 +694,11 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<WorkplanModel> Workplan(String[] ids) {
+	public List<RetrieveRequester<WorkplanModel>.Result> Workplan(String[] ids) {
 		// GET
 		// http://115.85.42.163/Jardine/webservice.php?elementType=XMarketingIntel&sessionName=11290558539c19875257b&ids={"0":412}&operation=retrieves
 
-		List<WorkplanModel> model = null;
+		List<RetrieveRequester<WorkplanModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -716,12 +726,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<WorkplanModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<WorkplanModel>>() {
 				}.getType();
-				RetrieveRequester<List<WorkplanModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WorkplanModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<WorkplanModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<WorkplanModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -738,9 +748,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<WorkplanEntryModel> WorkplanEntry(String[] ids) {
+	public List<RetrieveRequester<WorkplanEntryModel>.Result> WorkplanEntry(
+			String[] ids) {
 
-		List<WorkplanEntryModel> model = null;
+		List<RetrieveRequester<WorkplanEntryModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -769,12 +780,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<WorkplanEntryModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<WorkplanEntryModel>>() {
 				}.getType();
-				RetrieveRequester<List<WorkplanEntryModel>> requester = gson
+				RetrieveRequester<WorkplanEntryModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<WorkplanEntryModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<WorkplanEntryModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -791,9 +802,9 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<ActivityModel> Activity(String[] ids) {
+	public List<RetrieveRequester<ActivityModel>.Result> Activity(String[] ids) {
 
-		List<ActivityModel> model = null;
+		List<RetrieveRequester<ActivityModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -821,12 +832,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<ActivityModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<ActivityModel>>() {
 				}.getType();
-				RetrieveRequester<List<ActivityModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<ActivityModel>) requester.getResult()
-						.getDetails();
+				RetrieveRequester<ActivityModel> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<RetrieveRequester<ActivityModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -843,9 +854,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<JDImerchandisingCheckModel> JDImerch(String[] ids) {
+	public List<RetrieveRequester<JDImerchandisingCheckModel>.Result> JDImerch(
+			String[] ids) {
 
-		List<JDImerchandisingCheckModel> model = null;
+		List<RetrieveRequester<JDImerchandisingCheckModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -874,12 +886,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<JDImerchandisingCheckModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<JDImerchandisingCheckModel>>() {
 				}.getType();
-				RetrieveRequester<List<JDImerchandisingCheckModel>> requester = gson
+				RetrieveRequester<JDImerchandisingCheckModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<JDImerchandisingCheckModel>) requester
-						.getResult().getDetails();
+				model = (List<RetrieveRequester<JDImerchandisingCheckModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -896,9 +908,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<JDIproductStockCheckModel> JDIproduct(String[] ids) {
+	public List<RetrieveRequester<JDIproductStockCheckModel>.Result> JDIproduct(
+			String[] ids) {
 
-		List<JDIproductStockCheckModel> model = null;
+		List<RetrieveRequester<JDIproductStockCheckModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -927,12 +940,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<JDIproductStockCheckModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<JDIproductStockCheckModel>>() {
 				}.getType();
-				RetrieveRequester<List<JDIproductStockCheckModel>> requester = gson
+				RetrieveRequester<JDIproductStockCheckModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<JDIproductStockCheckModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<JDIproductStockCheckModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -949,10 +962,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<CompetitorProductStockCheckModel> CompetitorProductStockCheck(
+	public List<RetrieveRequester<CompetitorProductStockCheckModel>.Result> CompetitorProductStockCheck(
 			String[] ids) {
 
-		List<CompetitorProductStockCheckModel> model = null;
+		List<RetrieveRequester<CompetitorProductStockCheckModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -981,12 +994,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<CompetitorProductStockCheckModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<CompetitorProductStockCheckModel>>() {
 				}.getType();
-				RetrieveRequester<List<CompetitorProductStockCheckModel>> requester = gson
+				RetrieveRequester<CompetitorProductStockCheckModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<CompetitorProductStockCheckModel>) requester
-						.getResult().getDetails();
+				model = (List<RetrieveRequester<CompetitorProductStockCheckModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -1003,9 +1016,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<MarketingIntelModel> MarketingIntel(String[] ids) {
+	public List<RetrieveRequester<MarketingIntelModel>.Result> MarketingIntel(
+			String[] ids) {
 
-		List<MarketingIntelModel> model = null;
+		List<RetrieveRequester<MarketingIntelModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -1034,12 +1048,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<MarketingIntelModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<MarketingIntelModel>>() {
 				}.getType();
-				RetrieveRequester<List<MarketingIntelModel>> requester = gson
+				RetrieveRequester<MarketingIntelModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<MarketingIntelModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<MarketingIntelModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -1056,9 +1070,10 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<ProjectRequirementModel> ProjectRequirement(String[] ids) {
+	public List<RetrieveRequester<MarketingIntelModel>.Result> ProjectRequirement(
+			String[] ids) {
 
-		List<ProjectRequirementModel> model = null;
+		List<RetrieveRequester<MarketingIntelModel>.Result> model = null;
 		JSONArray jsonArray = new JSONArray();
 		try {
 			for (int x = 0; x < ids.length; x++) {
@@ -1087,12 +1102,12 @@ public class RetrieveRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<RetrieveRequester<List<ProjectRequirementModel>>>() {
+				Type typeOfT = new TypeToken<RetrieveRequester<MarketingIntelModel>>() {
 				}.getType();
-				RetrieveRequester<List<ProjectRequirementModel>> requester = gson
+				RetrieveRequester<MarketingIntelModel> requester = gson
 						.fromJson(getReader(), typeOfT);
-				model = (List<ProjectRequirementModel>) requester.getResult()
-						.getDetails();
+				model = (List<RetrieveRequester<MarketingIntelModel>.Result>) requester
+						.getResult();
 
 			} else {
 				// getResponse();

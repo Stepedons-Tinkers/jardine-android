@@ -208,6 +208,26 @@ public class WorkplanEntryTable {
 		return record;
 	}
 
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_WORKPLANENTRY_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_WORKPLANENTRY_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_WORKPLANENTRY_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public WorkplanEntryRecord getByWebId(String ID) {
 		WorkplanEntryRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

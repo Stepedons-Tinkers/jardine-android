@@ -14,6 +14,7 @@ import co.nextix.jardine.database.tables.CompetitorTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
@@ -99,6 +100,10 @@ public class DatabaseAdapter {
 	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
 	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
 	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
+	private final String KEY_ACTIVITY_DATE = "date";
+	private final String KEY_ACTIVITY_TIME = "time";
+	private final String KEY_ACTIVITY_VENUE = "venue";
+	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
 
 	// Activity Type
 	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
@@ -315,6 +320,16 @@ public class DatabaseAdapter {
 	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
 	private final String KEY_MARKETINGMATERIALS_USER = "user";
 
+	// JDI Merchandising
+	private final String KEY_JDIMERCHANDISING_ROWID = "_id";
+	private final String KEY_JDIMERCHANDISING_NO = "no";
+	private final String KEY_JDIMERCHANDISING_ACTIVITY = "activity";
+	private final String KEY_JDIMERCHANDISING_PRODUCT = "product";
+	private final String KEY_JDIMERCHANDISING_ISACTIVE = "is_active";
+	private final String KEY_JDIMERCHANDISING_CREATEDTIME = "created_time";
+	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
+	private final String KEY_JDIMERCHANDISING_USER = "user";
+
 	// Picklists
 	private final String KEY_PICKLISTS_ROWID = "_id";
 	private final String KEY_PICKLISTS_NAME = "name";
@@ -339,7 +354,7 @@ public class DatabaseAdapter {
 	// ===========================================================
 
 	private String TABLE_CREATE_USER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s integer, %s integer, %s text, %s text);";
-	private String TABLE_CREATE_ACTIVITY = "create table %s (%s integer primary key autoincrement, %s text, %s real, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real, %s integer, %s integer, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s));";
+	private String TABLE_CREATE_ACTIVITY = "create table %s (%s integer primary key autoincrement, %s text, %s real, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real, %s integer, %s integer, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s));";
 	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text, %s real, %s real, %s integer, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
@@ -358,6 +373,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_WORKPLAN_ENTRY = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s text, %s real, %s real, %s real, %s real, %s text, %s real, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_WORKPLAN = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_MATERIALS = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 
@@ -385,6 +401,7 @@ public class DatabaseAdapter {
 	public static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
 	public static final String WORKPLAN_TABLE = "Workplan";
 	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
+	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
 
 	// Picklists
 	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
@@ -434,6 +451,7 @@ public class DatabaseAdapter {
 	private WorkplanEntryTable mWorkplanEntry;
 	private WorkplanTable mWorkplan;
 	private MarketingMaterialsTable mMarketingMaterials;
+	private JDImerchandisingCheckTable mJDImerchandisingCheck;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -868,7 +886,9 @@ public class DatabaseAdapter {
 					KEY_ACTIVITY_FEEDBACK, KEY_ACTIVITY_ONGOINGCAMPAIGNS,
 					KEY_ACTIVITY_LASTDELIVERY, KEY_ACTIVITY_PROMOSTUBS,
 					KEY_ACTIVITY_PROJECTNAME, KEY_ACTIVITY_PROJECTCATEGORY,
-					KEY_ACTIVITY_PROJECTSTAGE, KEY_ACTIVITY_WORKPLAN,
+					KEY_ACTIVITY_PROJECTSTAGE, KEY_ACTIVITY_DATE,
+					KEY_ACTIVITY_TIME, KEY_ACTIVITY_VENUE,
+					KEY_ACTIVITY_NOOFATTENDEES, KEY_ACTIVITY_WORKPLAN,
 					WORKPLAN_TABLE, KEY_WORKPLAN_ROWID,
 					KEY_ACTIVITY_ACTIVITYTYPE, ACTIVITY_TYPE_TABLE,
 					KEY_ACTIVITYTYPE_ROWID, KEY_ACTIVITY_WORKPLANENTRY,
@@ -1054,6 +1074,19 @@ public class DatabaseAdapter {
 					KEY_MARKETINGMATERIALS_MODIFIEDTIME,
 					KEY_MARKETINGMATERIALS_USER, KEY_MARKETINGMATERIALS_USER,
 					USER_TABLE, KEY_USER_ROWID);
+			String jdiMerchandising = String.format(
+					TABLE_CREATE_JDI_MERCHANDISING,
+					JDI_MERCHANDISING_CHECK_TABLE, KEY_JDIMERCHANDISING_ROWID,
+					KEY_JDIMERCHANDISING_NO, KEY_JDIMERCHANDISING_ACTIVITY,
+					KEY_JDIMERCHANDISING_PRODUCT,
+					KEY_JDIMERCHANDISING_ISACTIVE,
+					KEY_JDIMERCHANDISING_CREATEDTIME,
+					KEY_JDIMERCHANDISING_MODIFIEDTIME,
+					KEY_JDIMERCHANDISING_USER, KEY_JDIMERCHANDISING_ACTIVITY,
+					ACTIVITY_TABLE, KEY_ACTIVITY_ROWID,
+					KEY_JDIMERCHANDISING_PRODUCT, PRODUCT_TABLE,
+					KEY_PRODUCT_ROWID, KEY_JDIMERCHANDISING_USER, USER_TABLE,
+					KEY_USER_ROWID);
 			db.execSQL(user);
 			db.execSQL(activity);
 			db.execSQL(activityType);
@@ -1074,6 +1107,7 @@ public class DatabaseAdapter {
 			db.execSQL(workplanEntry);
 			db.execSQL(workplan);
 			db.execSQL(marketingMaterials);
+			db.execSQL(jdiMerchandising);
 
 			// Picklists
 

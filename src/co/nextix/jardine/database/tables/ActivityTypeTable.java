@@ -165,6 +165,26 @@ public class ActivityTypeTable {
 		return record;
 	}
 
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITYTYPE_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_ACTIVITYTYPE_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_ACTIVITYTYPE_NO));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public ActivityTypeRecord getByWebId(String ID) {
 		ActivityTypeRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

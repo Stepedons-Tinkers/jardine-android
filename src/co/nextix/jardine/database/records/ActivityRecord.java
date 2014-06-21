@@ -52,9 +52,10 @@ public class ActivityRecord {
 	//
 	// *all training types
 	//
-	// project_name
-	// project_category
-	// project_stage
+	// date
+	// time
+	// venue
+	// numberOfAttendees
 
 	private long id;
 	private String no;
@@ -90,9 +91,17 @@ public class ActivityRecord {
 	private String project_category;
 	private String project_stage;
 
+	private String date;
+	private String time;
+	private String venue;
+	private String no_of_attendees;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+
+	public ActivityRecord() {
+	}
 
 	public ActivityRecord(long id, String no, long workplan, String startTime,
 			String endTime, double longitude, double latitude,
@@ -103,7 +112,8 @@ public class ActivityRecord {
 			long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage) {
+			String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
 
 		this.id = id;
 		this.no = no;
@@ -134,6 +144,10 @@ public class ActivityRecord {
 		this.project_name = projectName;
 		this.project_category = projectCategory;
 		this.project_stage = projectStage;
+		this.date = date;
+		this.time = time;
+		this.venue = venue;
+		this.no_of_attendees = noOfAttendees;
 	}
 
 	// ===========================================================
@@ -367,4 +381,37 @@ public class ActivityRecord {
 	public String getProjectStage() {
 		return this.project_stage;
 	}
+
+	public void setDate(String date) {
+		this.date = date;
+	}
+
+	public String getDate() {
+		return this.date;
+	}
+
+	public void setTime(String time) {
+		this.time = time;
+	}
+
+	public String getTime() {
+		return this.time;
+	}
+
+	public void setVenue(String venue) {
+		this.venue = venue;
+	}
+
+	public String getVenue() {
+		return this.venue;
+	}
+
+	public void setNoOfAttendees(String noOfAttendees) {
+		this.no_of_attendees = noOfAttendees;
+	}
+
+	public String getNoOfAttendees() {
+		return this.no_of_attendees;
+	}
+
 }

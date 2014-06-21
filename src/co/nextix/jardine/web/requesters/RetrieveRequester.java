@@ -1,5 +1,7 @@
 package co.nextix.jardine.web.requesters;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 public class RetrieveRequester<T> {
@@ -24,7 +26,7 @@ public class RetrieveRequester<T> {
 	private String success;
 
 	@SerializedName("result")
-	private Result result;
+	private List<Result> result;
 
 	public String getSuccess() {
 		return this.success;
@@ -34,18 +36,28 @@ public class RetrieveRequester<T> {
 		this.success = success;
 	}
 
-	public Result getResult() {
+	public List<Result> getResult() {
 		return this.result;
 	}
 
-	public void setResult(Result result) {
+	public void setResult(List<Result> result) {
 		this.result = result;
 	}
 
 	public class Result {
+		@SerializedName("id")
+		private int id;
 
 		@SerializedName("details")
 		private T details;
+
+		public int getId() {
+			return this.id;
+		}
+
+		public void setId(int id) {
+			this.id = id;
+		}
 
 		public T getDetails() {
 			return this.details;

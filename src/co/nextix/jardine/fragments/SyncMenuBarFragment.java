@@ -3,7 +3,6 @@ package co.nextix.jardine.fragments;
 import java.util.List;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -13,14 +12,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
-import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.LoginActivity;
 import co.nextix.jardine.R;
-import co.nextix.jardine.web.LogRequests;
-import co.nextix.jardine.web.RetrieveRequests;
+import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.models.WorkplanModel;
-import co.nextix.jardine.web.requesters.LoginModel;
 
 public class SyncMenuBarFragment extends Fragment {
 
@@ -35,6 +30,8 @@ public class SyncMenuBarFragment extends Fragment {
 				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		View rootView = inflater.inflate(R.layout.fragment_sync, container,
 				false);
+		
+		new SyncTask().execute();
 
 		return rootView;
 	}
@@ -56,13 +53,15 @@ public class SyncMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 			try {
 
-//				if (model != null) {
-					Log.i(JardineApp.TAG, "session: ");
+				// if (model != null) {
+				PicklistRequests request = new PicklistRequests();
+				request.picklists();
+				Log.i(JardineApp.TAG, "session: ");
 
-					return true;
-//				} else {
-//					return false;
-//				}
+				return true;
+				// } else {
+				// return false;
+				// }
 
 			} catch (Exception e) {
 				e.printStackTrace();
