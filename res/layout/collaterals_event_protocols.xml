@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <EditText
+        android:id="@+id/tvCollateralsSearchEventProtocols"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/xml_collaterals_search_bg"
+        android:hint="@string/search"
+        android:maxLines="1"
+        android:paddingBottom="2dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:paddingTop="2dp"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:id="@+id/llColatteralsEventProtocolPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <ImageButton
+            android:id="@+id/ibColatteralsEventProtocolLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_previous" />
+
+        <TextView
+            android:id="@+id/tvCollateralssEventProtocolPage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="0 of 0"
+            android:textColor="@color/black" />
+
+        <ImageButton
+            android:id="@+id/ibColatteralsEventProtocolRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_next" />
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/flColatteralsEventProtocols1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llColatteralsEventProtocolPage"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/tvCollateralsSearchEventProtocols"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/xml_tablelayout_bg"
+        android:padding="2dp" >
+
+        <ListView
+            android:id="@+id/lvCollateralsEventProtocolsList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
+            android:divider="@null"
+            android:dividerHeight="0dp"
+            android:drawSelectorOnTop="true"
+            android:listSelector="@color/collaterals_tablerow_trasparent_select"
+            android:overScrollMode="never"
+            android:scrollbars="none" />
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <LinearLayout
+        android:id="@+id/llColatteralsFilesPage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" >
+
+        <ImageButton
+            android:id="@+id/ibColatteralsFilesLeft"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_previous" />
+
+        <TextView
+            android:id="@+id/tvColatteralsFilesPage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:text="0 of 0"
+            android:textColor="@color/black" />
+
+        <ImageButton
+            android:id="@+id/ibColatteralsFilesRight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@android:drawable/ic_media_next" />
+    </LinearLayout>
+
+    <TableLayout
+        android:id="@+id/tlColatteralsFiles1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/llColatteralsFilesPage"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/xml_tablelayout_bg"
+        android:divider="@color/black"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        android:showDividers="middle"
+        android:stretchColumns="*" >
+
+        <TableRow android:background="@color/light_gray" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:text="@string/collaterals_file_title"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:text="@string/collaterals_filename"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:text="@string/collaterals_file_modified_time"
+                android:textColor="@color/black" />
+        </TableRow>
+    </TableLayout>
+
+</RelativeLayout>
