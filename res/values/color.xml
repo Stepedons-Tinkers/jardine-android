@@ -27,9 +27,15 @@
     <color name="black">#000000</color>
     
     <color name="grey">#ffdedede</color>
-    <color name="blue">@android:color/holo_blue_dark</color>
-    <color name="red">@android:color/holo_red_light</color>
-    <color name="green">@android:color/holo_green_light</color>
-    <color name="white">@android:color/white</color>
+    
+    <!-- tab colors -->
+    <color name="tab_pressed">#9fc5f8</color>
+    <color name="tab_bg">#eeeeee</color>
+    <color name="tab_txt_color">#000000</color>
+
+    <!-- Misc -->
+    <color name="collaterals_general_info">#2b78e4</color>
+    <color name="collaterals_tablerow_color1">#dfdfdf</color>
+    <color name="collaterals_tablerow_trasparent_select">#77ffff00</color>
 
 </resources>

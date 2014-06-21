@@ -5,9 +5,11 @@ import java.net.HttpURLConnection;
 
 import co.nextix.jardine.database.DatabaseAdapter;
 import android.app.Application;
+import android.content.Context;
 
 public class JardineApp extends Application {
 
+	public static Context context;
 	public static String TAG = "Jardine";
 	public static String WEB_URL = "http://115.85.42.163/Jardine/webservice.php";
 	public static String SESSION_NAME = null;
