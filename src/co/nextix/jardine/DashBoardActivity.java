@@ -365,16 +365,6 @@ public class DashBoardActivity extends FragmentActivity {
 				.replace(R.id.frame_container, fragment).commit();
 
 		setTitle("Activities");
-
-		// get an instance of FragmentTransaction from your Activity
-		android.support.v4.app.FragmentManager fragmentActivityDetailManager = getSupportFragmentManager();
-		android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager
-				.beginTransaction();
-
-		// Add a fucking fragment
-		ActivityInfoFragment myFragment = new ActivityInfoFragment();
-		fragmentTransaction.add(R.id.activity_fragment, myFragment);
-		fragmentTransaction.commit();
 	}
 
 	public void activityInfo(View view) {
