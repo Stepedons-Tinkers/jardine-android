@@ -17,9 +17,11 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,13 +44,15 @@ public class CollateralsEventProtocols extends Fragment implements
 	private TextView txtCrm, txtDesc, txtEvent, txtIsActive;
 	private TableRow trow;
 	private EditText search;
+	private List<String> strSearcher;
+	private Spinner spinner;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.collaterals_event_protocols,
-				null);
+		strSearcher = new ArrayList<String>();
+		view = inflater.inflate(R.layout.collaterals_event_protocols, null);
 		header = inflater
 				.inflate(R.layout.collaterals_event_protocol_row, null);
 		initLayout();
@@ -83,6 +87,15 @@ public class CollateralsEventProtocols extends Fragment implements
 		header.setOnClickListener(null);
 		//
 
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_description));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_event_type));
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsEventProtocolsList);
 
@@ -94,6 +107,10 @@ public class CollateralsEventProtocols extends Fragment implements
 		search = (EditText) view
 				.findViewById(R.id.tvCollateralsSearchEventProtocols);
 
+		spinner = (Spinner) view
+				.findViewById(R.id.spiCollateralsEventProtolSpinnerSearch);
+		spinner.setAdapter(sAdapter);
+
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsEventProtocolLeft);
 		arrowRight = (ImageButton) view
@@ -102,10 +119,9 @@ public class CollateralsEventProtocols extends Fragment implements
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
-		realRecord = new ArrayList<EventProtocolRecord>();
+		EventProtocolTable table = JardineApp.DB.getEventProtocol();
 		tempRecord = new ArrayList<EventProtocolRecord>();
-		
-		
+
 		for (int i = 1; i <= 37; i++) {
 			EventProtocolRecord rec = new EventProtocolRecord();
 			rec.setNo("EVP00" + i);

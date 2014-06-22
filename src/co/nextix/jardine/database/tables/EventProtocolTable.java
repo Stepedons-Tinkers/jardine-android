@@ -101,6 +101,49 @@ public class EventProtocolTable {
 		return list;
 	}
 
+	public List<EventProtocolRecord> getAllRecordsByUser(long userId) {
+		Cursor c = null;
+		List<EventProtocolRecord> list = new ArrayList<EventProtocolRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_EVENTPROTOCOL_USER + " = " + userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+					String description = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_TAGS));
+					long eventType = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_EVENTTYPE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_USER));
+
+					list.add(new EventProtocolRecord(id, no, description,
+							lastUpdate, tags, eventType, isActive, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================

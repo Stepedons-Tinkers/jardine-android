@@ -32,6 +32,7 @@ import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.view.group.utils.SpinnerAdapter;
 import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
 
 public class WorkplanMenuBarFragment extends Fragment implements
@@ -64,7 +65,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	public int day, month, year;
 
-	private String[] workplans = new String[6];
+	private List<String> workplans = new ArrayList<String>();
 	private ArrayAdapter<String> adap;
 
 	public WorkplanMenuBarFragment() {
@@ -153,15 +154,12 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		tempRecord = new ArrayList<EventProtocolRecord>();
 
 		int j = 0;
-		workplans[0] = "WORKPLAN" + j++;
-		workplans[1] = "WORKPLAN" + j++;
-		workplans[2] = "WORKPLAN" + j++;
-		workplans[3] = "WORKPLAN" + j++;
-		workplans[4] = "WORKPLAN" + j++;
-		workplans[5] = "WORKPLAN" + j++;
+		workplans.add("Workplan" + j++);
+		workplans.add("Workplan" + j++);
+		workplans.add("Workplan" + j++);
 
 		adap = new ArrayAdapter<String>(getActivity(),
-				android.R.layout.simple_list_item_1, workplans);
+				R.layout.workplan_spinner_row, workplans);
 		spinner.setAdapter(adap);
 
 		for (int i = 1; i <= 37; i++) {

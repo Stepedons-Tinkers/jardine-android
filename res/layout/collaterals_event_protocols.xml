@@ -19,7 +19,7 @@
             <EditText
                 android:id="@+id/tvCollateralsSearchEventProtocols"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
@@ -28,14 +28,16 @@
                 android:hint="@string/search"
                 android:maxLines="1"
                 android:paddingBottom="2dp"
-                android:paddingLeft="5dp"
+                android:paddingLeft="5dp" 
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
-                android:textSize="17sp" />
+                android:textSize="19sp" />
 
             <Spinner
+                android:id="@+id/spiCollateralsEventProtolSpinnerSearch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
                 android:spinnerMode="dropdown" />
         </LinearLayout>
