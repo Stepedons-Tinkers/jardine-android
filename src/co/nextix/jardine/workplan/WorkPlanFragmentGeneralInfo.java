@@ -26,8 +26,8 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 
 	private void initLayout() {
 		crmNo = (TextView) view.findViewById(R.id.tvWorkPlanInfoCrmNo);
-		date = (TextView) view.findViewById(R.id.tvWorkPlanInfoDate);
-		area = (TextView) view.findViewById(R.id.tvWorkPlanInfoArea);
+		date = (TextView) view.findViewById(R.id.tvCustomerInfoAddress);
+		area = (TextView) view.findViewById(R.id.tvCustomerInfoLandline);
 		city = (TextView) view.findViewById(R.id.tvWorkPlanInfoCity);
 		actType = (TextView) view.findViewById(R.id.tvWorkPlanInfoActType);
 		createdTime = (TextView) view.findViewById(R.id.tvWorkPlanInfoCreatedTime);

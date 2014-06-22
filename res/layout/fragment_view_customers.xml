@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ScrollView1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <FrameLayout
+            android:id="@+id/flCustomersFL1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/llCustomersLL0"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/xml_tablelayout_bg"
+            android:padding="2dp" >
+
+            <ListView
+                android:id="@+id/lvCustomers"
+                android:layout_width="match_parent"
+                android:layout_height="412dp"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="true"
+                android:listSelector="@color/collaterals_tablerow_trasparent_select"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </FrameLayout>
+
+        <LinearLayout
+            android:id="@+id/llCustomersLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/flCustomersFL1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" >
+
+            <ImageButton
+                android:id="@+id/ibCustomersLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_previous" />
+
+            <TextView
+                android:id="@+id/ibCustomersPage"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:gravity="center"
+                android:text="0 of 0"
+                android:textColor="@color/black" />
+
+            <ImageButton
+                android:id="@+id/ibCustomersRight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@android:drawable/ic_media_next" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btnAddCustomer"
+            style="?android:attr/buttonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@+id/flCustomersFL1"
+            android:layout_below="@+id/flCustomersFL1"
+            android:layout_marginTop="5dp"
+            android:background="@color/green"
+            android:padding="10dp"
+            android:text="Add Customer"
+            android:textColor="@android:color/white"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/llCustomersLL0"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignRight="@+id/flCustomersFL1"
+            android:background="#ffffff"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <SearchView
+                android:id="@+id/svCustomers"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+            </SearchView>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

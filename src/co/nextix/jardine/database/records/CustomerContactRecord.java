@@ -37,6 +37,10 @@ public class CustomerContactRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public CustomerContactRecord() {
+		
+	}
 
 	public CustomerContactRecord(long id, String no, String firstName,
 			String lastName, long position, String mobileNo, String birthday,
