@@ -22,12 +22,21 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		CollateralsConstants.ROW_ID = getArguments().getLong(
+				CollateralsConstants.KEY_ROW_ID);
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		view = inflater
-				.inflate(R.layout.collaterals, container, false);
+		view = inflater.inflate(R.layout.collaterals, container, false);
 		initLayout();
 		return view;
+	}
+
+	public static CollateralsDetails newInstance(long id) {
+		CollateralsDetails fragment = new CollateralsDetails();
+		Bundle b = new Bundle();
+		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
+		fragment.setArguments(b);
+		return fragment;
 	}
 
 	private void initLayout() {
@@ -66,10 +75,12 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			fragment = new CollateralsGeneralInformation();
+			fragment = CollateralsGeneralInformation
+					.newInstance(CollateralsConstants.ROW_ID);
 			break;
 		case 1:
-			fragment = new CollateralsEventFiles();
+			fragment = CollateralsEventFiles
+					.newInstance(CollateralsConstants.ROW_ID);
 			break;
 		}
 
