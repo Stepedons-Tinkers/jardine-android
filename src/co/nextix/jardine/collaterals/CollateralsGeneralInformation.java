@@ -3,6 +3,8 @@ package co.nextix.jardine.collaterals;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -14,7 +16,6 @@ public class CollateralsGeneralInformation extends Fragment {
 	private View view;
 	private TextView crmNo, desc, lastUpdate, tags, eventType, isActive,
 			createdTime, modifiedTime, assigned;
-	
 
 	public static CollateralsGeneralInformation newInstance(long id) {
 		CollateralsGeneralInformation fragment = new CollateralsGeneralInformation();
@@ -46,18 +47,10 @@ public class CollateralsGeneralInformation extends Fragment {
 				.findViewById(R.id.tvCollateralsGIModifiedTime);
 		assigned = (TextView) view.findViewById(R.id.tvCollateralsGIAssigned);
 
-//		JardineApp.DB.getEventProtocol().getById(CollateralsConstants.ROW_ID);
-		
-		EventProtocolRecord record = new EventProtocolRecord();
-		record.setNo("EVP0001");
-		record.setDescription("Hello");
-		record.setLastUpdate("2014");
-		record.setTags("Tugs");
-		record.setEventType(10000);
-		record.setIsActive(1);
-		record.setCreatedTime("2014");
-		record.setModifiedTime("2014");
-		record.setUser(10000);
+		EventProtocolRecord record = JardineApp.DB.getEventProtocol().getById(
+				CollateralsConstants.ROW_ID);
+		UserTable user = JardineApp.DB.getUser();
+		UserRecord userRecord = user.getById(record.getUser());
 
 		crmNo.setText(record.getNo());
 		desc.setText(record.getDescription());

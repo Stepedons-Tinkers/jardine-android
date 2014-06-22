@@ -129,7 +129,6 @@ public class CollateralsEventProtocols extends Fragment implements
 		realRecord = new ArrayList<EventProtocolRecord>();
 		realRecord.addAll(table.getAllRecordsByUser(userId));
 
-		Toast.makeText(getActivity(), userId + "", Toast.LENGTH_SHORT).show();
 		tempRecord = new ArrayList<EventProtocolRecord>();
 
 		// for (int i = 1; i <= 37; i++) {
