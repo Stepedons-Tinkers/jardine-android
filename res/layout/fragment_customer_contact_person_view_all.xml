@@ -23,7 +23,7 @@
             <ListView
                 android:id="@+id/lvContactPerson"
                 android:layout_width="match_parent"
-                android:layout_height="66dp"
+                android:layout_height="477dp"
                 android:descendantFocusability="blocksDescendants"
                 android:divider="@null"
                 android:dividerHeight="0dp"
@@ -39,7 +39,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/flContactPersonFL1"
-            android:layout_centerHorizontal="true" >
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="5dp" >
 
             <ImageButton
                 android:id="@+id/ibContactPersonLeft"
@@ -71,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@+id/flContactPersonFL1"
             android:layout_below="@+id/flContactPersonFL1"
+            android:layout_marginTop="5dp"
             android:background="@color/green"
             android:padding="10dp"
             android:text="Add Customer Contact Person"
