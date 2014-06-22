@@ -23,10 +23,13 @@ public class CustomerTable {
 	private final String KEY_CUSTOMER_NAME = "customer_name";
 	private final String KEY_CUSTOMER_CHAINNAME = "chain_name";
 	private final String KEY_CUSTOMER_LANDLINE = "landline";
+	private final String KEY_CUSTOMER_FAX = "fax";
 	private final String KEY_CUSTOMER_SIZE = "customer_size";
+	private final String KEY_CUSTOMER_STREETADDRESS = "street_address";
 	private final String KEY_CUSTOMER_RECORDSTATUS = "customer_record_status";
 	private final String KEY_CUSTOMER_TYPE = "customer_type";
 	private final String KEY_CUSTOMER_BUSINESSUNIT = "business_unit";
+	private final String KEY_CUSTOMER_AREA = "area";
 	private final String KEY_CUSTOMER_PROVINCE = "province";
 	private final String KEY_CUSTOMER_CITYTOWN = "city_town";
 	private final String KEY_CUSTOMER_ISACTIVE = "is_active";
@@ -80,14 +83,19 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
 					String landline = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+					String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
 					String customerSize = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_SIZE));
+					String streetAddress = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 					long customerRecordStatus = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
 					long customerType = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMER_TYPE));
 					long businessUnit = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+					long area = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_AREA));
 					long province = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMER_PROVINCE));
 					long cityTown = c.getLong(c
@@ -101,9 +109,9 @@ public class CustomerTable {
 					long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 					list.add(new CustomerRecord(id, no, customerName,
-							chainName, landline, customerSize,
-							customerRecordStatus, customerType, businessUnit,
-							province, cityTown, isActive, createdTime,
+							chainName, landline, fax, customerSize,
+							streetAddress, customerRecordStatus, customerType, businessUnit,
+							area, province, cityTown, isActive, createdTime,
 							modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -179,14 +187,20 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
 				String landline = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+				String fax = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_FAX));
 				String customerSize = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_SIZE));
+				String streetAddress = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 				long customerRecordStatus = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
 				long customerType = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_TYPE));
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+				long area = c.getLong(c
+								.getColumnIndex(KEY_CUSTOMER_AREA));
 				long province = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_PROVINCE));
 				long cityTown = c.getLong(c
@@ -200,9 +214,10 @@ public class CustomerTable {
 				long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 				record = new CustomerRecord(id, no, customerName, chainName,
-						landline, customerSize, customerRecordStatus,
-						customerType, businessUnit, province, cityTown,
-						isActive, createdTime, modifiedTime, user);
+						landline, fax, customerSize, streetAddress, 
+						customerRecordStatus, customerType, businessUnit, 
+						area, province, cityTown, isActive, createdTime, 
+						modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -250,14 +265,20 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
 				String landline = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+				String fax = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_FAX));
 				String customerSize = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_SIZE));
+				String streetAddress = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 				long customerRecordStatus = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
 				long customerType = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_TYPE));
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+				long area = c.getLong(c
+								.getColumnIndex(KEY_CUSTOMER_AREA));
 				long province = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_PROVINCE));
 				long cityTown = c.getLong(c
@@ -271,8 +292,8 @@ public class CustomerTable {
 				long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 				record = new CustomerRecord(id, no, customerName, chainName,
-						landline, customerSize, customerRecordStatus,
-						customerType, businessUnit, province, cityTown,
+						landline, fax, customerSize, streetAddress, customerRecordStatus,
+						customerType, businessUnit, area, province, cityTown,
 						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -285,9 +306,10 @@ public class CustomerTable {
 	}
 
 	public long insertUser(String no, String customerName, String chainName,
-			String landline, String customerSize, long customerRecordStatus,
-			long customerType, long businessUnit, long province, long cityTown,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			String landline, String fax, String customerSize, String streetAddress, 
+			long customerRecordStatus, long customerType, long businessUnit, 
+			long area, long province, long cityTown, int isActive, String createdTime, 
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -299,10 +321,13 @@ public class CustomerTable {
 		initialValues.put(KEY_CUSTOMER_NAME, customerName);
 		initialValues.put(KEY_CUSTOMER_CHAINNAME, chainName);
 		initialValues.put(KEY_CUSTOMER_LANDLINE, landline);
+		initialValues.put(KEY_CUSTOMER_FAX, fax);
 		initialValues.put(KEY_CUSTOMER_SIZE, customerSize);
+		initialValues.put(KEY_CUSTOMER_STREETADDRESS, streetAddress);
 		initialValues.put(KEY_CUSTOMER_RECORDSTATUS, customerRecordStatus);
 		initialValues.put(KEY_CUSTOMER_TYPE, customerType);
 		initialValues.put(KEY_CUSTOMER_BUSINESSUNIT, businessUnit);
+		initialValues.put(KEY_CUSTOMER_AREA, area);
 		initialValues.put(KEY_CUSTOMER_PROVINCE, province);
 		initialValues.put(KEY_CUSTOMER_CITYTOWN, cityTown);
 		initialValues.put(KEY_CUSTOMER_ISACTIVE, isActive);
@@ -312,9 +337,9 @@ public class CustomerTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, customerName, chainName, landline,
-					customerSize, customerRecordStatus, customerType,
-					businessUnit, province, cityTown, isActive, createdTime,
+			collection.add(ids, no, customerName, chainName, landline, fax,
+					customerSize, streetAddress, customerRecordStatus, customerType,
+					businessUnit, area, province, cityTown, isActive, createdTime,
 					modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
@@ -415,14 +440,14 @@ public class CustomerTable {
 		}
 
 		private void add(long id, String no, String customerName,
-				String chainName, String landline, String customerSize,
-				long customerRecordStatus, long customerType,
-				long businessUnit, long province, long cityTown, int isActive,
-				String createdTime, String modifiedTime, long user) {
+				String chainName, String landline, String fax, String customerSize,
+				String streetAddress, long customerRecordStatus, long customerType,
+				long businessUnit, long area, long province, long cityTown, 
+				int isActive, String createdTime, String modifiedTime, long user) {
 			list.add(new CustomerRecord(id, no, customerName, chainName,
-					landline, customerSize, customerRecordStatus, customerType,
-					businessUnit, province, cityTown, isActive, createdTime,
-					modifiedTime, user));
+					landline, fax, customerSize, streetAddress, customerRecordStatus, 
+					customerType, businessUnit, area, province, cityTown, isActive, 
+					createdTime, modifiedTime, user));
 		}
 
 		private void clear() {

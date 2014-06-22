@@ -12,7 +12,8 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 
-public class CollateralsDetails extends Fragment implements OnTabChangeListener {
+public class CollateralsDetails extends Fragment 
+implements OnTabChangeListener {
 
 	private View view;
 	private TabHost tabHost;

@@ -292,5 +292,67 @@
     
     <string name="workplan_start_time">Start Time</string>
     <string name="workplan_end_time">End Time</string>
+    
+    
+    <!-- Customers -->
+    
+    <string name="customer_crm_no">CRM No</string>
+    <string name="customer_name">Customer Name</string>
+    <string name="customer_business_unit">Business Unit</string>
+    <string name="customer_area">Area</string>
+    <string name="customer_province">Province</string>
+    <string name="customer_city_or_town">City or Town</string>
+    
+    <string name="capslock_customer_crm_no">CRM NO</string>
+    <string name="capslock_customer_name">CUSTOMER NAME</string>
+    <string name="capslock_customer_business_unit">BUSINESS UNIT</string>
+    <string name="capslock_customer_area">AREA</string>
+    <string name="capslock_customer_province">PROVINCE</string>
+    <string name="capslock_customer_city_or_town">CITY OR TOWN</string>
+    
+    <string name="capslock_customer_details">CUSTOMER DETAILS</string>
+    <string name="capslock_customer_contact_person">CUSTOMER CONTACT PERSON</string>
+    
+    <string name="customer_details_street_address">Street Address</string>
+    <string name="customer_details_landline">Landline</string>
+    <string name="customer_details_chain_name">Chain Name</string>
+    <string name="customer_details_customer_size">Customer Size</string>
+    <string name="customer_details_customer_type">Customer Type</string>
+    <string name="customer_details_fax">Fax</string>
+    <string name="customer_details_is_active">Is Active</string>
+    
+    <string name="customer_details_edit">Edit Customer</string>
+    <string name="customer_details_delete">Delete Customer</string>
+    
+    
+    <!-- Contact Person -->
+    
+    <string name="contact_person_crm_no">CRM No</string>
+    <string name="contact_person_firstname">First Name</string>
+    <string name="contact_person_lastname">Last Name</string>
+    <string name="contact_person_mobileno">Mobiel No</string>
+    <string name="contact_person_email">Email Address</string>
+    <string name="contact_person_position">Position</string>
+    <string name="contact_person_birthday">Birthday</string>
+    
+    <string name="capslock_contact_person_firstname">FIRST NAME</string>
+    <string name="capslock_contact_person_lastname">LAST NAME</string>
+    <string name="capslock_contact_person_mobileno">MOBILE NO</string>
+    <string name="capslock_contact_person_email">EMAIL ADDRESS</string>
+    <string name="capslock_contact_person_position">POSITION</string>
+    <string name="capslock_contact_person_birthday">BIRTHDAY</string>
+    
+    <string name="capslock_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
+    
+    <string name="contact_person_details_street_address">Street Address</string>
+    <string name="contact_person_details_landline">Landline</string>
+    <string name="contact_person_details_chain_name">Chain Name</string>
+    <string name="contact_person_details_customer_size">Customer Size</string>
+    <string name="contact_person_details_customer_type">Customer Type</string>
+    <string name="contact_person_details_fax">Fax</string>
+    <string name="contact_person_details_is_active">Is Active</string>
+    
+    <string name="contact_person_details_edit">Edit Customer Contact Person</string>
+    <string name="contact_person_details_delete">Delete Customer Contact Person</string>
 
 </resources>

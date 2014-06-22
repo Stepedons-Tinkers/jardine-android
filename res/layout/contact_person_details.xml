@@ -5,7 +5,7 @@
     android:background="@color/white" >
 
     <TextView
-        android:id="@+id/tvColatteralsEventProtocolsDetailGeneralInformation"
+        android:id="@+id/tvContactPersonDetailGeneralInformation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
@@ -21,7 +21,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvColatteralsEventProtocolsDetailGeneralInformation"
+        android:layout_below="@+id/tvContactPersonDetailGeneralInformation"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
@@ -51,14 +51,14 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
-                android:id="@+id/tvWorkPlanInfoCrmNo"
+                android:id="@+id/tvContactPersonCrmNoInfo"
                 android:layout_width="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
@@ -66,30 +66,30 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
-                android:textStyle="bold"
                 android:layout_column="2"
                 android:layout_weight="1"
                 android:maxLines="1"
-                android:text="@string/collaterals_ep_description"
+                android:text="@string/contact_person_firstname"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
-                android:id="@+id/tvCollateralsGIDesc"
+                android:id="@+id/tvContactPersonFirstNameInfo"
                 android:layout_width="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
@@ -112,84 +112,20 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:paddingLeft="2dp" android:textStyle="bold"
-                android:text="@string/collaterals_ep_last_update"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvWorkPlanInfoDate"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1" android:textStyle="bold"
-                android:text="@string/collaterals_ep_tags"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCollateralsGITags"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end" android:textStyle="bold"
-                android:maxLines="1"
                 android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_event_type"
+                android:text="@string/contact_person_lastname"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
-                android:id="@+id/tvWorkPlanInfoArea"
+                android:id="@+id/tvContactPersonLastNameInfo"
                 android:layout_width="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
@@ -197,29 +133,30 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
-                android:layout_column="2" android:textStyle="bold"
+                android:layout_column="2"
                 android:layout_weight="1"
                 android:maxLines="1"
-                android:text="@string/collaterals_ep_is_active"
+                android:text="@string/contact_person_position"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
-                android:id="@+id/tvCollateralsGIIsActive"
+                android:id="@+id/tvContactPersonPositionInfo"
                 android:layout_width="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
@@ -229,73 +166,6 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end" android:textStyle="bold"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_created_time"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvWorkPlanInfoActCity"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1" android:textStyle="bold"
-                android:text="@string/collaterals_file_modified_time"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCollateralsGIModifiedTime"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -308,20 +178,21 @@
                 android:layout_column="0"
                 android:layout_weight="1"
                 android:ellipsize="end"
-                android:maxLines="1" android:textStyle="bold"
+                android:maxLines="1"
                 android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_assigned_to"
+                android:text="@string/contact_person_mobileno"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
-                android:id="@+id/tvCollateralsGIAssigned"
+                android:id="@+id/tvContactPersonMobileNoInfo"
                 android:layout_width="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
@@ -329,27 +200,30 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
                 android:maxLines="1"
+                android:text="@string/contact_person_birthday"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
+                android:id="@+id/tvContactPersonBirthdayInfo"
                 android:layout_width="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
@@ -374,16 +248,19 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingLeft="2dp"
+                android:text="@string/contact_person_email"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
+                android:id="@+id/tvContactPersonEmailInfo"
                 android:layout_width="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
@@ -391,11 +268,11 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -403,15 +280,17 @@
                 android:layout_weight="1"
                 android:maxLines="1"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
+                android:id="@+id/tvContactPersonBusinessUnitInfo"
                 android:layout_width="match_parent"
                 android:layout_column="2"
                 android:layout_weight="1"
@@ -421,7 +300,140 @@
         </TableRow>
 
         <TableRow
-            android:id="@+id/trCollateralsMMRow"
+            android:id="@+id/trContactPersonRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="2dp"
+                android:text="@string/customer_details_is_active"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:id="@+id/tvContactPersonIsActiveInfo"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:id="@+id/tvContactPersonProvinceInfo"
+                android:layout_width="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trContactPersonRow2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/collaterals_tablerow_color1"
+            android:clickable="false"
+            android:focusable="false"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="0"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:paddingLeft="2dp"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:id="@+id/tvContactPersonCityOrTownInfo"
+                android:layout_width="match_parent"
+                android:layout_column="1"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp"
+                android:textStyle="bold" />
+
+            <!-- <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:layout_marginRight="2dp"
+                android:background="@color/black" /> -->
+
+            <TextView
+                android:id="@+id/tvContactPersonIsActiveInfo"
+                android:layout_width="match_parent"
+                android:layout_column="2"
+                android:layout_weight="1"
+                android:maxLines="1"
+                android:textColor="@color/black"
+                android:textSize="21sp" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/trContactPersonRow3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
@@ -437,15 +449,17 @@
                 android:maxLines="1"
                 android:paddingLeft="2dp"
                 android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:textSize="21sp"
+                android:textStyle="bold" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
+                android:id="@+id/tvContactPersonFaxInfo"
                 android:layout_width="match_parent"
                 android:layout_column="1"
                 android:layout_weight="1"
@@ -453,11 +467,11 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -467,11 +481,11 @@
                 android:textColor="@color/black"
                 android:textSize="21sp" />
 
-            <View
+            <!-- <View
                 android:layout_width="2dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                android:background="@color/black" /> -->
 
             <TextView
                 android:layout_width="match_parent"
@@ -482,5 +496,29 @@
                 android:textSize="21sp" />
         </TableRow>
     </TableLayout>
+
+    <Button
+        android:id="@+id/btnEditContactPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/tvContactPersonDetailGeneralInformation"
+        android:layout_centerVertical="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_toLeftOf="@+id/btnDeleteContactPerson"
+        android:background="@color/orange"
+        android:padding="10dp"
+        android:text="@string/contact_person_details_edit" />
+
+    <Button
+        android:id="@+id/btnDeleteContactPerson"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/btnEditContactPerson"
+        android:layout_alignBottom="@+id/btnEditContactPerson"
+        android:layout_alignRight="@+id/tlColatteralsEventProtocols2"
+        android:background="#FF00"
+        android:padding="10dp"
+        android:text="@string/contact_person_details_delete" />
 
 </RelativeLayout>

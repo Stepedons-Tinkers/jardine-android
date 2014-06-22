@@ -29,10 +29,13 @@ public class CustomerRecord {
 	private String customer_name;
 	private String chain_name;
 	private String landline;
+	private String fax;
 	private String customer_size;
+	private String street_address;
 	private long customer_record_status;
 	private long customer_type;
 	private long business_unit;
+	private long area;
 	private long province;
 	private long city_town;
 	private int is_active;
@@ -43,22 +46,30 @@ public class CustomerRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public CustomerRecord() {
+		
+	}
 
 	public CustomerRecord(long id, String no, String customerName,
-			String chainName, String landline, String customerSize,
-			long customerRecordStatus, long customerType, long businessUnit,
-			long province, long cityTown, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String chainName, String landline, String fax, String customerSize,
+			String streetAddress, long customerRecordStatus, 
+			long customerType, long businessUnit, long area, 
+			long province, long cityTown, int isActive, 
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
 		this.customer_name = customerName;
 		this.chain_name = chainName;
 		this.landline = landline;
+		this.fax = fax;
 		this.customer_size = customerSize;
+		this.street_address = streetAddress;
 		this.customer_record_status = customerRecordStatus;
 		this.customer_type = customerType;
 		this.business_unit = businessUnit;
+		this.area = area;
 		this.province = province;
 		this.city_town = cityTown;
 		this.is_active = isActive;
@@ -106,6 +117,14 @@ public class CustomerRecord {
 	public String getLandline() {
 		return this.landline;
 	}
+	
+	public void setFax(String fax) {
+		this.fax = fax;
+	}
+
+	public String getFax() {
+		return this.fax;
+	}
 
 	public void setCustomerSize(String customerSize) {
 		this.customer_size = customerSize;
@@ -113,6 +132,14 @@ public class CustomerRecord {
 
 	public String getCustomerSize() {
 		return this.customer_size;
+	}
+	
+	public void setStreetAddress(String streetAddress) {
+		this.street_address = streetAddress;
+	}
+	
+	public String getStreetAddress() {
+		return this.street_address;
 	}
 
 	public void setCustomerRecordStatus(long customerRecordStatus) {
@@ -137,6 +164,14 @@ public class CustomerRecord {
 
 	public long getBusinessUnit() {
 		return this.business_unit;
+	}
+	
+	public void setArea(long area) {
+		this.area = area;
+	}
+	
+	public long getArea() {
+		return this.area;
 	}
 
 	public void setProvince(long province) {
