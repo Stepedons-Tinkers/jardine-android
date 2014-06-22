@@ -77,10 +77,10 @@ public class PJDIprodStatusTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_JDI_STOCK_STATUS_NAME + "='" + webID + "'";
+				+ KEY_JDI_STOCK_STATUS_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -145,21 +145,21 @@ public class PJDIprodStatusTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_JDI_STOCK_STATUS_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
 						.getColumnIndex(KEY_JDI_STOCK_STATUS_ROWID));
-				String name = c.getString(c
+				String sname = c.getString(c
 						.getColumnIndex(KEY_JDI_STOCK_STATUS_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, sname);
 			}
 		} finally {
 			if (c != null) {

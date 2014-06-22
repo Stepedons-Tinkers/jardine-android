@@ -663,6 +663,14 @@ public class DatabaseAdapter {
 		return mMarketingMaterials;
 	}
 
+	public JDImerchandisingCheckTable getJDImerchandisingCheck() {
+		if (mJDImerchandisingCheck == null) {
+			mJDImerchandisingCheck = new JDImerchandisingCheckTable(mDb,
+					JDI_MERCHANDISING_CHECK_TABLE);
+		}
+		return mJDImerchandisingCheck;
+	}
+
 	// Picklists
 
 	public PActProjCategoryTable getActivityProjectCategory() {

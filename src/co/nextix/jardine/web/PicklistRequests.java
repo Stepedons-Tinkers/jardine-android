@@ -12,6 +12,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -22,6 +23,21 @@ import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
+import co.nextix.jardine.web.models.PicklistDependencyModel;
+import co.nextix.jardine.web.models.PicklistModel;
+import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
+import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
+import co.nextix.jardine.web.models.picklist.PactivitytypeCategoryModel;
+import co.nextix.jardine.web.models.picklist.PcustomerSizeModel;
+import co.nextix.jardine.web.models.picklist.PcustomerTypeModel;
+import co.nextix.jardine.web.models.picklist.PcustomercontactPositionModel;
+import co.nextix.jardine.web.models.picklist.PeventprotocolTypeModel;
+import co.nextix.jardine.web.models.picklist.PjdimerchcheckStatusModel;
+import co.nextix.jardine.web.models.picklist.PjdiproductstockStatusModel;
+import co.nextix.jardine.web.models.picklist.PprojectrequirementTypeModel;
+import co.nextix.jardine.web.models.picklist.PsmrTimecardEntryModel;
+import co.nextix.jardine.web.models.picklist.PworkplanentryStatusModel;
+import co.nextix.jardine.web.requesters.PicklistRequester;
 import co.nextix.jardine.web.requesters.RetrieveRequester;
 
 import com.google.gson.Gson;
@@ -89,17 +105,68 @@ public class PicklistRequests {
 		return model;
 	}
 
-	public List<PicklistModel> picklists() {
+	// public List<PicklistModel> picklists() {
+	//
+	// List<PicklistModel> model = null;
+	//
+	// String query = "";
+	// try {
+	// query = URLEncoder
+	// .encode("select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')",
+	// "UTF-8");
+	// // Uri query = Uri
+	// //
+	// .parse("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist");
+	// } catch (UnsupportedEncodingException e1) {
+	// e1.printStackTrace();
+	// }
+	// String urlString = JardineApp.WEB_URL + "?query=\"" + query
+	// + "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+	// + operation;
+	//
+	// URL url;
+	// try {
+	//
+	// url = new URL(urlString);
+	// Log.d(TAG, urlString);
+	// getConnection(url, "GET");
+	//
+	// // status
+	// int status = JardineApp.httpConnection.getResponseCode();
+	// Log.w(TAG, "status: " + status);
+	//
+	// if (status == 200) {
+	//
+	// Gson gson = new Gson();
+	// Type typeOfT = new TypeToken<PicklistRequester<List<PicklistModel>>>() {
+	// }.getType();
+	// PicklistRequester<List<PicklistModel>> requester = gson
+	// .fromJson(getReader(), typeOfT);
+	// model = (List<PicklistModel>) requester.getResult();
+	//
+	// } else {
+	// // getResponse();
+	// }
+	//
+	// } catch (ProtocolException e) {
+	// e.printStackTrace();
+	// } catch (MalformedURLException e) {
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// return model;
+	// }
 
-		List<PicklistModel> model = null;
+	public List<String> picklists(String module) {
+
+		List<String> result = null;
 
 		String query = "";
 		try {
-			query = URLEncoder
-					.encode("select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')",
-							"UTF-8");
-			// Uri query = Uri
-			// .parse("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist");
+			query = URLEncoder.encode("select " + module + " from vtiger_"
+					+ module, "UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
@@ -121,12 +188,163 @@ public class PicklistRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistModel>>>() {
-				}.getType();
-				PicklistRequester<List<PicklistModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<PicklistModel>) requester.getResult();
-
+				if (module.equals(Modules.smrtimecard_entry)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PsmrTimecardEntryModel>>>() {
+					}.getType();
+					PicklistRequester<List<PsmrTimecardEntryModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PsmrTimecardEntryModel> list = (List<PsmrTimecardEntryModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PsmrTimecardEntryModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.customer_size)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PcustomerSizeModel>>>() {
+					}.getType();
+					PicklistRequester<List<PcustomerSizeModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PcustomerSizeModel> list = (List<PcustomerSizeModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PcustomerSizeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.customer_type)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PcustomerTypeModel>>>() {
+					}.getType();
+					PicklistRequester<List<PcustomerTypeModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PcustomerTypeModel> list = (List<PcustomerTypeModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PcustomerTypeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.customercontact_position)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PcustomercontactPositionModel>>>() {
+					}.getType();
+					PicklistRequester<List<PcustomercontactPositionModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PcustomercontactPositionModel> list = (List<PcustomercontactPositionModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PcustomercontactPositionModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.eventprotocol_eventtype)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PeventprotocolTypeModel>>>() {
+					}.getType();
+					PicklistRequester<List<PeventprotocolTypeModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PeventprotocolTypeModel> list = (List<PeventprotocolTypeModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PeventprotocolTypeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.activitytype_category)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PactivitytypeCategoryModel>>>() {
+					}.getType();
+					PicklistRequester<List<PactivitytypeCategoryModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PactivitytypeCategoryModel> list = (List<PactivitytypeCategoryModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PactivitytypeCategoryModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.workplanentry_status)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PworkplanentryStatusModel>>>() {
+					}.getType();
+					PicklistRequester<List<PworkplanentryStatusModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PworkplanentryStatusModel> list = (List<PworkplanentryStatusModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PworkplanentryStatusModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.activity_projectstage)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PactivityProjectstageModel>>>() {
+					}.getType();
+					PicklistRequester<List<PactivityProjectstageModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PactivityProjectstageModel> list = (List<PactivityProjectstageModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PactivityProjectstageModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.activity_projectcategory)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PactivityProjectcategoryModel>>>() {
+					}.getType();
+					PicklistRequester<List<PactivityProjectcategoryModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PactivityProjectcategoryModel> list = (List<PactivityProjectcategoryModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PactivityProjectcategoryModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.jdiprodstock_status)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PjdiproductstockStatusModel>>>() {
+					}.getType();
+					PicklistRequester<List<PjdiproductstockStatusModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PjdiproductstockStatusModel> list = (List<PjdiproductstockStatusModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PjdiproductstockStatusModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.jdimerchcheck_status)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PjdimerchcheckStatusModel>>>() {
+					}.getType();
+					PicklistRequester<List<PjdimerchcheckStatusModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PjdimerchcheckStatusModel> list = (List<PjdimerchcheckStatusModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PjdimerchcheckStatusModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.projrequirement_type)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PprojectrequirementTypeModel>>>() {
+					}.getType();
+					PicklistRequester<List<PprojectrequirementTypeModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PprojectrequirementTypeModel> list = (List<PprojectrequirementTypeModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PprojectrequirementTypeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				}
 			} else {
 				// getResponse();
 			}
@@ -139,7 +357,7 @@ public class PicklistRequests {
 			e.printStackTrace();
 		}
 
-		return model;
+		return result;
 	}
 
 	public List<PicklistDependencyModel> area() {
@@ -294,57 +512,58 @@ public class PicklistRequests {
 
 		return model;
 	}
-	
-//	public List<PicklistModel> smrEntryType() {
-//
-//		List<PicklistModel> model = null;
-//
-//		String query = "";
-//		try {
-//			query = URLEncoder
-//					.encode("select * from vtiger_picklist_dependency where sourcefield = 'z_city'",
-//							"UTF-8");
-//		} catch (UnsupportedEncodingException e1) {
-//			e1.printStackTrace();
-//		}
-//		String urlString = JardineApp.WEB_URL + "?query=\"" + query
-//				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
-//				+ operation;
-//
-//		URL url;
-//		try {
-//
-//			url = new URL(urlString);
-//			Log.d(TAG, urlString);
-//			getConnection(url, "GET");
-//
-//			// status
-//			int status = JardineApp.httpConnection.getResponseCode();
-//			Log.w(TAG, "status: " + status);
-//
-//			if (status == 200) {
-//
-//				Gson gson = new Gson();
-//				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
-//				}.getType();
-//				PicklistRequester<List<PicklistDependencyModel>> requester = gson
-//						.fromJson(getReader(), typeOfT);
-//				model = (List<PicklistDependencyModel>) requester.getResult();
-//
-//			} else {
-//				// getResponse();
-//			}
-//
-//		} catch (ProtocolException e) {
-//			e.printStackTrace();
-//		} catch (MalformedURLException e) {
-//			e.printStackTrace();
-//		} catch (IOException e) {
-//			e.printStackTrace();
-//		}
-//
-//		return model;
-//	}
+
+	// public List<PicklistModel> smrEntryType() {
+	//
+	// List<PicklistModel> model = null;
+	//
+	// String query = "";
+	// try {
+	// query = URLEncoder
+	// .encode("select * from vtiger_picklist_dependency where sourcefield = 'z_city'",
+	// "UTF-8");
+	// } catch (UnsupportedEncodingException e1) {
+	// e1.printStackTrace();
+	// }
+	// String urlString = JardineApp.WEB_URL + "?query=\"" + query
+	// + "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+	// + operation;
+	//
+	// URL url;
+	// try {
+	//
+	// url = new URL(urlString);
+	// Log.d(TAG, urlString);
+	// getConnection(url, "GET");
+	//
+	// // status
+	// int status = JardineApp.httpConnection.getResponseCode();
+	// Log.w(TAG, "status: " + status);
+	//
+	// if (status == 200) {
+	//
+	// Gson gson = new Gson();
+	// Type typeOfT = new
+	// TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
+	// }.getType();
+	// PicklistRequester<List<PicklistDependencyModel>> requester = gson
+	// .fromJson(getReader(), typeOfT);
+	// model = (List<PicklistDependencyModel>) requester.getResult();
+	//
+	// } else {
+	// // getResponse();
+	// }
+	//
+	// } catch (ProtocolException e) {
+	// e.printStackTrace();
+	// } catch (MalformedURLException e) {
+	// e.printStackTrace();
+	// } catch (IOException e) {
+	// e.printStackTrace();
+	// }
+	//
+	// return model;
+	// }
 
 	/**********************************************************/
 
@@ -431,6 +650,23 @@ public class PicklistRequests {
 		}
 		return reader;
 	}
+
+	// private List<String> getValues(Class<T> c) {
+	// Gson gson = new Gson();
+	// List<String> result;
+	// Type typeOfT = new TypeToken<PicklistRequester<List<c>>>() {
+	// }.getType();
+	// PicklistRequester<List<PcustomerSizeModel>> requester = gson.fromJson(
+	// getReader(), typeOfT);
+	// List<PcustomerSizeModel> list = (List<PcustomerSizeModel>) requester
+	// .getResult();
+	// if (list != null) {
+	// result = new ArrayList<String>();
+	// for (PcustomerSizeModel model : list) {
+	// result.add(model.getValue());
+	// }
+	// }
+	// }
 
 	// private void getResponse() {
 	// Gson gson = new Gson();

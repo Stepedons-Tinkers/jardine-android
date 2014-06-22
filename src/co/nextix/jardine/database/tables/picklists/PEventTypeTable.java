@@ -76,10 +76,10 @@ public class PEventTypeTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_EVENT_TYPE_NAME + "='" + webID + "'";
+				+ KEY_EVENT_TYPE_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -143,20 +143,20 @@ public class PEventTypeTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_EVENT_TYPE_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_EVENT_TYPE_ROWID));
-				String name = c
+				String tname = c
 						.getString(c.getColumnIndex(KEY_EVENT_TYPE_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, tname);
 			}
 		} finally {
 			if (c != null) {

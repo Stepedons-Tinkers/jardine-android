@@ -57,7 +57,8 @@ public class PActtypeCategoryTable {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
 				do {
-					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
+					long id = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
 					String name = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_NAME));
 
@@ -76,10 +77,10 @@ public class PActtypeCategoryTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_TYPE_CATEGORY_NAME + "='" + webID + "'";
+				+ KEY_ACTIVITY_TYPE_CATEGORY_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -107,8 +108,8 @@ public class PActtypeCategoryTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_TYPE_CATEGORY_ROWID
-				+ " IN (" + ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable,
+				KEY_ACTIVITY_TYPE_CATEGORY_ROWID + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -128,9 +129,10 @@ public class PActtypeCategoryTable {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
-				String name = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_NAME));
+				long id = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
+				String name = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_NAME));
 
 				record = new PicklistRecord(id, name);
 			}
@@ -143,20 +145,43 @@ public class PActtypeCategoryTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_TYPE_CATEGORY_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_TYPE_CATEGORY_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_ACTIVITY_TYPE_CATEGORY_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
-				String name = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_NAME));
+				long id = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_ROWID));
+				String cname = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_TYPE_CATEGORY_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, cname);
 			}
 		} finally {
 			if (c != null) {
@@ -185,7 +210,8 @@ public class PActtypeCategoryTable {
 	}
 
 	public boolean deleteUser(long rowId) {
-		if (mDb.delete(mDatabaseTable, KEY_ACTIVITY_TYPE_CATEGORY_ROWID + "=" + rowId, null) > 0) {
+		if (mDb.delete(mDatabaseTable, KEY_ACTIVITY_TYPE_CATEGORY_ROWID + "="
+				+ rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
 			return true;
 		} else {
@@ -197,8 +223,8 @@ public class PActtypeCategoryTable {
 			long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_TYPE_CATEGORY_NAME, no);
-		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_TYPE_CATEGORY_ROWID + "=" + id,
-				null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_TYPE_CATEGORY_ROWID
+				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);
 			return true;
 		} else {

@@ -79,10 +79,10 @@ public class PCustConPositionTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_CONTACT_POSITION_NAME + "='" + webID + "'";
+				+ KEY_CUSTOMER_CONTACT_POSITION_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -148,6 +148,28 @@ public class PCustConPositionTable {
 		return record;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_CONTACT_POSITION_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMER_CONTACT_POSITION_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_CUSTOMER_CONTACT_POSITION_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public String getNameById(long ID) {
 		String result = null;
 		String MY_QUERY = "SELECT " + KEY_CUSTOMER_CONTACT_POSITION_NAME
@@ -170,21 +192,21 @@ public class PCustConPositionTable {
 		return result;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CUSTOMER_CONTACT_POSITION_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_CONTACT_POSITION_ROWID));
-				String name = c.getString(c
+				String pname = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_CONTACT_POSITION_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, pname);
 			}
 		} finally {
 			if (c != null) {
