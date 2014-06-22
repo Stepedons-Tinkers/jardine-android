@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -23,16 +24,12 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
-import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
-import co.nextix.jardine.view.group.utils.SpinnerAdapter;
 import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
 
 public class WorkplanMenuBarFragment extends Fragment implements

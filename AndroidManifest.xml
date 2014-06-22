@@ -33,17 +33,12 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <item android:name="android:windowBackground">
-@android:color/transparent
-            </item>
         </activity>
-        
         <activity
             android:name="DetailWorkPlanActivity"
             android:screenOrientation="landscape"
             android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen" >
         </activity>
-        
         <activity
             android:name="WorkplanMenuBarActivity"
             android:screenOrientation="landscape"
@@ -55,15 +50,14 @@
             android:logo="@drawable/actionbar_logo"
             android:theme="@style/Theme.Example" >
             <item android:name="android:windowBackground">
-@android:color/transparent
+@android:color/transparent
             </item>
         </activity>
-        
         <activity
             android:name="LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
-        
     </application>
+
 </manifest>

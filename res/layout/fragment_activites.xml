@@ -19,7 +19,7 @@
         android:weightSum="2" >
 
         <EditText
-            android:id="@+id/editMonth"
+            android:id="@+id/search"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="7dp"
@@ -30,7 +30,7 @@
             android:inputType="textMultiLine" />
 
         <ImageButton
-            android:id="@+id/imageButton1"
+            android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="44dp"
@@ -61,7 +61,7 @@
             android:src="@android:drawable/ic_menu_my_calendar" />
 
         <ImageButton
-            android:id="@+id/imageButton3"
+            android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="14dp"
@@ -88,6 +88,7 @@
             android:orientation="vertical" >
 
             <TableLayout
+                android:id="@+id/activity_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
@@ -257,7 +258,6 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:onClick="displayDetailedWorkplanView"
                     android:orientation="horizontal" >
 
                     <HorizontalScrollView
@@ -266,7 +266,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView04"
@@ -277,7 +277,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -291,7 +290,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView05"
@@ -302,7 +301,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -317,7 +315,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView06"
@@ -328,7 +326,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -343,7 +340,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView07"
@@ -354,7 +351,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -369,7 +365,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView08"
@@ -380,7 +376,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -395,7 +390,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView09"
@@ -406,7 +401,6 @@
                             android:focusable="true"
                             android:focusableInTouchMode="true"
                             android:gravity="center"
-                            android:onClick="displayDetailedWorkplanView"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
@@ -565,7 +559,7 @@
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView04"
@@ -586,7 +580,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView05"
@@ -607,7 +601,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView06"
@@ -628,7 +622,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView07"
@@ -649,7 +643,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView08"
@@ -670,7 +664,7 @@
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="4dp"
                         android:layout_weight="0.3"
-                        android:background="#cac9c9" >
+                        android:background="#dcdcdc" >
 
                         <TextView
                             android:id="@+id/TextView09"
@@ -697,7 +691,6 @@
                     <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
                         android:layout_marginLeft="4dp"
                         android:layout_marginRight="2dp"
                         android:layout_weight="0.3"
@@ -821,6 +814,140 @@
                             android:textColor="#000000" />
                     </HorizontalScrollView>
                 </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="#000000"
+                    android:gravity="center_horizontal" >
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView04"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 1"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView05"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 2"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView06"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 3"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView07"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 4"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView08"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 5"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#dcdcdc" >
+
+                        <TextView
+                            android:id="@+id/TextView09"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:background="#dcdcdc"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="Row 5 column 6"
+                            android:textColor="#000000" />
+                    </HorizontalScrollView>
+                </TableRow>
             </TableLayout>
 
             <RelativeLayout
@@ -830,7 +957,7 @@
                 android:layout_marginBottom="14dp" >
 
                 <Button
-                    android:id="@+id/add_btn_jdi_product_stock_check"
+                    android:id="@+id/add_activity_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
@@ -844,10 +971,10 @@
                     android:id="@+id/imageButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/add_btn_jdi_product_stock_check"
-                    android:layout_alignTop="@+id/add_btn_jdi_product_stock_check"
+                    android:layout_alignBottom="@+id/add_activity_button"
+                    android:layout_alignTop="@+id/add_activity_button"
                     android:layout_marginRight="24dp"
-                    android:layout_toLeftOf="@+id/add_btn_jdi_product_stock_check"
+                    android:layout_toLeftOf="@+id/add_activity_button"
                     android:onClick="next"
                     android:src="@drawable/next" />
 
@@ -866,8 +993,8 @@
                     android:id="@+id/status_count_text"
                     android:layout_width="74dp"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/add_btn_jdi_product_stock_check"
-                    android:layout_alignBottom="@+id/add_btn_jdi_product_stock_check"
+                    android:layout_alignBaseline="@+id/add_activity_button"
+                    android:layout_alignBottom="@+id/add_activity_button"
                     android:layout_toLeftOf="@+id/imageButton3"
                     android:gravity="center"
                     android:padding="14dip"

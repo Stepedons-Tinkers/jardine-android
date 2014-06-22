@@ -1,0 +1,110 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="54dp"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/jdi_stock_check"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.03"
+        android:onClick="jdiStockCheck"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/jdi_product_stock_check"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/jdi_merchandising_check"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.42"
+        android:onClick="jdiMerchandisingCheck"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/jdi_merchandising_check"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/competitor_stock_check"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.16"
+        android:onClick="competitorStockCheck"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/competitor_product_stock_check"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/marketing_intel"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1"
+        android:onClick="marketingIntel"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:text="@string/marketing_intel"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/project_requirements"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.31"
+        android:onClick="projectRequirements"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/project_requirements"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/diy_supermarket_photos"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.27"
+        android:onClick="diySupermarketPhotos"
+        android:paddingLeft="7dp"
+        android:paddingRight="7dp"
+        android:text="@string/diy_or_supermarket_photos"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/customer_contact_person"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1.14"
+        android:onClick="customerContactPerson"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/customer_view_details"
+        android:textSize="9sp" />
+
+    <Button
+        android:id="@+id/products"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="-9dp"
+        android:layout_marginTop="-8dp"
+        android:layout_weight="1"
+        android:onClick="products"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:text="@string/products"
+        android:textSize="9sp" />
+
+</LinearLayout>

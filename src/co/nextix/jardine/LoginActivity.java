@@ -2,16 +2,6 @@ package co.nextix.jardine;
 
 import java.util.List;
 
-import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.tables.UserTable;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.utils.MyDateUtils;
-import co.nextix.jardine.utils.NetworkUtils;
-import co.nextix.jardine.web.LogRequests;
-import co.nextix.jardine.web.RetrieveRequests;
-import co.nextix.jardine.web.models.WorkplanModel;
-import co.nextix.jardine.web.requesters.LoginModel;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -21,6 +11,14 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
+import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.utils.MyDateUtils;
+import co.nextix.jardine.utils.NetworkUtils;
+import co.nextix.jardine.web.LogRequests;
+import co.nextix.jardine.web.models.WorkplanModel;
+import co.nextix.jardine.web.requesters.LoginModel;
 
 public class LoginActivity extends Activity {
 
@@ -40,21 +38,21 @@ public class LoginActivity extends Activity {
 
 		if (StoreAccount.exists(getApplicationContext())) {
 			finish();
-			startActivity(new Intent(getApplicationContext(),
-					DashBoardActivity.class));
-			overridePendingTransition(R.anim.slide_in_left,
-					R.anim.slide_out_left);
+			startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
+			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 		}
-
 	}
 
 	public void signInClicked(View view) {
 		if (NetworkUtils.isNetworkAvailable(getApplicationContext()))
 			new LoginTask().execute();
+
+		/*
+		 * login account details username: test_smr1 pass: 1212
+		 */
+
 		else
-			Toast.makeText(getApplicationContext(),
-					"Please check internet connection", Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getApplicationContext(), "Please check internet connection", Toast.LENGTH_LONG).show();
 
 		// startActivity(new Intent(getApplicationContext(),
 		// DashBoardActivity.class));
@@ -81,19 +79,15 @@ public class LoginActivity extends Activity {
 		protected Boolean doInBackground(Void... arg0) {
 			try {
 				LogRequests log = new LogRequests();
-				LoginModel model = log.login(editUsername.getText().toString(),
-						editPassword.getText().toString());
+				LoginModel model = log.login(editUsername.getText().toString(), editPassword.getText().toString());
 				if (model != null) {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
 					JardineApp.SESSION_NAME = model.getSessionName();
 					UserTable userTable = JardineApp.DB.getUser();
 					if (!userTable.isExisting(model.getUserId())) {
-						rowid = userTable.insertUser(model.getUserId(),
-								editUsername.getText().toString(), editPassword
-										.getText().toString(), "", "", "", "",
-								1, 1, MyDateUtils.getCurrentTimeStamp(),
-								MyDateUtils.getCurrentTimeStamp());
+						rowid = userTable.insertUser(model.getUserId(), editUsername.getText().toString(), editPassword.getText()
+								.toString(), "", "", "", "", 1, 1, MyDateUtils.getCurrentTimeStamp(), MyDateUtils.getCurrentTimeStamp());
 					} else {
 						// rowid = Long.parseLong(StoreAccount.restore(
 						// getApplicationContext()).getString(
@@ -101,10 +95,8 @@ public class LoginActivity extends Activity {
 						rowid = userTable.getByWebId(model.getUserId()).getId();
 						userTable.updateLogStatus(rowid, 1);
 					}
-					StoreAccount.save(getApplicationContext(), editUsername
-							.getText().toString(), editPassword.getText()
-							.toString(), model.getUserId(), String
-							.valueOf(rowid), model.getSessionName());
+					StoreAccount.save(getApplicationContext(), editUsername.getText().toString(), editPassword.getText().toString(),
+							model.getUserId(), String.valueOf(rowid), model.getSessionName());
 					// RetrieveRequests retrieve = new RetrieveRequests();
 					// models = retrieve.Workplan(new String[] { "422", "432"
 					// });
@@ -124,18 +116,15 @@ public class LoginActivity extends Activity {
 			dialog.dismiss();
 			if (result) {
 				finish();
-				startActivity(new Intent(getApplicationContext(),
-						DashBoardActivity.class));
-				overridePendingTransition(R.anim.slide_in_left,
-						R.anim.slide_out_left);
+				startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
+				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 				// if (models != null)
 				// Toast.makeText(getApplicationContext(),
 				// "Workplan: " + models.get(0).getCrmNo(),
 				// Toast.LENGTH_LONG).show();
 
 			} else {
-				Toast.makeText(getApplicationContext(), "Invalid credentials",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

@@ -91,7 +91,7 @@ public class DashboardFragment extends Fragment {
 	protected String concatenateDay(String day) {
 		String concatenatedDay = "";
 
-		concatenatedDay = day.equals("Su") ? day + "nday"
+		concatenatedDay = day.equals("Sun") ? day + "day"
 				: day.equals("Mo") ? day + "nday" : day.equals("Tu") ? day
 						+ "esday" : day.equals("We") ? day + "dnesday" : day
 						.equals("Th") ? day + "ursday" : day.equals("Fr") ? day

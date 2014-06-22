@@ -77,12 +77,10 @@ public class DashBoardActivity extends FragmentActivity {
 		this.mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
-		this.navMenuTitles = getResources().getStringArray(
-				R.array.nav_drawer_items);
+		this.navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
 		// nav drawer icons from resources
-		this.navMenuIcons = getResources().obtainTypedArray(
-				R.array.nav_drawer_icons);
+		this.navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
 		this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		this.mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -91,36 +89,28 @@ public class DashBoardActivity extends FragmentActivity {
 
 		// adding nav drawer items to array
 		// DashBoard
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],
-				navMenuIcons.getResourceId(0, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 
 		// Profile
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],
-				navMenuIcons.getResourceId(1, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
 
 		// Sync
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],
-				navMenuIcons.getResourceId(2, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 
 		// Workplan
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],
-				navMenuIcons.getResourceId(3, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 
 		// Activities
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],
-				navMenuIcons.getResourceId(4, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 
 		// Customers
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],
-				navMenuIcons.getResourceId(5, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 
 		// Collaterals
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],
-				navMenuIcons.getResourceId(6, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
 
 		// Collaterals
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],
-				navMenuIcons.getResourceId(7, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
 		// Recycle the typed array
 		this.navMenuIcons.recycle();
@@ -128,16 +118,17 @@ public class DashBoardActivity extends FragmentActivity {
 		this.mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
 		// setting the nav drawer list adapter
-		this.adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
+		this.adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
 		this.mDrawerList.setAdapter(adapter);
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-		this.mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, // nav menu toggle icon
+		this.mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, // nav
+																									// menu
+																									// toggle
+																									// icon
 				R.string.app_name, // nav drawer open - description for
 									// accessibility
 				R.string.app_name // nav drawer close - description for
@@ -170,11 +161,9 @@ public class DashBoardActivity extends FragmentActivity {
 	/**
 	 * Slide menu item click listener
 	 * */
-	private class SlideMenuClickListener implements
-			ListView.OnItemClickListener {
+	private class SlideMenuClickListener implements ListView.OnItemClickListener {
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// display view for selected nav drawer item
 			displayView(position);
 		}
@@ -252,8 +241,7 @@ public class DashBoardActivity extends FragmentActivity {
 
 		if (fragment != null) {
 			android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-			fragmentManager.beginTransaction()
-					.replace(R.id.frame_container, fragment).commit();
+			fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 
 			// update selected item and title, then close the drawer
 			mDrawerList.setItemChecked(position, true);
@@ -292,27 +280,6 @@ public class DashBoardActivity extends FragmentActivity {
 		mDrawerToggle.onConfigurationChanged(newConfig);
 	}
 
-	public void displayDetailedWorkplanView(View view) {
-		Toast.makeText(getApplicationContext(), "ni sud here",
-				Toast.LENGTH_SHORT).show();
-		startActivity(new Intent(getApplicationContext(),
-				DetailWorkPlanActivity.class));
-		overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
-	}
-
-//	public void next(View view) {
-//		// adding one day to current date
-//		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, 1);
-//		Date tommrrow = WorkplanMenuBarFragment.c.getTime();
-//		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(tommrrow));
-//	}
-//
-//	public void prev(View view) {
-//		WorkplanMenuBarFragment.c.add(Calendar.DAY_OF_MONTH, -1);
-//		Date yesterday = WorkplanMenuBarFragment.c.getTime();
-//		WorkplanMenuBarFragment.editMonth.setText(toddMMyy(yesterday));
-//	}
-
 	public void openCalendarView(View view) {
 		final Calendar nextYear = Calendar.getInstance();
 		nextYear.add(Calendar.YEAR, 1);
@@ -320,21 +287,16 @@ public class DashBoardActivity extends FragmentActivity {
 		final Calendar lastYear = Calendar.getInstance();
 		lastYear.add(Calendar.YEAR, -1);
 
-		dialogView = (CalendarPickerView) getLayoutInflater().inflate(
-				R.layout.custom_calendarview_dialog, null, false);
+		dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.custom_calendarview_dialog, null, false);
 		dialogView.init(lastYear.getTime(), nextYear.getTime()) //
 				.withSelectedDate(new Date());
-		theDialog = new AlertDialog.Builder(DashBoardActivity.this)
-				.setTitle(null)
-				.setView(dialogView)
-				.setNeutralButton("Dismiss",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(
-									DialogInterface dialogInterface, int i) {
-								dialogInterface.dismiss();
-							}
-						}).create();
+		theDialog = new AlertDialog.Builder(DashBoardActivity.this).setTitle(null).setView(dialogView)
+				.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+					}
+				}).create();
 
 		theDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 			@Override
@@ -348,28 +310,23 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void checkin(View view) {
-		Toast.makeText(getApplicationContext(), "Checking in..",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Checking in..", Toast.LENGTH_SHORT).show();
 	}
 
 	public void checkout(View view) {
-		Toast.makeText(getApplicationContext(), "Checking out..",
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "Checking out..", Toast.LENGTH_LONG).show();
 	}
 
 	/************* Activites *********************/
 	public void startActivity(View view) {
 		android.support.v4.app.Fragment fragment = new StartActivityFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).commit();
-
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 		setTitle("Activities");
 	}
 
 	public void activityInfo(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		this.clearColorFilter(findViewById(R.id.jdi_stock_check));
 		this.clearColorFilter(findViewById(R.id.jdi_merchandising_check));
@@ -383,8 +340,7 @@ public class DashBoardActivity extends FragmentActivity {
 		android.support.v4.app.Fragment newFragment = new ActivityInfoFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -402,8 +358,7 @@ public class DashBoardActivity extends FragmentActivity {
 		android.support.v4.app.Fragment newFragment = new EditActivityInfoFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -417,19 +372,16 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void saveActivity(View view) {
-		Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT)
-				.show();
+		Toast.makeText(getApplicationContext(), "Saved!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void jdiStockCheck(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new JDIProductStockFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -455,8 +407,7 @@ public class DashBoardActivity extends FragmentActivity {
 		android.support.v4.app.Fragment newFragment = new AddJDIProductStockFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -471,19 +422,16 @@ public class DashBoardActivity extends FragmentActivity {
 
 	/** Create JDI Product Stock Check **/
 	public void createJDIProductStockCheck(View view) {
-		Toast.makeText(getApplicationContext(), "Successfully Created!",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Successfully Created!", Toast.LENGTH_SHORT).show();
 	}
 
 	public void jdiMerchandisingCheck(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new JDIMerchandisingCheckFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -505,14 +453,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void competitorStockCheck(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new CompetitorStockCheckFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -534,14 +480,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void marketingIntel(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new MarketingIntelFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -563,14 +507,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void projectRequirements(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new ProjectRequirementsFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -592,14 +534,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void diySupermarketPhotos(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new DIYSupermarketPhotosFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -621,14 +561,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void customerContactPerson(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new CustomerContactPersonFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,
@@ -650,14 +588,12 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void products(View view) {
-		view.getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		view.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		android.support.v4.app.Fragment newFragment = new ProductsFragment();
 
 		// Create new transaction
-		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager()
-				.beginTransaction();
+		android.support.v4.app.FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 
 		// Replace whatever is in the fragment_container view with this
 		// fragment,

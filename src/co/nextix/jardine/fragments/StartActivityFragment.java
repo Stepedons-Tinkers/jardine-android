@@ -1,34 +1,166 @@
 package co.nextix.jardine.fragments;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+import android.app.DatePickerDialog;
 import android.content.pm.ActivityInfo;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 
 public class StartActivityFragment extends Fragment {
+	
+	private View rootView = null;
+	private EditText editMonth = null;
+	private Calendar c = null;
+	private Date today = null;
+	private SimpleDateFormat df = null;
+	private String formattedDate = null;
+	public int day, month, year;
 
 	public StartActivityFragment() {
-
+		this.c = Calendar.getInstance();
+		this.df = new SimpleDateFormat("MM/dd/yyyy");
+		this.today = new Date();
+		this.day = this.c.get(Calendar.DAY_OF_MONTH);
+		this.month = this.c.get(Calendar.MONTH);
+		this.year = this.c.get(Calendar.YEAR);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
+		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
+		this.formattedDate = this.df.format(this.c.getTime());
 
-		getActivity().setRequestedOrientation(
-				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		// Now formattedDate have current date/time
+		Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
+		this.editMonth.setText(this.formattedDate);
 
-		View rootView = inflater.inflate(
-				R.layout.fragment_activites, container, false);
+		((ImageButton) this.rootView.findViewById(R.id.prev_button)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				StartActivityFragment.this.c.add(Calendar.DAY_OF_MONTH, -1);
+				Date yesterday = StartActivityFragment.this.c.getTime();
+				StartActivityFragment.this.editMonth.setText(toddMMyy(yesterday));
+			}
+		});
+
+		((ImageButton) this.rootView.findViewById(R.id.next_button)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// adding one day to current date
+				StartActivityFragment.this.c.add(Calendar.DAY_OF_MONTH, 1);
+				Date tommrrow = StartActivityFragment.this.c.getTime();
+				StartActivityFragment.this.editMonth.setText(toddMMyy(tommrrow));
+			}
+		});
+
+		((ImageButton) this.rootView.findViewById(R.id.activity_schedule)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
+						StartActivityFragment.this.year, StartActivityFragment.this.month, StartActivityFragment.this.day);
+				pickDialog.show();
+			}
+		});
+
+		((Button) this.rootView.findViewById(R.id.add_activity_button)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				android.support.v4.app.Fragment fragment = new AddActivityFragment();
+				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+			}
+		});
 		
-		/*((Button) rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));*/
+		((TableRow) this.rootView.findViewById(R.id.tableRow1)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+			}
+		});
 
-		return rootView;
+		/*
+		 * ((Button)
+		 * rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter
+		 * ( new LightingColorFilter(0x0033FF, 0x0066FF));
+		 */
+
+		return this.rootView;
+	}
+
+	private void addTableRow() {
+	    final TableLayout table = (TableLayout) this.rootView.findViewById(R.id.activity_table);
+	    final TableRow tr = (TableRow) getLayoutInflater(null).inflate(R.layout.table_row_item, null);
+
+	    TextView tv;
+	    // Fill out our cells
+	    //tv = (TextView) tr.findViewById(R.id.cell_1);
+	    //tv.setText(...);
+	   
+	    //tv = (TextView) tr.findViewById(R.id.cell_N);
+	    //tv.setText(...);
+	    //table.addView(tr);
+
+	    // Draw separator
+	    //tv = new TextView(this);
+	    //tv.setBackgroundColor(Color.parseColor("#80808080"));
+	    //tv.setHeight(4/*height of separaor line. 2dip will be enough*/);
+	   // table.addView(tv);
+
+	    // If you use context menu it should be registered for each table row
+	    registerForContextMenu(tr);
+	}
+
+	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+			StartActivityFragment.this.year = selectedYear;
+			StartActivityFragment.this.month = selectedMonth;
+			StartActivityFragment.this.day = selectedDay;
+			StartActivityFragment.this.formattedDate = StartActivityFragment.this.FormatDateAndDay((StartActivityFragment.this.month + 1))
+					+ "/" + StartActivityFragment.this.FormatDateAndDay(StartActivityFragment.this.day) + "/"
+					+ StartActivityFragment.this.year;
+
+			StartActivityFragment.this.editMonth.setText(StartActivityFragment.this.formattedDate);
+		}
+	};
+
+	private String FormatDateAndDay(int digit) {
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
+		return String.valueOf(formattedStringDigit);
+	}
+
+	private String toddMMyy(Date day) {
+		String date = this.df.format(day);
+		return date;
 	}
 }
