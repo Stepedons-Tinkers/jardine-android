@@ -261,7 +261,7 @@ public class CompetitorProductTable {
 		return record;
 	}
 
-	public long insertUser(String no, int competitor, String productBrand,
+	public long insert(String no, long competitor, String productBrand,
 			String productDescription, String productSize, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
@@ -294,7 +294,7 @@ public class CompetitorProductTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ rowId, null) > 0) {
 			getRecords().deleteById(rowId);
@@ -304,7 +304,7 @@ public class CompetitorProductTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, int competitor,
+	public boolean update(long id, String no, int competitor,
 			String productBrand, String productDescription, String productSize,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -420,7 +420,7 @@ public class CompetitorProductTable {
 				@Override
 				public void remove() {
 					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
+						delete(list.get(current).getId());
 						deleteById(list.get(current).getId());
 						list.remove(current);
 					}

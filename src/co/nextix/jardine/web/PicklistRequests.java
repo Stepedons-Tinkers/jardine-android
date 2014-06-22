@@ -294,6 +294,57 @@ public class PicklistRequests {
 
 		return model;
 	}
+	
+//	public List<PicklistModel> smrEntryType() {
+//
+//		List<PicklistModel> model = null;
+//
+//		String query = "";
+//		try {
+//			query = URLEncoder
+//					.encode("select * from vtiger_picklist_dependency where sourcefield = 'z_city'",
+//							"UTF-8");
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//		}
+//		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+//				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+//				+ operation;
+//
+//		URL url;
+//		try {
+//
+//			url = new URL(urlString);
+//			Log.d(TAG, urlString);
+//			getConnection(url, "GET");
+//
+//			// status
+//			int status = JardineApp.httpConnection.getResponseCode();
+//			Log.w(TAG, "status: " + status);
+//
+//			if (status == 200) {
+//
+//				Gson gson = new Gson();
+//				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
+//				}.getType();
+//				PicklistRequester<List<PicklistDependencyModel>> requester = gson
+//						.fromJson(getReader(), typeOfT);
+//				model = (List<PicklistDependencyModel>) requester.getResult();
+//
+//			} else {
+//				// getResponse();
+//			}
+//
+//		} catch (ProtocolException e) {
+//			e.printStackTrace();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return model;
+//	}
 
 	/**********************************************************/
 
