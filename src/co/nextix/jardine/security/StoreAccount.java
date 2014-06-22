@@ -34,6 +34,19 @@ public class StoreAccount {
 		}
 	}
 
+	public static void saveSession(Context context, String sessionName) {
+		final Editor editor = context.getSharedPreferences(PREFERENCE_FILENAME,
+				Context.MODE_PRIVATE).edit();
+		try {
+			editor.putString(StoreAccount.SESSIONNAME_KEY,
+					AEShelper.encrypt(sessionName));
+			editor.putBoolean(StoreAccount.SESSION_EXISTS_KEY, true);
+			editor.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 	public static Bundle restore(Context context) {
 		final Bundle bundle = new Bundle();
 		final SharedPreferences prefs = context.getSharedPreferences(

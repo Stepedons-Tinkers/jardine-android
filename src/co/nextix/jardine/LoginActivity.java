@@ -2,6 +2,7 @@ package co.nextix.jardine;
 
 import java.util.List;
 
+import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
@@ -30,8 +31,21 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.login);
 
+		DatabaseAdapter.init(this);
+		JardineApp.DB = DatabaseAdapter.getInstance();
+		JardineApp.DB.open();
+
 		editUsername = (EditText) findViewById(R.id.login_email);
 		editPassword = (EditText) findViewById(R.id.login_password);
+
+		if (StoreAccount.exists(getApplicationContext())) {
+			finish();
+			startActivity(new Intent(getApplicationContext(),
+					DashBoardActivity.class));
+			overridePendingTransition(R.anim.slide_in_left,
+					R.anim.slide_out_left);
+		}
+
 	}
 
 	public void signInClicked(View view) {
@@ -81,9 +95,10 @@ public class LoginActivity extends Activity {
 								1, 1, MyDateUtils.getCurrentTimeStamp(),
 								MyDateUtils.getCurrentTimeStamp());
 					} else {
-						rowid = Long.parseLong(StoreAccount.restore(
-								getApplicationContext()).getString(
-								Account.ROWID));
+						// rowid = Long.parseLong(StoreAccount.restore(
+						// getApplicationContext()).getString(
+						// Account.ROWID));
+						rowid = userTable.getByWebId(model.getUserId()).getId();
 						userTable.updateLogStatus(rowid, 1);
 					}
 					StoreAccount.save(getApplicationContext(), editUsername

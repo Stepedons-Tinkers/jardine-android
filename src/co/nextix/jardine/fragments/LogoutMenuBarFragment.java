@@ -53,7 +53,7 @@ public class LogoutMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 
 			StoreAccount.clear(getActivity());
-			JardineApp.DB.close();
+//			JardineApp.DB.close();
 			JardineApp.SESSION_NAME = null;
 			return true;
 		}

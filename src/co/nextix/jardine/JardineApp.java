@@ -26,9 +26,6 @@ public class JardineApp extends Application {
 
 	@Override
 	public void onCreate() {
-		DatabaseAdapter.init(this);
-		DB = DatabaseAdapter.getInstance();
-		DB.open();
 		context = getApplicationContext();
 		super.onCreate();
 	}
