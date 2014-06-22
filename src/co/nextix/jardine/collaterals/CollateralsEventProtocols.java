@@ -7,6 +7,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
@@ -127,9 +128,8 @@ public class CollateralsEventProtocols extends Fragment implements
 		long userId = Long.parseLong(id);
 
 		realRecord = new ArrayList<EventProtocolRecord>();
-		realRecord.addAll(table.getAllRecordsByUser(userId));
-
 		tempRecord = new ArrayList<EventProtocolRecord>();
+		realRecord.addAll(table.getAllRecordsByUser(userId));
 
 		// for (int i = 1; i <= 37; i++) {
 		// EventProtocolRecord rec = new EventProtocolRecord();
@@ -186,14 +186,15 @@ public class CollateralsEventProtocols extends Fragment implements
 					int position, long id) {
 				EventProtocolRecord epr = (EventProtocolRecord) parent
 						.getAdapter().getItem(position);
-
+				CollateralsConstants.FROM_WHERE = 1;
 				if (epr.getNo() != null) {
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId()), JardineApp.TAG)
+									CollateralsDetails.newInstance(epr.getId()),
+									JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

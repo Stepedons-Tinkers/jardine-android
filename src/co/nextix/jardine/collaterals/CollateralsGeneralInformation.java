@@ -60,6 +60,7 @@ public class CollateralsGeneralInformation extends Fragment {
 		isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
 		createdTime.setText(record.getCreatedTime());
 		modifiedTime.setText(record.getModifiedTime());
-		assigned.setText(record.getUser() + "");
+		assigned.setText(userRecord.getFirstNameName() + " "
+				+ userRecord.getLastname());
 	}
 }
