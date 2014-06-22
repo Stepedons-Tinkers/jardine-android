@@ -32,8 +32,7 @@ public class PJDImerchCheckStatusTable {
 	// Public constructor
 	// ===========================================================
 
-	public PJDImerchCheckStatusTable(SQLiteDatabase database,
-			String tableName) {
+	public PJDImerchCheckStatusTable(SQLiteDatabase database, String tableName) {
 		mDb = database;
 		mDatabaseTable = tableName;
 
@@ -80,10 +79,10 @@ public class PJDImerchCheckStatusTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME + "='" + webID + "'";
+				+ KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -111,10 +110,9 @@ public class PJDImerchCheckStatusTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb
-				.delete(mDatabaseTable,
-						KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID + " IN ("
-								+ ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable,
+				KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID + " IN (" + ids + ")",
+				null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -152,23 +150,23 @@ public class PJDImerchCheckStatusTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c
 						.getLong(c
 								.getColumnIndex(KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID));
-				String name = c
+				String sname = c
 						.getString(c
 								.getColumnIndex(KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, sname);
 			}
 		} finally {
 			if (c != null) {
@@ -197,8 +195,8 @@ public class PJDImerchCheckStatusTable {
 	}
 
 	public boolean deleteUser(long rowId) {
-		if (mDb.delete(mDatabaseTable,
-				KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID + "=" + rowId, null) > 0) {
+		if (mDb.delete(mDatabaseTable, KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID
+				+ "=" + rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
 			return true;
 		} else {

@@ -76,10 +76,10 @@ public class PSMRentryTypeTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_SMR_ENTRY_NAME + "='" + webID + "'";
+				+ KEY_SMR_ENTRY_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -142,19 +142,20 @@ public class PSMRentryTypeTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_SMR_ENTRY_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SMR_ENTRY_ROWID));
-				String name = c.getString(c.getColumnIndex(KEY_SMR_ENTRY_NAME));
+				String ename = c
+						.getString(c.getColumnIndex(KEY_SMR_ENTRY_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, ename);
 			}
 		} finally {
 			if (c != null) {

@@ -141,6 +141,26 @@ public class PProvinceTable {
 		return result;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_PROVINCE_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_PROVINCE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_PROVINCE_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public List<ProvinceRecord> getRecordsByAreaId(long ID) {
 		List<ProvinceRecord> records = new ArrayList<ProvinceRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

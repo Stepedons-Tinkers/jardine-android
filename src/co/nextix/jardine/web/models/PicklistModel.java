@@ -1,4 +1,4 @@
-package co.nextix.jardine.web;
+package co.nextix.jardine.web.models;
 
 import com.google.gson.annotations.SerializedName;
 

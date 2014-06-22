@@ -77,10 +77,10 @@ public class PActProjCategoryTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(String webID) {
+	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_PROJECT_CATEGORY_NAME + "='" + webID + "'";
+				+ KEY_ACTIVITY_PROJECT_CATEGORY_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -145,21 +145,21 @@ public class PActProjCategoryTable {
 		return record;
 	}
 
-	public PicklistRecord getByWebId(String ID) {
+	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_ACTIVITY_PROJECT_CATEGORY_NAME + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_ROWID));
-				String name = c.getString(c
+				String cname = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_NAME));
 
-				record = new PicklistRecord(id, name);
+				record = new PicklistRecord(id, cname);
 			}
 		} finally {
 			if (c != null) {

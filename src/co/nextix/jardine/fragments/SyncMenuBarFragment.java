@@ -20,37 +20,70 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.LoginActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CompetitorTable;
+import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
+import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
+import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
 import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.database.tables.SMRTable;
 import co.nextix.jardine.database.tables.SupplierTable;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.WorkplanEntryTable;
+import co.nextix.jardine.database.tables.WorkplanTable;
+import co.nextix.jardine.database.tables.picklists.PActProjCategoryTable;
+import co.nextix.jardine.database.tables.picklists.PActProjStageTable;
+import co.nextix.jardine.database.tables.picklists.PActtypeCategoryTable;
+import co.nextix.jardine.database.tables.picklists.PActtypeTypeTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
+import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
+import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
+import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
 import co.nextix.jardine.database.tables.picklists.PEventTypeTable;
+import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
+import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
+import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
+import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
+import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
+import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.web.LogRequests;
-import co.nextix.jardine.web.PicklistDependencyModel;
-import co.nextix.jardine.web.PicklistModel;
 import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.SyncRequests;
+import co.nextix.jardine.web.models.ActivityModel;
+import co.nextix.jardine.web.models.ActivityTypeModel;
 import co.nextix.jardine.web.models.BusinessUnitModel;
 import co.nextix.jardine.web.models.CompetitorModel;
 import co.nextix.jardine.web.models.CompetitorProductModel;
+import co.nextix.jardine.web.models.CompetitorProductStockCheckModel;
+import co.nextix.jardine.web.models.CustomerContactModel;
 import co.nextix.jardine.web.models.CustomerModel;
 import co.nextix.jardine.web.models.EventProtocolModel;
+import co.nextix.jardine.web.models.JDImerchandisingCheckModel;
+import co.nextix.jardine.web.models.JDIproductStockCheckModel;
+import co.nextix.jardine.web.models.MarketingIntelModel;
 import co.nextix.jardine.web.models.MarketingMaterialsModel;
+import co.nextix.jardine.web.models.PicklistDependencyModel;
+import co.nextix.jardine.web.models.PicklistModel;
 import co.nextix.jardine.web.models.ProductModel;
+import co.nextix.jardine.web.models.ProjectRequirementModel;
 import co.nextix.jardine.web.models.SMRModel;
 import co.nextix.jardine.web.models.SupplierModel;
+import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.LoginModel;
 
@@ -78,8 +111,8 @@ public class SyncMenuBarFragment extends Fragment {
 	}
 
 	private class PicklistDependencyTask extends AsyncTask<Void, Void, Boolean> {
-		List<PicklistDependencyModel> areas, provinces, cities;
-		long aId = 0;
+		List<PicklistDependencyModel> areas, provinces;
+		long aId = 0, pId = 0;
 
 		@Override
 		protected void onPreExecute() {
@@ -97,8 +130,8 @@ public class SyncMenuBarFragment extends Fragment {
 			PProvinceTable pTable = JardineApp.DB.getProvince();
 			PCityTownTable cTable = JardineApp.DB.getCityTown();
 
-			PicklistRequests arequest = new PicklistRequests();
-			areas = arequest.area();
+			PicklistRequests request = new PicklistRequests();
+			areas = request.area();
 			if (areas != null) {
 
 				for (PicklistDependencyModel a : areas) {
@@ -118,13 +151,41 @@ public class SyncMenuBarFragment extends Fragment {
 									String prov = p.replace("&quot;", "");
 									if (!pTable.isExisting(prov)) {
 										pTable.insertProvince(prov, aId);
-										Log.i(TAG, "Province: " + p);
+										Log.i(TAG, "Province: " + prov);
 									}
 								}
 							}
 						}
 					}
 
+				}
+			}
+
+			provinces = request.province();
+
+			if (provinces != null) {
+				for (PicklistDependencyModel a : provinces) {
+					String province = a.getSourceValue().replace("&quot;", "");
+					pId = pTable.getIdByName(province);
+					if (pId != 0) {
+						String ct = a.getTargetValues();
+						if (ct != null) {
+							String SAcities = ct.replace("[", "")
+									.replace("]", "").replace("&quot;", "");
+							Log.w(TAG, "cities: " + SAcities);
+							List<String> cities = Arrays.asList(SAcities
+									.split("\\s*,\\s*"));
+							if (cities != null) {
+								for (String c : cities) {
+									String cty = c.replace("&quot;", "");
+									if (!cTable.isExisting(cty)) {
+										cTable.insert(cty, pId);
+										Log.i(TAG, "City: " + cty);
+									}
+								}
+							}
+						}
+					}
 				}
 			}
 
@@ -139,6 +200,125 @@ public class SyncMenuBarFragment extends Fragment {
 			// }
 			// }
 
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new PicklistsTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class PicklistsTask extends AsyncTask<Void, Void, Boolean> {
+		List<String> picklist;
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Please wait...");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			PicklistRequests request = new PicklistRequests();
+			for (String module : Modules.picklists) {
+				picklist = request.picklists(module);
+				if (picklist != null) {
+					if (module.equals(Modules.smrtimecard_entry)) {
+						PSMRentryTypeTable table = JardineApp.DB
+								.getSMRentryType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.customer_size)) {
+						PCustSizeTable table = JardineApp.DB.getCustomerSize();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.customer_type)) {
+						PCustTypeTable table = JardineApp.DB.getCustomerType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.customercontact_position)) {
+						PCustConPositionTable table = JardineApp.DB
+								.getCustomerContactPosition();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.eventprotocol_eventtype)) {
+						PEventTypeTable table = JardineApp.DB
+								.getEventProtocolType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.activitytype_category)) {
+						PActtypeCategoryTable table = JardineApp.DB
+								.getActivitytypeCategory();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.workplanentry_status)) {
+						PWorkEntryStatusTable table = JardineApp.DB
+								.getWorkplanEntryStatus();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.activity_projectstage)) {
+						PActProjStageTable table = JardineApp.DB
+								.getActivityProjectStage();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.activity_projectcategory)) {
+						PActProjCategoryTable table = JardineApp.DB
+								.getActivityProjectCategory();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.jdiprodstock_status)) {
+						PJDIprodStatusTable table = JardineApp.DB
+								.getJDIproductStatus();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.jdimerchcheck_status)) {
+						PJDImerchCheckStatusTable table = JardineApp.DB
+								.getJDImerchCheckStatus();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					} else if (module.equals(Modules.projrequirement_type)) {
+						PProjReqTypeTable table = JardineApp.DB
+								.getProjectRequirementType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insertUser(p);
+						}
+					}
+				}
+			}
 			return true;
 		}
 
@@ -277,7 +457,7 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (EventProtocolModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long eventType = eventTypeTable.getByWebId(
+						long eventType = eventTypeTable.getByName(
 								model.getType()).getId();
 
 						table.insert(model.getCrmNo(), model.getDescription(),
@@ -546,7 +726,7 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-
+				new RetrieveCustomerTask().execute();
 			} else {
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
@@ -571,25 +751,34 @@ public class SyncMenuBarFragment extends Fragment {
 
 			CustomerTable table = JardineApp.DB.getCustomer();
 			PAreaTable areaTable = JardineApp.DB.getArea();
+			PProvinceTable provinceTable = JardineApp.DB.getProvince();
+			PCityTownTable cityTable = JardineApp.DB.getCityTown();
+			PCustTypeTable customerTypeTable = JardineApp.DB.getCustomerType();
+			BusinessUnitTable businessUnitTable = JardineApp.DB
+					.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
 			results = request.Customer(MyDateUtils.getYesterday()).getUpdated();
 			if (results != null) {
 				for (CustomerModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-//						long area = comptTable.getByWebId(model.getArea())
-//								.getId();
-//						long customerRecordStatus =
-//
-//						table.insertUser(model.getCrmNo(), model.getName(),
-//								model.getChainname(), model.getLandline(),
-//								model.getFax(), model.getCustomerSize(),
-//								model.getStreetadd(), customerRecordStatus,
-//								customerType, businessUnit, area, province,
-//								cityTown,
-//								Integer.parseInt(model.getIsActive()),
-//								model.getCreatedTime(),
-//								model.getModifiedTime(), USER_ID);
+						long area = areaTable.getIdByName(model.getArea());
+						long customerType = customerTypeTable.getByName(
+								model.getType()).getId();
+						long businessUnit = businessUnitTable.getByWebId(
+								model.getBusinessunit()).getId();
+						long province = provinceTable.getIdByName(model
+								.getProvince());
+						long cityTown = cityTable.getIdByName(model.getCity());
+
+						table.insertUser(model.getCrmNo(), model.getName(),
+								model.getChainname(), model.getLandline(),
+								model.getFax(), model.getCustomerSize(),
+								model.getStreetadd(), 0, customerType,
+								businessUnit, area, province, cityTown,
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -601,7 +790,597 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
+				new RetrieveCustomerContactTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
 
+	private class RetrieveCustomerContactTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<CustomerContactModel> results = new ArrayList<CustomerContactModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving CustomerContact");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CustomerContactTable table = JardineApp.DB.getCustomerContact();
+			PCustConPositionTable custPositionTable = JardineApp.DB
+					.getCustomerContactPosition();
+			CustomerTable customerTable = JardineApp.DB.getCustomer();
+
+			SyncRequests request = new SyncRequests();
+			results = request.CustomerContact(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (CustomerContactModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long position = custPositionTable.getIdByName(model
+								.getPosition());
+						long customer = customerTable.getByWebId(
+								model.getCustomer()).getId();
+
+						table.insertUser(model.getCrmNo(),
+								model.getFirstname(), model.getLastname(),
+								position, model.getMobileno(),
+								model.getBirthday(), model.getEmail(),
+								customer,
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveActivityTypeTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveActivityTypeTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<ActivityTypeModel> results = new ArrayList<ActivityTypeModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving ActivityType");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ActivityTypeTable table = JardineApp.DB.getActivityType();
+			PActtypeTypeTable acttypeTypeTable = JardineApp.DB
+					.getActivitytypeType();
+			PActtypeCategoryTable actCategoryTable = JardineApp.DB
+					.getActivitytypeCategory();
+
+			SyncRequests request = new SyncRequests();
+			results = request.ActivityType(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (ActivityTypeModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long type = acttypeTypeTable.getIdByName(model
+								.getActivitytype());
+						long category = actCategoryTable.getIdByName(model
+								.getActivitytypeCategory());
+
+						table.insertUser(model.getCrmNo(), type, category,
+								Integer.parseInt(model.getIsActive()), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveWorkplanTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveWorkplanTask extends AsyncTask<Void, Void, Boolean> {
+		List<WorkplanModel> results = new ArrayList<WorkplanModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving Workplan");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			WorkplanTable table = JardineApp.DB.getWorkplan();
+
+			SyncRequests request = new SyncRequests();
+			results = request.Workplan(MyDateUtils.getYesterday()).getUpdated();
+			if (results != null) {
+				for (WorkplanModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+
+						table.insertUser(model.getCrmNo(), model.getFromDate(),
+								model.getToDate(), 0, model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveWorkplanEntryTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveWorkplanEntryTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<WorkplanEntryModel> results = new ArrayList<WorkplanEntryModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving WorkplanEntry");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			WorkplanEntryTable table = JardineApp.DB.getWorkplanEntry();
+			CustomerTable customerTable = JardineApp.DB.getCustomer();
+			PAreaTable areaTable = JardineApp.DB.getArea();
+			PProvinceTable provinceTable = JardineApp.DB.getProvince();
+			PCityTownTable cityTable = JardineApp.DB.getCityTown();
+			ActivityTypeTable activityTypeTable = JardineApp.DB
+					.getActivityType();
+			WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
+
+			SyncRequests request = new SyncRequests();
+			results = request.WorkplanEntry(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (WorkplanEntryModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						// long customer =
+						// customerTable.getByWebId(model.getCustomer());
+						long area = areaTable.getIdByName(model.getArea());
+						long province = provinceTable.getIdByName(model
+								.getProvince());
+						long cityTown = cityTable.getIdByName(model.getCity());
+						long activityType = activityTypeTable.getByWebId(
+								model.getActivityType()).getId();
+						long workplan = workplanTable.getByWebId(
+								model.getWorkplan()).getId();
+
+						table.insertUser(model.getCrmNo(), 0, model.getDate(),
+								Integer.parseInt(model.getStatus()), area,
+								province, cityTown, "remarks", activityType,
+								workplan, model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveActivityTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveActivityTask extends AsyncTask<Void, Void, Boolean> {
+		List<ActivityModel> results = new ArrayList<ActivityModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving Activity");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ActivityTable table = JardineApp.DB.getActivity();
+			CustomerTable customerTable = JardineApp.DB.getCustomer();
+			SMRTable smrTable = JardineApp.DB.getSMR();
+			WorkplanEntryTable workplanEntryTable = JardineApp.DB
+					.getWorkplanEntry();
+			WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
+			ActivityTypeTable activityTypeTable = JardineApp.DB
+					.getActivityType();
+
+			SyncRequests request = new SyncRequests();
+			results = request.Activity(MyDateUtils.getYesterday()).getUpdated();
+			if (results != null) {
+				for (ActivityModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long workplanEntry = workplanEntryTable.getByWebId(
+								model.getWorkplanEntry()).getId();
+						long customer = customerTable.getByWebId(
+								model.getCustomer()).getId();
+						long smr = smrTable.getByWebId(model.getSmr()).getId();
+						long workplan = workplanTable.getByWebId(
+								model.getWorkplan()).getId();
+						long activityType = activityTypeTable.getByWebId(
+								model.getActivityType()).getId();
+
+						table.insertUser(model.getCrmNo(), workplan,
+								model.getStartTime(), model.getEndTime(),
+								Double.parseDouble(model.getLongitude()),
+								Double.parseDouble(model.getLatitude()),
+								model.getObjective(), model.getNotes(),
+								model.getHighlights(), model.getNextsteps(),
+								model.getFollowupcomdate(), activityType,
+								workplanEntry, customer,
+								Integer.parseInt(model.getFirstTimeVisit()),
+								Integer.parseInt(model.getPlannedvisit()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID, smr,
+								model.getIssuesIdentified(),
+								model.getFeedbackFromCu(),
+								model.getOngoingCampaigns(),
+								model.getLastDelivery(),
+								model.getPromoStubsDetails(),
+								model.getProjectName(),
+								model.getProjectCategory(),
+								model.getProjectStage(), model.getDate(),
+								model.getTime(), model.getVenue(),
+								model.getNoofattenees());
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveJDImerchTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveJDImerchTask extends AsyncTask<Void, Void, Boolean> {
+		List<JDImerchandisingCheckModel> results = new ArrayList<JDImerchandisingCheckModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving JDImerchandisingCheck");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			JDImerchandisingCheckTable table = JardineApp.DB
+					.getJDImerchandisingCheck();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+			ProductTable productTable = JardineApp.DB.getProduct();
+
+			SyncRequests request = new SyncRequests();
+			results = request.JDImerchandising(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (JDImerchandisingCheckModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long activity = activityTable.getByWebId(
+								model.getActivity()).getId();
+						long product = productTable.getByWebId(
+								model.getProduct()).getId();
+
+						table.insertUser(model.getCrmNo(), activity, product,
+								Integer.parseInt(model.getStatus()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveJDIproductTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveJDIproductTask extends AsyncTask<Void, Void, Boolean> {
+		List<JDIproductStockCheckModel> results = new ArrayList<JDIproductStockCheckModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving JDIproductStockCheck");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			JDIproductStockCheckTable table = JardineApp.DB
+					.getJDIproductStockCheck();
+			PJDIprodStatusTable jdiProdStatusTable = JardineApp.DB
+					.getJDIproductStatus();
+			SupplierTable supplierTable = JardineApp.DB.getSupplier();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+			ProductTable productTable = JardineApp.DB.getProduct();
+
+			SyncRequests request = new SyncRequests();
+			results = request.JDIproduct(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (JDIproductStockCheckModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long stockStatus = jdiProdStatusTable.getByName(
+								model.getStockstatus()).getId();
+						long supplier = supplierTable.getByWebId(
+								model.getSupplier()).getId();
+						long activity = activityTable.getByWebId(
+								model.getActivity()).getId();
+						long product = productTable.getByWebId(
+								model.getProduct()).getId();
+
+						table.insertUser(model.getCrmNo(), activity, product,
+								stockStatus, 0,
+								Integer.parseInt(model.getLoadedonshelves()),
+								supplier, model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveCompetitorProductStockTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveCompetitorProductStockTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<CompetitorProductStockCheckModel> results = new ArrayList<CompetitorProductStockCheckModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving CompetitorProductStockCheck");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CompetitorProductStockCheckTable table = JardineApp.DB
+					.getCompetitorProductStockCheck();
+			PComptProdStockStatusTable compProdStatusTable = JardineApp.DB
+					.getCompetitorProductStockStatus();
+			CompetitorProductTable compProdTable = JardineApp.DB
+					.getCompetitorProduct();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			results = request.CompetitorProductStockCheck(
+					MyDateUtils.getYesterday()).getUpdated();
+			if (results != null) {
+				for (CompetitorProductStockCheckModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long stockStatus = compProdStatusTable.getByWebId(
+								model.getStockstatus()).getId();
+						long competitorProduct = compProdTable.getByWebId(
+								model.getCompetitorProduct()).getId();
+						long activity = activityTable.getByWebId(
+								model.getActivity()).getId();
+
+						table.insertUser(model.getCrmNo(), activity,
+								competitorProduct, stockStatus,
+								Integer.parseInt(model.getLoadedonshelves()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveMarketingIntelTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveMarketingIntelTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<MarketingIntelModel> results = new ArrayList<MarketingIntelModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving MarketingIntel");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			MarketingIntelTable table = JardineApp.DB.getMarktingIntel();
+			CompetitorTable compProdTable = JardineApp.DB.getCompetitor();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			results = request.MarketingIntel(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (MarketingIntelModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long competitor = compProdTable.getByWebId(
+								model.getCompetitor()).getId();
+						long activity = activityTable.getByWebId(
+								model.getActivity()).getId();
+
+						table.insertUser(model.getCrmNo(), activity,
+								competitor, model.getDetails(), "remarks",
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveProjRequirementTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveProjRequirementTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<ProjectRequirementModel> results = new ArrayList<ProjectRequirementModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving ProjectRequirement");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ProjectRequirementTable table = JardineApp.DB
+					.getProjectRequirement();
+			PProjReqTypeTable projReqTypeTable = JardineApp.DB
+					.getProjectRequirementType();
+
+			SyncRequests request = new SyncRequests();
+			results = request.ProjectRequirement(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (ProjectRequirementModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						long projectRequirementType = projReqTypeTable
+								.getByName(model.getProjectReqType()).getId();
+
+						table.insertUser(model.getCrmNo(),
+								projectRequirementType, model.getDateNeeded(),
+								model.getSquaremeters(),
+								model.getProductsUsed(),
+								model.getOtherDetails(),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
 			} else {
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
