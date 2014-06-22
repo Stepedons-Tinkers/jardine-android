@@ -103,7 +103,73 @@ public class PCityTownTable {
 		return rowsDeleted;
 	}
 
-	public CityTownRecord getById(int ID) {
+	public boolean isExisting(String name) {
+		boolean exists = false;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CITYTOWN_NAME + "='" + name + "'";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				exists = true;
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return exists;
+	}
+
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_CITYTOWN_NAME + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CITYTOWN_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_CITYTOWN_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public List<CityTownRecord> getRecordsByProvinceId(long ID) {
+		List<CityTownRecord> records = new ArrayList<CityTownRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CITYTOWN_PROVINCE + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_CITYTOWN_ROWID));
+					String name = c.getString(c
+							.getColumnIndex(KEY_CITYTOWN_NAME));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_CITYTOWN_PROVINCE));
+
+					records.add(new CityTownRecord(id, name, province));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return records;
+	}
+
+	public CityTownRecord getById(long ID) {
 		CityTownRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CITYTOWN_ROWID + "=?";

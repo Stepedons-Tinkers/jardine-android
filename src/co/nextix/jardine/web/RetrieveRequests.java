@@ -49,7 +49,7 @@ import com.google.gson.stream.JsonReader;
 
 public class RetrieveRequests {
 
-	private final String TAG = "Webservice_Create";
+	private final String TAG = "Webservice";
 	private final String operation = "retrieves";
 
 	public List<RetrieveRequester<BusinessUnitModel>.Result> BusinessUnit(

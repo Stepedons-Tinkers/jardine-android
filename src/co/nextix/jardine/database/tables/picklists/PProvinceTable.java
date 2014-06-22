@@ -102,7 +102,72 @@ public class PProvinceTable {
 		return rowsDeleted;
 	}
 
-	public ProvinceRecord getById(int ID) {
+	public boolean isExisting(String name) {
+		boolean exists = false;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PROVINCE_NAME + "='" + name + "'";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				exists = true;
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return exists;
+	}
+
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_PROVINCE_NAME + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_PROVINCE_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_PROVINCE_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public List<ProvinceRecord> getRecordsByAreaId(long ID) {
+		List<ProvinceRecord> records = new ArrayList<ProvinceRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PROVINCE_AREA + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_PROVINCE_ROWID));
+					String name = c.getString(c
+							.getColumnIndex(KEY_PROVINCE_NAME));
+					long area = c.getLong(c.getColumnIndex(KEY_PROVINCE_AREA));
+
+					records.add(new ProvinceRecord(id, name, area));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return records;
+	}
+
+	public ProvinceRecord getById(long ID) {
 		ProvinceRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_PROVINCE_ROWID + "=?";

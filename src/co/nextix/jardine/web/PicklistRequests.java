@@ -14,14 +14,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
-import org.apache.http.client.utils.URIUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
-import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
-import android.webkit.URLUtil;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
@@ -33,7 +30,7 @@ import com.google.gson.stream.JsonReader;
 
 public class PicklistRequests {
 
-	private final String TAG = "Webservice_Picklist";
+	private final String TAG = "Webservice";
 	private final String operation = "querypicklist";
 
 	public List<RetrieveRequester<BusinessUnitModel>.Result> BusinessUnit(
@@ -97,16 +94,18 @@ public class PicklistRequests {
 		List<PicklistModel> model = null;
 
 		String query = "";
-//		try {
-//			query = URLEncoder
-//					.encode("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist",
-//							"UTF-8");
-			query = Uri.encode("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist",
+		try {
+			query = URLEncoder
+					.encode("select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')",
 							"UTF-8");
-//		} catch (UnsupportedEncodingException e1) {
-//			e1.printStackTrace();
-//		}
-		String urlString = JardineApp.WEB_URL + "?query=" + query;
+			// Uri query = Uri
+			// .parse("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
 
 		URL url;
 		try {
@@ -122,11 +121,164 @@ public class PicklistRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<PicklistRequester>() {
+				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistModel>>>() {
 				}.getType();
-				PicklistRequester requester = gson.fromJson(getReader(),
-						typeOfT);
+				PicklistRequester<List<PicklistModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
 				model = (List<PicklistModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<PicklistDependencyModel> area() {
+
+		List<PicklistDependencyModel> model = null;
+
+		String query = "";
+		try {
+			query = URLEncoder
+					.encode("select * from vtiger_picklist_dependency where sourcefield = 'z_area'",
+							"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
+				}.getType();
+				PicklistRequester<List<PicklistDependencyModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<PicklistDependencyModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<PicklistDependencyModel> province() {
+
+		List<PicklistDependencyModel> model = null;
+
+		String query = "";
+		try {
+			query = URLEncoder
+					.encode("select * from vtiger_picklist_dependency where sourcefield = 'z_province'",
+							"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
+				}.getType();
+				PicklistRequester<List<PicklistDependencyModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<PicklistDependencyModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<PicklistDependencyModel> city() {
+
+		List<PicklistDependencyModel> model = null;
+
+		String query = "";
+		try {
+			query = URLEncoder
+					.encode("select * from vtiger_picklist_dependency where sourcefield = 'z_city'",
+							"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<PicklistRequester<List<PicklistDependencyModel>>>() {
+				}.getType();
+				PicklistRequester<List<PicklistDependencyModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<PicklistDependencyModel>) requester.getResult();
 
 			} else {
 				// getResponse();

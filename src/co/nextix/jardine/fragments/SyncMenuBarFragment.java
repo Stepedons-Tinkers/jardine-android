@@ -14,10 +14,18 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.tables.picklists.PAreaTable;
+import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PProvinceTable;
+import co.nextix.jardine.web.PicklistDependencyModel;
+import co.nextix.jardine.web.PicklistModel;
 import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.models.WorkplanModel;
 
 public class SyncMenuBarFragment extends Fragment {
+
+	private final String TAG = "Webservice";
 
 	public SyncMenuBarFragment() {
 	}
@@ -30,43 +38,74 @@ public class SyncMenuBarFragment extends Fragment {
 				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		View rootView = inflater.inflate(R.layout.fragment_sync, container,
 				false);
-		
-		new SyncTask().execute();
+
+		new PicklistDependencyTask().execute();
 
 		return rootView;
 	}
 
-	private class SyncTask extends AsyncTask<Void, Void, Boolean> {
+	private class PicklistDependencyTask extends AsyncTask<Void, Void, Boolean> {
 		ProgressDialog dialog;
-		List<WorkplanModel> models;
+		List<PicklistDependencyModel> areas, provinces, cities;
+		long aId = 0;
 
 		@Override
 		protected void onPreExecute() {
 			dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Signing in");
-			dialog.setMessage("Verifying account. Please wait...");
+			dialog.setTitle("Syncing...");
+			dialog.setMessage("Please wait...");
 			dialog.show();
 			super.onPreExecute();
 		}
 
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
-			try {
 
-				// if (model != null) {
-				PicklistRequests request = new PicklistRequests();
-				request.picklists();
-				Log.i(JardineApp.TAG, "session: ");
+			PAreaTable aTable = JardineApp.DB.getArea();
+			PProvinceTable pTable = JardineApp.DB.getProvince();
+			PCityTownTable cTable = JardineApp.DB.getCityTown();
 
-				return true;
-				// } else {
-				// return false;
-				// }
+			PicklistRequests arequest = new PicklistRequests();
+			areas = arequest.area();
+			if (areas != null) {
 
-			} catch (Exception e) {
-				e.printStackTrace();
-				return false;
+				for (PicklistDependencyModel a : areas) {
+					String area = a.getSourceValue().replace("&quot;", "");
+					if (!aTable.isExisting(area)) {
+//						aId = aTable.insertArea(area);
+						Log.d(TAG, "AREA: " + area);
+
+						String SAprovinces = a.getTargetValues()
+								.replace("[", "").replace("]", "")
+								.replace("&quot;", "");
+						Log.d(TAG, "provinces: " + SAprovinces);
+						// if (provinces != null) {
+						// for (String p : provinces) {
+						// pTable.insertProvince(p.replace("&quot;", ""),
+						// aId);
+						// Log.i(TAG,
+						// "Province: "
+						// + a.getSourceValue().replace(
+						// "&quot;", ""));
+						// }
+						// }
+					}
+
+				}
 			}
+
+			// List<PicklistRecord> aRecords = aTable.getRecords();
+			//
+			// PicklistRequests prequest = new PicklistRequests();
+			// provinces = prequest.province();
+			// if (provinces != null) {
+			//
+			// for (PicklistDependencyModel a : provinces) {
+			//
+			// }
+			// }
+
+			return true;
 		}
 
 		@Override

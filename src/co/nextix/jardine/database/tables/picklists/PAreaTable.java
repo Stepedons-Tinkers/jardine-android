@@ -75,6 +75,28 @@ public class PAreaTable {
 	// Public methods
 	// ===========================================================
 
+	public List<PicklistRecord> getRecords() {
+		Cursor c = null;
+		List<PicklistRecord> list = new ArrayList<PicklistRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_AREA_ROWID));
+					String name = c.getString(c.getColumnIndex(KEY_AREA_NAME));
+
+					list.add(new PicklistRecord(id, name));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	public int deleteById(long[] rowIds) {
 
 		String ids = Arrays.toString(rowIds);
@@ -97,6 +119,45 @@ public class PAreaTable {
 		// }
 
 		return rowsDeleted;
+	}
+
+	public boolean isExisting(String name) {
+		boolean exists = false;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_AREA_NAME + "='" + name + "'";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				exists = true;
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return exists;
+	}
+
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_AREA_NAME + " FROM " + mDatabaseTable
+				+ " WHERE " + KEY_AREA_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_AREA_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public PicklistRecord getById(int ID) {
@@ -122,17 +183,17 @@ public class PAreaTable {
 		return record;
 	}
 
-	public long insertArea(String no) {
+	public long insertArea(String name) {
 		// ActivityTypeCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(KEY_AREA_NAME, no);
+		initialValues.put(KEY_AREA_NAME, name);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
 			// collection.add(ids, no, category, isActive, user);
-			Log.i("WEB", "DB insert " + no);
+			Log.i("WEB", "DB insert " + name);
 		} else {
 			throw new SQLException("insert failed");
 		}
@@ -148,9 +209,9 @@ public class PAreaTable {
 		}
 	}
 
-	public boolean updateArea(long id, String no) {
+	public boolean updateArea(long id, String name) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_AREA_NAME, no);
+		args.put(KEY_AREA_NAME, name);
 		if (mDb.update(mDatabaseTable, args, KEY_AREA_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);
 			return true;

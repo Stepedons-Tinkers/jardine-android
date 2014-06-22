@@ -58,7 +58,7 @@ import com.google.gson.stream.JsonReader;
 
 public class CreateRequests {
 
-	private final String TAG = "Webservice_Create";
+	private final String TAG = "Webservice";
 	private final String operation = "creates";
 	private final String charset = "UTF-8";
 	private final DatabaseAdapter DB = DatabaseAdapter.getInstance();

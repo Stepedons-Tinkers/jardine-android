@@ -43,7 +43,7 @@ import com.google.gson.reflect.TypeToken;
 import com.google.gson.stream.JsonReader;
 
 public class SyncRequests {
-	private final String TAG = "Webservice_Sync";
+	private final String TAG = "Webservice";
 	private final String operation = "sync";
 
 	public SyncRequester<List<BusinessUnitModel>>.Result BusinessUnit(

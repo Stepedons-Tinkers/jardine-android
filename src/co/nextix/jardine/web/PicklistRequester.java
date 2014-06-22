@@ -1,15 +1,13 @@
 package co.nextix.jardine.web;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
-public class PicklistRequester {
+public class PicklistRequester<T> {
 	@SerializedName("success")
 	private String success;
 
 	@SerializedName("result")
-	private List<PicklistModel> result;
+	private T result;
 
 	public String getSuccess() {
 		return this.success;
@@ -19,11 +17,11 @@ public class PicklistRequester {
 		this.success = success;
 	}
 
-	public List<PicklistModel> getResult() {
+	public T getResult() {
 		return this.result;
 	}
 
-	public void setResult(List<PicklistModel> result) {
+	public void setResult(T result) {
 		this.result = result;
 	}
 }

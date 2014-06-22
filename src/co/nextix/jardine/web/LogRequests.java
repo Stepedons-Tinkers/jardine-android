@@ -34,7 +34,7 @@ import com.google.gson.stream.JsonReader;
 
 public class LogRequests {
 	// final String TAG = "Webservice_Log";
-	final String TAG = JardineApp.TAG;
+	final String TAG = "Webservice";
 
 	public LoginModel login(String username, String password) {
 		LoginModel model = null;
