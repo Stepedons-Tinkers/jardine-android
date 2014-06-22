@@ -21,6 +21,9 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.database.tables.MarketingMaterialsTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class CollateralsMarketingMaterials extends Fragment implements
@@ -92,17 +95,24 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
+		MarketingMaterialsTable table = JardineApp.DB.getMarketingMaterials();
+
 		realRecord = new ArrayList<MarketingMaterialsRecord>();
 		tempRecord = new ArrayList<MarketingMaterialsRecord>();
 
-		for (int i = 1; i <= 89; i++) {
-			MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
-			rec.setNo("EVP00" + i);
-			rec.setDescription("Description " + i);
-			rec.setTags("TAGS00" + i);
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		long userId = Long.parseLong(id);
+		realRecord.addAll(table.getAllRecordsByUser(userId));
 
-			realRecord.add(rec);
-		}
+		// for (int i = 1; i <= 89; i++) {
+		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+		// rec.setNo("EVP00" + i);
+		// rec.setDescription("Description " + i);
+		// rec.setTags("TAGS00" + i);
+		//
+		// realRecord.add(rec);
+		// }
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -145,13 +155,14 @@ public class CollateralsMarketingMaterials extends Fragment implements
 					int position, long id) {
 				MarketingMaterialsRecord epr = (MarketingMaterialsRecord) parent
 						.getAdapter().getItem(position);
-
+				CollateralsConstants.FROM_WHERE = 2;
 				if (epr.getNo() != null) {
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()
-							.add(R.id.frame_container, new CollateralsDetails())
+							.add(R.id.frame_container,
+									CollateralsDetails.newInstance(epr.getId()))
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

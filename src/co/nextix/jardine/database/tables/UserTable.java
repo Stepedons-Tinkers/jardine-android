@@ -197,7 +197,7 @@ public class UserTable {
 		return rowsDeleted;
 	}
 
-	public UserRecord getById(int ID) {
+	public UserRecord getById(long ID) {
 		UserRecord user = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_USER_ROWID + "=?";

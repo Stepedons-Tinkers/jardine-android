@@ -97,6 +97,47 @@ public class MarketingMaterialsTable {
 		return list;
 	}
 
+	public List<MarketingMaterialsRecord> getAllRecordsByUser(long userId) {
+		Cursor c = null;
+		List<MarketingMaterialsRecord> list = new ArrayList<MarketingMaterialsRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_MARKETINGMATERIALS_USER + " = " + userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+					String description = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+
+					list.add(new MarketingMaterialsRecord(id, no, description,
+							lastUpdate, tags, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
@@ -144,7 +185,7 @@ public class MarketingMaterialsTable {
 		return rowsDeleted;
 	}
 
-	public MarketingMaterialsRecord getById(int ID) {
+	public MarketingMaterialsRecord getById(long ID) {
 		MarketingMaterialsRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_MARKETINGMATERIALS_ROWID + "=?";

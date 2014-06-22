@@ -49,9 +49,9 @@ OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.fragment_view_customers, null);
+		view = inflater.inflate(R.layout.fragment_customers_view_all, null);
 		header = inflater
-				.inflate(R.layout.row_customers, null);
+				.inflate(R.layout.table_row_customers, null);
 		initLayout();
 		return view;
 	}
@@ -143,7 +143,7 @@ OnClickListener {
 	private void setView() {
 
 		AdapterCustomers adapter = new AdapterCustomers(
-				getActivity(), R.layout.row_customers,
+				getActivity(), R.layout.table_row_customers,
 				tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
