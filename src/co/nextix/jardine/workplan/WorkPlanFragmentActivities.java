@@ -23,6 +23,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class WorkPlanFragmentActivities extends Fragment implements
 		OnClickListener {
@@ -81,19 +82,15 @@ public class WorkPlanFragmentActivities extends Fragment implements
 		header.setOnClickListener(null);
 		//
 
-		list = (ListView) view
-				.findViewById(R.id.lvWorkPlanActList);
+		list = (ListView) view.findViewById(R.id.lvWorkPlanActList);
 
 		list.addHeaderView(header);
 
 		bntAddActity = (Button) view.findViewById(R.id.bWorkPlanActAddActivity);
-		txtPage = (TextView) view
-				.findViewById(R.id.tvWorkPlanActPage);
+		txtPage = (TextView) view.findViewById(R.id.tvWorkPlanActPage);
 
-		arrowLeft = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActLeft);
-		arrowRight = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActRight);
+		arrowLeft = (ImageButton) view.findViewById(R.id.ibWorkPlanActLeft);
+		arrowRight = (ImageButton) view.findViewById(R.id.ibWorkPlanActRight);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
@@ -169,6 +166,7 @@ public class WorkPlanFragmentActivities extends Fragment implements
 
 			}
 		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	@Override

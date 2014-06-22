@@ -7,6 +7,8 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -102,7 +104,8 @@ public class CollateralsEventProtocols extends Fragment implements
 
 		realRecord = new ArrayList<EventProtocolRecord>();
 		tempRecord = new ArrayList<EventProtocolRecord>();
-
+		
+		
 		for (int i = 1; i <= 37; i++) {
 			EventProtocolRecord rec = new EventProtocolRecord();
 			rec.setNo("EVP00" + i);
@@ -171,6 +174,7 @@ public class CollateralsEventProtocols extends Fragment implements
 
 			}
 		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -44,8 +45,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(
-				R.layout.collaterals_marketing_materials, null);
+		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
 		initLayout();
@@ -159,6 +159,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 			}
 		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	@Override

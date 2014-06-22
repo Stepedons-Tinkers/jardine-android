@@ -21,6 +21,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class CollateralsMarketingMaterials extends Fragment implements
 		OnClickListener {
@@ -45,8 +46,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(
-				R.layout.collaterals_marketing_materials, null);
+		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
 		initLayout();
@@ -157,6 +157,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 			}
 		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	@Override
