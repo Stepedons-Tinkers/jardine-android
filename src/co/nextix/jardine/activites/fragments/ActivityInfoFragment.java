@@ -12,6 +12,7 @@ import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 
 public class ActivityInfoFragment extends Fragment {
 
@@ -24,10 +25,15 @@ public class ActivityInfoFragment extends Fragment {
 		android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 
 		// Add a fucking fragment
-		AddActivityFragment myFragment = new AddActivityFragment();
-		fragmentTransaction.replace(R.id.second_header_tab, myFragment);
+		AddActivityFragment myFragmentAddActivity = new AddActivityFragment();
+		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
 		fragmentTransaction.commit();
 
+		// Add a fucking fragment
+		AddActivityGeneralInformationFragment myFragmentGeneralInfo = new AddActivityGeneralInformationFragment();
+		fragmentTransaction.replace(R.id.activity_fragment, myFragmentGeneralInfo);
+		fragmentTransaction.commit();
+		
 		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
 				new LightingColorFilter(0x0033FF, 0x0066FF));
 

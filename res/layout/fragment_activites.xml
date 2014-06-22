@@ -102,6 +102,7 @@
                 <!-- Row 1 with single column -->
 
                 <TableRow
+                    android:id="@+id/tableRow1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#000000"
@@ -251,7 +252,6 @@
                 <!-- Row 2 with 3 columns -->
 
                 <TableRow
-                    android:id="@+id/tableRow1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#000000"
