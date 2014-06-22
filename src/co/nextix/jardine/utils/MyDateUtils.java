@@ -12,13 +12,16 @@ public class MyDateUtils {
 		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 		// DateFormat outputFormat = sdf;
 		// String text = outputFormat.format(date);
-		Date gmtTime = new Date(sdf.format(date));
+		
+//		Date gmtTime = new Date(sdf.format(date));
+		
+		String text = sdf.format(date);
 
-		// Convert UTC to Local Time
-		Date fromGmt = new Date(gmtTime.getTime()
-				+ TimeZone.getDefault().getOffset(date.getTime()));
-		DateFormat outputFormat = sdf;
-		String text = outputFormat.format(fromGmt);
+//		// Convert UTC to Local Time
+//		Date fromGmt = new Date(gmtTime.getTime()
+//				+ TimeZone.getDefault().getOffset(date.getTime()));
+//		DateFormat outputFormat = sdf;
+//		String text = outputFormat.format(fromGmt);
 
 		return text;
 	}

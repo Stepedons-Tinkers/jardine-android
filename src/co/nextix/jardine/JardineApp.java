@@ -17,7 +17,7 @@ public class JardineApp extends Application {
 	public static CookieManager CookieManager = new CookieManager();
 	public static HttpURLConnection httpConnection;
 
-	public static DatabaseAdapter DB = DatabaseAdapter.getInstance();
+	public static DatabaseAdapter DB;
 
 	/** REQUESTS CONSTANTS **/
 	public static final String REQUEST_LINEEND = "\r\n";
@@ -27,7 +27,8 @@ public class JardineApp extends Application {
 	@Override
 	public void onCreate() {
 		DatabaseAdapter.init(this);
-		DatabaseAdapter.getInstance().open();
+		DB = DatabaseAdapter.getInstance();
+		DB.open();
 		context = getApplicationContext();
 		super.onCreate();
 	}
