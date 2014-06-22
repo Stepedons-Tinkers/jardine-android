@@ -130,7 +130,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvWorkPlanInfoDate"
+                    android:id="@+id/tvCustomerInfoAddress"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -197,7 +197,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvWorkPlanInfoArea"
+                    android:id="@+id/tvCustomerInfoLandline"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"

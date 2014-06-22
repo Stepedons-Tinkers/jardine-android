@@ -41,6 +41,14 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private TableRow trow;
 	private EditText search;
 
+	public static CollateralsEventFiles newInstance(long id) {
+		CollateralsEventFiles fragment = new CollateralsEventFiles();
+		Bundle b = new Bundle();
+		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
+		fragment.setArguments(b);
+		return fragment;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {

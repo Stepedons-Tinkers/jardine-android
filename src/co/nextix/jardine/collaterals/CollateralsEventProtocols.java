@@ -8,6 +8,8 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -120,21 +122,29 @@ public class CollateralsEventProtocols extends Fragment implements
 		arrowRight.setOnClickListener(this);
 
 		EventProtocolTable table = JardineApp.DB.getEventProtocol();
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		long userId = Long.parseLong(id);
+
+		realRecord = new ArrayList<EventProtocolRecord>();
+		realRecord.addAll(table.getAllRecordsByUser(userId));
+
+		Toast.makeText(getActivity(), userId + "", Toast.LENGTH_SHORT).show();
 		tempRecord = new ArrayList<EventProtocolRecord>();
 
-		for (int i = 1; i <= 37; i++) {
-			EventProtocolRecord rec = new EventProtocolRecord();
-			rec.setNo("EVP00" + i);
-			rec.setDescription("Description " + i);
-			rec.setEventType(i);
-			if (i % 2 == 0) {
-				rec.setIsActive(1);
-			} else {
-				rec.setIsActive(0);
-			}
-
-			realRecord.add(rec);
-		}
+		// for (int i = 1; i <= 37; i++) {
+		// EventProtocolRecord rec = new EventProtocolRecord();
+		// rec.setNo("EVP00" + i);
+		// rec.setDescription("Description " + i);
+		// rec.setEventType(i);
+		// if (i % 2 == 0) {
+		// rec.setIsActive(1);
+		// } else {
+		// rec.setIsActive(0);
+		// }
+		//
+		// realRecord.add(rec);
+		// }
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -184,7 +194,7 @@ public class CollateralsEventProtocols extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									new CollateralsDetails(), JardineApp.TAG)
+									CollateralsDetails.newInstance(epr.getId()), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

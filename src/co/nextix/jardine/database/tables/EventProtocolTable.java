@@ -191,7 +191,7 @@ public class EventProtocolTable {
 		return rowsDeleted;
 	}
 
-	public EventProtocolRecord getById(int ID) {
+	public EventProtocolRecord getById(long ID) {
 		EventProtocolRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_EVENTPROTOCOL_ROWID + "=?";
@@ -271,7 +271,7 @@ public class EventProtocolTable {
 		return record;
 	}
 
-	public long insertUser(String no, String description, String lastUpdate,
+	public long insert(String no, String description, String lastUpdate,
 			String tags, long eventType, int isActive, String createdTime,
 			String modifiedTime, long user) {
 		// if (name == null) {
@@ -302,7 +302,7 @@ public class EventProtocolTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_EVENTPROTOCOL_ROWID + "=" + rowId,
 				null) > 0) {
 			getRecords().deleteById(rowId);
@@ -312,7 +312,7 @@ public class EventProtocolTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, String description,
+	public boolean update(long id, String no, String description,
 			String lastUpdate, String tags, long eventType, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -424,7 +424,7 @@ public class EventProtocolTable {
 				@Override
 				public void remove() {
 					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
+						delete(list.get(current).getId());
 						deleteById(list.get(current).getId());
 						list.remove(current);
 					}

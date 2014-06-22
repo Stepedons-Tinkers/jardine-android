@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/LinearLayout2"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_weight="3"
+        android:background="@drawable/notif_list_header_left"
+        android:gravity="center"
+        android:text="CRM No"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_xxxlarge" />
+
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:textColor="@color/dark_gray"
+        android:background="@drawable/notif_list_header_left"
+        android:gravity="center"
+        android:text="First Name"
+        android:textSize="@dimen/text_xxxlarge" />
+    
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:textColor="@color/dark_gray"
+        android:background="@drawable/notif_list_header_left"
+        android:gravity="center"
+        android:text="Last Name"
+        android:textSize="@dimen/text_xxxlarge" />
+    
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        android:textColor="@color/dark_gray"
+        android:background="@drawable/notif_list_header_left"
+        android:gravity="center"
+        android:text="Position"
+        android:textSize="@dimen/text_xxxlarge" />
+    
+    <TextView
+        android:layout_width="1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="5dp"
+        android:layout_weight="3"
+        android:background="@drawable/notif_list_header_left"
+        android:gravity="center"
+        android:text="Mobile No"
+        android:textColor="@color/dark_gray"
+        android:textSize="@dimen/text_xxxlarge" />
+
+</LinearLayout>
