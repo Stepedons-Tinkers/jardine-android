@@ -14,11 +14,14 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.util.List;
 
+import org.apache.http.client.utils.URIUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import android.net.Uri;
 import android.text.TextUtils;
 import android.util.Log;
+import android.webkit.URLUtil;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
@@ -94,14 +97,16 @@ public class PicklistRequests {
 		List<PicklistModel> model = null;
 
 		String query = "";
-		try {
-			query = URLEncoder
-					.encode("?query=&quot;select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')&quot;&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist",
+//		try {
+//			query = URLEncoder
+//					.encode("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist",
+//							"UTF-8");
+			query = Uri.encode("\"select fieldid, fieldname, tablename from vtiger_field where uitype = 15 and tablename in ('vtiger_xcustomers', 'vtiger_xactivity', 'vtiger_xccperson', 'vtiger_xeventprotocol', 'vtiger_xactivitytype', 'vtiger_xworkplanentry', 'vtiger_xjdiproductstockcheck', 'vtiger_xcompprodstockcheck', 'vtiger_xjdimerchcheck', 'vtiger_xprojectrequirement')\"&sessionName=16ea00dd53a54a56c8cb2&operation=querypicklist",
 							"UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			e1.printStackTrace();
-		}
-		String urlString = JardineApp.WEB_URL + query;
+//		} catch (UnsupportedEncodingException e1) {
+//			e1.printStackTrace();
+//		}
+		String urlString = JardineApp.WEB_URL + "?query=" + query;
 
 		URL url;
 		try {
