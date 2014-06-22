@@ -211,7 +211,7 @@ public class BusinessUnitTable {
 		return record;
 	}
 
-	public long insertUser(String no, String businessUnitName,
+	public long insert(String no, String businessUnitName,
 			String businessUnitCode, int isActive, String createdTime,
 			String modifiedTime, long user) {
 		// if (name == null) {
@@ -240,7 +240,7 @@ public class BusinessUnitTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_BUSINESSUNIT_ROWID + "=" + rowId,
 				null) > 0) {
 			getRecords().deleteById(rowId);
@@ -250,7 +250,7 @@ public class BusinessUnitTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, String businessUnitName,
+	public boolean update(long id, String no, String businessUnitName,
 			String businessUnitCode, int isActive, String createdTime,
 			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -358,7 +358,7 @@ public class BusinessUnitTable {
 				@Override
 				public void remove() {
 					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
+						delete(list.get(current).getId());
 						deleteById(list.get(current).getId());
 						list.remove(current);
 					}

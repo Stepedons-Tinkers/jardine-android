@@ -1,5 +1,6 @@
 package co.nextix.jardine.fragments;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -19,6 +20,9 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.LoginActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.database.tables.MarketingMaterialsTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
@@ -30,6 +34,10 @@ import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistDependencyModel;
 import co.nextix.jardine.web.PicklistModel;
 import co.nextix.jardine.web.PicklistRequests;
+import co.nextix.jardine.web.SyncRequests;
+import co.nextix.jardine.web.models.BusinessUnitModel;
+import co.nextix.jardine.web.models.EventProtocolModel;
+import co.nextix.jardine.web.models.MarketingMaterialsModel;
 import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.LoginModel;
 
@@ -37,6 +45,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 	private final String TAG = "Webservice";
 	ProgressDialog dialog;
+	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
 
 	public SyncMenuBarFragment() {
 	}
@@ -116,6 +125,151 @@ public class SyncMenuBarFragment extends Fragment {
 			//
 			// }
 			// }
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveBusinessUnitTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveBusinessUnitTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<BusinessUnitModel> results = new ArrayList<BusinessUnitModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving BusinessUnit");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			BusinessUnitTable table = JardineApp.DB.getBusinessUnit();
+
+			SyncRequests request = new SyncRequests();
+			results = request.BusinessUnit(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (BusinessUnitModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						table.insert(model.getCrmNo(), model.getName(),
+								model.getCode(),
+								Integer.parseInt(model.getIsactive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				new RetrieveMarketingMaterialsTask().execute();
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveMarketingMaterialsTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<MarketingMaterialsModel> results = new ArrayList<MarketingMaterialsModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving MarketingMaterials");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			MarketingMaterialsTable table = JardineApp.DB
+					.getMarketingMaterials();
+
+			SyncRequests request = new SyncRequests();
+			results = request.MarketingMaterials(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (MarketingMaterialsModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+						table.insert(model.getCrmNo(), model.getDescription(),
+								model.getLastUpdat(), model.getTags(),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+
+			} else {
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class RetrieveEventProtocolTask extends
+			AsyncTask<Void, Void, Boolean> {
+		List<EventProtocolModel> results = new ArrayList<EventProtocolModel>();
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Retrieving EventProtocol");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			EventProtocolTable table = JardineApp.DB.getEventProtocol();
+			// event type
+
+			SyncRequests request = new SyncRequests();
+			results = request.EventProtocols(MyDateUtils.getYesterday())
+					.getUpdated();
+			if (results != null) {
+				for (EventProtocolModel model : results) {
+					if (!table.isExisting(model.getCrmNo())) {
+
+						// table.insertUser(model.getCrmNo(),
+						// model.getDescription(), model.getLastUpdat(),
+						// model.getTags(), mode, isActive, createdTime,
+						// modifiedTime, user)
+					}
+				}
+			}
 
 			return true;
 		}

@@ -220,7 +220,7 @@ public class MarketingMaterialsTable {
 		return record;
 	}
 
-	public long insertUser(String no, String description, String lastUpdate,
+	public long insert(String no, String description, String lastUpdate,
 			String tags, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -248,7 +248,7 @@ public class MarketingMaterialsTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_MARKETINGMATERIALS_ROWID + "="
 				+ rowId, null) > 0) {
 			getRecords().deleteById(rowId);
@@ -258,7 +258,7 @@ public class MarketingMaterialsTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, String description,
+	public boolean update(long id, String no, String description,
 			String lastUpdate, String tags, String createdTime,
 			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -366,7 +366,7 @@ public class MarketingMaterialsTable {
 				@Override
 				public void remove() {
 					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
+						delete(list.get(current).getId());
 						deleteById(list.get(current).getId());
 						list.remove(current);
 					}
