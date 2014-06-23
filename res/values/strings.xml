@@ -20,6 +20,16 @@
         <item>Logout</item>
     </string-array>
 
+    <!-- Activities Spinner Items -->
+    <string-array name="activity_spinner_items">
+        <item>WPID</item>
+        <item>Customer</item>
+        <item>Date</item>
+        <item>Activity Type</item>
+        <item>Assigned To</item>
+        <item>Action</item>
+    </string-array>
+
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">

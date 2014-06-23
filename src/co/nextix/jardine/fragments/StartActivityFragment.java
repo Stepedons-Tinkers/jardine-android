@@ -12,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -25,14 +27,17 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 
 public class StartActivityFragment extends Fragment {
-	
+
 	private View rootView = null;
 	private EditText editMonth = null;
 	private Calendar c = null;
 	private Date today = null;
 	private SimpleDateFormat df = null;
 	private String formattedDate = null;
-	public int day, month, year;
+	public int day = 0;
+	public int month = 0;
+	public int year = 0;
+	private Spinner addActivitySpinner = null;
 
 	public StartActivityFragment() {
 		this.c = Calendar.getInstance();
@@ -46,9 +51,14 @@ public class StartActivityFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(), R.layout.workplan_spinner_row, getResources()
+				.getStringArray(R.array.activity_spinner_items));
+
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
 		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
+		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.formattedDate = this.df.format(this.c.getTime());
+		this.addActivitySpinner.setAdapter(sAdapter);
 
 		// Now formattedDate have current date/time
 		Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
@@ -95,9 +105,9 @@ public class StartActivityFragment extends Fragment {
 						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 			}
 		});
-		
+
 		((TableRow) this.rootView.findViewById(R.id.tableRow1)).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
@@ -117,26 +127,26 @@ public class StartActivityFragment extends Fragment {
 	}
 
 	private void addTableRow() {
-	    final TableLayout table = (TableLayout) this.rootView.findViewById(R.id.activity_table);
-	    final TableRow tr = (TableRow) getLayoutInflater(null).inflate(R.layout.table_row_item, null);
+		final TableLayout table = (TableLayout) this.rootView.findViewById(R.id.activity_table);
+		final TableRow tr = (TableRow) getLayoutInflater(null).inflate(R.layout.table_row_item, null);
 
-	    TextView tv;
-	    // Fill out our cells
-	    //tv = (TextView) tr.findViewById(R.id.cell_1);
-	    //tv.setText(...);
-	   
-	    //tv = (TextView) tr.findViewById(R.id.cell_N);
-	    //tv.setText(...);
-	    //table.addView(tr);
+		TextView tv;
+		// Fill out our cells
+		// tv = (TextView) tr.findViewById(R.id.cell_1);
+		// tv.setText(...);
 
-	    // Draw separator
-	    //tv = new TextView(this);
-	    //tv.setBackgroundColor(Color.parseColor("#80808080"));
-	    //tv.setHeight(4/*height of separaor line. 2dip will be enough*/);
-	   // table.addView(tv);
+		// tv = (TextView) tr.findViewById(R.id.cell_N);
+		// tv.setText(...);
+		// table.addView(tr);
 
-	    // If you use context menu it should be registered for each table row
-	    registerForContextMenu(tr);
+		// Draw separator
+		// tv = new TextView(this);
+		// tv.setBackgroundColor(Color.parseColor("#80808080"));
+		// tv.setHeight(4/*height of separaor line. 2dip will be enough*/);
+		// table.addView(tv);
+
+		// If you use context menu it should be registered for each table row
+		registerForContextMenu(tr);
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {

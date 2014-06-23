@@ -7,69 +7,96 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
         android:baselineAligned="false"
-        android:gravity="right"
+        android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:weightSum="2" >
 
-        <EditText
-            android:id="@+id/search"
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:background="@android:drawable/edit_text"
-            android:drawableLeft="@android:drawable/ic_menu_search"
-            android:ems="10"
-            android:gravity="center"
-            android:inputType="textMultiLine" />
+            android:layout_gravity="left"
+            android:background="#ffffff"
+            android:gravity="left" >
+
+            <Spinner
+                android:id="@+id/add_activity_spinner"
+                android:layout_width="197dp"
+                android:layout_height="64dp"
+                android:layout_alignParentLeft="true"
+                android:layout_marginRight="14dp"
+                android:layout_marginTop="5dp"
+                android:background="@android:drawable/btn_dropdown"
+                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
+                android:spinnerMode="dropdown" />
+
+            <EditText
+                android:id="@+id/search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/add_activity_spinner"
+                android:layout_toRightOf="@+id/add_activity_spinner"
+                android:background="@android:drawable/edit_text"
+                android:drawableLeft="@android:drawable/ic_menu_search"
+                android:ems="10"
+                android:gravity="center"
+                android:inputType="textMultiLine" />
+        </RelativeLayout>
+
+        <ImageButton
+            android:id="@+id/activity_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/prev_button"
+            android:layout_alignBottom="@+id/prev_button"
+            android:layout_marginLeft="14dp"
+            android:layout_toLeftOf="@+id/next_button"
+            android:onClick="openCalendar"
+            android:src="@android:drawable/ic_menu_my_calendar" />
 
         <ImageButton
             android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="44dp"
-            android:layout_marginRight="14dp"
-            android:layout_marginTop="5dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/editMonth"
             android:onClick="prev"
-            android:src="@android:drawable/ic_media_previous" >
-        </ImageButton>
+            android:src="@android:drawable/ic_media_previous" />
+
+        <ImageButton
+            android:id="@+id/next_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignTop="@+id/prev_button"
+            android:layout_alignBottom="@+id/prev_button"
+            android:layout_marginLeft="14dp"
+            android:layout_marginRight="14dp"
+            android:onClick="next"
+            android:src="@android:drawable/ic_media_next" />
 
         <EditText
             android:id="@+id/editMonth"
             android:layout_width="174dip"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
+            android:layout_alignBottom="@+id/prev_button"
+            android:layout_alignTop="@+id/prev_button"
+            android:layout_toLeftOf="@+id/activity_schedule"
+            android:layout_marginTop="6dp"
+            android:layout_marginLeft="14dp"
             android:background="@android:drawable/edit_text"
             android:ems="10"
             android:focusable="false"
             android:gravity="center"
             android:inputType="textMultiLine" />
 
-        <ImageButton
-            android:id="@+id/activity_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="5dp"
-            android:onClick="openCalendar"
-            android:src="@android:drawable/ic_menu_my_calendar" />
-
-        <ImageButton
-            android:id="@+id/next_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="5dp"
-            android:onClick="next"
-            android:src="@android:drawable/ic_media_next" >
-        </ImageButton>
-    </LinearLayout>
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
