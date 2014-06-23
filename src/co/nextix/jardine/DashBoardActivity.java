@@ -6,7 +6,6 @@ import java.util.Date;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.graphics.LightingColorFilter;
@@ -613,7 +612,7 @@ public class DashBoardActivity extends FragmentActivity {
 		this.clearColorFilter(findViewById(R.id.customer_contact_person));
 		this.clearColorFilter(findViewById(R.id.jdi_stock_check));
 	}
-
+	
 	protected void clearColorFilter(View view) {
 		Drawable d = view.getBackground();
 		view.invalidateDrawable(d);

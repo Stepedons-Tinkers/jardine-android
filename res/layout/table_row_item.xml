@@ -2,9 +2,7 @@
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="@android:drawable/list_selector_background"
-    android:clickable="true"
-    android:focusable="true"
+    android:background="#000000"
     android:focusableInTouchMode="false" >
 
     <HorizontalScrollView
@@ -13,16 +11,13 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView04"
+            android:id="@+id/crm_no_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
             android:padding="14dip"
             android:scrollHorizontally="true"
@@ -37,22 +32,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView05"
+            android:id="@+id/workplan_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 2"
             android:textColor="#000000" />
     </HorizontalScrollView>
@@ -63,22 +53,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView06"
+            android:id="@+id/activity_type_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 3"
             android:textColor="#000000" />
     </HorizontalScrollView>
@@ -89,22 +74,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView07"
+            android:id="@+id/start_time_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 4"
             android:textColor="#000000" />
     </HorizontalScrollView>
@@ -115,22 +95,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView08"
+            android:id="@+id/end_time_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 5"
             android:textColor="#000000" />
     </HorizontalScrollView>
@@ -141,48 +116,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView09"
+            android:id="@+id/assigned_to_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
-            android:text="Row 2 column 6"
-            android:textColor="#000000" />
-    </HorizontalScrollView>
-
-    <HorizontalScrollView
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="2dp"
-        android:layout_marginRight="2dp"
-        android:layout_weight="0.3"
-        android:background="#b0b0b0" >
-
-        <TextView
-            android:id="@+id/TextView09"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
-            android:padding="14dip"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 6"
             android:textColor="#000000" />
     </HorizontalScrollView>
@@ -193,22 +137,17 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="4dp"
         android:layout_weight="0.3"
-        android:background="#b0b0b0" >
+        android:background="#dcdcdc" >
 
         <TextView
-            android:id="@+id/TextView09"
+            android:id="@+id/action_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#dcdcdc"
-            android:clickable="true"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:gravity="center"
-            android:onClick="displayDetailedWorkplanView"
             android:padding="14dip"
             android:scrollHorizontally="true"
             android:singleLine="true"
-            android:state_selected="true"
             android:text="Row 2 column 6"
             android:textColor="#000000" />
     </HorizontalScrollView>

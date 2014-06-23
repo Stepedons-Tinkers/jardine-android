@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:background="#ffffff"
     android:fadingEdge="vertical"
     android:gravity="center"
     android:orientation="vertical" >
 
     <RelativeLayout
+        android:id="@+id/search_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
@@ -53,8 +54,8 @@
             android:id="@+id/activity_schedule"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/prev_button"
             android:layout_alignBottom="@+id/prev_button"
+            android:layout_alignTop="@+id/prev_button"
             android:layout_marginLeft="14dp"
             android:layout_toLeftOf="@+id/next_button"
             android:onClick="openCalendar"
@@ -73,9 +74,9 @@
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/prev_button"
             android:layout_alignParentRight="true"
             android:layout_alignTop="@+id/prev_button"
-            android:layout_alignBottom="@+id/prev_button"
             android:layout_marginLeft="14dp"
             android:layout_marginRight="14dp"
             android:onClick="next"
@@ -87,49 +88,48 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/prev_button"
             android:layout_alignTop="@+id/prev_button"
-            android:layout_toLeftOf="@+id/activity_schedule"
-            android:layout_marginTop="6dp"
             android:layout_marginLeft="14dp"
+            android:layout_marginTop="6dp"
+            android:layout_toLeftOf="@+id/activity_schedule"
             android:background="@android:drawable/edit_text"
             android:ems="10"
             android:focusable="false"
             android:gravity="center"
             android:inputType="textMultiLine" />
-
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/search_layout"
         android:fillViewport="true"
         android:isScrollContainer="true"
         android:overScrollMode="always"
         android:scrollbarStyle="outsideInset"
         android:scrollbars="none" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="#ffffff"
             android:orientation="vertical" >
 
             <TableLayout
                 android:id="@+id/activity_table"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="#ffffff"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
                 android:paddingRight="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingTop="7dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*" >
 
                 <!-- Row 1 with single column -->
 
                 <TableRow
-                    android:id="@+id/tableRow1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#000000"
@@ -142,16 +142,22 @@
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="WPID"
+                            android:text="@string/crm_no"
                             android:textColor="#000"
                             android:textSize="14dp" />
                     </HorizontalScrollView>
@@ -163,24 +169,25 @@
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/customer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Customer"
+                            android:text="@string/workplan_info_workplan"
                             android:textColor="#000"
                             android:textSize="14dp" />
-
-                        <requestFocus
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent" />
                     </HorizontalScrollView>
 
                     <HorizontalScrollView
@@ -190,16 +197,22 @@
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="Date"
+                            android:text="@string/activity_type"
                             android:textColor="#000"
                             android:textSize="14dp" />
                     </HorizontalScrollView>
@@ -211,18 +224,51 @@
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/activity_type"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Activity Type"
+                            android:text="@string/start_time"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
+
+                        <TextView
+                            android:id="@+id/assigned_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/end_time"
                             android:textColor="#000"
                             android:textSize="14dp" />
 
@@ -236,18 +282,23 @@
                         android:layout_marginRight="2dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/assigned_to"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Assigned To"
+                            android:text="@string/assigned_to"
                             android:textColor="#000"
                             android:textSize="14dp" />
 
@@ -261,11 +312,17 @@
                         android:layout_marginRight="4dp"
                         android:layout_marginTop="4dp"
                         android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:background="#b0b0b0"
+                        android:clickable="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:clickable="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
@@ -276,762 +333,87 @@
                     </HorizontalScrollView>
                 </TableRow>
 
-                <!-- Row 2 with 3 columns -->
-
-                <TableRow
+                <ListView
+                    android:id="@+id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000000"
-                    android:clickable="true"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:orientation="horizontal" >
+                    android:layout_height="235dp"
+                    android:choiceMode="singleChoice"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:drawSelectorOnTop="true"
+                    android:listSelector="@color/collaterals_tablerow_trasparent_select"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
 
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView04"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 2 column 1"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView05"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Row 2 column 2"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView06"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Row 2 column 3"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView07"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Row 2 column 4"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView08"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Row 2 column 5"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView09"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:clickable="true"
-                            android:focusable="true"
-                            android:focusableInTouchMode="true"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="Row 2 column 6"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-                </TableRow>
-
-                <!-- Row 3 with 2 columns -->
-
-                <TableRow
+                <View
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000000"
-                    android:gravity="center_horizontal" >
+                    android:layout_height="4dp"
+                    android:background="@color/black" />
 
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView04"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 1"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView05"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 2"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView06"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 3"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView07"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 4"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView08"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 5"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView09"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 3 column 6"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-                </TableRow>
-
-                <!-- Row 4 with 6 columns -->
-
-                <TableRow
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000000"
-                    android:gravity="center_horizontal" >
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="7dp" >
 
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
+                        android:layout_alignParentBottom="true"
+                        android:gravity="center" >
+
+                        <ImageButton
+                            android:id="@+id/imageButton1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBottom="@+id/status_count_text"
+                            android:layout_alignTop="@+id/status_count_text"
+                            android:layout_toLeftOf="@+id/status_count_text"
+                            android:onClick="prev"
+                            android:src="@drawable/prev" />
 
                         <TextView
-                            android:id="@+id/TextView04"
-                            android:layout_width="0dp"
+                            android:id="@+id/status_count_text"
+                            android:layout_width="74dp"
                             android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="Row 4 column 1"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
+                            android:text="1 of 1"
+                            android:textColor="#000000"
+                            android:textSize="17sp" />
 
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView05"
-                            android:layout_width="0dp"
+                        <ImageButton
+                            android:id="@+id/imageButton3"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 4 column 2"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
+                            android:layout_marginRight="24dp"
+                            android:onClick="next"
+                            android:src="@drawable/next" />
+                    </LinearLayout>
 
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
+                    <Button
+                        android:id="@+id/add_activity_button"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView06"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 4 column 3"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView07"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 4 column 4"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView08"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 4 column 5"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView09"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 4 column 6"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-                </TableRow>
-
-                <!-- Row 5 with 6 columns -->
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000000"
-                    android:gravity="center_horizontal" >
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView04"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 1"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView05"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 2"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView06"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 3"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView07"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 4"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView08"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 5"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#cac9c9" >
-
-                        <TextView
-                            android:id="@+id/TextView09"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#cac9c9"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 6"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="#000000"
-                    android:gravity="center_horizontal" >
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView04"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 1"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView05"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 2"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView06"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 3"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView07"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 4"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView08"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 5"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#dcdcdc" >
-
-                        <TextView
-                            android:id="@+id/TextView09"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:background="#dcdcdc"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="Row 5 column 6"
-                            android:textColor="#000000" />
-                    </HorizontalScrollView>
-                </TableRow>
+                        android:layout_alignParentBottom="true"
+                        android:layout_alignParentRight="true"
+                        android:onClick="addJDIProductStockCheck"
+                        android:text="@string/add_activity" />
+                </RelativeLayout>
             </TableLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|center_horizontal"
-                android:layout_marginBottom="14dp" >
-
-                <Button
-                    android:id="@+id/add_activity_button"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginLeft="144dp"
-                    android:layout_marginRight="14dp"
-                    android:layout_marginTop="5dp"
-                    android:onClick="addJDIProductStockCheck"
-                    android:text="@string/add_activity" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/add_activity_button"
-                    android:layout_alignTop="@+id/add_activity_button"
-                    android:layout_marginRight="24dp"
-                    android:layout_toLeftOf="@+id/add_activity_button"
-                    android:onClick="next"
-                    android:src="@drawable/next" />
-
-                <ImageButton
-                    android:id="@+id/imageButton1"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/imageButton3"
-                    android:layout_alignTop="@+id/imageButton3"
-                    android:layout_centerVertical="true"
-                    android:layout_toLeftOf="@+id/status_count_text"
-                    android:onClick="prev"
-                    android:src="@drawable/prev" />
-
-                <TextView
-                    android:id="@+id/status_count_text"
-                    android:layout_width="74dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/add_activity_button"
-                    android:layout_alignBottom="@+id/add_activity_button"
-                    android:layout_toLeftOf="@+id/imageButton3"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="1 of 1"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
-            </RelativeLayout>
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/status_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="54dp"
+        android:text="@string/no_data"
+        android:visibility="invisible" />
+
+</RelativeLayout>

@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.Button;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
@@ -29,11 +28,6 @@ public class ActivityInfoFragment extends Fragment {
 		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
 		fragmentTransaction.commit();
 
-		// Add a fucking fragment
-		AddActivityGeneralInformationFragment myFragmentGeneralInfo = new AddActivityGeneralInformationFragment();
-		fragmentTransaction.replace(R.id.activity_fragment, myFragmentGeneralInfo);
-		fragmentTransaction.commit();
-		
 		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
 				new LightingColorFilter(0x0033FF, 0x0066FF));
 

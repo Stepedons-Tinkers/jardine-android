@@ -1,10 +1,12 @@
 package co.nextix.jardine.fragments;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,18 +19,23 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class StartActivityFragment extends Fragment {
 
+	private StartActivityCustomAdapter adapter = null;
+	public Context CustomListView = null;
+	public ArrayList<StartActivityListModel> CustomListViewValuesArr = null;
 	private View rootView = null;
+	private ListView list = null;
 	private EditText editMonth = null;
 	private Calendar c = null;
 	private Date today = null;
@@ -54,11 +61,24 @@ public class StartActivityFragment extends Fragment {
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(), R.layout.workplan_spinner_row, getResources()
 				.getStringArray(R.array.activity_spinner_items));
 
+		this.CustomListViewValuesArr = new ArrayList<StartActivityListModel>();
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
 		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.formattedDate = this.df.format(this.c.getTime());
 		this.addActivitySpinner.setAdapter(sAdapter);
+
+		CustomListView = getActivity().getApplicationContext();
+
+		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
+		setListData();
+
+		this.list = (ListView) this.rootView.findViewById(R.id.list);
+
+		/**************** Create Custom Adapter *********/
+		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.CustomListViewValuesArr, this);
+		this.list.setAdapter(adapter);
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 
 		// Now formattedDate have current date/time
 		Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
@@ -106,17 +126,6 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
-		((TableRow) this.rootView.findViewById(R.id.tableRow1)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-			}
-		});
-
 		/*
 		 * ((Button)
 		 * rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter
@@ -147,6 +156,35 @@ public class StartActivityFragment extends Fragment {
 
 		// If you use context menu it should be registered for each table row
 		registerForContextMenu(tr);
+	}
+
+	/****** Function to set data in ArrayList *************/
+	public void setListData() {
+
+		for (int i = 1; i <= 5; i++) {
+
+			final StartActivityListModel sched = new StartActivityListModel();
+
+			/******* Firstly take data in model object ******/
+			sched.setCrmNo("CRM No. " + i);
+			sched.setWorkplan("Workplan" + i);
+			sched.setActivityType("Activity Type" + i);
+			sched.setStartTime("Start Time" + i);
+			sched.setEndTime("End time" + i);
+			sched.setAssignedTo("Assigned to" + i);
+			sched.setAction("edit|delete" + i);
+
+			/******** Take Model Object in ArrayList **********/
+			CustomListViewValuesArr.add(sched);
+		}
+
+	}
+
+	public void onItemClick(int mPosition) {
+		StartActivityListModel tempValues = (StartActivityListModel) CustomListViewValuesArr.get(mPosition);
+		Toast.makeText(getActivity(),
+				"" + tempValues.getCrmNo() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
+				Toast.LENGTH_LONG).show();
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {

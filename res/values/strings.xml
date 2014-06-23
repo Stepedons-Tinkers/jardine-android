@@ -92,8 +92,8 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
-    <string name="crm_no">CRM No.:</string>
-    <string name="start_time">Start Time:</string>
+    <string name="crm_no">CRM No</string>
+    <string name="start_time">Start Time</string>
     <string name="latitude">Latitude:</string>
     <string name="objective">Objective:</string>
     <string name="highlights">Highlights:</string>
@@ -101,18 +101,19 @@
     <string name="workplan_entry">Workplan Entry:</string>
     <string name="first_time_visit">First Time Visit:</string>
     <string name="created_time">Created Time:</string>
-    <string name="assigned_to">Assigned To:</string>
-    <string name="activity_gen">Activity:</string>
-    <string name="end_time">End Time:</string>
+    <string name="assigned_to">Assigned To</string>
+    <string name="activity_gen">Activity</string>
+    <string name="end_time">End Time</string>
     <string name="longitude">Longitude:</string>
     <string name="notes">Notes:</string>
     <string name="next_steps">Next Steps:</string>
-    <string name="activity_type">Activity Type:</string>
+    <string name="activity_type">Activity Type</string>
     <string name="customer">Customer:</string>
     <string name="planned_visit">Planned Visit:</string>
     <string name="modified_time">Modified Time:</string>
     <string name="edit_activity">Edit Activity</string>
     <string name="back_to_activity">Back to Activity </string>
+    <string name="no_data">No Data</string>
 
     <!-- Create/Edit Activity Details / General Information -->
     <string name="workplan_gen_info">Workplan</string>

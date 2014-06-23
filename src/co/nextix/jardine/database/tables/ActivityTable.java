@@ -82,7 +82,7 @@ public class ActivityTable {
 	// Private methods
 	// ===========================================================
 
-	private List<ActivityRecord> getAllRecords() {
+	public List<ActivityRecord> getAllRecords() {
 		Cursor c = null;
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
