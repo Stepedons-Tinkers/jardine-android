@@ -5,11 +5,13 @@ import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.List;
 
 import android.text.TextUtils;
@@ -51,9 +53,15 @@ public class SyncRequests {
 
 		SyncRequester<List<BusinessUnitModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.BusinessUnit + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -70,11 +78,15 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
+				Log.d(TAG, "**************1");
 				Type typeOfT = new TypeToken<SyncRequester<List<BusinessUnitModel>>>() {
 				}.getType();
+				Log.d(TAG, "**************2");
 				SyncRequester<List<BusinessUnitModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
+				Log.d(TAG, "**************3");
 				result = requester.getResult();
+				Log.d(TAG, "**************4");
 
 			} else {
 				// getResponse();
@@ -96,9 +108,16 @@ public class SyncRequests {
 
 		SyncRequester<List<MarketingMaterialsModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.MarketingMaterials + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -141,9 +160,16 @@ public class SyncRequests {
 
 		SyncRequester<List<EventProtocolModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.EventProtocol + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -185,9 +211,16 @@ public class SyncRequests {
 
 		SyncRequester<List<ProductModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Product + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&modifiedTime=" + lastSync + "&operation=" + operation;
+				+ "&modifiedTime=" + time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -228,9 +261,16 @@ public class SyncRequests {
 
 		SyncRequester<List<SupplierModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Supplier + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&modifiedTime=" + lastSync + "&operation=" + operation;
+				+ "&modifiedTime=" + time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -272,9 +312,16 @@ public class SyncRequests {
 
 		SyncRequester<List<CompetitorModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Competitor + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -317,9 +364,16 @@ public class SyncRequests {
 
 		SyncRequester<List<CompetitorProductModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.CompetitorProduct + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -361,9 +415,16 @@ public class SyncRequests {
 
 		SyncRequester<List<SMRModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType=" + Modules.SMR
 				+ "&sessionName=" + JardineApp.SESSION_NAME + "&modifiedTime="
-				+ lastSync + "&operation=" + operation;
+				+ time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -405,9 +466,16 @@ public class SyncRequests {
 
 		SyncRequester<List<SMRtimeCardModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.SMRTimeCard + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -449,9 +517,16 @@ public class SyncRequests {
 
 		SyncRequester<List<CustomerModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Customers + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&modifiedTime=" + lastSync + "&operation=" + operation;
+				+ "&modifiedTime=" + time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -471,7 +546,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<CustomerModel>> requester = gson.fromJson(
 						getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<CustomerModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -493,9 +569,16 @@ public class SyncRequests {
 
 		SyncRequester<List<CustomerContactModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.CustomerContact + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -516,7 +599,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<CustomerContactModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<CustomerContactModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -538,9 +622,16 @@ public class SyncRequests {
 
 		SyncRequester<List<ActivityTypeModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.ActivityType + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -561,7 +652,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<ActivityTypeModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<ActivityTypeModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -582,9 +674,16 @@ public class SyncRequests {
 
 		SyncRequester<List<WorkplanModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Workplan + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&modifiedTime=" + lastSync + "&operation=" + operation;
+				+ "&modifiedTime=" + time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -604,7 +703,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<WorkplanModel>> requester = gson.fromJson(
 						getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<WorkplanModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -626,9 +726,16 @@ public class SyncRequests {
 
 		SyncRequester<List<WorkplanEntryModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.ActivityType + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -649,7 +756,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<WorkplanEntryModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<WorkplanEntryModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -670,9 +778,16 @@ public class SyncRequests {
 
 		SyncRequester<List<ActivityModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.Activity + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&modifiedTime=" + lastSync + "&operation=" + operation;
+				+ "&modifiedTime=" + time + "&operation=" + operation;
 
 		URL url;
 		try {
@@ -692,7 +807,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<ActivityModel>> requester = gson.fromJson(
 						getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<ActivityModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -714,9 +830,16 @@ public class SyncRequests {
 
 		SyncRequester<List<JDImerchandisingCheckModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.JDIMerchCheck + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -737,7 +860,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<JDImerchandisingCheckModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<JDImerchandisingCheckModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -759,9 +883,16 @@ public class SyncRequests {
 
 		SyncRequester<List<JDIproductStockCheckModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.JDIProductStockCheck + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -782,7 +913,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<JDIproductStockCheckModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<JDIproductStockCheckModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -804,9 +936,16 @@ public class SyncRequests {
 
 		SyncRequester<List<CompetitorProductStockCheckModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.CompetitorProductStockCheck + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -827,7 +966,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<CompetitorProductStockCheckModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<CompetitorProductStockCheckModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -849,9 +989,16 @@ public class SyncRequests {
 
 		SyncRequester<List<MarketingIntelModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.MarketingIntel + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -872,7 +1019,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<MarketingIntelModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<MarketingIntelModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
@@ -894,9 +1042,16 @@ public class SyncRequests {
 
 		SyncRequester<List<ProjectRequirementModel>>.Result result = null;
 
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
 		String urlString = JardineApp.WEB_URL + "?elementType="
 				+ Modules.ProjectRequirement + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&modifiedTime=" + lastSync
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
 		URL url;
@@ -917,7 +1072,8 @@ public class SyncRequests {
 				}.getType();
 				SyncRequester<List<ProjectRequirementModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (SyncRequester<List<ProjectRequirementModel>>.Result) requester
+						.getResult();
 
 			} else {
 				// getResponse();
