@@ -217,6 +217,27 @@ public class CompetitorProductTable {
 		return result;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_COMPETITORPRODUCT_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_COMPETITORPRODUCT_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public CompetitorProductRecord getByWebId(String ID) {
 		CompetitorProductRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

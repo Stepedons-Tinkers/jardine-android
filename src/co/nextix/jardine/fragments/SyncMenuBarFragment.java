@@ -19,6 +19,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.LoginActivity;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
@@ -86,6 +87,7 @@ import co.nextix.jardine.web.models.SupplierModel;
 import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.LoginModel;
+import co.nextix.jardine.web.requesters.SyncRequester;
 
 public class SyncMenuBarFragment extends Fragment {
 
@@ -457,15 +459,20 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (EventProtocolModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long eventType = eventTypeTable.getByName(
-								model.getType()).getId();
+						PicklistRecord type = eventTypeTable.getByName(model
+								.getType());
+						if (type != null) {
+							long eventType = type.getId();
 
-						table.insert(model.getCrmNo(), model.getDescription(),
-								model.getLastUpdat(), model.getTags(),
-								eventType,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//							if (eventType > 0)
+								table.insert(model.getCrmNo(),
+										model.getDescription(),
+										model.getLastUpdat(), model.getTags(),
+										eventType,
+										Integer.parseInt(model.getIsActive()),
+										model.getCreatedTime(),
+										model.getModifiedTime(), USER_ID);
+						}
 					}
 				}
 			}
@@ -508,15 +515,18 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (ProductModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long businessUnit = busTable.getByWebId(
-								model.getBusinessUnit()).getId();
+						long businessUnit = busTable.getIdByNo(model
+								.getBusinessUnit());
 
-						table.insertUser(model.getCrmNo(), model.getProdNum(),
-								model.getProdBrand(), model.getDescription(),
-								model.getProdSize(), businessUnit,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if (businessUnit > 0)
+							table.insertUser(model.getCrmNo(),
+									model.getProdNum(), model.getProdBrand(),
+									model.getDescription(),
+									model.getProdSize(), businessUnit,
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
+
 					}
 				}
 			}
@@ -657,15 +667,17 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (CompetitorProductModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long competitor = comptTable.getByWebId(
-								model.getCompetitor()).getId();
 
-						table.insert(model.getCrmNo(), competitor,
-								model.getProdBrand(), model.getProdDesc(),
-								model.getProdSize(),
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+						long competitor = comptTable.getIdByNo(model
+								.getCompetitor());
+
+//						if (competitor > 0)
+							table.insert(model.getCrmNo(), competitor,
+									model.getProdBrand(), model.getProdDesc(),
+									model.getProdSize(),
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -710,11 +722,13 @@ public class SyncMenuBarFragment extends Fragment {
 					if (!table.isExisting(model.getCrmNo())) {
 						long area = areaTable.getIdByName(model.getArea());
 
-						table.insertUser(model.getCrmNo(),
-								model.getFirstname(), model.getLastname(), 0,
-								area, Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if (area > 0)
+							table.insertUser(model.getCrmNo(),
+									model.getFirstname(), model.getLastname(),
+									0, area,
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -763,22 +777,27 @@ public class SyncMenuBarFragment extends Fragment {
 				for (CustomerModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
 						long area = areaTable.getIdByName(model.getArea());
-						long customerType = customerTypeTable.getByName(
-								model.getType()).getId();
-						long businessUnit = businessUnitTable.getByWebId(
-								model.getBusinessunit()).getId();
+						long customerType = 0;
+						if (customerTypeTable.getByName(model.getType()) != null)
+							customerType = customerTypeTable.getByName(
+									model.getType()).getId();
+						long businessUnit = businessUnitTable.getIdByNo(model
+								.getBusinessunit());
 						long province = provinceTable.getIdByName(model
 								.getProvince());
 						long cityTown = cityTable.getIdByName(model.getCity());
 
-						table.insertUser(model.getCrmNo(), model.getName(),
-								model.getChainname(), model.getLandline(),
-								model.getFax(), model.getCustomerSize(),
-								model.getStreetadd(), 0, customerType,
-								businessUnit, area, province, cityTown,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((area > 0) && (customerType > 0)
+//								&& (businessUnit > 0) && (province > 0)
+//								&& (cityTown > 0))
+							table.insertUser(model.getCrmNo(), model.getName(),
+									model.getChainname(), model.getLandline(),
+									model.getFax(), model.getCustomerSize(),
+									model.getStreetadd(), 0, customerType,
+									businessUnit, area, province, cityTown,
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -827,17 +846,20 @@ public class SyncMenuBarFragment extends Fragment {
 					if (!table.isExisting(model.getCrmNo())) {
 						long position = custPositionTable.getIdByName(model
 								.getPosition());
-						long customer = customerTable.getByWebId(
-								model.getCustomer()).getId();
+						long customer = 0;
+						if (customerTable.getByWebId(model.getCustomer()) != null)
+							customer = customerTable.getByWebId(
+									model.getCustomer()).getId();
 
-						table.insertUser(model.getCrmNo(),
-								model.getFirstname(), model.getLastname(),
-								position, model.getMobileno(),
-								model.getBirthday(), model.getEmail(),
-								customer,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((position > 0) && (customer > 0))
+							table.insertUser(model.getCrmNo(),
+									model.getFirstname(), model.getLastname(),
+									position, model.getMobileno(),
+									model.getBirthday(), model.getEmail(),
+									customer,
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -890,8 +912,10 @@ public class SyncMenuBarFragment extends Fragment {
 						long category = actCategoryTable.getIdByName(model
 								.getActivitytypeCategory());
 
-						table.insertUser(model.getCrmNo(), type, category,
-								Integer.parseInt(model.getIsActive()), USER_ID);
+//						if ((type > 0) && (category > 0))
+							table.insertUser(model.getCrmNo(), type, category,
+									Integer.parseInt(model.getIsActive()),
+									USER_ID);
 					}
 				}
 			}
@@ -989,6 +1013,11 @@ public class SyncMenuBarFragment extends Fragment {
 					if (!table.isExisting(model.getCrmNo())) {
 						// long customer =
 						// customerTable.getByWebId(model.getCustomer());
+						// long customer = 0;
+						// if
+						// (customerTable.getByWebId(customerTable.getByWebId(
+						// model.getCustomer())) != null)
+						// customer = .getId();
 						long area = areaTable.getIdByName(model.getArea());
 						long province = provinceTable.getIdByName(model
 								.getProvince());
@@ -998,11 +1027,15 @@ public class SyncMenuBarFragment extends Fragment {
 						long workplan = workplanTable.getByWebId(
 								model.getWorkplan()).getId();
 
-						table.insertUser(model.getCrmNo(), 0, model.getDate(),
-								Integer.parseInt(model.getStatus()), area,
-								province, cityTown, "remarks", activityType,
-								workplan, model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((area > 0) && (province > 0) && (cityTown > 0)
+//								&& (activityType > 0) && (workplan > 0))
+							table.insertUser(model.getCrmNo(), 0,
+									model.getDate(),
+									Integer.parseInt(model.getStatus()), area,
+									province, cityTown, "remarks",
+									activityType, workplan,
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1051,38 +1084,54 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (ActivityModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long workplanEntry = workplanEntryTable.getByWebId(
-								model.getWorkplanEntry()).getId();
-						long customer = customerTable.getByWebId(
-								model.getCustomer()).getId();
-						long smr = smrTable.getByWebId(model.getSmr()).getId();
-						long workplan = workplanTable.getByWebId(
-								model.getWorkplan()).getId();
-						long activityType = activityTypeTable.getByWebId(
-								model.getActivityType()).getId();
+						long workplanEntry = 0, customer = 0, workplan = 0, activityType = 0;
+						if (workplanEntryTable.getByWebId(model
+								.getWorkplanEntry()) != null)
+							workplanEntry = workplanEntryTable.getByWebId(
+									model.getWorkplanEntry()).getId();
+						if (customerTable.getByWebId(model.getCustomer()) != null)
+							customer = customerTable.getByWebId(
+									model.getCustomer()).getId();
+						long smr = smrTable.getIdByNo(model.getSmr());
+						if (workplanTable.getByWebId(model.getWorkplan()) != null)
+							workplan = workplanTable.getByWebId(
+									model.getWorkplan()).getId();
+						if (activityTypeTable.getByWebId(model
+								.getActivityType()) != null)
+							activityType = activityTypeTable.getByWebId(
+									model.getActivityType()).getId();
 
-						table.insertUser(model.getCrmNo(), workplan,
-								model.getStartTime(), model.getEndTime(),
-								Double.parseDouble(model.getLongitude()),
-								Double.parseDouble(model.getLatitude()),
-								model.getObjective(), model.getNotes(),
-								model.getHighlights(), model.getNextsteps(),
-								model.getFollowupcomdate(), activityType,
-								workplanEntry, customer,
-								Integer.parseInt(model.getFirstTimeVisit()),
-								Integer.parseInt(model.getPlannedvisit()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID, smr,
-								model.getIssuesIdentified(),
-								model.getFeedbackFromCu(),
-								model.getOngoingCampaigns(),
-								model.getLastDelivery(),
-								model.getPromoStubsDetails(),
-								model.getProjectName(),
-								model.getProjectCategory(),
-								model.getProjectStage(), model.getDate(),
-								model.getTime(), model.getVenue(),
-								model.getNoofattenees());
+//						if ((workplanEntry > 0) && (customer > 0) && (smr > 0)
+//								&& (workplan > 0) && (activityType > 0))
+							table.insertUser(
+									model.getCrmNo(),
+									workplan,
+									model.getStartTime(),
+									model.getEndTime(),
+									Double.parseDouble(model.getLongitude()),
+									Double.parseDouble(model.getLatitude()),
+									model.getObjective(),
+									model.getNotes(),
+									model.getHighlights(),
+									model.getNextsteps(),
+									model.getFollowupcomdate(),
+									activityType,
+									workplanEntry,
+									customer,
+									Integer.parseInt(model.getFirstTimeVisit()),
+									Integer.parseInt(model.getPlannedvisit()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID, smr,
+									model.getIssuesIdentified(),
+									model.getFeedbackFromCu(),
+									model.getOngoingCampaigns(),
+									model.getLastDelivery(),
+									model.getPromoStubsDetails(),
+									model.getProjectName(),
+									model.getProjectCategory(),
+									model.getProjectStage(), model.getDate(),
+									model.getTime(), model.getVenue(),
+									model.getNoofattenees());
 					}
 				}
 			}
@@ -1128,15 +1177,19 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (JDImerchandisingCheckModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long activity = activityTable.getByWebId(
-								model.getActivity()).getId();
-						long product = productTable.getByWebId(
-								model.getProduct()).getId();
+						long activity = 0;
+						if (activityTable.getByWebId(model.getActivity()) != null)
+							activity = activityTable.getByWebId(
+									model.getActivity()).getId();
+						long product = productTable.getIdByNo(model
+								.getProduct());
 
-						table.insertUser(model.getCrmNo(), activity, product,
-								Integer.parseInt(model.getStatus()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((activity > 0) && (product > 0))
+							table.insertUser(model.getCrmNo(), activity,
+									product,
+									Integer.parseInt(model.getStatus()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1185,20 +1238,25 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (JDIproductStockCheckModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long stockStatus = jdiProdStatusTable.getByName(
-								model.getStockstatus()).getId();
-						long supplier = supplierTable.getByWebId(
-								model.getSupplier()).getId();
-						long activity = activityTable.getByWebId(
-								model.getActivity()).getId();
-						long product = productTable.getByWebId(
-								model.getProduct()).getId();
+						long activity = 0;
+						long stockStatus = jdiProdStatusTable.getIdByName(model
+								.getStockstatus());
+						long supplier = supplierTable.getIdByNo(model
+								.getSupplier());
+						if (activityTable.getByWebId(model.getActivity()) != null)
+							activity = activityTable.getByWebId(
+									model.getActivity()).getId();
+						long product = productTable.getIdByNo(model
+								.getProduct());
 
-						table.insertUser(model.getCrmNo(), activity, product,
-								stockStatus, 0,
-								Integer.parseInt(model.getLoadedonshelves()),
-								supplier, model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((stockStatus > 0) && (supplier > 0)
+//								&& (activity > 0) && (product > 0))
+							table.insertUser(model.getCrmNo(), activity,
+									product, stockStatus, 0, Integer
+											.parseInt(model
+													.getLoadedonshelves()),
+									supplier, model.getCreatedTime(), model
+											.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1248,18 +1306,23 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (CompetitorProductStockCheckModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long stockStatus = compProdStatusTable.getByWebId(
-								model.getStockstatus()).getId();
-						long competitorProduct = compProdTable.getByWebId(
-								model.getCompetitorProduct()).getId();
-						long activity = activityTable.getByWebId(
-								model.getActivity()).getId();
+						long activity = 0;
+						long stockStatus = compProdStatusTable
+								.getIdByName(model.getStockstatus());
+						long competitorProduct = compProdTable.getIdByNo(model
+								.getCompetitorProduct());
+						if (activityTable.getByWebId(model.getActivity()) != null)
+							activity = activityTable.getByWebId(
+									model.getActivity()).getId();
 
-						table.insertUser(model.getCrmNo(), activity,
-								competitorProduct, stockStatus,
-								Integer.parseInt(model.getLoadedonshelves()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((activity > 0) && (stockStatus > 0)
+//								&& (competitorProduct > 0))
+							table.insertUser(model.getCrmNo(), activity,
+									competitorProduct, stockStatus, Integer
+											.parseInt(model
+													.getLoadedonshelves()),
+									model.getCreatedTime(), model
+											.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1305,15 +1368,18 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (MarketingIntelModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long competitor = compProdTable.getByWebId(
-								model.getCompetitor()).getId();
-						long activity = activityTable.getByWebId(
-								model.getActivity()).getId();
+						long activity = 0;
+						long competitor = compProdTable.getIdByNo(model
+								.getCompetitor());
+						if (activityTable.getByWebId(model.getActivity()) != null)
+							activity = activityTable.getByWebId(
+									model.getActivity()).getId();
 
-						table.insertUser(model.getCrmNo(), activity,
-								competitor, model.getDetails(), "remarks",
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if ((activity > 0) && (competitor > 0))
+							table.insertUser(model.getCrmNo(), activity,
+									competitor, model.getDetails(), "remarks",
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1361,15 +1427,17 @@ public class SyncMenuBarFragment extends Fragment {
 				for (ProjectRequirementModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
 						long projectRequirementType = projReqTypeTable
-								.getByName(model.getProjectReqType()).getId();
+								.getIdByName(model.getProjectReqType());
 
-						table.insertUser(model.getCrmNo(),
-								projectRequirementType, model.getDateNeeded(),
-								model.getSquaremeters(),
-								model.getProductsUsed(),
-								model.getOtherDetails(),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+//						if (projectRequirementType > 0)
+							table.insertUser(model.getCrmNo(),
+									projectRequirementType,
+									model.getDateNeeded(),
+									model.getSquaremeters(),
+									model.getProductsUsed(),
+									model.getOtherDetails(),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 					}
 				}
 			}

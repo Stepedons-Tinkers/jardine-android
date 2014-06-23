@@ -247,6 +247,28 @@ public class JDIproductStockCheckTable {
 		return record;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_JDIPRODUCTSTOCKCHECK_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_JDIPRODUCTSTOCKCHECK_NO
+				+ "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insertUser(String no, long activity, long product,
 			long stockStatus, int quantity, int loadedOnShelves, long supplier,
 			String createdTime, String modifiedTime, long user) {

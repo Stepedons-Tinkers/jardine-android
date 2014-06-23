@@ -170,6 +170,26 @@ public class CompetitorTable {
 		return record;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_COMPETITOR_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_COMPETITOR_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public String getNoById(long ID) {
 		String result = null;
 		String MY_QUERY = "SELECT " + KEY_COMPETITOR_NO + " FROM "
