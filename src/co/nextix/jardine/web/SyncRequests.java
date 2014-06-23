@@ -12,33 +12,51 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.util.List;
 
 import android.text.TextUtils;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
-import co.nextix.jardine.web.models.ActivityModel;
-import co.nextix.jardine.web.models.ActivityTypeModel;
-import co.nextix.jardine.web.models.BusinessUnitModel;
-import co.nextix.jardine.web.models.CompetitorModel;
-import co.nextix.jardine.web.models.CompetitorProductModel;
-import co.nextix.jardine.web.models.CompetitorProductStockCheckModel;
-import co.nextix.jardine.web.models.CustomerContactModel;
-import co.nextix.jardine.web.models.CustomerModel;
-import co.nextix.jardine.web.models.EventProtocolModel;
-import co.nextix.jardine.web.models.JDImerchandisingCheckModel;
-import co.nextix.jardine.web.models.JDIproductStockCheckModel;
-import co.nextix.jardine.web.models.MarketingIntelModel;
-import co.nextix.jardine.web.models.MarketingMaterialsModel;
-import co.nextix.jardine.web.models.ProductModel;
-import co.nextix.jardine.web.models.ProjectRequirementModel;
-import co.nextix.jardine.web.models.SMRModel;
-import co.nextix.jardine.web.models.SMRtimeCardModel;
-import co.nextix.jardine.web.models.SupplierModel;
-import co.nextix.jardine.web.models.WorkplanEntryModel;
-import co.nextix.jardine.web.models.WorkplanModel;
-import co.nextix.jardine.web.requesters.SyncRequester;
+import co.nextix.jardine.web.requesters.sync.SactRequester;
+import co.nextix.jardine.web.requesters.sync.SactRequester.ActResult;
+import co.nextix.jardine.web.requesters.sync.SacttypeRequester;
+import co.nextix.jardine.web.requesters.sync.SacttypeRequester.ActTypeResult;
+import co.nextix.jardine.web.requesters.sync.SbuRequester;
+import co.nextix.jardine.web.requesters.sync.SbuRequester.BuResult;
+import co.nextix.jardine.web.requesters.sync.ScompetitorRequester;
+import co.nextix.jardine.web.requesters.sync.ScompetitorRequester.ComptResult;
+import co.nextix.jardine.web.requesters.sync.ScompetrprodRequester;
+import co.nextix.jardine.web.requesters.sync.ScompetrprodRequester.ComptProdResult;
+import co.nextix.jardine.web.requesters.sync.ScompetrprodstockRequester;
+import co.nextix.jardine.web.requesters.sync.ScompetrprodstockRequester.ComptProdStockResult;
+import co.nextix.jardine.web.requesters.sync.ScustRequester;
+import co.nextix.jardine.web.requesters.sync.ScustRequester.CustResult;
+import co.nextix.jardine.web.requesters.sync.ScustconRequester;
+import co.nextix.jardine.web.requesters.sync.ScustconRequester.CustConResult;
+import co.nextix.jardine.web.requesters.sync.SeventRequester;
+import co.nextix.jardine.web.requesters.sync.SeventRequester.EventResult;
+import co.nextix.jardine.web.requesters.sync.SjdimerchRequester;
+import co.nextix.jardine.web.requesters.sync.SjdimerchRequester.JdiMerchResult;
+import co.nextix.jardine.web.requesters.sync.SjdiprodRequester;
+import co.nextix.jardine.web.requesters.sync.SjdiprodRequester.JdiProdResult;
+import co.nextix.jardine.web.requesters.sync.SmarkintRequester;
+import co.nextix.jardine.web.requesters.sync.SmarkintRequester.MarketIntResult;
+import co.nextix.jardine.web.requesters.sync.SmarmatRequester;
+import co.nextix.jardine.web.requesters.sync.SmarmatRequester.MarketMatResult;
+import co.nextix.jardine.web.requesters.sync.SproductRequester;
+import co.nextix.jardine.web.requesters.sync.SproductRequester.ProdResult;
+import co.nextix.jardine.web.requesters.sync.SprojreqRequester;
+import co.nextix.jardine.web.requesters.sync.SprojreqRequester.ProjReqResult;
+import co.nextix.jardine.web.requesters.sync.SsmrRequester;
+import co.nextix.jardine.web.requesters.sync.SsmrRequester.SmrResult;
+import co.nextix.jardine.web.requesters.sync.SsmrentryRequester;
+import co.nextix.jardine.web.requesters.sync.SsmrentryRequester.SmrEntryResult;
+import co.nextix.jardine.web.requesters.sync.SsupplierRequester;
+import co.nextix.jardine.web.requesters.sync.SsupplierRequester.SuppResult;
+import co.nextix.jardine.web.requesters.sync.SworkplanRequester;
+import co.nextix.jardine.web.requesters.sync.SworkplanRequester.WorkResult;
+import co.nextix.jardine.web.requesters.sync.SworkplanentryRequester;
+import co.nextix.jardine.web.requesters.sync.SworkplanentryRequester.WorkEntryResult;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -48,10 +66,9 @@ public class SyncRequests {
 	private final String TAG = "Webservice";
 	private final String operation = "sync";
 
-	public SyncRequester<List<BusinessUnitModel>>.Result BusinessUnit(
-			String lastSync) {
+	public BuResult BusinessUnit(String lastSync) {
 
-		SyncRequester<List<BusinessUnitModel>>.Result result = null;
+		BuResult result = null;
 
 		String time = "";
 		try {
@@ -78,15 +95,10 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Log.d(TAG, "**************1");
-				Type typeOfT = new TypeToken<SyncRequester<List<BusinessUnitModel>>>() {
+				Type typeOfT = new TypeToken<SbuRequester>() {
 				}.getType();
-				Log.d(TAG, "**************2");
-				SyncRequester<List<BusinessUnitModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				Log.d(TAG, "**************3");
-				result = requester.getResult();
-				Log.d(TAG, "**************4");
+				SbuRequester requester = gson.fromJson(getReader(), typeOfT);
+				result = (BuResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -103,10 +115,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<MarketingMaterialsModel>>.Result MarketingMaterials(
-			String lastSync) {
+	public MarketMatResult MarketingMaterials(String lastSync) {
 
-		SyncRequester<List<MarketingMaterialsModel>>.Result result = null;
+		MarketMatResult result = null;
 
 		String time = "";
 		try {
@@ -134,11 +145,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<MarketingMaterialsModel>>>() {
+				Type typeOfT = new TypeToken<SmarmatRequester>() {
 				}.getType();
-				SyncRequester<List<MarketingMaterialsModel>> requester = gson
+				SmarmatRequester requester = gson
 						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				result = (MarketMatResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -155,10 +166,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<EventProtocolModel>>.Result EventProtocols(
-			String lastSync) {
+	public EventResult EventProtocols(String lastSync) {
 
-		SyncRequester<List<EventProtocolModel>>.Result result = null;
+		EventResult result = null;
 
 		String time = "";
 		try {
@@ -186,11 +196,10 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<EventProtocolModel>>>() {
+				Type typeOfT = new TypeToken<SeventRequester>() {
 				}.getType();
-				SyncRequester<List<EventProtocolModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				SeventRequester requester = gson.fromJson(getReader(), typeOfT);
+				result = (EventResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -207,9 +216,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<ProductModel>>.Result Product(String lastSync) {
+	public ProdResult Product(String lastSync) {
 
-		SyncRequester<List<ProductModel>>.Result result = null;
+		ProdResult result = null;
 
 		String time = "";
 		try {
@@ -236,11 +245,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<ProductModel>>>() {
+				Type typeOfT = new TypeToken<SproductRequester>() {
 				}.getType();
-				SyncRequester<List<ProductModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = requester.getResult();
+				SproductRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (ProdResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -257,9 +266,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<SupplierModel>>.Result Supplier(String lastSync) {
+	public SuppResult Supplier(String lastSync) {
 
-		SyncRequester<List<SupplierModel>>.Result result = null;
+		SuppResult result = null;
 
 		String time = "";
 		try {
@@ -286,11 +295,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<SupplierModel>>>() {
+				Type typeOfT = new TypeToken<SsupplierRequester>() {
 				}.getType();
-				SyncRequester<List<SupplierModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = requester.getResult();
+				SsupplierRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (SuppResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -307,10 +316,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<CompetitorModel>>.Result Competitor(
-			String lastSync) {
+	public ComptResult Competitor(String lastSync) {
 
-		SyncRequester<List<CompetitorModel>>.Result result = null;
+		ComptResult result = null;
 
 		String time = "";
 		try {
@@ -338,11 +346,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<CompetitorModel>>>() {
+				Type typeOfT = new TypeToken<ScompetitorRequester>() {
 				}.getType();
-				SyncRequester<List<CompetitorModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = requester.getResult();
+				ScompetitorRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (ComptResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -359,10 +367,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<CompetitorProductModel>>.Result CompetitorProduct(
-			String lastSync) {
+	public ComptProdResult CompetitorProduct(String lastSync) {
 
-		SyncRequester<List<CompetitorProductModel>>.Result result = null;
+		ComptProdResult result = null;
 
 		String time = "";
 		try {
@@ -390,11 +397,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<CompetitorProductModel>>>() {
+				Type typeOfT = new TypeToken<ScompetrprodRequester>() {
 				}.getType();
-				SyncRequester<List<CompetitorProductModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				ScompetrprodRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (ComptProdResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -411,9 +418,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<SMRModel>>.Result SMR(String lastSync) {
+	public SmrResult SMR(String lastSync) {
 
-		SyncRequester<List<SMRModel>>.Result result = null;
+		SmrResult result = null;
 
 		String time = "";
 		try {
@@ -440,11 +447,10 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<SMRModel>>>() {
+				Type typeOfT = new TypeToken<SsmrRequester>() {
 				}.getType();
-				SyncRequester<List<SMRModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = requester.getResult();
+				SsmrRequester requester = gson.fromJson(getReader(), typeOfT);
+				result = (SmrResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -461,10 +467,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<SMRtimeCardModel>>.Result SMRTimecard(
-			String lastSync) {
+	public SmrEntryResult SMRTimecard(String lastSync) {
 
-		SyncRequester<List<SMRtimeCardModel>>.Result result = null;
+		SmrEntryResult result = null;
 
 		String time = "";
 		try {
@@ -492,11 +497,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<SMRtimeCardModel>>>() {
+				Type typeOfT = new TypeToken<SsmrentryRequester>() {
 				}.getType();
-				SyncRequester<List<SMRtimeCardModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = requester.getResult();
+				SsmrentryRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (SmrEntryResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -513,9 +518,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<CustomerModel>>.Result Customer(String lastSync) {
+	public CustResult Customer(String lastSync) {
 
-		SyncRequester<List<CustomerModel>>.Result result = null;
+		CustResult result = null;
 
 		String time = "";
 		try {
@@ -542,12 +547,10 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<CustomerModel>>>() {
+				Type typeOfT = new TypeToken<ScustRequester>() {
 				}.getType();
-				SyncRequester<List<CustomerModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = (SyncRequester<List<CustomerModel>>.Result) requester
-						.getResult();
+				ScustRequester requester = gson.fromJson(getReader(), typeOfT);
+				result = (CustResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -564,10 +567,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<CustomerContactModel>>.Result CustomerContact(
-			String lastSync) {
+	public CustConResult CustomerContact(String lastSync) {
 
-		SyncRequester<List<CustomerContactModel>>.Result result = null;
+		CustConResult result = null;
 
 		String time = "";
 		try {
@@ -595,12 +597,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<CustomerContactModel>>>() {
+				Type typeOfT = new TypeToken<ScustconRequester>() {
 				}.getType();
-				SyncRequester<List<CustomerContactModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<CustomerContactModel>>.Result) requester
-						.getResult();
+				ScustconRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (CustConResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -617,10 +618,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<ActivityTypeModel>>.Result ActivityType(
-			String lastSync) {
+	public ActTypeResult ActivityType(String lastSync) {
 
-		SyncRequester<List<ActivityTypeModel>>.Result result = null;
+		ActTypeResult result = null;
 
 		String time = "";
 		try {
@@ -648,12 +648,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<ActivityTypeModel>>>() {
+				Type typeOfT = new TypeToken<SacttypeRequester>() {
 				}.getType();
-				SyncRequester<List<ActivityTypeModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<ActivityTypeModel>>.Result) requester
-						.getResult();
+				SacttypeRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (ActTypeResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -670,9 +669,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<WorkplanModel>>.Result Workplan(String lastSync) {
+	public WorkResult Workplan(String lastSync) {
 
-		SyncRequester<List<WorkplanModel>>.Result result = null;
+		WorkResult result = null;
 
 		String time = "";
 		try {
@@ -699,12 +698,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<WorkplanModel>>>() {
+				Type typeOfT = new TypeToken<SworkplanRequester>() {
 				}.getType();
-				SyncRequester<List<WorkplanModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = (SyncRequester<List<WorkplanModel>>.Result) requester
-						.getResult();
+				SworkplanRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (WorkResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -721,10 +719,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<WorkplanEntryModel>>.Result WorkplanEntry(
-			String lastSync) {
+	public WorkEntryResult WorkplanEntry(String lastSync) {
 
-		SyncRequester<List<WorkplanEntryModel>>.Result result = null;
+		WorkEntryResult result = null;
 
 		String time = "";
 		try {
@@ -752,12 +749,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<WorkplanEntryModel>>>() {
+				Type typeOfT = new TypeToken<SworkplanentryRequester>() {
 				}.getType();
-				SyncRequester<List<WorkplanEntryModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<WorkplanEntryModel>>.Result) requester
-						.getResult();
+				SworkplanentryRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (WorkEntryResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -774,9 +770,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<ActivityModel>>.Result Activity(String lastSync) {
+	public ActResult Activity(String lastSync) {
 
-		SyncRequester<List<ActivityModel>>.Result result = null;
+		ActResult result = null;
 
 		String time = "";
 		try {
@@ -803,12 +799,10 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<ActivityModel>>>() {
+				Type typeOfT = new TypeToken<SactRequester>() {
 				}.getType();
-				SyncRequester<List<ActivityModel>> requester = gson.fromJson(
-						getReader(), typeOfT);
-				result = (SyncRequester<List<ActivityModel>>.Result) requester
-						.getResult();
+				SactRequester requester = gson.fromJson(getReader(), typeOfT);
+				result = (ActResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -825,10 +819,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<JDImerchandisingCheckModel>>.Result JDImerchandising(
-			String lastSync) {
+	public JdiMerchResult JDImerchandising(String lastSync) {
 
-		SyncRequester<List<JDImerchandisingCheckModel>>.Result result = null;
+		JdiMerchResult result = null;
 
 		String time = "";
 		try {
@@ -856,12 +849,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<JDImerchandisingCheckModel>>>() {
+				Type typeOfT = new TypeToken<SjdimerchRequester>() {
 				}.getType();
-				SyncRequester<List<JDImerchandisingCheckModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<JDImerchandisingCheckModel>>.Result) requester
-						.getResult();
+				SjdimerchRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (JdiMerchResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -878,10 +870,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<JDIproductStockCheckModel>>.Result JDIproduct(
-			String lastSync) {
+	public JdiProdResult JDIproduct(String lastSync) {
 
-		SyncRequester<List<JDIproductStockCheckModel>>.Result result = null;
+		JdiProdResult result = null;
 
 		String time = "";
 		try {
@@ -909,12 +900,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<JDIproductStockCheckModel>>>() {
+				Type typeOfT = new TypeToken<SjdiprodRequester>() {
 				}.getType();
-				SyncRequester<List<JDIproductStockCheckModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<JDIproductStockCheckModel>>.Result) requester
-						.getResult();
+				SjdiprodRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (JdiProdResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -931,10 +921,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<CompetitorProductStockCheckModel>>.Result CompetitorProductStockCheck(
-			String lastSync) {
+	public ComptProdStockResult CompetitorProductStockCheck(String lastSync) {
 
-		SyncRequester<List<CompetitorProductStockCheckModel>>.Result result = null;
+		ComptProdStockResult result = null;
 
 		String time = "";
 		try {
@@ -962,12 +951,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<CompetitorProductStockCheckModel>>>() {
+				Type typeOfT = new TypeToken<ScompetrprodstockRequester>() {
 				}.getType();
-				SyncRequester<List<CompetitorProductStockCheckModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<CompetitorProductStockCheckModel>>.Result) requester
-						.getResult();
+				ScompetrprodstockRequester requester = gson.fromJson(
+						getReader(), typeOfT);
+				result = (ComptProdStockResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -984,10 +972,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<MarketingIntelModel>>.Result MarketingIntel(
-			String lastSync) {
+	public MarketIntResult MarketingIntel(String lastSync) {
 
-		SyncRequester<List<MarketingIntelModel>>.Result result = null;
+		MarketIntResult result = null;
 
 		String time = "";
 		try {
@@ -1015,12 +1002,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<MarketingIntelModel>>>() {
+				Type typeOfT = new TypeToken<SmarkintRequester>() {
 				}.getType();
-				SyncRequester<List<MarketingIntelModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<MarketingIntelModel>>.Result) requester
-						.getResult();
+				SmarkintRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (MarketIntResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -1037,10 +1023,9 @@ public class SyncRequests {
 		return result;
 	}
 
-	public SyncRequester<List<ProjectRequirementModel>>.Result ProjectRequirement(
-			String lastSync) {
+	public ProjReqResult ProjectRequirement(String lastSync) {
 
-		SyncRequester<List<ProjectRequirementModel>>.Result result = null;
+		ProjReqResult result = null;
 
 		String time = "";
 		try {
@@ -1068,12 +1053,11 @@ public class SyncRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<SyncRequester<List<ProjectRequirementModel>>>() {
+				Type typeOfT = new TypeToken<SprojreqRequester>() {
 				}.getType();
-				SyncRequester<List<ProjectRequirementModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				result = (SyncRequester<List<ProjectRequirementModel>>.Result) requester
-						.getResult();
+				SprojreqRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (ProjReqResult) requester.getResult();
 
 			} else {
 				// getResponse();

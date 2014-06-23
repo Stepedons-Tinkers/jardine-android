@@ -211,6 +211,26 @@ public class BusinessUnitTable {
 		return record;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_BUSINESSUNIT_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_BUSINESSUNIT_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insert(String no, String businessUnitName,
 			String businessUnitCode, int isActive, String createdTime,
 			String modifiedTime, long user) {

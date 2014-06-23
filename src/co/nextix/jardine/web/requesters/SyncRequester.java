@@ -1,5 +1,7 @@
 package co.nextix.jardine.web.requesters;
 
+import java.util.List;
+
 import com.google.gson.annotations.SerializedName;
 
 public class SyncRequester<T> {
@@ -57,10 +59,10 @@ public class SyncRequester<T> {
 	public class Result {
 
 		@SerializedName("updated")
-		private T updated;
+		private List<T> updated;
 
 		@SerializedName("deleted")
-		private T deleted;
+		private List<T> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -68,19 +70,19 @@ public class SyncRequester<T> {
 		@SerializedName("lastModifiedTime")
 		private String lastModifiedTime;
 
-		public T getUpdated() {
+		public List<T> getUpdated() {
 			return this.updated;
 		}
 
-		public void setUpdated(T updated) {
+		public void setUpdated(List<T> updated) {
 			this.updated = updated;
 		}
 
-		public T getDeleted() {
+		public List<T> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(T deleted) {
+		public void setDeleted(List<T> deleted) {
 			this.deleted = deleted;
 		}
 

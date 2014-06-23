@@ -146,6 +146,28 @@ public class PProjReqTypeTable {
 		return record;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_PROJECT_REQUIREMENT_TYPE_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PROJECT_REQUIREMENT_TYPE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_PROJECT_REQUIREMENT_TYPE_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

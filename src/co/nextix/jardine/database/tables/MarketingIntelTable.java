@@ -145,6 +145,26 @@ public class MarketingIntelTable {
 		return rowsDeleted;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_MARKETINGINTEL_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_MARKETINGINTEL_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public MarketingIntelRecord getById(int ID) {
 		MarketingIntelRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

@@ -242,6 +242,26 @@ public class SupplierTable {
 		return record;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_SUPPLIER_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_SUPPLIER_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_SUPPLIER_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insertUser(String no, String supplierName,
 			String supplierLandline, String supplierAddress, String creditLine,
 			String creditTerm, String contactPerson, int isActive,

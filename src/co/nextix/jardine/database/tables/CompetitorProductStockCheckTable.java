@@ -156,6 +156,28 @@ public class CompetitorProductStockCheckTable {
 		return rowsDeleted;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public CompetitorProductStockCheckRecord getById(int ID) {
 		CompetitorProductStockCheckRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
