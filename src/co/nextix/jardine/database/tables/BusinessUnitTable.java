@@ -2,7 +2,6 @@ package co.nextix.jardine.database.tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -31,7 +30,7 @@ public class BusinessUnitTable {
 	// Private fields
 	// ===========================================================
 
-	private BusinessUnitCollection businessUnitRecords;
+	// private BusinessUnitCollection businessUnitRecords;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -57,7 +56,7 @@ public class BusinessUnitTable {
 	// Private methods
 	// ===========================================================
 
-	private List<BusinessUnitRecord> getAllRecords() {
+	public List<BusinessUnitRecord> getAllRecords() {
 		Cursor c = null;
 		List<BusinessUnitRecord> list = new ArrayList<BusinessUnitRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -237,7 +236,7 @@ public class BusinessUnitTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		BusinessUnitCollection collection = getRecords();
+		// BusinessUnitCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -251,8 +250,8 @@ public class BusinessUnitTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, businessUnitName, businessUnitCode,
-					isActive, createdTime, modifiedTime, user);
+			// collection.add(ids, no, businessUnitName, businessUnitCode,
+			// isActive, createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -263,7 +262,7 @@ public class BusinessUnitTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_BUSINESSUNIT_ROWID + "=" + rowId,
 				null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
@@ -283,8 +282,8 @@ public class BusinessUnitTable {
 		args.put(KEY_BUSINESSUNIT_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_BUSINESSUNIT_ROWID + "=" + id,
 				null) > 0) {
-			getRecords().update(id, no, businessUnitName, businessUnitCode,
-					isActive, createdTime, modifiedTime, user);
+			// getRecords().update(id, no, businessUnitName, businessUnitCode,
+			// isActive, createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -295,7 +294,7 @@ public class BusinessUnitTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -309,95 +308,95 @@ public class BusinessUnitTable {
 	// Collection
 	// ===========================================================
 
-	public BusinessUnitCollection getRecords() {
-		if (businessUnitRecords == null) {
-			businessUnitRecords = new BusinessUnitCollection();
-			businessUnitRecords.list = getAllRecords();
-		}
-		return businessUnitRecords;
-	}
-
-	public final class BusinessUnitCollection implements
-			Iterable<BusinessUnitRecord> {
-
-		private List<BusinessUnitRecord> list;
-
-		private BusinessUnitCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public BusinessUnitRecord get(int i) {
-			return list.get(i);
-		}
-
-		public BusinessUnitRecord getById(long id) {
-			for (BusinessUnitRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String businessUnitName,
-				String businessUnitCode, int isActive, String createdTime,
-				String modifiedTime, long user) {
-			list.add(new BusinessUnitRecord(id, no, businessUnitName,
-					businessUnitCode, isActive, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String businessUnitName,
-				String businessUnitCode, int isActive, String createdTime,
-				String modifiedTime, long user) {
-			BusinessUnitRecord record = getById(id);
-			record.setNo(no);
-			record.setBusinessUnitName(businessUnitName);
-			record.setBusinessUnitCode(businessUnitCode);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<BusinessUnitRecord> iterator() {
-			Iterator<BusinessUnitRecord> iter = new Iterator<BusinessUnitRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						delete(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public BusinessUnitRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public BusinessUnitCollection getRecords() {
+	// if (businessUnitRecords == null) {
+	// businessUnitRecords = new BusinessUnitCollection();
+	// businessUnitRecords.list = getAllRecords();
+	// }
+	// return businessUnitRecords;
+	// }
+	//
+	// public final class BusinessUnitCollection implements
+	// Iterable<BusinessUnitRecord> {
+	//
+	// private List<BusinessUnitRecord> list;
+	//
+	// private BusinessUnitCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public BusinessUnitRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public BusinessUnitRecord getById(long id) {
+	// for (BusinessUnitRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String businessUnitName,
+	// String businessUnitCode, int isActive, String createdTime,
+	// String modifiedTime, long user) {
+	// list.add(new BusinessUnitRecord(id, no, businessUnitName,
+	// businessUnitCode, isActive, createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String businessUnitName,
+	// String businessUnitCode, int isActive, String createdTime,
+	// String modifiedTime, long user) {
+	// BusinessUnitRecord record = getById(id);
+	// record.setNo(no);
+	// record.setBusinessUnitName(businessUnitName);
+	// record.setBusinessUnitCode(businessUnitCode);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<BusinessUnitRecord> iterator() {
+	// Iterator<BusinessUnitRecord> iter = new Iterator<BusinessUnitRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// delete(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public BusinessUnitRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

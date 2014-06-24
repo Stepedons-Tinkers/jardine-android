@@ -22,7 +22,7 @@ public class SMRTable {
 	private final String KEY_SMR_NO = "no";
 	private final String KEY_SMR_FIRSTNAME = "firstname";
 	private final String KEY_SMR_LASTNAME = "lastname";
-	private final String KEY_SMR_REGION = "region";
+	// private final String KEY_SMR_REGION = "region";
 	private final String KEY_SMR_AREA = "area";
 	private final String KEY_SMR_ISACTIVE = "is_active";
 	private final String KEY_SMR_CREATEDTIME = "created_time";
@@ -33,7 +33,7 @@ public class SMRTable {
 	// Private fields
 	// ===========================================================
 
-	private SMRCollection smrCollection;
+	// private SMRCollection smrCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -73,7 +73,8 @@ public class SMRTable {
 							.getColumnIndex(KEY_SMR_FIRSTNAME));
 					String lastname = c.getString(c
 							.getColumnIndex(KEY_SMR_LASTNAME));
-					long region = c.getLong(c.getColumnIndex(KEY_SMR_REGION));
+					// long region =
+					// c.getLong(c.getColumnIndex(KEY_SMR_REGION));
 					long area = c.getLong(c.getColumnIndex(KEY_SMR_AREA));
 					int isActive = c.getInt(c.getColumnIndex(KEY_SMR_ISACTIVE));
 					String createdTime = c.getString(c
@@ -82,8 +83,11 @@ public class SMRTable {
 							.getColumnIndex(KEY_SMR_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
 
-					list.add(new SMRRecord(id, no, firstname, lastname, region,
-							area, isActive, createdTime, modifiedTime, user));
+					// list.add(new SMRRecord(id, no, firstname, lastname,
+					// region,
+					// area, isActive, createdTime, modifiedTime, user));
+					list.add(new SMRRecord(id, no, firstname, lastname, area,
+							isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -156,7 +160,7 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_FIRSTNAME));
 				String lastname = c.getString(c
 						.getColumnIndex(KEY_SMR_LASTNAME));
-				long region = c.getLong(c.getColumnIndex(KEY_SMR_REGION));
+				// long region = c.getLong(c.getColumnIndex(KEY_SMR_REGION));
 				long area = c.getLong(c.getColumnIndex(KEY_SMR_AREA));
 				int isActive = c.getInt(c.getColumnIndex(KEY_SMR_ISACTIVE));
 				String createdTime = c.getString(c
@@ -165,8 +169,10 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
 
-				record = new SMRRecord(id, no, firstname, lastname, region,
-						area, isActive, createdTime, modifiedTime, user);
+				// record = new SMRRecord(id, no, firstname, lastname, region,
+				// area, isActive, createdTime, modifiedTime, user);
+				record = new SMRRecord(id, no, firstname, lastname, area,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -232,7 +238,7 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_FIRSTNAME));
 				String lastname = c.getString(c
 						.getColumnIndex(KEY_SMR_LASTNAME));
-				long region = c.getLong(c.getColumnIndex(KEY_SMR_REGION));
+				// long region = c.getLong(c.getColumnIndex(KEY_SMR_REGION));
 				long area = c.getLong(c.getColumnIndex(KEY_SMR_AREA));
 				int isActive = c.getInt(c.getColumnIndex(KEY_SMR_ISACTIVE));
 				String createdTime = c.getString(c
@@ -241,8 +247,10 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
 
-				record = new SMRRecord(id, no, firstname, lastname, region,
-						area, isActive, createdTime, modifiedTime, user);
+				// record = new SMRRecord(id, no, firstname, lastname, region,
+				// area, isActive, createdTime, modifiedTime, user);
+				record = new SMRRecord(id, no, firstname, lastname, area,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -253,20 +261,20 @@ public class SMRTable {
 		return record;
 	}
 
-	public long insertUser(String no, String firstname, String lastname,
-			long region, long area, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String firstname, String lastname,
+			long area, int isActive, String createdTime, String modifiedTime,
+			long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		SMRCollection collection = getRecords();
+		// SMRCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_SMR_NO, no);
 		initialValues.put(KEY_SMR_FIRSTNAME, firstname);
 		initialValues.put(KEY_SMR_LASTNAME, lastname);
-		initialValues.put(KEY_SMR_REGION, region);
+		// initialValues.put(KEY_SMR_REGION, region);
 		initialValues.put(KEY_SMR_AREA, area);
 		initialValues.put(KEY_SMR_ISACTIVE, isActive);
 		initialValues.put(KEY_SMR_CREATEDTIME, createdTime);
@@ -275,8 +283,8 @@ public class SMRTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, firstname, lastname, region, area,
-					isActive, createdTime, modifiedTime, user);
+			// collection.add(ids, no, firstname, lastname, region, area,
+			// isActive, createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -284,31 +292,31 @@ public class SMRTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_SMR_ROWID + "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, String firstname,
-			String lastname, long region, long area, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String firstname,
+			String lastname, long area, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMR_NO, no);
 		args.put(KEY_SMR_FIRSTNAME, firstname);
 		args.put(KEY_SMR_LASTNAME, lastname);
-		args.put(KEY_SMR_REGION, region);
+		// args.put(KEY_SMR_REGION, region);
 		args.put(KEY_SMR_AREA, area);
 		args.put(KEY_SMR_ISACTIVE, isActive);
 		args.put(KEY_SMR_CREATEDTIME, createdTime);
 		args.put(KEY_SMR_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_SMR_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_SMR_ROWID + "=" + id, null) > 0) {
-			getRecords().update(id, no, firstname, lastname, region, area,
-					isActive, createdTime, modifiedTime, user);
+			// getRecords().update(id, no, firstname, lastname, region, area,
+			// isActive, createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -319,7 +327,7 @@ public class SMRTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -333,96 +341,96 @@ public class SMRTable {
 	// Collection
 	// ===========================================================
 
-	public SMRCollection getRecords() {
-		if (smrCollection == null) {
-			smrCollection = new SMRCollection();
-			smrCollection.list = getAllRecords();
-		}
-		return smrCollection;
-	}
-
-	public final class SMRCollection implements Iterable<SMRRecord> {
-
-		private List<SMRRecord> list;
-
-		private SMRCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public SMRRecord get(int i) {
-			return list.get(i);
-		}
-
-		public SMRRecord getById(long id) {
-			for (SMRRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String firstname, String lastname,
-				long region, long area, int isActive, String createdTime,
-				String modifiedTime, long user) {
-			list.add(new SMRRecord(id, no, firstname, lastname, region, area,
-					isActive, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String firstname,
-				String lastname, long region, long area, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			SMRRecord record = getById(id);
-			record.setNo(no);
-			record.setFirstname(firstname);
-			record.setLastname(lastname);
-			record.setRegion(region);
-			record.setArea(area);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<SMRRecord> iterator() {
-			Iterator<SMRRecord> iter = new Iterator<SMRRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public SMRRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public SMRCollection getRecords() {
+	// if (smrCollection == null) {
+	// smrCollection = new SMRCollection();
+	// smrCollection.list = getAllRecords();
+	// }
+	// return smrCollection;
+	// }
+	//
+	// public final class SMRCollection implements Iterable<SMRRecord> {
+	//
+	// private List<SMRRecord> list;
+	//
+	// private SMRCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public SMRRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public SMRRecord getById(long id) {
+	// for (SMRRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String firstname, String lastname,
+	// long region, long area, int isActive, String createdTime,
+	// String modifiedTime, long user) {
+	// list.add(new SMRRecord(id, no, firstname, lastname, region, area,
+	// isActive, createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String firstname,
+	// String lastname, long region, long area, int isActive,
+	// String createdTime, String modifiedTime, long user) {
+	// SMRRecord record = getById(id);
+	// record.setNo(no);
+	// record.setFirstname(firstname);
+	// record.setLastname(lastname);
+	// record.setRegion(region);
+	// record.setArea(area);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<SMRRecord> iterator() {
+	// Iterator<SMRRecord> iter = new Iterator<SMRRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public SMRRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

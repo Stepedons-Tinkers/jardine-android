@@ -33,7 +33,7 @@ public class ProjectRequirementTable {
 	// Private fields
 	// ===========================================================
 
-	private ProjectRequirementCollection projectRequirementCollection;
+//	private ProjectRequirementCollection projectRequirementCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -243,14 +243,14 @@ public class ProjectRequirementTable {
 		return record;
 	}
 
-	public long insertUser(String no, long projectRequirementType,
+	public long insert(String no, long projectRequirementType,
 			String dateNeeded, String squareMeters, String productsUsed,
 			String otherDetails, String createdTime, String modifiedTime,
 			long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		ProjectRequirementCollection collection = getRecords();
+//		ProjectRequirementCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -266,9 +266,9 @@ public class ProjectRequirementTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, projectRequirementType, dateNeeded,
-					squareMeters, productsUsed, otherDetails, createdTime,
-					modifiedTime, user);
+//			collection.add(ids, no, projectRequirementType, dateNeeded,
+//					squareMeters, productsUsed, otherDetails, createdTime,
+//					modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -276,17 +276,17 @@ public class ProjectRequirementTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_PROJECTREQUIREMENTS_ROWID + "="
 				+ rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+//			getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, long projectRequirementType,
+	public boolean update(long id, String no, long projectRequirementType,
 			String dateNeeded, String squareMeters, String productsUsed,
 			String otherDetails, String createdTime, String modifiedTime,
 			long user) {
@@ -302,9 +302,9 @@ public class ProjectRequirementTable {
 		args.put(KEY_PROJECTREQUIREMENTS_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_PROJECTREQUIREMENTS_ROWID
 				+ "=" + id, null) > 0) {
-			getRecords().update(id, no, projectRequirementType, dateNeeded,
-					squareMeters, productsUsed, otherDetails, createdTime,
-					modifiedTime, user);
+//			getRecords().update(id, no, projectRequirementType, dateNeeded,
+//					squareMeters, productsUsed, otherDetails, createdTime,
+//					modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -315,7 +315,7 @@ public class ProjectRequirementTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+//			getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -329,100 +329,100 @@ public class ProjectRequirementTable {
 	// Collection
 	// ===========================================================
 
-	public ProjectRequirementCollection getRecords() {
-		if (projectRequirementCollection == null) {
-			projectRequirementCollection = new ProjectRequirementCollection();
-			projectRequirementCollection.list = getAllRecords();
-		}
-		return projectRequirementCollection;
-	}
-
-	public final class ProjectRequirementCollection implements
-			Iterable<ProjectRequirementRecord> {
-
-		private List<ProjectRequirementRecord> list;
-
-		private ProjectRequirementCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public ProjectRequirementRecord get(int i) {
-			return list.get(i);
-		}
-
-		public ProjectRequirementRecord getById(long id) {
-			for (ProjectRequirementRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, long projectRequirementType,
-				String dateNeeded, String squareMeters, String productsUsed,
-				String otherDetails, String createdTime, String modifiedTime,
-				long user) {
-			list.add(new ProjectRequirementRecord(id, no,
-					projectRequirementType, dateNeeded, squareMeters,
-					productsUsed, otherDetails, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, long projectRequirementType,
-				String dateNeeded, String squareMeters, String productsUsed,
-				String otherDetails, String createdTime, String modifiedTime,
-				long user) {
-			ProjectRequirementRecord record = getById(id);
-			record.setNo(no);
-			record.setProjectRequirementType(projectRequirementType);
-			record.setDateNeeded(dateNeeded);
-			record.setSquareMeters(squareMeters);
-			record.setProductsUsed(productsUsed);
-			record.setOtherDetails(otherDetails);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<ProjectRequirementRecord> iterator() {
-			Iterator<ProjectRequirementRecord> iter = new Iterator<ProjectRequirementRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public ProjectRequirementRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+//	public ProjectRequirementCollection getRecords() {
+//		if (projectRequirementCollection == null) {
+//			projectRequirementCollection = new ProjectRequirementCollection();
+//			projectRequirementCollection.list = getAllRecords();
+//		}
+//		return projectRequirementCollection;
+//	}
+//
+//	public final class ProjectRequirementCollection implements
+//			Iterable<ProjectRequirementRecord> {
+//
+//		private List<ProjectRequirementRecord> list;
+//
+//		private ProjectRequirementCollection() {
+//		}
+//
+//		public int size() {
+//			return list.size();
+//		}
+//
+//		public ProjectRequirementRecord get(int i) {
+//			return list.get(i);
+//		}
+//
+//		public ProjectRequirementRecord getById(long id) {
+//			for (ProjectRequirementRecord record : list) {
+//				if (record.getId() == id) {
+//					return record;
+//				}
+//			}
+//			return null;
+//		}
+//
+//		private void add(long id, String no, long projectRequirementType,
+//				String dateNeeded, String squareMeters, String productsUsed,
+//				String otherDetails, String createdTime, String modifiedTime,
+//				long user) {
+//			list.add(new ProjectRequirementRecord(id, no,
+//					projectRequirementType, dateNeeded, squareMeters,
+//					productsUsed, otherDetails, createdTime, modifiedTime, user));
+//		}
+//
+//		private void clear() {
+//			list.clear();
+//		}
+//
+//		private void deleteById(long id) {
+//			list.remove(getById(id));
+//		}
+//
+//		private void update(long id, String no, long projectRequirementType,
+//				String dateNeeded, String squareMeters, String productsUsed,
+//				String otherDetails, String createdTime, String modifiedTime,
+//				long user) {
+//			ProjectRequirementRecord record = getById(id);
+//			record.setNo(no);
+//			record.setProjectRequirementType(projectRequirementType);
+//			record.setDateNeeded(dateNeeded);
+//			record.setSquareMeters(squareMeters);
+//			record.setProductsUsed(productsUsed);
+//			record.setOtherDetails(otherDetails);
+//			record.setCreatedTime(createdTime);
+//			record.setModifiedTime(modifiedTime);
+//			record.setUser(user);
+//		}
+//
+//		@Override
+//		public Iterator<ProjectRequirementRecord> iterator() {
+//			Iterator<ProjectRequirementRecord> iter = new Iterator<ProjectRequirementRecord>() {
+//				private int current = 0;
+//
+//				@Override
+//				public void remove() {
+//					if (list.size() > 0) {
+//						deleteUser(list.get(current).getId());
+//						deleteById(list.get(current).getId());
+//						list.remove(current);
+//					}
+//				}
+//
+//				@Override
+//				public ProjectRequirementRecord next() {
+//					if (list.size() > 0) {
+//						return list.get(current++);
+//					}
+//					return null;
+//				}
+//
+//				@Override
+//				public boolean hasNext() {
+//					return list.size() > 0 && current < list.size();
+//				}
+//			};
+//			return iter;
+//		}
+//	}
 }

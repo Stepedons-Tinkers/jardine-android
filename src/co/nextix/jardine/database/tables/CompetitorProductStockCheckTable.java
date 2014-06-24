@@ -32,7 +32,8 @@ public class CompetitorProductStockCheckTable {
 	// Private fields
 	// ===========================================================
 
-	private CompetitorProductStockCheckCollection competitorProductStockCheckRecords;
+	// private CompetitorProductStockCheckCollection
+	// competitorProductStockCheckRecords;zg
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -59,7 +60,7 @@ public class CompetitorProductStockCheckTable {
 	// Private methods
 	// ===========================================================
 
-	private List<CompetitorProductStockCheckRecord> getAllRecords() {
+	public List<CompetitorProductStockCheckRecord> getAllRecords() {
 		Cursor c = null;
 		List<CompetitorProductStockCheckRecord> list = new ArrayList<CompetitorProductStockCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -272,13 +273,13 @@ public class CompetitorProductStockCheckTable {
 		return record;
 	}
 
-	public long insertUser(String no, long activity, long competitorProduct,
+	public long insert(String no, long activity, long competitorProduct,
 			long stockStatus, int loadedOnShelves, String createdTime,
 			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		CompetitorProductStockCheckCollection collection = getRecords();
+		// CompetitorProductStockCheckCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -298,8 +299,8 @@ public class CompetitorProductStockCheckTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, activity, competitorProduct, stockStatus,
-					loadedOnShelves, createdTime, modifiedTime, user);
+			// collection.add(ids, no, activity, competitorProduct, stockStatus,
+			// loadedOnShelves, createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -307,17 +308,17 @@ public class CompetitorProductStockCheckTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID
 				+ "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, long activity,
+	public boolean update(long id, String no, long activity,
 			long competitorProduct, long stockStatus, int loadedOnShelves,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -333,9 +334,9 @@ public class CompetitorProductStockCheckTable {
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_USER, user);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
-			getRecords().update(id, no, activity, competitorProduct,
-					stockStatus, loadedOnShelves, createdTime, modifiedTime,
-					user);
+			// getRecords().update(id, no, activity, competitorProduct,
+			// stockStatus, loadedOnShelves, createdTime, modifiedTime,
+			// user);
 			return true;
 		} else {
 			return false;
@@ -346,7 +347,7 @@ public class CompetitorProductStockCheckTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -360,97 +361,99 @@ public class CompetitorProductStockCheckTable {
 	// Collection
 	// ===========================================================
 
-	public CompetitorProductStockCheckCollection getRecords() {
-		if (competitorProductStockCheckRecords == null) {
-			competitorProductStockCheckRecords = new CompetitorProductStockCheckCollection();
-			competitorProductStockCheckRecords.list = getAllRecords();
-		}
-		return competitorProductStockCheckRecords;
-	}
-
-	public final class CompetitorProductStockCheckCollection implements
-			Iterable<CompetitorProductStockCheckRecord> {
-
-		private List<CompetitorProductStockCheckRecord> list;
-
-		private CompetitorProductStockCheckCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public CompetitorProductStockCheckRecord get(int i) {
-			return list.get(i);
-		}
-
-		public CompetitorProductStockCheckRecord getById(long id) {
-			for (CompetitorProductStockCheckRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, long activity,
-				long competitorProduct, long stockStatus, int loadedOnShelves,
-				String createdTime, String modifiedTime, long user) {
-			list.add(new CompetitorProductStockCheckRecord(id, no, activity,
-					competitorProduct, stockStatus, loadedOnShelves,
-					createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, long activity,
-				long competitorProduct, long stockStatus, int loadedOnShelves,
-				String createdTime, String modifiedTime, long user) {
-			CompetitorProductStockCheckRecord record = getById(id);
-			record.setNo(no);
-			record.setActivity(activity);
-			record.setCompetitorProduct(competitorProduct);
-			record.setStockStatus(stockStatus);
-			record.setLoadedOnShelves(loadedOnShelves);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<CompetitorProductStockCheckRecord> iterator() {
-			Iterator<CompetitorProductStockCheckRecord> iter = new Iterator<CompetitorProductStockCheckRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public CompetitorProductStockCheckRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public CompetitorProductStockCheckCollection getRecords() {
+	// if (competitorProductStockCheckRecords == null) {
+	// competitorProductStockCheckRecords = new
+	// CompetitorProductStockCheckCollection();
+	// competitorProductStockCheckRecords.list = getAllRecords();
+	// }
+	// return competitorProductStockCheckRecords;
+	// }
+	//
+	// public final class CompetitorProductStockCheckCollection implements
+	// Iterable<CompetitorProductStockCheckRecord> {
+	//
+	// private List<CompetitorProductStockCheckRecord> list;
+	//
+	// private CompetitorProductStockCheckCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public CompetitorProductStockCheckRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public CompetitorProductStockCheckRecord getById(long id) {
+	// for (CompetitorProductStockCheckRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, long activity,
+	// long competitorProduct, long stockStatus, int loadedOnShelves,
+	// String createdTime, String modifiedTime, long user) {
+	// list.add(new CompetitorProductStockCheckRecord(id, no, activity,
+	// competitorProduct, stockStatus, loadedOnShelves,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, long activity,
+	// long competitorProduct, long stockStatus, int loadedOnShelves,
+	// String createdTime, String modifiedTime, long user) {
+	// CompetitorProductStockCheckRecord record = getById(id);
+	// record.setNo(no);
+	// record.setActivity(activity);
+	// record.setCompetitorProduct(competitorProduct);
+	// record.setStockStatus(stockStatus);
+	// record.setLoadedOnShelves(loadedOnShelves);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<CompetitorProductStockCheckRecord> iterator() {
+	// Iterator<CompetitorProductStockCheckRecord> iter = new
+	// Iterator<CompetitorProductStockCheckRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public CompetitorProductStockCheckRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

@@ -236,7 +236,7 @@ public class JDImerchandisingCheckTable {
 		return record;
 	}
 
-	public long insertUser(String no, long activity, long product,
+	public long insert(String no, long activity, long product,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -263,7 +263,7 @@ public class JDImerchandisingCheckTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable,
 				KEY_JDIMERCHANDISING_ROWID + "=" + rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
@@ -273,7 +273,7 @@ public class JDImerchandisingCheckTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, long activity, long product,
+	public boolean update(long id, String no, long activity, long product,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDIMERCHANDISING_NO, no);

@@ -49,7 +49,7 @@ public class PCustSizeTable {
 	// Private methods
 	// ===========================================================
 
-	private List<PicklistRecord> getAllRecords() {
+	public List<PicklistRecord> getAllRecords() {
 		Cursor c = null;
 		List<PicklistRecord> list = new ArrayList<PicklistRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -168,7 +168,7 @@ public class PCustSizeTable {
 		return record;
 	}
 
-	public long insertUser(String no) {
+	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
@@ -185,7 +185,7 @@ public class PCustSizeTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_CUSTOMER_SIZE_ROWID + "=" + rowId,
 				null) > 0) {
 			// getRecords().deleteById(rowId);
@@ -195,7 +195,7 @@ public class PCustSizeTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, long category, int isActive,
+	public boolean update(long id, String no, long category, int isActive,
 			long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_SIZE_NAME, no);

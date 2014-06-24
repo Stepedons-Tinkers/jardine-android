@@ -32,7 +32,7 @@ public class CustomerRecord {
 	private String fax;
 	private String customer_size;
 	private String street_address;
-	private long customer_record_status;
+	// private long customer_record_status; removed
 	private long customer_type;
 	private long business_unit;
 	private long area;
@@ -46,16 +46,15 @@ public class CustomerRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-	
+
 	public CustomerRecord() {
-		
+
 	}
 
 	public CustomerRecord(long id, String no, String customerName,
 			String chainName, String landline, String fax, String customerSize,
-			String streetAddress, long customerRecordStatus, 
-			long customerType, long businessUnit, long area, 
-			long province, long cityTown, int isActive, 
+			String streetAddress, long customerType, long businessUnit,
+			long area, long province, long cityTown, int isActive,
 			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
@@ -66,7 +65,7 @@ public class CustomerRecord {
 		this.fax = fax;
 		this.customer_size = customerSize;
 		this.street_address = streetAddress;
-		this.customer_record_status = customerRecordStatus;
+//		this.customer_record_status = customerRecordStatus;
 		this.customer_type = customerType;
 		this.business_unit = businessUnit;
 		this.area = area;
@@ -117,7 +116,7 @@ public class CustomerRecord {
 	public String getLandline() {
 		return this.landline;
 	}
-	
+
 	public void setFax(String fax) {
 		this.fax = fax;
 	}
@@ -133,22 +132,22 @@ public class CustomerRecord {
 	public String getCustomerSize() {
 		return this.customer_size;
 	}
-	
+
 	public void setStreetAddress(String streetAddress) {
 		this.street_address = streetAddress;
 	}
-	
+
 	public String getStreetAddress() {
 		return this.street_address;
 	}
 
-	public void setCustomerRecordStatus(long customerRecordStatus) {
-		this.customer_record_status = customerRecordStatus;
-	}
-
-	public long getCustomerRecordStatus() {
-		return this.customer_record_status;
-	}
+//	public void setCustomerRecordStatus(long customerRecordStatus) {
+//		this.customer_record_status = customerRecordStatus;
+//	}
+//
+//	public long getCustomerRecordStatus() {
+//		return this.customer_record_status;
+//	}
 
 	public void setCustomerType(long customerType) {
 		this.customer_type = customerType;
@@ -165,11 +164,11 @@ public class CustomerRecord {
 	public long getBusinessUnit() {
 		return this.business_unit;
 	}
-	
+
 	public void setArea(long area) {
 		this.area = area;
 	}
-	
+
 	public long getArea() {
 		return this.area;
 	}

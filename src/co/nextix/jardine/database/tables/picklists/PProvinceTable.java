@@ -50,7 +50,7 @@ public class PProvinceTable {
 	// Private methods
 	// ===========================================================
 
-	private List<ProvinceRecord> getAllRecords() {
+	public List<ProvinceRecord> getAllRecords() {
 		Cursor c = null;
 		List<ProvinceRecord> list = new ArrayList<ProvinceRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
