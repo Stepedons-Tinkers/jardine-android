@@ -1,486 +1,503 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:orientation="horizontal"
+    android:overScrollMode="never" >
 
-    <TextView
-        android:id="@+id/tvColatteralsEventProtocolsDetailGeneralInformation"
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/collaterals_general_info"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:text="@string/collaterals_ep_general_information"
-        android:textColor="@color/white" />
+        android:background="@color/white" >
 
-    <TableLayout
-        android:id="@+id/tlColatteralsEventProtocols2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvColatteralsEventProtocolsDetailGeneralInformation"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/xml_tablelayout_bg"
-        android:divider="@color/black"
-        android:orientation="horizontal"
-        android:padding="2dp"
-        android:showDividers="middle" >
-
-        <TableRow
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvColatteralsMMProtocolsDetailGeneralInformation"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:background="@color/collaterals_general_info"
+            android:padding="10dp"
+            android:text="@string/collaterals_ep_general_information"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textStyle="bold"
-                android:text="@string/collaterals_ep_crm_no"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvWorkPlanInfoCrmNo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:textStyle="bold"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:text="@string/collaterals_ep_description"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCollateralsGIDesc"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
+        <TableLayout
+            android:id="@+id/tlColatteralsMMProtocols2"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvColatteralsMMProtocolsDetailGeneralInformation"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/xml_tablelayout_bg"
+            android:divider="@color/black"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:showDividers="middle"
+            android:stretchColumns="0,2,4,6" >
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp" android:textStyle="bold"
-                android:text="@string/collaterals_ep_last_update"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_crm_no"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvWorkPlanInfoDate"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvWorkPlanInfoCrmNo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:text="@string/collaterals_ep_description"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCollateralsGIDesc"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_last_update"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvWorkPlanInfoDate"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:text="@string/collaterals_ep_tags"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCollateralsGITags"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1" android:textStyle="bold"
-                android:text="@string/collaterals_ep_tags"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:id="@+id/tvCollateralsEventTypeView"
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_event_type"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvCollateralsGITags"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvWorkPlanInfoArea"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:text="@string/collaterals_ep_is_active"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCollateralsGIIsActive"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trCollateralsMMRow"
                 android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_created_time"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvWorkPlanInfoActCity"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:text="@string/collaterals_file_modified_time"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCollateralsGIModifiedTime"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trCollateralsMMRow"
                 android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end" android:textStyle="bold"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_event_type"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_assigned_to"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvWorkPlanInfoArea"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCollateralsGIAssigned"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trCollateralsMMRow"
                 android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trCollateralsMMRow"
                 android:layout_width="match_parent"
-                android:layout_column="2" android:textStyle="bold"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:text="@string/collaterals_ep_is_active"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/tvCollateralsGIIsActive"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end" android:textStyle="bold"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_created_time"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/tvWorkPlanInfoActCity"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:maxLines="2"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+        </TableLayout>
+    </RelativeLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1" android:textStyle="bold"
-                android:text="@string/collaterals_file_modified_time"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCollateralsGIModifiedTime"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1" android:textStyle="bold"
-                android:paddingLeft="2dp"
-                android:text="@string/collaterals_ep_assigned_to"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tvCollateralsGIAssigned"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-    </TableLayout>
-
-</RelativeLayout>
+</ScrollView>

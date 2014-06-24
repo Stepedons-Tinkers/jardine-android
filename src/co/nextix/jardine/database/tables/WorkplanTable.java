@@ -91,6 +91,66 @@ public class WorkplanTable {
 		return list;
 	}
 
+	public List<WorkplanRecord> getAllRecords(long userId, String workPlan,
+			String date) {
+		Cursor c = null;
+		List<WorkplanRecord> list = new ArrayList<WorkplanRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_WORKPLAN_USER + " = " + userId + " AND "
+				+ KEY_WORKPLAN_NO + " = '" + workPlan + "' AND "
+				+ KEY_WORKPLAN_CREATEDTIME + " = '" + date + "'";
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String startDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+					String endDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+					int status = c
+							.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+
+					list.add(new WorkplanRecord(id, no, startDate, endDate,
+							status, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<String> getAllWorkplan(long userId) {
+		Cursor c = null;
+		List<String> list = new ArrayList<String>();
+		String MY_QUERY = "SELECT " + KEY_WORKPLAN_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_WORKPLAN_USER + " = "
+				+ userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					list.add(no);
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================

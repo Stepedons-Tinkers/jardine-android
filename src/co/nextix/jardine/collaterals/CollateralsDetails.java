@@ -12,8 +12,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 
-public class CollateralsDetails extends Fragment 
-implements OnTabChangeListener {
+public class CollateralsDetails extends Fragment implements OnTabChangeListener {
 
 	private View view;
 	private TabHost tabHost;
@@ -76,8 +75,12 @@ implements OnTabChangeListener {
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			fragment = CollateralsGeneralInformation
-					.newInstance(CollateralsConstants.ROW_ID);
+			if (CollateralsConstants.FROM_WHERE == 1)
+				fragment = CollateralsGeneralInformation
+						.newInstance(CollateralsConstants.ROW_ID);
+			else
+				fragment = CollateralsMMGeneralInformation
+						.newInstance(CollateralsConstants.ROW_ID);
 			break;
 		case 1:
 			fragment = CollateralsEventFiles

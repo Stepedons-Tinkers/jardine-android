@@ -10,9 +10,11 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -45,10 +47,14 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	private TableRow trow;
 	private EditText search;
 
+	private List<String> strSearcher;
+	private Spinner spinner;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		strSearcher = new ArrayList<String>();
 		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
@@ -78,6 +84,17 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		header.setOnClickListener(null);
 		//
 
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_description));
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+
+		spinner = (Spinner) view
+				.findViewById(R.id.spiCollateralsMMSpinnerSearch);
+		spinner.setAdapter(sAdapter);
+
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
 
@@ -86,7 +103,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
 		search = (EditText) view
-				.findViewById(R.id.tvCollateralsSearchMarketingMaterials);
+				.findViewById(R.id.etCollateralsSearchMM);
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
 		arrowRight = (ImageButton) view
