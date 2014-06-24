@@ -35,7 +35,7 @@ public class SprojreqRequester {
 		private List<ProjectRequirementModel> updated;
 
 		@SerializedName("deleted")
-		private List<ProjectRequirementModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SprojreqRequester {
 			this.updated = updated;
 		}
 
-		public List<ProjectRequirementModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<ProjectRequirementModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

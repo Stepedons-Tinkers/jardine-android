@@ -308,11 +308,11 @@ public class ActivityTable {
 
 		return record;
 	}
-	
+
 	public String getNoById(long ID) {
 		String result = null;
-		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM " + mDatabaseTable
-				+ " WHERE " + KEY_ACTIVITY_ROWID + "=?";
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_ACTIVITY_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -492,6 +492,24 @@ public class ActivityTable {
 		} else {
 			return false;
 		}
+	}
+
+	public int deleteByWebID(String[] webID) {
+
+		String ids = Arrays.toString(webID);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "").replace(", ", "','");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ('"
+				+ ids + "')", null);
+
+		return rowsDeleted;
 	}
 
 	public boolean updateUser(long id, String no, long workplan,

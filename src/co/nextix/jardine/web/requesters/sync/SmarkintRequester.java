@@ -35,7 +35,7 @@ public class SmarkintRequester {
 		private List<MarketingIntelModel> updated;
 
 		@SerializedName("deleted")
-		private List<MarketingIntelModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SmarkintRequester {
 			this.updated = updated;
 		}
 
-		public List<MarketingIntelModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<MarketingIntelModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

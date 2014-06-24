@@ -35,7 +35,7 @@ public class SacttypeRequester {
 		private List<ActivityTypeModel> updated;
 
 		@SerializedName("deleted")
-		private List<ActivityTypeModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SacttypeRequester {
 			this.updated = updated;
 		}
 
-		public List<ActivityTypeModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<ActivityTypeModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

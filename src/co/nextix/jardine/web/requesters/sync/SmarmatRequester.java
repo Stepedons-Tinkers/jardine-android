@@ -35,7 +35,7 @@ public class SmarmatRequester {
 		private List<MarketingMaterialsModel> updated;
 
 		@SerializedName("deleted")
-		private List<MarketingMaterialsModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SmarmatRequester {
 			this.updated = updated;
 		}
 
-		public List<MarketingMaterialsModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<MarketingMaterialsModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

@@ -35,7 +35,7 @@ public class ScustconRequester {
 		private List<CustomerContactModel> updated;
 
 		@SerializedName("deleted")
-		private List<CustomerContactModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class ScustconRequester {
 			this.updated = updated;
 		}
 
-		public List<CustomerContactModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<CustomerContactModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

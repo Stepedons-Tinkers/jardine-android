@@ -35,7 +35,7 @@ public class SbuRequester {
 		private List<BusinessUnitModel> updated;
 
 		@SerializedName("deleted")
-		private List<BusinessUnitModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SbuRequester {
 			this.updated = updated;
 		}
 
-		public List<BusinessUnitModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<BusinessUnitModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

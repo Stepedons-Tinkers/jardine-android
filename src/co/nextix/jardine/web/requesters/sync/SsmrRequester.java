@@ -35,7 +35,7 @@ public class SsmrRequester {
 		private List<SMRModel> updated;
 
 		@SerializedName("deleted")
-		private List<SMRModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SsmrRequester {
 			this.updated = updated;
 		}
 
-		public List<SMRModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<SMRModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

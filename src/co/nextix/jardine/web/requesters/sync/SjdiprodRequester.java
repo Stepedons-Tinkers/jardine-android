@@ -35,7 +35,7 @@ public class SjdiprodRequester {
 		private List<JDIproductStockCheckModel> updated;
 
 		@SerializedName("deleted")
-		private List<JDIproductStockCheckModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SjdiprodRequester {
 			this.updated = updated;
 		}
 
-		public List<JDIproductStockCheckModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<JDIproductStockCheckModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 
