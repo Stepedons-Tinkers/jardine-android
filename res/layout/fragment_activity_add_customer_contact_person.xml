@@ -32,7 +32,7 @@
             android:onClick="jdiStockCheck"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="@string/all_caps_add_jdi_product_stock_check"
+            android:text="@string/all_caps_add_customer_contact_person"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -127,7 +127,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/crm_no_competitor_stock_check"
+                        android:text="@string/crm_no_contact_person"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -169,7 +169,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:text="@string/activity_competitor_stock_check"
+                        android:text="@string/firstname_contact_person"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -187,18 +187,16 @@
                     android:layout_weight="0.3"
                     android:background="#b0b0b0" >
 
-                    <TextView
-                        android:id="@+id/customer"
+                    <EditText
+                        android:id="@+id/objective"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
+                        android:layout_height="45dp"
+                        android:background="#b0b0b0"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
                         android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="related Activity record"
-                        android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:textColor="#000000" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -231,7 +229,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/product_jdi"
+                        android:text="@string/lastname_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -242,16 +240,15 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
-                        android:id="@+id/TextView04"
+                    <EditText
+                        android:id="@+id/objective"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
                         android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Product record"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
 
@@ -270,7 +267,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/stock_status_competitor_product"
+                        android:text="@string/position_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -315,7 +312,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/jdi_quantity"
+                        android:text="@string/mobile_no_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -333,7 +330,7 @@
                         android:background="#cac9c9"
                         android:ems="10"
                         android:hint="di importante"
-                        android:inputType="textMultiLine|textImeMultiLine|number"
+                        android:inputType="textMultiLine|textImeMultiLine|number|phone"
                         android:maxLines="100"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
@@ -354,7 +351,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/loaded_on_shelves_jdi"
+                        android:text="@string/birthday_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -366,12 +363,106 @@
                     android:layout_weight="0.3"
                     android:background="#cac9c9" >
 
-                    <CheckBox
-                        android:id="@+id/checkBox1"
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#cac9c9"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="related Supplier record"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:orientation="horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/email_contact_person"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <EditText
+                        android:id="@+id/objective"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
-                        android:background="#cac9c9"
-                        android:scrollHorizontally="true" />
+                        android:background="#dcdcdc"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/customer"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="related Customer record"
+                        android:textColor="#FF0000" />
                 </HorizontalScrollView>
             </TableRow>
 
@@ -398,7 +489,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/supplier_jdi_product_stock_check"
+                        android:text="@string/is_active_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -409,17 +500,12 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
-                        android:id="@+id/TextView04"
+                    <CheckBox
+                        android:id="@+id/checkBox1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Supplier record"
-                        android:textColor="#000000" />
+                        android:scrollHorizontally="true" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -438,7 +524,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_jdi"
+                        android:text="@string/assigned_to_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>

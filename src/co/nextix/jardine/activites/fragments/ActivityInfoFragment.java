@@ -62,7 +62,7 @@ public class ActivityInfoFragment extends Fragment {
 				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 
 				// Add a fucking fragment
-				AddActivityFragment myFragment = new AddActivityFragment();
+				StaticActivityInfoFragment myFragment = new StaticActivityInfoFragment();
 				fragmentTransaction.replace(R.id.second_header_tab, myFragment);
 				fragmentTransaction.commit();
 			}

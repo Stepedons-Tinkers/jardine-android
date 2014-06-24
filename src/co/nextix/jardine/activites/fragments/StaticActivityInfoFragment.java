@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityDIYorSupermarketFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityProjectVisitFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityRetailVisitFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityTrainingsFragment;

@@ -32,7 +32,7 @@
             android:onClick="jdiStockCheck"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="@string/all_caps_add_jdi_product_stock_check"
+            android:text="@string/all_caps_add_proj_requirement"
             android:textSize="18sp"
             android:textStyle="bold" />
     </LinearLayout>
@@ -127,7 +127,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/crm_no_competitor_stock_check"
+                        android:text="@string/crm_proj_requirements"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -169,7 +169,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:text="@string/activity_competitor_stock_check"
+                        android:text="@string/activity_proj_requirements"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -231,7 +231,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/product_jdi"
+                        android:text="@string/project_requirement_type"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -242,17 +242,12 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
-                        android:id="@+id/TextView04"
+                    <Spinner
+                        android:id="@+id/spinner1"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Product record"
-                        android:textColor="#000000" />
+                        android:scrollHorizontally="true" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -270,7 +265,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/stock_status_competitor_product"
+                        android:text="@string/date_needed"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -315,7 +310,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/jdi_quantity"
+                        android:text="@string/square_meters_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -354,7 +349,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/loaded_on_shelves_jdi"
+                        android:text="@string/products_used_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -366,12 +361,17 @@
                     android:layout_weight="0.3"
                     android:background="#cac9c9" >
 
-                    <CheckBox
-                        android:id="@+id/checkBox1"
+                    <EditText
+                        android:id="@+id/objective"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#cac9c9"
-                        android:scrollHorizontally="true" />
+                        android:ems="10"
+                        android:hint="di importante"
+                        android:inputType="textMultiLine|textImeMultiLine|number"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
 
@@ -398,7 +398,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/supplier_jdi_product_stock_check"
+                        android:text="@string/other_details_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -438,7 +438,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_jdi"
+                        android:text="@string/assigned_to_proj_requirement"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>

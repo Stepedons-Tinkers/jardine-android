@@ -20,16 +20,6 @@
         <item>Logout</item>
     </string-array>
 
-    <!-- Activities Spinner Items -->
-    <string-array name="activity_spinner_items">
-        <item>WPID</item>
-        <item>Customer</item>
-        <item>Date</item>
-        <item>Activity Type</item>
-        <item>Assigned To</item>
-        <item>Action</item>
-    </string-array>
-
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
@@ -42,6 +32,16 @@
         <item>@drawable/ic_collaterals_menubar</item>
         <item>@drawable/logout</item>
     </array>
+
+    <!-- Activities Spinner Items -->
+    <string-array name="activity_spinner_items">
+        <item>WPID</item>
+        <item>Customer</item>
+        <item>Date</item>
+        <item>Activity Type</item>
+        <item>Assigned To</item>
+        <item>Action</item>
+    </string-array>
 
     <!-- Content Description -->
     <string name="desc_list_item_icon">Item Icon</string>
@@ -71,6 +71,28 @@
     <string name="profile_notif_action">Action</string>
     <string name="profile_notif_remove">Remove</string>
 
+    <!-- WorkPlan -->
+    <string name="workplan_details">Workplan Details</string>
+    <string name="workplan_activities">Activities</string>
+    <string name="workplan_customer">Customer</string>
+    <string name="workplan_date">Date</string>
+    <string name="workplan_activity_type">Actvity Type</string>
+    <string name="workplan_info_date">Date</string>
+    <string name="workplan_info_area">Area</string>
+    <string name="workplan_info_citytown">City or Town</string>
+    <string name="workplan_info_acttype">Activity Type</string>
+    <string name="workplan_info_createdtime">Created Time</string>
+    <string name="workplan_info_assignedto">Assigned To</string>
+    <string name="workplan_info_customer">Customer</string>
+    <string name="workplan_info_status">Status</string>
+    <string name="workplan_info_province">Province</string>
+    <string name="workplan_info_otherremarks">Other Remarks</string>
+    <string name="workplan_info_workplan">Workplan</string>
+    <string name="workplan_info_modifiedtime">Modified Time</string>
+    <string name="workplan_add_activity">Add Activity</string>
+    <string name="workplan_start_time">Start Time</string>
+    <string name="workplan_end_time">End Time</string>
+
     <!-- Workplan View -->
     <string name="workplan_title">Workplan</string>
     <string name="workplan_header_id">WPID</string>
@@ -92,8 +114,8 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
-    <string name="crm_no">CRM No</string>
-    <string name="start_time">Start Time</string>
+    <string name="crm_no">CRM No.:</string>
+    <string name="start_time">Start Time:</string>
     <string name="latitude">Latitude:</string>
     <string name="objective">Objective:</string>
     <string name="highlights">Highlights:</string>
@@ -101,19 +123,62 @@
     <string name="workplan_entry">Workplan Entry:</string>
     <string name="first_time_visit">First Time Visit:</string>
     <string name="created_time">Created Time:</string>
-    <string name="assigned_to">Assigned To</string>
-    <string name="activity_gen">Activity</string>
-    <string name="end_time">End Time</string>
+    <string name="assigned_to">Assigned To:</string>
+    <string name="activity_gen">Activity:</string>
+    <string name="end_time">End Time:</string>
     <string name="longitude">Longitude:</string>
     <string name="notes">Notes:</string>
     <string name="next_steps">Next Steps:</string>
-    <string name="activity_type">Activity Type</string>
+    <string name="activity_type">Activity Type:</string>
     <string name="customer">Customer:</string>
     <string name="planned_visit">Planned Visit:</string>
     <string name="modified_time">Modified Time:</string>
     <string name="edit_activity">Edit Activity</string>
     <string name="back_to_activity">Back to Activity </string>
     <string name="no_data">No Data</string>
+
+    <!-- Contact Person -->
+    <string name="contact_person_crm_no">CRM No</string>
+    <string name="contact_person_firstname">First Name</string>
+    <string name="contact_person_lastname">Last Name</string>
+    <string name="contact_person_mobileno">Mobiel No</string>
+    <string name="contact_person_email">Email Address</string>
+    <string name="contact_person_position">Position</string>
+    <string name="contact_person_birthday">Birthday</string>
+    <string name="capslock_contact_person_firstname">FIRST NAME</string>
+    <string name="capslock_contact_person_lastname">LAST NAME</string>
+    <string name="capslock_contact_person_mobileno">MOBILE NO</string>
+    <string name="capslock_contact_person_email">EMAIL ADDRESS</string>
+    <string name="capslock_contact_person_position">POSITION</string>
+    <string name="capslock_contact_person_birthday">BIRTHDAY</string>
+    <string name="capslock_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
+    <string name="contact_person_details_street_address">Street Address</string>
+    <string name="contact_person_details_landline">Landline</string>
+    <string name="contact_person_details_chain_name">Chain Name</string>
+    <string name="contact_person_details_customer_size">Customer Size</string>
+    <string name="contact_person_details_customer_type">Customer Type</string>
+    <string name="contact_person_details_fax">Fax</string>
+    <string name="contact_person_details_is_active">Is Active</string>
+    <string name="contact_person_details_edit">Edit Customer Contact Person</string>
+    <string name="contact_person_details_delete">Delete Customer Contact Person</string>
+
+    <!-- Collaterals -->
+    <string name="collaterals_event_protocols">EVENT PROTOCOLS</string>
+    <string name="collaterals_marketing_materials">MARKETING MATERIALS</string>
+    <string name="collaterals_event_protocols_detail">EVENT PROTOCOL DETAILS</string>
+    <string name="collaterals_event_protocols_files">FILES</string>
+    <string name="collaterals_ep_crm_no">CRM No</string>
+    <string name="collaterals_ep_description">Description</string>
+    <string name="collaterals_ep_event_type">Event Type</string>
+    <string name="collaterals_ep_is_active">Is Active</string>
+    <string name="collaterals_ep_last_update">Last Update</string>
+    <string name="collaterals_ep_assigned_to">Assigned To</string>
+    <string name="collaterals_ep_created_time">Created Time</string>
+    <string name="collaterals_ep_tags">Tags</string>
+    <string name="collaterals_ep_general_information">General Information</string>
+    <string name="collaterals_file_title">Title</string>
+    <string name="collaterals_filename">Filename</string>
+    <string name="collaterals_file_modified_time">Modified Time</string>
 
     <!-- Create/Edit Activity Details / General Information -->
     <string name="workplan_gen_info">Workplan</string>
@@ -153,6 +218,7 @@
     <string name="assigned_to_jdi">Assigned To</string>
     <string name="action_jdi">Action</string>
     <string name="add_jdi_product_stock_check"> Add JDI Product Stock Check</string>
+    <string name="all_caps_add_jdi_product_stock_check">ADD JDI PRODUCT STOCK CHECK</string>
 
     <!-- JDI Product Stock Check Details -->
     <string name="jdi_product_stock_check_details">JDI PRODUCT STOCK CHECK DETAILS</string>
@@ -170,6 +236,7 @@
     <string name="assigned_to_merchandising">Assigned To</string>
     <string name="action_merchandising">Action</string>
     <string name="add_jdi_merchandising_check">Add JDI Merchandising Check</string>
+    <string name="all_caps_add_jdi_merchandising_check">ADD JDI MERCHANDISING CHECK</string>
 
     <!-- JDI Merchandising Check Detail -->
     <string name="jdi_merchandising_check_details">JDI MERCHANDISING CHECK DETAILS</string>
@@ -186,6 +253,7 @@
     <string name="assigned_to_competitor_product">Assigned To</string>
     <string name="action_competitor_product_stock_check">Action</string>
     <string name="add_competitor_product_stock_check">Add Competitor Product Stock Check</string>
+    <string name="all_caps_add_competitor_product_stock_check">ADD COMPETITOR PRODUCT STOCK CHECK</string>
 
     <!-- Competitor Product Stock Check Detail -->
     <string name="competitor_product_stock_check_details">COMPETITOR PRODUCT STOCK CHECK DETAILS</string>
@@ -202,6 +270,7 @@
     <string name="assigned_to_marketing_intel">Assigned To</string>
     <string name="action_marketing_intel">Action</string>
     <string name="add_marketing_intel">Add Marketing Intel</string>
+    <string name="all_caps_add_marketing_intel">ADD MARKETING INTEL</string>
 
     <!-- Marketing Intel Details -->
     <string name="marketing_intel_details">MARKETING INTEL DETAILS</string>
@@ -217,6 +286,7 @@
     <string name="assigned_to_proj_requirement">Assigned To</string>
     <string name="action_proj_requirement">Action</string>
     <string name="add_proj_requirement">Add Project Requirement</string>
+    <string name="all_caps_add_proj_requirement">ADD PROJECT REQUIREMENT</string>
 
     <!-- Project Requirements Detail -->
     <string name="project_requirement_details">PROJECT REQUIREMENT DETAILS</string>
@@ -232,80 +302,9 @@
     <string name="filename">Filename</string>
     <string name="modified_time_diy_supermarket_photos">Modified Time</string>
     <string name="add_diy_or_supermarket_photos">Add DIY or Supermarket Photo</string>
-
-    <!-- Customer Contact Person -->
-    <string name="crm_no_contact_person">CRM No</string>
-    <string name="firstname_contact_person">First Name</string>
-    <string name="lastname_contact_person">Last Name</string>
-    <string name="position_contact_person">Position</string>
-    <string name="customer_contact_person">Customer</string>
-    <string name="mobile_no_contact_person">Mobile No</string>
-    <string name="assigned_to_contact_person">Assigned To</string>
-    <string name="action_contact_person">Action</string>
-    <string name="add_customer_contact_person">Add Customer Contact Person</string>
-    <string name="select_customer_contact_person">Select Customer Contact Person</string>
-
-    <!-- Customer Contact Person Details -->
-    <string name="customer_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
-    <string name="birthday_contact_person">Birthday</string>
-    <string name="email_contact_person">Email Address</string>
-    <string name="is_active_contact_person">Is Active</string>
-    <string name="created_time_contact_person">Created Time</string>
-    <string name="modified_time_contact_person">Modified Time</string>
-    <string name="edit_customer_contact_person">Edit Customer Contact Person</string>
-
-    <!-- Products -->
-    <string name="crm_no_products">CRM No</string>
-    <string name="product_number">Product Number</string>
-    <string name="product_brand">Product Brand</string>
-    <string name="product_desc">Product Description</string>
-    <string name="assigned_to_products">Assigned To</string>
-    <string name="action_products">Action</string>
-    <string name="select_products">Select Product</string>
-
-    <!-- Collaterals -->
-    <string name="collaterals_event_protocols">EVENT PROTOCOLS</string>
-    <string name="collaterals_marketing_materials">MARKETING MATERIALS</string>
-    <string name="collaterals_event_protocols_detail">EVENT PROTOCOL DETAILS</string>
-    <string name="collaterals_event_protocols_files">FILES</string>
-    <string name="collaterals_ep_crm_no">CRM No</string>
-    <string name="collaterals_ep_description">Description</string>
-    <string name="collaterals_ep_event_type">Event Type</string>
-    <string name="collaterals_ep_is_active">Is Active</string>
-    <string name="collaterals_ep_last_update">Last Update</string>
-    <string name="collaterals_ep_assigned_to">Assigned To</string>
-    <string name="collaterals_ep_created_time">Created Time</string>
-    <string name="collaterals_ep_tags">Tags</string>
-    <string name="collaterals_ep_general_information">General Information</string>
-    <string name="collaterals_file_title">Title</string>
-    <string name="collaterals_filename">Filename</string>
-    <string name="collaterals_file_modified_time">Modified Time</string>
-
-    <!-- WorkPlan -->
-
-    <string name="workplan_details">Workplan Details</string>
-    <string name="workplan_activities">Activities</string>
-    <string name="workplan_customer">Customer</string>
-    <string name="workplan_date">Date</string>
-    <string name="workplan_activity_type">Actvity Type</string>
-    <string name="workplan_info_date">Date</string>
-    <string name="workplan_info_area">Area</string>
-    <string name="workplan_info_citytown">City or Town</string>
-    <string name="workplan_info_acttype">Activity Type</string>
-    <string name="workplan_info_createdtime">Created Time</string>
-    <string name="workplan_info_assignedto">Assigned To</string>
-    <string name="workplan_info_customer">Customer</string>
-    <string name="workplan_info_status">Status</string>
-    <string name="workplan_info_province">Province</string>
-    <string name="workplan_info_otherremarks">Other Remarks</string>
-    <string name="workplan_info_workplan">Workplan</string>
-    <string name="workplan_info_modifiedtime">Modified Time</string>
-    <string name="workplan_add_activity">Add Activity</string>
-    <string name="workplan_start_time">Start Time</string>
-    <string name="workplan_end_time">End Time</string>
+    <string name="all_caps_add_diy_or_supermarket_photos">ADD DIY OR SUPERMARKET PHOTO</string>
 
     <!-- Customers -->
-
     <string name="customer_crm_no">CRM No</string>
     <string name="customer_name">Customer Name</string>
     <string name="customer_business_unit">Business Unit</string>
@@ -330,30 +329,38 @@
     <string name="customer_details_edit">Edit Customer</string>
     <string name="customer_details_delete">Delete Customer</string>
 
-    <!-- Contact Person -->
+    <!-- Customer Contact Person -->
+    <string name="crm_no_contact_person">CRM No</string>
+    <string name="firstname_contact_person">First Name</string>
+    <string name="lastname_contact_person">Last Name</string>
+    <string name="position_contact_person">Position</string>
+    <string name="customer_contact_person">Customer</string>
+    <string name="mobile_no_contact_person">Mobile No</string>
+    <string name="assigned_to_contact_person">Assigned To</string>
+    <string name="action_contact_person">Action</string>
+    <string name="add_customer_contact_person">Add Customer Contact Person</string>
+    <string name="all_caps_add_customer_contact_person">ADD CUSTOMER CONTACT PERSON</string>
+    <string name="select_customer_contact_person">Select Customer Contact Person</string>
+    <string name="all_caps_select_customer_contact_person">SELECT CUSTOMER CONTACT PERSON</string>
+    <string name="select">Select</string>
 
-    <string name="contact_person_crm_no">CRM No</string>
-    <string name="contact_person_firstname">First Name</string>
-    <string name="contact_person_lastname">Last Name</string>
-    <string name="contact_person_mobileno">Mobiel No</string>
-    <string name="contact_person_email">Email Address</string>
-    <string name="contact_person_position">Position</string>
-    <string name="contact_person_birthday">Birthday</string>
-    <string name="capslock_contact_person_firstname">FIRST NAME</string>
-    <string name="capslock_contact_person_lastname">LAST NAME</string>
-    <string name="capslock_contact_person_mobileno">MOBILE NO</string>
-    <string name="capslock_contact_person_email">EMAIL ADDRESS</string>
-    <string name="capslock_contact_person_position">POSITION</string>
-    <string name="capslock_contact_person_birthday">BIRTHDAY</string>
-    <string name="capslock_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
-    <string name="contact_person_details_street_address">Street Address</string>
-    <string name="contact_person_details_landline">Landline</string>
-    <string name="contact_person_details_chain_name">Chain Name</string>
-    <string name="contact_person_details_customer_size">Customer Size</string>
-    <string name="contact_person_details_customer_type">Customer Type</string>
-    <string name="contact_person_details_fax">Fax</string>
-    <string name="contact_person_details_is_active">Is Active</string>
-    <string name="contact_person_details_edit">Edit Customer Contact Person</string>
-    <string name="contact_person_details_delete">Delete Customer Contact Person</string>
+    <!-- Customer Contact Person Details -->
+    <string name="customer_contact_person_details">CUSTOMER CONTACT PERSON DETAILS</string>
+    <string name="birthday_contact_person">Birthday</string>
+    <string name="email_contact_person">Email Address</string>
+    <string name="is_active_contact_person">Is Active</string>
+    <string name="created_time_contact_person">Created Time</string>
+    <string name="modified_time_contact_person">Modified Time</string>
+    <string name="edit_customer_contact_person">Edit Customer Contact Person</string>
+
+    <!-- Products -->
+    <string name="crm_no_products">CRM No</string>
+    <string name="product_number">Product Number</string>
+    <string name="product_brand">Product Brand</string>
+    <string name="product_desc">Product Description</string>
+    <string name="assigned_to_products">Assigned To</string>
+    <string name="action_products">Action</string>
+    <string name="select_products">Select Product</string>
+    <string name="all_caps_select_products">SELECT PRODUCT</string>
 
 </resources>
