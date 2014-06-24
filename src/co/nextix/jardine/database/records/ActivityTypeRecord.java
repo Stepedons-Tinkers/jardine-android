@@ -15,7 +15,7 @@ public class ActivityTypeRecord {
 
 	private long id;
 	private String no;
-	private long activity_type;
+//	private long activity_type;
 	private long activity_type_categorization;
 	private int is_active;
 	private long user; // User Table
@@ -24,12 +24,12 @@ public class ActivityTypeRecord {
 	// Public constructors
 	// ===========================================================
 
-	public ActivityTypeRecord(long id, String no, long activityType,
+	public ActivityTypeRecord(long id, String no, 
 			long activityTypeCategorization, int isActive, long user) {
 
 		this.id = id;
 		this.no = no;
-		this.activity_type = activityType;
+//		this.activity_type = activityType;
 		this.activity_type_categorization = activityTypeCategorization;
 		this.is_active = isActive;
 		this.user = user;
@@ -51,13 +51,13 @@ public class ActivityTypeRecord {
 		return this.no;
 	}
 
-	public void setActivityType(long activityType) {
-		this.activity_type = activityType;
-	}
-
-	public long getActivityType() {
-		return this.activity_type;
-	}
+//	public void setActivityType(long activityType) {
+//		this.activity_type = activityType;
+//	}
+//
+//	public long getActivityType() {
+//		return this.activity_type;
+//	}
 
 	public void setActivityTypeCategorization(long activityTypeCategorization) {
 		this.activity_type_categorization = activityTypeCategorization;

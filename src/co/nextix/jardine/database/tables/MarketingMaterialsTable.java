@@ -31,7 +31,7 @@ public class MarketingMaterialsTable {
 	// Private fields
 	// ===========================================================
 
-	private MarketingMaterialsCollection marketingMaterialsCollection;
+//	private MarketingMaterialsCollection marketingMaterialsCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -266,7 +266,7 @@ public class MarketingMaterialsTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		MarketingMaterialsCollection collection = getRecords();
+//		MarketingMaterialsCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -280,8 +280,8 @@ public class MarketingMaterialsTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, description, lastUpdate, tags, createdTime,
-					modifiedTime, user);
+//			collection.add(ids, no, description, lastUpdate, tags, createdTime,
+//					modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -292,7 +292,7 @@ public class MarketingMaterialsTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_MARKETINGMATERIALS_ROWID + "="
 				+ rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+//			getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
@@ -312,8 +312,8 @@ public class MarketingMaterialsTable {
 		args.put(KEY_MARKETINGMATERIALS_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGMATERIALS_ROWID + "="
 				+ id, null) > 0) {
-			getRecords().update(id, no, description, lastUpdate, tags,
-					createdTime, modifiedTime, user);
+//			getRecords().update(id, no, description, lastUpdate, tags,
+//					createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -324,7 +324,7 @@ public class MarketingMaterialsTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+//			getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -338,95 +338,95 @@ public class MarketingMaterialsTable {
 	// Collection
 	// ===========================================================
 
-	public MarketingMaterialsCollection getRecords() {
-		if (marketingMaterialsCollection == null) {
-			marketingMaterialsCollection = new MarketingMaterialsCollection();
-			marketingMaterialsCollection.list = getAllRecords();
-		}
-		return marketingMaterialsCollection;
-	}
-
-	public final class MarketingMaterialsCollection implements
-			Iterable<MarketingMaterialsRecord> {
-
-		private List<MarketingMaterialsRecord> list;
-
-		private MarketingMaterialsCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public MarketingMaterialsRecord get(int i) {
-			return list.get(i);
-		}
-
-		public MarketingMaterialsRecord getById(long id) {
-			for (MarketingMaterialsRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String description,
-				String lastUpdate, String tags, String createdTime,
-				String modifiedTime, long user) {
-			list.add(new MarketingMaterialsRecord(id, no, description,
-					lastUpdate, tags, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String description,
-				String lastUpdate, String tags, String createdTime,
-				String modifiedTime, long user) {
-			MarketingMaterialsRecord record = getById(id);
-			record.setNo(no);
-			record.setDescription(description);
-			record.setLastUpdate(lastUpdate);
-			record.setTags(tags);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<MarketingMaterialsRecord> iterator() {
-			Iterator<MarketingMaterialsRecord> iter = new Iterator<MarketingMaterialsRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						delete(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public MarketingMaterialsRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+//	public MarketingMaterialsCollection getRecords() {
+//		if (marketingMaterialsCollection == null) {
+//			marketingMaterialsCollection = new MarketingMaterialsCollection();
+//			marketingMaterialsCollection.list = getAllRecords();
+//		}
+//		return marketingMaterialsCollection;
+//	}
+//
+//	public final class MarketingMaterialsCollection implements
+//			Iterable<MarketingMaterialsRecord> {
+//
+//		private List<MarketingMaterialsRecord> list;
+//
+//		private MarketingMaterialsCollection() {
+//		}
+//
+//		public int size() {
+//			return list.size();
+//		}
+//
+//		public MarketingMaterialsRecord get(int i) {
+//			return list.get(i);
+//		}
+//
+//		public MarketingMaterialsRecord getById(long id) {
+//			for (MarketingMaterialsRecord record : list) {
+//				if (record.getId() == id) {
+//					return record;
+//				}
+//			}
+//			return null;
+//		}
+//
+//		private void add(long id, String no, String description,
+//				String lastUpdate, String tags, String createdTime,
+//				String modifiedTime, long user) {
+//			list.add(new MarketingMaterialsRecord(id, no, description,
+//					lastUpdate, tags, createdTime, modifiedTime, user));
+//		}
+//
+//		private void clear() {
+//			list.clear();
+//		}
+//
+//		private void deleteById(long id) {
+//			list.remove(getById(id));
+//		}
+//
+//		private void update(long id, String no, String description,
+//				String lastUpdate, String tags, String createdTime,
+//				String modifiedTime, long user) {
+//			MarketingMaterialsRecord record = getById(id);
+//			record.setNo(no);
+//			record.setDescription(description);
+//			record.setLastUpdate(lastUpdate);
+//			record.setTags(tags);
+//			record.setCreatedTime(createdTime);
+//			record.setModifiedTime(modifiedTime);
+//			record.setUser(user);
+//		}
+//
+//		@Override
+//		public Iterator<MarketingMaterialsRecord> iterator() {
+//			Iterator<MarketingMaterialsRecord> iter = new Iterator<MarketingMaterialsRecord>() {
+//				private int current = 0;
+//
+//				@Override
+//				public void remove() {
+//					if (list.size() > 0) {
+//						delete(list.get(current).getId());
+//						deleteById(list.get(current).getId());
+//						list.remove(current);
+//					}
+//				}
+//
+//				@Override
+//				public MarketingMaterialsRecord next() {
+//					if (list.size() > 0) {
+//						return list.get(current++);
+//					}
+//					return null;
+//				}
+//
+//				@Override
+//				public boolean hasNext() {
+//					return list.size() > 0 && current < list.size();
+//				}
+//			};
+//			return iter;
+//		}
+//	}
 }

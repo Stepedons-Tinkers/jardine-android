@@ -36,7 +36,7 @@ public class CustomerContactTable {
 	// Private fields
 	// ===========================================================
 
-	private CustomerContactCollection customerContactRecords;
+	// private CustomerContactCollection customerContactRecords;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -256,14 +256,14 @@ public class CustomerContactTable {
 		return record;
 	}
 
-	public long insertUser(String no, String firstName, String lastName,
+	public long insert(String no, String firstName, String lastName,
 			long position, String mobileNo, String birthday,
 			String emailAddress, long customer, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		CustomerContactCollection collection = getRecords();
+		// CustomerContactCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -282,9 +282,9 @@ public class CustomerContactTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, firstName, lastName, position, mobileNo,
-					birthday, emailAddress, customer, isActive, createdTime,
-					modifiedTime, user);
+			// collection.add(ids, no, firstName, lastName, position, mobileNo,
+			// birthday, emailAddress, customer, isActive, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -292,17 +292,17 @@ public class CustomerContactTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_CUSTOMERCONTACT_ROWID + "=" + rowId,
 				null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, String firstName,
+	public boolean update(long id, String no, String firstName,
 			String lastName, long position, String mobileNo, String birthday,
 			String emailAddress, long customer, int isActive,
 			String createdTime, String modifiedTime, long user) {
@@ -321,9 +321,9 @@ public class CustomerContactTable {
 		args.put(KEY_CUSTOMERCONTACT_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMERCONTACT_ROWID + "="
 				+ id, null) > 0) {
-			getRecords().update(id, no, firstName, lastName, position,
-					mobileNo, birthday, emailAddress, customer, isActive,
-					createdTime, modifiedTime, user);
+			// getRecords().update(id, no, firstName, lastName, position,
+			// mobileNo, birthday, emailAddress, customer, isActive,
+			// createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -334,7 +334,7 @@ public class CustomerContactTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -348,103 +348,104 @@ public class CustomerContactTable {
 	// Collection
 	// ===========================================================
 
-	public CustomerContactCollection getRecords() {
-		if (customerContactRecords == null) {
-			customerContactRecords = new CustomerContactCollection();
-			customerContactRecords.list = getAllRecords();
-		}
-		return customerContactRecords;
-	}
-
-	public final class CustomerContactCollection implements
-			Iterable<CustomerContactRecord> {
-
-		private List<CustomerContactRecord> list;
-
-		private CustomerContactCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public CustomerContactRecord get(int i) {
-			return list.get(i);
-		}
-
-		public CustomerContactRecord getById(long id) {
-			for (CustomerContactRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String firstName, String lastName,
-				long position, String mobileNo, String birthday,
-				String emailAddress, long customer, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			list.add(new CustomerContactRecord(id, no, firstName, lastName,
-					position, mobileNo, birthday, emailAddress, customer,
-					isActive, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String firstName,
-				String lastName, long position, String mobileNo,
-				String birthday, String emailAddress, long customer,
-				int isActive, String createdTime, String modifiedTime, long user) {
-			CustomerContactRecord record = getById(id);
-			record.setNo(no);
-			record.setFirstName(firstName);
-			record.setLastName(lastName);
-			record.setPosition(position);
-			record.setMobileNo(mobileNo);
-			record.setBirthday(birthday);
-			record.setEmailAddress(emailAddress);
-			record.setCustomer(customer);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<CustomerContactRecord> iterator() {
-			Iterator<CustomerContactRecord> iter = new Iterator<CustomerContactRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public CustomerContactRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public CustomerContactCollection getRecords() {
+	// if (customerContactRecords == null) {
+	// customerContactRecords = new CustomerContactCollection();
+	// customerContactRecords.list = getAllRecords();
+	// }
+	// return customerContactRecords;
+	// }
+	//
+	// public final class CustomerContactCollection implements
+	// Iterable<CustomerContactRecord> {
+	//
+	// private List<CustomerContactRecord> list;
+	//
+	// private CustomerContactCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public CustomerContactRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public CustomerContactRecord getById(long id) {
+	// for (CustomerContactRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String firstName, String lastName,
+	// long position, String mobileNo, String birthday,
+	// String emailAddress, long customer, int isActive,
+	// String createdTime, String modifiedTime, long user) {
+	// list.add(new CustomerContactRecord(id, no, firstName, lastName,
+	// position, mobileNo, birthday, emailAddress, customer,
+	// isActive, createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String firstName,
+	// String lastName, long position, String mobileNo,
+	// String birthday, String emailAddress, long customer,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// CustomerContactRecord record = getById(id);
+	// record.setNo(no);
+	// record.setFirstName(firstName);
+	// record.setLastName(lastName);
+	// record.setPosition(position);
+	// record.setMobileNo(mobileNo);
+	// record.setBirthday(birthday);
+	// record.setEmailAddress(emailAddress);
+	// record.setCustomer(customer);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<CustomerContactRecord> iterator() {
+	// Iterator<CustomerContactRecord> iter = new
+	// Iterator<CustomerContactRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public CustomerContactRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

@@ -30,7 +30,7 @@ public class CompetitorTable {
 	// Private fields
 	// ===========================================================
 
-	private CompetitorCollection competitorRecords;
+	// private CompetitorCollection competitorRecords;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -243,12 +243,12 @@ public class CompetitorTable {
 		return record;
 	}
 
-	public long insertUser(String no, String competitorName, int isActive,
+	public long insert(String no, String competitorName, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		CompetitorCollection collection = getRecords();
+		// CompetitorCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -261,8 +261,8 @@ public class CompetitorTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, competitorName, isActive, createdTime,
-					modifiedTime, user);
+			// collection.add(ids, no, competitorName, isActive, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -270,16 +270,16 @@ public class CompetitorTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_COMPETITOR_ROWID + "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, String competitorName,
+	public boolean update(long id, String no, String competitorName,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITOR_NO, no);
@@ -290,8 +290,9 @@ public class CompetitorTable {
 		args.put(KEY_COMPETITOR_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITOR_ROWID + "=" + id,
 				null) > 0) {
-			getRecords().update(id, no, competitorName, isActive, createdTime,
-					modifiedTime, user);
+			// getRecords().update(id, no, competitorName, isActive,
+			// createdTime,
+			// modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -302,7 +303,7 @@ public class CompetitorTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -316,92 +317,92 @@ public class CompetitorTable {
 	// Collection
 	// ===========================================================
 
-	public CompetitorCollection getRecords() {
-		if (competitorRecords == null) {
-			competitorRecords = new CompetitorCollection();
-			competitorRecords.list = getAllRecords();
-		}
-		return competitorRecords;
-	}
-
-	public final class CompetitorCollection implements
-			Iterable<CompetitorRecord> {
-
-		private List<CompetitorRecord> list;
-
-		private CompetitorCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public CompetitorRecord get(int i) {
-			return list.get(i);
-		}
-
-		public CompetitorRecord getById(long id) {
-			for (CompetitorRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String competitorName,
-				int isActive, String createdTime, String modifiedTime, long user) {
-			list.add(new CompetitorRecord(id, no, competitorName, isActive,
-					createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String competitorName,
-				int isActive, String createdTime, String modifiedTime, long user) {
-			CompetitorRecord record = getById(id);
-			record.setNo(no);
-			record.setCompetitorName(competitorName);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<CompetitorRecord> iterator() {
-			Iterator<CompetitorRecord> iter = new Iterator<CompetitorRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public CompetitorRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public CompetitorCollection getRecords() {
+	// if (competitorRecords == null) {
+	// competitorRecords = new CompetitorCollection();
+	// competitorRecords.list = getAllRecords();
+	// }
+	// return competitorRecords;
+	// }
+	//
+	// public final class CompetitorCollection implements
+	// Iterable<CompetitorRecord> {
+	//
+	// private List<CompetitorRecord> list;
+	//
+	// private CompetitorCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public CompetitorRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public CompetitorRecord getById(long id) {
+	// for (CompetitorRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String competitorName,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// list.add(new CompetitorRecord(id, no, competitorName, isActive,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String competitorName,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// CompetitorRecord record = getById(id);
+	// record.setNo(no);
+	// record.setCompetitorName(competitorName);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<CompetitorRecord> iterator() {
+	// Iterator<CompetitorRecord> iter = new Iterator<CompetitorRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public CompetitorRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

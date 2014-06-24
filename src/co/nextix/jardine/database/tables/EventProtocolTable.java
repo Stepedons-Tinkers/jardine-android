@@ -33,7 +33,7 @@ public class EventProtocolTable {
 	// Private fields
 	// ===========================================================
 
-	private EventProtocolCollection eventProtocolCollection;
+//	private EventProtocolCollection eventProtocolCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -277,7 +277,7 @@ public class EventProtocolTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		EventProtocolCollection collection = getRecords();
+//		EventProtocolCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -293,8 +293,8 @@ public class EventProtocolTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, description, lastUpdate, tags, eventType,
-					isActive, createdTime, modifiedTime, user);
+//			collection.add(ids, no, description, lastUpdate, tags, eventType,
+//					isActive, createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -305,7 +305,7 @@ public class EventProtocolTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_EVENTPROTOCOL_ROWID + "=" + rowId,
 				null) > 0) {
-			getRecords().deleteById(rowId);
+//			getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
@@ -327,8 +327,8 @@ public class EventProtocolTable {
 		args.put(KEY_EVENTPROTOCOL_USER, user);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_EVENTPROTOCOL_ROWID + "=" + id, null) > 0) {
-			getRecords().update(id, no, description, lastUpdate, tags,
-					eventType, isActive, createdTime, modifiedTime, user);
+//			getRecords().update(id, no, description, lastUpdate, tags,
+//					eventType, isActive, createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -339,7 +339,7 @@ public class EventProtocolTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+//			getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -353,97 +353,97 @@ public class EventProtocolTable {
 	// Collection
 	// ===========================================================
 
-	public EventProtocolCollection getRecords() {
-		if (eventProtocolCollection == null) {
-			eventProtocolCollection = new EventProtocolCollection();
-			eventProtocolCollection.list = getAllRecords();
-		}
-		return eventProtocolCollection;
-	}
-
-	public final class EventProtocolCollection implements
-			Iterable<EventProtocolRecord> {
-
-		private List<EventProtocolRecord> list;
-
-		private EventProtocolCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public EventProtocolRecord get(int i) {
-			return list.get(i);
-		}
-
-		public EventProtocolRecord getById(long id) {
-			for (EventProtocolRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String description,
-				String lastUpdate, String tags, long eventType, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			list.add(new EventProtocolRecord(id, no, description, lastUpdate,
-					tags, eventType, isActive, createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String description,
-				String lastUpdate, String tags, long eventType, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			EventProtocolRecord record = getById(id);
-			record.setNo(no);
-			record.setDescription(description);
-			record.setLastUpdate(lastUpdate);
-			record.setTags(tags);
-			record.setEventType(eventType);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<EventProtocolRecord> iterator() {
-			Iterator<EventProtocolRecord> iter = new Iterator<EventProtocolRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						delete(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public EventProtocolRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+//	public EventProtocolCollection getRecords() {
+//		if (eventProtocolCollection == null) {
+//			eventProtocolCollection = new EventProtocolCollection();
+//			eventProtocolCollection.list = getAllRecords();
+//		}
+//		return eventProtocolCollection;
+//	}
+//
+//	public final class EventProtocolCollection implements
+//			Iterable<EventProtocolRecord> {
+//
+//		private List<EventProtocolRecord> list;
+//
+//		private EventProtocolCollection() {
+//		}
+//
+//		public int size() {
+//			return list.size();
+//		}
+//
+//		public EventProtocolRecord get(int i) {
+//			return list.get(i);
+//		}
+//
+//		public EventProtocolRecord getById(long id) {
+//			for (EventProtocolRecord record : list) {
+//				if (record.getId() == id) {
+//					return record;
+//				}
+//			}
+//			return null;
+//		}
+//
+//		private void add(long id, String no, String description,
+//				String lastUpdate, String tags, long eventType, int isActive,
+//				String createdTime, String modifiedTime, long user) {
+//			list.add(new EventProtocolRecord(id, no, description, lastUpdate,
+//					tags, eventType, isActive, createdTime, modifiedTime, user));
+//		}
+//
+//		private void clear() {
+//			list.clear();
+//		}
+//
+//		private void deleteById(long id) {
+//			list.remove(getById(id));
+//		}
+//
+//		private void update(long id, String no, String description,
+//				String lastUpdate, String tags, long eventType, int isActive,
+//				String createdTime, String modifiedTime, long user) {
+//			EventProtocolRecord record = getById(id);
+//			record.setNo(no);
+//			record.setDescription(description);
+//			record.setLastUpdate(lastUpdate);
+//			record.setTags(tags);
+//			record.setEventType(eventType);
+//			record.setIsActive(isActive);
+//			record.setCreatedTime(createdTime);
+//			record.setModifiedTime(modifiedTime);
+//			record.setUser(user);
+//		}
+//
+//		@Override
+//		public Iterator<EventProtocolRecord> iterator() {
+//			Iterator<EventProtocolRecord> iter = new Iterator<EventProtocolRecord>() {
+//				private int current = 0;
+//
+//				@Override
+//				public void remove() {
+//					if (list.size() > 0) {
+//						delete(list.get(current).getId());
+//						deleteById(list.get(current).getId());
+//						list.remove(current);
+//					}
+//				}
+//
+//				@Override
+//				public EventProtocolRecord next() {
+//					if (list.size() > 0) {
+//						return list.get(current++);
+//					}
+//					return null;
+//				}
+//
+//				@Override
+//				public boolean hasNext() {
+//					return list.size() > 0 && current < list.size();
+//				}
+//			};
+//			return iter;
+//		}
+//	}
 }

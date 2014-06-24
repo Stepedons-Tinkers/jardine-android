@@ -44,7 +44,6 @@ import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PActProjCategoryTable;
 import co.nextix.jardine.database.tables.picklists.PActProjStageTable;
 import co.nextix.jardine.database.tables.picklists.PActtypeCategoryTable;
-import co.nextix.jardine.database.tables.picklists.PActtypeTypeTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
@@ -247,82 +246,82 @@ public class SyncMenuBarFragment extends Fragment {
 								.getSMRentryType();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.customer_size)) {
 						PCustSizeTable table = JardineApp.DB.getCustomerSize();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.customer_type)) {
 						PCustTypeTable table = JardineApp.DB.getCustomerType();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.customercontact_position)) {
 						PCustConPositionTable table = JardineApp.DB
 								.getCustomerContactPosition();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.eventprotocol_eventtype)) {
 						PEventTypeTable table = JardineApp.DB
 								.getEventProtocolType();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.activitytype_category)) {
 						PActtypeCategoryTable table = JardineApp.DB
 								.getActivitytypeCategory();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.workplanentry_status)) {
 						PWorkEntryStatusTable table = JardineApp.DB
 								.getWorkplanEntryStatus();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.activity_projectstage)) {
 						PActProjStageTable table = JardineApp.DB
 								.getActivityProjectStage();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.activity_projectcategory)) {
 						PActProjCategoryTable table = JardineApp.DB
 								.getActivityProjectCategory();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.jdiprodstock_status)) {
 						PJDIprodStatusTable table = JardineApp.DB
 								.getJDIproductStatus();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.jdimerchcheck_status)) {
 						PJDImerchCheckStatusTable table = JardineApp.DB
 								.getJDImerchCheckStatus();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					} else if (module.equals(Modules.projrequirement_type)) {
 						PProjReqTypeTable table = JardineApp.DB
 								.getProjectRequirementType();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
-								table.insertUser(p);
+								table.insert(p);
 						}
 					}
 				}
@@ -533,7 +532,7 @@ public class SyncMenuBarFragment extends Fragment {
 								.getBusinessUnit());
 
 						// if (businessUnit > 0)
-						table.insertUser(model.getCrmNo(), model.getProdNum(),
+						table.insert(model.getCrmNo(), model.getProdNum(),
 								model.getProdBrand(), model.getDescription(),
 								model.getProdSize(), businessUnit,
 								Integer.parseInt(model.getIsActive()),
@@ -584,7 +583,7 @@ public class SyncMenuBarFragment extends Fragment {
 				for (SupplierModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
 
-						table.insertUser(model.getCrmNo(), model.getName(),
+						table.insert(model.getCrmNo(), model.getName(),
 								model.getLandline(), model.getAddress(),
 								model.getCreditLine(), model.getCreditTerm(),
 								model.getContactPerson(),
@@ -636,7 +635,7 @@ public class SyncMenuBarFragment extends Fragment {
 				for (CompetitorModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
 
-						table.insertUser(model.getCrmNo(), model.getName(),
+						table.insert(model.getCrmNo(), model.getName(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -744,9 +743,9 @@ public class SyncMenuBarFragment extends Fragment {
 						long area = areaTable.getIdByName(model.getArea());
 
 						// if (area > 0)
-						table.insertUser(model.getCrmNo(),
-								model.getFirstname(), model.getLastname(), 0,
-								area, Integer.parseInt(model.getIsActive()),
+						table.insert(model.getCrmNo(), model.getFirstname(),
+								model.getLastname(), area,
+								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
@@ -812,10 +811,10 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((area > 0) && (customerType > 0)
 						// && (businessUnit > 0) && (province > 0)
 						// && (cityTown > 0))
-						table.insertUser(model.getCrmNo(), model.getName(),
+						table.insert(model.getCrmNo(), model.getName(),
 								model.getChainname(), model.getLandline(),
 								model.getFax(), model.getCustomerSize(),
-								model.getStreetadd(), 0, customerType,
+								model.getStreetadd(), customerType,
 								businessUnit, area, province, cityTown,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
@@ -876,11 +875,10 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCustomer()).getId();
 
 						// if ((position > 0) && (customer > 0))
-						table.insertUser(model.getCrmNo(),
-								model.getFirstname(), model.getLastname(),
-								position, model.getMobileno(),
-								model.getBirthday(), model.getEmail(),
-								customer,
+						table.insert(model.getCrmNo(), model.getFirstname(),
+								model.getLastname(), position,
+								model.getMobileno(), model.getBirthday(),
+								model.getEmail(), customer,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -922,8 +920,8 @@ public class SyncMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 
 			ActivityTypeTable table = JardineApp.DB.getActivityType();
-			PActtypeTypeTable acttypeTypeTable = JardineApp.DB
-					.getActivitytypeType();
+			// PActtypeTypeTable acttypeTypeTable = JardineApp.DB
+			// .getActivitytypeType();
 			PActtypeCategoryTable actCategoryTable = JardineApp.DB
 					.getActivitytypeCategory();
 
@@ -933,13 +931,13 @@ public class SyncMenuBarFragment extends Fragment {
 			if (results != null) {
 				for (ActivityTypeModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
-						long type = acttypeTypeTable.getIdByName(model
-								.getActivitytype());
+						// long type = acttypeTypeTable.getIdByName(model
+						// .getActivitytype());
 						long category = actCategoryTable.getIdByName(model
 								.getActivitytypeCategory());
 
 						// if ((type > 0) && (category > 0))
-						table.insertUser(model.getCrmNo(), type, category,
+						table.insert(model.getCrmNo(), category,
 								Integer.parseInt(model.getIsActive()), USER_ID);
 					}
 				}
@@ -985,8 +983,8 @@ public class SyncMenuBarFragment extends Fragment {
 				for (WorkplanModel model : results) {
 					if (!table.isExisting(model.getCrmNo())) {
 
-						table.insertUser(model.getCrmNo(), model.getFromDate(),
-								model.getToDate(), 0, model.getCreatedTime(),
+						table.insert(model.getCrmNo(), model.getFromDate(),
+								model.getToDate(), model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
 				}
@@ -1058,7 +1056,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((area > 0) && (province > 0) && (cityTown > 0)
 						// && (activityType > 0) && (workplan > 0))
-						table.insertUser(model.getCrmNo(), 0, model.getDate(),
+						table.insert(model.getCrmNo(), 0, model.getDate(),
 								Integer.parseInt(model.getStatus()), area,
 								province, cityTown, "remarks", activityType,
 								workplan, model.getCreatedTime(),
@@ -1133,7 +1131,7 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((workplanEntry > 0) && (customer > 0) && (smr >
 						// 0)
 						// && (workplan > 0) && (activityType > 0))
-						table.insertUser(model.getCrmNo(), workplan,
+						table.insert(model.getCrmNo(), workplan,
 								model.getStartTime(), model.getEndTime(),
 								Double.parseDouble(model.getLongitude()),
 								Double.parseDouble(model.getLatitude()),
@@ -1210,7 +1208,7 @@ public class SyncMenuBarFragment extends Fragment {
 								.getProduct());
 
 						// if ((activity > 0) && (product > 0))
-						table.insertUser(model.getCrmNo(), activity, product,
+						table.insert(model.getCrmNo(), activity, product,
 								Integer.parseInt(model.getStatus()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1277,7 +1275,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((stockStatus > 0) && (supplier > 0)
 						// && (activity > 0) && (product > 0))
-						table.insertUser(model.getCrmNo(), activity, product,
+						table.insert(model.getCrmNo(), activity, product,
 								stockStatus, 0,
 								Integer.parseInt(model.getLoadedonshelves()),
 								supplier, model.getCreatedTime(),
@@ -1344,7 +1342,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((activity > 0) && (stockStatus > 0)
 						// && (competitorProduct > 0))
-						table.insertUser(model.getCrmNo(), activity,
+						table.insert(model.getCrmNo(), activity,
 								competitorProduct, stockStatus,
 								Integer.parseInt(model.getLoadedonshelves()),
 								model.getCreatedTime(),
@@ -1404,8 +1402,8 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getActivity()).getId();
 
 						// if ((activity > 0) && (competitor > 0))
-						table.insertUser(model.getCrmNo(), activity,
-								competitor, model.getDetails(), "remarks",
+						table.insert(model.getCrmNo(), activity, competitor,
+								model.getDetails(), "remarks",
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
@@ -1460,9 +1458,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getIdByName(model.getProjectReqType());
 
 						// if (projectRequirementType > 0)
-						table.insertUser(model.getCrmNo(),
-								projectRequirementType, model.getDateNeeded(),
-								model.getSquaremeters(),
+						table.insert(model.getCrmNo(), projectRequirementType,
+								model.getDateNeeded(), model.getSquaremeters(),
 								model.getProductsUsed(),
 								model.getOtherDetails(),
 								model.getCreatedTime(),

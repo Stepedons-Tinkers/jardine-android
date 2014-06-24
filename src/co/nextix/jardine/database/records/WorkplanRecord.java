@@ -20,7 +20,7 @@ public class WorkplanRecord {
 	private String no;
 	private String start_date;
 	private String end_date;
-	private int status;
+	// private int status;
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
@@ -29,16 +29,17 @@ public class WorkplanRecord {
 	// Public constructors
 	// ===========================================================
 
-	public WorkplanRecord(){}
-	
+	public WorkplanRecord() {
+	}
+
 	public WorkplanRecord(long id, String no, String startDate, String endDate,
-			int status, String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
 		this.start_date = startDate;
 		this.end_date = endDate;
-		this.status = status;
+		// this.status = status;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.user = user;
@@ -92,13 +93,13 @@ public class WorkplanRecord {
 		return this.user;
 	}
 
-	public void setStatus(int status) {
-		this.status = status;
-	}
-
-	public int getStatus() {
-		return this.status;
-	}
+	// public void setStatus(int status) {
+	// this.status = status;
+	// }
+	//
+	// public int getStatus() {
+	// return this.status;
+	// }
 
 	public void setCreatedTime(String createdTime) {
 		this.created_time = createdTime;
