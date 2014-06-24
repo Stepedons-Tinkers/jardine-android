@@ -10,7 +10,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 
 public class ActivityInfoFragment extends Fragment {
 

@@ -16,13 +16,18 @@ public class EditActivityInfoFragment extends Fragment {
 
 		View myFragmentView = inflater.inflate(R.layout.fragment_start_activity, container, false);
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
-				
+				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+				// Add a fucking fragment
+				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
+				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+				fragmentTransaction.commit();
 			}
 		});
-		
+
 		return myFragmentView;
 	}
 
