@@ -14,6 +14,7 @@
             android:id="@+id/activity_info_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginRight="-4dp"
             android:layout_marginTop="-8dp"
             android:layout_weight="1.15"
             android:onClick="activityInfo"
@@ -26,6 +27,7 @@
             android:id="@+id/more_info_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="-4dp"
             android:layout_marginTop="-8dp"
             android:layout_weight="1.15"
             android:onClick="activityInfo"
@@ -39,11 +41,12 @@
         android:id="@+id/second_header_tab"
         android:layout_width="match_parent"
         android:layout_height="54dp"
+        android:layout_marginTop="-4dp"
         android:orientation="horizontal" >
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/activity_fragment"
+        android:id="@+id/activity_fragment_static_fields"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" />

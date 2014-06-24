@@ -26,6 +26,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
@@ -184,7 +185,12 @@ public class StartActivityFragment extends Fragment {
 		StartActivityListModel tempValues = (StartActivityListModel) CustomListViewValuesArr.get(mPosition);
 		Toast.makeText(getActivity(),
 				"" + tempValues.getCrmNo() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
-				Toast.LENGTH_LONG).show();
+				Toast.LENGTH_SHORT).show();
+
+		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {

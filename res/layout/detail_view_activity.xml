@@ -22,7 +22,7 @@
             android:singleLine="true"
             android:text="@string/general_info"
             android:textColor="#fff"
-            android:textSize="14dp"
+            android:textSize="12sp"
             android:textStyle="bold" />
 
         <RelativeLayout
@@ -35,7 +35,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:onClick="editActivity"
                 android:text="@string/edit_activity" />
         </RelativeLayout>
     </TableRow>
@@ -65,7 +64,7 @@
                 android:singleLine="true"
                 android:text="@string/crm_no"
                 android:textColor="#000"
-                android:textSize="14dp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
         </HorizontalScrollView>
 
@@ -86,7 +85,7 @@
                 android:singleLine="true"
                 android:text="alphanumeric"
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="12sp" />
         </HorizontalScrollView>
 
         <HorizontalScrollView
@@ -107,7 +106,7 @@
                 android:state_selected="true"
                 android:text="@string/activity_gen"
                 android:textColor="#000"
-                android:textSize="14dp"
+                android:textSize="12sp"
                 android:textStyle="bold" />
 
             <requestFocus
@@ -134,7 +133,7 @@
                 android:state_selected="true"
                 android:text="alphanumeric;link to Activity "
                 android:textColor="#000"
-                android:textSize="14dp" />
+                android:textSize="12sp" />
 
             <requestFocus
                 android:layout_width="wrap_content"

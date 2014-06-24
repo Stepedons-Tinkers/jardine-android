@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 
 public class ActivityInfoFragment extends Fragment {
 
@@ -24,7 +23,7 @@ public class ActivityInfoFragment extends Fragment {
 		android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 
 		// Add a fucking fragment
-		AddActivityFragment myFragmentAddActivity = new AddActivityFragment();
+		StaticActivityInfoFragment myFragmentAddActivity = new StaticActivityInfoFragment();
 		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
 		fragmentTransaction.commit();
 
