@@ -121,6 +121,10 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Please wait...");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -225,6 +229,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Please wait...");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -345,6 +351,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving BusinessUnit");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -393,6 +401,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving MarketingMaterials");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -441,6 +451,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving EventProtocol");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -464,14 +476,14 @@ public class SyncMenuBarFragment extends Fragment {
 						if (type != null) {
 							long eventType = type.getId();
 
-//							if (eventType > 0)
-								table.insert(model.getCrmNo(),
-										model.getDescription(),
-										model.getLastUpdat(), model.getTags(),
-										eventType,
-										Integer.parseInt(model.getIsActive()),
-										model.getCreatedTime(),
-										model.getModifiedTime(), USER_ID);
+							// if (eventType > 0)
+							table.insert(model.getCrmNo(),
+									model.getDescription(),
+									model.getLastUpdat(), model.getTags(),
+									eventType,
+									Integer.parseInt(model.getIsActive()),
+									model.getCreatedTime(),
+									model.getModifiedTime(), USER_ID);
 						}
 					}
 				}
@@ -500,6 +512,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Product");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -518,14 +532,13 @@ public class SyncMenuBarFragment extends Fragment {
 						long businessUnit = busTable.getIdByNo(model
 								.getBusinessUnit());
 
-//						if (businessUnit > 0)
-							table.insertUser(model.getCrmNo(),
-									model.getProdNum(), model.getProdBrand(),
-									model.getDescription(),
-									model.getProdSize(), businessUnit,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if (businessUnit > 0)
+						table.insertUser(model.getCrmNo(), model.getProdNum(),
+								model.getProdBrand(), model.getDescription(),
+								model.getProdSize(), businessUnit,
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 
 					}
 				}
@@ -554,6 +567,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Supplier");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -603,6 +618,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Competitor");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -651,6 +668,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving CompetitorProduct");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -671,13 +690,13 @@ public class SyncMenuBarFragment extends Fragment {
 						long competitor = comptTable.getIdByNo(model
 								.getCompetitor());
 
-//						if (competitor > 0)
-							table.insert(model.getCrmNo(), competitor,
-									model.getProdBrand(), model.getProdDesc(),
-									model.getProdSize(),
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if (competitor > 0)
+						table.insert(model.getCrmNo(), competitor,
+								model.getProdBrand(), model.getProdDesc(),
+								model.getProdSize(),
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -705,6 +724,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving SMR");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -722,13 +743,12 @@ public class SyncMenuBarFragment extends Fragment {
 					if (!table.isExisting(model.getCrmNo())) {
 						long area = areaTable.getIdByName(model.getArea());
 
-//						if (area > 0)
-							table.insertUser(model.getCrmNo(),
-									model.getFirstname(), model.getLastname(),
-									0, area,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if (area > 0)
+						table.insertUser(model.getCrmNo(),
+								model.getFirstname(), model.getLastname(), 0,
+								area, Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -756,6 +776,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Customer");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -787,17 +809,17 @@ public class SyncMenuBarFragment extends Fragment {
 								.getProvince());
 						long cityTown = cityTable.getIdByName(model.getCity());
 
-//						if ((area > 0) && (customerType > 0)
-//								&& (businessUnit > 0) && (province > 0)
-//								&& (cityTown > 0))
-							table.insertUser(model.getCrmNo(), model.getName(),
-									model.getChainname(), model.getLandline(),
-									model.getFax(), model.getCustomerSize(),
-									model.getStreetadd(), 0, customerType,
-									businessUnit, area, province, cityTown,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if ((area > 0) && (customerType > 0)
+						// && (businessUnit > 0) && (province > 0)
+						// && (cityTown > 0))
+						table.insertUser(model.getCrmNo(), model.getName(),
+								model.getChainname(), model.getLandline(),
+								model.getFax(), model.getCustomerSize(),
+								model.getStreetadd(), 0, customerType,
+								businessUnit, area, province, cityTown,
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -826,6 +848,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving CustomerContact");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -851,15 +875,15 @@ public class SyncMenuBarFragment extends Fragment {
 							customer = customerTable.getByWebId(
 									model.getCustomer()).getId();
 
-//						if ((position > 0) && (customer > 0))
-							table.insertUser(model.getCrmNo(),
-									model.getFirstname(), model.getLastname(),
-									position, model.getMobileno(),
-									model.getBirthday(), model.getEmail(),
-									customer,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if ((position > 0) && (customer > 0))
+						table.insertUser(model.getCrmNo(),
+								model.getFirstname(), model.getLastname(),
+								position, model.getMobileno(),
+								model.getBirthday(), model.getEmail(),
+								customer,
+								Integer.parseInt(model.getIsActive()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -888,6 +912,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving ActivityType");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -912,10 +938,9 @@ public class SyncMenuBarFragment extends Fragment {
 						long category = actCategoryTable.getIdByName(model
 								.getActivitytypeCategory());
 
-//						if ((type > 0) && (category > 0))
-							table.insertUser(model.getCrmNo(), type, category,
-									Integer.parseInt(model.getIsActive()),
-									USER_ID);
+						// if ((type > 0) && (category > 0))
+						table.insertUser(model.getCrmNo(), type, category,
+								Integer.parseInt(model.getIsActive()), USER_ID);
 					}
 				}
 			}
@@ -943,6 +968,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Workplan");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -989,6 +1016,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving WorkplanEntry");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1027,15 +1056,13 @@ public class SyncMenuBarFragment extends Fragment {
 						long workplan = workplanTable.getByWebId(
 								model.getWorkplan()).getId();
 
-//						if ((area > 0) && (province > 0) && (cityTown > 0)
-//								&& (activityType > 0) && (workplan > 0))
-							table.insertUser(model.getCrmNo(), 0,
-									model.getDate(),
-									Integer.parseInt(model.getStatus()), area,
-									province, cityTown, "remarks",
-									activityType, workplan,
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if ((area > 0) && (province > 0) && (cityTown > 0)
+						// && (activityType > 0) && (workplan > 0))
+						table.insertUser(model.getCrmNo(), 0, model.getDate(),
+								Integer.parseInt(model.getStatus()), area,
+								province, cityTown, "remarks", activityType,
+								workplan, model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1063,6 +1090,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving Activity");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1101,37 +1130,31 @@ public class SyncMenuBarFragment extends Fragment {
 							activityType = activityTypeTable.getByWebId(
 									model.getActivityType()).getId();
 
-//						if ((workplanEntry > 0) && (customer > 0) && (smr > 0)
-//								&& (workplan > 0) && (activityType > 0))
-							table.insertUser(
-									model.getCrmNo(),
-									workplan,
-									model.getStartTime(),
-									model.getEndTime(),
-									Double.parseDouble(model.getLongitude()),
-									Double.parseDouble(model.getLatitude()),
-									model.getObjective(),
-									model.getNotes(),
-									model.getHighlights(),
-									model.getNextsteps(),
-									model.getFollowupcomdate(),
-									activityType,
-									workplanEntry,
-									customer,
-									Integer.parseInt(model.getFirstTimeVisit()),
-									Integer.parseInt(model.getPlannedvisit()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID, smr,
-									model.getIssuesIdentified(),
-									model.getFeedbackFromCu(),
-									model.getOngoingCampaigns(),
-									model.getLastDelivery(),
-									model.getPromoStubsDetails(),
-									model.getProjectName(),
-									model.getProjectCategory(),
-									model.getProjectStage(), model.getDate(),
-									model.getTime(), model.getVenue(),
-									model.getNoofattenees());
+						// if ((workplanEntry > 0) && (customer > 0) && (smr >
+						// 0)
+						// && (workplan > 0) && (activityType > 0))
+						table.insertUser(model.getCrmNo(), workplan,
+								model.getStartTime(), model.getEndTime(),
+								Double.parseDouble(model.getLongitude()),
+								Double.parseDouble(model.getLatitude()),
+								model.getObjective(), model.getNotes(),
+								model.getHighlights(), model.getNextsteps(),
+								model.getFollowupcomdate(), activityType,
+								workplanEntry, customer,
+								Integer.parseInt(model.getFirstTimeVisit()),
+								Integer.parseInt(model.getPlannedvisit()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID, smr,
+								model.getIssuesIdentified(),
+								model.getFeedbackFromCu(),
+								model.getOngoingCampaigns(),
+								model.getLastDelivery(),
+								model.getPromoStubsDetails(),
+								model.getProjectName(),
+								model.getProjectCategory(),
+								model.getProjectStage(), model.getDate(),
+								model.getTime(), model.getVenue(),
+								model.getNoofattenees());
 					}
 				}
 			}
@@ -1159,6 +1182,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving JDImerchandisingCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1184,12 +1209,11 @@ public class SyncMenuBarFragment extends Fragment {
 						long product = productTable.getIdByNo(model
 								.getProduct());
 
-//						if ((activity > 0) && (product > 0))
-							table.insertUser(model.getCrmNo(), activity,
-									product,
-									Integer.parseInt(model.getStatus()),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if ((activity > 0) && (product > 0))
+						table.insertUser(model.getCrmNo(), activity, product,
+								Integer.parseInt(model.getStatus()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1217,6 +1241,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving JDIproductStockCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1249,14 +1275,13 @@ public class SyncMenuBarFragment extends Fragment {
 						long product = productTable.getIdByNo(model
 								.getProduct());
 
-//						if ((stockStatus > 0) && (supplier > 0)
-//								&& (activity > 0) && (product > 0))
-							table.insertUser(model.getCrmNo(), activity,
-									product, stockStatus, 0, Integer
-											.parseInt(model
-													.getLoadedonshelves()),
-									supplier, model.getCreatedTime(), model
-											.getModifiedTime(), USER_ID);
+						// if ((stockStatus > 0) && (supplier > 0)
+						// && (activity > 0) && (product > 0))
+						table.insertUser(model.getCrmNo(), activity, product,
+								stockStatus, 0,
+								Integer.parseInt(model.getLoadedonshelves()),
+								supplier, model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1285,6 +1310,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving CompetitorProductStockCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1315,14 +1342,13 @@ public class SyncMenuBarFragment extends Fragment {
 							activity = activityTable.getByWebId(
 									model.getActivity()).getId();
 
-//						if ((activity > 0) && (stockStatus > 0)
-//								&& (competitorProduct > 0))
-							table.insertUser(model.getCrmNo(), activity,
-									competitorProduct, stockStatus, Integer
-											.parseInt(model
-													.getLoadedonshelves()),
-									model.getCreatedTime(), model
-											.getModifiedTime(), USER_ID);
+						// if ((activity > 0) && (stockStatus > 0)
+						// && (competitorProduct > 0))
+						table.insertUser(model.getCrmNo(), activity,
+								competitorProduct, stockStatus,
+								Integer.parseInt(model.getLoadedonshelves()),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1351,6 +1377,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving MarketingIntel");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1375,11 +1403,11 @@ public class SyncMenuBarFragment extends Fragment {
 							activity = activityTable.getByWebId(
 									model.getActivity()).getId();
 
-//						if ((activity > 0) && (competitor > 0))
-							table.insertUser(model.getCrmNo(), activity,
-									competitor, model.getDetails(), "remarks",
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if ((activity > 0) && (competitor > 0))
+						table.insertUser(model.getCrmNo(), activity,
+								competitor, model.getDetails(), "remarks",
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1408,6 +1436,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Syncing");
 			dialog.setMessage("Retrieving ProjectRequirement");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
@@ -1429,15 +1459,14 @@ public class SyncMenuBarFragment extends Fragment {
 						long projectRequirementType = projReqTypeTable
 								.getIdByName(model.getProjectReqType());
 
-//						if (projectRequirementType > 0)
-							table.insertUser(model.getCrmNo(),
-									projectRequirementType,
-									model.getDateNeeded(),
-									model.getSquaremeters(),
-									model.getProductsUsed(),
-									model.getOtherDetails(),
-									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID);
+						// if (projectRequirementType > 0)
+						table.insertUser(model.getCrmNo(),
+								projectRequirementType, model.getDateNeeded(),
+								model.getSquaremeters(),
+								model.getProductsUsed(),
+								model.getOtherDetails(),
+								model.getCreatedTime(),
+								model.getModifiedTime(), USER_ID);
 					}
 				}
 			}
@@ -1463,6 +1492,8 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Connecting...");
 			dialog.setMessage("Please wait...");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
 			super.onPreExecute();
 		}
