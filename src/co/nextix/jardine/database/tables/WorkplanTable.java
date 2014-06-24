@@ -70,18 +70,18 @@ public class WorkplanTable {
 							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 					String endDate = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
-//					int status = c
-//							.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					// int status = c
+					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
-//					list.add(new WorkplanRecord(id, no, startDate, endDate,
-//							status, createdTime, modifiedTime, user));
+					// list.add(new WorkplanRecord(id, no, startDate, endDate,
+					// status, createdTime, modifiedTime, user));
 					list.add(new WorkplanRecord(id, no, startDate, endDate,
-							 createdTime, modifiedTime, user));
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -110,8 +110,8 @@ public class WorkplanTable {
 							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 					String endDate = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
-					int status = c
-							.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					// int status = c
+					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -119,7 +119,7 @@ public class WorkplanTable {
 					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
 					list.add(new WorkplanRecord(id, no, startDate, endDate,
-							status, createdTime, modifiedTime, user));
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
