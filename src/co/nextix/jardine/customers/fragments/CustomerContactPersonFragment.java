@@ -1,5 +1,6 @@
 package co.nextix.jardine.customers.fragments;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,13 +14,20 @@ public class CustomerContactPersonFragment extends Fragment {
 	private View view;
 	private TextView crmNo, firstName, lastName, mobileNo, 
 	email, position, birthday, isActive;
+	
+	public CustomerContactPersonFragment() {
+		
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		getActivity().setRequestedOrientation(
+				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 		view = inflater.inflate(
-				R.layout.contact_person_details, null);
+				R.layout.contact_person_details, container, false);
 		initLayout();
 		return view;
 	}

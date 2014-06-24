@@ -23,7 +23,7 @@
             <ListView
                 android:id="@+id/lvCustomers"
                 android:layout_width="match_parent"
-                android:layout_height="412dp"
+                android:layout_height="337dp"
                 android:descendantFocusability="blocksDescendants"
                 android:divider="@null"
                 android:dividerHeight="0dp"

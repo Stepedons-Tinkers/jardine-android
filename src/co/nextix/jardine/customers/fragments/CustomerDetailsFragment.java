@@ -18,6 +18,10 @@ public class CustomerDetailsFragment extends Fragment
 		private View view;
 		private TabHost tabHost;
 		private String tab1, tab2;
+		
+		public CustomerDetailsFragment() {
+			
+		}
 
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,

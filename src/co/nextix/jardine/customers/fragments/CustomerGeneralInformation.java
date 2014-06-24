@@ -26,8 +26,8 @@ public class CustomerGeneralInformation extends Fragment {
 	}
 
 	private void initLayout() {
-		crmNo = (TextView) view.findViewById(R.id.tvWorkPlanInfoCrmNo);
-		customerName = (TextView) view.findViewById(R.id.tvCustomerName);
+		crmNo = (TextView) view.findViewById(R.id.tvCustomerCrmNoInfo);
+		customerName = (TextView) view.findViewById(R.id.tvCustomerNameInfo);
 		businessUnit = (TextView) view.findViewById(R.id.tvCustomerBusinessUnitInfo);
 		area = (TextView) view.findViewById(R.id.tvCustomerAreaInfo);
 		province = (TextView) view.findViewById(R.id.tvCustomerProvinceInfo);

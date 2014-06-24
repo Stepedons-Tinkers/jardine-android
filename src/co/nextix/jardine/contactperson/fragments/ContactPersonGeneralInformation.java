@@ -32,8 +32,8 @@ public class ContactPersonGeneralInformation extends Fragment {
 		position = (TextView) view.findViewById(R.id.tvContactPersonPositionInfo);
 		mobileNo = (TextView) view.findViewById(R.id.tvContactPersonMobileNoInfo);
 		birthday = (TextView) view.findViewById(R.id.tvContactPersonBirthdayInfo);
-		customer = (TextView) view.findViewById(R.id.tvContactPersonCustomerInfo);
-		isActive = (TextView) view.findViewById(R.id.tvContactPersonIsActiveInfo);
+//		customer = (TextView) view.findViewById(R.id.tvContactPersonCustomerInfo);
+//		isActive = (TextView) view.findViewById(R.id.tvContactPersonIsActiveInfo);
 	
 		CustomerContactRecord record = new CustomerContactRecord();
 		record.setNo("EVP0001");
@@ -42,8 +42,8 @@ public class ContactPersonGeneralInformation extends Fragment {
 		record.setPosition(0001);
 		record.setMobileNo("0922-000-0000");
 		record.setBirthday("12-06-1898");
-		record.setCustomer(001);
-		record.setIsActive(1);
+//		record.setCustomer(001);
+//		record.setIsActive(1);
 		record.setCreatedTime("2014");
 		record.setModifiedTime("2014");
 		record.setUser(10000);
@@ -54,8 +54,8 @@ public class ContactPersonGeneralInformation extends Fragment {
 		position.setText(String.valueOf(record.getPosition()));
 		mobileNo.setText(String.valueOf(record.getMobileNo()));
 		birthday.setText(String.valueOf(record.getBirthday()));
-		customer.setText(String.valueOf(record.getCustomer()));
-		isActive.setText(String.valueOf(record.getIsActive()));
+//		customer.setText(String.valueOf(record.getCustomer()));
+//		isActive.setText(String.valueOf(record.getIsActive()));
 	
 	}
 }

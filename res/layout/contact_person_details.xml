@@ -279,7 +279,6 @@
                 android:layout_column="2"
                 android:layout_weight="1"
                 android:maxLines="1"
-                android:text="Customer"
                 android:textColor="@color/black"
                 android:textSize="21sp"
                 android:textStyle="bold" />
@@ -316,7 +315,6 @@
                 android:ellipsize="end"
                 android:maxLines="1"
                 android:paddingLeft="2dp"
-                android:text="@string/customer_details_is_active"
                 android:textColor="@color/black"
                 android:textSize="21sp"
                 android:textStyle="bold" />

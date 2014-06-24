@@ -33,9 +33,9 @@ import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
+import co.nextix.jardine.customers.fragments.ViewAllCustomersFragment;
 import co.nextix.jardine.fragments.ActivitiesMenuBarFragment;
 import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
-import co.nextix.jardine.fragments.CustomersMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
 import co.nextix.jardine.fragments.LogoutMenuBarFragment;
 import co.nextix.jardine.fragments.ProfileFragment;
@@ -223,7 +223,8 @@ public class DashBoardActivity extends FragmentActivity {
 			fragment = new ActivitiesMenuBarFragment();
 			break;
 		case 5:
-			fragment = new CustomersMenuBarFragment();
+//			fragment = new CustomersMenuBarFragment();
+			fragment = new ViewAllCustomersFragment();
 			break;
 
 		case 6:

@@ -3,6 +3,7 @@ package co.nextix.jardine.customers.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -43,15 +44,23 @@ OnClickListener {
 	txtProvince, txtCityOrTown;
 	private TableRow tablerow;
 	private EditText search;
-	private Button bntAddCustomer;
+	private Button btnAddCustomer;
+	
+	public ViewAllCustomersFragment() {
+		
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		getActivity().setRequestedOrientation(
+				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-		view = inflater.inflate(R.layout.fragment_customers_view_all, null);
+		view = inflater.inflate(R.layout.fragment_customers_view_all, container, false);
 		header = inflater
 				.inflate(R.layout.table_row_customers, null);
+		
 		initLayout();
 		return view;
 	}
@@ -85,17 +94,18 @@ OnClickListener {
 
 		list.addHeaderView(header);
 
-		bntAddCustomer = (Button) view.findViewById(R.id.btnAddCustomer);
+		btnAddCustomer = (Button) view.findViewById(R.id.btnAddCustomer);
 		txtPage = (TextView) view
 				.findViewById(R.id.ibCustomersPage);
 
 		arrowLeft = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActLeft);
+				.findViewById(R.id.ibCustomersLeft);
 		arrowRight = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActRight);
+				.findViewById(R.id.ibCustomersRight);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
+		btnAddCustomer.setOnClickListener(this);
 
 		realRecord = new ArrayList<CustomerRecord>();
 		tempRecord = new ArrayList<CustomerRecord>();
@@ -186,6 +196,12 @@ OnClickListener {
 			break;
 		case R.id.btnAddCustomer:
 			// add customer here
+			DashBoardActivity act = (DashBoardActivity) getActivity();
+			act.getSupportFragmentManager()
+					.beginTransaction()
+					.add(R.id.frame_container,
+							new AddCustomerFragment(), JardineApp.TAG)
+					.addToBackStack(JardineApp.TAG).commit();
 			break;
 		}
 

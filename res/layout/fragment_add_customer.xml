@@ -52,7 +52,7 @@
                     android:layout_weight="1" >
 
                     <Button
-                        android:id="@+id/btnEditCustomer"
+                        android:id="@+id/btn_cancel_add_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
@@ -64,13 +64,13 @@
                         android:text="Cancel" />
 
                     <Button
-                        android:id="@+id/edit_activity"
+                        android:id="@+id/btn_save_add_customer"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginBottom="5dp"
                         android:layout_marginRight="5dp"
-                        android:layout_toLeftOf="@+id/btnEditCustomer"
+                        android:layout_toLeftOf="@+id/btn_cancel_add_customer"
                         android:background="@android:color/holo_green_light"
                         android:onClick="createJDIProductStockCheck"
                         android:padding="10dp"
