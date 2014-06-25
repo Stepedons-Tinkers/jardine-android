@@ -29,6 +29,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
 
@@ -154,10 +155,14 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		workplans.add("Workplan" + j++);
 		workplans.add("Workplan" + j++);
 		workplans.add("Workplan" + j++);
+		
+//		WorkplanTable table = JardineApp.DB.getWorkplan().getById()
 
 		adap = new ArrayAdapter<String>(getActivity(),
 				R.layout.workplan_spinner_row, workplans);
 		spinner.setAdapter(adap);
+		
+		
 
 		for (int i = 1; i <= 37; i++) {
 			EventProtocolRecord rec = new EventProtocolRecord();

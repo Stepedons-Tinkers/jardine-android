@@ -35,7 +35,7 @@ public class ScompetitorRequester {
 		private List<CompetitorModel> updated;
 
 		@SerializedName("deleted")
-		private List<CompetitorModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class ScompetitorRequester {
 			this.updated = updated;
 		}
 
-		public List<CompetitorModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<CompetitorModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

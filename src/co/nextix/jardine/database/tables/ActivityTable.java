@@ -56,7 +56,7 @@ public class ActivityTable {
 	// Private fields
 	// ===========================================================
 
-	private ActivityCollection activityCollection;
+	// private ActivityCollection activityCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -220,6 +220,50 @@ public class ActivityTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ("
+				+ ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public ActivityRecord getById(int ID) {
 		ActivityRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -308,11 +352,11 @@ public class ActivityTable {
 
 		return record;
 	}
-	
+
 	public String getNoById(long ID) {
 		String result = null;
-		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM " + mDatabaseTable
-				+ " WHERE " + KEY_ACTIVITY_ROWID + "=?";
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_ACTIVITY_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -418,7 +462,7 @@ public class ActivityTable {
 		return record;
 	}
 
-	public long insertUser(String no, long workplan, String startTime,
+	public long insert(String no, long workplan, String startTime,
 			String endTime, double longitude, double latitude,
 			String objectives, String notes, String highlights,
 			String nextSteps, String followUpCommitmentDate, long activityType,
@@ -432,7 +476,7 @@ public class ActivityTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		ActivityCollection collection = getRecords();
+		// ActivityCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -470,14 +514,14 @@ public class ActivityTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, workplan, startTime, endTime, longitude,
-					latitude, objectives, notes, highlights, nextSteps,
-					followUpCommitmentDate, activityType, workplanEntry,
-					customer, firstTimeVisit, plannedVisit, createdTime,
-					modifiedTime, user, smr, issuesIdentified,
-					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-					promoStubsDetails, projectName, projectCategory,
-					projectStage, date, time, venue, noOfAttendees);
+			// collection.add(ids, no, workplan, startTime, endTime, longitude,
+			// latitude, objectives, notes, highlights, nextSteps,
+			// followUpCommitmentDate, activityType, workplanEntry,
+			// customer, firstTimeVisit, plannedVisit, createdTime,
+			// modifiedTime, user, smr, issuesIdentified,
+			// feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+			// promoStubsDetails, projectName, projectCategory,
+			// projectStage, date, time, venue, noOfAttendees);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -485,22 +529,40 @@ public class ActivityTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_ACTIVITY_ROWID + "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, long workplan,
-			String startTime, String endTime, double longitude,
-			double latitude, String objectives, String notes,
-			String highlights, String nextSteps, String followUpCommitmentDate,
-			long activityType, long workplanEntry, long customer,
-			int firstTimeVisit, int plannedVisit, String createdTime,
-			String modifiedTime, long user, long smr, String issuesIdentified,
+	public int deleteByWebID(String[] webID) {
+
+		String ids = Arrays.toString(webID);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "").replace(", ", "','");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ('"
+				+ ids + "')", null);
+
+		return rowsDeleted;
+	}
+
+	public boolean update(long id, String no, long workplan, String startTime,
+			String endTime, double longitude, double latitude,
+			String objectives, String notes, String highlights,
+			String nextSteps, String followUpCommitmentDate, long activityType,
+			long workplanEntry, long customer, int firstTimeVisit,
+			int plannedVisit, String createdTime, String modifiedTime,
+			long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
 			String projectCategory, String projectStage, String date,
@@ -540,14 +602,14 @@ public class ActivityTable {
 		args.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
-			getRecords().update(id, no, workplan, startTime, endTime,
-					longitude, latitude, objectives, notes, highlights,
-					nextSteps, followUpCommitmentDate, activityType,
-					workplanEntry, customer, firstTimeVisit, plannedVisit,
-					createdTime, modifiedTime, user, smr, issuesIdentified,
-					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-					promoStubsDetails, projectName, projectCategory,
-					projectStage, date, time, venue, noOfAttendees);
+			// getRecords().update(id, no, workplan, startTime, endTime,
+			// longitude, latitude, objectives, notes, highlights,
+			// nextSteps, followUpCommitmentDate, activityType,
+			// workplanEntry, customer, firstTimeVisit, plannedVisit,
+			// createdTime, modifiedTime, user, smr, issuesIdentified,
+			// feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+			// promoStubsDetails, projectName, projectCategory,
+			// projectStage, date, time, venue, noOfAttendees);
 			return true;
 		} else {
 			return false;
@@ -558,7 +620,7 @@ public class ActivityTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -572,143 +634,144 @@ public class ActivityTable {
 	// Collection
 	// ===========================================================
 
-	public ActivityCollection getRecords() {
-		if (activityCollection == null) {
-			activityCollection = new ActivityCollection();
-			activityCollection.list = getAllRecords();
-		}
-		return activityCollection;
-	}
-
-	public final class ActivityCollection implements Iterable<ActivityRecord> {
-
-		private List<ActivityRecord> list;
-
-		private ActivityCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public ActivityRecord get(int i) {
-			return list.get(i);
-		}
-
-		public ActivityRecord getById(long id) {
-			for (ActivityRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, long workplan, String startTime,
-				String endTime, double longitude, double latitude,
-				String objectives, String notes, String highlights,
-				String nextSteps, String followUpCommitmentDate,
-				long activityType, long workplanEntry, long customer,
-				int firstTimeVisit, int plannedVisit, String createdTime,
-				String modifiedTime, long user, long smr,
-				String issuesIdentified, String feedBackFromCustomer,
-				String ongoingCampaigns, String lastDelivery,
-				String promoStubsDetails, String projectName,
-				String projectCategory, String projectStage, String date,
-				String time, String venue, String noOfAttendees) {
-			list.add(new ActivityRecord(id, no, workplan, startTime, endTime,
-					longitude, latitude, objectives, notes, highlights,
-					nextSteps, followUpCommitmentDate, activityType,
-					workplanEntry, customer, firstTimeVisit, plannedVisit,
-					createdTime, modifiedTime, user, smr, issuesIdentified,
-					feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-					promoStubsDetails, projectName, projectCategory,
-					projectStage, date, time, venue, noOfAttendees));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, long workplan,
-				String startTime, String endTime, double longitude,
-				double latitude, String objectives, String notes,
-				String highlights, String nextSteps,
-				String followUpCommitmentDate, long activityType,
-				long workplanEntry, long customer, int firstTimeVisit,
-				int plannedVisit, String createdTime, String modifiedTime,
-				long user, long smr, String issuesIdentified,
-				String feedBackFromCustomer, String ongoingCampaigns,
-				String lastDelivery, String promoStubsDetails,
-				String projectName, String projectCategory,
-				String projectStage, String date, String time, String venue,
-				String noOfAttendees) {
-			ActivityRecord record = getById(id);
-			record.setNo(no);
-			record.setStartTime(startTime);
-			record.setEndTime(endTime);
-			record.setLongitude(longitude);
-			record.setLatitude(latitude);
-			record.setObjectives(objectives);
-			record.setNotes(notes);
-			record.setHighlights(highlights);
-			record.setNextSteps(nextSteps);
-			record.setFollowUpCommitmentDate(followUpCommitmentDate);
-			record.setActivityType(activityType);
-			record.setWorkplanEntry(workplanEntry);
-			record.setCustomer(customer);
-			record.setFirstTimeVisit(firstTimeVisit);
-			record.setPlannedVisit(plannedVisit);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-			record.setSMR(smr);
-			record.setIssuesIdentified(issuesIdentified);
-			record.setFeedbackFromCustomer(feedBackFromCustomer);
-			record.setOngoingCampaigns(ongoingCampaigns);
-			record.setLastDelivery(lastDelivery);
-			record.setPromoStubsDetails(promoStubsDetails);
-			record.setProjectName(projectName);
-			record.setProjectCategory(projectCategory);
-			record.setProjectStage(projectStage);
-			record.setDate(date);
-			record.setTime(time);
-			record.setVenue(venue);
-			record.setNoOfAttendees(noOfAttendees);
-		}
-
-		@Override
-		public Iterator<ActivityRecord> iterator() {
-			Iterator<ActivityRecord> iter = new Iterator<ActivityRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public ActivityRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public ActivityCollection getRecords() {
+	// if (activityCollection == null) {
+	// activityCollection = new ActivityCollection();
+	// activityCollection.list = getAllRecords();
+	// }
+	// return activityCollection;
+	// }
+	//
+	// public final class ActivityCollection implements Iterable<ActivityRecord>
+	// {
+	//
+	// private List<ActivityRecord> list;
+	//
+	// private ActivityCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public ActivityRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public ActivityRecord getById(long id) {
+	// for (ActivityRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, long workplan, String startTime,
+	// String endTime, double longitude, double latitude,
+	// String objectives, String notes, String highlights,
+	// String nextSteps, String followUpCommitmentDate,
+	// long activityType, long workplanEntry, long customer,
+	// int firstTimeVisit, int plannedVisit, String createdTime,
+	// String modifiedTime, long user, long smr,
+	// String issuesIdentified, String feedBackFromCustomer,
+	// String ongoingCampaigns, String lastDelivery,
+	// String promoStubsDetails, String projectName,
+	// String projectCategory, String projectStage, String date,
+	// String time, String venue, String noOfAttendees) {
+	// list.add(new ActivityRecord(id, no, workplan, startTime, endTime,
+	// longitude, latitude, objectives, notes, highlights,
+	// nextSteps, followUpCommitmentDate, activityType,
+	// workplanEntry, customer, firstTimeVisit, plannedVisit,
+	// createdTime, modifiedTime, user, smr, issuesIdentified,
+	// feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+	// promoStubsDetails, projectName, projectCategory,
+	// projectStage, date, time, venue, noOfAttendees));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, long workplan,
+	// String startTime, String endTime, double longitude,
+	// double latitude, String objectives, String notes,
+	// String highlights, String nextSteps,
+	// String followUpCommitmentDate, long activityType,
+	// long workplanEntry, long customer, int firstTimeVisit,
+	// int plannedVisit, String createdTime, String modifiedTime,
+	// long user, long smr, String issuesIdentified,
+	// String feedBackFromCustomer, String ongoingCampaigns,
+	// String lastDelivery, String promoStubsDetails,
+	// String projectName, String projectCategory,
+	// String projectStage, String date, String time, String venue,
+	// String noOfAttendees) {
+	// ActivityRecord record = getById(id);
+	// record.setNo(no);
+	// record.setStartTime(startTime);
+	// record.setEndTime(endTime);
+	// record.setLongitude(longitude);
+	// record.setLatitude(latitude);
+	// record.setObjectives(objectives);
+	// record.setNotes(notes);
+	// record.setHighlights(highlights);
+	// record.setNextSteps(nextSteps);
+	// record.setFollowUpCommitmentDate(followUpCommitmentDate);
+	// record.setActivityType(activityType);
+	// record.setWorkplanEntry(workplanEntry);
+	// record.setCustomer(customer);
+	// record.setFirstTimeVisit(firstTimeVisit);
+	// record.setPlannedVisit(plannedVisit);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// record.setSMR(smr);
+	// record.setIssuesIdentified(issuesIdentified);
+	// record.setFeedbackFromCustomer(feedBackFromCustomer);
+	// record.setOngoingCampaigns(ongoingCampaigns);
+	// record.setLastDelivery(lastDelivery);
+	// record.setPromoStubsDetails(promoStubsDetails);
+	// record.setProjectName(projectName);
+	// record.setProjectCategory(projectCategory);
+	// record.setProjectStage(projectStage);
+	// record.setDate(date);
+	// record.setTime(time);
+	// record.setVenue(venue);
+	// record.setNoOfAttendees(noOfAttendees);
+	// }
+	//
+	// @Override
+	// public Iterator<ActivityRecord> iterator() {
+	// Iterator<ActivityRecord> iter = new Iterator<ActivityRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public ActivityRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

@@ -2,7 +2,6 @@ package co.nextix.jardine.database.tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -22,7 +21,7 @@ public class WorkplanTable {
 	private final String KEY_WORKPLAN_NO = "no";
 	private final String KEY_WORKPLAN_STARTDATE = "customer";
 	private final String KEY_WORKPLAN_ENDDATE = "date";
-	private final String KEY_WORKPLAN_STATUS = "status";
+	// private final String KEY_WORKPLAN_STATUS = "status"; removed
 	private final String KEY_WORKPLAN_CREATEDTIME = "created_time";
 	private final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
 	private final String KEY_WORKPLAN_USER = "user";
@@ -31,7 +30,7 @@ public class WorkplanTable {
 	// Private fields
 	// ===========================================================
 
-	private WorkplanCollection workplanCollection;
+	// private WorkplanCollection workplanCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -71,8 +70,48 @@ public class WorkplanTable {
 							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 					String endDate = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
-					int status = c
-							.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					// int status = c
+					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+
+					// list.add(new WorkplanRecord(id, no, startDate, endDate,
+					// status, createdTime, modifiedTime, user));
+					list.add(new WorkplanRecord(id, no, startDate, endDate,
+							createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<WorkplanRecord> getAllRecords(long userId, String workPlan,
+			String date) {
+		Cursor c = null;
+		List<WorkplanRecord> list = new ArrayList<WorkplanRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_WORKPLAN_USER + " = " + userId + " AND "
+				+ KEY_WORKPLAN_NO + " = '" + workPlan + "' AND "
+				+ KEY_WORKPLAN_CREATEDTIME + " = '" + date + "'";
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String startDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+					String endDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+					// int status = c
+					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -80,7 +119,29 @@ public class WorkplanTable {
 					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
 					list.add(new WorkplanRecord(id, no, startDate, endDate,
-							status, createdTime, modifiedTime, user));
+							createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<String> getAllWorkplan(long userId) {
+		Cursor c = null;
+		List<String> list = new ArrayList<String>();
+		String MY_QUERY = "SELECT " + KEY_WORKPLAN_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_WORKPLAN_USER + " = "
+				+ userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					list.add(no);
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -138,6 +199,50 @@ public class WorkplanTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_WORKPLAN_NO + " IN ("
+				+ ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_WORKPLAN_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_WORKPLAN_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public WorkplanRecord getById(int ID) {
 		WorkplanRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -153,14 +258,17 @@ public class WorkplanTable {
 						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 				String endDate = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_ENDDATE));
-				int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+				// int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
-				record = new WorkplanRecord(id, no, startDate, endDate, status,
+				// record = new WorkplanRecord(id, no, startDate, endDate,
+				// status,
+				// createdTime, modifiedTime, user);
+				record = new WorkplanRecord(id, no, startDate, endDate,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -207,14 +315,17 @@ public class WorkplanTable {
 						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 				String endDate = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_ENDDATE));
-				int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+				// int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
-				record = new WorkplanRecord(id, no, startDate, endDate, status,
+				// record = new WorkplanRecord(id, no, startDate, endDate,
+				// status,
+				// createdTime, modifiedTime, user);
+				record = new WorkplanRecord(id, no, startDate, endDate,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -226,27 +337,27 @@ public class WorkplanTable {
 		return record;
 	}
 
-	public long insertUser(String no, String startDate, String endDate,
-			int status, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String startDate, String endDate,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		WorkplanCollection collection = getRecords();
+		// WorkplanCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_WORKPLAN_NO, no);
 		initialValues.put(KEY_WORKPLAN_STARTDATE, startDate);
 		initialValues.put(KEY_WORKPLAN_ENDDATE, endDate);
-		initialValues.put(KEY_WORKPLAN_STATUS, status);
+		// initialValues.put(KEY_WORKPLAN_STATUS, status);
 		initialValues.put(KEY_WORKPLAN_CREATEDTIME, createdTime);
 		initialValues.put(KEY_WORKPLAN_MODIFIEDTIME, modifiedTime);
 		initialValues.put(KEY_WORKPLAN_USER, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, startDate, endDate, status, createdTime,
-					modifiedTime, user);
+			// collection.add(ids, no, startDate, endDate, status, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -254,30 +365,29 @@ public class WorkplanTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_WORKPLAN_ROWID + "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, String startDate,
-			String endDate, int status, String createdTime,
-			String modifiedTime, long user) {
+	public boolean update(long id, String no, String startDate, String endDate,
+			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_WORKPLAN_NO, no);
 		args.put(KEY_WORKPLAN_STARTDATE, startDate);
 		args.put(KEY_WORKPLAN_ENDDATE, endDate);
-		args.put(KEY_WORKPLAN_STATUS, status);
+		// args.put(KEY_WORKPLAN_STATUS, status);
 		args.put(KEY_WORKPLAN_CREATEDTIME, createdTime);
 		args.put(KEY_WORKPLAN_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_WORKPLAN_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_WORKPLAN_ROWID + "=" + id,
 				null) > 0) {
-			getRecords().update(id, no, startDate, endDate, status,
-					createdTime, modifiedTime, user);
+			// getRecords().update(id, no, startDate, endDate, status,
+			// createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -288,7 +398,7 @@ public class WorkplanTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -302,93 +412,94 @@ public class WorkplanTable {
 	// Collection
 	// ===========================================================
 
-	public WorkplanCollection getRecords() {
-		if (workplanCollection == null) {
-			workplanCollection = new WorkplanCollection();
-			workplanCollection.list = getAllRecords();
-		}
-		return workplanCollection;
-	}
-
-	public final class WorkplanCollection implements Iterable<WorkplanRecord> {
-
-		private List<WorkplanRecord> list;
-
-		private WorkplanCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public WorkplanRecord get(int i) {
-			return list.get(i);
-		}
-
-		public WorkplanRecord getById(long id) {
-			for (WorkplanRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String startDate, String endDate,
-				int status, String createdTime, String modifiedTime, long user) {
-			list.add(new WorkplanRecord(id, no, startDate, endDate, status,
-					createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String startDate,
-				String endDate, int status, String createdTime,
-				String modifiedTime, long user) {
-			WorkplanRecord record = getById(id);
-			record.setNo(no);
-			record.setStartDate(startDate);
-			record.setEndDate(endDate);
-			record.setStatus(status);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<WorkplanRecord> iterator() {
-			Iterator<WorkplanRecord> iter = new Iterator<WorkplanRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public WorkplanRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public WorkplanCollection getRecords() {
+	// if (workplanCollection == null) {
+	// workplanCollection = new WorkplanCollection();
+	// workplanCollection.list = getAllRecords();
+	// }
+	// return workplanCollection;
+	// }
+	//
+	// public final class WorkplanCollection implements Iterable<WorkplanRecord>
+	// {
+	//
+	// private List<WorkplanRecord> list;
+	//
+	// private WorkplanCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public WorkplanRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public WorkplanRecord getById(long id) {
+	// for (WorkplanRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String startDate, String endDate,
+	// int status, String createdTime, String modifiedTime, long user) {
+	// list.add(new WorkplanRecord(id, no, startDate, endDate, status,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String startDate,
+	// String endDate, int status, String createdTime,
+	// String modifiedTime, long user) {
+	// WorkplanRecord record = getById(id);
+	// record.setNo(no);
+	// record.setStartDate(startDate);
+	// record.setEndDate(endDate);
+	// record.setStatus(status);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<WorkplanRecord> iterator() {
+	// Iterator<WorkplanRecord> iter = new Iterator<WorkplanRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public WorkplanRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

@@ -22,7 +22,7 @@ public class SMRRecord {
 	private String no;
 	private String firstname;
 	private String lastname;
-	private long region; /**TODO removed*/
+	// private long region; removed
 	private long area;
 	private int is_active;
 	private String created_time;
@@ -34,14 +34,14 @@ public class SMRRecord {
 	// ===========================================================
 
 	public SMRRecord(long id, String no, String firstname, String lastname,
-			long region, long area, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			long area, int isActive, String createdTime, String modifiedTime,
+			long user) {
 
 		this.id = id;
 		this.no = no;
 		this.firstname = firstname;
 		this.lastname = lastname;
-		this.region = region;
+		// this.region = region;
 		this.area = area;
 		this.is_active = isActive;
 		this.created_time = createdTime;
@@ -81,13 +81,13 @@ public class SMRRecord {
 		return this.lastname;
 	}
 
-	public void setRegion(long region) {
-		this.region = region;
-	}
-
-	public long getRegion() {
-		return this.region;
-	}
+	// public void setRegion(long region) {
+	// this.region = region;
+	// }
+	//
+	// public long getRegion() {
+	// return this.region;
+	// }
 
 	public void setArea(long area) {
 		this.area = area;

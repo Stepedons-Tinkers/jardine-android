@@ -49,7 +49,7 @@ public class PJDImerchCheckStatusTable {
 	// Private methods
 	// ===========================================================
 
-	private List<PicklistRecord> getAllRecords() {
+	public List<PicklistRecord> getAllRecords() {
 		Cursor c = null;
 		List<PicklistRecord> list = new ArrayList<PicklistRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -177,7 +177,7 @@ public class PJDImerchCheckStatusTable {
 		return record;
 	}
 
-	public long insertUser(String no) {
+	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
@@ -194,7 +194,7 @@ public class PJDImerchCheckStatusTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID
 				+ "=" + rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
@@ -204,7 +204,7 @@ public class PJDImerchCheckStatusTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, long category, int isActive,
+	public boolean update(long id, String no, long category, int isActive,
 			long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME, no);

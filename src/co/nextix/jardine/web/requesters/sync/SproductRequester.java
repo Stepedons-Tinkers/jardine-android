@@ -35,7 +35,7 @@ public class SproductRequester {
 		private List<ProductModel> updated;
 
 		@SerializedName("deleted")
-		private List<ProductModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SproductRequester {
 			this.updated = updated;
 		}
 
-		public List<ProductModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<ProductModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

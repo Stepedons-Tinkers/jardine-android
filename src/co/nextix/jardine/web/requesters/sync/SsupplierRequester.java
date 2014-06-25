@@ -35,7 +35,7 @@ public class SsupplierRequester {
 		private List<SupplierModel> updated;
 
 		@SerializedName("deleted")
-		private List<SupplierModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SsupplierRequester {
 			this.updated = updated;
 		}
 
-		public List<SupplierModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<SupplierModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

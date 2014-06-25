@@ -49,7 +49,7 @@ public class PAreaTable {
 	// Private methods
 	// ===========================================================
 
-	private List<PicklistRecord> getAllRecords() {
+	public List<PicklistRecord> getAllRecords() {
 		Cursor c = null;
 		List<PicklistRecord> list = new ArrayList<PicklistRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;

@@ -35,7 +35,7 @@ public class SworkplanentryRequester {
 		private List<WorkplanEntryModel> updated;
 
 		@SerializedName("deleted")
-		private List<WorkplanEntryModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SworkplanentryRequester {
 			this.updated = updated;
 		}
 
-		public List<WorkplanEntryModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<WorkplanEntryModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

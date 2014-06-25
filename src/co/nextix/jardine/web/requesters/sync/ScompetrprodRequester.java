@@ -35,7 +35,7 @@ public class ScompetrprodRequester {
 		private List<CompetitorProductModel> updated;
 
 		@SerializedName("deleted")
-		private List<CompetitorProductModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class ScompetrprodRequester {
 			this.updated = updated;
 		}
 
-		public List<CompetitorProductModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<CompetitorProductModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

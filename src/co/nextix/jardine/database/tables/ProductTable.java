@@ -34,7 +34,7 @@ public class ProductTable {
 	// Private fields
 	// ===========================================================
 
-	private ProductCollection productCollection;
+	// private ProductCollection productCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -139,6 +139,30 @@ public class ProductTable {
 
 		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_PRODUCT_ROWID
 				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_PRODUCT_NO + " IN ("
+				+ ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -271,14 +295,13 @@ public class ProductTable {
 		return record;
 	}
 
-	public long insertUser(String no, String productNumber,
-			String productBrand, String productDescription, String productSize,
-			long businessUnit, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String productNumber, String productBrand,
+			String productDescription, String productSize, long businessUnit,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-		ProductCollection collection = getRecords();
+		// ProductCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -295,9 +318,9 @@ public class ProductTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-			collection.add(ids, no, productNumber, productBrand,
-					productDescription, productSize, businessUnit, isActive,
-					createdTime, modifiedTime, user);
+			// collection.add(ids, no, productNumber, productBrand,
+			// productDescription, productSize, businessUnit, isActive,
+			// createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -305,16 +328,16 @@ public class ProductTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_PRODUCT_ROWID + "=" + rowId, null) > 0) {
-			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean updateUser(long id, String no, String productNumber,
+	public boolean update(long id, String no, String productNumber,
 			String productBrand, String productDescription, String productSize,
 			long businessUnit, int isActive, String createdTime,
 			String modifiedTime, long user) {
@@ -330,9 +353,9 @@ public class ProductTable {
 		args.put(KEY_PRODUCT_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_PRODUCT_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_PRODUCT_ROWID + "=" + id, null) > 0) {
-			getRecords().update(id, no, productNumber, productBrand,
-					productDescription, productSize, businessUnit, isActive,
-					createdTime, modifiedTime, user);
+			// getRecords().update(id, no, productNumber, productBrand,
+			// productDescription, productSize, businessUnit, isActive,
+			// createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -343,7 +366,7 @@ public class ProductTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -357,100 +380,100 @@ public class ProductTable {
 	// Collection
 	// ===========================================================
 
-	public ProductCollection getRecords() {
-		if (productCollection == null) {
-			productCollection = new ProductCollection();
-			productCollection.list = getAllRecords();
-		}
-		return productCollection;
-	}
-
-	public final class ProductCollection implements Iterable<ProductRecord> {
-
-		private List<ProductRecord> list;
-
-		private ProductCollection() {
-		}
-
-		public int size() {
-			return list.size();
-		}
-
-		public ProductRecord get(int i) {
-			return list.get(i);
-		}
-
-		public ProductRecord getById(long id) {
-			for (ProductRecord record : list) {
-				if (record.getId() == id) {
-					return record;
-				}
-			}
-			return null;
-		}
-
-		private void add(long id, String no, String productNumber,
-				String productBrand, String productDescription,
-				String productSize, long businessUnit, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			list.add(new ProductRecord(id, no, productNumber, productBrand,
-					productDescription, productSize, businessUnit, isActive,
-					createdTime, modifiedTime, user));
-		}
-
-		private void clear() {
-			list.clear();
-		}
-
-		private void deleteById(long id) {
-			list.remove(getById(id));
-		}
-
-		private void update(long id, String no, String productNumber,
-				String productBrand, String productDescription,
-				String productSize, long businessUnit, int isActive,
-				String createdTime, String modifiedTime, long user) {
-			ProductRecord record = getById(id);
-			record.setNo(no);
-			record.setProductNumber(productNumber);
-			record.setProductBrand(productBrand);
-			record.setProductDescription(productDescription);
-			record.setProductSize(productSize);
-			record.setBusinessUnit(businessUnit);
-			record.setIsActive(isActive);
-			record.setCreatedTime(createdTime);
-			record.setModifiedTime(modifiedTime);
-			record.setUser(user);
-		}
-
-		@Override
-		public Iterator<ProductRecord> iterator() {
-			Iterator<ProductRecord> iter = new Iterator<ProductRecord>() {
-				private int current = 0;
-
-				@Override
-				public void remove() {
-					if (list.size() > 0) {
-						deleteUser(list.get(current).getId());
-						deleteById(list.get(current).getId());
-						list.remove(current);
-					}
-				}
-
-				@Override
-				public ProductRecord next() {
-					if (list.size() > 0) {
-						return list.get(current++);
-					}
-					return null;
-				}
-
-				@Override
-				public boolean hasNext() {
-					return list.size() > 0 && current < list.size();
-				}
-			};
-			return iter;
-		}
-	}
+	// public ProductCollection getRecords() {
+	// if (productCollection == null) {
+	// productCollection = new ProductCollection();
+	// productCollection.list = getAllRecords();
+	// }
+	// return productCollection;
+	// }
+	//
+	// public final class ProductCollection implements Iterable<ProductRecord> {
+	//
+	// private List<ProductRecord> list;
+	//
+	// private ProductCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public ProductRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public ProductRecord getById(long id) {
+	// for (ProductRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String productNumber,
+	// String productBrand, String productDescription,
+	// String productSize, long businessUnit, int isActive,
+	// String createdTime, String modifiedTime, long user) {
+	// list.add(new ProductRecord(id, no, productNumber, productBrand,
+	// productDescription, productSize, businessUnit, isActive,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String productNumber,
+	// String productBrand, String productDescription,
+	// String productSize, long businessUnit, int isActive,
+	// String createdTime, String modifiedTime, long user) {
+	// ProductRecord record = getById(id);
+	// record.setNo(no);
+	// record.setProductNumber(productNumber);
+	// record.setProductBrand(productBrand);
+	// record.setProductDescription(productDescription);
+	// record.setProductSize(productSize);
+	// record.setBusinessUnit(businessUnit);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<ProductRecord> iterator() {
+	// Iterator<ProductRecord> iter = new Iterator<ProductRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public ProductRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

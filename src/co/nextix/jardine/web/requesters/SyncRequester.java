@@ -62,7 +62,7 @@ public class SyncRequester<T> {
 		private List<T> updated;
 
 		@SerializedName("deleted")
-		private List<T> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -78,11 +78,11 @@ public class SyncRequester<T> {
 			this.updated = updated;
 		}
 
-		public List<T> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<T> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

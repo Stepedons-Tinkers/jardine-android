@@ -35,7 +35,7 @@ public class SeventRequester {
 		private List<EventProtocolModel> updated;
 
 		@SerializedName("deleted")
-		private List<EventProtocolModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SeventRequester {
 			this.updated = updated;
 		}
 
-		public List<EventProtocolModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<EventProtocolModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

@@ -1,31 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:overScrollMode="never"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:overScrollMode="never" >
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white" >
 
-        <EditText
+        <LinearLayout
             android:id="@+id/tvCollateralsSearchMarketingMaterials"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/xml_collaterals_search_bg"
-            android:hint="@string/search"
-            android:maxLines="1"
-            android:paddingBottom="2dp"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:paddingTop="2dp"
-            android:textSize="14sp" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:gravity="right" >
+
+            <EditText
+                android:id="@+id/etCollateralsSearchMM"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/xml_collaterals_search_bg"
+                android:hint="@string/search"
+                android:maxLines="1"
+                android:paddingBottom="2dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:paddingTop="2dp"
+                android:textSize="19sp" />
+
+            <Spinner
+                android:id="@+id/spiCollateralsMMSpinnerSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llColatteralsMarketingMaterialsPage"

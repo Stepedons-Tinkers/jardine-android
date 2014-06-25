@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 import co.nextix.jardine.R;
+import co.nextix.jardine.collaterals.CollateralsConstants;
 import co.nextix.jardine.collaterals.CollateralsEventFiles;
 import co.nextix.jardine.collaterals.CollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
@@ -72,9 +73,11 @@ public class CollateralsMenuBarFragment extends Fragment implements
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
+			CollateralsConstants.FROM_WHERE = 1;
 			fragment = new CollateralsEventProtocols();
 			break;
 		case 1:
+			CollateralsConstants.FROM_WHERE = 0;
 			fragment = new CollateralsMarketingMaterials();
 			break;
 		}

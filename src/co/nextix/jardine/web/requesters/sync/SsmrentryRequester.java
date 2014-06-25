@@ -35,7 +35,7 @@ public class SsmrentryRequester {
 		private List<SMRtimeCardModel> updated;
 
 		@SerializedName("deleted")
-		private List<SMRtimeCardModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SsmrentryRequester {
 			this.updated = updated;
 		}
 
-		public List<SMRtimeCardModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<SMRtimeCardModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 

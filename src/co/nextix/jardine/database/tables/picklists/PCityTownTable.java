@@ -50,7 +50,7 @@ public class PCityTownTable {
 	// Private methods
 	// ===========================================================
 
-	private List<CityTownRecord> getAllRecords() {
+	public List<CityTownRecord> getAllRecords() {
 		Cursor c = null;
 		List<CityTownRecord> list = new ArrayList<CityTownRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;

@@ -49,7 +49,7 @@ public class PWorkEntryStatusTable {
 	// Private methods
 	// ===========================================================
 
-	private List<PicklistRecord> getAllRecords() {
+	public List<PicklistRecord> getAllRecords() {
 		Cursor c = null;
 		List<PicklistRecord> list = new ArrayList<PicklistRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -170,7 +170,7 @@ public class PWorkEntryStatusTable {
 		return record;
 	}
 
-	public long insertUser(String no) {
+	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
@@ -187,7 +187,7 @@ public class PWorkEntryStatusTable {
 		return ids;
 	}
 
-	public boolean deleteUser(long rowId) {
+	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_WORKPLANENTRY_STATUS_ROWID + "="
 				+ rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
@@ -197,7 +197,7 @@ public class PWorkEntryStatusTable {
 		}
 	}
 
-	public boolean updateUser(long id, String no, long category, int isActive,
+	public boolean update(long id, String no, long category, int isActive,
 			long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_WORKPLANENTRY_STATUS_NAME, no);

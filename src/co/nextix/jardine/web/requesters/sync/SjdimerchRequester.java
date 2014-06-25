@@ -35,7 +35,7 @@ public class SjdimerchRequester {
 		private List<JDImerchandisingCheckModel> updated;
 
 		@SerializedName("deleted")
-		private List<JDImerchandisingCheckModel> deleted;
+		private List<String> deleted;
 
 		@SerializedName("more")
 		private boolean more;
@@ -51,11 +51,11 @@ public class SjdimerchRequester {
 			this.updated = updated;
 		}
 
-		public List<JDImerchandisingCheckModel> getDeleted() {
+		public List<String> getDeleted() {
 			return this.deleted;
 		}
 
-		public void setDeleted(List<JDImerchandisingCheckModel> deleted) {
+		public void setDeleted(List<String> deleted) {
 			this.deleted = deleted;
 		}
 
