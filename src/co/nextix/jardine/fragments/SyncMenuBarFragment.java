@@ -2439,11 +2439,11 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-
+			dialog.dismiss();
 			if (result) {
 				// new CreateCustomerTask().execute();
 			} else {
-				dialog.dismiss();
+
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}

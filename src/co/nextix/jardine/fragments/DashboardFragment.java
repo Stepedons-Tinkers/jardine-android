@@ -8,13 +8,17 @@ import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class DashboardFragment extends Fragment {
 
@@ -24,8 +28,7 @@ public class DashboardFragment extends Fragment {
 	private int year = 0;
 	private int date = 0;
 	private int counter = 0;
-	
-	
+
 	public DashboardFragment() {
 		this.c = Calendar.getInstance();
 		this.day = c.get(Calendar.DAY_OF_WEEK);
@@ -33,6 +36,8 @@ public class DashboardFragment extends Fragment {
 		this.date = c.get(Calendar.DATE);
 		this.year = c.get(Calendar.YEAR);
 	}
+
+	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
 
 	@SuppressWarnings("deprecation")
 	@Override
@@ -51,15 +56,51 @@ public class DashboardFragment extends Fragment {
 						DateUtils.LENGTH_SHORT)) + ", "
 				+ DateUtils.getMonthString(this.month, DateUtils.LENGTH_LONG)
 				+ " " + this.date + ", " + year);
-		
+
+		Button checkIn = (Button) rootView.findViewById(R.id.checkin);
+		Button checkOut = (Button) rootView.findViewById(R.id.checkout);
+
+		checkIn.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// JardineApp.DB.getSMRentryType().g
+				if (JardineApp.DB.getSMRTimeCard().insert("",
+						MyDateUtils.getCurrentDate(),
+						MyDateUtils.getCurrentTime(), 2,
+						MyDateUtils.getCurrentTimeStamp(),
+						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+					Toast.makeText(getActivity(), "Checked-in!",
+							Toast.LENGTH_SHORT).show();
+			}
+
+		});
+
+		checkOut.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// JardineApp.DB.getSMRentryType().g
+				if (JardineApp.DB.getSMRTimeCard().insert("",
+						MyDateUtils.getCurrentDate(),
+						MyDateUtils.getCurrentTime(), 3,
+						MyDateUtils.getCurrentTimeStamp(),
+						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+					Toast.makeText(getActivity(), "Checked-out!",
+							Toast.LENGTH_SHORT).show();
+			}
+
+		});
+
 		this.startAnimationPopOut(rootView);
 		return rootView;
 	}
 
 	private void startAnimationPopOut(final View view) {
-		TextView myLayout = (TextView) view.findViewById(R.id.update_activities);
-		Animation animation = AnimationUtils.loadAnimation(
-				getActivity(), R.anim.tile_animation);
+		TextView myLayout = (TextView) view
+				.findViewById(R.id.update_activities);
+		Animation animation = AnimationUtils.loadAnimation(getActivity(),
+				R.anim.tile_animation);
 
 		animation.setAnimationListener(new AnimationListener() {
 			@Override
@@ -75,8 +116,10 @@ public class DashboardFragment extends Fragment {
 			@Override
 			public void onAnimationEnd(final Animation animation) {
 				counter++;
-				TextView myLayout = (TextView) view.findViewById(R.id.update_activities);
-				myLayout.setText("" + counter + " remaining stocks \n" + counter + " updates for marketing intel");
+				TextView myLayout = (TextView) view
+						.findViewById(R.id.update_activities);
+				myLayout.setText("" + counter + " remaining stocks \n"
+						+ counter + " updates for marketing intel");
 				myLayout.startAnimation(animation);
 			}
 		});

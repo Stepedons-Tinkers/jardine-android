@@ -12,11 +12,15 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.util.List;
 
 import android.text.TextUtils;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
+import co.nextix.jardine.web.models.DocuRelModel;
+import co.nextix.jardine.web.models.DocumentModel;
+import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.sync.SactRequester;
 import co.nextix.jardine.web.requesters.sync.SactRequester.ActResult;
 import co.nextix.jardine.web.requesters.sync.SacttypeRequester;
@@ -1070,6 +1074,110 @@ public class SyncRequests {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+
+		return result;
+	}
+
+	public List<DocuRelModel> DocumentRelationships(String crmNo) {
+
+		List<DocuRelModel> result = null;
+
+		String q = "\"select * from vtiger_senotesrel where crmid=" + crmNo
+				+ "\"";
+		String query = "";
+		try {
+			query = URLEncoder.encode(q, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.BusinessUnit + "&sessionName="
+				+ JardineApp.SESSION_NAME + "&query=" + query + "&operation="
+				+ "querypicklist";
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<DocuRelModel>>>() {
+				}.getType();
+				DefaultRequester<List<DocuRelModel>> requester = gson.fromJson(
+						getReader(), typeOfT);
+				result = (List<DocuRelModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public List<DocumentModel> Documents(String[] crmNos) {
+
+		List<DocumentModel> result = null;
+
+		// String time = "";
+		// try {
+		// time = URLEncoder.encode(lastSync, "UTF-8");
+		// } catch (UnsupportedEncodingException e1) {
+		// e1.printStackTrace();
+		// }
+		//
+		// String urlString = JardineApp.WEB_URL + "?elementType="
+		// + Modules.ProjectRequirement + "&sessionName="
+		// + JardineApp.SESSION_NAME + "&modifiedTime=" + time
+		// + "&operation=" + operation;
+		//
+		// URL url;
+		// try {
+		//
+		// url = new URL(urlString);
+		// Log.d(TAG, urlString);
+		// getConnection(url, "GET");
+		//
+		// // status
+		// int status = JardineApp.httpConnection.getResponseCode();
+		// Log.w(TAG, "status: " + status);
+		//
+		// if (status == 200) {
+		//
+		// Gson gson = new Gson();
+		// Type typeOfT = new TypeToken<SprojreqRequester>() {
+		// }.getType();
+		// SprojreqRequester requester = gson.fromJson(getReader(),
+		// typeOfT);
+		// result = (ProjReqResult) requester.getResult();
+		//
+		// } else {
+		// // getResponse();
+		// }
+		//
+		// } catch (ProtocolException e) {
+		// e.printStackTrace();
+		// } catch (MalformedURLException e) {
+		// e.printStackTrace();
+		// } catch (IOException e) {
+		// e.printStackTrace();
+		// }
 
 		return result;
 	}
