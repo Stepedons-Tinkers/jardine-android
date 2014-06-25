@@ -8,8 +8,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.FragmentActivity;
@@ -21,20 +19,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
-import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
-import co.nextix.jardine.activites.fragments.CustomerContactPersonFragment;
-import co.nextix.jardine.activites.fragments.DIYSupermarketPhotosFragment;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
-import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
-import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
-import co.nextix.jardine.activites.fragments.ProductsFragment;
-import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
-import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
-import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.fragments.ViewAllCustomersFragment;
-import co.nextix.jardine.fragments.ActivitiesMenuBarFragment;
 import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
 import co.nextix.jardine.fragments.LogoutMenuBarFragment;
@@ -220,7 +206,7 @@ public class DashBoardActivity extends FragmentActivity {
 			fragment = new WorkplanMenuBarFragment();
 			break;
 		case 4:
-			fragment = new ActivitiesMenuBarFragment();
+			fragment = new StartActivityFragment();
 			break;
 		case 5:
 			// fragment = new CustomersMenuBarFragment();
