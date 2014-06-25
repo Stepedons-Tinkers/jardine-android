@@ -157,6 +157,52 @@ public class CompetitorProductStockCheckTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable,
+				KEY_COMPETITORPRODUCTSTOCKCHECK_NO + " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long getIdByName(String name) {
 		long result = 0;
 		String MY_QUERY = "SELECT " + KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID

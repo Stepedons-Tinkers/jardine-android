@@ -35,7 +35,7 @@ public class SupplierTable {
 	// Private fields
 	// ===========================================================
 
-//	private SupplierCollection supplierCollection;
+	// private SupplierCollection supplierCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -142,6 +142,30 @@ public class SupplierTable {
 
 		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_SUPPLIER_ROWID
 				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_SUPPLIER_NO + " IN ("
+				+ ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -262,14 +286,14 @@ public class SupplierTable {
 		return result;
 	}
 
-	public long insert(String no, String supplierName,
-			String supplierLandline, String supplierAddress, String creditLine,
-			String creditTerm, String contactPerson, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String supplierName, String supplierLandline,
+			String supplierAddress, String creditLine, String creditTerm,
+			String contactPerson, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-//		SupplierCollection collection = getRecords();
+		// SupplierCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -287,9 +311,9 @@ public class SupplierTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-//			collection.add(ids, no, supplierName, supplierLandline,
-//					supplierAddress, creditLine, creditTerm, contactPerson,
-//					isActive, createdTime, modifiedTime, user);
+			// collection.add(ids, no, supplierName, supplierLandline,
+			// supplierAddress, creditLine, creditTerm, contactPerson,
+			// isActive, createdTime, modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -299,7 +323,7 @@ public class SupplierTable {
 
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_SUPPLIER_ROWID + "=" + rowId, null) > 0) {
-//			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
@@ -324,9 +348,9 @@ public class SupplierTable {
 		args.put(KEY_SUPPLIER_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_SUPPLIER_ROWID + "=" + id,
 				null) > 0) {
-//			getRecords().update(id, no, supplierName, supplierLandline,
-//					supplierAddress, creditLine, creditTerm, contactPerson,
-//					isActive, createdTime, modifiedTime, user);
+			// getRecords().update(id, no, supplierName, supplierLandline,
+			// supplierAddress, creditLine, creditTerm, contactPerson,
+			// isActive, createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -337,7 +361,7 @@ public class SupplierTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-//			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -351,189 +375,191 @@ public class SupplierTable {
 	// Collection
 	// ===========================================================
 
-//	public SupplierCollection getRecords() {
-//		if (supplierCollection == null) {
-//			supplierCollection = new SupplierCollection();
-//			supplierCollection.list = getAllRecords();
-//		}
-//		return supplierCollection;
-//	}
-//
-//	public final class SupplierCollection implements Iterable<SupplierRecord> {
-//
-//		private List<SupplierRecord> list;
-//
-//		private SupplierCollection() {
-//		}
-//
-//		public int size() {
-//			return list.size();
-//		}
-//
-//		public SupplierRecord get(int i) {
-//			return list.get(i);
-//		}
-//
-//		public SupplierRecord getById(long id) {
-//			for (SupplierRecord record : list) {
-//				if (record.getId() == id) {
-//					return record;
-//				}
-//			}
-//			return null;
-//		}
-//
-//		private void add(long id, String no, String supplierName,
-//				String supplierLandline, String supplierAddress,
-//				String creditLine, String creditTerm, String contactPerson,
-//				int isActive, String createdTime, String modifiedTime, long user) {
-//			list.add(new SupplierRecord(id, no, supplierName, supplierLandline,
-//					supplierAddress, creditLine, creditTerm, contactPerson,
-//					isActive, createdTime, modifiedTime, user));
-//		}
-//
-//		private void clear() {
-//			list.clear();
-//		}
-//
-//		private void deleteById(long id) {
-//			list.remove(getById(id));
-//		}
-//
-//		private void update(long id, String no, String supplierName,
-//				String supplierLandline, String supplierAddress,
-//				String creditLine, String creditTerm, String contactPerson,
-//				int isActive, String createdTime, String modifiedTime, long user) {
-//			SupplierRecord record = getById(id);
-//			record.setNo(no);
-//			record.setSupplierName(supplierName);
-//			record.setSupplierLandline(supplierLandline);
-//			record.setSupplierAddress(supplierAddress);
-//			record.setCreditLine(creditLine);
-//			record.setCreditTerm(creditTerm);
-//			record.setContactPerson(contactPerson);
-//			record.setCreatedTime(createdTime);
-//			record.setModifiedTime(modifiedTime);
-//			record.setUser(user);
-//		}
-//
-//		@Override
-//		public Iterator<SupplierRecord> iterator() {
-//			Iterator<SupplierRecord> iter = new Iterator<SupplierRecord>() {
-//				private int current = 0;
-//
-//				@Override
-//				public void remove() {
-//					if (list.size() > 0) {
-//						deleteUser(list.get(current).getId());
-//						deleteById(list.get(current).getId());
-//						list.remove(current);
-//					}
-//				}
-//
-//				@Override
-//				public SupplierRecord next() {
-//					if (list.size() > 0) {
-//						return list.get(current++);
-//					}
-//					return null;
-//				}
-//
-//				@Override
-//				public boolean hasNext() {
-//					return list.size() > 0 && current < list.size();
-//				}
-//			};
-//			return iter;
-//		}
-//	}
+	// public SupplierCollection getRecords() {
+	// if (supplierCollection == null) {
+	// supplierCollection = new SupplierCollection();
+	// supplierCollection.list = getAllRecords();
+	// }
+	// return supplierCollection;
+	// }
+	//
+	// public final class SupplierCollection implements Iterable<SupplierRecord>
+	// {
+	//
+	// private List<SupplierRecord> list;
+	//
+	// private SupplierCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public SupplierRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public SupplierRecord getById(long id) {
+	// for (SupplierRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String supplierName,
+	// String supplierLandline, String supplierAddress,
+	// String creditLine, String creditTerm, String contactPerson,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// list.add(new SupplierRecord(id, no, supplierName, supplierLandline,
+	// supplierAddress, creditLine, creditTerm, contactPerson,
+	// isActive, createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String supplierName,
+	// String supplierLandline, String supplierAddress,
+	// String creditLine, String creditTerm, String contactPerson,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// SupplierRecord record = getById(id);
+	// record.setNo(no);
+	// record.setSupplierName(supplierName);
+	// record.setSupplierLandline(supplierLandline);
+	// record.setSupplierAddress(supplierAddress);
+	// record.setCreditLine(creditLine);
+	// record.setCreditTerm(creditTerm);
+	// record.setContactPerson(contactPerson);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<SupplierRecord> iterator() {
+	// Iterator<SupplierRecord> iter = new Iterator<SupplierRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public SupplierRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 
-//	public final class SupplierCollection implements Iterable<SupplierRecord> {
-//	
-//		private List<SupplierRecord> list;
-//	
-//		private SupplierCollection() {
-//		}
-//	
-//		public int size() {
-//			return list.size();
-//		}
-//	
-//		public SupplierRecord get(int i) {
-//			return list.get(i);
-//		}
-//	
-//		public SupplierRecord getById(long id) {
-//			for (SupplierRecord record : list) {
-//				if (record.getId() == id) {
-//					return record;
-//				}
-//			}
-//			return null;
-//		}
-//	
-//		private void add(long id, String no, String supplierName,
-//				String supplierLandline, String supplierAddress,
-//				String creditLine, String creditTerm, String contactPerson,
-//				int isActive, String createdTime, String modifiedTime, long user) {
-//			list.add(new SupplierRecord(id, no, supplierName, supplierLandline,
-//					supplierAddress, creditLine, creditTerm, contactPerson,
-//					isActive, createdTime, modifiedTime, user));
-//		}
-//	
-//		private void clear() {
-//			list.clear();
-//		}
-//	
-//		private void deleteById(long id) {
-//			list.remove(getById(id));
-//		}
-//	
-//		private void update(long id, String no, String supplierName,
-//				String supplierLandline, String supplierAddress,
-//				String creditLine, String creditTerm, String contactPerson,
-//				int isActive, String createdTime, String modifiedTime, long user) {
-//			SupplierRecord record = getById(id);
-//			record.setNo(no);
-//			record.setSupplierName(supplierName);
-//			record.setSupplierLandline(supplierLandline);
-//			record.setSupplierAddress(supplierAddress);
-//			record.setCreditLine(creditLine);
-//			record.setCreditTerm(creditTerm);
-//			record.setContactPerson(contactPerson);
-//			record.setCreatedTime(createdTime);
-//			record.setModifiedTime(modifiedTime);
-//			record.setUser(user);
-//		}
-//	
-//		@Override
-//		public Iterator<SupplierRecord> iterator() {
-//			Iterator<SupplierRecord> iter = new Iterator<SupplierRecord>() {
-//				private int current = 0;
-//	
-//				@Override
-//				public void remove() {
-//					if (list.size() > 0) {
-//						deleteUser(list.get(current).getId());
-//						deleteById(list.get(current).getId());
-//						list.remove(current);
-//					}
-//				}
-//	
-//				@Override
-//				public SupplierRecord next() {
-//					if (list.size() > 0) {
-//						return list.get(current++);
-//					}
-//					return null;
-//				}
-//	
-//				@Override
-//				public boolean hasNext() {
-//					return list.size() > 0 && current < list.size();
-//				}
-//			};
-//			return iter;
-//		}
-//	}
+	// public final class SupplierCollection implements Iterable<SupplierRecord>
+	// {
+	//
+	// private List<SupplierRecord> list;
+	//
+	// private SupplierCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public SupplierRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public SupplierRecord getById(long id) {
+	// for (SupplierRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String supplierName,
+	// String supplierLandline, String supplierAddress,
+	// String creditLine, String creditTerm, String contactPerson,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// list.add(new SupplierRecord(id, no, supplierName, supplierLandline,
+	// supplierAddress, creditLine, creditTerm, contactPerson,
+	// isActive, createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String supplierName,
+	// String supplierLandline, String supplierAddress,
+	// String creditLine, String creditTerm, String contactPerson,
+	// int isActive, String createdTime, String modifiedTime, long user) {
+	// SupplierRecord record = getById(id);
+	// record.setNo(no);
+	// record.setSupplierName(supplierName);
+	// record.setSupplierLandline(supplierLandline);
+	// record.setSupplierAddress(supplierAddress);
+	// record.setCreditLine(creditLine);
+	// record.setCreditTerm(creditTerm);
+	// record.setContactPerson(contactPerson);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<SupplierRecord> iterator() {
+	// Iterator<SupplierRecord> iter = new Iterator<SupplierRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public SupplierRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

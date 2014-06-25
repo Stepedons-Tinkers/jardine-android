@@ -176,6 +176,50 @@ public class CustomerTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_NO + " IN ("
+				+ ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public CustomerRecord getById(int ID) {
 		CustomerRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -319,10 +363,10 @@ public class CustomerTable {
 	}
 
 	public long insert(String no, String customerName, String chainName,
-			String landline, String fax, String customerSize,
-			String streetAddress, long customerType,
-			long businessUnit, long area, long province, long cityTown,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			String landline, String fax, long customerSize,
+			String streetAddress, long customerType, long businessUnit,
+			long area, long province, long cityTown, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -371,19 +415,22 @@ public class CustomerTable {
 	}
 
 	public boolean update(long id, String no, String customerName,
-			String chainName, String landline, String customerSize,
-			long customerType, long businessUnit,
-			long province, long cityTown, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String chainName, String landline, String fax, long customerSize,
+			String streetAddress, long customerType, long businessUnit,
+			long area, long province, long cityTown, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
 		args.put(KEY_CUSTOMER_NAME, customerName);
 		args.put(KEY_CUSTOMER_CHAINNAME, chainName);
 		args.put(KEY_CUSTOMER_LANDLINE, landline);
+		args.put(KEY_CUSTOMER_FAX, fax);
 		args.put(KEY_CUSTOMER_SIZE, customerSize);
+		args.put(KEY_CUSTOMER_STREETADDRESS, streetAddress);
 		// args.put(KEY_CUSTOMER_RECORDSTATUS, customerRecordStatus);
 		args.put(KEY_CUSTOMER_TYPE, customerType);
 		args.put(KEY_CUSTOMER_BUSINESSUNIT, businessUnit);
+		args.put(KEY_CUSTOMER_AREA, area);
 		args.put(KEY_CUSTOMER_PROVINCE, province);
 		args.put(KEY_CUSTOMER_CITYTOWN, cityTown);
 		args.put(KEY_CUSTOMER_ISACTIVE, isActive);
