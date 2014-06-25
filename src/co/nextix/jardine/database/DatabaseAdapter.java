@@ -242,6 +242,7 @@ public class DatabaseAdapter {
 	// Project Requirement
 	private final String KEY_PROJECTREQUIREMENTS_ROWID = "_id";
 	private final String KEY_PROJECTREQUIREMENTS_NO = "no";
+	private final String KEY_PROJECTREQUIREMENTS_ACTIVITY = "activity";
 	private final String KEY_PROJECTREQUIREMENTS_TYPE = "project_requirement_type";
 	private final String KEY_PROJECTREQUIREMENTS_DATENEEDED = "date_needed";
 	private final String KEY_PROJECTREQUIREMENTS_SQUAREMETERS = "square_meters";
@@ -364,12 +365,12 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CUSTOMER_CONTACT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_CUSTOMER = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real,%s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_CUSTOMER = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s real,%s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_EVENT_PROTOCOL = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s real, %s integer, %s integer, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_INTEL = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PROJECT_REQUIREMENT = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s text, %s text, %s text %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PROJECT_REQUIREMENT = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text, %s text %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SMR = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SMR_TIMECARD = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SUPPLIER = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
@@ -973,13 +974,15 @@ public class DatabaseAdapter {
 					KEY_CUSTOMER_PROVINCE, KEY_CUSTOMER_CITYTOWN,
 					KEY_CUSTOMER_ISACTIVE, KEY_CUSTOMER_CREATEDTIME,
 					KEY_CUSTOMER_MODIFIEDTIME, KEY_CUSTOMER_USER,
-					KEY_CUSTOMER_TYPE, CUSTOMER_TYPE_TABLE,
-					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_BUSINESSUNIT,
-					BUSINESS_UNIT_TABLE, KEY_BUSINESSUNIT_ROWID,
-					KEY_CUSTOMER_AREA, AREA_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_CUSTOMER_PROVINCE, PROVINCE_TABLE, KEY_PROVINCE_ROWID,
-					KEY_CUSTOMER_CITYTOWN, CITYTOWN_TABLE, KEY_CITYTOWN_ROWID,
-					KEY_CUSTOMER_USER, USER_TABLE, KEY_USER_ROWID);
+					KEY_CUSTOMER_SIZE, CUSTOMER_SIZE_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_TYPE,
+					CUSTOMER_TYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_CUSTOMER_BUSINESSUNIT, BUSINESS_UNIT_TABLE,
+					KEY_BUSINESSUNIT_ROWID, KEY_CUSTOMER_AREA, AREA_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_PROVINCE, PROVINCE_TABLE,
+					KEY_PROVINCE_ROWID, KEY_CUSTOMER_CITYTOWN, CITYTOWN_TABLE,
+					KEY_CITYTOWN_ROWID, KEY_CUSTOMER_USER, USER_TABLE,
+					KEY_USER_ROWID);
 			String eventProtocol = String.format(TABLE_CREATE_EVENT_PROTOCOL,
 					EVENT_PROTOCOL_TABLE, KEY_EVENTPROTOCOL_ROWID,
 					KEY_EVENTPROTOCOL_NO, KEY_EVENTPROTOCOL_DESCRIPTION,
@@ -1030,14 +1033,18 @@ public class DatabaseAdapter {
 			String projectRequirement = String.format(
 					TABLE_CREATE_PROJECT_REQUIREMENT,
 					PROJECT_REQUIREMENTS_TABLE, KEY_PROJECTREQUIREMENTS_ROWID,
-					KEY_PROJECTREQUIREMENTS_NO, KEY_PROJECTREQUIREMENTS_TYPE,
+					KEY_PROJECTREQUIREMENTS_NO,
+					KEY_PROJECTREQUIREMENTS_ACTIVITY,
+					KEY_PROJECTREQUIREMENTS_TYPE,
 					KEY_PROJECTREQUIREMENTS_DATENEEDED,
 					KEY_PROJECTREQUIREMENTS_SQUAREMETERS,
 					KEY_PROJECTREQUIREMENTS_PRODUCTSUSED,
 					KEY_PROJECTREQUIREMENTS_OTHERDETAILS,
 					KEY_PROJECTREQUIREMENTS_CREATEDTIME,
 					KEY_PROJECTREQUIREMENTS_MODIFIEDTIME,
-					KEY_PROJECTREQUIREMENTS_USER, KEY_PROJECTREQUIREMENTS_TYPE,
+					KEY_PROJECTREQUIREMENTS_USER,
+					KEY_PROJECTREQUIREMENTS_ACTIVITY, ACTIVITY_TABLE,
+					KEY_ACTIVITY_ROWID, KEY_PROJECTREQUIREMENTS_TYPE,
 					PROJECT_REQUIREMENTS_TYPE_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PROJECTREQUIREMENTS_USER, USER_TABLE, KEY_USER_ROWID);
 			String smr = String.format(TABLE_CREATE_SMR, SMR_TABLE,

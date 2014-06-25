@@ -175,6 +175,54 @@ public class CompetitorProductTable {
 		return rowsDeleted;
 	}
 
+	public List<CompetitorProductRecord> getUnsyncedRecords() {
+		List<CompetitorProductRecord> records = new ArrayList<CompetitorProductRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCT_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+					long competitor = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
+					String productBrand = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTBRAND));
+					String productDescription = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION));
+					String productSize = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTSIZE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+
+					records.add(new CompetitorProductRecord(id, no, competitor,
+							productBrand, productDescription, productSize,
+							isActive, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return records;
+	}
+
 	public CompetitorProductRecord getById(int ID) {
 		CompetitorProductRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -362,6 +410,20 @@ public class CompetitorProductTable {
 		args.put(KEY_COMPETITORPRODUCT_CREATEDTIME, createdTime);
 		args.put(KEY_COMPETITORPRODUCT_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_COMPETITORPRODUCT_USER, user);
+		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_COMPETITORPRODUCT_NO, no);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,

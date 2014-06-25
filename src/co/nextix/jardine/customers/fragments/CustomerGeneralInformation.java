@@ -11,16 +11,15 @@ import co.nextix.jardine.database.records.CustomerRecord;
 
 public class CustomerGeneralInformation extends Fragment {
 	private View view;
-	private TextView crmNo, customerName, businessUnit, area, 
-	province, cityOrTown, chainName, customerSize, streetAddress, 
-	landline, fax, customerType, isActive;
+	private TextView crmNo, customerName, businessUnit, area, province,
+			cityOrTown, chainName, customerSize, streetAddress, landline, fax,
+			customerType, isActive;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(
-				R.layout.customer_details, null);
+		view = inflater.inflate(R.layout.customer_details, null);
 		initLayout();
 		return view;
 	}
@@ -28,13 +27,16 @@ public class CustomerGeneralInformation extends Fragment {
 	private void initLayout() {
 		crmNo = (TextView) view.findViewById(R.id.tvCustomerCrmNoInfo);
 		customerName = (TextView) view.findViewById(R.id.tvCustomerNameInfo);
-		businessUnit = (TextView) view.findViewById(R.id.tvCustomerBusinessUnitInfo);
+		businessUnit = (TextView) view
+				.findViewById(R.id.tvCustomerBusinessUnitInfo);
 		area = (TextView) view.findViewById(R.id.tvCustomerAreaInfo);
 		province = (TextView) view.findViewById(R.id.tvCustomerProvinceInfo);
-		cityOrTown = (TextView) view.findViewById(R.id.tvCustomerCityOrTownInfo);
+		cityOrTown = (TextView) view
+				.findViewById(R.id.tvCustomerCityOrTownInfo);
 		chainName = (TextView) view.findViewById(R.id.tvCustomerChainNameInfo);
 		customerSize = (TextView) view.findViewById(R.id.tvCustomerSizeInfo);
-		streetAddress = (TextView) view.findViewById(R.id.tvCustomerStreetAddressInfo);
+		streetAddress = (TextView) view
+				.findViewById(R.id.tvCustomerStreetAddressInfo);
 		landline = (TextView) view.findViewById(R.id.tvCustomerLandlineInfo);
 		fax = (TextView) view.findViewById(R.id.tvCustomerFaxInfo);
 		customerType = (TextView) view.findViewById(R.id.tvCustomerTypeInfo);
@@ -48,7 +50,7 @@ public class CustomerGeneralInformation extends Fragment {
 		record.setProvince(0001);
 		record.setCityTown(0001);
 		record.setChainName("Chain Name");
-		record.setCustomerSize("Customer Size");
+		record.setCustomerSize(1);
 		record.setStreetAddress("Cebu City");
 		record.setLandline("236-0000");
 		record.setFax("253-0000");
@@ -65,7 +67,7 @@ public class CustomerGeneralInformation extends Fragment {
 		province.setText(String.valueOf(record.getProvince()));
 		cityOrTown.setText(String.valueOf(record.getCityTown()));
 		chainName.setText(record.getChainName());
-		customerSize.setText(record.getCustomerSize());
+		customerSize.setText("" + record.getCustomerSize());
 		streetAddress.setText(record.getStreetAddress());
 		landline.setText(record.getLandline());
 		fax.setText(record.getFax());

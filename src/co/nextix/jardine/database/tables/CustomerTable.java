@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.SMRtimeCardRecord;
 
 public class CustomerTable {
 	// ===========================================================
@@ -85,7 +86,7 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
 					String fax = c
 							.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-					String customerSize = c.getString(c
+					long customerSize = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMER_SIZE));
 					String streetAddress = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
@@ -132,6 +133,85 @@ public class CustomerTable {
 	// ===========================================================
 	// Public methods
 	// ===========================================================
+
+	public List<CustomerRecord> getUnsyncedRecords() {
+		List<CustomerRecord> list = new ArrayList<CustomerRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMER_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
+					String customerName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_NAME));
+					String chainName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+					String landline = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+					String fax = c
+							.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
+					long customerSize = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_SIZE));
+					String streetAddress = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+					// long customerRecordStatus = c.getLong(c
+					// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
+					long customerType = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_TYPE));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+					long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+					long cityTown = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
+
+					// list.add(new CustomerRecord(id, no, customerName,
+					// chainName, landline, fax, customerSize,
+					// streetAddress, customerRecordStatus, customerType,
+					// businessUnit,
+					// area, province, cityTown, isActive, createdTime,
+					// modifiedTime, user));
+					list.add(new CustomerRecord(id, no, customerName,
+							chainName, landline, fax, customerSize,
+							streetAddress, customerType, businessUnit, area,
+							province, cityTown, isActive, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_CUSTOMER_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id,
+				null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
@@ -238,7 +318,7 @@ public class CustomerTable {
 				String landline = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
 				String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-				String customerSize = c.getString(c
+				long customerSize = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_SIZE));
 				String streetAddress = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
@@ -319,7 +399,7 @@ public class CustomerTable {
 				String landline = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
 				String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-				String customerSize = c.getString(c
+				long customerSize = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMER_SIZE));
 				String streetAddress = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
