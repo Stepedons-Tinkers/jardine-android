@@ -127,6 +127,22 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
+		((ImageButton) this.rootView.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "<==== ni sud here", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		((ImageButton) this.rootView.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(getActivity(), "ni sud here ====>", Toast.LENGTH_SHORT).show();
+			}
+		});
+
 		/*
 		 * ((Button)
 		 * rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter
