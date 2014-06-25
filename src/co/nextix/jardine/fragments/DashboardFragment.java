@@ -41,16 +41,14 @@ public class DashboardFragment extends Fragment {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		getActivity().setRequestedOrientation(
-				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
-		View rootView = inflater.inflate(R.layout.fragment_dashboard,
-				container, false);
+		View rootView = inflater.inflate(R.layout.fragment_dashboard, container, false);
 
 		Button today = (Button) rootView.findViewById(R.id.date_today);
+
 		today.setText("Today - "
 				+ this.concatenateDay(DateUtils.getDayOfWeekString(this.day,
 						DateUtils.LENGTH_SHORT)) + ", "
@@ -134,11 +132,11 @@ public class DashboardFragment extends Fragment {
 	protected String concatenateDay(String day) {
 		String concatenatedDay = "";
 
-		concatenatedDay = day.equals("Sun") ? day + "day"
-				: day.equals("Mo") ? day + "nday" : day.equals("Tu") ? day
-						+ "esday" : day.equals("We") ? day + "dnesday" : day
-						.equals("Th") ? day + "ursday" : day.equals("Fr") ? day
-						+ "iday" : day.equals("Sa") ? day + "turday" : "";
+		concatenatedDay = day.equals("Su") ? day + "nday" : day.equals("Mo") ? day + "nday" : day.equals("Tu") ? day + "esday" : day
+				.equals("We") ? day + "dnesday" : day.equals("Th") ? day + "ursday" : day.equals("Fr") ? day + "iday"
+				: day.equals("Sa") ? day + "turday" : day.equals("Sun") ? day + "day" : day.equals("Mon") ? day + "day"
+						: day.equals("Tue") ? day + "sday" : day.equals("Wed") ? day + "nesday" : day.equals("Thu") ? day + "rsday" : day
+								.equals("Fri") ? day + "day" : day.equals("Sat") ? day + "urday" : "";
 
 		return concatenatedDay;
 	}

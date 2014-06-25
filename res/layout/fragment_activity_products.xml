@@ -1024,56 +1024,53 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical|center_horizontal"
-            android:layout_marginBottom="14dp" >
+            android:layout_marginBottom="7dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center" >
+
+                <ImageButton
+                    android:id="@+id/imageButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/status_count_text"
+                    android:layout_alignTop="@+id/status_count_text"
+                    android:layout_toLeftOf="@+id/status_count_text"
+                    android:onClick="prev"
+                    android:src="@drawable/prev" />
+
+                <TextView
+                    android:id="@+id/status_count_text"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="1 of 1"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:onClick="next"
+                    android:src="@drawable/next" />
+            </LinearLayout>
 
             <Button
-                android:id="@+id/add_btn_jdi_product_stock_check"
+                android:id="@+id/select_products"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="24dp"
                 android:layout_marginRight="14dp"
-                android:layout_marginTop="5dp"
-                android:onClick="addJDIProductStockCheck"
                 android:text="@string/select_products" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/add_btn_jdi_product_stock_check"
-                android:layout_alignBottom="@+id/add_btn_jdi_product_stock_check"
-                android:layout_marginRight="24dp"
-                android:layout_toLeftOf="@+id/add_btn_jdi_product_stock_check"
-                android:onClick="next"
-                android:src="@drawable/next" />
-
-            <ImageButton
-                android:id="@+id/imageButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imageButton3"
-                android:layout_alignTop="@+id/imageButton3"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/status_count_text"
-                android:onClick="prev"
-                android:src="@drawable/prev" />
-
-            <TextView
-                android:id="@+id/status_count_text"
-                android:layout_width="74dp"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/imageButton3"
-                android:layout_toLeftOf="@+id/imageButton3"
-                android:gravity="center"
-                android:padding="14dip"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="1 of 1"
-                android:textColor="#000000"
-                android:textSize="17sp" />
-
         </RelativeLayout>
     </LinearLayout>
 
