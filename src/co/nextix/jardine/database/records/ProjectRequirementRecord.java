@@ -20,6 +20,7 @@ public class ProjectRequirementRecord {
 
 	private long id;
 	private String no;
+	private long activity;
 	private long project_requirement_type;
 	private String date_needed;
 	private String square_meters;
@@ -33,13 +34,14 @@ public class ProjectRequirementRecord {
 	// Public constructors
 	// ===========================================================
 
-	public ProjectRequirementRecord(long id, String no,
-			long projectRequirementType, String dateNeeded, String squareMeters,
-			String productsUsed, String otherDetails, String createdTime,
-			String modifiedTime, long user) {
+	public ProjectRequirementRecord(long id, String no, long activity,
+			long projectRequirementType, String dateNeeded,
+			String squareMeters, String productsUsed, String otherDetails,
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.activity = activity;
 		this.project_requirement_type = projectRequirementType;
 		this.date_needed = dateNeeded;
 		this.square_meters = squareMeters;
@@ -64,6 +66,14 @@ public class ProjectRequirementRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setActivity(long activity) {
+		this.activity = activity;
+	}
+
+	public long getActivity() {
+		return this.activity;
 	}
 
 	public void setProjectRequirementType(long projectRequirementType) {

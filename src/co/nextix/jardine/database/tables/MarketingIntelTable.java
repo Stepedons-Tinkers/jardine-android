@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 
 public class MarketingIntelTable {
@@ -58,7 +59,7 @@ public class MarketingIntelTable {
 	// Private methods
 	// ===========================================================
 
-	private List<MarketingIntelRecord> getAllRecords() {
+	public List<MarketingIntelRecord> getAllRecords() {
 		Cursor c = null;
 		List<MarketingIntelRecord> list = new ArrayList<MarketingIntelRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -101,6 +102,63 @@ public class MarketingIntelTable {
 	// ===========================================================
 	// Public methods
 	// ===========================================================
+
+	public List<MarketingIntelRecord> getUnsyncedRecords() {
+		List<MarketingIntelRecord> list = new ArrayList<MarketingIntelRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_MARKETINGINTEL_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_NO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
+					long competitor = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+					String details = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
+					String remarks = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_REMARKS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_USER));
+
+					list.add(new MarketingIntelRecord(id, no, activity,
+							competitor, details, remarks, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_MARKETINGINTEL_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGINTEL_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;

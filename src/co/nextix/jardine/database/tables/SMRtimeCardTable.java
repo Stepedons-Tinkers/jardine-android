@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.SMRtimeCardRecord;
 
 public class SMRtimeCardTable {
@@ -31,7 +32,7 @@ public class SMRtimeCardTable {
 	// Private fields
 	// ===========================================================
 
-//	private SMRtimeCardCollection smrTimeCardCollection;
+	// private SMRtimeCardCollection smrTimeCardCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -57,7 +58,7 @@ public class SMRtimeCardTable {
 	// Private methods
 	// ===========================================================
 
-	private List<SMRtimeCardRecord> getAllRecords() {
+	public List<SMRtimeCardRecord> getAllRecords() {
 		Cursor c = null;
 		List<SMRtimeCardRecord> list = new ArrayList<SMRtimeCardRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -97,6 +98,60 @@ public class SMRtimeCardTable {
 	// ===========================================================
 	// Public methods
 	// ===========================================================
+
+	public List<SMRtimeCardRecord> getUnsyncedRecords() {
+		List<SMRtimeCardRecord> records = new ArrayList<SMRtimeCardRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_SMRTIMECARD_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c
+							.getLong(c.getColumnIndex(KEY_SMRTIMECARD_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_NO));
+					String date = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_DATE));
+					String timestamp = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_TIMESTAMP));
+					long entryType = c.getLong(c
+							.getColumnIndex(KEY_SMRTIMECARD_ENTRYTYPE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_SMRTIMECARD_USER));
+
+					records.add(new SMRtimeCardRecord(id, no, date, timestamp,
+							entryType, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return records;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_SMRTIMECARD_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_SMRTIMECARD_ROWID + "=" + id,
+				null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
@@ -216,7 +271,7 @@ public class SMRtimeCardTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-//		SMRtimeCardCollection collection = getRecords();
+		// SMRtimeCardCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -230,8 +285,8 @@ public class SMRtimeCardTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-//			collection.add(ids, no, date, timestamp, entryType, createdTime,
-//					modifiedTime, user);
+			// collection.add(ids, no, date, timestamp, entryType, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -242,16 +297,15 @@ public class SMRtimeCardTable {
 	public boolean deleteUser(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_SMRTIMECARD_ROWID + "=" + rowId,
 				null) > 0) {
-//			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean update(long id, String no, String date,
-			String timestamp, long entryType, String createdTime,
-			String modifiedTime, long user) {
+	public boolean update(long id, String no, String date, String timestamp,
+			long entryType, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMRTIMECARD_NO, no);
 		args.put(KEY_SMRTIMECARD_DATE, date);
@@ -262,8 +316,8 @@ public class SMRtimeCardTable {
 		args.put(KEY_SMRTIMECARD_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_SMRTIMECARD_ROWID + "=" + id,
 				null) > 0) {
-//			getRecords().update(id, no, date, timestamp, entryType,
-//					createdTime, modifiedTime, user);
+			// getRecords().update(id, no, date, timestamp, entryType,
+			// createdTime, modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -274,7 +328,7 @@ public class SMRtimeCardTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-//			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -288,95 +342,95 @@ public class SMRtimeCardTable {
 	// Collection
 	// ===========================================================
 
-//	public SMRtimeCardCollection getRecords() {
-//		if (smrTimeCardCollection == null) {
-//			smrTimeCardCollection = new SMRtimeCardCollection();
-//			smrTimeCardCollection.list = getAllRecords();
-//		}
-//		return smrTimeCardCollection;
-//	}
-//
-//	public final class SMRtimeCardCollection implements
-//			Iterable<SMRtimeCardRecord> {
-//
-//		private List<SMRtimeCardRecord> list;
-//
-//		private SMRtimeCardCollection() {
-//		}
-//
-//		public int size() {
-//			return list.size();
-//		}
-//
-//		public SMRtimeCardRecord get(int i) {
-//			return list.get(i);
-//		}
-//
-//		public SMRtimeCardRecord getById(long id) {
-//			for (SMRtimeCardRecord record : list) {
-//				if (record.getId() == id) {
-//					return record;
-//				}
-//			}
-//			return null;
-//		}
-//
-//		private void add(long id, String no, String date, String timestamp,
-//				long entryType, String createdTime, String modifiedTime,
-//				long user) {
-//			list.add(new SMRtimeCardRecord(id, no, date, timestamp, entryType,
-//					createdTime, modifiedTime, user));
-//		}
-//
-//		private void clear() {
-//			list.clear();
-//		}
-//
-//		private void deleteById(long id) {
-//			list.remove(getById(id));
-//		}
-//
-//		private void update(long id, String no, String date, String timestamp,
-//				long entryType, String createdTime, String modifiedTime,
-//				long user) {
-//			SMRtimeCardRecord record = getById(id);
-//			record.setNo(no);
-//			record.setDate(date);
-//			record.setTimestamp(timestamp);
-//			record.setEntryType(entryType);
-//			record.setCreatedTime(createdTime);
-//			record.setModifiedTime(modifiedTime);
-//			record.setUser(user);
-//		}
-//
-//		@Override
-//		public Iterator<SMRtimeCardRecord> iterator() {
-//			Iterator<SMRtimeCardRecord> iter = new Iterator<SMRtimeCardRecord>() {
-//				private int current = 0;
-//
-//				@Override
-//				public void remove() {
-//					if (list.size() > 0) {
-//						deleteUser(list.get(current).getId());
-//						deleteById(list.get(current).getId());
-//						list.remove(current);
-//					}
-//				}
-//
-//				@Override
-//				public SMRtimeCardRecord next() {
-//					if (list.size() > 0) {
-//						return list.get(current++);
-//					}
-//					return null;
-//				}
-//
-//				@Override
-//				public boolean hasNext() {
-//					return list.size() > 0 && current < list.size();
-//				}
-//			};
-//			return iter;
-//		}
-//	}
+	// public SMRtimeCardCollection getRecords() {
+	// if (smrTimeCardCollection == null) {
+	// smrTimeCardCollection = new SMRtimeCardCollection();
+	// smrTimeCardCollection.list = getAllRecords();
+	// }
+	// return smrTimeCardCollection;
+	// }
+	//
+	// public final class SMRtimeCardCollection implements
+	// Iterable<SMRtimeCardRecord> {
+	//
+	// private List<SMRtimeCardRecord> list;
+	//
+	// private SMRtimeCardCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public SMRtimeCardRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public SMRtimeCardRecord getById(long id) {
+	// for (SMRtimeCardRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, String date, String timestamp,
+	// long entryType, String createdTime, String modifiedTime,
+	// long user) {
+	// list.add(new SMRtimeCardRecord(id, no, date, timestamp, entryType,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, String date, String timestamp,
+	// long entryType, String createdTime, String modifiedTime,
+	// long user) {
+	// SMRtimeCardRecord record = getById(id);
+	// record.setNo(no);
+	// record.setDate(date);
+	// record.setTimestamp(timestamp);
+	// record.setEntryType(entryType);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<SMRtimeCardRecord> iterator() {
+	// Iterator<SMRtimeCardRecord> iter = new Iterator<SMRtimeCardRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public SMRtimeCardRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

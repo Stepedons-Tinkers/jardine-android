@@ -11,6 +11,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
 public class JDIproductStockCheckTable {
@@ -60,7 +61,7 @@ public class JDIproductStockCheckTable {
 	// Private methods
 	// ===========================================================
 
-	private List<JDIproductStockCheckRecord> getAllRecords() {
+	public List<JDIproductStockCheckRecord> getAllRecords() {
 		Cursor c = null;
 		List<JDIproductStockCheckRecord> list = new ArrayList<JDIproductStockCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -111,6 +112,71 @@ public class JDIproductStockCheckTable {
 	// ===========================================================
 	// Public methods
 	// ===========================================================
+
+	public List<JDIproductStockCheckRecord> getUnsyncedRecords() {
+		List<JDIproductStockCheckRecord> list = new ArrayList<JDIproductStockCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_JDIPRODUCTSTOCKCHECK_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_NO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
+					long product = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT));
+					long stockStatus = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
+					int quantity = c.getInt(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+					int loadedOnShelves = c
+							.getInt(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
+					long supplier = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_USER));
+
+					list.add(new JDIproductStockCheckRecord(id, no, activity,
+							product, stockStatus, quantity, loadedOnShelves,
+							supplier, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_JDIPRODUCTSTOCKCHECK_ROWID
+				+ "=" + id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
