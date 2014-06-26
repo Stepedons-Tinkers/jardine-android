@@ -59,7 +59,7 @@ public class EventProtocolTable {
 	// Private methods
 	// ===========================================================
 
-	private List<EventProtocolRecord> getAllRecords() {
+	public List<EventProtocolRecord> getAllRecords() {
 		Cursor c = null;
 		List<EventProtocolRecord> list = new ArrayList<EventProtocolRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -134,6 +134,28 @@ public class EventProtocolTable {
 					list.add(new EventProtocolRecord(id, no, description,
 							lastUpdate, tags, eventType, isActive, createdTime,
 							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<String> getNos() {
+		Cursor c = null;
+		List<String> list = new ArrayList<String>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					String no = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+
+					list.add(no);
 				} while (c.moveToNext());
 			}
 		} finally {

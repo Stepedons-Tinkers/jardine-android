@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,7 +22,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
 	private StartActivityListModel tempValues = null;
-	private int i = 0;
 
 	/************* CustomAdapter Constructor *****************/
 	public StartActivityCustomAdapter(Context a, ArrayList<?> d, Fragment fragment) {
@@ -85,7 +83,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.start_time_txt = (TextView) vi.findViewById(R.id.start_time_txt);
 			holder.end_time_txt = (TextView) vi.findViewById(R.id.end_time_txt);
 			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
-			holder.action_txt = (TextView) vi.findViewById(R.id.action_txt);
 			holder.status = (TextView) vi.findViewById(R.id.status_list_view);
 
 			/************ Set holder with LayoutInflater ************/
@@ -101,14 +98,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			tempValues = null;
 			tempValues = (StartActivityListModel) data.get(position);
 
-			// ActivityTable table = JardineApp.DB.getActivity();
-			// List<ActivityRecord> records = table.getAllRecords();
-			//
-			// for (ActivityRecord rec : records) {
-			// /******* Firstly take data in model object ******/
-			//
-			// }
-
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(tempValues.getCrmNo());
 			holder.workplan_txt.setText(String.valueOf(tempValues.getWorkplan()));
@@ -116,7 +105,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.start_time_txt.setText(tempValues.getStartTime());
 			holder.end_time_txt.setText(tempValues.getEndTime());
 			holder.assigned_to_txt.setText(String.valueOf(tempValues.getAssignedTo()));
-			holder.action_txt.setText("edit|delete");
 
 			/******** Set Item Click Listner for LayoutInflater for each row ***********/
 			vi.setOnClickListener(new OnItemClickListener(position));
@@ -139,7 +127,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 		@Override
 		public void onClick(View arg0) {
-			StartActivityFragment sct = (StartActivityFragment) frag; 
+			StartActivityFragment sct = (StartActivityFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}

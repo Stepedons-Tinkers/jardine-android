@@ -8,23 +8,20 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
-import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.records.EventProtocolRecord;
 
 public class ViewAllCustomersFragment extends Fragment implements
 OnClickListener {
@@ -180,7 +177,6 @@ OnClickListener {
 
 	@Override
 	public void onClick(View v) {
-
 		switch (v.getId()) {
 		case R.id.ibCustomersLeft:
 			if (currentPage > 0) {
@@ -204,7 +200,6 @@ OnClickListener {
 					.addToBackStack(JardineApp.TAG).commit();
 			break;
 		}
-
 	}
 	
 }

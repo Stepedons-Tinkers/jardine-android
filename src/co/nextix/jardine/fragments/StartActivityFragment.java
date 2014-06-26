@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -25,9 +26,12 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class StartActivityFragment extends Fragment {
@@ -182,14 +186,36 @@ public class StartActivityFragment extends Fragment {
 
 			final StartActivityListModel sched = new StartActivityListModel();
 
+			ActivityTable table = JardineApp.DB.getActivity();
+			List<ActivityRecord> records = table.getAllRecords();
+
+			for (ActivityRecord rec : records) {
+				Toast.makeText(getActivity(), rec.toString(), Toast.LENGTH_SHORT).show();
+
+				if (rec.equals("") || rec.equals(null)) {
+					((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+					((ListView) this.rootView.findViewById(R.id.list)).setVisibility(View.INVISIBLE);
+					((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.INVISIBLE);
+					return;
+				}
+
+				/******* Firstly take data in model object ******/
+				sched.setCrmNo(String.valueOf(rec.getId()));
+				sched.setWorkplan(String.valueOf(rec.getWorkplan()));
+				sched.setActivityType(String.valueOf(rec.getActivityType()));
+				sched.setStartTime(String.valueOf(rec.getStartTime()));
+				sched.setEndTime(String.valueOf(rec.getEndTime()));
+				sched.setAssignedTo(String.valueOf(rec.getCustomer()));
+			}
+
 			/******* Firstly take data in model object ******/
-			sched.setCrmNo("CRM No. " + i);
-			sched.setWorkplan("Workplan" + i);
-			sched.setActivityType("Activity Type" + i);
-			sched.setStartTime("Start Time" + i);
-			sched.setEndTime("End time" + i);
-			sched.setAssignedTo("Assigned to" + i);
-			sched.setAction("edit|delete" + i);
+			// sched.setCrmNo("CRM No. " + i);
+			// sched.setWorkplan("Workplan" + i);
+			// sched.setActivityType("Activity Type" + i);
+			// sched.setStartTime("Start Time" + i);
+			// sched.setEndTime("End time" + i);
+			// sched.setAssignedTo("Assigned to" + i);
+			// sched.setAction("edit|delete" + i);
 
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add(sched);
