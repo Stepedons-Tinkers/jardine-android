@@ -134,9 +134,9 @@ public class WorkPlanFragmentActivities extends Fragment implements
 
 	private void setView() {
 
-//		AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
-//				getActivity(), R.layout.collaterals_event_protocol_row,
-//				tempRecord);
+		AdapterWorkplanActivity adapter = new AdapterWorkplanActivity(
+				getActivity(), R.layout.collaterals_event_protocol_row,
+				tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
