@@ -33,6 +33,8 @@ public class CustomerContactTable {
 	private final String KEY_CUSTOMERCONTACT_MODIFIEDTIME = "modified_time";
 	private final String KEY_CUSTOMERCONTACT_USER = "user";
 
+	private final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -75,6 +77,8 @@ public class CustomerContactTable {
 							.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CRMNO));
 					String firstName = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
 					String lastName = c.getString(c
@@ -98,8 +102,8 @@ public class CustomerContactTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
 
-					list.add(new CustomerContactRecord(id, no, firstName,
-							lastName, position, mobileNo, birthday,
+					list.add(new CustomerContactRecord(id, no, crmNo,
+							firstName, lastName, position, mobileNo, birthday,
 							emailAddress, customer, isActive, createdTime,
 							modifiedTime, user));
 				} while (c.moveToNext());
@@ -130,6 +134,8 @@ public class CustomerContactTable {
 							.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CRMNO));
 					String firstName = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
 					String lastName = c.getString(c
@@ -153,8 +159,8 @@ public class CustomerContactTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
 
-					list.add(new CustomerContactRecord(id, no, firstName,
-							lastName, position, mobileNo, birthday,
+					list.add(new CustomerContactRecord(id, no, crmNo,
+							firstName, lastName, position, mobileNo, birthday,
 							emailAddress, customer, isActive, createdTime,
 							modifiedTime, user));
 				} while (c.moveToNext());
@@ -282,6 +288,8 @@ public class CustomerContactTable {
 						.getLong(c.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_CUSTOMERCONTACT_CRMNO));
 				String firstName = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
 				String lastName = c.getString(c
@@ -305,9 +313,9 @@ public class CustomerContactTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
 
-				record = new CustomerContactRecord(id, no, firstName, lastName,
-						position, mobileNo, birthday, emailAddress, customer,
-						isActive, createdTime, modifiedTime, user);
+				record = new CustomerContactRecord(id, no, crmNo, firstName,
+						lastName, position, mobileNo, birthday, emailAddress,
+						customer, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -331,6 +339,8 @@ public class CustomerContactTable {
 						.getLong(c.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_CUSTOMERCONTACT_CRMNO));
 				String firstName = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
 				String lastName = c.getString(c
@@ -354,9 +364,9 @@ public class CustomerContactTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
 
-				record = new CustomerContactRecord(id, no, firstName, lastName,
-						position, mobileNo, birthday, emailAddress, customer,
-						isActive, createdTime, modifiedTime, user);
+				record = new CustomerContactRecord(id, no, crmNo, firstName,
+						lastName, position, mobileNo, birthday, emailAddress,
+						customer, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -367,8 +377,8 @@ public class CustomerContactTable {
 		return record;
 	}
 
-	public long insert(String no, String firstName, String lastName,
-			long position, String mobileNo, String birthday,
+	public long insert(String no, String crmNo, String firstName,
+			String lastName, long position, String mobileNo, String birthday,
 			String emailAddress, long customer, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
@@ -379,6 +389,7 @@ public class CustomerContactTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_CUSTOMERCONTACT_NO, no);
+		initialValues.put(KEY_CUSTOMERCONTACT_CRMNO, crmNo);
 		initialValues.put(KEY_CUSTOMERCONTACT_FIRSTNAME, firstName);
 		initialValues.put(KEY_CUSTOMERCONTACT_LASTNAME, lastName);
 		initialValues.put(KEY_CUSTOMERCONTACT_POSITION, position);
@@ -413,12 +424,13 @@ public class CustomerContactTable {
 		}
 	}
 
-	public boolean update(long id, String no, String firstName,
+	public boolean update(long id, String no, String crmNo, String firstName,
 			String lastName, long position, String mobileNo, String birthday,
 			String emailAddress, long customer, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMERCONTACT_NO, no);
+		args.put(KEY_CUSTOMERCONTACT_CRMNO, crmNo);
 		args.put(KEY_CUSTOMERCONTACT_FIRSTNAME, firstName);
 		args.put(KEY_CUSTOMERCONTACT_LASTNAME, lastName);
 		args.put(KEY_CUSTOMERCONTACT_POSITION, position);

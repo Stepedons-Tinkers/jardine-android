@@ -33,6 +33,8 @@ public class WorkplanEntryTable {
 	private final String KEY_WORKPLANENTRY_MODIFIEDTIME = "modified_time";
 	private final String KEY_WORKPLANENTRY_USER = "user";
 
+	private final String KEY_WORKPLANENTRY_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -63,7 +65,7 @@ public class WorkplanEntryTable {
 	// Private methods
 	// ===========================================================
 
-	private List<WorkplanEntryRecord> getAllRecords() {
+	public List<WorkplanEntryRecord> getAllRecords() {
 		Cursor c = null;
 		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -75,6 +77,8 @@ public class WorkplanEntryTable {
 							.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_WORKPLANENTRY_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CRMNO));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
 					String date = c.getString(c
@@ -100,8 +104,8 @@ public class WorkplanEntryTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_USER));
 
-					list.add(new WorkplanEntryRecord(id, no, customer, date,
-							status, area, province, cityTown, remarks,
+					list.add(new WorkplanEntryRecord(id, no, crmNo, customer,
+							date, status, area, province, cityTown, remarks,
 							activityType, workplan, createdTime, modifiedTime,
 							user));
 				} while (c.moveToNext());
@@ -127,6 +131,8 @@ public class WorkplanEntryTable {
 							.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_WORKPLANENTRY_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CRMNO));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
 					String date = c.getString(c
@@ -152,8 +158,8 @@ public class WorkplanEntryTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_USER));
 
-					list.add(new WorkplanEntryRecord(id, no, customer, date,
-							status, area, province, cityTown, remarks,
+					list.add(new WorkplanEntryRecord(id, no, crmNo, customer,
+							date, status, area, province, cityTown, remarks,
 							activityType, workplan, createdTime, modifiedTime,
 							user));
 				} while (c.moveToNext());
@@ -268,6 +274,8 @@ public class WorkplanEntryTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_WORKPLANENTRY_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_WORKPLANENTRY_CRMNO));
 				long customer = c.getLong(c
 						.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
 				String date = c.getString(c
@@ -291,7 +299,7 @@ public class WorkplanEntryTable {
 						.getColumnIndex(KEY_WORKPLANENTRY_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_WORKPLANENTRY_USER));
 
-				record = new WorkplanEntryRecord(id, no, customer, date,
+				record = new WorkplanEntryRecord(id, no, crmNo, customer, date,
 						status, area, province, cityTown, remarks,
 						activityType, workplan, createdTime, modifiedTime, user);
 			}
@@ -335,6 +343,8 @@ public class WorkplanEntryTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_WORKPLANENTRY_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_WORKPLANENTRY_CRMNO));
 				long customer = c.getLong(c
 						.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
 				String date = c.getString(c
@@ -358,7 +368,7 @@ public class WorkplanEntryTable {
 						.getColumnIndex(KEY_WORKPLANENTRY_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_WORKPLANENTRY_USER));
 
-				record = new WorkplanEntryRecord(id, no, customer, date,
+				record = new WorkplanEntryRecord(id, no, crmNo, customer, date,
 						status, area, province, cityTown, remarks,
 						activityType, workplan, createdTime, modifiedTime, user);
 			}
@@ -371,10 +381,10 @@ public class WorkplanEntryTable {
 		return record;
 	}
 
-	public long insert(String no, long customer, String date, long status,
-			long area, long province, long cityTown, String remarks,
-			long activityType, long workplan, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String crmNo, long customer, String date,
+			long status, long area, long province, long cityTown,
+			String remarks, long activityType, long workplan,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -383,6 +393,7 @@ public class WorkplanEntryTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_WORKPLANENTRY_NO, no);
+		initialValues.put(KEY_WORKPLANENTRY_CRMNO, crmNo);
 		initialValues.put(KEY_WORKPLANENTRY_CUSTOMER, customer);
 		initialValues.put(KEY_WORKPLANENTRY_DATE, date);
 		initialValues.put(KEY_WORKPLANENTRY_STATUS, status);
@@ -418,12 +429,13 @@ public class WorkplanEntryTable {
 		}
 	}
 
-	public boolean update(long id, String no, long customer, String date,
-			long status, long area, long province, long cityTown,
+	public boolean update(long id, String no, String crmNo, long customer,
+			String date, long status, long area, long province, long cityTown,
 			String remarks, long activityType, long workplan,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_WORKPLANENTRY_NO, no);
+		args.put(KEY_WORKPLANENTRY_CRMNO, crmNo);
 		args.put(KEY_WORKPLANENTRY_CUSTOMER, customer);
 		args.put(KEY_WORKPLANENTRY_DATE, date);
 		args.put(KEY_WORKPLANENTRY_STATUS, status);

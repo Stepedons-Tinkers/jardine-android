@@ -400,15 +400,15 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (BusinessUnitModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						table.insert(model.getRecordId(), model.getName(),
-								model.getCode(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getName(), model.getCode(),
 								Integer.parseInt(model.getIsactive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
-						table.update(id, model.getRecordId(), model.getName(),
-								model.getCode(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								model.getName(), model.getCode(),
 								Integer.parseInt(model.getIsactive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -468,13 +468,13 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (MarketingMaterialsModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						table.insert(model.getRecordId(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
 								model.getTags(), model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
 								model.getTags(), model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -542,7 +542,7 @@ public class SyncMenuBarFragment extends Fragment {
 							eventType = type.getId();
 
 						// if (eventType > 0)
-						table.insert(model.getRecordId(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
 								model.getTags(), eventType,
 								Integer.parseInt(model.getIsActive()),
@@ -558,7 +558,7 @@ public class SyncMenuBarFragment extends Fragment {
 						if (type != null)
 							eventType = type.getId();
 
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getCrmNo(), model.getRecordId(),
 								model.getDescription(), model.getLastUpdat(),
 								model.getTags(), eventType,
 								Integer.parseInt(model.getIsActive()),
@@ -622,9 +622,10 @@ public class SyncMenuBarFragment extends Fragment {
 								.getBusinessUnit());
 
 						// if (businessUnit > 0)
-						table.insert(model.getRecordId(), model.getProdNum(),
-								model.getProdBrand(), model.getDescription(),
-								model.getProdSize(), businessUnit,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getProdNum(), model.getProdBrand(),
+								model.getDescription(), model.getProdSize(),
+								businessUnit,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -636,7 +637,7 @@ public class SyncMenuBarFragment extends Fragment {
 								.getBusinessUnit());
 
 						// if (businessUnit > 0)
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
 								model.getProdNum(), model.getProdBrand(),
 								model.getDescription(), model.getProdSize(),
 								businessUnit,
@@ -697,9 +698,10 @@ public class SyncMenuBarFragment extends Fragment {
 				for (SupplierModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 
-						table.insert(model.getRecordId(), model.getName(),
-								model.getLandline(), model.getAddress(),
-								model.getCreditLine(), model.getCreditTerm(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getName(), model.getLandline(),
+								model.getAddress(), model.getCreditLine(),
+								model.getCreditTerm(),
 								model.getContactPerson(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
@@ -707,9 +709,10 @@ public class SyncMenuBarFragment extends Fragment {
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
-						table.update(id, model.getRecordId(), model.getName(),
-								model.getLandline(), model.getAddress(),
-								model.getCreditLine(), model.getCreditTerm(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								model.getName(), model.getLandline(),
+								model.getAddress(), model.getCreditLine(),
+								model.getCreditTerm(),
 								model.getContactPerson(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
@@ -768,14 +771,16 @@ public class SyncMenuBarFragment extends Fragment {
 				for (CompetitorModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 
-						table.insert(model.getRecordId(), model.getName(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getName(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
-						table.update(id, model.getRecordId(), model.getName(),
+						table.update(id, model.getCrmNo(), model.getRecordId(),
+								model.getName(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -838,9 +843,9 @@ public class SyncMenuBarFragment extends Fragment {
 								.getCompetitor());
 
 						// if (competitor > 0)
-						table.insert(model.getRecordId(), competitor,
-								model.getProdBrand(), model.getProdDesc(),
-								model.getProdSize(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								competitor, model.getProdBrand(),
+								model.getProdDesc(), model.getProdSize(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -851,9 +856,9 @@ public class SyncMenuBarFragment extends Fragment {
 								.getCompetitor());
 
 						// if (competitor > 0)
-						table.update(id, model.getRecordId(), competitor,
-								model.getProdBrand(), model.getProdDesc(),
-								model.getProdSize(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								competitor, model.getProdBrand(),
+								model.getProdDesc(), model.getProdSize(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -914,9 +919,9 @@ public class SyncMenuBarFragment extends Fragment {
 						long area = areaTable.getIdByName(model.getArea());
 
 						// if (area > 0)
-						table.insert(model.getRecordId(), model.getFirstname(),
-								model.getLastname(), area,
-								Integer.parseInt(model.getIsActive()),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getFirstname(), model.getLastname(),
+								area, Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -925,7 +930,7 @@ public class SyncMenuBarFragment extends Fragment {
 						long area = areaTable.getIdByName(model.getArea());
 
 						// if (area > 0)
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
 								model.getFirstname(), model.getLastname(),
 								area, Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
@@ -989,8 +994,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getEntry());
 
 						// if (entryType > 0)
-						table.insert(model.getRecordId(), model.getDate(),
-								model.getTime(), entryType,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getDate(), model.getTime(), entryType,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1000,8 +1005,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getEntry());
 
 						// if (entryType > 0)
-						table.update(id, model.getRecordId(), model.getDate(),
-								model.getTime(), entryType,
+						table.update(id, model.getCrmNo(), model.getRecordId(),
+								model.getDate(), model.getTime(), entryType,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
@@ -1082,11 +1087,12 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((area > 0) && (customerType > 0)
 						// && (businessUnit > 0) && (province > 0)
 						// && (cityTown > 0))
-						table.insert(model.getRecordId(), model.getName(),
-								model.getChainname(), model.getLandline(),
-								model.getFax(), customerSize,
-								model.getStreetadd(), customerType,
-								businessUnit, area, province, cityTown,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getName(), model.getChainname(),
+								model.getLandline(), model.getFax(),
+								customerSize, model.getStreetadd(),
+								customerType, businessUnit, area, province,
+								cityTown,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1111,11 +1117,12 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((area > 0) && (customerType > 0)
 						// && (businessUnit > 0) && (province > 0)
 						// && (cityTown > 0))
-						table.update(id, model.getRecordId(), model.getName(),
-								model.getChainname(), model.getLandline(),
-								model.getFax(), customerSize,
-								model.getStreetadd(), customerType,
-								businessUnit, area, province, cityTown,
+						table.update(id, model.getCrmNo(), model.getRecordId(),
+								model.getName(), model.getChainname(),
+								model.getLandline(), model.getFax(),
+								customerSize, model.getStreetadd(),
+								customerType, businessUnit, area, province,
+								cityTown,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1185,10 +1192,11 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCustomer()).getId();
 
 						// if ((position > 0) && (customer > 0))
-						table.insert(model.getRecordId(), model.getFirstname(),
-								model.getLastname(), position,
-								model.getMobileno(), model.getBirthday(),
-								model.getEmail(), customer,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getFirstname(), model.getLastname(),
+								position, model.getMobileno(),
+								model.getBirthday(), model.getEmail(),
+								customer,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1203,7 +1211,7 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCustomer()).getId();
 
 						// if ((position > 0) && (customer > 0))
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getCrmNo(), model.getRecordId(),
 								model.getFirstname(), model.getLastname(),
 								position, model.getMobileno(),
 								model.getBirthday(), model.getEmail(),
@@ -1275,7 +1283,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getActivitytypeCategory());
 
 						// if ((type > 0) && (category > 0))
-						table.insert(model.getRecordId(), category,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								category,
 								Integer.parseInt(model.getIsActive()), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1286,7 +1295,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getActivitytypeCategory());
 
 						// if ((type > 0) && (category > 0))
-						table.update(id, model.getRecordId(), category,
+						table.update(id, model.getCrmNo(), model.getRecordId(),
+								category,
 								Integer.parseInt(model.getIsActive()), USER_ID);
 					}
 				}
@@ -1342,13 +1352,14 @@ public class SyncMenuBarFragment extends Fragment {
 				for (WorkplanModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 
-						table.insert(model.getRecordId(), model.getFromDate(),
-								model.getToDate(), model.getCreatedTime(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getFromDate(), model.getToDate(),
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
-						table.update(id, model.getRecordId(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
 								model.getFromDate(), model.getToDate(),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1431,9 +1442,10 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((area > 0) && (province > 0) && (cityTown > 0)
 						// && (activityType > 0) && (workplan > 0))
-						table.insert(model.getRecordId(), 0, model.getDate(),
-								1, area, province, cityTown, "remarks",
-								activityType, workplan, model.getCreatedTime(),
+						table.insert(model.getRecordId(), model.getCrmNo(), 0,
+								model.getDate(), 1, area, province, cityTown,
+								model.getOthersRemarks(), activityType,
+								workplan, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1456,11 +1468,10 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((area > 0) && (province > 0) && (cityTown > 0)
 						// && (activityType > 0) && (workplan > 0))
-						table.update(id, model.getRecordId(), 0,
-								model.getDate(),
-								Integer.parseInt(model.getStatus()), area,
-								province, cityTown, "remarks", activityType,
-								workplan, model.getCreatedTime(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								0, model.getDate(), 1, area, province,
+								cityTown, model.getOthersRemarks(),
+								activityType, workplan, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
 				}
@@ -1541,8 +1552,9 @@ public class SyncMenuBarFragment extends Fragment {
 								"**********workplanid: " + model.getWorkplan()
 										+ "workplan: " + workplan);
 
-						table.insert(model.getRecordId(), workplan,
-								model.getStartTime(), model.getEndTime(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								workplan, model.getStartTime(),
+								model.getEndTime(),
 								Double.parseDouble(model.getLongitude()),
 								Double.parseDouble(model.getLatitude()),
 								model.getObjective(), model.getNotes(),
@@ -1579,8 +1591,9 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((workplanEntry > 0) && (customer > 0) && (smr >
 						// 0)
 						// && (workplan > 0) && (activityType > 0))
-						table.update(id, model.getRecordId(), workplan,
-								model.getStartTime(), model.getEndTime(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								workplan, model.getStartTime(),
+								model.getEndTime(),
 								Double.parseDouble(model.getLongitude()),
 								Double.parseDouble(model.getLatitude()),
 								model.getObjective(), model.getNotes(),
@@ -1666,8 +1679,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getProduct());
 
 						// if ((activity > 0) && (product > 0))
-						table.insert(model.getRecordId(), activity, product, 1,
-								model.getCreatedTime(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								activity, product, 1, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1680,8 +1693,8 @@ public class SyncMenuBarFragment extends Fragment {
 								.getProduct());
 
 						// if ((activity > 0) && (product > 0))
-						table.update(id, model.getRecordId(), activity,
-								product, 1, model.getCreatedTime(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								activity, product, 1, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
 				}
@@ -1756,8 +1769,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((stockStatus > 0) && (supplier > 0)
 						// && (activity > 0) && (product > 0))
-						table.insert(model.getRecordId(), activity, product,
-								stockStatus, 0,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								activity, product, stockStatus, 0,
 								Integer.parseInt(model.getLoadedonshelves()),
 								supplier, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1777,8 +1790,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((stockStatus > 0) && (supplier > 0)
 						// && (activity > 0) && (product > 0))
-						table.update(id, model.getRecordId(), activity,
-								product, stockStatus, 0,
+						table.update(id, model.getCrmNo(), model.getRecordId(),
+								activity, product, stockStatus, 0,
 								Integer.parseInt(model.getLoadedonshelves()),
 								supplier, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1854,8 +1867,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((activity > 0) && (stockStatus > 0)
 						// && (competitorProduct > 0))
-						table.insert(model.getRecordId(), activity,
-								competitorProduct, stockStatus,
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								activity, competitorProduct, stockStatus,
 								Integer.parseInt(model.getLoadedonshelves()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1873,8 +1886,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((activity > 0) && (stockStatus > 0)
 						// && (competitorProduct > 0))
-						table.update(id, model.getRecordId(), activity,
-								competitorProduct, stockStatus,
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								activity, competitorProduct, stockStatus,
 								Integer.parseInt(model.getLoadedonshelves()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1942,9 +1955,9 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getActivity()).getId();
 
 						// if ((activity > 0) && (competitor > 0))
-						table.insert(model.getRecordId(), activity, competitor,
-								model.getDetails(), "remarks",
-								model.getCreatedTime(),
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								activity, competitor, model.getDetails(),
+								"remarks", model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1957,9 +1970,9 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getActivity()).getId();
 
 						// if ((activity > 0) && (competitor > 0))
-						table.update(id, model.getRecordId(), activity,
-								competitor, model.getDetails(), "remarks",
-								model.getCreatedTime(),
+						table.update(id, model.getRecordId(), model.getCrmNo(),
+								activity, competitor, model.getDetails(),
+								"remarks", model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
 				}
@@ -2110,8 +2123,11 @@ public class SyncMenuBarFragment extends Fragment {
 									.getNotesid());
 							if (data != null) {
 								// for (DocumentModel mod : data) {
+								Log.w(TAG,
+										"Document: event ** "
+												+ data.getNoteNo());
 								if (!table.isExisting(data.getNoteNo())) {
-									table.insert(data.getNoteNo(),
+									long rowid = table.insert(data.getNoteNo(),
 											data.getNotesTitle(),
 											Modules.EventProtocol,
 											data.getNoteNo(),
@@ -2120,6 +2136,8 @@ public class SyncMenuBarFragment extends Fragment {
 											data.getFilePath(), 1,
 											data.getCreatedTime(),
 											data.getModifiedTime(), USER_ID);
+									Log.w(TAG, "Document: event ** Added ** "
+											+ rowid);
 									Event_Files_IDs
 											.add(new DocumentRecord(0, data
 													.getNoteNo(), data
@@ -2151,9 +2169,12 @@ public class SyncMenuBarFragment extends Fragment {
 							DocumentModel data = retrieve.Document(model
 									.getNotesid());
 							if (data != null) {
+								Log.w(TAG,
+										"Document: market ** "
+												+ data.getNoteNo());
 								// for (DocumentModel mod : data) {
-								if (table.isExisting(data.getNoteNo())) {
-									table.insert(data.getNoteNo(),
+								if (!table.isExisting(data.getNoteNo())) {
+									long rowid = table.insert(data.getNoteNo(),
 											data.getNotesTitle(),
 											Modules.MarketingMaterials,
 											data.getNoteNo(),
@@ -2162,6 +2183,8 @@ public class SyncMenuBarFragment extends Fragment {
 											data.getFilePath(), 1,
 											data.getCreatedTime(),
 											data.getModifiedTime(), USER_ID);
+									Log.w(TAG, "Document: market ** Added ** "
+											+ rowid);
 									Marketing_Files_IDs
 											.add(new DocumentRecord(0, data
 													.getNoteNo(), data
@@ -2248,11 +2271,11 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-
+			dialog.dismiss();
 			if (result) {
-				new CreateCompetitorProductTask().execute();
+				// new CreateCompetitorProductTask().execute();
 			} else {
-				dialog.dismiss();
+				// dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}

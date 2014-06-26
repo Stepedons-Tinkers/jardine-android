@@ -23,15 +23,19 @@ public class CompetitorRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public CompetitorRecord(long id, String no, String competitorName,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public CompetitorRecord(long id, String no, String crmNo,
+			String competitorName, int isActive, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.competitor_name = competitorName;
 		this.is_active = isActive;
 		this.created_time = createdTime;
@@ -53,6 +57,14 @@ public class CompetitorRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setCompetitorName(String competitorName) {

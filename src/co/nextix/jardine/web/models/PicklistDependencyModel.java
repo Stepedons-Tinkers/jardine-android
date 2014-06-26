@@ -1,7 +1,5 @@
 package co.nextix.jardine.web.models;
 
-import java.util.List;
-
 import com.google.gson.annotations.SerializedName;
 
 public class PicklistDependencyModel {

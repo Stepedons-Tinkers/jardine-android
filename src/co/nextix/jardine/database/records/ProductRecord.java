@@ -25,23 +25,26 @@ public class ProductRecord {
 	private String product_brand;
 	private String product_description;
 	private String product_size;
-	private long business_unit; //business unit table
+	private long business_unit; // business unit table
 	private int is_active;
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public ProductRecord(long id, String no, String productNumber,
-			String productBrand, String productDescription, String productSize,
-			long businessUnit, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public ProductRecord(long id, String no, String crmNo,
+			String productNumber, String productBrand,
+			String productDescription, String productSize, long businessUnit,
+			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.product_number = productNumber;
 		this.product_brand = productBrand;
 		this.product_description = productDescription;
@@ -67,6 +70,14 @@ public class ProductRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setProductNumber(String productNumber) {

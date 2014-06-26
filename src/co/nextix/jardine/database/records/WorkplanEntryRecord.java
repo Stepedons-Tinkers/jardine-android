@@ -36,17 +36,20 @@ public class WorkplanEntryRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public WorkplanEntryRecord(long id, String no, long customer, String date,
-			long status,long area, long province, long cityTown, String remarks,
-			long activityType, long workplan, String createdTime,
-			String modifiedTime, long user) {
+	public WorkplanEntryRecord(long id, String no, String crmNo, long customer,
+			String date, long status, long area, long province, long cityTown,
+			String remarks, long activityType, long workplan,
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.customer = customer;
 		this.date = date;
 		this.status = status;
@@ -77,6 +80,14 @@ public class WorkplanEntryRecord {
 		return this.no;
 	}
 
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
+	}
+
 	public void setCustomer(long customer) {
 		this.customer = customer;
 	}
@@ -100,7 +111,7 @@ public class WorkplanEntryRecord {
 	public long getStatus() {
 		return this.status;
 	}
-	
+
 	public void setArea(long area) {
 		this.area = area;
 	}

@@ -29,16 +29,19 @@ public class SMRRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public SMRRecord(long id, String no, String firstname, String lastname,
-			long area, int isActive, String createdTime, String modifiedTime,
-			long user) {
+	public SMRRecord(long id, String no, String crmNo, String firstname,
+			String lastname, long area, int isActive, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.firstname = firstname;
 		this.lastname = lastname;
 		// this.region = region;
@@ -63,6 +66,14 @@ public class SMRRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setFirstname(String firstname) {

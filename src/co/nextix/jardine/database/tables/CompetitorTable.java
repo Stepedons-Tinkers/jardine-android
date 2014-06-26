@@ -26,6 +26,8 @@ public class CompetitorTable {
 	private final String KEY_COMPETITOR_MODIFIEDTIME = "modified_time";
 	private final String KEY_COMPETITOR_USER = "user";
 
+	private final String KEY_COMPETITOR_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -67,6 +69,8 @@ public class CompetitorTable {
 					long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
 					String no = c
 							.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_COMPETITOR_CRMNO));
 					String competitorName = c.getString(c
 							.getColumnIndex(KEY_COMPETITOR_NAME));
 					int isActive = c.getInt(c
@@ -78,8 +82,9 @@ public class CompetitorTable {
 					long user = c
 							.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
-					list.add(new CompetitorRecord(id, no, competitorName,
-							isActive, createdTime, modifiedTime, user));
+					list.add(new CompetitorRecord(id, no, crmNo,
+							competitorName, isActive, createdTime,
+							modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -172,6 +177,8 @@ public class CompetitorTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITOR_CRMNO));
 				String competitorName = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_NAME));
 				int isActive = c.getInt(c
@@ -182,8 +189,8 @@ public class CompetitorTable {
 						.getColumnIndex(KEY_COMPETITOR_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
-				record = new CompetitorRecord(id, no, competitorName, isActive,
-						createdTime, modifiedTime, user);
+				record = new CompetitorRecord(id, no, crmNo, competitorName,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -245,6 +252,8 @@ public class CompetitorTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_COMPETITOR_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_COMPETITOR_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITOR_CRMNO));
 				String competitorName = c.getString(c
 						.getColumnIndex(KEY_COMPETITOR_NAME));
 				int isActive = c.getInt(c
@@ -255,8 +264,8 @@ public class CompetitorTable {
 						.getColumnIndex(KEY_COMPETITOR_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_COMPETITOR_USER));
 
-				record = new CompetitorRecord(id, no, competitorName, isActive,
-						createdTime, modifiedTime, user);
+				record = new CompetitorRecord(id, no, crmNo, competitorName,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -267,8 +276,8 @@ public class CompetitorTable {
 		return record;
 	}
 
-	public long insert(String no, String competitorName, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String competitorName,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -277,6 +286,7 @@ public class CompetitorTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_COMPETITOR_NO, no);
+		initialValues.put(KEY_COMPETITOR_CRMNO, crmNo);
 		initialValues.put(KEY_COMPETITOR_NAME, competitorName);
 		initialValues.put(KEY_COMPETITOR_ISACTIVE, isActive);
 		initialValues.put(KEY_COMPETITOR_CREATEDTIME, createdTime);
@@ -303,10 +313,12 @@ public class CompetitorTable {
 		}
 	}
 
-	public boolean update(long id, String no, String competitorName,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo,
+			String competitorName, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITOR_NO, no);
+		args.put(KEY_COMPETITOR_CRMNO, crmNo);
 		args.put(KEY_COMPETITOR_NAME, competitorName);
 		args.put(KEY_COMPETITOR_ISACTIVE, isActive);
 		args.put(KEY_COMPETITOR_CREATEDTIME, createdTime);

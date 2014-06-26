@@ -22,6 +22,7 @@ public class JDImerchandisingCheckRecord {
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
+	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -30,12 +31,13 @@ public class JDImerchandisingCheckRecord {
 	public JDImerchandisingCheckRecord() {
 	}
 
-	public JDImerchandisingCheckRecord(long id, String no, long activity,
-			long product, int isActive, String createdTime,
+	public JDImerchandisingCheckRecord(long id, String no, String crmNo,
+			long activity, long product, int isActive, String createdTime,
 			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.activity = activity;
 		this.product = product;
 		this.is_active = isActive;
@@ -58,6 +60,14 @@ public class JDImerchandisingCheckRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setActivity(long activity) {

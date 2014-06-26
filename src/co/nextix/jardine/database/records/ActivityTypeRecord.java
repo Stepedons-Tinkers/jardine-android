@@ -19,16 +19,19 @@ public class ActivityTypeRecord {
 	private long activity_type_categorization;
 	private int is_active;
 	private long user; // User Table
+	
+	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public ActivityTypeRecord(long id, String no, 
+	public ActivityTypeRecord(long id, String no, String crmNo,
 			long activityTypeCategorization, int isActive, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 //		this.activity_type = activityType;
 		this.activity_type_categorization = activityTypeCategorization;
 		this.is_active = isActive;
@@ -50,14 +53,14 @@ public class ActivityTypeRecord {
 	public String getNo() {
 		return this.no;
 	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
 
-//	public void setActivityType(long activityType) {
-//		this.activity_type = activityType;
-//	}
-//
-//	public long getActivityType() {
-//		return this.activity_type;
-//	}
+	public String getCrm() {
+		return this.crm_no;
+	}
 
 	public void setActivityTypeCategorization(long activityTypeCategorization) {
 		this.activity_type_categorization = activityTypeCategorization;

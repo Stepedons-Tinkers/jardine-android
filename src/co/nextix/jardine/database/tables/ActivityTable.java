@@ -52,6 +52,7 @@ public class ActivityTable {
 	private final String KEY_ACTIVITY_TIME = "time";
 	private final String KEY_ACTIVITY_VENUE = "venue";
 	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
+	private final String KEY_ACTIVITY_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -153,17 +154,19 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
 					String noOfAttendees = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, workplan, startTime,
-							endTime, longitude, latitude, objectives, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							activityType, workplanEntry, customer,
-							firstTimeVisit, plannedVisit, createdTime,
-							modifiedTime, user, smr, issuesIdentified,
-							feedBackFromCustomer, ongoingCampaigns,
-							lastDelivery, promoStubsDetails, projectName,
-							projectCategory, projectStage, date, time, venue,
-							noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan,
+							startTime, endTime, longitude, latitude,
+							objectives, notes, highlights, nextSteps,
+							followUpCommitmentDate, activityType,
+							workplanEntry, customer, firstTimeVisit,
+							plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer,
+							ongoingCampaigns, lastDelivery, promoStubsDetails,
+							projectName, projectCategory, projectStage, date,
+							time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -245,17 +248,19 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
 					String noOfAttendees = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, workplan, startTime,
-							endTime, longitude, latitude, objectives, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							activityType, workplanEntry, customer,
-							firstTimeVisit, plannedVisit, createdTime,
-							modifiedTime, user, smr, issuesIdentified,
-							feedBackFromCustomer, ongoingCampaigns,
-							lastDelivery, promoStubsDetails, projectName,
-							projectCategory, projectStage, date, time, venue,
-							noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan,
+							startTime, endTime, longitude, latitude,
+							objectives, notes, highlights, nextSteps,
+							followUpCommitmentDate, activityType,
+							workplanEntry, customer, firstTimeVisit,
+							plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer,
+							ongoingCampaigns, lastDelivery, promoStubsDetails,
+							projectName, projectCategory, projectStage, date,
+							time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -342,17 +347,19 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
 					String noOfAttendees = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, workplan, startTime,
-							endTime, longitude, latitude, objectives, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							activityType, workplanEntry, customer,
-							firstTimeVisit, plannedVisit, createdTime,
-							modifiedTime, user, smr, issuesIdentified,
-							feedBackFromCustomer, ongoingCampaigns,
-							lastDelivery, promoStubsDetails, projectName,
-							projectCategory, projectStage, date, time, venue,
-							noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan,
+							startTime, endTime, longitude, latitude,
+							objectives, notes, highlights, nextSteps,
+							followUpCommitmentDate, activityType,
+							workplanEntry, customer, firstTimeVisit,
+							plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer,
+							ongoingCampaigns, lastDelivery, promoStubsDetails,
+							projectName, projectCategory, projectStage, date,
+							time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -534,8 +541,10 @@ public class ActivityTable {
 						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
 				String noOfAttendees = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-				record = new ActivityRecord(id, no, workplan, startTime,
+				record = new ActivityRecord(id, no, crmNo, workplan, startTime,
 						endTime, longitude, latitude, objectives, notes,
 						highlights, nextSteps, followUpCommitmentDate,
 						activityType, workplanEntry, customer, firstTimeVisit,
@@ -643,8 +652,10 @@ public class ActivityTable {
 						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
 				String noOfAttendees = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-				record = new ActivityRecord(id, no, workplan, startTime,
+				record = new ActivityRecord(id, no, crmNo, workplan, startTime,
 						endTime, longitude, latitude, objectives, notes,
 						highlights, nextSteps, followUpCommitmentDate,
 						activityType, workplanEntry, customer, firstTimeVisit,
@@ -663,13 +674,13 @@ public class ActivityTable {
 		return record;
 	}
 
-	public long insert(String no, long workplan, String startTime,
-			String endTime, double longitude, double latitude,
-			String objectives, String notes, String highlights,
-			String nextSteps, String followUpCommitmentDate, long activityType,
-			long workplanEntry, long customer, int firstTimeVisit,
-			int plannedVisit, String createdTime, String modifiedTime,
-			long user, long smr, String issuesIdentified,
+	public long insert(String no, String crmNo, long workplan,
+			String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long customer,
+			int firstTimeVisit, int plannedVisit, String createdTime,
+			String modifiedTime, long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
 			String projectCategory, String projectStage, String date,
@@ -713,6 +724,7 @@ public class ActivityTable {
 		initialValues.put(KEY_ACTIVITY_TIME, time);
 		initialValues.put(KEY_ACTIVITY_VENUE, venue);
 		initialValues.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
+		initialValues.put(KEY_ACTIVITY_CRMNO, crmNo);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -758,13 +770,13 @@ public class ActivityTable {
 		return rowsDeleted;
 	}
 
-	public boolean update(long id, String no, long workplan, String startTime,
-			String endTime, double longitude, double latitude,
-			String objectives, String notes, String highlights,
-			String nextSteps, String followUpCommitmentDate, long activityType,
-			long workplanEntry, long customer, int firstTimeVisit,
-			int plannedVisit, String createdTime, String modifiedTime,
-			long user, long smr, String issuesIdentified,
+	public boolean update(long id, String no, String crmNo, long workplan,
+			String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long customer,
+			int firstTimeVisit, int plannedVisit, String createdTime,
+			String modifiedTime, long user, long smr, String issuesIdentified,
 			String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName,
 			String projectCategory, String projectStage, String date,
@@ -802,6 +814,7 @@ public class ActivityTable {
 		args.put(KEY_ACTIVITY_TIME, time);
 		args.put(KEY_ACTIVITY_VENUE, venue);
 		args.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
+		args.put(KEY_ACTIVITY_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
 			// getRecords().update(id, no, workplan, startTime, endTime,

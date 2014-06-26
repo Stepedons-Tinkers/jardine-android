@@ -28,6 +28,7 @@ public class CompetitorProductTable {
 	private final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
 	private final String KEY_COMPETITORPRODUCT_USER = "user";
+	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -71,6 +72,8 @@ public class CompetitorProductTable {
 							.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 					String productBrand = c
@@ -91,9 +94,10 @@ public class CompetitorProductTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
 
-					list.add(new CompetitorProductRecord(id, no, competitor,
-							productBrand, productDescription, productSize,
-							isActive, createdTime, modifiedTime, user));
+					list.add(new CompetitorProductRecord(id, no, crmNo,
+							competitor, productBrand, productDescription,
+							productSize, isActive, createdTime, modifiedTime,
+							user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -189,6 +193,8 @@ public class CompetitorProductTable {
 							.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 					String productBrand = c
@@ -209,9 +215,10 @@ public class CompetitorProductTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
 
-					records.add(new CompetitorProductRecord(id, no, competitor,
-							productBrand, productDescription, productSize,
-							isActive, createdTime, modifiedTime, user));
+					records.add(new CompetitorProductRecord(id, no, crmNo,
+							competitor, productBrand, productDescription,
+							productSize, isActive, createdTime, modifiedTime,
+							user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -236,6 +243,8 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 				String productBrand = c.getString(c
@@ -254,7 +263,7 @@ public class CompetitorProductTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
 
-				record = new CompetitorProductRecord(id, no, competitor,
+				record = new CompetitorProductRecord(id, no, crmNo, competitor,
 						productBrand, productDescription, productSize,
 						isActive, createdTime, modifiedTime, user);
 			}
@@ -323,6 +332,8 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 				String productBrand = c.getString(c
@@ -341,7 +352,7 @@ public class CompetitorProductTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
 
-				record = new CompetitorProductRecord(id, no, competitor,
+				record = new CompetitorProductRecord(id, no, crmNo, competitor,
 						productBrand, productDescription, productSize,
 						isActive, createdTime, modifiedTime, user);
 			}
@@ -354,9 +365,9 @@ public class CompetitorProductTable {
 		return record;
 	}
 
-	public long insert(String no, long competitor, String productBrand,
-			String productDescription, String productSize, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, long competitor,
+			String productBrand, String productDescription, String productSize,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -365,6 +376,7 @@ public class CompetitorProductTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_COMPETITORPRODUCT_NO, no);
+		initialValues.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);
 		initialValues.put(KEY_COMPETITORPRODUCT_COMPETITOR, competitor);
 		initialValues.put(KEY_COMPETITORPRODUCT_PRODUCTBRAND, productBrand);
 		initialValues.put(KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION,
@@ -397,11 +409,12 @@ public class CompetitorProductTable {
 		}
 	}
 
-	public boolean update(long id, String no, long competitor,
+	public boolean update(long id, String no, String crmNo, long competitor,
 			String productBrand, String productDescription, String productSize,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCT_NO, no);
+		args.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);
 		args.put(KEY_COMPETITORPRODUCT_COMPETITOR, competitor);
 		args.put(KEY_COMPETITORPRODUCT_PRODUCTBRAND, productBrand);
 		args.put(KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION, productDescription);

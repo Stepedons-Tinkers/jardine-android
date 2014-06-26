@@ -30,6 +30,7 @@ public class ProjectRequirementTable {
 	private final String KEY_PROJECTREQUIREMENTS_CREATEDTIME = "created_time";
 	private final String KEY_PROJECTREQUIREMENTS_MODIFIEDTIME = "modified_time";
 	private final String KEY_PROJECTREQUIREMENTS_USER = "user";
+	private final String KEY_PROJECTREQUIREMENTS_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -73,6 +74,8 @@ public class ProjectRequirementTable {
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_PROJECTREQUIREMENTS_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_ACTIVITY));
 					long projectRequirementType = c.getLong(c
@@ -98,10 +101,10 @@ public class ProjectRequirementTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
 
-					list.add(new ProjectRequirementRecord(id, no, activity,
-							projectRequirementType, dateNeeded, squareMeters,
-							productsUsed, otherDetails, createdTime,
-							modifiedTime, user));
+					list.add(new ProjectRequirementRecord(id, no, crmNo,
+							activity, projectRequirementType, dateNeeded,
+							squareMeters, productsUsed, otherDetails,
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -130,6 +133,8 @@ public class ProjectRequirementTable {
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_PROJECTREQUIREMENTS_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_ACTIVITY));
 					long projectRequirementType = c.getLong(c
@@ -155,10 +160,10 @@ public class ProjectRequirementTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
 
-					list.add(new ProjectRequirementRecord(id, no, activity,
-							projectRequirementType, dateNeeded, squareMeters,
-							productsUsed, otherDetails, createdTime,
-							modifiedTime, user));
+					list.add(new ProjectRequirementRecord(id, no, crmNo,
+							activity, projectRequirementType, dateNeeded,
+							squareMeters, productsUsed, otherDetails,
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -286,6 +291,8 @@ public class ProjectRequirementTable {
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ACTIVITY));
 				long projectRequirementType = c.getLong(c
@@ -305,7 +312,7 @@ public class ProjectRequirementTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
 
-				record = new ProjectRequirementRecord(id, no, activity,
+				record = new ProjectRequirementRecord(id, no, crmNo, activity,
 						projectRequirementType, dateNeeded, squareMeters,
 						productsUsed, otherDetails, createdTime, modifiedTime,
 						user);
@@ -332,6 +339,8 @@ public class ProjectRequirementTable {
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ACTIVITY));
 				long projectRequirementType = c.getLong(c
@@ -351,7 +360,7 @@ public class ProjectRequirementTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
 
-				record = new ProjectRequirementRecord(id, no, activity,
+				record = new ProjectRequirementRecord(id, no, crmNo, activity,
 						projectRequirementType, dateNeeded, squareMeters,
 						productsUsed, otherDetails, createdTime, modifiedTime,
 						user);

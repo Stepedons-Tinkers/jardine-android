@@ -26,18 +26,22 @@ public class MarketingMaterialsRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-	
-	public MarketingMaterialsRecord(){}
 
-	public MarketingMaterialsRecord(long id, String no, String description,
-			String lastUdpate, String tags, String createdTime,
-			String modifiedTime, long user) {
+	public MarketingMaterialsRecord() {
+	}
+
+	public MarketingMaterialsRecord(long id, String no, String crmNo,
+			String description, String lastUdpate, String tags,
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.description = description;
 		this.last_update = lastUdpate;
 		this.tags = tags;
@@ -60,6 +64,14 @@ public class MarketingMaterialsRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setDescription(String description) {

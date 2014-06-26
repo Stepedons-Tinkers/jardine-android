@@ -27,6 +27,8 @@ public class JDImerchandisingCheckTable {
 	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
 	private final String KEY_JDIMERCHANDISING_USER = "user";
 
+	private final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -68,6 +70,8 @@ public class JDImerchandisingCheckTable {
 							.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
 					long product = c.getLong(c
@@ -81,8 +85,9 @@ public class JDImerchandisingCheckTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_USER));
 
-					list.add(new JDImerchandisingCheckRecord(id, no, activity,
-							product, isActive, createdTime, modifiedTime, user));
+					list.add(new JDImerchandisingCheckRecord(id, no, crmNo,
+							activity, product, isActive, createdTime,
+							modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -111,6 +116,8 @@ public class JDImerchandisingCheckTable {
 							.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
 					long product = c.getLong(c
@@ -124,8 +131,9 @@ public class JDImerchandisingCheckTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_USER));
 
-					list.add(new JDImerchandisingCheckRecord(id, no, activity,
-							product, isActive, createdTime, modifiedTime, user));
+					list.add(new JDImerchandisingCheckRecord(id, no, crmNo,
+							activity, product, isActive, createdTime,
+							modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -252,6 +260,8 @@ public class JDImerchandisingCheckTable {
 						.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
 				long product = c.getLong(c
@@ -265,8 +275,9 @@ public class JDImerchandisingCheckTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_USER));
 
-				record = new JDImerchandisingCheckRecord(id, no, activity,
-						product, isActive, createdTime, modifiedTime, user);
+				record = new JDImerchandisingCheckRecord(id, no, crmNo,
+						activity, product, isActive, createdTime, modifiedTime,
+						user);
 			}
 		} finally {
 			if (c != null) {
@@ -311,6 +322,8 @@ public class JDImerchandisingCheckTable {
 						.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
 				long product = c.getLong(c
@@ -324,8 +337,9 @@ public class JDImerchandisingCheckTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_USER));
 
-				record = new JDImerchandisingCheckRecord(id, no, activity,
-						product, isActive, createdTime, modifiedTime, user);
+				record = new JDImerchandisingCheckRecord(id, no, crmNo,
+						activity, product, isActive, createdTime, modifiedTime,
+						user);
 			}
 		} finally {
 			if (c != null) {
@@ -336,8 +350,8 @@ public class JDImerchandisingCheckTable {
 		return record;
 	}
 
-	public long insert(String no, long activity, long product, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, long activity, long product,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -346,6 +360,7 @@ public class JDImerchandisingCheckTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_JDIMERCHANDISING_NO, no);
+		initialValues.put(KEY_JDIMERCHANDISING_CRMNO, crmNo);
 		initialValues.put(KEY_JDIMERCHANDISING_ACTIVITY, activity);
 		initialValues.put(KEY_JDIMERCHANDISING_PRODUCT, product);
 		initialValues.put(KEY_JDIMERCHANDISING_ISACTIVE, isActive);
@@ -373,10 +388,12 @@ public class JDImerchandisingCheckTable {
 		}
 	}
 
-	public boolean update(long id, String no, long activity, long product,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo, long activity,
+			long product, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDIMERCHANDISING_NO, no);
+		args.put(KEY_JDIMERCHANDISING_CRMNO, crmNo);
 		args.put(KEY_JDIMERCHANDISING_ACTIVITY, activity);
 		args.put(KEY_JDIMERCHANDISING_PRODUCT, product);
 		args.put(KEY_JDIMERCHANDISING_ISACTIVE, isActive);

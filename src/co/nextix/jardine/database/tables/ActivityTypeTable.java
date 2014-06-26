@@ -24,6 +24,8 @@ public class ActivityTypeTable {
 	private final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
 	private final String KEY_ACTIVITYTYPE_USER = "user";
 
+	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -68,6 +70,8 @@ public class ActivityTypeTable {
 							.getColumnIndex(KEY_ACTIVITYTYPE_NO));
 					// long type = c.getLong(c
 					// .getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
 					long category = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 					int isActive = c.getInt(c
@@ -75,8 +79,8 @@ public class ActivityTypeTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-					list.add(new ActivityTypeRecord(id, no, category, isActive,
-							user));
+					list.add(new ActivityTypeRecord(id, no, crmNo, category,
+							isActive, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -191,14 +195,16 @@ public class ActivityTypeTable {
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITYTYPE_NO));
 				// long type =
 				// c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
 				long category = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_ISACTIVE));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-				record = new ActivityTypeRecord(id, no, category, isActive,
-						user);
+				record = new ActivityTypeRecord(id, no, crmNo, category,
+						isActive, user);
 			}
 		} finally {
 			if (c != null) {
@@ -242,14 +248,16 @@ public class ActivityTypeTable {
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITYTYPE_NO));
 				// long type =
 				// c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
 				long category = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_ISACTIVE));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-				record = new ActivityTypeRecord(id, no, category, isActive,
-						user);
+				record = new ActivityTypeRecord(id, no, crmNo, category,
+						isActive, user);
 			}
 		} finally {
 			if (c != null) {
@@ -260,7 +268,8 @@ public class ActivityTypeTable {
 		return record;
 	}
 
-	public long insert(String no, long category, int isActive, long user) {
+	public long insert(String no, String crmNo, long category, int isActive,
+			long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -269,6 +278,7 @@ public class ActivityTypeTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_ACTIVITYTYPE_NO, no);
+		initialValues.put(KEY_ACTIVITYTYPE_CRMNO, crmNo);
 		// initialValues.put(KEY_ACTIVITYTYPE_TYPE, type);
 		initialValues.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		initialValues.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);
@@ -294,11 +304,12 @@ public class ActivityTypeTable {
 		}
 	}
 
-	public boolean update(long id, String no, long category, int isActive,
-			long user) {
+	public boolean update(long id, String no, String crmNo, long category,
+			int isActive, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITYTYPE_NO, no);
 		// args.put(KEY_ACTIVITYTYPE_TYPE, type);
+		args.put(KEY_ACTIVITYTYPE_CRMNO, crmNo);
 		args.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		args.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);
 		args.put(KEY_ACTIVITYTYPE_USER, user);

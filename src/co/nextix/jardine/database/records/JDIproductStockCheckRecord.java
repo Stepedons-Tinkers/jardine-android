@@ -26,21 +26,25 @@ public class JDIproductStockCheckRecord {
 	private long stock_status;
 	private int quantity;
 	private int loaded_on_shelves;
-	private long supplier; //supplier table
+	private long supplier; // supplier table
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
+
+	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public JDIproductStockCheckRecord(long id, String no, long activity, long product,
-			long stockStatus, int quantity, int loadedOnShelves, long supplier,
-			String createdTime, String modifiedTime, long user) {
+	public JDIproductStockCheckRecord(long id, String no, String crmNo,
+			long activity, long product, long stockStatus, int quantity,
+			int loadedOnShelves, long supplier, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.activity = activity;
 		this.product = product;
 		this.stock_status = stockStatus;
@@ -66,6 +70,14 @@ public class JDIproductStockCheckRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setActivity(long activity) {

@@ -29,6 +29,8 @@ public class EventProtocolTable {
 	private final String KEY_EVENTPROTOCOL_MODIFIEDTIME = "modified_time";
 	private final String KEY_EVENTPROTOCOL_USER = "user";
 
+	private final String KEY_EVENTPROTOCOL_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -71,6 +73,8 @@ public class EventProtocolTable {
 							.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_CRMNO));
 					String description = c.getString(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
 					String lastUpdate = c.getString(c
@@ -88,9 +92,9 @@ public class EventProtocolTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_USER));
 
-					list.add(new EventProtocolRecord(id, no, description,
-							lastUpdate, tags, eventType, isActive, createdTime,
-							modifiedTime, user));
+					list.add(new EventProtocolRecord(id, no, crmNo,
+							description, lastUpdate, tags, eventType, isActive,
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -114,6 +118,8 @@ public class EventProtocolTable {
 							.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_CRMNO));
 					String description = c.getString(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
 					String lastUpdate = c.getString(c
@@ -131,9 +137,9 @@ public class EventProtocolTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_EVENTPROTOCOL_USER));
 
-					list.add(new EventProtocolRecord(id, no, description,
-							lastUpdate, tags, eventType, isActive, createdTime,
-							modifiedTime, user));
+					list.add(new EventProtocolRecord(id, no, crmNo,
+							description, lastUpdate, tags, eventType, isActive,
+							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -268,6 +274,8 @@ public class EventProtocolTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_EVENTPROTOCOL_CRMNO));
 				String description = c.getString(c
 						.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
 				String lastUpdate = c.getString(c
@@ -284,7 +292,7 @@ public class EventProtocolTable {
 						.getColumnIndex(KEY_EVENTPROTOCOL_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_EVENTPROTOCOL_USER));
 
-				record = new EventProtocolRecord(id, no, description,
+				record = new EventProtocolRecord(id, no, crmNo, description,
 						lastUpdate, tags, eventType, isActive, createdTime,
 						modifiedTime, user);
 			}
@@ -308,6 +316,8 @@ public class EventProtocolTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_EVENTPROTOCOL_CRMNO));
 				String description = c.getString(c
 						.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
 				String lastUpdate = c.getString(c
@@ -324,7 +334,7 @@ public class EventProtocolTable {
 						.getColumnIndex(KEY_EVENTPROTOCOL_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_EVENTPROTOCOL_USER));
 
-				record = new EventProtocolRecord(id, no, description,
+				record = new EventProtocolRecord(id, no, crmNo, description,
 						lastUpdate, tags, eventType, isActive, createdTime,
 						modifiedTime, user);
 			}
@@ -337,9 +347,9 @@ public class EventProtocolTable {
 		return record;
 	}
 
-	public long insert(String no, String description, String lastUpdate,
-			String tags, long eventType, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String description,
+			String lastUpdate, String tags, long eventType, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -348,6 +358,7 @@ public class EventProtocolTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_EVENTPROTOCOL_NO, no);
+		initialValues.put(KEY_EVENTPROTOCOL_CRMNO, crmNo);
 		initialValues.put(KEY_EVENTPROTOCOL_DESCRIPTION, description);
 		initialValues.put(KEY_EVENTPROTOCOL_LASTUPDATE, lastUpdate);
 		initialValues.put(KEY_EVENTPROTOCOL_TAGS, tags);
@@ -378,11 +389,12 @@ public class EventProtocolTable {
 		}
 	}
 
-	public boolean update(long id, String no, String description,
+	public boolean update(long id, String no, String crmNo, String description,
 			String lastUpdate, String tags, long eventType, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_EVENTPROTOCOL_NO, no);
+		args.put(KEY_EVENTPROTOCOL_CRMNO, crmNo);
 		args.put(KEY_EVENTPROTOCOL_DESCRIPTION, description);
 		args.put(KEY_EVENTPROTOCOL_LASTUPDATE, lastUpdate);
 		args.put(KEY_EVENTPROTOCOL_TAGS, tags);

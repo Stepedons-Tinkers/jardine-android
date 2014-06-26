@@ -26,6 +26,8 @@ public class BusinessUnitTable {
 	private final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
 	private final String KEY_BUSINESSUNIT_USER = "user";
 
+	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -68,6 +70,8 @@ public class BusinessUnitTable {
 							.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_BUSINESSUNIT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_BUSINESSUNIT_CRMNO));
 					String name = c.getString(c
 							.getColumnIndex(KEY_BUSINESSUNIT_NAME));
 					String code = c.getString(c
@@ -81,7 +85,7 @@ public class BusinessUnitTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_BUSINESSUNIT_USER));
 
-					list.add(new BusinessUnitRecord(id, no, name, code,
+					list.add(new BusinessUnitRecord(id, no, crmNo, name, code,
 							isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -177,6 +181,8 @@ public class BusinessUnitTable {
 				String no = c.getString(c.getColumnIndex(KEY_BUSINESSUNIT_NO));
 				String name = c.getString(c
 						.getColumnIndex(KEY_BUSINESSUNIT_NAME));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_BUSINESSUNIT_CRMNO));
 				String code = c.getString(c
 						.getColumnIndex(KEY_BUSINESSUNIT_CODE));
 				int isActive = c.getInt(c
@@ -187,8 +193,8 @@ public class BusinessUnitTable {
 						.getColumnIndex(KEY_BUSINESSUNIT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_USER));
 
-				record = new BusinessUnitRecord(id, no, name, code, isActive,
-						createdTime, modifiedTime, user);
+				record = new BusinessUnitRecord(id, no, crmNo, name, code,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -210,6 +216,8 @@ public class BusinessUnitTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_BUSINESSUNIT_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_BUSINESSUNIT_CRMNO));
 				String name = c.getString(c
 						.getColumnIndex(KEY_BUSINESSUNIT_NAME));
 				String code = c.getString(c
@@ -222,8 +230,8 @@ public class BusinessUnitTable {
 						.getColumnIndex(KEY_BUSINESSUNIT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_USER));
 
-				record = new BusinessUnitRecord(id, no, name, code, isActive,
-						createdTime, modifiedTime, user);
+				record = new BusinessUnitRecord(id, no, crmNo, name, code,
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -274,7 +282,7 @@ public class BusinessUnitTable {
 		return result;
 	}
 
-	public long insert(String no, String businessUnitName,
+	public long insert(String no, String crmNo, String businessUnitName,
 			String businessUnitCode, int isActive, String createdTime,
 			String modifiedTime, long user) {
 		// if (name == null) {
@@ -285,6 +293,7 @@ public class BusinessUnitTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_BUSINESSUNIT_NO, no);
+		initialValues.put(KEY_BUSINESSUNIT_CRMNO, crmNo);
 		initialValues.put(KEY_BUSINESSUNIT_NAME, businessUnitName);
 		initialValues.put(KEY_BUSINESSUNIT_CODE, businessUnitCode);
 		initialValues.put(KEY_BUSINESSUNIT_ISACTIVE, isActive);
@@ -313,11 +322,12 @@ public class BusinessUnitTable {
 		}
 	}
 
-	public boolean update(long id, String no, String businessUnitName,
-			String businessUnitCode, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo,
+			String businessUnitName, String businessUnitCode, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_BUSINESSUNIT_NO, no);
+		args.put(KEY_BUSINESSUNIT_CRMNO, crmNo);
 		args.put(KEY_BUSINESSUNIT_NAME, businessUnitName);
 		args.put(KEY_BUSINESSUNIT_CODE, businessUnitCode);
 		args.put(KEY_BUSINESSUNIT_ISACTIVE, isActive);

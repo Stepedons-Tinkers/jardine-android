@@ -25,15 +25,19 @@ public class SMRtimeCardRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public SMRtimeCardRecord(long id, String no, String date, String timestamp,
-			long entryType, String createdTime, String modifiedTime, long user) {
+	public SMRtimeCardRecord(long id, String no, String crmNo, String date,
+			String timestamp, long entryType, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.date = date;
 		this.timestamp = timestamp;
 		this.entry_type = entryType;
@@ -56,6 +60,14 @@ public class SMRtimeCardRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setDate(String date) {

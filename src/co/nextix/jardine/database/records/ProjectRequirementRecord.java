@@ -30,17 +30,20 @@ public class ProjectRequirementRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public ProjectRequirementRecord(long id, String no, long activity,
-			long projectRequirementType, String dateNeeded,
+	public ProjectRequirementRecord(long id, String no, String crmNo,
+			long activity, long projectRequirementType, String dateNeeded,
 			String squareMeters, String productsUsed, String otherDetails,
 			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.activity = activity;
 		this.project_requirement_type = projectRequirementType;
 		this.date_needed = dateNeeded;
@@ -66,6 +69,14 @@ public class ProjectRequirementRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setActivity(long activity) {

@@ -31,6 +31,8 @@ public class SupplierTable {
 	private final String KEY_SUPPLIER_MODIFIEDTIME = "modified_time";
 	private final String KEY_SUPPLIER_USER = "user";
 
+	private final String KEY_SUPPLIER_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -71,6 +73,8 @@ public class SupplierTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_SUPPLIER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_SUPPLIER_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_SUPPLIER_CRMNO));
 					String supplierName = c.getString(c
 							.getColumnIndex(KEY_SUPPLIER_NAME));
 					String supplierLandline = c.getString(c
@@ -91,7 +95,7 @@ public class SupplierTable {
 							.getColumnIndex(KEY_SUPPLIER_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_SUPPLIER_USER));
 
-					list.add(new SupplierRecord(id, no, supplierName,
+					list.add(new SupplierRecord(id, no, crmNo, supplierName,
 							supplierLandline, supplierAddress, creditLine,
 							creditTerm, contactPerson, isActive, createdTime,
 							modifiedTime, user));
@@ -187,6 +191,8 @@ public class SupplierTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SUPPLIER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SUPPLIER_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_SUPPLIER_CRMNO));
 				String supplierName = c.getString(c
 						.getColumnIndex(KEY_SUPPLIER_NAME));
 				String supplierLandline = c.getString(c
@@ -207,7 +213,7 @@ public class SupplierTable {
 						.getColumnIndex(KEY_SUPPLIER_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SUPPLIER_USER));
 
-				record = new SupplierRecord(id, no, supplierName,
+				record = new SupplierRecord(id, no, crmNo, supplierName,
 						supplierLandline, supplierAddress, creditLine,
 						creditTerm, contactPerson, isActive, createdTime,
 						modifiedTime, user);
@@ -232,6 +238,8 @@ public class SupplierTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SUPPLIER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SUPPLIER_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_SUPPLIER_CRMNO));
 				String supplierName = c.getString(c
 						.getColumnIndex(KEY_SUPPLIER_NAME));
 				String supplierLandline = c.getString(c
@@ -252,7 +260,7 @@ public class SupplierTable {
 						.getColumnIndex(KEY_SUPPLIER_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SUPPLIER_USER));
 
-				record = new SupplierRecord(id, no, supplierName,
+				record = new SupplierRecord(id, no, crmNo, supplierName,
 						supplierLandline, supplierAddress, creditLine,
 						creditTerm, contactPerson, isActive, createdTime,
 						modifiedTime, user);
@@ -306,10 +314,10 @@ public class SupplierTable {
 		return result;
 	}
 
-	public long insert(String no, String supplierName, String supplierLandline,
-			String supplierAddress, String creditLine, String creditTerm,
-			String contactPerson, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String supplierName,
+			String supplierLandline, String supplierAddress, String creditLine,
+			String creditTerm, String contactPerson, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -318,6 +326,7 @@ public class SupplierTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_SUPPLIER_NO, no);
+		initialValues.put(KEY_SUPPLIER_CRMNO, crmNo);
 		initialValues.put(KEY_SUPPLIER_NAME, supplierName);
 		initialValues.put(KEY_SUPPLIER_LANDLINE, supplierLandline);
 		initialValues.put(KEY_SUPPLIER_ADDRESS, supplierAddress);
@@ -350,12 +359,14 @@ public class SupplierTable {
 		}
 	}
 
-	public boolean update(long id, String no, String supplierName,
-			String supplierLandline, String supplierAddress, String creditLine,
-			String creditTerm, String contactPerson, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo,
+			String supplierName, String supplierLandline,
+			String supplierAddress, String creditLine, String creditTerm,
+			String contactPerson, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SUPPLIER_NO, no);
+		args.put(KEY_SUPPLIER_CRMNO, crmNo);
 		args.put(KEY_SUPPLIER_NAME, supplierName);
 		args.put(KEY_SUPPLIER_LANDLINE, supplierLandline);
 		args.put(KEY_SUPPLIER_ADDRESS, supplierAddress);

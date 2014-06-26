@@ -29,6 +29,8 @@ public class CompetitorProductStockCheckTable {
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_USER = "user";
 
+	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -75,6 +77,9 @@ public class CompetitorProductStockCheckTable {
 					String no = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+					String crmNo = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO));
 					long activity = c
 							.getLong(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
@@ -98,7 +103,7 @@ public class CompetitorProductStockCheckTable {
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
-							activity, competitorProduct, stockStatus,
+							crmNo, activity, competitorProduct, stockStatus,
 							loadedOnShelves, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -130,6 +135,9 @@ public class CompetitorProductStockCheckTable {
 					String no = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+					String crmNo = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO));
 					long activity = c
 							.getLong(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
@@ -153,7 +161,7 @@ public class CompetitorProductStockCheckTable {
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
-							activity, competitorProduct, stockStatus,
+							crmNo, activity, competitorProduct, stockStatus,
 							loadedOnShelves, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -305,6 +313,8 @@ public class CompetitorProductStockCheckTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO));
 				long activity = c
 						.getLong(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
@@ -326,7 +336,7 @@ public class CompetitorProductStockCheckTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
 
-				record = new CompetitorProductStockCheckRecord(id, no,
+				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,
 						loadedOnShelves, createdTime, modifiedTime, user);
 			}
@@ -352,6 +362,8 @@ public class CompetitorProductStockCheckTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO));
 				long activity = c
 						.getLong(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
@@ -373,7 +385,7 @@ public class CompetitorProductStockCheckTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
 
-				record = new CompetitorProductStockCheckRecord(id, no,
+				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,
 						loadedOnShelves, createdTime, modifiedTime, user);
 			}
@@ -386,9 +398,9 @@ public class CompetitorProductStockCheckTable {
 		return record;
 	}
 
-	public long insert(String no, long activity, long competitorProduct,
-			long stockStatus, int loadedOnShelves, String createdTime,
-			String modifiedTime, long user) {
+	public long insert(String no, String crmNo, long activity,
+			long competitorProduct, long stockStatus, int loadedOnShelves,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -397,6 +409,7 @@ public class CompetitorProductStockCheckTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
+		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY, activity);
 		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT,
 				competitorProduct);
@@ -431,11 +444,12 @@ public class CompetitorProductStockCheckTable {
 		}
 	}
 
-	public boolean update(long id, String no, long activity,
+	public boolean update(long id, String no, String crmNo, long activity,
 			long competitorProduct, long stockStatus, int loadedOnShelves,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY, activity);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT,
 				competitorProduct);

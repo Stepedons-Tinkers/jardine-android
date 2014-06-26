@@ -27,16 +27,19 @@ public class MarketingIntelRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public MarketingIntelRecord(long id, String no, long activity,
-			long competitor, String details, String remarks,
+	public MarketingIntelRecord(long id, String no, String crmNo,
+			long activity, long competitor, String details, String remarks,
 			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.activity = activity;
 		this.competitor = competitor;
 		this.details = details;
@@ -60,6 +63,14 @@ public class MarketingIntelRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setActivity(long activity) {

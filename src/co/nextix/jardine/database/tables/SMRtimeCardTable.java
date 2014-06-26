@@ -28,6 +28,8 @@ public class SMRtimeCardTable {
 	private final String KEY_SMRTIMECARD_MODIFIEDTIME = "modified_time";
 	private final String KEY_SMRTIMECARD_USER = "user";
 
+	private final String KEY_SMRTIMECARD_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -70,6 +72,8 @@ public class SMRtimeCardTable {
 							.getLong(c.getColumnIndex(KEY_SMRTIMECARD_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_SMRTIMECARD_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_CRMNO));
 					String date = c.getString(c
 							.getColumnIndex(KEY_SMRTIMECARD_DATE));
 					String timestamp = c.getString(c
@@ -83,8 +87,9 @@ public class SMRtimeCardTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_SMRTIMECARD_USER));
 
-					list.add(new SMRtimeCardRecord(id, no, date, timestamp,
-							entryType, createdTime, modifiedTime, user));
+					list.add(new SMRtimeCardRecord(id, no, crmNo, date,
+							timestamp, entryType, createdTime, modifiedTime,
+							user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -113,6 +118,8 @@ public class SMRtimeCardTable {
 							.getLong(c.getColumnIndex(KEY_SMRTIMECARD_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_SMRTIMECARD_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_SMRTIMECARD_CRMNO));
 					String date = c.getString(c
 							.getColumnIndex(KEY_SMRTIMECARD_DATE));
 					String timestamp = c.getString(c
@@ -126,8 +133,9 @@ public class SMRtimeCardTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_SMRTIMECARD_USER));
 
-					records.add(new SMRtimeCardRecord(id, no, date, timestamp,
-							entryType, createdTime, modifiedTime, user));
+					records.add(new SMRtimeCardRecord(id, no, crmNo, date,
+							timestamp, entryType, createdTime, modifiedTime,
+							user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -251,6 +259,8 @@ public class SMRtimeCardTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SMRTIMECARD_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SMRTIMECARD_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_SMRTIMECARD_CRMNO));
 				String date = c.getString(c
 						.getColumnIndex(KEY_SMRTIMECARD_DATE));
 				String timestamp = c.getString(c
@@ -263,7 +273,7 @@ public class SMRtimeCardTable {
 						.getColumnIndex(KEY_SMRTIMECARD_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SMRTIMECARD_USER));
 
-				record = new SMRtimeCardRecord(id, no, date, timestamp,
+				record = new SMRtimeCardRecord(id, no, crmNo, date, timestamp,
 						entryType, createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -286,6 +296,8 @@ public class SMRtimeCardTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SMRTIMECARD_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SMRTIMECARD_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_SMRTIMECARD_CRMNO));
 				String date = c.getString(c
 						.getColumnIndex(KEY_SMRTIMECARD_DATE));
 				String timestamp = c.getString(c
@@ -298,7 +310,7 @@ public class SMRtimeCardTable {
 						.getColumnIndex(KEY_SMRTIMECARD_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_SMRTIMECARD_USER));
 
-				record = new SMRtimeCardRecord(id, no, date, timestamp,
+				record = new SMRtimeCardRecord(id, no, crmNo, date, timestamp,
 						entryType, createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -310,7 +322,7 @@ public class SMRtimeCardTable {
 		return record;
 	}
 
-	public long insert(String no, String date, String timestamp,
+	public long insert(String no, String crmNo, String date, String timestamp,
 			long entryType, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -320,6 +332,7 @@ public class SMRtimeCardTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_SMRTIMECARD_NO, no);
+		initialValues.put(KEY_SMRTIMECARD_CRMNO, crmNo);
 		initialValues.put(KEY_SMRTIMECARD_DATE, date);
 		initialValues.put(KEY_SMRTIMECARD_TIMESTAMP, timestamp);
 		initialValues.put(KEY_SMRTIMECARD_ENTRYTYPE, entryType);
@@ -348,10 +361,12 @@ public class SMRtimeCardTable {
 		}
 	}
 
-	public boolean update(long id, String no, String date, String timestamp,
-			long entryType, String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo, String date,
+			String timestamp, long entryType, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMRTIMECARD_NO, no);
+		args.put(KEY_SMRTIMECARD_CRMNO, crmNo);
 		args.put(KEY_SMRTIMECARD_DATE, date);
 		args.put(KEY_SMRTIMECARD_TIMESTAMP, timestamp);
 		args.put(KEY_SMRTIMECARD_ENTRYTYPE, entryType);

@@ -28,6 +28,7 @@ public class SMRTable {
 	private final String KEY_SMR_CREATEDTIME = "created_time";
 	private final String KEY_SMR_MODIFIEDTIME = "modified_time";
 	private final String KEY_SMR_USER = "user";
+	private final String KEY_SMR_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -69,6 +70,7 @@ public class SMRTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_SMR_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_SMR_NO));
+					String crmNo = c.getString(c.getColumnIndex(KEY_SMR_CRMNO));
 					String firstname = c.getString(c
 							.getColumnIndex(KEY_SMR_FIRSTNAME));
 					String lastname = c.getString(c
@@ -86,8 +88,8 @@ public class SMRTable {
 					// list.add(new SMRRecord(id, no, firstname, lastname,
 					// region,
 					// area, isActive, createdTime, modifiedTime, user));
-					list.add(new SMRRecord(id, no, firstname, lastname, area,
-							isActive, createdTime, modifiedTime, user));
+					list.add(new SMRRecord(id, no, crmNo, firstname, lastname,
+							area, isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -180,6 +182,7 @@ public class SMRTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SMR_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SMR_NO));
+				String crmNo = c.getString(c.getColumnIndex(KEY_SMR_CRMNO));
 				String firstname = c.getString(c
 						.getColumnIndex(KEY_SMR_FIRSTNAME));
 				String lastname = c.getString(c
@@ -195,8 +198,8 @@ public class SMRTable {
 
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
-				record = new SMRRecord(id, no, firstname, lastname, area,
-						isActive, createdTime, modifiedTime, user);
+				record = new SMRRecord(id, no, crmNo, firstname, lastname,
+						area, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -258,6 +261,7 @@ public class SMRTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_SMR_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_SMR_NO));
+				String crmNo = c.getString(c.getColumnIndex(KEY_SMR_CRMNO));
 				String firstname = c.getString(c
 						.getColumnIndex(KEY_SMR_FIRSTNAME));
 				String lastname = c.getString(c
@@ -273,8 +277,8 @@ public class SMRTable {
 
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
-				record = new SMRRecord(id, no, firstname, lastname, area,
-						isActive, createdTime, modifiedTime, user);
+				record = new SMRRecord(id, no, crmNo, firstname, lastname,
+						area, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -285,8 +289,9 @@ public class SMRTable {
 		return record;
 	}
 
-	public long insert(String no, String firstname, String lastname, long area,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String firstname,
+			String lastname, long area, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -295,6 +300,7 @@ public class SMRTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_SMR_NO, no);
+		initialValues.put(KEY_SMR_CRMNO, crmNo);
 		initialValues.put(KEY_SMR_FIRSTNAME, firstname);
 		initialValues.put(KEY_SMR_LASTNAME, lastname);
 		// initialValues.put(KEY_SMR_REGION, region);
@@ -324,11 +330,12 @@ public class SMRTable {
 		}
 	}
 
-	public boolean update(long id, String no, String firstname,
+	public boolean update(long id, String no, String crmNo, String firstname,
 			String lastname, long area, int isActive, String createdTime,
 			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMR_NO, no);
+		args.put(KEY_SMR_CRMNO, crmNo);
 		args.put(KEY_SMR_FIRSTNAME, firstname);
 		args.put(KEY_SMR_LASTNAME, lastname);
 		// args.put(KEY_SMR_REGION, region);

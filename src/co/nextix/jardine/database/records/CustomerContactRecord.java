@@ -34,21 +34,24 @@ public class CustomerContactRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-	
+
 	public CustomerContactRecord() {
-		
+
 	}
 
-	public CustomerContactRecord(long id, String no, String firstName,
-			String lastName, long position, String mobileNo, String birthday,
-			String emailAddress, long customer, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public CustomerContactRecord(long id, String no, String crmNo,
+			String firstName, String lastName, long position, String mobileNo,
+			String birthday, String emailAddress, long customer, int isActive,
+			String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.first_name = firstName;
 		this.last_name = lastName;
 		this.position = position;
@@ -78,6 +81,14 @@ public class CustomerContactRecord {
 		return this.no;
 	}
 
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
+	}
+
 	public void setFirstName(String firstName) {
 		this.first_name = firstName;
 	}
@@ -85,7 +96,7 @@ public class CustomerContactRecord {
 	public String getFirstName() {
 		return this.first_name;
 	}
-	
+
 	public void setLastName(String lastName) {
 		this.last_name = lastName;
 	}
@@ -93,7 +104,7 @@ public class CustomerContactRecord {
 	public String getLastName() {
 		return this.last_name;
 	}
-	
+
 	public void setPosition(long position) {
 		this.position = position;
 	}
@@ -101,7 +112,7 @@ public class CustomerContactRecord {
 	public long getPosition() {
 		return this.position;
 	}
-	
+
 	public void setMobileNo(String mobileNo) {
 		this.mobile_no = mobileNo;
 	}
@@ -109,7 +120,7 @@ public class CustomerContactRecord {
 	public String getMobileNo() {
 		return this.mobile_no;
 	}
-	
+
 	public void setBirthday(String birthday) {
 		this.birthday = birthday;
 	}
@@ -125,7 +136,7 @@ public class CustomerContactRecord {
 	public String getEmailAddress() {
 		return this.email_address;
 	}
-	
+
 	public void setCustomer(long customer) {
 		this.customer = customer;
 	}
@@ -133,7 +144,7 @@ public class CustomerContactRecord {
 	public long getCustomer() {
 		return this.customer;
 	}
-	
+
 	public void setIsActive(int isActive) {
 		this.is_active = isActive;
 	}

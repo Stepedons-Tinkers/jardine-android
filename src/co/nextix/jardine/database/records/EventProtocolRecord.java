@@ -28,19 +28,22 @@ public class EventProtocolRecord {
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
+	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-	
-	public EventProtocolRecord(){}
 
-	public EventProtocolRecord(long id, String no, String description,
-			String lastUpdate, String tags, long eventType, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public EventProtocolRecord() {
+	}
+
+	public EventProtocolRecord(long id, String no, String crmNo,
+			String description, String lastUpdate, String tags, long eventType,
+			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.description = description;
 		this.last_update = lastUpdate;
 		this.tags = tags;
@@ -65,6 +68,14 @@ public class EventProtocolRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setDescription(String description) {

@@ -95,6 +95,8 @@ public class ActivityRecord {
 	private String time;
 	private String venue;
 	private String no_of_attendees;
+	
+	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -103,7 +105,7 @@ public class ActivityRecord {
 	public ActivityRecord() {
 	}
 
-	public ActivityRecord(long id, String no, long workplan, String startTime,
+	public ActivityRecord(long id, String no, String crmNo, long workplan, String startTime,
 			String endTime, double longitude, double latitude,
 			String objectives, String notes, String highlights,
 			String nextSteps, String followUpCommitmentDate, long activityType,
@@ -117,6 +119,7 @@ public class ActivityRecord {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.workplan = workplan;
 		this.start_time = startTime;
 		this.end_time = endTime;
@@ -164,6 +167,14 @@ public class ActivityRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setWorkplan(long workplan) {

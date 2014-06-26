@@ -29,6 +29,7 @@ public class ProductTable {
 	private final String KEY_PRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
 	private final String KEY_PRODUCT_USER = "user";
+	private final String KEY_PRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -70,6 +71,8 @@ public class ProductTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_PRODUCT_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_PRODUCT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_PRODUCT_CRMNO));
 					String productNumber = c.getString(c
 							.getColumnIndex(KEY_PRODUCT_NUMBER));
 					String productBrand = c.getString(c
@@ -88,7 +91,7 @@ public class ProductTable {
 							.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
 
-					list.add(new ProductRecord(id, no, productNumber,
+					list.add(new ProductRecord(id, no, crmNo, productNumber,
 							productBrand, productDescription, productSize,
 							businessUnit, isActive, createdTime, modifiedTime,
 							user));
@@ -184,6 +187,7 @@ public class ProductTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_PRODUCT_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_PRODUCT_NO));
+				String crmNo = c.getString(c.getColumnIndex(KEY_PRODUCT_CRMNO));
 				String productNumber = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_NUMBER));
 				String productBrand = c.getString(c
@@ -201,9 +205,9 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
 
-				record = new ProductRecord(id, no, productNumber, productBrand,
-						productDescription, productSize, businessUnit,
-						isActive, createdTime, modifiedTime, user);
+				record = new ProductRecord(id, no, crmNo, productNumber,
+						productBrand, productDescription, productSize,
+						businessUnit, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -265,6 +269,7 @@ public class ProductTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_PRODUCT_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_PRODUCT_NO));
+				String crmNo = c.getString(c.getColumnIndex(KEY_PRODUCT_CRMNO));
 				String productNumber = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_NUMBER));
 				String productBrand = c.getString(c
@@ -282,9 +287,9 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
 
-				record = new ProductRecord(id, no, productNumber, productBrand,
-						productDescription, productSize, businessUnit,
-						isActive, createdTime, modifiedTime, user);
+				record = new ProductRecord(id, no, crmNo, productNumber,
+						productBrand, productDescription, productSize,
+						businessUnit, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -295,9 +300,10 @@ public class ProductTable {
 		return record;
 	}
 
-	public long insert(String no, String productNumber, String productBrand,
-			String productDescription, String productSize, long businessUnit,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String productNumber,
+			String productBrand, String productDescription, String productSize,
+			long businessUnit, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -306,6 +312,7 @@ public class ProductTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_PRODUCT_NO, no);
+		initialValues.put(KEY_PRODUCT_CRMNO, crmNo);
 		initialValues.put(KEY_PRODUCT_NUMBER, productNumber);
 		initialValues.put(KEY_PRODUCT_BRAND, productBrand);
 		initialValues.put(KEY_PRODUCT_DESCRIPTION, productDescription);
@@ -337,12 +344,13 @@ public class ProductTable {
 		}
 	}
 
-	public boolean update(long id, String no, String productNumber,
-			String productBrand, String productDescription, String productSize,
-			long businessUnit, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo,
+			String productNumber, String productBrand,
+			String productDescription, String productSize, long businessUnit,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PRODUCT_NO, no);
+		args.put(KEY_PRODUCT_CRMNO, crmNo);
 		args.put(KEY_PRODUCT_NUMBER, productNumber);
 		args.put(KEY_PRODUCT_BRAND, productBrand);
 		args.put(KEY_PRODUCT_DESCRIPTION, productDescription);

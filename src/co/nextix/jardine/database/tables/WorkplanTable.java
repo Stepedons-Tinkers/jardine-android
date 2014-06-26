@@ -26,6 +26,8 @@ public class WorkplanTable {
 	private final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
 	private final String KEY_WORKPLAN_USER = "user";
 
+	private final String KEY_WORKPLAN_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -66,6 +68,8 @@ public class WorkplanTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CRMNO));
 					String startDate = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 					String endDate = c.getString(c
@@ -80,8 +84,8 @@ public class WorkplanTable {
 
 					// list.add(new WorkplanRecord(id, no, startDate, endDate,
 					// status, createdTime, modifiedTime, user));
-					list.add(new WorkplanRecord(id, no, startDate, endDate,
-							createdTime, modifiedTime, user));
+					list.add(new WorkplanRecord(id, no, crmNo, startDate,
+							endDate, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -106,6 +110,8 @@ public class WorkplanTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CRMNO));
 					String startDate = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 					String endDate = c.getString(c
@@ -118,8 +124,8 @@ public class WorkplanTable {
 							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
 
-					list.add(new WorkplanRecord(id, no, startDate, endDate,
-							createdTime, modifiedTime, user));
+					list.add(new WorkplanRecord(id, no, crmNo, startDate,
+							endDate, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -254,6 +260,8 @@ public class WorkplanTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_WORKPLAN_CRMNO));
 				String startDate = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 				String endDate = c.getString(c
@@ -268,7 +276,7 @@ public class WorkplanTable {
 				// record = new WorkplanRecord(id, no, startDate, endDate,
 				// status,
 				// createdTime, modifiedTime, user);
-				record = new WorkplanRecord(id, no, startDate, endDate,
+				record = new WorkplanRecord(id, no, crmNo, startDate, endDate,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -311,6 +319,8 @@ public class WorkplanTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_WORKPLAN_CRMNO));
 				String startDate = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
 				String endDate = c.getString(c
@@ -325,7 +335,7 @@ public class WorkplanTable {
 				// record = new WorkplanRecord(id, no, startDate, endDate,
 				// status,
 				// createdTime, modifiedTime, user);
-				record = new WorkplanRecord(id, no, startDate, endDate,
+				record = new WorkplanRecord(id, no, crmNo, startDate, endDate,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -337,8 +347,8 @@ public class WorkplanTable {
 		return record;
 	}
 
-	public long insert(String no, String startDate, String endDate,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String startDate,
+			String endDate, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -347,6 +357,7 @@ public class WorkplanTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_WORKPLAN_NO, no);
+		initialValues.put(KEY_WORKPLAN_CRMNO, crmNo);
 		initialValues.put(KEY_WORKPLAN_STARTDATE, startDate);
 		initialValues.put(KEY_WORKPLAN_ENDDATE, endDate);
 		// initialValues.put(KEY_WORKPLAN_STATUS, status);
@@ -374,10 +385,11 @@ public class WorkplanTable {
 		}
 	}
 
-	public boolean update(long id, String no, String startDate, String endDate,
-			String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo, String startDate,
+			String endDate, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_WORKPLAN_NO, no);
+		args.put(KEY_WORKPLAN_CRMNO, crmNo);
 		args.put(KEY_WORKPLAN_STARTDATE, startDate);
 		args.put(KEY_WORKPLAN_ENDDATE, endDate);
 		// args.put(KEY_WORKPLAN_STATUS, status);

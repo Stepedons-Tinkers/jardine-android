@@ -38,6 +38,8 @@ public class CustomerTable {
 	private final String KEY_CUSTOMER_MODIFIEDTIME = "modified_time";
 	private final String KEY_CUSTOMER_USER = "user";
 
+	private final String KEY_CUSTOMER_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -78,6 +80,8 @@ public class CustomerTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_CRMNO));
 					String customerName = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_NAME));
 					String chainName = c.getString(c
@@ -115,7 +119,7 @@ public class CustomerTable {
 					// businessUnit,
 					// area, province, cityTown, isActive, createdTime,
 					// modifiedTime, user));
-					list.add(new CustomerRecord(id, no, customerName,
+					list.add(new CustomerRecord(id, no, crmNo, customerName,
 							chainName, landline, fax, customerSize,
 							streetAddress, customerType, businessUnit, area,
 							province, cityTown, isActive, createdTime,
@@ -146,6 +150,8 @@ public class CustomerTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_CRMNO));
 					String customerName = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_NAME));
 					String chainName = c.getString(c
@@ -183,7 +189,7 @@ public class CustomerTable {
 					// businessUnit,
 					// area, province, cityTown, isActive, createdTime,
 					// modifiedTime, user));
-					list.add(new CustomerRecord(id, no, customerName,
+					list.add(new CustomerRecord(id, no, crmNo, customerName,
 							chainName, landline, fax, customerSize,
 							streetAddress, customerType, businessUnit, area,
 							province, cityTown, isActive, createdTime,
@@ -311,6 +317,8 @@ public class CustomerTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
 				String customerName = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_NAME));
 				String chainName = c.getString(c
@@ -347,8 +355,8 @@ public class CustomerTable {
 				// area, province, cityTown, isActive, createdTime,
 				// modifiedTime, user);
 
-				record = new CustomerRecord(id, no, customerName, chainName,
-						landline, fax, customerSize, streetAddress,
+				record = new CustomerRecord(id, no, crmNo, customerName,
+						chainName, landline, fax, customerSize, streetAddress,
 						customerType, businessUnit, area, province, cityTown,
 						isActive, createdTime, modifiedTime, user);
 			}
@@ -392,6 +400,8 @@ public class CustomerTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
 				String customerName = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_NAME));
 				String chainName = c.getString(c
@@ -428,8 +438,8 @@ public class CustomerTable {
 				// province, cityTown, isActive, createdTime,
 				// modifiedTime, user);
 
-				record = new CustomerRecord(id, no, customerName, chainName,
-						landline, fax, customerSize, streetAddress,
+				record = new CustomerRecord(id, no, crmNo, customerName,
+						chainName, landline, fax, customerSize, streetAddress,
 						customerType, businessUnit, area, province, cityTown,
 						isActive, createdTime, modifiedTime, user);
 			}
@@ -442,8 +452,8 @@ public class CustomerTable {
 		return record;
 	}
 
-	public long insert(String no, String customerName, String chainName,
-			String landline, String fax, long customerSize,
+	public long insert(String no, String crmNo, String customerName,
+			String chainName, String landline, String fax, long customerSize,
 			String streetAddress, long customerType, long businessUnit,
 			long area, long province, long cityTown, int isActive,
 			String createdTime, String modifiedTime, long user) {
@@ -455,6 +465,7 @@ public class CustomerTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_CUSTOMER_NO, no);
+		initialValues.put(KEY_CUSTOMER_CRMNO, crmNo);
 		initialValues.put(KEY_CUSTOMER_NAME, customerName);
 		initialValues.put(KEY_CUSTOMER_CHAINNAME, chainName);
 		initialValues.put(KEY_CUSTOMER_LANDLINE, landline);
@@ -494,13 +505,14 @@ public class CustomerTable {
 		}
 	}
 
-	public boolean update(long id, String no, String customerName,
-			String chainName, String landline, String fax, long customerSize,
-			String streetAddress, long customerType, long businessUnit,
-			long area, long province, long cityTown, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo,
+			String customerName, String chainName, String landline, String fax,
+			long customerSize, String streetAddress, long customerType,
+			long businessUnit, long area, long province, long cityTown,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
+		args.put(KEY_CUSTOMER_CRMNO, crmNo);
 		args.put(KEY_CUSTOMER_NAME, customerName);
 		args.put(KEY_CUSTOMER_CHAINNAME, chainName);
 		args.put(KEY_CUSTOMER_LANDLINE, landline);

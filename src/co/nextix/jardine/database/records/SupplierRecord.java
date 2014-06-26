@@ -33,17 +33,21 @@ public class SupplierRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public SupplierRecord(long id, String no, String supplierName,
-			String supplierLandline, String supplierAddress, String creditLine,
-			String creditTerm, String contactPerson, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public SupplierRecord(long id, String no, String crmNo,
+			String supplierName, String supplierLandline,
+			String supplierAddress, String creditLine, String creditTerm,
+			String contactPerson, int isActive, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.supplier_name = supplierName;
 		this.supplier_landline = supplierLandline;
 		this.supplier_address = supplierAddress;
@@ -70,6 +74,14 @@ public class SupplierRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setSupplierName(String supplierName) {

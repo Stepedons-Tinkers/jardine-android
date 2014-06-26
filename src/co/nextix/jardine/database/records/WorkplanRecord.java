@@ -25,6 +25,8 @@ public class WorkplanRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
@@ -32,11 +34,12 @@ public class WorkplanRecord {
 	public WorkplanRecord() {
 	}
 
-	public WorkplanRecord(long id, String no, String startDate, String endDate,
-			String createdTime, String modifiedTime, long user) {
+	public WorkplanRecord(long id, String no, String crmNo, String startDate,
+			String endDate, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.start_date = startDate;
 		this.end_date = endDate;
 		// this.status = status;
@@ -59,6 +62,14 @@ public class WorkplanRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setStartDate(String startDate) {

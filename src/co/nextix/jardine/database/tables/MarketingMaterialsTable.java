@@ -27,6 +27,8 @@ public class MarketingMaterialsTable {
 	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
 	private final String KEY_MARKETINGMATERIALS_USER = "user";
 
+	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -69,6 +71,8 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CRMNO));
 					String description = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
@@ -85,8 +89,9 @@ public class MarketingMaterialsTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
 
-					list.add(new MarketingMaterialsRecord(id, no, description,
-							lastUpdate, tags, createdTime, modifiedTime, user));
+					list.add(new MarketingMaterialsRecord(id, no, crmNo,
+							description, lastUpdate, tags, createdTime,
+							modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -110,6 +115,8 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
 					String no = c.getString(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CRMNO));
 					String description = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
@@ -126,8 +133,9 @@ public class MarketingMaterialsTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
 
-					list.add(new MarketingMaterialsRecord(id, no, description,
-							lastUpdate, tags, createdTime, modifiedTime, user));
+					list.add(new MarketingMaterialsRecord(id, no, crmNo,
+							description, lastUpdate, tags, createdTime,
+							modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -265,6 +273,8 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_CRMNO));
 				String description = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
 				String lastUpdate = c.getString(c
@@ -278,8 +288,9 @@ public class MarketingMaterialsTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
 
-				record = new MarketingMaterialsRecord(id, no, description,
-						lastUpdate, tags, createdTime, modifiedTime, user);
+				record = new MarketingMaterialsRecord(id, no, crmNo,
+						description, lastUpdate, tags, createdTime,
+						modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -303,6 +314,8 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
 				String no = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_CRMNO));
 				String description = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
 				String lastUpdate = c.getString(c
@@ -316,8 +329,9 @@ public class MarketingMaterialsTable {
 				long user = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
 
-				record = new MarketingMaterialsRecord(id, no, description,
-						lastUpdate, tags, createdTime, modifiedTime, user);
+				record = new MarketingMaterialsRecord(id, no, crmNo,
+						description, lastUpdate, tags, createdTime,
+						modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -328,8 +342,9 @@ public class MarketingMaterialsTable {
 		return record;
 	}
 
-	public long insert(String no, String description, String lastUpdate,
-			String tags, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String description,
+			String lastUpdate, String tags, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -338,6 +353,7 @@ public class MarketingMaterialsTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_MARKETINGMATERIALS_NO, no);
+		initialValues.put(KEY_MARKETINGMATERIALS_CRMNO, crmNo);
 		initialValues.put(KEY_MARKETINGMATERIALS_DESCRIPTION, description);
 		initialValues.put(KEY_MARKETINGMATERIALS_LASTUPDATE, lastUpdate);
 		initialValues.put(KEY_MARKETINGMATERIALS_TAGS, tags);
@@ -367,11 +383,12 @@ public class MarketingMaterialsTable {
 		}
 	}
 
-	public boolean update(long id, String no, String description,
+	public boolean update(long id, String no, String crmNo, String description,
 			String lastUpdate, String tags, String createdTime,
 			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_MARKETINGMATERIALS_NO, no);
+		args.put(KEY_MARKETINGMATERIALS_CRMNO, crmNo);
 		args.put(KEY_MARKETINGMATERIALS_DESCRIPTION, description);
 		args.put(KEY_MARKETINGMATERIALS_LASTUPDATE, lastUpdate);
 		args.put(KEY_MARKETINGMATERIALS_TAGS, tags);

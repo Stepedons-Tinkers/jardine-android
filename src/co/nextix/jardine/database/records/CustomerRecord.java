@@ -43,6 +43,8 @@ public class CustomerRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
@@ -51,21 +53,22 @@ public class CustomerRecord {
 
 	}
 
-	public CustomerRecord(long id, String no, String customerName,
-			String chainName, String landline, String fax, long customerSize,
-			String streetAddress, long customerType, long businessUnit,
-			long area, long province, long cityTown, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public CustomerRecord(long id, String no, String crmNo,
+			String customerName, String chainName, String landline, String fax,
+			long customerSize, String streetAddress, long customerType,
+			long businessUnit, long area, long province, long cityTown,
+			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.customer_name = customerName;
 		this.chain_name = chainName;
 		this.landline = landline;
 		this.fax = fax;
 		this.customer_size = customerSize;
 		this.street_address = streetAddress;
-//		this.customer_record_status = customerRecordStatus;
+		// this.customer_record_status = customerRecordStatus;
 		this.customer_type = customerType;
 		this.business_unit = businessUnit;
 		this.area = area;
@@ -91,6 +94,14 @@ public class CustomerRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrm(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrm() {
+		return this.crm_no;
 	}
 
 	public void setCustomerName(String customerName) {
@@ -141,13 +152,13 @@ public class CustomerRecord {
 		return this.street_address;
 	}
 
-//	public void setCustomerRecordStatus(long customerRecordStatus) {
-//		this.customer_record_status = customerRecordStatus;
-//	}
-//
-//	public long getCustomerRecordStatus() {
-//		return this.customer_record_status;
-//	}
+	// public void setCustomerRecordStatus(long customerRecordStatus) {
+	// this.customer_record_status = customerRecordStatus;
+	// }
+	//
+	// public long getCustomerRecordStatus() {
+	// return this.customer_record_status;
+	// }
 
 	public void setCustomerType(long customerType) {
 		this.customer_type = customerType;
