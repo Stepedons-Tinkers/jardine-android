@@ -20,6 +20,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.LoginActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
+import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
@@ -29,6 +30,7 @@ import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CompetitorTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
+import co.nextix.jardine.database.tables.DocumentTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -65,6 +67,7 @@ import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.web.CreateRequests;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
+import co.nextix.jardine.web.RetrieveRequests;
 import co.nextix.jardine.web.SyncRequests;
 import co.nextix.jardine.web.models.ActivityModel;
 import co.nextix.jardine.web.models.ActivityTypeModel;
@@ -74,6 +77,8 @@ import co.nextix.jardine.web.models.CompetitorProductModel;
 import co.nextix.jardine.web.models.CompetitorProductStockCheckModel;
 import co.nextix.jardine.web.models.CustomerContactModel;
 import co.nextix.jardine.web.models.CustomerModel;
+import co.nextix.jardine.web.models.DocuRelModel;
+import co.nextix.jardine.web.models.DocumentModel;
 import co.nextix.jardine.web.models.EventProtocolModel;
 import co.nextix.jardine.web.models.JDImerchandisingCheckModel;
 import co.nextix.jardine.web.models.JDIproductStockCheckModel;
@@ -1339,17 +1344,16 @@ public class SyncMenuBarFragment extends Fragment {
 						long province = provinceTable.getIdByName(model
 								.getProvince());
 						long cityTown = cityTable.getIdByName(model.getCity());
-						long activityType = activityTypeTable.getByWebId(
-								model.getActivityType()).getId();
-						long workplan = workplanTable.getByWebId(
-								model.getWorkplan()).getId();
+						long activityType = activityTypeTable.getIdByNo(model
+								.getActivityType());
+						long workplan = workplanTable.getIdByNo(model
+								.getWorkplan());
 
 						// if ((area > 0) && (province > 0) && (cityTown > 0)
 						// && (activityType > 0) && (workplan > 0))
-						table.insert(model.getCrmNo(), 0, model.getDate(),
-								Integer.parseInt(model.getStatus()), area,
-								province, cityTown, "remarks", activityType,
-								workplan, model.getCreatedTime(),
+						table.insert(model.getCrmNo(), 0, model.getDate(), 1,
+								area, province, cityTown, "remarks",
+								activityType, workplan, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getCrmNo());
@@ -1588,8 +1592,7 @@ public class SyncMenuBarFragment extends Fragment {
 								.getProduct());
 
 						// if ((activity > 0) && (product > 0))
-						table.insert(model.getCrmNo(), activity, product,
-								Integer.parseInt(model.getStatus()),
+						table.insert(model.getCrmNo(), activity, product, 1,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1604,8 +1607,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((activity > 0) && (product > 0))
 						table.update(id, model.getCrmNo(), activity, product,
-								Integer.parseInt(model.getStatus()),
-								model.getCreatedTime(),
+								1, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					}
 				}
@@ -1942,45 +1944,183 @@ public class SyncMenuBarFragment extends Fragment {
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
-				for (ProjectRequirementModel model : updated) {
-					if (!table.isExisting(model.getCrmNo())) {
-						long activity = activityTable.getIdByNo(model
-								.getActivity());
-						long projectRequirementType = projReqTypeTable
-								.getIdByName(model.getProjectReqType());
+				// for (ProjectRequirementModel model : updated) {
+				// if (!table.isExisting(model.getCrmNo())) {
+				// long activity = activityTable.getIdByNo(model
+				// .getActivity());
+				// long projectRequirementType = projReqTypeTable
+				// .getIdByName(model.getProjectReqType());
+				//
+				// // if (activity > 0 && projectRequirementType > 0)
+				// table.insert(model.getCrmNo(), activity,
+				// projectRequirementType, model.getDateNeeded(),
+				// model.getSquaremeters(),
+				// model.getProductsUsed(),
+				// model.getOtherDetails(),
+				// model.getCreatedTime(),
+				// model.getModifiedTime(), USER_ID);
+				// } else {
+				// long id = table.getIdByNo(model.getCrmNo());
+				//
+				// long activity = activityTable.getIdByNo(model
+				// .getActivity());
+				// long projectRequirementType = projReqTypeTable
+				// .getIdByName(model.getProjectReqType());
+				//
+				// // if (activity > 0 && projectRequirementType > 0)
+				// table.update(id, model.getCrmNo(), activity,
+				// projectRequirementType, model.getDateNeeded(),
+				// model.getSquaremeters(),
+				// model.getProductsUsed(),
+				// model.getOtherDetails(),
+				// model.getCreatedTime(),
+				// model.getModifiedTime(), USER_ID);
+				// }
+				// }
+			}
 
-						// if (activity > 0 && projectRequirementType > 0)
-						table.insert(model.getCrmNo(), activity,
-								projectRequirementType, model.getDateNeeded(),
-								model.getSquaremeters(),
-								model.getProductsUsed(),
-								model.getOtherDetails(),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
-					} else {
-						long id = table.getIdByNo(model.getCrmNo());
+			// if (deleted != null) {
+			// int num = table.deleteByCrmNo(deleted
+			// .toArray(new String[deleted.size()]));
+			// Log.d(TAG, num + " records deleted");
+			// }
 
-						long activity = activityTable.getIdByNo(model
-								.getActivity());
-						long projectRequirementType = projReqTypeTable
-								.getIdByName(model.getProjectReqType());
+			return true;
+		}
 
-						// if (activity > 0 && projectRequirementType > 0)
-						table.update(id, model.getCrmNo(), activity,
-								projectRequirementType, model.getDateNeeded(),
-								model.getSquaremeters(),
-								model.getProductsUsed(),
-								model.getOtherDetails(),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncDocumentsTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Documents");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+			EventProtocolTable eventTable = JardineApp.DB.getEventProtocol();
+			MarketingMaterialsTable marketingMatTable = JardineApp.DB
+					.getMarketingMaterials();
+			List<String> eventProtocols = eventTable.getNos();
+			List<String> marketingMats = marketingMatTable.getNos();
+
+			if (eventProtocols != null) {
+				for (String id : eventProtocols) {
+					SyncRequests request = new SyncRequests();
+					List<DocuRelModel> result = request
+							.DocumentRelationships(id);
+					if (result != null) {
+						for (DocuRelModel model : result) {
+							RetrieveRequests retrieve = new RetrieveRequests();
+							List<DocumentModel> data = retrieve.Document(model
+									.getNotesid());
+							if (data != null) {
+								for (DocumentModel mod : data) {
+									table.insert(mod.getNoteNo(),
+											mod.getNotesTitle(),
+											Modules.EventProtocol,
+											mod.getNoteNo(), mod.getFilename(),
+											mod.getFileType(),
+											mod.getFilePath(), 1,
+											mod.getCreatedTime(),
+											mod.getModifiedTime(), USER_ID);
+								}
+							}
+						}
 					}
 				}
 			}
 
-			if (deleted != null) {
-				int num = table.deleteByCrmNo(deleted
-						.toArray(new String[deleted.size()]));
-				Log.d(TAG, num + " records deleted");
+			if (marketingMats != null) {
+				for (String id : marketingMats) {
+					SyncRequests request = new SyncRequests();
+					List<DocuRelModel> result = request
+							.DocumentRelationships(id);
+					if (result != null) {
+						for (DocuRelModel model : result) {
+							RetrieveRequests retrieve = new RetrieveRequests();
+							List<DocumentModel> data = retrieve.Document(model
+									.getNotesid());
+							if (data != null) {
+								for (DocumentModel mod : data) {
+									table.insert(mod.getNoteNo(),
+											mod.getNotesTitle(),
+											Modules.MarketingMaterials,
+											mod.getNoteNo(), mod.getFilename(),
+											mod.getFileType(),
+											mod.getFilePath(), 1,
+											mod.getCreatedTime(),
+											mod.getModifiedTime(), USER_ID);
+								}
+							}
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncFilesTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncFilesTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Files");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+
+			if (table != null) {
+				List<DocumentRecord> records = table.getAllRecords();
+				if (records != null) {
+					for (DocumentRecord record : records) {
+						RetrieveRequests request = new RetrieveRequests();
+						request.DownloadFile(record.getFilePath(),
+								record.getModuleName(), record.getFileName());
+					}
+				}
 			}
 
 			return true;

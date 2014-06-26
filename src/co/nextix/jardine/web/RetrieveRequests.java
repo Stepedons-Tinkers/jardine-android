@@ -1,7 +1,11 @@
 package co.nextix.jardine.web;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -10,12 +14,14 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
@@ -28,6 +34,7 @@ import co.nextix.jardine.web.models.CompetitorProductModel;
 import co.nextix.jardine.web.models.CompetitorProductStockCheckModel;
 import co.nextix.jardine.web.models.CustomerContactModel;
 import co.nextix.jardine.web.models.CustomerModel;
+import co.nextix.jardine.web.models.DocumentModel;
 import co.nextix.jardine.web.models.EventProtocolModel;
 import co.nextix.jardine.web.models.JDImerchandisingCheckModel;
 import co.nextix.jardine.web.models.JDIproductStockCheckModel;
@@ -40,6 +47,7 @@ import co.nextix.jardine.web.models.SMRtimeCardModel;
 import co.nextix.jardine.web.models.SupplierModel;
 import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
+import co.nextix.jardine.web.requesters.DocumentRequester;
 import co.nextix.jardine.web.requesters.RetrieveRequester;
 import co.nextix.jardine.web.requesters.RetrieveRequester.Result;
 
@@ -1122,6 +1130,153 @@ public class RetrieveRequests {
 		}
 
 		return model;
+	}
+
+	public List<DocumentModel> Document(String id) {
+
+		List<DocumentModel> model = null;
+		JSONArray jsonArray = new JSONArray();
+		try {
+			// for (int x = 0; x < ids.length; x++) {
+			jsonArray.put(0, id);
+			// }
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.Document + "&sessionName=" + JardineApp.SESSION_NAME
+				+ "&ids=" + jsonArray.toString() + "&operation=" + operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DocumentRequester>() {
+				}.getType();
+				DocumentRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				model = (List<DocumentModel>) requester.getResult()
+						.getDetails();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public boolean DownloadFile(String UrlPath, String moduleName,
+			String fileName) {
+
+		boolean result = false;
+
+		File file = new File(JardineApp.JARDINE_DIRECTORY + "/" + moduleName
+				+ "/" + fileName);
+		File fPath = new File(JardineApp.JARDINE_DIRECTORY + "/" + moduleName);
+
+		// create directory path if needed
+		if (!fPath.exists())
+			fPath.mkdirs();
+		// if (!fPriorities.exists())
+		// fPriorities.mkdirs();
+		// if (!fPath.exists())
+		// fPath.mkdirs();
+
+		long startTime = System.currentTimeMillis();
+		Log.w(JardineApp.TAG, "file download beginning: " + UrlPath);
+
+		if (!file.exists()) {
+			URL url = null;
+			try {
+				url = new URL(UrlPath);
+			} catch (MalformedURLException e) {
+				e.printStackTrace();
+			}
+
+			// Open a connection to that URL.
+			URLConnection ucon = null;
+
+			// Define InputStreams to read from the URLConnection.
+			// uses 3KB download buffer
+			InputStream is = null;
+
+			try {
+
+				ucon = url.openConnection();
+
+				// this timeout affects how long it takes for the app to realize
+				// there's
+				// a connection problem
+				// ucon.setReadTimeout(TIMEOUT_CONNECTION);
+				// ucon.setConnectTimeout(TIMEOUT_SOCKET);
+
+				is = ucon.getInputStream();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+
+			byte[] buff = new byte[1024];
+			BufferedInputStream inStream = new BufferedInputStream(is,
+					100657 * 1000);
+			FileOutputStream outStream = null;
+			try {
+
+				outStream = new FileOutputStream(file);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+
+			// Read bytes (and store them) until there is nothing more to
+			// read(-1)
+			// int len;
+			try {
+				// while ((len = inStream.read(buff)) != -1) {
+				// outStream.write(buff, 0, len);
+				// }
+
+				int len1 = 0;
+				while ((len1 = inStream.read(buff)) > 0) {
+					outStream.write(buff, 0, len1);
+				}
+
+				// clean up
+				outStream.flush();
+				outStream.close();
+				inStream.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+		if (file.length() > 0)
+			result = true;
+
+		Log.e(JardineApp.TAG,
+				"download completed in "
+						+ ((System.currentTimeMillis() - startTime) / 1000)
+						+ " sec. length: " + file.length());
+
+		return result;
 	}
 
 	/**********************************************************/

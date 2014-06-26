@@ -3,6 +3,7 @@ package co.nextix.jardine.collaterals;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import android.os.Bundle;
@@ -56,7 +57,11 @@ public class CollateralsGeneralInformation extends Fragment {
 		desc.setText(record.getDescription());
 		lastUpdate.setText(record.getLastUpdate());
 		tags.setText(record.getTags());
-		eventType.setText(record.getEventType() + "");
+
+		PicklistRecord rec = JardineApp.DB.getEventProtocolType().getById(
+				record.getEventType());
+		eventType.setText(rec.getName());
+
 		isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
 		createdTime.setText(record.getCreatedTime());
 		modifiedTime.setText(record.getModifiedTime());

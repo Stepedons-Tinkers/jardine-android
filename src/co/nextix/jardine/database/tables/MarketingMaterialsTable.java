@@ -57,7 +57,7 @@ public class MarketingMaterialsTable {
 	// Private methods
 	// ===========================================================
 
-	private List<MarketingMaterialsRecord> getAllRecords() {
+	public List<MarketingMaterialsRecord> getAllRecords() {
 		Cursor c = null;
 		List<MarketingMaterialsRecord> list = new ArrayList<MarketingMaterialsRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -128,6 +128,28 @@ public class MarketingMaterialsTable {
 
 					list.add(new MarketingMaterialsRecord(id, no, description,
 							lastUpdate, tags, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<String> getNos() {
+		Cursor c = null;
+		List<String> list = new ArrayList<String>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					String no = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+
+					list.add(no);
 				} while (c.moveToNext());
 			}
 		} finally {

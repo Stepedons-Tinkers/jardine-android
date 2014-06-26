@@ -124,10 +124,17 @@ public class WorkPlanFragmentActivities extends Fragment implements OnClickListe
 
 	private void setView() {
 
+<<<<<<< HEAD
 		// AdapterCollateralsEventProtocols adapter = new
 		// AdapterCollateralsEventProtocols(getActivity(),
 		// R.layout.collaterals_event_protocol_row, tempRecord);
 		// list.setAdapter(adapter);
+=======
+		AdapterWorkplanActivity adapter = new AdapterWorkplanActivity(
+				getActivity(), R.layout.collaterals_event_protocol_row,
+				tempRecord);
+		list.setAdapter(adapter);
+>>>>>>> b197251d1ba7c8cdbd57171493e5076dfcca4941
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
