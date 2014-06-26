@@ -50,8 +50,8 @@ public class CustomerContactModel {
 	@SerializedName("z_cuc_daysunchanged")
 	private String daysunchanged;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xccpersonid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -145,11 +145,11 @@ public class CustomerContactModel {
 		this.daysunchanged = daysunchanged;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

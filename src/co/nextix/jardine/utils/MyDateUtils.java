@@ -48,9 +48,11 @@ public class MyDateUtils {
 	}
 
 	public static String getYesterday() {
-		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Calendar cal = Calendar.getInstance();
-		cal.add(Calendar.DATE, -1);
-		return dateFormat.format(cal.getTime());
+//		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//		Calendar cal = Calendar.getInstance();
+//		cal.add(Calendar.DATE, -1);
+//		return dateFormat.format(cal.getTime());
+		
+		return "2000-09-27 09:00:00";
 	}
 }

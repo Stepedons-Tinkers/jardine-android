@@ -735,7 +735,7 @@ public class SyncRequests {
 		}
 
 		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.ActivityType + "&sessionName="
+				+ Modules.WorkplanEntry + "&sessionName="
 				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
 				+ "&operation=" + operation;
 
@@ -1092,7 +1092,7 @@ public class SyncRequests {
 		}
 
 		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.BusinessUnit + "&sessionName="
+				+ Modules.Document + "&sessionName="
 				+ JardineApp.SESSION_NAME + "&query=" + query + "&operation="
 				+ "querypicklist";
 

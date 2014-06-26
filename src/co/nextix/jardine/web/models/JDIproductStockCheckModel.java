@@ -34,8 +34,8 @@ public class JDIproductStockCheckModel {
 	@SerializedName("z_jps_supplier")
 	private String supplier;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xjdiproductstockcheckid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -97,11 +97,11 @@ public class JDIproductStockCheckModel {
 		this.supplier = supplier;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

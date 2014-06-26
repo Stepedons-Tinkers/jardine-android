@@ -206,12 +206,12 @@ public class DatabaseAdapter {
 	// JDI Product Stock Check
 	private final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "customer_name";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCT = "chain_name";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "landline";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "customer_size";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "customer_record_status";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "customer_type";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCT = "product";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_USER = "user";
@@ -383,9 +383,9 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_CUSTOMER = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s real,%s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_EVENT_PROTOCOL = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s real, %s integer, %s integer, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_MARKETING_INTEL = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_MARKETING_INTEL = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PROJECT_REQUIREMENT = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text, %s text %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PROJECT_REQUIREMENT = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SMR = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SMR_TIMECARD = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SUPPLIER = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
@@ -1036,16 +1036,30 @@ public class DatabaseAdapter {
 					KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER, SUPPLIER_TABLE,
 					KEY_SUPPLIER_ROWID, KEY_JDIPRODUCTSTOCKCHECK_USER,
 					USER_TABLE, KEY_USER_ROWID);
-			String marketingIntel = String.format(TABLE_CREATE_MARKETING_INTEL,
-					MARKETING_INTEL_TABLE, KEY_MARKETINGINTEL_ROWID,
-					KEY_MARKETINGINTEL_NO, KEY_MARKETINGINTEL_ACTIVITY,
-					KEY_MARKETINGINTEL_COMPETITOR, KEY_MARKETINGINTEL_DETAILS,
-					KEY_MARKETINGINTEL_REMARKS, KEY_MARKETINGINTEL_CREATEDTIME,
-					KEY_MARKETINGINTEL_MODIFIEDTIME, KEY_MARKETINGINTEL_USER,
-					KEY_MARKETINGINTEL_ACTIVITY, ACTIVITY_TABLE,
-					KEY_ACTIVITYTYPE_ROWID, KEY_MARKETINGINTEL_COMPETITOR,
-					COMPETITOR_TABLE, KEY_COMPETITOR_ROWID,
-					KEY_MARKETINGINTEL_USER, USER_TABLE, KEY_USER_ROWID);
+			 String marketingIntel =
+			 String.format(TABLE_CREATE_MARKETING_INTEL,
+			 MARKETING_INTEL_TABLE, KEY_MARKETINGINTEL_ROWID,
+			 KEY_MARKETINGINTEL_NO, KEY_MARKETINGINTEL_ACTIVITY,
+			 KEY_MARKETINGINTEL_COMPETITOR, KEY_MARKETINGINTEL_DETAILS,
+			 KEY_MARKETINGINTEL_REMARKS, KEY_MARKETINGINTEL_CREATEDTIME,
+			 KEY_MARKETINGINTEL_MODIFIEDTIME, KEY_MARKETINGINTEL_USER,
+			 KEY_MARKETINGINTEL_ACTIVITY, ACTIVITY_TABLE,
+			 KEY_ACTIVITYTYPE_ROWID, KEY_MARKETINGINTEL_COMPETITOR,
+			 COMPETITOR_TABLE, KEY_COMPETITOR_ROWID,
+			 KEY_MARKETINGINTEL_USER, USER_TABLE, KEY_USER_ROWID);
+//			String marketingIntel = "create table "
+//					+ MARKETING_INTEL_TABLE
+//					+ " ("
+//					+ KEY_MARKETINGINTEL_ROWID
+//					+ " integer primary key autoincrement, "
+//					+ KEY_MARKETINGINTEL_NO
+//					+ " text , "
+//					+ KEY_MARKETINGINTEL_ACTIVITY
+//					+ " real, "
+//					+ KEY_MARKETINGINTEL_COMPETITOR
+//					+ " real, "
+//					+ KEY_MARKETINGINTEL_DETAILS
+//					+ " text, "+KEY_MARKETINGINTEL_REMARKS+" text %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 			String product = String.format(TABLE_CREATE_PRODUCT, PRODUCT_TABLE,
 					KEY_PRODUCT_ROWID, KEY_PRODUCT_NO, KEY_PRODUCT_NUMBER,
 					KEY_PRODUCT_BRAND, KEY_PRODUCT_DESCRIPTION,

@@ -1132,22 +1132,22 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public List<DocumentModel> Document(String id) {
+	public DocumentModel Document(String id) {
 
-		List<DocumentModel> model = null;
-		JSONArray jsonArray = new JSONArray();
-		try {
-			// for (int x = 0; x < ids.length; x++) {
-			jsonArray.put(0, id);
-			// }
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}
+		DocumentModel model = null;
+		// JSONArray jsonArray = new JSONArray();
+		// try {
+		// // for (int x = 0; x < ids.length; x++) {
+		// jsonArray.put(0, id);
+		// // }
+		// } catch (JSONException e) {
+		// e.printStackTrace();
+		// }
 
-		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.Document + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&ids=" + jsonArray.toString() + "&operation=" + operation;
-
+		String urlString = JardineApp.WEB_URL + "?elementType=" + "Documents"
+				+ "&sessionName=" + JardineApp.SESSION_NAME + "&ids={\"0\":"
+				+ id + "}&operation=" + operation;
+		// {"0":487}
 		URL url;
 		try {
 
@@ -1166,7 +1166,7 @@ public class RetrieveRequests {
 				}.getType();
 				DocumentRequester requester = gson.fromJson(getReader(),
 						typeOfT);
-				model = (List<DocumentModel>) requester.getResult()
+				model = (DocumentModel) requester.getResult().get(0)
 						.getDetails();
 
 			} else {

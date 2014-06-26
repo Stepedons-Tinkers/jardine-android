@@ -29,8 +29,8 @@ public class SMRModel {
 	@SerializedName("z_smr_isactv")
 	private String isactv;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xsmrid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -84,11 +84,11 @@ public class SMRModel {
 		this.isactv = isActive;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

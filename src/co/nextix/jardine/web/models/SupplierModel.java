@@ -41,8 +41,8 @@ public class SupplierModel {
 	@SerializedName("z_sup_isactive")
 	private String isactive;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xsupplierid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -120,11 +120,11 @@ public class SupplierModel {
 		this.isactive = isActive;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

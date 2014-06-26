@@ -30,8 +30,8 @@ public class CompetitorProductStockCheckModel {
 	@SerializedName("z_cps_loadedonshelves")
 	private String loadedonshelves;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xcompprodstockcheckid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -85,11 +85,11 @@ public class CompetitorProductStockCheckModel {
 		this.loadedonshelves = loadedonshelves;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

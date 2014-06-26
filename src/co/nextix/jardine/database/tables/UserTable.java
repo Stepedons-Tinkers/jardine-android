@@ -347,7 +347,7 @@ public class UserTable {
 
 	public boolean updateUser(long id, String no, String username,
 			String password, String email, String lastname, String middlename,
-			String firstname, int loggedin, String lastSync) {
+			String firstname, int loggedin) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_USER_NO, no);
 		args.put(KEY_USER_USERNAME, username);
@@ -357,7 +357,6 @@ public class UserTable {
 		args.put(KEY_USER_MIDDLENAME, middlename);
 		args.put(KEY_USER_FIRSTNAME, firstname);
 		args.put(KEY_USER_LOGGEDIN, loggedin);
-		args.put(KEY_USER_LASTSYNC, lastSync);
 		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, username, password, email, lastname,
 			// middlename, firstname, loggedin, lastSync);
@@ -370,6 +369,17 @@ public class UserTable {
 	public boolean updateLogStatus(long id, int loggedin) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_USER_LOGGEDIN, loggedin);
+		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
+			// getRecords().updateLogStat(id, loggedin);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateLastsync(long id, String lastSync) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_USER_LASTSYNC, lastSync);
 		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
 			// getRecords().updateLogStat(id, loggedin);
 			return true;

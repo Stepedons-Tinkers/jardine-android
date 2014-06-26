@@ -686,6 +686,7 @@ public class ActivityTable {
 		initialValues.put(KEY_ACTIVITY_ENDTIME, endTime);
 		initialValues.put(KEY_ACTIVITY_LONGITUDE, longitude);
 		initialValues.put(KEY_ACTIVITY_LATITUDE, latitude);
+		initialValues.put(KEY_ACTIVITY_WORKPLAN, workplan);
 		initialValues.put(KEY_ACTIVITY_OBJECTIVE, objectives);
 		initialValues.put(KEY_ACTIVITY_NOTES, notes);
 		initialValues.put(KEY_ACTIVITY_HIGHLIGHTS, highlights);

@@ -69,8 +69,8 @@ public class CustomerModel {
 	@SerializedName("z_cu_customerrecstat")
 	private String customerrecstat;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xcustomersid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -204,11 +204,11 @@ public class CustomerModel {
 		this.customerrecstat = customerrecstat;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

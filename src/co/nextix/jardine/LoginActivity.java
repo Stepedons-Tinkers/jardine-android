@@ -38,8 +38,10 @@ public class LoginActivity extends Activity {
 
 		if (StoreAccount.exists(getApplicationContext())) {
 			finish();
-			startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
-			overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+			startActivity(new Intent(getApplicationContext(),
+					DashBoardActivity.class));
+			overridePendingTransition(R.anim.slide_in_left,
+					R.anim.slide_out_left);
 		}
 	}
 
@@ -52,7 +54,9 @@ public class LoginActivity extends Activity {
 		 */
 
 		else
-			Toast.makeText(getApplicationContext(), "Please check internet connection", Toast.LENGTH_LONG).show();
+			Toast.makeText(getApplicationContext(),
+					"Please check internet connection", Toast.LENGTH_LONG)
+					.show();
 
 		// startActivity(new Intent(getApplicationContext(),
 		// DashBoardActivity.class));
@@ -79,24 +83,38 @@ public class LoginActivity extends Activity {
 		protected Boolean doInBackground(Void... arg0) {
 			try {
 				LogRequests log = new LogRequests();
-				LoginModel model = log.login(editUsername.getText().toString(), editPassword.getText().toString());
+				LoginModel model = log.login(editUsername.getText().toString(),
+						editPassword.getText().toString());
 				if (model != null) {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
 					JardineApp.SESSION_NAME = model.getSessionName();
 					UserTable userTable = JardineApp.DB.getUser();
 					if (!userTable.isExisting(model.getUserId())) {
-						rowid = userTable.insertUser(model.getUserId(), editUsername.getText().toString(), editPassword.getText()
-								.toString(), "", "", "", "", 1, 1, MyDateUtils.getCurrentTimeStamp(), MyDateUtils.getCurrentTimeStamp());
+						rowid = userTable.insertUser(model.getUserId(),
+								editUsername.getText().toString(), editPassword
+										.getText().toString(), model
+										.getDetails().getEmail(), model
+										.getDetails().getLastName(), "", model
+										.getDetails().getFirstName(), 1, 1,
+								MyDateUtils.getCurrentTimeStamp(), MyDateUtils
+										.getCurrentTimeStamp());
 					} else {
 						// rowid = Long.parseLong(StoreAccount.restore(
 						// getApplicationContext()).getString(
 						// Account.ROWID));
 						rowid = userTable.getByWebId(model.getUserId()).getId();
 						userTable.updateLogStatus(rowid, 1);
+						userTable.updateUser(rowid, model.getUserId(), model
+								.getDetails().getUserName(), editPassword
+								.getText().toString(), model.getDetails()
+								.getEmail(), model.getDetails().getLastName(),
+								"", model.getDetails().getFirstName(), 1);
 					}
-					StoreAccount.save(getApplicationContext(), editUsername.getText().toString(), editPassword.getText().toString(),
-							model.getUserId(), String.valueOf(rowid), model.getSessionName());
+					StoreAccount.save(getApplicationContext(), editUsername
+							.getText().toString(), editPassword.getText()
+							.toString(), model.getUserId(), String
+							.valueOf(rowid), model.getSessionName());
 					// RetrieveRequests retrieve = new RetrieveRequests();
 					// models = retrieve.Workplan(new String[] { "422", "432"
 					// });
@@ -116,15 +134,18 @@ public class LoginActivity extends Activity {
 			dialog.dismiss();
 			if (result) {
 				finish();
-				startActivity(new Intent(getApplicationContext(), DashBoardActivity.class));
-				overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
+				startActivity(new Intent(getApplicationContext(),
+						DashBoardActivity.class));
+				overridePendingTransition(R.anim.slide_in_left,
+						R.anim.slide_out_left);
 				// if (models != null)
 				// Toast.makeText(getApplicationContext(),
 				// "Workplan: " + models.get(0).getCrmNo(),
 				// Toast.LENGTH_LONG).show();
 
 			} else {
-				Toast.makeText(getApplicationContext(), "Invalid credentials", Toast.LENGTH_SHORT).show();
+				Toast.makeText(getApplicationContext(), "Invalid credentials",
+						Toast.LENGTH_SHORT).show();
 			}
 		}
 	}

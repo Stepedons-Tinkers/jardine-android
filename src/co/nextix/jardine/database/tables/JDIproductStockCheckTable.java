@@ -21,12 +21,12 @@ public class JDIproductStockCheckTable {
 
 	private final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "customer_name";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCT = "chain_name";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "landline";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "customer_size";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "customer_record_status";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "customer_type";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCT = "product";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_USER = "user";

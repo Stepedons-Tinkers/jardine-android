@@ -26,8 +26,8 @@ public class JDImerchandisingCheckModel {
 	@SerializedName("z_jmc_status")
 	private String status;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xjdimerchcheckid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -73,11 +73,11 @@ public class JDImerchandisingCheckModel {
 		this.status = status;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

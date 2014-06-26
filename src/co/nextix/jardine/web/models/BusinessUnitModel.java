@@ -26,8 +26,8 @@ public class BusinessUnitModel {
 	@SerializedName("z_bu_businessunitcode")
 	private String code;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xbusinessunitid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -73,11 +73,11 @@ public class BusinessUnitModel {
 		this.code = code;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

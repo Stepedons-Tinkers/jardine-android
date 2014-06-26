@@ -40,7 +40,7 @@ public class DocumentRequester {
 	private String success;
 
 	@SerializedName("result")
-	private Result result;
+	private List<Result> result;
 
 	public String getSuccess() {
 		return this.success;
@@ -50,27 +50,27 @@ public class DocumentRequester {
 		this.success = success;
 	}
 
-	public Result getResult() {
+	public List<Result> getResult() {
 		return this.result;
 	}
 
-	public void setResult(Result result) {
+	public void setResult(List<Result> result) {
 		this.result = result;
 	}
 
 	public class Result {
 
 		@SerializedName("details")
-		private List<DocumentModel> details;
+		private DocumentModel details;
 
 		@SerializedName("id")
 		private String id;
 
-		public List<DocumentModel> getDetails() {
+		public DocumentModel getDetails() {
 			return this.details;
 		}
 
-		public void setDetails(List<DocumentModel> details) {
+		public void setDetails(DocumentModel details) {
 			this.details = details;
 		}
 

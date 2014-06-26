@@ -24,8 +24,8 @@ public class ProductModel {
 	@SerializedName("z_prd_isactive")
 	private String isactive;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xproductid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -95,11 +95,11 @@ public class ProductModel {
 		this.isactive = isActive;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

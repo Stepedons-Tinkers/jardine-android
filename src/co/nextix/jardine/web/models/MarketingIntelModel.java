@@ -26,8 +26,8 @@ public class MarketingIntelModel {
 	@SerializedName("z_min_details")
 	private String details;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xmarketingintelid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -73,11 +73,11 @@ public class MarketingIntelModel {
 		this.details = details;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

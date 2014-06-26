@@ -49,19 +49,19 @@ public class WorkplanEntryModel {
 	@SerializedName("z_wpe_activityquantity")
 	private String activityquantity;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xworkplanentryid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
 
-	@SerializedName("CreatedTime")
+	@SerializedName("createdtime")
 	private String created_time;
 
-	@SerializedName("ModifiedTime")
+	@SerializedName("modifiedtime")
 	private String modified_time;
 
-	@SerializedName("assigned_user_id")
+	@SerializedName("smownerid")
 	private String user_id;
 
 	public String getCrmNo() {
@@ -144,11 +144,11 @@ public class WorkplanEntryModel {
 		this.activityquantity = activityQuantity;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 

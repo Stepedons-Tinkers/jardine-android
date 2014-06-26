@@ -25,8 +25,8 @@ public class ActivityTypeModel {
 	@SerializedName("z_act_activitytype")
 	private String activitytype;
 
-	@SerializedName("record_id")
-	private long record_id;
+	@SerializedName("xactivitytypeid")
+	private String record_id;
 
 	@SerializedName("record_module")
 	private String record_module;
@@ -72,11 +72,11 @@ public class ActivityTypeModel {
 		this.isactive = isActive;
 	}
 
-	public long getRecordId() {
+	public String getRecordId() {
 		return this.record_id;
 	}
 
-	public void setRecordId(long recordId) {
+	public void setRecordId(String recordId) {
 		this.record_id = recordId;
 	}
 
