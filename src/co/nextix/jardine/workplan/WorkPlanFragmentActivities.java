@@ -22,7 +22,9 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsDetails;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class WorkPlanFragmentActivities extends Fragment implements
@@ -34,8 +36,8 @@ public class WorkPlanFragmentActivities extends Fragment implements
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-	private List<EventProtocolRecord> realRecord;
-	private List<EventProtocolRecord> tempRecord;
+	private List<ActivityRecord> realRecord;
+	private List<ActivityRecord> tempRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
@@ -95,28 +97,18 @@ public class WorkPlanFragmentActivities extends Fragment implements
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
-		realRecord = new ArrayList<EventProtocolRecord>();
-		tempRecord = new ArrayList<EventProtocolRecord>();
+		realRecord = new ArrayList<ActivityRecord>();
+		tempRecord = new ArrayList<ActivityRecord>();
 
-		for (int i = 1; i <= 37; i++) {
-			EventProtocolRecord rec = new EventProtocolRecord();
-			rec.setNo("EVP00" + i);
-			rec.setDescription("Description " + i);
-			rec.setEventType(i);
-			if (i % 2 == 0) {
-				rec.setIsActive(1);
-			} else {
-				rec.setIsActive(0);
-			}
-
-			realRecord.add(rec);
-		}
+		ActivityTable table = JardineApp.DB.getActivity();
+		realRecord.addAll(table
+				.getAllRecordsByWorkEntry(WorkPlanConstants.WORKPLAN_ID));
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					EventProtocolRecord rec = new EventProtocolRecord();
+					ActivityRecord rec = new ActivityRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -142,9 +134,9 @@ public class WorkPlanFragmentActivities extends Fragment implements
 
 	private void setView() {
 
-		AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
-				getActivity(), R.layout.collaterals_event_protocol_row,
-				tempRecord);
+//		AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
+//				getActivity(), R.layout.collaterals_event_protocol_row,
+//				tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

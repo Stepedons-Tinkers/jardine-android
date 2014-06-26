@@ -64,7 +64,8 @@
                 android:paddingLeft="5dp"
                 android:paddingRight="5dp"
                 android:paddingTop="2dp"
-                android:textSize="14sp" />
+                android:textSize="14sp"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/llWorkPlan0.5"

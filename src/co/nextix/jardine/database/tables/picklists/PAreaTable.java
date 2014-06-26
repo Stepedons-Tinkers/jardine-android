@@ -180,7 +180,7 @@ public class PAreaTable {
 		return result;
 	}
 
-	public PicklistRecord getById(int ID) {
+	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_AREA_ROWID + "=?";
