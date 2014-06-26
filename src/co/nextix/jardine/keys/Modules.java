@@ -23,6 +23,8 @@ public class Modules {
 	public static String CompetitorProductStockCheck = "XCompProdStockCheck";
 	public static String MarketingIntel = "XMarketingIntel";
 	public static String ProjectRequirement = "XProjectRequirement";
+	
+	public static String Document = "XDocuments";
 
 	public static String smrtimecard_entry = "z_stc_picklist";
 	public static String customer_size = "z_cu_customersize";
