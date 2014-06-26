@@ -113,6 +113,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			}
 		});
 
+		// Checking of the data gathered
 		if (data.size() <= 0) {
 			holder.status.setVisibility(View.VISIBLE);
 

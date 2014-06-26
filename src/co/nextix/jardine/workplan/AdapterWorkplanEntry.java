@@ -2,9 +2,6 @@ package co.nextix.jardine.workplan;
 
 import java.util.List;
 
-import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.EventProtocolRecord;
-import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -13,6 +10,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
+import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
 
 public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 

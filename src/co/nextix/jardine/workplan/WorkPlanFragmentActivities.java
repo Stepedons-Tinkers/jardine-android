@@ -20,7 +20,6 @@ import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
@@ -124,17 +123,13 @@ public class WorkPlanFragmentActivities extends Fragment implements OnClickListe
 
 	private void setView() {
 
-<<<<<<< HEAD
 		// AdapterCollateralsEventProtocols adapter = new
 		// AdapterCollateralsEventProtocols(getActivity(),
 		// R.layout.collaterals_event_protocol_row, tempRecord);
 		// list.setAdapter(adapter);
-=======
-		AdapterWorkplanActivity adapter = new AdapterWorkplanActivity(
-				getActivity(), R.layout.collaterals_event_protocol_row,
-				tempRecord);
+
+		AdapterWorkplanActivity adapter = new AdapterWorkplanActivity(getActivity(), R.layout.collaterals_event_protocol_row, tempRecord);
 		list.setAdapter(adapter);
->>>>>>> b197251d1ba7c8cdbd57171493e5076dfcca4941
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
