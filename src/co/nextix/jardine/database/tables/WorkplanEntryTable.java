@@ -37,7 +37,7 @@ public class WorkplanEntryTable {
 	// Private fields
 	// ===========================================================
 
-//	private WorkplanEntryCollection workplanEntryCollection;
+	// private WorkplanEntryCollection workplanEntryCollection;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -67,6 +67,58 @@ public class WorkplanEntryTable {
 		Cursor c = null;
 		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_NO));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
+					String date = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_DATE));
+					long status = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_STATUS));
+					long area = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_AREA));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_PROVINCE));
+					long cityTown = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CITYTOWN));
+					String remarks = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_REMARKS));
+					long activityType = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+					long workplan = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_USER));
+
+					list.add(new WorkplanEntryRecord(id, no, customer, date,
+							status, area, province, cityTown, remarks,
+							activityType, workplan, createdTime, modifiedTime,
+							user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<WorkplanEntryRecord> getRecordsByWorkplanNo(String workplanNo) {
+		Cursor c = null;
+		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_WORKPLANENTRY_NO + " = '" + workplanNo + "'";
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
@@ -282,7 +334,7 @@ public class WorkplanEntryTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-//		WorkplanEntryCollection collection = getRecords();
+		// WorkplanEntryCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -302,9 +354,9 @@ public class WorkplanEntryTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-//			collection.add(ids, no, customer, date, status, area, province,
-//					cityTown, remarks, activityType, workplan, createdTime,
-//					modifiedTime, user);
+			// collection.add(ids, no, customer, date, status, area, province,
+			// cityTown, remarks, activityType, workplan, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -315,7 +367,7 @@ public class WorkplanEntryTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_WORKPLANENTRY_ROWID + "=" + rowId,
 				null) > 0) {
-//			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
@@ -342,9 +394,10 @@ public class WorkplanEntryTable {
 		args.put(KEY_WORKPLANENTRY_USER, user);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_WORKPLANENTRY_ROWID + "=" + id, null) > 0) {
-//			getRecords().update(id, no, customer, date, status, area, province,
-//					cityTown, remarks, activityType, workplan, createdTime,
-//					modifiedTime, user);
+			// getRecords().update(id, no, customer, date, status, area,
+			// province,
+			// cityTown, remarks, activityType, workplan, createdTime,
+			// modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -355,7 +408,7 @@ public class WorkplanEntryTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-//			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -369,104 +422,105 @@ public class WorkplanEntryTable {
 	// Collection
 	// ===========================================================
 
-//	public WorkplanEntryCollection getRecords() {
-//		if (workplanEntryCollection == null) {
-//			workplanEntryCollection = new WorkplanEntryCollection();
-//			workplanEntryCollection.list = getAllRecords();
-//		}
-//		return workplanEntryCollection;
-//	}
-//
-//	public final class WorkplanEntryCollection implements
-//			Iterable<WorkplanEntryRecord> {
-//
-//		private List<WorkplanEntryRecord> list;
-//
-//		private WorkplanEntryCollection() {
-//		}
-//
-//		public int size() {
-//			return list.size();
-//		}
-//
-//		public WorkplanEntryRecord get(int i) {
-//			return list.get(i);
-//		}
-//
-//		public WorkplanEntryRecord getById(long id) {
-//			for (WorkplanEntryRecord record : list) {
-//				if (record.getId() == id) {
-//					return record;
-//				}
-//			}
-//			return null;
-//		}
-//
-//		private void add(long id, String no, long customer, String date,
-//				long status, long area, long province, long cityTown,
-//				String remarks, long activityType, long workplan,
-//				String createdTime, String modifiedTime, long user) {
-//			list.add(new WorkplanEntryRecord(id, no, customer, date, status,
-//					area, province, cityTown, remarks, activityType, workplan,
-//					createdTime, modifiedTime, user));
-//		}
-//
-//		private void clear() {
-//			list.clear();
-//		}
-//
-//		private void deleteById(long id) {
-//			list.remove(getById(id));
-//		}
-//
-//		private void update(long id, String no, long customer, String date,
-//				long status, long area, long province, long cityTown,
-//				String remarks, long activityType, long workplan,
-//				String createdTime, String modifiedTime, long user) {
-//			WorkplanEntryRecord record = getById(id);
-//			record.setNo(no);
-//			record.setCustomer(customer);
-//			record.setDate(date);
-//			record.setStatus(status);
-//			record.setArea(area);
-//			record.setProvince(province);
-//			record.setCityTown(cityTown);
-//			record.setRemarks(remarks);
-//			record.setActivityType(activityType);
-//			record.setWorkplan(workplan);
-//			record.setCreatedTime(createdTime);
-//			record.setModifiedTime(modifiedTime);
-//			record.setUser(user);
-//		}
-//
-//		@Override
-//		public Iterator<WorkplanEntryRecord> iterator() {
-//			Iterator<WorkplanEntryRecord> iter = new Iterator<WorkplanEntryRecord>() {
-//				private int current = 0;
-//
-//				@Override
-//				public void remove() {
-//					if (list.size() > 0) {
-//						deleteUser(list.get(current).getId());
-//						deleteById(list.get(current).getId());
-//						list.remove(current);
-//					}
-//				}
-//
-//				@Override
-//				public WorkplanEntryRecord next() {
-//					if (list.size() > 0) {
-//						return list.get(current++);
-//					}
-//					return null;
-//				}
-//
-//				@Override
-//				public boolean hasNext() {
-//					return list.size() > 0 && current < list.size();
-//				}
-//			};
-//			return iter;
-//		}
-//	}
+	// public WorkplanEntryCollection getRecords() {
+	// if (workplanEntryCollection == null) {
+	// workplanEntryCollection = new WorkplanEntryCollection();
+	// workplanEntryCollection.list = getAllRecords();
+	// }
+	// return workplanEntryCollection;
+	// }
+	//
+	// public final class WorkplanEntryCollection implements
+	// Iterable<WorkplanEntryRecord> {
+	//
+	// private List<WorkplanEntryRecord> list;
+	//
+	// private WorkplanEntryCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public WorkplanEntryRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public WorkplanEntryRecord getById(long id) {
+	// for (WorkplanEntryRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, long customer, String date,
+	// long status, long area, long province, long cityTown,
+	// String remarks, long activityType, long workplan,
+	// String createdTime, String modifiedTime, long user) {
+	// list.add(new WorkplanEntryRecord(id, no, customer, date, status,
+	// area, province, cityTown, remarks, activityType, workplan,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, long customer, String date,
+	// long status, long area, long province, long cityTown,
+	// String remarks, long activityType, long workplan,
+	// String createdTime, String modifiedTime, long user) {
+	// WorkplanEntryRecord record = getById(id);
+	// record.setNo(no);
+	// record.setCustomer(customer);
+	// record.setDate(date);
+	// record.setStatus(status);
+	// record.setArea(area);
+	// record.setProvince(province);
+	// record.setCityTown(cityTown);
+	// record.setRemarks(remarks);
+	// record.setActivityType(activityType);
+	// record.setWorkplan(workplan);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<WorkplanEntryRecord> iterator() {
+	// Iterator<WorkplanEntryRecord> iter = new Iterator<WorkplanEntryRecord>()
+	// {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// deleteUser(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public WorkplanEntryRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }
