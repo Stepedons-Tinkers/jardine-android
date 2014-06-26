@@ -13,6 +13,7 @@ import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CompetitorTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
+import co.nextix.jardine.database.tables.DocumentTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -353,6 +354,20 @@ public class DatabaseAdapter {
 	private final String KEY_CITYTOWN_NAME = "name";
 	private final String KEY_CITYTOWN_PROVINCE = "province";
 
+	// Documents
+	private final String KEY_DOCUMENT_ROWID = "_id";
+	private final String KEY_DOCUMENT_NO = "no";
+	private final String KEY_DOCUMENT_TITLE = "title";
+	private final String KEY_DOCUMENT_MODULENAME = "module_name";
+	private final String KEY_DOCUMENT_MODULEID = "module_id";
+	private final String KEY_DOCUMENT_FILENAME = "file_name";
+	private final String KEY_DOCUMENT_FILETYPE = "file_type";
+	private final String KEY_DOCUMENT_FILEPATH = "file_path";
+	private final String KEY_DOCUMENT_ISACTIVE = "is_active";
+	private final String KEY_DOCUMENT_CREATEDTIME = "created_time";
+	private final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
+	private final String KEY_DOCUMENT_USER = "user";
+
 	// ===========================================================
 	// Table Create String
 	// ===========================================================
@@ -380,6 +395,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text , %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
+	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 
 	// ===========================================================
 	// Public static field
@@ -406,6 +422,7 @@ public class DatabaseAdapter {
 	public static final String WORKPLAN_TABLE = "Workplan";
 	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
 	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
+	public static final String DOCUMENT_TABLE = "Document";
 
 	// Picklists
 	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
@@ -456,6 +473,7 @@ public class DatabaseAdapter {
 	private WorkplanTable mWorkplan;
 	private MarketingMaterialsTable mMarketingMaterials;
 	private JDImerchandisingCheckTable mJDImerchandisingCheck;
+	private DocumentTable mDocument;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -673,6 +691,13 @@ public class DatabaseAdapter {
 					JDI_MERCHANDISING_CHECK_TABLE);
 		}
 		return mJDImerchandisingCheck;
+	}
+
+	public DocumentTable getDocument() {
+		if (mDocument == null) {
+			mDocument = new DocumentTable(mDb, DOCUMENT_TABLE);
+		}
+		return mDocument;
 	}
 
 	// Picklists
@@ -1112,6 +1137,15 @@ public class DatabaseAdapter {
 					KEY_JDIMERCHANDISING_PRODUCT, PRODUCT_TABLE,
 					KEY_PRODUCT_ROWID, KEY_JDIMERCHANDISING_USER, USER_TABLE,
 					KEY_USER_ROWID);
+			String document = String.format(TABLE_CREATE_DOCUMENT,
+					DOCUMENT_TABLE, KEY_DOCUMENT_ROWID, KEY_DOCUMENT_NO,
+					KEY_DOCUMENT_TITLE, KEY_DOCUMENT_MODULENAME,
+					KEY_DOCUMENT_MODULEID, KEY_DOCUMENT_FILENAME,
+					KEY_DOCUMENT_FILETYPE, KEY_DOCUMENT_FILEPATH,
+					KEY_DOCUMENT_ISACTIVE, KEY_DOCUMENT_CREATEDTIME,
+					KEY_DOCUMENT_MODIFIEDTIME, KEY_DOCUMENT_USER,
+					KEY_DOCUMENT_USER, USER_TABLE, KEY_USER_ROWID);
+
 			db.execSQL(user);
 			db.execSQL(activity);
 			db.execSQL(activityType);
@@ -1133,6 +1167,7 @@ public class DatabaseAdapter {
 			db.execSQL(workplan);
 			db.execSQL(marketingMaterials);
 			db.execSQL(jdiMerchandising);
+			db.execSQL(document);
 
 			// Picklists
 
