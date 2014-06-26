@@ -19,9 +19,11 @@ public class DocumentRecord {
 	private long id;
 	private String no;
 	private String title;
-	private String folder_name;
+	private String module_name;
+	private String module_id;
 	private String file_name;
 	private String file_type;
+	private String file_path;
 	private int is_active;
 	private String created_time;
 	private String modified_time;
@@ -34,16 +36,18 @@ public class DocumentRecord {
 	public DocumentRecord() {
 	}
 
-	public DocumentRecord(long id, String no, String title, String folderName,
-			String fileName, String fileType, int isActive, String createdTime,
-			String modifiedTime, long user) {
+	public DocumentRecord(long id, String no, String title, String moduleName,
+			String moduleId, String fileName, String fileType, String filePath,
+			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
 		this.title = title;
-		this.folder_name = folderName;
+		this.module_name = moduleName;
+		this.module_id = moduleId;
 		this.file_name = fileName;
 		this.file_type = fileType;
+		this.file_path = filePath;
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
@@ -74,12 +78,20 @@ public class DocumentRecord {
 		return this.title;
 	}
 
-	public void setFolderName(String folderName) {
-		this.folder_name = folderName;
+	public void setModuleName(String moduleName) {
+		this.module_name = moduleName;
 	}
 
-	public String getFolderName() {
-		return this.folder_name;
+	public String getModuleName() {
+		return this.module_name;
+	}
+
+	public void setModuleId(String moduleId) {
+		this.module_id = moduleId;
+	}
+
+	public String getModuleId() {
+		return this.module_id;
 	}
 
 	public void setFileName(String fileName) {
@@ -96,6 +108,14 @@ public class DocumentRecord {
 
 	public String getFileType() {
 		return this.file_type;
+	}
+	
+	public void setFilePath(String filePath) {
+		this.file_path = filePath;
+	}
+
+	public String getFilePath() {
+		return this.file_path;
 	}
 
 	public void setIsActive(int isActive) {
