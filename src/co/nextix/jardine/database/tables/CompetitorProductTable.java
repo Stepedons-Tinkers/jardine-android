@@ -33,7 +33,7 @@ public class CompetitorProductTable {
 	// Private fields
 	// ===========================================================
 
-//	private CompetitorProductCollection competitorProductRecords;
+	// private CompetitorProductCollection competitorProductRecords;
 	private SQLiteDatabase mDb;
 	private String mDatabaseTable;
 	private DatabaseAdapter mDBAdapter;
@@ -149,6 +149,78 @@ public class CompetitorProductTable {
 		// }
 
 		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_COMPETITORPRODUCT_NO
+				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public List<CompetitorProductRecord> getUnsyncedRecords() {
+		List<CompetitorProductRecord> records = new ArrayList<CompetitorProductRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCT_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
+					long competitor = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
+					String productBrand = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTBRAND));
+					String productDescription = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION));
+					String productSize = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTSIZE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+
+					records.add(new CompetitorProductRecord(id, no, competitor,
+							productBrand, productDescription, productSize,
+							isActive, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return records;
 	}
 
 	public CompetitorProductRecord getById(int ID) {
@@ -288,7 +360,7 @@ public class CompetitorProductTable {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
-//		CompetitorProductCollection collection = getRecords();
+		// CompetitorProductCollection collection = getRecords();
 
 		ContentValues initialValues = new ContentValues();
 
@@ -305,9 +377,9 @@ public class CompetitorProductTable {
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
-//			collection.add(ids, no, competitor, productBrand,
-//					productDescription, productSize, isActive, createdTime,
-//					modifiedTime, user);
+			// collection.add(ids, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -318,14 +390,14 @@ public class CompetitorProductTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ rowId, null) > 0) {
-//			getRecords().deleteById(rowId);
+			// getRecords().deleteById(rowId);
 			return true;
 		} else {
 			return false;
 		}
 	}
 
-	public boolean update(long id, String no, int competitor,
+	public boolean update(long id, String no, long competitor,
 			String productBrand, String productDescription, String productSize,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
@@ -340,9 +412,23 @@ public class CompetitorProductTable {
 		args.put(KEY_COMPETITORPRODUCT_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ id, null) > 0) {
-//			getRecords().update(id, no, competitor, productBrand,
-//					productDescription, productSize, isActive, createdTime,
-//					modifiedTime, user);
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_COMPETITORPRODUCT_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -353,7 +439,7 @@ public class CompetitorProductTable {
 		String MY_QUERY = "DELETE FROM " + mDatabaseTable;
 		try {
 			mDb.execSQL(MY_QUERY);
-//			getRecords().clear();
+			// getRecords().clear();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -367,100 +453,101 @@ public class CompetitorProductTable {
 	// Collection
 	// ===========================================================
 
-//	public CompetitorProductCollection getRecords() {
-//		if (competitorProductRecords == null) {
-//			competitorProductRecords = new CompetitorProductCollection();
-//			competitorProductRecords.list = getAllRecords();
-//		}
-//		return competitorProductRecords;
-//	}
-//
-//	public final class CompetitorProductCollection implements
-//			Iterable<CompetitorProductRecord> {
-//
-//		private List<CompetitorProductRecord> list;
-//
-//		private CompetitorProductCollection() {
-//		}
-//
-//		public int size() {
-//			return list.size();
-//		}
-//
-//		public CompetitorProductRecord get(int i) {
-//			return list.get(i);
-//		}
-//
-//		public CompetitorProductRecord getById(long id) {
-//			for (CompetitorProductRecord record : list) {
-//				if (record.getId() == id) {
-//					return record;
-//				}
-//			}
-//			return null;
-//		}
-//
-//		private void add(long id, String no, long competitor,
-//				String productBrand, String productDescription,
-//				String productSize, int isActive, String createdTime,
-//				String modifiedTime, long user) {
-//			list.add(new CompetitorProductRecord(id, no, competitor,
-//					productBrand, productDescription, productSize, isActive,
-//					createdTime, modifiedTime, user));
-//		}
-//
-//		private void clear() {
-//			list.clear();
-//		}
-//
-//		private void deleteById(long id) {
-//			list.remove(getById(id));
-//		}
-//
-//		private void update(long id, String no, long competitor,
-//				String productBrand, String productDescription,
-//				String productSize, int isActive, String createdTime,
-//				String modifiedTime, long user) {
-//			CompetitorProductRecord record = getById(id);
-//			record.setNo(no);
-//			record.setCompetitor(competitor);
-//			record.setProductBrand(productBrand);
-//			record.setProductDescription(productDescription);
-//			record.setProductSize(productSize);
-//			record.setIsActive(isActive);
-//			record.setCreatedTime(createdTime);
-//			record.setModifiedTime(modifiedTime);
-//			record.setUser(user);
-//		}
-//
-//		@Override
-//		public Iterator<CompetitorProductRecord> iterator() {
-//			Iterator<CompetitorProductRecord> iter = new Iterator<CompetitorProductRecord>() {
-//				private int current = 0;
-//
-//				@Override
-//				public void remove() {
-//					if (list.size() > 0) {
-//						delete(list.get(current).getId());
-//						deleteById(list.get(current).getId());
-//						list.remove(current);
-//					}
-//				}
-//
-//				@Override
-//				public CompetitorProductRecord next() {
-//					if (list.size() > 0) {
-//						return list.get(current++);
-//					}
-//					return null;
-//				}
-//
-//				@Override
-//				public boolean hasNext() {
-//					return list.size() > 0 && current < list.size();
-//				}
-//			};
-//			return iter;
-//		}
-//	}
+	// public CompetitorProductCollection getRecords() {
+	// if (competitorProductRecords == null) {
+	// competitorProductRecords = new CompetitorProductCollection();
+	// competitorProductRecords.list = getAllRecords();
+	// }
+	// return competitorProductRecords;
+	// }
+	//
+	// public final class CompetitorProductCollection implements
+	// Iterable<CompetitorProductRecord> {
+	//
+	// private List<CompetitorProductRecord> list;
+	//
+	// private CompetitorProductCollection() {
+	// }
+	//
+	// public int size() {
+	// return list.size();
+	// }
+	//
+	// public CompetitorProductRecord get(int i) {
+	// return list.get(i);
+	// }
+	//
+	// public CompetitorProductRecord getById(long id) {
+	// for (CompetitorProductRecord record : list) {
+	// if (record.getId() == id) {
+	// return record;
+	// }
+	// }
+	// return null;
+	// }
+	//
+	// private void add(long id, String no, long competitor,
+	// String productBrand, String productDescription,
+	// String productSize, int isActive, String createdTime,
+	// String modifiedTime, long user) {
+	// list.add(new CompetitorProductRecord(id, no, competitor,
+	// productBrand, productDescription, productSize, isActive,
+	// createdTime, modifiedTime, user));
+	// }
+	//
+	// private void clear() {
+	// list.clear();
+	// }
+	//
+	// private void deleteById(long id) {
+	// list.remove(getById(id));
+	// }
+	//
+	// private void update(long id, String no, long competitor,
+	// String productBrand, String productDescription,
+	// String productSize, int isActive, String createdTime,
+	// String modifiedTime, long user) {
+	// CompetitorProductRecord record = getById(id);
+	// record.setNo(no);
+	// record.setCompetitor(competitor);
+	// record.setProductBrand(productBrand);
+	// record.setProductDescription(productDescription);
+	// record.setProductSize(productSize);
+	// record.setIsActive(isActive);
+	// record.setCreatedTime(createdTime);
+	// record.setModifiedTime(modifiedTime);
+	// record.setUser(user);
+	// }
+	//
+	// @Override
+	// public Iterator<CompetitorProductRecord> iterator() {
+	// Iterator<CompetitorProductRecord> iter = new
+	// Iterator<CompetitorProductRecord>() {
+	// private int current = 0;
+	//
+	// @Override
+	// public void remove() {
+	// if (list.size() > 0) {
+	// delete(list.get(current).getId());
+	// deleteById(list.get(current).getId());
+	// list.remove(current);
+	// }
+	// }
+	//
+	// @Override
+	// public CompetitorProductRecord next() {
+	// if (list.size() > 0) {
+	// return list.get(current++);
+	// }
+	// return null;
+	// }
+	//
+	// @Override
+	// public boolean hasNext() {
+	// return list.size() > 0 && current < list.size();
+	// }
+	// };
+	// return iter;
+	// }
+	// }
 }

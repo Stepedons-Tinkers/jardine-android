@@ -27,6 +27,26 @@ public class MyDateUtils {
 		return text;
 	}
 
+	public static String getCurrentDate() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+		String text = sdf.format(date);
+
+		return text;
+	}
+
+	public static String getCurrentTime() {
+		Date date = new Date(System.currentTimeMillis());
+		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+
+		String text = sdf.format(date);
+
+		return text;
+	}
+
 	public static String getYesterday() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();

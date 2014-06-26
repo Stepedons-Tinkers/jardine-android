@@ -140,6 +140,30 @@ public class BusinessUnitTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_BUSINESSUNIT_NO
+				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
 	public BusinessUnitRecord getById(int ID) {
 		BusinessUnitRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -220,6 +244,26 @@ public class BusinessUnitTable {
 
 			if ((c != null) && c.moveToFirst()) {
 				result = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public String getNoById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_BUSINESSUNIT_NO + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_BUSINESSUNIT_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
 			}
 		} finally {
 			if (c != null) {

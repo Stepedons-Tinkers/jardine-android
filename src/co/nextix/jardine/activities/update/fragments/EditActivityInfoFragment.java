@@ -21,6 +21,8 @@ public class EditActivityInfoFragment extends Fragment {
 			public void onClick(View v) {
 				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
 				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+				
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
 				fragmentTransaction.replace(R.id.activity_fragment, myFragment);

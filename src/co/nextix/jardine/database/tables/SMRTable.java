@@ -145,6 +145,30 @@ public class SMRTable {
 		return rowsDeleted;
 	}
 
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_SMR_NO + " IN (" + ids
+				+ ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
 	public SMRRecord getById(int ID) {
 		SMRRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -261,9 +285,8 @@ public class SMRTable {
 		return record;
 	}
 
-	public long insert(String no, String firstname, String lastname,
-			long area, int isActive, String createdTime, String modifiedTime,
-			long user) {
+	public long insert(String no, String firstname, String lastname, long area,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }

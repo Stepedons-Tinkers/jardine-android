@@ -30,7 +30,7 @@ public class CustomerRecord {
 	private String chain_name;
 	private String landline;
 	private String fax;
-	private String customer_size;
+	private long customer_size;
 	private String street_address;
 	// private long customer_record_status; removed
 	private long customer_type;
@@ -52,7 +52,7 @@ public class CustomerRecord {
 	}
 
 	public CustomerRecord(long id, String no, String customerName,
-			String chainName, String landline, String fax, String customerSize,
+			String chainName, String landline, String fax, long customerSize,
 			String streetAddress, long customerType, long businessUnit,
 			long area, long province, long cityTown, int isActive,
 			String createdTime, String modifiedTime, long user) {
@@ -125,11 +125,11 @@ public class CustomerRecord {
 		return this.fax;
 	}
 
-	public void setCustomerSize(String customerSize) {
+	public void setCustomerSize(long customerSize) {
 		this.customer_size = customerSize;
 	}
 
-	public String getCustomerSize() {
+	public long getCustomerSize() {
 		return this.customer_size;
 	}
 

@@ -21,7 +21,7 @@ public class ProfileFragment extends Fragment {
 	public ProfileFragment() {
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	public static Fragment newInstance() {
 		ProfileFragment fragment = new ProfileFragment();
 		return fragment;
@@ -68,6 +68,9 @@ public class ProfileFragment extends Fragment {
 			}
 		});
 
+		myProfileContent = new ProfileInformationFragment();
+		getFragmentManager().beginTransaction()
+				.replace(R.id.profile_fl, myProfileContent).commit();
 		tabHost.setCurrentTab(0);
 
 		return rootView;

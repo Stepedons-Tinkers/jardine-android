@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
+import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
 public class CompetitorProductStockCheckTable {
 	// ===========================================================
@@ -113,6 +114,72 @@ public class CompetitorProductStockCheckTable {
 	// Public methods
 	// ===========================================================
 
+	public List<CompetitorProductStockCheckRecord> getUnsyncedRecords() {
+		List<CompetitorProductStockCheckRecord> list = new ArrayList<CompetitorProductStockCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
+					String no = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+					long activity = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
+					long competitorProduct = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT));
+					int stockStatus = c
+							.getInt(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS));
+					int loadedOnShelves = c
+							.getInt(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
+					long user = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
+
+					list.add(new CompetitorProductStockCheckRecord(id, no,
+							activity, competitorProduct, stockStatus,
+							loadedOnShelves, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
+		if (mDb.update(mDatabaseTable, args,
+				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean isExisting(String webID) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -155,6 +222,52 @@ public class CompetitorProductStockCheckTable {
 		// }
 
 		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable,
+				KEY_COMPETITORPRODUCTSTOCKCHECK_NO + " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public long getIdByName(String name) {

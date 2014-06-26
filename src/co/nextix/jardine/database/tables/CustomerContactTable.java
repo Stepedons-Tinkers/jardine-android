@@ -12,6 +12,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerContactRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 
 public class CustomerContactTable {
 	// ===========================================================
@@ -62,7 +63,7 @@ public class CustomerContactTable {
 	// Private methods
 	// ===========================================================
 
-	private List<CustomerContactRecord> getAllRecords() {
+	public List<CustomerContactRecord> getAllRecords() {
 		Cursor c = null;
 		List<CustomerContactRecord> list = new ArrayList<CustomerContactRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -115,6 +116,72 @@ public class CustomerContactTable {
 	// Public methods
 	// ===========================================================
 
+	public List<CustomerContactRecord> getUnsyncedRecords() {
+		List<CustomerContactRecord> list = new ArrayList<CustomerContactRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMERCONTACT_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+					String firstName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
+					String lastName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_LASTNAME));
+					long position = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_POSITION));
+					String mobileNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_MOBILENO));
+					String birthday = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_BIRTHDAY));
+					String emailAddress = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_EMAIL));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CUSTOMER));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+
+					list.add(new CustomerContactRecord(id, no, firstName,
+							lastName, position, mobileNo, birthday,
+							emailAddress, customer, isActive, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_CUSTOMERCONTACT_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMERCONTACT_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean isExisting(String webID) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -156,6 +223,50 @@ public class CustomerContactTable {
 		// }
 
 		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMERCONTACT_NO
+				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMERCONTACT_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CUSTOMERCONTACT_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public CustomerContactRecord getById(int ID) {

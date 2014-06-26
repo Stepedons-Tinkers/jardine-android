@@ -10,6 +10,7 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 
 public class JDImerchandisingCheckTable {
@@ -55,7 +56,7 @@ public class JDImerchandisingCheckTable {
 	// Private methods
 	// ===========================================================
 
-	private List<JDImerchandisingCheckRecord> getAllRecords() {
+	public List<JDImerchandisingCheckRecord> getAllRecords() {
 		Cursor c = null;
 		List<JDImerchandisingCheckRecord> list = new ArrayList<JDImerchandisingCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -95,6 +96,60 @@ public class JDImerchandisingCheckTable {
 	// ===========================================================
 	// Public methods
 	// ===========================================================
+
+	public List<JDImerchandisingCheckRecord> getUnsyncedRecords() {
+		List<JDImerchandisingCheckRecord> list = new ArrayList<JDImerchandisingCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_JDIMERCHANDISING_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
+					long product = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCT));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_USER));
+
+					list.add(new JDImerchandisingCheckRecord(id, no, activity,
+							product, isActive, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return list;
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_JDIMERCHANDISING_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_JDIMERCHANDISING_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
@@ -137,6 +192,51 @@ public class JDImerchandisingCheckTable {
 		// }
 
 		return rowsDeleted;
+	}
+
+	public int deleteByCrmNo(String[] no) {
+
+		String ids = Arrays.toString(no);
+
+		if (ids == null) {
+			return 0;
+		}
+
+		// Remove the surrounding bracket([]) created by the method
+		// Arrays.toString()
+		ids = ids.replace("[", "").replace("]", "");
+
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_JDIMERCHANDISING_NO
+				+ " IN (" + ids + ")", null);
+
+		// if (rowsDeleted > 0) {
+		//
+		// // Delete the calls that are referring to the deleted work plan
+		// getDBAdapter().getCalls().deleteRecordsWithoutUserParent();
+		// }
+
+		return rowsDeleted;
+	}
+
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_JDIMERCHANDISING_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_JDIMERCHANDISING_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c
+						.getLong(c.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public JDImerchandisingCheckRecord getById(int ID) {
@@ -236,8 +336,8 @@ public class JDImerchandisingCheckTable {
 		return record;
 	}
 
-	public long insert(String no, long activity, long product,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, long activity, long product, int isActive,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
