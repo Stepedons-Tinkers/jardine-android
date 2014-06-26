@@ -25,12 +25,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.security.StoreAccount;
@@ -127,12 +129,10 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
 
 		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
-		txtCust.setText(getResources().getString(
-				R.string.collaterals_ep_description));
-		txtDate.setText(getResources().getString(
-				R.string.collaterals_ep_event_type));
+		txtCust.setText(getResources().getString(R.string.workplan_customer));
+		txtDate.setText(getResources().getString(R.string.workplan_date));
 		txtIsActType.setText(getResources().getString(
-				R.string.collaterals_ep_is_active));
+				R.string.workplan_activity_type));
 		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
@@ -186,7 +186,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 					int position, long id) {
 
 				String str = (String) parent.getAdapter().getItem(position);
-				setupWorkplanEtnry(str);
+				setupWorkplanEntry(str);
 			}
 
 			@Override
@@ -198,12 +198,20 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	}
 
-	private void setupWorkplanEtnry(String str) {
+	private void setupWorkplanEntry(String str) {
+
+		long wId = JardineApp.DB.getWorkplan().getIdByNo(str);
+
+		realRecord.clear();
+		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+				.getRecordsByWorkplanId(wId));
+
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
-			realRecord.clear();
-			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-					.getRecordsByWorkplanNo(str));
+			for (int i = 0; i < rowSize - remainder; i++) {
+				WorkplanEntryRecord rec = new WorkplanEntryRecord();
+				realRecord.add(rec);
+			}
 
 		}
 
@@ -212,6 +220,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 		}
+
 	}
 
 	private void addItem(int count) {
@@ -256,6 +265,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		});
 
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
+
 	}
 
 	@Override
