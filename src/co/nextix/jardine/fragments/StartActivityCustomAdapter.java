@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.R;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
@@ -62,6 +63,8 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		public TextView assigned_to_txt;
 		public TextView action_txt;
 		public TextView status;
+		public TextView edit_txt;
+		public TextView delete_txt;
 	}
 
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
@@ -84,11 +87,31 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.end_time_txt = (TextView) vi.findViewById(R.id.end_time_txt);
 			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
 			holder.status = (TextView) vi.findViewById(R.id.status_list_view);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			vi.setTag(holder);
+
 		} else
 			holder = (ViewHolder) vi.getTag();
+
+		holder.edit_txt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
+
+			}
+		});
+
+		holder.delete_txt.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		if (data.size() <= 0) {
 			holder.status.setVisibility(View.VISIBLE);
