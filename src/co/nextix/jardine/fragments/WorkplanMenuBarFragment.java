@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -160,9 +161,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		tempRecord = new ArrayList<WorkplanEntryRecord>();
 
 		int j = 0;
-		workplans.add("Workplan" + j++);
-		workplans.add("Workplan" + j++);
-		workplans.add("Workplan" + j++);
 
 		table = JardineApp.DB.getWorkplan();
 		entry = JardineApp.DB.getWorkplanEntry();
@@ -181,18 +179,38 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				R.layout.workplan_spinner_row, workplans);
 		spinner.setAdapter(adap);
 
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				realRecord
-						.addAll(JardineApp.DB.getWorkplanEntry()
-								.getRecordsByWorkplanNo(
-										spinner.getSelectedItem() + ""));
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				String str = (String) parent.getAdapter().getItem(position);
+				setupWorkplanEtnry(str);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
 
 			}
+		});
+
+	}
+
+	private void setupWorkplanEtnry(String str) {
+		int remainder = realRecord.size() % rowSize;
+		if (remainder > 0) {
+			realRecord.clear();
+			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+					.getRecordsByWorkplanNo(str));
+
+		}
+
+		if (realRecord.size() > 0) {
+
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
-
 		}
 	}
 
@@ -229,8 +247,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									new WorkPlanFragmentDetails(epr.getId()),
-									JardineApp.TAG)
+									WorkPlanFragmentDetails.newInstance(epr
+											.getId()), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

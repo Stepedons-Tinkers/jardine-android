@@ -14,6 +14,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.CollateralsEventFiles;
 import co.nextix.jardine.collaterals.CollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.view.group.utils.TabFactory;
 
@@ -46,9 +47,8 @@ public class WorkPlanFragmentDetails extends Fragment implements
 
 	private void initLayout() {
 
-		workplanNo = getArguments().getLong(KEY_WORKPLAN);
-		WorkplanEntryRecord record = JardineApp.DB.getWorkplanEntry().getById(
-				workplanNo);
+		WorkPlanConstants.WORKPLAN_ID = getArguments().getLong(KEY_WORKPLAN);
+
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
 		tab1 = getResources().getString(R.string.workplan_details);
 		tab2 = getResources().getString(R.string.workplan_activities);
