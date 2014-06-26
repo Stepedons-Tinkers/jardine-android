@@ -25,12 +25,14 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.security.StoreAccount;
@@ -186,7 +188,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 					int position, long id) {
 
 				String str = (String) parent.getAdapter().getItem(position);
-				setupWorkplanEtnry(str);
+				setupWorkplanEntry(str);
 			}
 
 			@Override
@@ -198,12 +200,12 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	}
 
-	private void setupWorkplanEtnry(String str) {
+	private void setupWorkplanEntry(String str) {
+		long wId = JardineApp.DB.getWorkplan().getIdByNo(str);
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
 			realRecord.clear();
-			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-					.getRecordsByWorkplanNo(str));
+			realRecord.addAll(JardineApp.DB.getWorkplanEntry().getAllRecords());
 
 		}
 
@@ -212,6 +214,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 		}
+
+		Toast.makeText(getActivity(), wId + " " + realRecord.size(),
+				Toast.LENGTH_SHORT).show();
 	}
 
 	private void addItem(int count) {

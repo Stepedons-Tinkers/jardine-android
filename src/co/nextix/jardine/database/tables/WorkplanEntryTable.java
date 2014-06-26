@@ -63,7 +63,7 @@ public class WorkplanEntryTable {
 	// Private methods
 	// ===========================================================
 
-	private List<WorkplanEntryRecord> getAllRecords() {
+	public List<WorkplanEntryRecord> getAllRecords() {
 		Cursor c = null;
 		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -92,7 +92,7 @@ public class WorkplanEntryTable {
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
 					long workplan = c.getLong(c
-							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+							.getColumnIndex(KEY_WORKPLANENTRY_WORKPLAN));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -114,11 +114,11 @@ public class WorkplanEntryTable {
 		return list;
 	}
 
-	public List<WorkplanEntryRecord> getRecordsByWorkplanNo(String workplanNo) {
+	public List<WorkplanEntryRecord> getRecordsByWorkplanId(long wId) {
 		Cursor c = null;
 		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_WORKPLANENTRY_NO + " = '" + workplanNo + "'";
+				+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
@@ -144,7 +144,7 @@ public class WorkplanEntryTable {
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
 					long workplan = c.getLong(c
-							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+							.getColumnIndex(KEY_WORKPLANENTRY_WORKPLAN));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDTIME));
 					String modifiedTime = c.getString(c
