@@ -65,6 +65,10 @@ public class WorkplanEntryRecord {
 	// Public methods
 	// ===========================================================
 
+	public WorkplanEntryRecord() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getId() {
 		return this.id;
 	}

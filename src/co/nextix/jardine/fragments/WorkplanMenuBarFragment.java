@@ -129,12 +129,10 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
 
 		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
-		txtCust.setText(getResources().getString(
-				R.string.collaterals_ep_description));
-		txtDate.setText(getResources().getString(
-				R.string.collaterals_ep_event_type));
+		txtCust.setText(getResources().getString(R.string.workplan_customer));
+		txtDate.setText(getResources().getString(R.string.workplan_date));
 		txtIsActType.setText(getResources().getString(
-				R.string.collaterals_ep_is_active));
+				R.string.workplan_activity_type));
 		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
@@ -201,11 +199,19 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	}
 
 	private void setupWorkplanEntry(String str) {
+
 		long wId = JardineApp.DB.getWorkplan().getIdByNo(str);
+
+		realRecord.clear();
+		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+				.getRecordsByWorkplanId(wId));
+
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
-			realRecord.clear();
-			realRecord.addAll(JardineApp.DB.getWorkplanEntry().getAllRecords());
+			for (int i = 0; i < rowSize - remainder; i++) {
+				WorkplanEntryRecord rec = new WorkplanEntryRecord();
+				realRecord.add(rec);
+			}
 
 		}
 
@@ -215,8 +221,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			addItem(currentPage);
 		}
 
-		Toast.makeText(getActivity(), wId + " " + realRecord.size(),
-				Toast.LENGTH_SHORT).show();
 	}
 
 	private void addItem(int count) {
@@ -261,6 +265,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		});
 
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
+
 	}
 
 	@Override

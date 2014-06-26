@@ -10,7 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 
 public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
@@ -70,12 +74,23 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 		}
 
 		holder.txtCrmNo.setText(holder.record.getNo());
-		holder.txtDescription.setText(holder.record.getCustomer() + "");
 
-		holder.txtEventType.setText("");
-		holder.txtIsActive.setText("");
-		holder.txtEventType.setText(holder.record.getDate() + "");
-		holder.txtIsActive.setText(holder.record.getActivityType() + "");
+		if (holder.record.getNo() != null) {
+			String cus = JardineApp.DB.getCustomer().getNoById(
+					holder.record.getCustomer());
+			holder.txtDescription.setText(cus);
+
+			holder.txtEventType.setText(holder.record.getDate());
+
+			ActivityTypeRecord pik = JardineApp.DB.getActivityType().getById(
+					holder.record.getActivityType());
+			holder.txtIsActive.setText(pik.getNo());
+
+		} else {
+			holder.txtDescription.setText("");
+			holder.txtEventType.setText("");
+			holder.txtIsActive.setText("");
+		}
 
 		return view;
 	}
