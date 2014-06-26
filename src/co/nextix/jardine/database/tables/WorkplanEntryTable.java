@@ -114,6 +114,58 @@ public class WorkplanEntryTable {
 		return list;
 	}
 
+	public List<WorkplanEntryRecord> getRecordsByWorkplanNo(String workplanNo) {
+		Cursor c = null;
+		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_WORKPLANENTRY_NO + " = '" + workplanNo + "'";
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_NO));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CUSTOMER));
+					String date = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_DATE));
+					long status = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_STATUS));
+					long area = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_AREA));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_PROVINCE));
+					long cityTown = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CITYTOWN));
+					String remarks = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_REMARKS));
+					long activityType = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+					long workplan = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_USER));
+
+					list.add(new WorkplanEntryRecord(id, no, customer, date,
+							status, area, province, cityTown, remarks,
+							activityType, workplan, createdTime, modifiedTime,
+							user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
@@ -205,7 +257,7 @@ public class WorkplanEntryTable {
 		return result;
 	}
 
-	public WorkplanEntryRecord getById(int ID) {
+	public WorkplanEntryRecord getById(long ID) {
 		WorkplanEntryRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_WORKPLANENTRY_ROWID + "=?";

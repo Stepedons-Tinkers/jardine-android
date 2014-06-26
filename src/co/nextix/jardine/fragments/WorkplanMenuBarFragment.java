@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -29,8 +30,13 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
 
 public class WorkplanMenuBarFragment extends Fragment implements
@@ -52,8 +58,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private EditText search;
 	private Spinner spinner;
 
-	private List<EventProtocolRecord> realRecord;
-	private List<EventProtocolRecord> tempRecord;
+	private List<WorkplanEntryRecord> realRecord;
+	private List<WorkplanEntryRecord> tempRecord;
 
 	public static EditText editMonth;
 
@@ -65,6 +71,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	private List<String> workplans = new ArrayList<String>();
 	private ArrayAdapter<String> adap;
+
+	private WorkplanTable table;
+	private WorkplanEntryTable entry;
 
 	public WorkplanMenuBarFragment() {
 
@@ -148,47 +157,60 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		arrowRight.setOnClickListener(this);
 		btnCalendar.setOnClickListener(this);
 
-		realRecord = new ArrayList<EventProtocolRecord>();
-		tempRecord = new ArrayList<EventProtocolRecord>();
+		realRecord = new ArrayList<WorkplanEntryRecord>();
+		tempRecord = new ArrayList<WorkplanEntryRecord>();
 
 		int j = 0;
-		workplans.add("Workplan" + j++);
-		workplans.add("Workplan" + j++);
-		workplans.add("Workplan" + j++);
-		
-//		WorkplanTable table = JardineApp.DB.getWorkplan().getById()
+
+		table = JardineApp.DB.getWorkplan();
+		entry = JardineApp.DB.getWorkplanEntry();
+
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		long userId = Long.parseLong(id);
+
+		try {
+			workplans.addAll(table.getAllWorkplan(userId));
+		} catch (Exception e) {
+
+		}
 
 		adap = new ArrayAdapter<String>(getActivity(),
 				R.layout.workplan_spinner_row, workplans);
 		spinner.setAdapter(adap);
-		
-		
 
-		for (int i = 1; i <= 37; i++) {
-			EventProtocolRecord rec = new EventProtocolRecord();
-			rec.setNo("EVP00" + i);
-			rec.setDescription("Description " + i);
-			rec.setEventType(i);
-			if (i % 2 == 0) {
-				rec.setIsActive(1);
-			} else {
-				rec.setIsActive(0);
+		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				String str = (String) parent.getAdapter().getItem(position);
+				setupWorkplanEtnry(str);
 			}
 
-			realRecord.add(rec);
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+	}
+
+	private void setupWorkplanEtnry(String str) {
+		int remainder = realRecord.size() % rowSize;
+		if (remainder > 0) {
+			realRecord.clear();
+			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+					.getRecordsByWorkplanNo(str));
+
 		}
 
 		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					EventProtocolRecord rec = new EventProtocolRecord();
-					realRecord.add(rec);
-				}
-			}
+
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
-
 		}
 	}
 
@@ -208,16 +230,15 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	private void setView() {
 
-		AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
-				getActivity(), R.layout.collaterals_event_protocol_row,
-				tempRecord);
+		AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(getActivity(),
+				R.layout.collaterals_event_protocol_row, tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				EventProtocolRecord epr = (EventProtocolRecord) parent
+				WorkplanEntryRecord epr = (WorkplanEntryRecord) parent
 						.getAdapter().getItem(position);
 
 				if (epr.getNo() != null) {
@@ -226,8 +247,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									new WorkPlanFragmentDetails(),
-									JardineApp.TAG)
+									WorkPlanFragmentDetails.newInstance(epr
+											.getId()), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

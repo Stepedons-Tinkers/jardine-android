@@ -9,10 +9,13 @@ import android.view.ViewGroup;
 import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.CollateralsEventFiles;
 import co.nextix.jardine.collaterals.CollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.view.group.utils.TabFactory;
 
 public class WorkPlanFragmentDetails extends Fragment implements
@@ -21,6 +24,15 @@ public class WorkPlanFragmentDetails extends Fragment implements
 	private View view;
 	private TabHost tabHost;
 	private String tab1, tab2;
+	private static String KEY_WORKPLAN = "workplan";
+	private long workplanNo;
+
+	public static WorkPlanFragmentDetails newInstance(long id) {
+		WorkPlanFragmentDetails workplan = new WorkPlanFragmentDetails();
+		Bundle bundle = new Bundle();
+		bundle.putLong(KEY_WORKPLAN, id);
+		return workplan;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -35,9 +47,11 @@ public class WorkPlanFragmentDetails extends Fragment implements
 
 	private void initLayout() {
 
+		WorkPlanConstants.WORKPLAN_ID = getArguments().getLong(KEY_WORKPLAN);
+
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
 		tab1 = getResources().getString(R.string.workplan_details);
-		tab2 = getResources().getString(R.string.workplan_activities	);
+		tab2 = getResources().getString(R.string.workplan_activities);
 		tabHost.setOnTabChangedListener(this);
 		setupTabHost();
 	}

@@ -174,6 +174,98 @@ public class ActivityTable {
 		return list;
 	}
 
+	public List<ActivityRecord> getAllRecordsByWorkEntry(long wId) {
+		Cursor c = null;
+		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_WORKPLANENTRY + " = " + wId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
+					long workplan = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+					String startTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+					String endTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+					double longitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+					String objectives = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+					String notes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NOTES));
+					String highlights = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+					String nextSteps = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+					String followUpCommitmentDate = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					long activityType = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+					long workplanEntry = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+					int firstTimeVisit = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+					int plannedVisit = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String issuesIdentified = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ISSUES));
+					String feedBackFromCustomer = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+					String ongoingCampaigns = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+					String lastDelivery = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+					String promoStubsDetails = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String date = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_DATE));
+					String time = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_TIME));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					String noOfAttendees = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+
+					list.add(new ActivityRecord(id, no, workplan, startTime,
+							endTime, longitude, latitude, objectives, notes,
+							highlights, nextSteps, followUpCommitmentDate,
+							activityType, workplanEntry, customer,
+							firstTimeVisit, plannedVisit, createdTime,
+							modifiedTime, user, smr, issuesIdentified,
+							feedBackFromCustomer, ongoingCampaigns,
+							lastDelivery, promoStubsDetails, projectName,
+							projectCategory, projectStage, date, time, venue,
+							noOfAttendees));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================

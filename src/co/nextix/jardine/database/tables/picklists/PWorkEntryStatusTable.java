@@ -120,7 +120,7 @@ public class PWorkEntryStatusTable {
 		return rowsDeleted;
 	}
 
-	public PicklistRecord getById(int ID) {
+	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_WORKPLANENTRY_STATUS_ROWID + "=?";
