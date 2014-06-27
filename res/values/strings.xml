@@ -111,6 +111,9 @@
     <string name="diy_or_supermarket_photos">DIY or Supermarket Photos</string>
     <string name="customer_view_details">Customer Contact Person</string>
     <string name="products">Products</string>
+    <string name="sample">Row # column #</string>
+    <string name="edit">edit</string>
+    <string name="del">delete</string>
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>

@@ -86,7 +86,7 @@ public class StartActivityFragment extends Fragment {
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 
 		// Now formattedDate have current date/time
-		Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
 		this.editMonth.setText(this.formattedDate);
 
 		((ImageButton) this.rootView.findViewById(R.id.prev_button)).setOnClickListener(new OnClickListener() {
@@ -190,8 +190,6 @@ public class StartActivityFragment extends Fragment {
 			List<ActivityRecord> records = table.getAllRecords();
 
 			for (ActivityRecord rec : records) {
-				Toast.makeText(getActivity(), rec.toString(), Toast.LENGTH_SHORT).show();
-
 				if (rec.equals("") || rec.equals(null)) {
 					((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 					((ListView) this.rootView.findViewById(R.id.list)).setVisibility(View.INVISIBLE);
@@ -200,7 +198,7 @@ public class StartActivityFragment extends Fragment {
 				}
 
 				/******* Firstly take data in model object ******/
-				sched.setCrmNo(String.valueOf(rec.getId()));
+				sched.setCrmNo(String.valueOf(rec.getCrm()));
 				sched.setWorkplan(String.valueOf(rec.getWorkplan()));
 				sched.setActivityType(String.valueOf(rec.getActivityType()));
 				sched.setStartTime(String.valueOf(rec.getStartTime()));
@@ -208,22 +206,13 @@ public class StartActivityFragment extends Fragment {
 				sched.setAssignedTo(String.valueOf(rec.getCustomer()));
 			}
 
-			/******* Firstly take data in model object ******/
-			// sched.setCrmNo("CRM No. " + i);
-			// sched.setWorkplan("Workplan" + i);
-			// sched.setActivityType("Activity Type" + i);
-			// sched.setStartTime("Start Time" + i);
-			// sched.setEndTime("End time" + i);
-			// sched.setAssignedTo("Assigned to" + i);
-			// sched.setAction("edit|delete" + i);
-
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add(sched);
 		}
-
 	}
 
 	public void onItemClick(int mPosition) {
+
 		StartActivityListModel tempValues = (StartActivityListModel) CustomListViewValuesArr.get(mPosition);
 		Toast.makeText(getActivity(),
 				"" + tempValues.getCrmNo() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),

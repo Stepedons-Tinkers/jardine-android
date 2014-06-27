@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#ffffff"
-        android:baselineAligned="false"
         android:orientation="horizontal"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
@@ -20,6 +19,7 @@
         android:weightSum="2" >
 
         <RelativeLayout
+            android:id="@+id/relativeLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
@@ -30,18 +30,17 @@
                 android:id="@+id/add_activity_spinner"
                 android:layout_width="197dp"
                 android:layout_height="64dp"
+                android:layout_alignBottom="@+id/search"
                 android:layout_alignParentLeft="true"
-                android:layout_marginRight="14dp"
-                android:layout_marginTop="5dp"
-                android:background="@android:drawable/btn_dropdown"
+                android:layout_marginRight="4dp"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
                 android:spinnerMode="dropdown" />
+            <!-- android:background="@android:drawable/btn_dropdown" -->
 
             <EditText
                 android:id="@+id/search"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/add_activity_spinner"
                 android:layout_toRightOf="@+id/add_activity_spinner"
                 android:background="@android:drawable/edit_text"
                 android:drawableLeft="@android:drawable/ic_menu_search"
@@ -51,45 +50,35 @@
         </RelativeLayout>
 
         <ImageButton
-            android:id="@+id/activity_schedule"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/prev_button"
-            android:layout_alignTop="@+id/prev_button"
-            android:layout_marginLeft="14dp"
-            android:layout_toLeftOf="@+id/next_button"
-            android:onClick="openCalendar"
-            android:src="@android:drawable/ic_menu_my_calendar" />
-
-        <ImageButton
             android:id="@+id/prev_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginTop="7dp"
             android:layout_toLeftOf="@+id/editMonth"
-            android:onClick="prev"
             android:src="@android:drawable/ic_media_previous" />
+
+        <ImageButton
+            android:id="@+id/activity_schedule"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/next_button"
+            android:src="@android:drawable/ic_menu_my_calendar" />
 
         <ImageButton
             android:id="@+id/next_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/prev_button"
             android:layout_alignParentRight="true"
-            android:layout_alignTop="@+id/prev_button"
-            android:layout_marginLeft="14dp"
-            android:layout_marginRight="14dp"
-            android:onClick="next"
+            android:layout_centerVertical="true"
             android:src="@android:drawable/ic_media_next" />
 
         <EditText
             android:id="@+id/editMonth"
             android:layout_width="174dip"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/prev_button"
-            android:layout_alignTop="@+id/prev_button"
-            android:layout_marginLeft="14dp"
-            android:layout_marginTop="6dp"
+            android:layout_height="45dp"
+            android:layout_alignTop="@+id/relativeLayout1"
             android:layout_toLeftOf="@+id/activity_schedule"
             android:background="@android:drawable/edit_text"
             android:ems="10"
@@ -101,7 +90,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="284dp"
         android:layout_below="@+id/search_layout"
         android:fillViewport="true"
         android:isScrollContainer="true"
@@ -118,7 +107,7 @@
             <TableLayout
                 android:id="@+id/activity_table"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="#ffffff"
                 android:paddingBottom="@dimen/activity_vertical_margin"
                 android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -336,13 +325,14 @@
                 <ListView
                     android:id="@+id/list"
                     android:layout_width="match_parent"
-                    android:layout_height="235dp"
+                    android:layout_height="wrap_content"
                     android:choiceMode="singleChoice"
                     android:descendantFocusability="blocksDescendants"
                     android:divider="@null"
                     android:dividerHeight="0dp"
                     android:drawSelectorOnTop="true"
-                    android:listSelector="@color/collaterals_tablerow_trasparent_select"
+                    android:focusableInTouchMode="true"
+                    android:listSelector="@drawable/list_selector"
                     android:overScrollMode="never"
                     android:scrollbars="none" />
 
@@ -351,61 +341,57 @@
                     android:layout_width="match_parent"
                     android:layout_height="4dp"
                     android:background="@color/black" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="7dp" >
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:gravity="center" >
-
-                        <ImageButton
-                            android:id="@+id/imageButton1"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignBottom="@+id/status_count_text"
-                            android:layout_alignTop="@+id/status_count_text"
-                            android:layout_toLeftOf="@+id/status_count_text"
-                            android:onClick="prev"
-                            android:src="@drawable/prev" />
-
-                        <TextView
-                            android:id="@+id/status_count_text"
-                            android:layout_width="74dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="1 of 1"
-                            android:textColor="#000000"
-                            android:textSize="17sp" />
-
-                        <ImageButton
-                            android:id="@+id/imageButton3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="24dp"
-                            android:onClick="next"
-                            android:src="@drawable/next" />
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/add_activity_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:onClick="addJDIProductStockCheck"
-                        android:text="@string/add_activity" />
-                </RelativeLayout>
             </TableLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView"
+        android:layout_marginBottom="7dp"
+        android:layout_marginRight="14dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center" >
+
+            <ImageButton
+                android:id="@+id/imageButton1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/prev" />
+
+            <TextView
+                android:id="@+id/status_count_text"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="14dip"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="1 of 1"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <ImageButton
+                android:id="@+id/imageButton3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                android:src="@drawable/next" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_activity_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/add_activity" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/status_list_view"

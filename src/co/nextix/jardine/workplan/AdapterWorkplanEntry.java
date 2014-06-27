@@ -10,11 +10,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
-import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 
 public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {

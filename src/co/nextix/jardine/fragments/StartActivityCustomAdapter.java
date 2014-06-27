@@ -3,13 +3,19 @@ package co.nextix.jardine.fragments;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
+import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
+import android.widget.HorizontalScrollView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.R;
@@ -23,6 +29,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
 	private StartActivityListModel tempValues = null;
+	private View vi = null;
 
 	/************* CustomAdapter Constructor *****************/
 	public StartActivityCustomAdapter(Context a, ArrayList<?> d, Fragment fragment) {
@@ -70,8 +77,9 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		View vi = convertView;
-		ViewHolder holder;
+		vi = convertView;
+		final int pos = position;
+		final ViewHolder holder;
 
 		if (convertView == null) {
 
@@ -96,23 +104,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		} else
 			holder = (ViewHolder) vi.getTag();
 
-		holder.edit_txt.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-
-			}
-		});
-
-		holder.delete_txt.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
-			}
-		});
-
 		// Checking of the data gathered
 		if (data.size() <= 0) {
 			holder.status.setVisibility(View.VISIBLE);
@@ -131,8 +122,117 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.assigned_to_txt.setText(String.valueOf(tempValues.getAssignedTo()));
 
 			/******** Set Item Click Listner for LayoutInflater for each row ***********/
-			vi.setOnClickListener(new OnItemClickListener(position));
+			// vi.setClickable(true);
+			// vi.setOnClickListener(new OnItemClickListener(position));
+
+			holder.edit_txt.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
+
+				}
+			});
+
+			holder.delete_txt.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
+				}
+			});
+
+			// Events
+			((HorizontalScrollView) vi.findViewById(R.id.crm_no_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						
+						
+						v.findViewById(R.id.crm_no_txt).setClickable(true);
+						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.workplan_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.workplan_txt).setClickable(true);
+						v.findViewById(R.id.workplan_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.activity_type_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.activity_type_txt).setClickable(true);
+						v.findViewById(R.id.activity_type_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.start_time_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.start_time_txt).setClickable(true);
+						v.findViewById(R.id.start_time_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.end_time_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.end_time_txt).setClickable(true);
+						v.findViewById(R.id.end_time_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.assigned_to_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.assigned_to_txt).setClickable(true);
+						v.findViewById(R.id.assigned_to_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+
+					return false;
+				}
+			});
 		}
+
 		return vi;
 	}
 
