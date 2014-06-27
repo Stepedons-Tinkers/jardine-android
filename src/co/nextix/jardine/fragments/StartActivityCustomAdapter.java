@@ -3,7 +3,6 @@ package co.nextix.jardine.fragments;
 import java.util.ArrayList;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,13 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
-import android.webkit.WebView.FindListener;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class StartActivityCustomAdapter extends BaseAdapter implements OnClickListener {
@@ -28,7 +26,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private StartActivityListModel tempValues = null;
+	private ActivityRecord tempValues = null;
 	private View vi = null;
 
 	/************* CustomAdapter Constructor *****************/
@@ -111,20 +109,17 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		} else {
 			/***** Get each Model object from Arraylist ********/
 			tempValues = null;
-			tempValues = (StartActivityListModel) data.get(position);
+			tempValues = (ActivityRecord) data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(tempValues.getCrmNo());
+			holder.crm_no_txt.setText(tempValues.getCrm());
 			holder.workplan_txt.setText(String.valueOf(tempValues.getWorkplan()));
 			holder.activity_type_txt.setText(String.valueOf(tempValues.getActivityType()));
 			holder.start_time_txt.setText(tempValues.getStartTime());
 			holder.end_time_txt.setText(tempValues.getEndTime());
-			holder.assigned_to_txt.setText(String.valueOf(tempValues.getAssignedTo()));
+			holder.assigned_to_txt.setText(String.valueOf(tempValues.getCustomer()));
 
-			/******** Set Item Click Listner for LayoutInflater for each row ***********/
-			// vi.setClickable(true);
-			// vi.setOnClickListener(new OnItemClickListener(position));
-
+			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -150,8 +145,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
 							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
 
-						
-						
 						v.findViewById(R.id.crm_no_txt).setClickable(true);
 						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
 					}

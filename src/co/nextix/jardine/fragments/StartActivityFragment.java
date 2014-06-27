@@ -38,12 +38,11 @@ public class StartActivityFragment extends Fragment {
 
 	private StartActivityCustomAdapter adapter = null;
 	public Context CustomListView = null;
-	public ArrayList<StartActivityListModel> CustomListViewValuesArr = null;
+	public ArrayList<ActivityRecord> CustomListViewValuesArr = null;
 	private View rootView = null;
 	private ListView list = null;
 	private EditText editMonth = null;
 	private Calendar c = null;
-	private Date today = null;
 	private SimpleDateFormat df = null;
 	private String formattedDate = null;
 	public int day = 0;
@@ -54,7 +53,6 @@ public class StartActivityFragment extends Fragment {
 	public StartActivityFragment() {
 		this.c = Calendar.getInstance();
 		this.df = new SimpleDateFormat("MM/dd/yyyy");
-		this.today = new Date();
 		this.day = this.c.get(Calendar.DAY_OF_MONTH);
 		this.month = this.c.get(Calendar.MONTH);
 		this.year = this.c.get(Calendar.YEAR);
@@ -66,7 +64,7 @@ public class StartActivityFragment extends Fragment {
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(), R.layout.workplan_spinner_row, getResources()
 				.getStringArray(R.array.activity_spinner_items));
 
-		this.CustomListViewValuesArr = new ArrayList<StartActivityListModel>();
+		this.CustomListViewValuesArr = new ArrayList<ActivityRecord>();
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
 		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
@@ -83,12 +81,9 @@ public class StartActivityFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.CustomListViewValuesArr, this);
 		this.list.setAdapter(adapter);
-		ListViewUtility.setListViewHeightBasedOnChildren(list);
-
-		// Now formattedDate have current date/time
-		//Toast.makeText(getActivity(), "" + this.today, Toast.LENGTH_SHORT).show();
 		this.editMonth.setText(this.formattedDate);
-
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
+		
 		((ImageButton) this.rootView.findViewById(R.id.prev_button)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -147,12 +142,6 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
-		/*
-		 * ((Button)
-		 * rootView.findViewById(R.id.activity_info)).getBackground().setColorFilter
-		 * ( new LightingColorFilter(0x0033FF, 0x0066FF));
-		 */
-
 		return this.rootView;
 	}
 
@@ -182,15 +171,13 @@ public class StartActivityFragment extends Fragment {
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
 
-		for (int i = 1; i <= 5; i++) {
+		ActivityTable table = JardineApp.DB.getActivity();
+		List<ActivityRecord> records = table.getAllRecords();
+		ActivityRecord sched = null;
 
-			final StartActivityListModel sched = new StartActivityListModel();
-
-			ActivityTable table = JardineApp.DB.getActivity();
-			List<ActivityRecord> records = table.getAllRecords();
-
-			for (ActivityRecord rec : records) {
-				if (rec.equals("") || rec.equals(null)) {
+		for (int i = 0; i < records.size(); i++) {
+			for (ActivityRecord rec = null; records.get(i).equals(rec);) {
+				if ("".equals(rec)) {
 					((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 					((ListView) this.rootView.findViewById(R.id.list)).setVisibility(View.INVISIBLE);
 					((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.INVISIBLE);
@@ -198,24 +185,24 @@ public class StartActivityFragment extends Fragment {
 				}
 
 				/******* Firstly take data in model object ******/
-				sched.setCrmNo(String.valueOf(rec.getCrm()));
-				sched.setWorkplan(String.valueOf(rec.getWorkplan()));
-				sched.setActivityType(String.valueOf(rec.getActivityType()));
+				sched = new ActivityRecord();
+				sched.setCrm(String.valueOf(rec.getCrm()));
+				sched.setWorkplan(rec.getWorkplan());
+				sched.setActivityType(rec.getActivityType());
 				sched.setStartTime(String.valueOf(rec.getStartTime()));
 				sched.setEndTime(String.valueOf(rec.getEndTime()));
-				sched.setAssignedTo(String.valueOf(rec.getCustomer()));
+				sched.setUser(rec.getCustomer());
 			}
 
 			/******** Take Model Object in ArrayList **********/
-			CustomListViewValuesArr.add(sched);
+			CustomListViewValuesArr.add(records.get(i));
 		}
 	}
 
 	public void onItemClick(int mPosition) {
-
-		StartActivityListModel tempValues = (StartActivityListModel) CustomListViewValuesArr.get(mPosition);
+		ActivityRecord tempValues = (ActivityRecord) CustomListViewValuesArr.get(mPosition);
 		Toast.makeText(getActivity(),
-				"" + tempValues.getCrmNo() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
+				"" + tempValues.getCrm() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
 				Toast.LENGTH_SHORT).show();
 
 		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
