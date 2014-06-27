@@ -104,10 +104,10 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		// Checking of the data gathered
 		if (data.size() <= 0) {
 			sct.isListHasNoData();
-			
+
 		} else {
 			sct.isListHasData();
-			
+
 			/***** Get each Model object from Arraylist ********/
 			tempValues = null;
 			tempValues = (ActivityRecord) data.get(position);
@@ -119,6 +119,22 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.start_time_txt.setText(tempValues.getStartTime());
 			holder.end_time_txt.setText(tempValues.getEndTime());
 			holder.assigned_to_txt.setText(String.valueOf(tempValues.getCustomer()));
+
+			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.edit_txt.setText(null);
+				holder.delete_txt.setText(null);
+				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+			}
+
+			if (holder.start_time_txt.getText().toString().equals(null) 
+			 || holder.start_time_txt.getText().toString().equals("")
+			 || holder.end_time_txt.getText().toString().equals(null)
+			 || holder.end_time_txt.getText().toString().equals("")) {
+				
+				holder.workplan_txt.setText(null);
+				holder.activity_type_txt.setText(null);
+				holder.assigned_to_txt.setText(null);
+			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {

@@ -39,7 +39,6 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 public class StartActivityFragment extends Fragment {
 
 	private StartActivityCustomAdapter adapter = null;
-	private ArrayList<ActivityRecord> CustomListViewValuesArr = null;
 	private ArrayList<ActivityRecord> realRecord = null;
 	private ArrayList<ActivityRecord> tempRecord = null;
 	private Context CustomListView = null;
@@ -73,7 +72,6 @@ public class StartActivityFragment extends Fragment {
 
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
 		this.formattedDate = this.df.format(this.c.getTime());
-		this.CustomListViewValuesArr = new ArrayList<ActivityRecord>();
 		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
 		this.editMonth.setText(this.formattedDate);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
@@ -153,7 +151,7 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) this.rootView.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -165,7 +163,7 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) this.rootView.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
