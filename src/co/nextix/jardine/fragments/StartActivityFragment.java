@@ -55,6 +55,7 @@ public class StartActivityFragment extends Fragment {
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
+	private ArrayList<ActivityRecord> itemSearch = null;
 
 	public StartActivityFragment() {
 		this.c = Calendar.getInstance();
@@ -62,6 +63,7 @@ public class StartActivityFragment extends Fragment {
 		this.day = this.c.get(Calendar.DAY_OF_MONTH);
 		this.month = this.c.get(Calendar.MONTH);
 		this.year = this.c.get(Calendar.YEAR);
+		this.itemSearch = new ArrayList<ActivityRecord>();
 	}
 
 	@Override
@@ -90,19 +92,38 @@ public class StartActivityFragment extends Fragment {
 
 					// Getting the position of the spinner
 					String searchItem = String.valueOf(StartActivityFragment.this.addActivitySpinner.getSelectedItem());
-					for (ActivityRecord rec : records) {
-						if (rec.getCrm().equals(searchItem)) {
-							Toast.makeText(getActivity(), "Naa nas list", Toast.LENGTH_SHORT).show();
-						} else if (String.valueOf(rec.getWorkplan()).equals(searchItem)) {
-							Toast.makeText(getActivity(), "Naa nas list", Toast.LENGTH_SHORT).show();
-						} else if (String.valueOf(rec.getActivityType()).equals(searchItem)) {
-							Toast.makeText(getActivity(), "Naa nas list", Toast.LENGTH_SHORT).show();
-						} else if (rec.getStartTime().equals(searchItem)) {
-							Toast.makeText(getActivity(), "Naa nas list", Toast.LENGTH_SHORT).show();
-						} else if (String.valueOf(rec.getCustomer()).endsWith(searchItem)) {
-							Toast.makeText(getActivity(), "Naa nas list", Toast.LENGTH_SHORT).show();
+					for (int i = 0; i < records.size(); i++) {
+						if (searchItem.equals(getActivity().getResources().getString(R.string.crm_no))
+								&& records.get(i).getCrm().equals(v.getText().toString())) {
+
+							itemSearch.add(records.get(i));
+							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
+
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+								&& String.valueOf(records.get(i).getWorkplan()).equals(v.getText().toString())) {
+
+							itemSearch.add(records.get(i));
+							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
+
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
+								&& String.valueOf(records.get(i).getActivityType()).equals(v.getText().toString())) {
+
+							itemSearch.add(records.get(i));
+							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
+
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.assigned_to))
+								&& String.valueOf(records.get(i).getCustomer()).equals(v.getText().toString())) {
+
+							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
+							itemSearch.add(records.get(i));
 						}
 					}
+
+					CustomListView = getActivity().getApplicationContext();
+					list = (ListView) rootView.findViewById(R.id.list);
+					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					list.setAdapter(adapter);
+					ListViewUtility.setListViewHeightBasedOnChildren(list);
 				}
 
 				return false;
@@ -227,6 +248,7 @@ public class StartActivityFragment extends Fragment {
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
+	// Event item listener
 	public void onItemClick(int mPosition) {
 		ActivityRecord tempValues = (ActivityRecord) tempRecord.get(mPosition);
 		Toast.makeText(getActivity(),

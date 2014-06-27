@@ -35,12 +35,10 @@
 
     <!-- Activities Spinner Items -->
     <string-array name="activity_spinner_items">
-        <item>WPID</item>
-        <item>Customer</item>
-        <item>Date</item>
+        <item>CRM No</item>
+        <item>Workplan</item>
         <item>Activity Type</item>
         <item>Assigned To</item>
-        <item>Action</item>
     </string-array>
 
     <!-- Content Description -->
