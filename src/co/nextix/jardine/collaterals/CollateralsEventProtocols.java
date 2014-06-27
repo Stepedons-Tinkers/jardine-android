@@ -155,7 +155,6 @@ public class CollateralsEventProtocols extends Fragment implements
 			}
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
-
 		}
 	}
 
