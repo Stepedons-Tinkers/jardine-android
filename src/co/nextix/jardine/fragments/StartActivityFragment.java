@@ -89,30 +89,34 @@ public class StartActivityFragment extends Fragment {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					ActivityTable table = JardineApp.DB.getActivity();
 					List<ActivityRecord> records = table.getAllRecords();
-
+					
+					itemSearch.clear();
+					
 					// Getting the position of the spinner
 					String searchItem = String.valueOf(StartActivityFragment.this.addActivitySpinner.getSelectedItem());
 					for (int i = 0; i < records.size(); i++) {
 						if (searchItem.equals(getActivity().getResources().getString(R.string.crm_no))
-								&& records.get(i).getCrm().equals(v.getText().toString())) {
+								&& v.getText().toString().equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
 							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
 
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-								&& String.valueOf(records.get(i).getWorkplan()).equals(v.getText().toString())) {
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
 
 							itemSearch.add(records.get(i));
+
 							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
 
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
-								&& String.valueOf(records.get(i).getActivityType()).equals(v.getText().toString())) {
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
 
 							itemSearch.add(records.get(i));
+
 							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
 
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.assigned_to))
-								&& String.valueOf(records.get(i).getCustomer()).equals(v.getText().toString())) {
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getCustomer()))) {
 
 							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
 							itemSearch.add(records.get(i));
