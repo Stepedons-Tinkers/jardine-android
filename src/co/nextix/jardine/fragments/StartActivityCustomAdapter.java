@@ -67,7 +67,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		public TextView end_time_txt;
 		public TextView assigned_to_txt;
 		public TextView action_txt;
-		public TextView status;
 		public TextView edit_txt;
 		public TextView delete_txt;
 	}
@@ -78,6 +77,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
+		StartActivityFragment sct = (StartActivityFragment) frag;
 
 		if (convertView == null) {
 
@@ -92,7 +92,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.start_time_txt = (TextView) vi.findViewById(R.id.start_time_txt);
 			holder.end_time_txt = (TextView) vi.findViewById(R.id.end_time_txt);
 			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
-			holder.status = (TextView) vi.findViewById(R.id.status_list_view);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
@@ -104,9 +103,11 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 		// Checking of the data gathered
 		if (data.size() <= 0) {
-			holder.status.setVisibility(View.VISIBLE);
-
+			sct.isListHasNoData();
+			
 		} else {
+			sct.isListHasData();
+			
 			/***** Get each Model object from Arraylist ********/
 			tempValues = null;
 			tempValues = (ActivityRecord) data.get(position);

@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,8 +23,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.TableLayout;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
@@ -37,17 +36,17 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 public class StartActivityFragment extends Fragment {
 
 	private StartActivityCustomAdapter adapter = null;
-	public Context CustomListView = null;
-	public ArrayList<ActivityRecord> CustomListViewValuesArr = null;
+	private Context CustomListView = null;
+	private ArrayList<ActivityRecord> CustomListViewValuesArr = null;
 	private View rootView = null;
 	private ListView list = null;
 	private EditText editMonth = null;
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	private String formattedDate = null;
-	public int day = 0;
-	public int month = 0;
-	public int year = 0;
+	private int day = 0;
+	private int month = 0;
+	private int year = 0;
 	private Spinner addActivitySpinner = null;
 
 	public StartActivityFragment() {
@@ -77,13 +76,13 @@ public class StartActivityFragment extends Fragment {
 		setListData();
 
 		this.list = (ListView) this.rootView.findViewById(R.id.list);
+		this.editMonth.setText(this.formattedDate);
 
 		/**************** Create Custom Adapter *********/
 		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.CustomListViewValuesArr, this);
 		this.list.setAdapter(adapter);
-		this.editMonth.setText(this.formattedDate);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
-		
+
 		((ImageButton) this.rootView.findViewById(R.id.prev_button)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -145,54 +144,14 @@ public class StartActivityFragment extends Fragment {
 		return this.rootView;
 	}
 
-	private void addTableRow() {
-		final TableLayout table = (TableLayout) this.rootView.findViewById(R.id.activity_table);
-		final TableRow tr = (TableRow) getLayoutInflater(null).inflate(R.layout.table_row_item, null);
-
-		TextView tv;
-		// Fill out our cells
-		// tv = (TextView) tr.findViewById(R.id.cell_1);
-		// tv.setText(...);
-
-		// tv = (TextView) tr.findViewById(R.id.cell_N);
-		// tv.setText(...);
-		// table.addView(tr);
-
-		// Draw separator
-		// tv = new TextView(this);
-		// tv.setBackgroundColor(Color.parseColor("#80808080"));
-		// tv.setHeight(4/*height of separaor line. 2dip will be enough*/);
-		// table.addView(tv);
-
-		// If you use context menu it should be registered for each table row
-		registerForContextMenu(tr);
-	}
-
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
 
 		ActivityTable table = JardineApp.DB.getActivity();
 		List<ActivityRecord> records = table.getAllRecords();
-		ActivityRecord sched = null;
+		Log.d("Jardine", String.valueOf(records.size()));
 
 		for (int i = 0; i < records.size(); i++) {
-			for (ActivityRecord rec = null; records.get(i).equals(rec);) {
-				if ("".equals(rec)) {
-					((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
-					((ListView) this.rootView.findViewById(R.id.list)).setVisibility(View.INVISIBLE);
-					((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.INVISIBLE);
-					return;
-				}
-
-				/******* Firstly take data in model object ******/
-				sched = new ActivityRecord();
-				sched.setCrm(String.valueOf(rec.getCrm()));
-				sched.setWorkplan(rec.getWorkplan());
-				sched.setActivityType(rec.getActivityType());
-				sched.setStartTime(String.valueOf(rec.getStartTime()));
-				sched.setEndTime(String.valueOf(rec.getEndTime()));
-				sched.setUser(rec.getCustomer());
-			}
 
 			/******** Take Model Object in ArrayList **********/
 			CustomListViewValuesArr.add(records.get(i));
@@ -209,6 +168,18 @@ public class StartActivityFragment extends Fragment {
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+	}
+
+	public void isListHasNoData() {
+		this.list.setVisibility(View.GONE);
+		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
+		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+	}
+
+	protected void isListHasData() {
+		this.list.setVisibility(View.VISIBLE);
+		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
+		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
