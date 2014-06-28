@@ -18,6 +18,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -41,11 +43,13 @@ public class StartActivityFragment extends Fragment {
 	private StartActivityCustomAdapter adapter = null;
 	private ArrayList<ActivityRecord> realRecord = null;
 	private ArrayList<ActivityRecord> tempRecord = null;
+	private ArrayList<ActivityRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View rootView = null;
 	private ListView list = null;
 	private Spinner addActivitySpinner = null;
 	private EditText editMonth = null;
+
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	private String formattedDate = null;
@@ -55,7 +59,6 @@ public class StartActivityFragment extends Fragment {
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
-	private ArrayList<ActivityRecord> itemSearch = null;
 
 	public StartActivityFragment() {
 		this.c = Calendar.getInstance();
@@ -82,6 +85,56 @@ public class StartActivityFragment extends Fragment {
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 
+		this.addActivitySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				ActivityTable table = JardineApp.DB.getActivity();
+				List<ActivityRecord> records = table.getAllRecords();
+
+				// Getting the position of the spinner
+				String searchItem = ((EditText) rootView.findViewById(R.id.search_activities)).getText().toString();
+				if (searchItem.length() > 0) {
+					itemSearch.clear();
+					for (int i = 0; i < records.size(); i++) {
+						if (parent.getSelectedItem().toString().equals(getActivity().getResources().getString(R.string.crm_no))
+								&& searchItem.equals(records.get(i).getCrm())) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
+								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
+								.equals(getActivity().getResources().getString(R.string.activity_type))
+								&& searchItem.equals(String.valueOf(records.get(i).getActivityType()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString().equals(getActivity().getResources().getString(R.string.assigned_to))
+								&& searchItem.equals(String.valueOf(records.get(i).getCustomer()))) {
+
+							itemSearch.add(records.get(i));
+						}
+					}
+
+					CustomListView = getActivity().getApplicationContext();
+					list = (ListView) rootView.findViewById(R.id.list);
+					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					list.setAdapter(adapter);
+					ListViewUtility.setListViewHeightBasedOnChildren(list);
+				} else {
+					return;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 		((EditText) this.rootView.findViewById(R.id.search_activities)).setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
@@ -89,9 +142,9 @@ public class StartActivityFragment extends Fragment {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					ActivityTable table = JardineApp.DB.getActivity();
 					List<ActivityRecord> records = table.getAllRecords();
-					
+
 					itemSearch.clear();
-					
+
 					// Getting the position of the spinner
 					String searchItem = String.valueOf(StartActivityFragment.this.addActivitySpinner.getSelectedItem());
 					for (int i = 0; i < records.size(); i++) {
@@ -99,26 +152,17 @@ public class StartActivityFragment extends Fragment {
 								&& v.getText().toString().equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
-
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
 
 							itemSearch.add(records.get(i));
-
-							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
-
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
 
 							itemSearch.add(records.get(i));
-
-							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
-
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.assigned_to))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getCustomer()))) {
 
-							Toast.makeText(getActivity(), "Naa nas table", Toast.LENGTH_SHORT).show();
 							itemSearch.add(records.get(i));
 						}
 					}
