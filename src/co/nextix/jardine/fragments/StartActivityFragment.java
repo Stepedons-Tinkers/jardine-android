@@ -299,11 +299,16 @@ public class StartActivityFragment extends Fragment {
 	// Event item listener
 	public void onItemClick(int mPosition) {
 		ActivityRecord tempValues = (ActivityRecord) tempRecord.get(mPosition);
-		Toast.makeText(getActivity(),
-				"" + tempValues.getCrm() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(
+				getActivity(),
+				"CRM No." + tempValues.getCrm() + " \n Workplan:" + tempValues.getWorkplan() + " \n Activity Type:"
+						+ tempValues.getActivityType(), Toast.LENGTH_SHORT).show();
 
 		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+		final Bundle bundle = new Bundle();
+		bundle.putString("crm_no", tempValues.getCrm());
+		fragment.setArguments(bundle);
+		
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
