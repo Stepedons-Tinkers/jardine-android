@@ -123,7 +123,7 @@ public class PCustConPositionTable {
 		return rowsDeleted;
 	}
 
-	public PicklistRecord getById(int ID) {
+	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CUSTOMER_CONTACT_POSITION_ROWID + "=?";
