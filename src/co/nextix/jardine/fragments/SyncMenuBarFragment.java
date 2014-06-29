@@ -2300,7 +2300,8 @@ public class SyncMenuBarFragment extends Fragment {
 								Log.w(TAG,
 										"Document: event ** "
 												+ data.getNoteNo());
-								if (!table.isExisting(data.getNoteNo())) {
+								if (!table.isExisting(String.valueOf(data
+										.getRecordId()))) {
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -2341,7 +2342,8 @@ public class SyncMenuBarFragment extends Fragment {
 										"Document: market ** "
 												+ data.getNoteNo());
 								// for (DocumentModel mod : data) {
-								if (!table.isExisting(data.getNoteNo())) {
+								if (!table.isExisting(String.valueOf(data
+										.getRecordId()))) {
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -2358,7 +2360,7 @@ public class SyncMenuBarFragment extends Fragment {
 									Marketing_Files_IDs.add(new FileRecord(data
 											.getFilename(), data.getFilePath(),
 											data.getFileSize(),
-											Modules.EventProtocol));
+											Modules.MarketingMaterials));
 								}
 								// }
 							}

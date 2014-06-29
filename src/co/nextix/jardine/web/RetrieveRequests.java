@@ -1272,7 +1272,7 @@ public class RetrieveRequests {
 
 		if (file.length() > 0)
 			result = true;
-
+		Log.e(JardineApp.TAG, "download saved in: " + file.getAbsolutePath());
 		Log.e(JardineApp.TAG,
 				"download completed in "
 						+ ((System.currentTimeMillis() - startTime) / 1000)
