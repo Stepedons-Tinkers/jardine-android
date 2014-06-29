@@ -269,6 +269,8 @@ public class StartActivityFragment extends Fragment {
 
 			this.totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
+		} else {
+			this.isListHasNoData();
 		}
 	}
 
@@ -283,7 +285,7 @@ public class StartActivityFragment extends Fragment {
 			count = count + 1;
 		}
 
-		setView();
+		this.setView();
 	}
 
 	private void setView() {
@@ -314,7 +316,7 @@ public class StartActivityFragment extends Fragment {
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 	}
 
-	public void isListHasNoData() {
+	protected void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
 		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
