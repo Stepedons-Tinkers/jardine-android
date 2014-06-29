@@ -72,11 +72,5 @@ public class CustomerContactPersonFragment extends Fragment {
 
 		birthday.setText(record.getBirthday());
 
-		if (record.getIsActive() == 1) {
-			isActive.setText("Active");
-		} else {
-			isActive.setText("Inactive");
-		}
-
 	}
 }

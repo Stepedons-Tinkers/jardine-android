@@ -9,6 +9,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -27,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CustomerContactList extends Fragment implements OnClickListener {
@@ -37,8 +39,8 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-	private List<ActivityRecord> realRecord;
-	private List<ActivityRecord> tempRecord;
+	private List<CustomerContactRecord> realRecord;
+	private List<CustomerContactRecord> tempRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
@@ -46,10 +48,12 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	private TableRow trow;
 	private EditText search;
 	private Button bntAdd;
+	private long customerId = 0;
 
 	public static CustomerContactList newInstance(long custd) {
 		CustomerContactList fragment = new CustomerContactList();
 		Bundle bundle = new Bundle();
+		bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID, custd);
 		fragment.setArguments(bundle);
 		return fragment;
 	}
@@ -57,7 +61,11 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+		customerId = getArguments().getLong(
+				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 		view = inflater.inflate(R.layout.workplan_activities, container, false);
+		header = inflater.inflate(R.layout.customer_contact_row, null, false);
 		initLayout();
 		return view;
 	}
@@ -66,6 +74,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 		// Header Data
 
+		trow = (TableRow) header.findViewById(R.id.trCustomerContactRow);
 		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
@@ -88,18 +97,17 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
-		realRecord = new ArrayList<ActivityRecord>();
-		tempRecord = new ArrayList<ActivityRecord>();
+		realRecord = new ArrayList<CustomerContactRecord>();
+		tempRecord = new ArrayList<CustomerContactRecord>();
 
-		ActivityTable table = JardineApp.DB.getActivity();
-		realRecord.addAll(table
-				.getAllRecordsByWorkEntry(WorkPlanConstants.WORKPLAN_ID));
+		realRecord.addAll(JardineApp.DB.getCustomerContact()
+				.getAllRecordsByCustomerId(customerId));
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					ActivityRecord rec = new ActivityRecord();
+					CustomerContactRecord rec = new CustomerContactRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -139,21 +147,15 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 	private void setView() {
 
-		// AdapterCollateralsEventProtocols adapter = new
-		// AdapterCollateralsEventProtocols(getActivity(),
-		// R.layout.collaterals_event_protocol_row, tempRecord);
-		// list.setAdapter(adapter);
-
-		AdapterWorkplanActivity adapter = new AdapterWorkplanActivity(
-				getActivity(), R.layout.collaterals_event_protocol_row,
-				tempRecord);
+		AdapterCustomerContacts adapter = new AdapterCustomerContacts(
+				getActivity(), R.layout.customer_contact_row, tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				EventProtocolRecord epr = (EventProtocolRecord) parent
+				CustomerContactRecord epr = (CustomerContactRecord) parent
 						.getAdapter().getItem(position);
 
 				if (epr.getNo() != null) {

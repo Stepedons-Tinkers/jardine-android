@@ -116,6 +116,58 @@ public class CustomerContactTable {
 		return list;
 	}
 
+	public List<CustomerContactRecord> getAllRecordsByCustomerId(long custId) {
+		Cursor c = null;
+		List<CustomerContactRecord> list = new ArrayList<CustomerContactRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMERCONTACT_CUSTOMER + " = " + custId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CRMNO));
+					String firstName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_FIRSTNAME));
+					String lastName = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_LASTNAME));
+					long position = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_POSITION));
+					String mobileNo = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_MOBILENO));
+					String birthday = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_BIRTHDAY));
+					String emailAddress = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_EMAIL));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CUSTOMER));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+
+					list.add(new CustomerContactRecord(id, no, crmNo,
+							firstName, lastName, position, mobileNo, birthday,
+							emailAddress, customer, isActive, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
