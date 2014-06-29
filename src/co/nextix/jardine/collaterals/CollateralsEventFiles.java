@@ -60,7 +60,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
-//		Toast.makeText(getActivity(), moduleID, Toast.LENGTH_SHORT).show();
+		// Toast.makeText(getActivity(), moduleID, Toast.LENGTH_SHORT).show();
 		initLayout();
 		return view;
 	}
@@ -91,6 +91,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
 
 		list.addHeaderView(header);
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
@@ -112,10 +113,10 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		} catch (Exception e) {
 		}
 
-//		Toast.makeText(
-//				getActivity(),
-//				JardineApp.DB.getDocument().getAllByCrmNo(moduleID).size() + "",
-//				Toast.LENGTH_SHORT).show();
+		// Toast.makeText(
+		// getActivity(),
+		// JardineApp.DB.getDocument().getAllByCrmNo(moduleID).size() + "",
+		// Toast.LENGTH_SHORT).show();
 
 		// for (int i = 1; i <= 89; i++) {
 		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
@@ -172,6 +173,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 					Intent intent = new Intent(getActivity(),
 							CollateralsFileViewer.class);
+					CollateralsConstants.FileRecord = epr;
 					getActivity().startActivity(intent);
 				}
 

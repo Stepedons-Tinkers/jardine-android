@@ -51,13 +51,18 @@
             android:logo="@drawable/actionbar_logo"
             android:theme="@style/Theme.Example" >
             <item android:name="android:windowBackground">
-@android:color/transparent
+@android:color/transparent
             </item>
         </activity>
         <activity
             android:name="LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" >
+        </activity>
+        <activity
+            android:name=".collaterals.CollateralsFileViewer"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="fullSensor" >
         </activity>
     </application>
 
