@@ -67,7 +67,7 @@
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -87,10 +87,10 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
+                    <EditText
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -98,6 +98,8 @@
                         android:singleLine="true"
                         android:text="related SMR Record"
                         android:textColor="#FF0000" />
+
+                    <requestFocus />
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>

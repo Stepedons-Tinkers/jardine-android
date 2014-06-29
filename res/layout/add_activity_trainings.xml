@@ -68,7 +68,7 @@
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -89,13 +89,14 @@
                     <EditText
                         android:id="@+id/objective"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
                         android:inputType="textMultiLine|textImeMultiLine"
                         android:maxLines="100"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
+                    <requestFocus />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -108,7 +109,7 @@
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -130,8 +131,8 @@
                     <Spinner
                         android:id="@+id/spinner1"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:background="#cac9c9"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
                         android:scrollHorizontally="true" />
                 </HorizontalScrollView>
             </TableRow>
@@ -153,7 +154,7 @@
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -174,7 +175,7 @@
                     <EditText
                         android:id="@+id/objective"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
                         android:inputType="textMultiLine|textImeMultiLine"
@@ -192,7 +193,7 @@
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:gravity="center"
                         android:padding="14dip"
@@ -213,7 +214,7 @@
                     <EditText
                         android:id="@+id/objective"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
+                        android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
                         android:inputType="textMultiLine|textImeMultiLine|number"

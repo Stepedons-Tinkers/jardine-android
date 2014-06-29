@@ -164,6 +164,8 @@
                         android:state_selected="true"
                         android:textColor="#FF0000"
                         android:textSize="14dp" />
+
+                    <requestFocus />
                 </HorizontalScrollView>
             </TableRow>
 
@@ -671,10 +673,10 @@
                         android:layout_height="50dp"
                         android:background="#cac9c9"
                         android:gravity="center"
+                        android:hint="related Customer record"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="related Customer record"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
