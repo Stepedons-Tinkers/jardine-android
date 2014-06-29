@@ -30,7 +30,7 @@
                 android:id="@+id/add_activity_spinner"
                 android:layout_width="197dp"
                 android:layout_height="64dp"
-                android:layout_alignBottom="@+id/search"
+                android:layout_alignBottom="@+id/search_activities"
                 android:layout_alignParentLeft="true"
                 android:layout_marginRight="4dp"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
@@ -38,7 +38,7 @@
             <!-- android:background="@android:drawable/btn_dropdown" -->
 
             <EditText
-                android:id="@+id/search"
+                android:id="@+id/search_activities"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/add_activity_spinner"
@@ -359,7 +359,7 @@
             android:gravity="center" >
 
             <ImageButton
-                android:id="@+id/imageButton1"
+                android:id="@+id/left_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/prev" />
@@ -377,7 +377,7 @@
                 android:textSize="17sp" />
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/right_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="24dp"

@@ -12,10 +12,14 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -24,6 +28,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -36,18 +41,24 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 public class StartActivityFragment extends Fragment {
 
 	private StartActivityCustomAdapter adapter = null;
+	private ArrayList<ActivityRecord> realRecord = null;
+	private ArrayList<ActivityRecord> tempRecord = null;
+	private ArrayList<ActivityRecord> itemSearch = null;
 	private Context CustomListView = null;
-	private ArrayList<ActivityRecord> CustomListViewValuesArr = null;
 	private View rootView = null;
 	private ListView list = null;
+	private Spinner addActivitySpinner = null;
 	private EditText editMonth = null;
+
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	private String formattedDate = null;
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
-	private Spinner addActivitySpinner = null;
+	private int rowSize = 5;
+	private int totalPage = 0;
+	private int currentPage = 0;
 
 	public StartActivityFragment() {
 		this.c = Calendar.getInstance();
@@ -55,6 +66,7 @@ public class StartActivityFragment extends Fragment {
 		this.day = this.c.get(Calendar.DAY_OF_MONTH);
 		this.month = this.c.get(Calendar.MONTH);
 		this.year = this.c.get(Calendar.YEAR);
+		this.itemSearch = new ArrayList<ActivityRecord>();
 	}
 
 	@Override
@@ -63,25 +75,108 @@ public class StartActivityFragment extends Fragment {
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(), R.layout.workplan_spinner_row, getResources()
 				.getStringArray(R.array.activity_spinner_items));
 
-		this.CustomListViewValuesArr = new ArrayList<ActivityRecord>();
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
-		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
-		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.formattedDate = this.df.format(this.c.getTime());
+		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
+		this.editMonth.setText(this.formattedDate);
+		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.addActivitySpinner.setAdapter(sAdapter);
-
-		CustomListView = getActivity().getApplicationContext();
 
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 
-		this.list = (ListView) this.rootView.findViewById(R.id.list);
-		this.editMonth.setText(this.formattedDate);
+		this.addActivitySpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-		/**************** Create Custom Adapter *********/
-		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.CustomListViewValuesArr, this);
-		this.list.setAdapter(adapter);
-		ListViewUtility.setListViewHeightBasedOnChildren(list);
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				ActivityTable table = JardineApp.DB.getActivity();
+				List<ActivityRecord> records = table.getAllRecords();
+
+				// Getting the position of the spinner
+				String searchItem = ((EditText) rootView.findViewById(R.id.search_activities)).getText().toString();
+				if (searchItem.length() > 0) {
+					itemSearch.clear();
+					for (int i = 0; i < records.size(); i++) {
+						if (parent.getSelectedItem().toString().equals(getActivity().getResources().getString(R.string.crm_no))
+								&& searchItem.equals(records.get(i).getCrm())) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
+								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
+								.equals(getActivity().getResources().getString(R.string.activity_type))
+								&& searchItem.equals(String.valueOf(records.get(i).getActivityType()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString().equals(getActivity().getResources().getString(R.string.assigned_to))
+								&& searchItem.equals(String.valueOf(records.get(i).getCustomer()))) {
+
+							itemSearch.add(records.get(i));
+						}
+					}
+
+					CustomListView = getActivity().getApplicationContext();
+					list = (ListView) rootView.findViewById(R.id.list);
+					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					list.setAdapter(adapter);
+					ListViewUtility.setListViewHeightBasedOnChildren(list);
+				} else {
+					return;
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		((EditText) this.rootView.findViewById(R.id.search_activities)).setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_DONE) {
+					ActivityTable table = JardineApp.DB.getActivity();
+					List<ActivityRecord> records = table.getAllRecords();
+
+					itemSearch.clear();
+
+					// Getting the position of the spinner
+					String searchItem = String.valueOf(StartActivityFragment.this.addActivitySpinner.getSelectedItem());
+					for (int i = 0; i < records.size(); i++) {
+						if (searchItem.equals(getActivity().getResources().getString(R.string.crm_no))
+								&& v.getText().toString().equals(records.get(i).getCrm())) {
+
+							itemSearch.add(records.get(i));
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
+
+							itemSearch.add(records.get(i));
+						} else if (searchItem.equals(getActivity().getResources().getString(R.string.assigned_to))
+								&& v.getText().toString().equals(String.valueOf(records.get(i).getCustomer()))) {
+
+							itemSearch.add(records.get(i));
+						}
+					}
+
+					CustomListView = getActivity().getApplicationContext();
+					list = (ListView) rootView.findViewById(R.id.list);
+					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					list.setAdapter(adapter);
+					ListViewUtility.setListViewHeightBasedOnChildren(list);
+				}
+
+				return false;
+			}
+		});
 
 		((ImageButton) this.rootView.findViewById(R.id.prev_button)).setOnClickListener(new OnClickListener() {
 
@@ -125,19 +220,27 @@ public class StartActivityFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) this.rootView.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "<==== ni sud here", Toast.LENGTH_SHORT).show();
+
+				if (currentPage > 0) {
+					currentPage--;
+					addItem(currentPage);
+				}
 			}
 		});
 
-		((ImageButton) this.rootView.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "ni sud here ====>", Toast.LENGTH_SHORT).show();
+
+				if (currentPage < totalPage - 1) {
+					currentPage++;
+					addItem(currentPage);
+				}
 			}
 		});
 
@@ -146,25 +249,66 @@ public class StartActivityFragment extends Fragment {
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
+		this.realRecord = new ArrayList<ActivityRecord>();
+		this.tempRecord = new ArrayList<ActivityRecord>();
 
 		ActivityTable table = JardineApp.DB.getActivity();
 		List<ActivityRecord> records = table.getAllRecords();
+		this.realRecord.addAll(records);
+
 		Log.d("Jardine", String.valueOf(records.size()));
 
-		for (int i = 0; i < records.size(); i++) {
+		if (realRecord.size() > 0) {
+			int remainder = realRecord.size() % rowSize;
+			if (remainder > 0) {
+				for (int i = 0; i < rowSize - remainder; i++) {
+					ActivityRecord rec = new ActivityRecord();
+					realRecord.add(rec);
+				}
+			}
 
-			/******** Take Model Object in ArrayList **********/
-			CustomListViewValuesArr.add(records.get(i));
+			this.totalPage = realRecord.size() / rowSize;
+			addItem(currentPage);
 		}
 	}
 
+	private void addItem(int count) {
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		((TextView) this.rootView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, realRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
+	}
+
+	private void setView() {
+
+		/**************** Create Custom Adapter *********/
+		this.CustomListView = getActivity().getApplicationContext();
+		this.list = (ListView) this.rootView.findViewById(R.id.list);
+		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.tempRecord, this);
+		this.list.setAdapter(adapter);
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
+	}
+
+	// Event item listener
 	public void onItemClick(int mPosition) {
-		ActivityRecord tempValues = (ActivityRecord) CustomListViewValuesArr.get(mPosition);
-		Toast.makeText(getActivity(),
-				"" + tempValues.getCrm() + " \nImage:" + tempValues.getWorkplan() + " \nUrl:" + tempValues.getActivityType(),
-				Toast.LENGTH_SHORT).show();
+		ActivityRecord tempValues = (ActivityRecord) tempRecord.get(mPosition);
+		Toast.makeText(
+				getActivity(),
+				"CRM No." + tempValues.getCrm() + " \n Workplan:" + tempValues.getWorkplan() + " \n Activity Type:"
+						+ tempValues.getActivityType(), Toast.LENGTH_SHORT).show();
 
 		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+		final Bundle bundle = new Bundle();
+		bundle.putString("crm_no", tempValues.getCrm());
+		fragment.setArguments(bundle);
+		
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();

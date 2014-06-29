@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 import co.nextix.jardine.R;
 
 public class ActivityInfoFragment extends Fragment {
@@ -23,6 +24,11 @@ public class ActivityInfoFragment extends Fragment {
 
 		// Add a fucking fragment
 		StaticActivityInfoFragment myFragmentAddActivity = new StaticActivityInfoFragment();
+		final Bundle data = new Bundle();
+		final Bundle args = getArguments();
+		data.putString("crm_no", args.getString("crm_no"));
+		myFragmentAddActivity.setArguments(data);
+		
 		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
 		fragmentTransaction.commit();
 

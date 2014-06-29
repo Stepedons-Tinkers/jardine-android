@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 import co.nextix.jardine.R;
 
 public class EditActivityInfoFragment extends Fragment {
@@ -15,6 +16,11 @@ public class EditActivityInfoFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		View myFragmentView = inflater.inflate(R.layout.fragment_start_activity, container, false);
+		Bundle args = getArguments();
+		if (args  != null && args.containsKey("crm_no")){
+			((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(args.getString("crm_no"));
+		}
+			
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
 
 			@Override
