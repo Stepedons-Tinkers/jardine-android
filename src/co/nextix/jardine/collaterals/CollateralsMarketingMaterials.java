@@ -102,8 +102,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
-		search = (EditText) view
-				.findViewById(R.id.etCollateralsSearchMM);
+		search = (EditText) view.findViewById(R.id.etCollateralsSearchMM);
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
 		arrowRight = (ImageButton) view
@@ -179,7 +178,8 @@ public class CollateralsMarketingMaterials extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId()))
+									CollateralsDetails.newInstance(epr.getId(),
+											epr.getNo()))
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

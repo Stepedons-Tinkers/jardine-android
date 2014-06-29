@@ -195,8 +195,8 @@ public class CollateralsEventProtocols extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId()),
-									JardineApp.TAG)
+									CollateralsDetails.newInstance(epr.getId(),
+											epr.getNo()), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

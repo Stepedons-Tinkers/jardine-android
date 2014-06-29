@@ -42,12 +42,12 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private TextView txtCrm, txtDesc, txtIsActive;
 	private TableRow trow;
 
-	private long moduleID = 0;
+	private String moduleID = "";
 
-	public static CollateralsEventFiles newInstance(long id) {
+	public static CollateralsEventFiles newInstance(String crm) {
 		CollateralsEventFiles fragment = new CollateralsEventFiles();
 		Bundle b = new Bundle();
-		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
+		b.putString(CollateralsConstants.KEY_ROW_ID, crm);
 		fragment.setArguments(b);
 		return fragment;
 	}
@@ -56,10 +56,11 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		moduleID = getArguments().getLong(CollateralsConstants.KEY_ROW_ID);
+		moduleID = getArguments().getString(CollateralsConstants.KEY_ROW_ID);
 		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
+//		Toast.makeText(getActivity(), moduleID, Toast.LENGTH_SHORT).show();
 		initLayout();
 		return view;
 	}
@@ -106,14 +107,15 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		tempRecord = new ArrayList<DocumentRecord>();
 
 		try {
-			realRecord.addAll(JardineApp.DB.getDocument()
-					.getAllRecordsByModuleID(moduleID));
+			realRecord.addAll(JardineApp.DB.getDocument().getAllByCrmNo(
+					moduleID));
 		} catch (Exception e) {
 		}
 
-		Toast.makeText(getActivity(),
-				JardineApp.DB.getDocument().getAllRecords().size() + "",
-				Toast.LENGTH_SHORT).show();
+//		Toast.makeText(
+//				getActivity(),
+//				JardineApp.DB.getDocument().getAllByCrmNo(moduleID).size() + "",
+//				Toast.LENGTH_SHORT).show();
 
 		// for (int i = 1; i <= 89; i++) {
 		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
@@ -163,8 +165,8 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				MarketingMaterialsRecord epr = (MarketingMaterialsRecord) parent
-						.getAdapter().getItem(position);
+				DocumentRecord epr = (DocumentRecord) parent.getAdapter()
+						.getItem(position);
 
 				if (epr.getNo() != null) {
 

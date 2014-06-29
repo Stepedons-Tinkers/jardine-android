@@ -107,10 +107,12 @@ public class DocumentTable {
 		}
 		return list;
 	}
-	public List<DocumentRecord> getAllRecordsByModuleID(long ID) {
+
+	public List<DocumentRecord> getAllByCrmNo(String crm) {
 		Cursor c = null;
 		List<DocumentRecord> list = new ArrayList<DocumentRecord>();
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_DOCUMENT_MODULEID + " = DOC6" ;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_DOCUMENT_MODULEID + " = '" + crm + "'";
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {

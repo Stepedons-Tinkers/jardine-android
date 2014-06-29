@@ -18,25 +18,28 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 	private TabHost tabHost;
 	private String tab1, tab2;
 
+	public static CollateralsDetails newInstance(long id, String crmNo) {
+		CollateralsDetails fragment = new CollateralsDetails();
+		Bundle b = new Bundle();
+		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
+		b.putString(CollateralsConstants.KEY_CRM_NO, crmNo);
+		fragment.setArguments(b);
+		return fragment;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		CollateralsConstants.ROW_ID = getArguments().getLong(
 				CollateralsConstants.KEY_ROW_ID);
+		CollateralsConstants.CRM_NO = getArguments().getString(
+				CollateralsConstants.KEY_CRM_NO);
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		view = inflater.inflate(R.layout.collaterals, container, false);
 		initLayout();
 		return view;
-	}
-
-	public static CollateralsDetails newInstance(long id) {
-		CollateralsDetails fragment = new CollateralsDetails();
-		Bundle b = new Bundle();
-		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
-		fragment.setArguments(b);
-		return fragment;
 	}
 
 	private void initLayout() {
@@ -91,7 +94,7 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 			break;
 		case 1:
 			fragment = CollateralsEventFiles
-					.newInstance(CollateralsConstants.ROW_ID);
+					.newInstance(CollateralsConstants.CRM_NO);
 			break;
 		}
 
