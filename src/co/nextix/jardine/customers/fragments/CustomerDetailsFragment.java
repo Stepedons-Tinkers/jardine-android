@@ -85,7 +85,7 @@ public class CustomerDetailsFragment extends Fragment implements
 			fragment = CustomerGeneralInformation.newInstance(customerId);
 			break;
 		case 1:
-			fragment = new CustomerContactPersonFragment();
+			fragment = CustomerContactPersonFragment.newInstance(customerId);
 			break;
 		}
 

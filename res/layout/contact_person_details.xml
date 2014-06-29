@@ -1,523 +1,561 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:overScrollMode="never" >
 
-    <TextView
-        android:id="@+id/tvContactPersonDetailGeneralInformation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="5dp"
-        android:background="@color/collaterals_general_info"
-        android:padding="10dp"
-        android:textSize="18sp"
-        android:text="@string/collaterals_ep_general_information"
-        android:textColor="@color/white" />
-
-    <TableLayout
-        android:id="@+id/tlColatteralsEventProtocols2"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/tvContactPersonDetailGeneralInformation"
-        android:layout_marginBottom="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:background="@drawable/xml_tablelayout_bg"
-        android:divider="@color/black"
-        android:orientation="horizontal"
-        android:padding="2dp"
-        android:showDividers="middle" >
+        android:background="@color/white"
+        android:orientation="vertical" >
 
-        <TableRow
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvContactPersonDetailGeneralInformation"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:background="@color/collaterals_general_info"
+                android:padding="10dp"
+                android:text="@string/collaterals_ep_general_information"
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/btnEditContactPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/btnDeleteContactPerson"
+                android:background="@color/orange"
+                android:padding="10dp"
+                android:text="@string/customer_details_edit" />
+
+            <Button
+                android:id="@+id/btnDeleteContactPerson"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:background="#FF00"
+                android:padding="10dp"
+                android:text="@string/customer_details_delete" />
+        </RelativeLayout>
+
+        <TableLayout
+            android:id="@+id/tlColatteralsEventProtocols2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/xml_tablelayout_bg"
+            android:divider="@color/black"
+            android:orientation="horizontal"
+            android:padding="2dp"
+            android:showDividers="middle"
+            android:stretchColumns="0,2,4,6" >
 
-            <TextView
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textStyle="bold"
-                android:text="@string/collaterals_ep_crm_no"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_crm_no"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvContactPersonCrmNoInfo"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonCrmNoInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="@string/contact_person_firstname"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonFirstNameInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/contact_person_lastname"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonLastNameInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="@string/contact_person_position"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonPositionInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
                 android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:text="@string/contact_person_firstname"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/contact_person_mobileno"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvContactPersonFirstNameInfo"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonMobileNoInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="@string/contact_person_birthday"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonBirthdayInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trCollateralsMMRow"
                 android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/contact_person_email"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonEmailInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonCustomerInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trContactPersonRow1"
                 android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/contact_person_lastname"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvContactPersonLastNameInfo"
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonIsActiveInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonProvinceInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trContactPersonRow2"
                 android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonCityOrTownInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvContactPersonIsActiveInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/trContactPersonRow3"
                 android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:text="@string/contact_person_position"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvContactPersonPositionInfo"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
+                <TextView
+                    android:id="@+id/tvContactPersonFaxInfo"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/contact_person_mobileno"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
 
-            <TextView
-                android:id="@+id/tvContactPersonMobileNoInfo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
 
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:text="@string/contact_person_birthday"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonBirthdayInfo"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trCollateralsMMRow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:text="@string/contact_person_email"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonEmailInfo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonCustomerInfo"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trContactPersonRow1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonIsActiveInfo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonProvinceInfo"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trContactPersonRow2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/collaterals_tablerow_color1"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonCityOrTownInfo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonIsActiveInfo"
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/trContactPersonRow3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:clickable="false"
-            android:focusable="false"
-            android:orientation="horizontal" >
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="0"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:paddingLeft="2dp"
-                android:textColor="@color/black"
-                android:textSize="21sp"
-                android:textStyle="bold" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:id="@+id/tvContactPersonFaxInfo"
-                android:layout_width="match_parent"
-                android:layout_column="1"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-
-            <!-- <View
-                android:layout_width="2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="2dp"
-                android:background="@color/black" /> -->
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_column="2"
-                android:layout_weight="1"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:textSize="21sp" />
-        </TableRow>
-    </TableLayout>
-
-    <Button
-        android:id="@+id/btnEditContactPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/tvContactPersonDetailGeneralInformation"
-        android:layout_centerVertical="true"
-        android:layout_marginBottom="5dp"
-        android:layout_marginRight="10dp"
-        android:layout_toLeftOf="@+id/btnDeleteContactPerson"
-        android:background="@color/orange"
-        android:padding="10dp"
-        android:text="@string/contact_person_details_edit" />
-
-    <Button
-        android:id="@+id/btnDeleteContactPerson"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/btnEditContactPerson"
-        android:layout_alignBottom="@+id/btnEditContactPerson"
-        android:layout_alignRight="@+id/tlColatteralsEventProtocols2"
-        android:background="#FF00"
-        android:padding="10dp"
-        android:text="@string/contact_person_details_delete" />
-
-</RelativeLayout>
+</ScrollView>
