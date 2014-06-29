@@ -160,8 +160,8 @@
     <string name="contact_person_details_customer_type">Customer Type</string>
     <string name="contact_person_details_fax">Fax</string>
     <string name="contact_person_details_is_active">Is Active</string>
-    <string name="contact_person_details_edit">Edit Customer Contact Person</string>
-    <string name="contact_person_details_delete">Delete Customer Contact Person</string>
+    <string name="contact_person_details_edit">Edit</string>
+    <string name="contact_person_details_delete">Delete</string>
 
     <!-- Collaterals -->
     <string name="collaterals_event_protocols">EVENT PROTOCOLS</string>
@@ -328,8 +328,8 @@
     <string name="customer_details_customer_type">Customer Type</string>
     <string name="customer_details_fax">Fax</string>
     <string name="customer_details_is_active">Is Active</string>
-    <string name="customer_details_edit">Edit Customer</string>
-    <string name="customer_details_delete">Delete Customer</string>
+    <string name="customer_details_edit">Edit</string>
+    <string name="customer_details_delete">Delete</string>
 
     <!-- Customer Contact Person -->
     <string name="crm_no_contact_person">CRM No</string>

@@ -4,11 +4,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PowerManager;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -144,6 +149,7 @@ public class SyncMenuBarFragment extends Fragment {
 	String LASY_SYNC = JardineApp.DB.getUser().getLastSync();
 	List<FileRecord> Event_Files_IDs = new ArrayList<FileRecord>();
 	List<FileRecord> Marketing_Files_IDs = new ArrayList<FileRecord>();
+	protected PowerManager.WakeLock mWakeLock;
 
 	public SyncMenuBarFragment() {
 	}
@@ -157,9 +163,21 @@ public class SyncMenuBarFragment extends Fragment {
 		View rootView = inflater.inflate(R.layout.fragment_sync, container,
 				false);
 
+		final PowerManager pm = (PowerManager) getActivity().getSystemService(
+				Context.POWER_SERVICE);
+		this.mWakeLock = pm.newWakeLock(PowerManager.SCREEN_DIM_WAKE_LOCK,
+				"My Tag");
+		this.mWakeLock.acquire();
+
 		new LoginTask().execute();
 
 		return rootView;
+	}
+
+	@Override
+	public void onDestroy() {
+		this.mWakeLock.release();
+		super.onDestroy();
 	}
 
 	private class PicklistDependencyTask extends AsyncTask<Void, Void, Boolean> {
@@ -2884,6 +2902,7 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.dismiss();
 			if (result) {
 				// new CreateCustomerTask().execute();
+
 			} else {
 
 				Toast.makeText(getActivity(), "Check Internet connection",
@@ -2943,6 +2962,23 @@ public class SyncMenuBarFragment extends Fragment {
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	private void buildAlertMessage() {
+		final AlertDialog.Builder builder = new AlertDialog.Builder(
+				getActivity());
+		builder.setMessage("Please check internet connection.")
+				.setCancelable(false).setPositiveButton("Ok", null);
+		final AlertDialog alert = builder.create();
+		alert.show();
+	}
+
+	private boolean isNetworkAvailable() {
+		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo activeNetworkInfo = connectivityManager
+				.getActiveNetworkInfo();
+		return activeNetworkInfo != null;
 	}
 
 }
