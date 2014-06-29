@@ -105,8 +105,12 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		realRecord = new ArrayList<DocumentRecord>();
 		tempRecord = new ArrayList<DocumentRecord>();
 
-		realRecord.addAll(JardineApp.DB.getDocument().getAllRecordsByModuleID(
-				moduleID));
+		try {
+			realRecord.addAll(JardineApp.DB.getDocument()
+					.getAllRecordsByModuleID(moduleID));
+		} catch (Exception e) {
+		}
+
 		Toast.makeText(getActivity(),
 				JardineApp.DB.getDocument().getAllRecords().size() + "",
 				Toast.LENGTH_SHORT).show();

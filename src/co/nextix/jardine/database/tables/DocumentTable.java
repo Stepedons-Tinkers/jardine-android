@@ -110,7 +110,7 @@ public class DocumentTable {
 	public List<DocumentRecord> getAllRecordsByModuleID(long ID) {
 		Cursor c = null;
 		List<DocumentRecord> list = new ArrayList<DocumentRecord>();
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_DOCUMENT_MODULEID + " = " + ID ;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_DOCUMENT_MODULEID + " = DOC6" ;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
