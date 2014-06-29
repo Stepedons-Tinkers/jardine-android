@@ -260,6 +260,26 @@ public class UserTable {
 		return result;
 	}
 
+	public String getLastSync() {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_USER_LASTSYNC + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_USER_LOGGEDIN + "=1";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c.getColumnIndex(KEY_USER_LASTSYNC));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public UserRecord getByWebId(String ID) {
 		UserRecord user = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

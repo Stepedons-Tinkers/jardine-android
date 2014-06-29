@@ -1184,8 +1184,8 @@ public class RetrieveRequests {
 		return model;
 	}
 
-	public boolean DownloadFile(String UrlPath, String moduleName,
-			String fileName) {
+	public boolean DownloadFile(int fileSize, String UrlPath,
+			String moduleName, String fileName) {
 
 		boolean result = false;
 
@@ -1234,9 +1234,11 @@ public class RetrieveRequests {
 				e.printStackTrace();
 			}
 
-			byte[] buff = new byte[1024];
+			// int BUFFER_SIZE = 50 * 1024;
+			int BUFFER_SIZE = fileSize + 50;
+			byte[] buff = new byte[BUFFER_SIZE];
 			BufferedInputStream inStream = new BufferedInputStream(is,
-					100657 * 1000);
+					BUFFER_SIZE);
 			FileOutputStream outStream = null;
 			try {
 

@@ -97,7 +97,7 @@ public class LoginActivity extends Activity {
 										.getDetails().getEmail(), model
 										.getDetails().getLastName(), "", model
 										.getDetails().getFirstName(), 1, 1,
-								MyDateUtils.getCurrentTimeStamp(), MyDateUtils
+								MyDateUtils.getOneYearAgo(), MyDateUtils
 										.getCurrentTimeStamp());
 					} else {
 						// rowid = Long.parseLong(StoreAccount.restore(

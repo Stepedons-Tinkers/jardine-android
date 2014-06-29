@@ -48,13 +48,13 @@ public class MyDateUtils {
 		return text;
 	}
 
-	public static String getYesterday() {
-		// DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		// Calendar cal = Calendar.getInstance();
-		// cal.add(Calendar.DATE, -1);
-		// return dateFormat.format(cal.getTime());
+	public static String getOneYearAgo() {
+		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -365);
+		return dateFormat.format(cal.getTime());
 
-		return "2000-09-27 09:00:00";
+		// return "2000-09-27 09:00:00";
 	}
 
 	public static int isTimeAfter(String webTime, String localTime) {

@@ -29,6 +29,7 @@ import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.FileRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
@@ -140,8 +141,9 @@ public class SyncMenuBarFragment extends Fragment {
 	private final String TAG = "Webservice";
 	ProgressDialog dialog;
 	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
-	List<DocumentRecord> Event_Files_IDs = new ArrayList<DocumentRecord>();
-	List<DocumentRecord> Marketing_Files_IDs = new ArrayList<DocumentRecord>();
+	String LASY_SYNC = JardineApp.DB.getUser().getLastSync();
+	List<FileRecord> Event_Files_IDs = new ArrayList<FileRecord>();
+	List<FileRecord> Marketing_Files_IDs = new ArrayList<FileRecord>();
 
 	public SyncMenuBarFragment() {
 	}
@@ -413,7 +415,7 @@ public class SyncMenuBarFragment extends Fragment {
 			BusinessUnitTable table = JardineApp.DB.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
-			BuResult result = request.BusinessUnit(MyDateUtils.getYesterday());
+			BuResult result = request.BusinessUnit(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -488,8 +490,7 @@ public class SyncMenuBarFragment extends Fragment {
 					.getMarketingMaterials();
 
 			SyncRequests request = new SyncRequests();
-			MarketMatResult result = request.MarketingMaterials(MyDateUtils
-					.getYesterday());
+			MarketMatResult result = request.MarketingMaterials(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 
@@ -564,8 +565,7 @@ public class SyncMenuBarFragment extends Fragment {
 					.getEventProtocolType();
 
 			SyncRequests request = new SyncRequests();
-			EventResult result = request.EventProtocols(MyDateUtils
-					.getYesterday());
+			EventResult result = request.EventProtocols(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -649,7 +649,7 @@ public class SyncMenuBarFragment extends Fragment {
 			BusinessUnitTable busTable = JardineApp.DB.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
-			ProdResult result = request.Product(MyDateUtils.getYesterday());
+			ProdResult result = request.Product(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -735,7 +735,7 @@ public class SyncMenuBarFragment extends Fragment {
 			SupplierTable table = JardineApp.DB.getSupplier();
 
 			SyncRequests request = new SyncRequests();
-			SuppResult result = request.Supplier(MyDateUtils.getYesterday());
+			SuppResult result = request.Supplier(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -816,7 +816,7 @@ public class SyncMenuBarFragment extends Fragment {
 			CompetitorTable table = JardineApp.DB.getCompetitor();
 
 			SyncRequests request = new SyncRequests();
-			ComptResult result = request.Competitor(MyDateUtils.getYesterday());
+			ComptResult result = request.Competitor(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -892,8 +892,7 @@ public class SyncMenuBarFragment extends Fragment {
 			CompetitorTable comptTable = JardineApp.DB.getCompetitor();
 
 			SyncRequests request = new SyncRequests();
-			updated = request.CompetitorProduct(MyDateUtils.getYesterday())
-					.getUpdated();
+			updated = request.CompetitorProduct(LASY_SYNC).getUpdated();
 			if (updated != null) {
 				for (CompetitorProductModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
@@ -976,7 +975,7 @@ public class SyncMenuBarFragment extends Fragment {
 			PAreaTable areaTable = JardineApp.DB.getArea();
 
 			SyncRequests request = new SyncRequests();
-			SmrResult result = request.SMR(MyDateUtils.getYesterday());
+			SmrResult result = request.SMR(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1056,8 +1055,7 @@ public class SyncMenuBarFragment extends Fragment {
 			PSMRentryTypeTable entryTable = JardineApp.DB.getSMRentryType();
 
 			SyncRequests request = new SyncRequests();
-			SmrEntryResult result = request.SMRTimecard(MyDateUtils
-					.getYesterday());
+			SmrEntryResult result = request.SMRTimecard(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1143,7 +1141,7 @@ public class SyncMenuBarFragment extends Fragment {
 					.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
-			CustResult result = request.Customer(MyDateUtils.getYesterday());
+			CustResult result = request.Customer(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1265,8 +1263,7 @@ public class SyncMenuBarFragment extends Fragment {
 			CustomerTable customerTable = JardineApp.DB.getCustomer();
 
 			SyncRequests request = new SyncRequests();
-			CustConResult result = request.CustomerContact(MyDateUtils
-					.getYesterday());
+			CustConResult result = request.CustomerContact(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1365,8 +1362,7 @@ public class SyncMenuBarFragment extends Fragment {
 					.getActivitytypeCategory();
 
 			SyncRequests request = new SyncRequests();
-			ActTypeResult result = request.ActivityType(MyDateUtils
-					.getYesterday());
+			ActTypeResult result = request.ActivityType(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1451,7 +1447,7 @@ public class SyncMenuBarFragment extends Fragment {
 			WorkplanTable table = JardineApp.DB.getWorkplan();
 
 			SyncRequests request = new SyncRequests();
-			WorkResult result = request.Workplan(MyDateUtils.getYesterday());
+			WorkResult result = request.Workplan(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1530,8 +1526,7 @@ public class SyncMenuBarFragment extends Fragment {
 			WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
 
 			SyncRequests request = new SyncRequests();
-			WorkEntryResult result = request.WorkplanEntry(MyDateUtils
-					.getYesterday());
+			WorkEntryResult result = request.WorkplanEntry(LASY_SYNC);
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1649,7 +1644,7 @@ public class SyncMenuBarFragment extends Fragment {
 					.getActivityType();
 
 			SyncRequests request = new SyncRequests();
-			ActResult result = request.Activity(MyDateUtils.getYesterday());
+			ActResult result = request.Activity(MyDateUtils.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1802,7 +1797,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			JdiMerchResult result = request.JDImerchandising(MyDateUtils
-					.getYesterday());
+					.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -1895,7 +1890,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			JdiProdResult result = request.JDIproduct(MyDateUtils
-					.getYesterday());
+					.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -2003,7 +1998,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			ComptProdStockResult result = request
-					.CompetitorProductStockCheck(MyDateUtils.getYesterday());
+					.CompetitorProductStockCheck(MyDateUtils.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -2103,7 +2098,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			MarketIntResult result = request.MarketingIntel(MyDateUtils
-					.getYesterday());
+					.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -2197,7 +2192,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			ProjReqResult result = request.ProjectRequirement(MyDateUtils
-					.getYesterday());
+					.getOneYearAgo());
 			updated = result.getUpdated();
 			deleted = result.getDeleted();
 			if (updated != null) {
@@ -2319,20 +2314,10 @@ public class SyncMenuBarFragment extends Fragment {
 											data.getModifiedTime(), USER_ID);
 									Log.w(TAG, "Document: event ** Added ** "
 											+ rowid);
-									Event_Files_IDs
-											.add(new DocumentRecord(0,
-													String.valueOf(data
-															.getRecordId()),
-													data.getNoteNo(), data
-															.getNotesTitle(),
-													Modules.EventProtocol,
-													model.getCrmId(), data
-															.getFilename(),
-													data.getFileType(), data
-															.getFilePath(), 1,
-													data.getCreatedTime(), data
-															.getModifiedTime(),
-													USER_ID));
+									Event_Files_IDs.add(new FileRecord(data
+											.getFilename(), data.getFilePath(),
+											data.getFileSize(),
+											Modules.EventProtocol));
 								}
 								// }
 							}
@@ -2370,20 +2355,10 @@ public class SyncMenuBarFragment extends Fragment {
 											data.getModifiedTime(), USER_ID);
 									Log.w(TAG, "Document: market ** Added ** "
 											+ rowid);
-									Marketing_Files_IDs
-											.add(new DocumentRecord(0,
-													String.valueOf(data
-															.getRecordId()),
-													data.getNoteNo(), data
-															.getNotesTitle(),
-													Modules.MarketingMaterials,
-													model.getCrmId(), data
-															.getFilename(),
-													data.getFileType(), data
-															.getFilePath(), 1,
-													data.getCreatedTime(), data
-															.getModifiedTime(),
-													USER_ID));
+									Marketing_Files_IDs.add(new FileRecord(data
+											.getFilename(), data.getFilePath(),
+											data.getFileSize(),
+											Modules.EventProtocol));
 								}
 								// }
 							}
@@ -2424,32 +2399,23 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 
-			// DocumentTable table = JardineApp.DB.getDocument();
-			//
-			// if (table != null) {
-			// List<DocumentRecord> records = table.getAllRecords();
-			// if (records != null) {
-			// for (DocumentRecord record : records) {
-			// RetrieveRequests request = new RetrieveRequests();
-			// request.DownloadFile(record.getFilePath(),
-			// record.getModuleName(), record.getFileName());
-			// }
-			// }
-			// }
-
 			if (Event_Files_IDs != null) {
-				for (DocumentRecord record : Event_Files_IDs) {
+				for (FileRecord record : Event_Files_IDs) {
 					RetrieveRequests request = new RetrieveRequests();
-					request.DownloadFile(record.getFilePath(),
-							record.getModuleName(), record.getFileName());
+					request.DownloadFile(
+							Integer.parseInt(record.getFileSize()),
+							record.getFilePath(), record.getModuleName(),
+							record.getFileName());
 				}
 			}
 
 			if (Marketing_Files_IDs != null) {
-				for (DocumentRecord record : Marketing_Files_IDs) {
+				for (FileRecord record : Marketing_Files_IDs) {
 					RetrieveRequests request = new RetrieveRequests();
-					request.DownloadFile(record.getFilePath(),
-							record.getModuleName(), record.getFileName());
+					request.DownloadFile(
+							Integer.parseInt(record.getFileSize()),
+							record.getFilePath(), record.getModuleName(),
+							record.getFileName());
 				}
 			}
 
@@ -2909,10 +2875,11 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			dialog.dismiss();
 			UserTable userTable = JardineApp.DB.getUser();
 			userTable
 					.updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
+
+			dialog.dismiss();
 			if (result) {
 				// new CreateCustomerTask().execute();
 			} else {
