@@ -116,4 +116,12 @@ public class BusinessUnitRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.business_unit_name;
+	}
+	
+	
 }

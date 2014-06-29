@@ -49,4 +49,10 @@ public class CityTownRecord {
 	public long getProvince() {
 		return this.province;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
 }

@@ -3,6 +3,7 @@ package co.nextix.jardine.customers.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -198,12 +199,9 @@ public class ViewAllCustomersFragment extends Fragment implements
 			break;
 		case R.id.btnAddCustomer:
 			// add customer here
-			DashBoardActivity act = (DashBoardActivity) getActivity();
-			act.getSupportFragmentManager()
-					.beginTransaction()
-					.add(R.id.frame_container, new AddCustomerFragment(),
-							JardineApp.TAG).addToBackStack(JardineApp.TAG)
-					.commit();
+			Intent intent = new Intent(JardineApp.context,
+					AddCustomerFragment.class);
+			startActivity(intent);
 			break;
 		}
 	}

@@ -49,4 +49,11 @@ public class ProvinceRecord {
 	public long getArea() {
 		return this.area;
 	}
+
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.name;
+	}
+
 }

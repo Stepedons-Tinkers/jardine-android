@@ -330,6 +330,9 @@
     <string name="customer_details_is_active">Is Active</string>
     <string name="customer_details_edit">Edit</string>
     <string name="customer_details_delete">Delete</string>
+    <string name="customer_hint">type here</string>
+    <string name="customer_days_unchange">Days Unchange</string>
+    <string name="customer_record_status">Customer Record Status</string>
 
     <!-- Customer Contact Person -->
     <string name="crm_no_contact_person">CRM No</string>

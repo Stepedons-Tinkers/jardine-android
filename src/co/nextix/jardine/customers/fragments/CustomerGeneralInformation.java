@@ -1,11 +1,16 @@
 package co.nextix.jardine.customers.fragments;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
@@ -19,7 +24,7 @@ public class CustomerGeneralInformation extends Fragment {
 	private TextView crmNo, customerName, businessUnit, area, province,
 			cityOrTown, chainName, customerSize, streetAddress, landline, fax,
 			customerType, isActive;
-
+	private Button edit, delete;
 	private long customerId = 0;
 
 	public static CustomerGeneralInformation newInstance(long custId) {
@@ -60,6 +65,12 @@ public class CustomerGeneralInformation extends Fragment {
 		customerType = (TextView) view.findViewById(R.id.tvCustomerTypeInfo);
 		isActive = (TextView) view.findViewById(R.id.tvCustomerIsActiveInfo);
 
+		edit = (Button) view.findViewById(R.id.btnEditCustomer);
+		delete = (Button) view.findViewById(R.id.btnDeleteCustomer);
+
+		edit.setOnClickListener(click);
+		delete.setOnClickListener(click);
+
 		CustomerRecord record = JardineApp.DB.getCustomer().getById(customerId);
 
 		crmNo.setText(record.getNo());
@@ -95,11 +106,57 @@ public class CustomerGeneralInformation extends Fragment {
 		customerType.setText(cType.getName());
 
 		if (record.getIsActive() == 1) {
-			isActive.setText("Active");
+			isActive.setText("Yes");
 
 		} else {
-			isActive.setText("Inactive");
+			isActive.setText("No");
 		}
 
+	}
+
+	private View.OnClickListener click = new View.OnClickListener() {
+
+		@Override
+		public void onClick(View v) {
+			switch (v.getId()) {
+			case R.id.btnDeleteCustomer:
+				showDeleteDialog();
+				break;
+			case R.id.btnEditCustomer:
+
+				break;
+			}
+
+		}
+	};
+
+	private void showDeleteDialog() {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+		dialog.setTitle("Delete Customer");
+		dialog.setMessage("Are you sure you want to delete Customer?");
+		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				if (JardineApp.DB.getCustomer().delete(customerId)) {
+					Toast.makeText(getActivity(),
+							"Successfully delete customer", Toast.LENGTH_LONG)
+							.show();
+				} else {
+					Toast.makeText(getActivity(), "Failed to delete!",
+							Toast.LENGTH_LONG).show();
+				}
+
+			}
+		});
+		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+
+			}
+		});
+		dialog.show();
 	}
 }
