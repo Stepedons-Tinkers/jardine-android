@@ -167,6 +167,7 @@
     <string name="collaterals_event_protocols">EVENT PROTOCOLS</string>
     <string name="collaterals_marketing_materials">MARKETING MATERIALS</string>
     <string name="collaterals_event_protocols_detail">EVENT PROTOCOL DETAILS</string>
+    <string name="collaterals_marketing_material_detail">Marketing Materials DETAILS</string>
     <string name="collaterals_event_protocols_files">FILES</string>
     <string name="collaterals_ep_crm_no">CRM No</string>
     <string name="collaterals_ep_description">Description</string>

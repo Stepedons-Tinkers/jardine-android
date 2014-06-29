@@ -42,8 +42,14 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 	private void initLayout() {
 
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
-		tab1 = getResources().getString(
-				R.string.collaterals_event_protocols_detail);
+		if (CollateralsConstants.FROM_WHERE == 1) {
+			tab1 = getResources().getString(
+					R.string.collaterals_event_protocols_detail);
+		} else {
+			tab1 = getResources().getString(
+					R.string.collaterals_marketing_material_detail);
+		}
+
 		tab2 = getResources().getString(
 				R.string.collaterals_event_protocols_files);
 		tabHost.setOnTabChangedListener(this);
@@ -54,6 +60,7 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 		tabHost.setup();
 		tabHost.addTab(tabHost.newTabSpec(tab1).setIndicator(tab1)
 				.setContent(new TabFactory()));
+
 		tabHost.addTab(tabHost.newTabSpec(tab2).setIndicator(tab2)
 				.setContent(new TabFactory()));
 

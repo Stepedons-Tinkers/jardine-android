@@ -20,6 +20,7 @@ import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.collaterals.CollateralsDetails;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
@@ -105,6 +106,17 @@ public class WorkPlanFragmentActivities extends Fragment implements OnClickListe
 			addItem(currentPage);
 
 		}
+		
+		
+		bntAddActity.setOnClickListener(new OnClickListener(){
+
+			@Override
+			public void onClick(View v) {
+				DashBoardActivity act = (DashBoardActivity) getActivity();
+				act.getSupportFragmentManager().beginTransaction().add(R.id.frame_container, new AddActivityFragment(), JardineApp.TAG)
+						.addToBackStack(JardineApp.TAG).commit();
+				
+			}});
 	}
 
 	private void addItem(int count) {

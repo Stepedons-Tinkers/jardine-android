@@ -31,6 +31,7 @@ public class WorkPlanFragmentDetails extends Fragment implements
 		WorkPlanFragmentDetails workplan = new WorkPlanFragmentDetails();
 		Bundle bundle = new Bundle();
 		bundle.putLong(KEY_WORKPLAN, id);
+		workplan.setArguments(bundle);
 		return workplan;
 	}
 

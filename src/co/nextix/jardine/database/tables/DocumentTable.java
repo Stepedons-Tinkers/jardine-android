@@ -107,6 +107,50 @@ public class DocumentTable {
 		}
 		return list;
 	}
+	public List<DocumentRecord> getAllRecordsByModuleID(long ID) {
+		Cursor c = null;
+		List<DocumentRecord> list = new ArrayList<DocumentRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_DOCUMENT_MODULEID + " = " + ID ;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_DOCUMENT_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_DOCUMENT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_CRMNO));
+					String title = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_TITLE));
+					String moduleName = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODULENAME));
+					String moduleId = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODULEID));
+					String fileName = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILENAME));
+					String fileType = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILETYPE));
+					String filePath = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILEPATH));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
+
+					list.add(new DocumentRecord(id, no, crmNo, title,
+							moduleName, moduleId, fileName, fileType, filePath,
+							isActive, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
 
 	public List<DocuInfoRecord> getDocuNos() {
 		Cursor c = null;

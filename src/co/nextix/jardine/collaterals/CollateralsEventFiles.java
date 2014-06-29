@@ -6,6 +6,7 @@ import java.util.List;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.content.Intent;
@@ -21,6 +22,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class CollateralsEventFiles extends Fragment implements OnClickListener {
@@ -31,15 +33,16 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-	private List<MarketingMaterialsRecord> realRecord;
-	private List<MarketingMaterialsRecord> tempRecord;
+	private List<DocumentRecord> realRecord;
+	private List<DocumentRecord> tempRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
 	private View header;
 	private TextView txtCrm, txtDesc, txtIsActive;
 	private TableRow trow;
-	private EditText search;
+
+	private long moduleID = 0;
 
 	public static CollateralsEventFiles newInstance(long id) {
 		CollateralsEventFiles fragment = new CollateralsEventFiles();
@@ -53,6 +56,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		moduleID = getArguments().getLong(CollateralsConstants.KEY_ROW_ID);
 		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
@@ -89,12 +93,6 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
-		search = (EditText) view
-				.findViewById(R.id.tvCollateralsSearchMarketingMaterials);
-		search.setBackgroundResource(android.R.color.transparent);
-		search.setHint("");
-		search.setClickable(false);
-		search.setFocusable(false);
 
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
@@ -104,23 +102,29 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
-		realRecord = new ArrayList<MarketingMaterialsRecord>();
-		tempRecord = new ArrayList<MarketingMaterialsRecord>();
+		realRecord = new ArrayList<DocumentRecord>();
+		tempRecord = new ArrayList<DocumentRecord>();
 
-		for (int i = 1; i <= 89; i++) {
-			MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
-			rec.setNo("EVP00" + i);
-			rec.setDescription("Description " + i);
-			rec.setTags("TAGS00" + i);
+		realRecord.addAll(JardineApp.DB.getDocument().getAllRecordsByModuleID(
+				moduleID));
+		Toast.makeText(getActivity(),
+				JardineApp.DB.getDocument().getAllRecords().size() + "",
+				Toast.LENGTH_SHORT).show();
 
-			realRecord.add(rec);
-		}
+		// for (int i = 1; i <= 89; i++) {
+		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+		// rec.setNo("EVP00" + i);
+		// rec.setDescription("Description " + i);
+		// rec.setTags("TAGS00" + i);
+		//
+		// realRecord.add(rec);
+		// }
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+					DocumentRecord rec = new DocumentRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -146,7 +150,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 	private void setView() {
 
-		AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
+		AdapterCollateralsFiles adapter = new AdapterCollateralsFiles(
 				getActivity(), R.layout.collaterals_marketing_materials_row,
 				tempRecord);
 		list.setAdapter(adapter);
