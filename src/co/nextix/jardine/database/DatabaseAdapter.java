@@ -112,6 +112,8 @@ public class DatabaseAdapter {
 	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
 	private final String KEY_ACTIVITYTYPE_CATEGORY = "activity_type_categorization";
 	private final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
+	private final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
+	private final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
 	private final String KEY_ACTIVITYTYPE_USER = "user";
 
 	// Business Unit
@@ -387,6 +389,7 @@ public class DatabaseAdapter {
 	private final String KEY_DOCUMENT_CREATEDTIME = "created_time";
 	private final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
 	private final String KEY_DOCUMENT_USER = "user";
+	private final String KEY_DOCUMENT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Table Create String
@@ -394,7 +397,7 @@ public class DatabaseAdapter {
 
 	private String TABLE_CREATE_USER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s integer, %s integer, %s text, %s text);";
 	private String TABLE_CREATE_ACTIVITY = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real, %s integer, %s integer, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s));";
-	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s integer, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
@@ -415,7 +418,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
-	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 
 	// ===========================================================
 	// Public static field
@@ -957,9 +960,11 @@ public class DatabaseAdapter {
 					ACTIVITY_TYPE_TABLE, KEY_ACTIVITYTYPE_ROWID,
 					KEY_ACTIVITYTYPE_NO, KEY_ACTIVITYTYPE_CRMNO,
 					KEY_ACTIVITYTYPE_CATEGORY, KEY_ACTIVITYTYPE_ISACTIVE,
-					KEY_ACTIVITYTYPE_USER, KEY_ACTIVITYTYPE_CATEGORY,
-					ACTIVITYTYPE_CATEGORY_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_ACTIVITYTYPE_USER, USER_TABLE, KEY_USER_ROWID);
+					KEY_ACTIVITYTYPE_CREATEDTIME,
+					KEY_ACTIVITYTYPE_MODIFIEDTIME, KEY_ACTIVITYTYPE_USER,
+					KEY_ACTIVITYTYPE_CATEGORY, ACTIVITYTYPE_CATEGORY_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_ACTIVITYTYPE_USER, USER_TABLE,
+					KEY_USER_ROWID);
 			String businessUnit = String.format(TABLE_CREATE_BUSINESS_UNIT,
 					BUSINESS_UNIT_TABLE, KEY_BUSINESSUNIT_ROWID,
 					KEY_BUSINESSUNIT_NO, KEY_BUSINESSUNIT_CRMNO,
@@ -1182,12 +1187,13 @@ public class DatabaseAdapter {
 					KEY_USER_ROWID);
 			String document = String.format(TABLE_CREATE_DOCUMENT,
 					DOCUMENT_TABLE, KEY_DOCUMENT_ROWID, KEY_DOCUMENT_NO,
-					KEY_DOCUMENT_TITLE, KEY_DOCUMENT_MODULENAME,
-					KEY_DOCUMENT_MODULEID, KEY_DOCUMENT_FILENAME,
-					KEY_DOCUMENT_FILETYPE, KEY_DOCUMENT_FILEPATH,
-					KEY_DOCUMENT_ISACTIVE, KEY_DOCUMENT_CREATEDTIME,
-					KEY_DOCUMENT_MODIFIEDTIME, KEY_DOCUMENT_USER,
-					KEY_DOCUMENT_USER, USER_TABLE, KEY_USER_ROWID);
+					KEY_DOCUMENT_CRMNO, KEY_DOCUMENT_TITLE,
+					KEY_DOCUMENT_MODULENAME, KEY_DOCUMENT_MODULEID,
+					KEY_DOCUMENT_FILENAME, KEY_DOCUMENT_FILETYPE,
+					KEY_DOCUMENT_FILEPATH, KEY_DOCUMENT_ISACTIVE,
+					KEY_DOCUMENT_CREATEDTIME, KEY_DOCUMENT_MODIFIEDTIME,
+					KEY_DOCUMENT_USER, KEY_DOCUMENT_USER, USER_TABLE,
+					KEY_USER_ROWID);
 
 			db.execSQL(user);
 			db.execSQL(activity);

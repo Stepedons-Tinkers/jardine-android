@@ -25,6 +25,8 @@ public class ActivityTypeTable {
 	private final String KEY_ACTIVITYTYPE_USER = "user";
 
 	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
+	private final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
+	private final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
 
 	// ===========================================================
 	// Private fields
@@ -76,11 +78,15 @@ public class ActivityTypeTable {
 							.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITYTYPE_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITYTYPE_MODIFIEDTIME));
 					long user = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
 					list.add(new ActivityTypeRecord(id, no, crmNo, category,
-							isActive, user));
+							isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -201,10 +207,14 @@ public class ActivityTypeTable {
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_ISACTIVE));
+				String createdTime = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_CREATEDTIME));
+				String modifiedTime = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
 				record = new ActivityTypeRecord(id, no, crmNo, category,
-						isActive, user);
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -254,10 +264,14 @@ public class ActivityTypeTable {
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_ISACTIVE));
+				String createdTime = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_CREATEDTIME));
+				String modifiedTime = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
 				record = new ActivityTypeRecord(id, no, crmNo, category,
-						isActive, user);
+						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -269,7 +283,7 @@ public class ActivityTypeTable {
 	}
 
 	public long insert(String no, String crmNo, long category, int isActive,
-			long user) {
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -282,6 +296,8 @@ public class ActivityTypeTable {
 		// initialValues.put(KEY_ACTIVITYTYPE_TYPE, type);
 		initialValues.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		initialValues.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);
+		initialValues.put(KEY_ACTIVITYTYPE_CREATEDTIME, createdTime);
+		initialValues.put(KEY_ACTIVITYTYPE_MODIFIEDTIME, modifiedTime);
 		initialValues.put(KEY_ACTIVITYTYPE_USER, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
@@ -305,13 +321,15 @@ public class ActivityTypeTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, long category,
-			int isActive, long user) {
+			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITYTYPE_NO, no);
 		// args.put(KEY_ACTIVITYTYPE_TYPE, type);
 		args.put(KEY_ACTIVITYTYPE_CRMNO, crmNo);
 		args.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		args.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);
+		args.put(KEY_ACTIVITYTYPE_CREATEDTIME, createdTime);
+		args.put(KEY_ACTIVITYTYPE_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_ACTIVITYTYPE_USER, user);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITYTYPE_ROWID + "=" + id,
 				null) > 0) {

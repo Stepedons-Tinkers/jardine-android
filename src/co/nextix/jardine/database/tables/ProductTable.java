@@ -176,7 +176,7 @@ public class ProductTable {
 		return rowsDeleted;
 	}
 
-	public ProductRecord getById(int ID) {
+	public ProductRecord getById(long ID) {
 		ProductRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_PRODUCT_ROWID + "=?";

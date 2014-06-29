@@ -253,7 +253,7 @@ public class MarketingIntelTable {
 		return result;
 	}
 
-	public MarketingIntelRecord getById(int ID) {
+	public MarketingIntelRecord getById(long ID) {
 		MarketingIntelRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_MARKETINGINTEL_ROWID + "=?";

@@ -31,6 +31,8 @@ public class DocumentTable {
 	private final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
 	private final String KEY_DOCUMENT_USER = "user";
 
+	private final String KEY_DOCUMENT_CRMNO = "crm_no";
+
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -71,8 +73,10 @@ public class DocumentTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_DOCUMENT_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_DOCUMENT_NO));
-					String title = c
-							.getString(c.getColumnIndex(KEY_DOCUMENT_TITLE));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_CRMNO));
+					String title = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_TITLE));
 					String moduleName = c.getString(c
 							.getColumnIndex(KEY_DOCUMENT_MODULENAME));
 					String moduleId = c.getString(c
@@ -83,17 +87,17 @@ public class DocumentTable {
 							.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 					String filePath = c.getString(c
 							.getColumnIndex(KEY_DOCUMENT_FILEPATH));
-					int isActive = c
-							.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-					list.add(new DocumentRecord(id, no, title, moduleName,
-							moduleId, fileName, fileType,filePath, isActive,
-							createdTime, modifiedTime, user));
+					list.add(new DocumentRecord(id, no, crmNo, title,
+							moduleName, moduleId, fileName, fileType, filePath,
+							isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -210,6 +214,8 @@ public class DocumentTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_DOCUMENT_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_DOCUMENT_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_DOCUMENT_CRMNO));
 				String title = c
 						.getString(c.getColumnIndex(KEY_DOCUMENT_TITLE));
 				String moduleName = c.getString(c
@@ -230,7 +236,7 @@ public class DocumentTable {
 						.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-				record = new DocumentRecord(id, no, title, moduleName,
+				record = new DocumentRecord(id, no, crmNo, title, moduleName,
 						moduleId, fileName, fileType, filePath, isActive,
 						createdTime, modifiedTime, user);
 			}
@@ -254,6 +260,8 @@ public class DocumentTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_DOCUMENT_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_DOCUMENT_NO));
+				String crmNo = c
+						.getString(c.getColumnIndex(KEY_DOCUMENT_CRMNO));
 				String title = c
 						.getString(c.getColumnIndex(KEY_DOCUMENT_TITLE));
 				String moduleName = c.getString(c
@@ -274,7 +282,7 @@ public class DocumentTable {
 						.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-				record = new DocumentRecord(id, no, title, moduleName,
+				record = new DocumentRecord(id, no, crmNo, title, moduleName,
 						moduleId, fileName, fileType, filePath, isActive,
 						createdTime, modifiedTime, user);
 			}
@@ -327,9 +335,10 @@ public class DocumentTable {
 		return result;
 	}
 
-	public long insert(String no, String title, String moduleName,
-			String moduleId, String fileName, String fileType, String filePath,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String title,
+			String moduleName, String moduleId, String fileName,
+			String fileType, String filePath, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -338,6 +347,7 @@ public class DocumentTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_DOCUMENT_NO, no);
+		initialValues.put(KEY_DOCUMENT_CRMNO, crmNo);
 		initialValues.put(KEY_DOCUMENT_TITLE, title);
 		initialValues.put(KEY_DOCUMENT_MODULENAME, moduleName);
 		initialValues.put(KEY_DOCUMENT_MODULEID, moduleId);
@@ -369,11 +379,13 @@ public class DocumentTable {
 		}
 	}
 
-	public boolean update(long id, String no, String title, String moduleName,
-			String moduleId, String fileName, String fileType, String filePath,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo, String title,
+			String moduleName, String moduleId, String fileName,
+			String fileType, String filePath, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_DOCUMENT_NO, no);
+		args.put(KEY_DOCUMENT_CRMNO, crmNo);
 		args.put(KEY_DOCUMENT_TITLE, title);
 		args.put(KEY_DOCUMENT_MODULENAME, moduleName);
 		args.put(KEY_DOCUMENT_MODULEID, moduleId);

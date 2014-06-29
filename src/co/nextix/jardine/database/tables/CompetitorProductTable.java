@@ -230,7 +230,7 @@ public class CompetitorProductTable {
 		return records;
 	}
 
-	public CompetitorProductRecord getById(int ID) {
+	public CompetitorProductRecord getById(long ID) {
 		CompetitorProductRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_COMPETITORPRODUCT_ROWID + "=?";

@@ -4,16 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketingMaterialsModel {
 
-	// CreatedTime: "2014-06-14 16:51:49"
-	// ModifiedTime: "2014-06-14 16:52:36"
-	// assigned_user_id: "12"
-	// z_mm_crmno: "MKM0000002"
-	// z_mm_desc: "sdfgh"
-	// z_mm_lastup: "2014-06-14"
-	// z_mm_tags: "sdfgh"
-	// z_mm_isactv: "1"
-	// record_id: 408
-	// record_module: "XMarketingMat"
+	// "createdtime": "2014-06-14 16:51:49",
+	// "modifiedtime": "2014-06-25 17:04:35",
+	// "smownerid": "12",
+	// "z_mm_businessunit": "",
+	// "z_mm_crmno": "MKM0000002",
+	// "z_mm_desc": "sdfgh",
+	// "z_mm_isactv": "1",
+	// "z_mm_lastup": "2014-06-14",
+	// "z_mm_tags": "sdfgh",
+	// "xmarketingmatid": "408",
+	// "deleted": "0"
 
 	@SerializedName("z_mm_crmno")
 	private String crm_no;

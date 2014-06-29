@@ -247,7 +247,7 @@ public class JDImerchandisingCheckTable {
 		return result;
 	}
 
-	public JDImerchandisingCheckRecord getById(int ID) {
+	public JDImerchandisingCheckRecord getById(long ID) {
 		JDImerchandisingCheckRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_JDIMERCHANDISING_ROWID + "=?";

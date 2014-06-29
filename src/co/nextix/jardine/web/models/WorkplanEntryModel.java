@@ -3,21 +3,22 @@ package co.nextix.jardine.web.models;
 import com.google.gson.annotations.SerializedName;
 
 public class WorkplanEntryModel {
-	// CreatedTime: "2014-06-17 23:09:57"
-	// ModifiedTime: "2014-06-17 23:09:57"
-	// assigned_user_id: "18"
-	// z_wpe_crmno: "WPE000002"
-	// z_wpe_date: "2014-06-18"
-	// z_wpe_status: "Pending For Approval"
-	// z_province: "MANDALUYONG"
-	// z_city: "MANDALUYONG CITY"
-	// z_wpe_othersremarks: ""
-	// z_wpe_activitytype: "352"
-	// z_wpe_workplan: "422"
-	// z_area: "CENTRAL NCR AREA"
-	// z_wpe_activityquantity: "2"
-	// record_id: 425
-	// record_module: "XWorkplanEntry"
+	// "createdtime": "2014-06-17 23:09:57",
+	// "modifiedtime": "2014-06-25 10:27:32",
+	// "smownerid": "18",
+	// "z_area": "CENTRAL NCR AREA",
+	// "z_city": "MANDALUYONG CITY",
+	// "z_province": "MANDALUYONG",
+	// "z_wpe_activityquantity": "5",
+	// "z_wpe_activitytype": "352",
+	// "z_wpe_businessunit": "",
+	// "z_wpe_crmno": "WPE000002",
+	// "z_wpe_date": "2014-06-18",
+	// "z_wpe_othersremarks": "",
+	// "z_wpe_status": "Pending For Approval",
+	// "z_wpe_workplan": "422",
+	// "xworkplanentryid": "425",
+	// "deleted": "0"
 
 	@SerializedName("z_wpe_crmno")
 	private String crm_no;

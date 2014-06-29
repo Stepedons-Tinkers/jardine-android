@@ -278,7 +278,7 @@ public class ProjectRequirementTable {
 		return result;
 	}
 
-	public ProjectRequirementRecord getById(int ID) {
+	public ProjectRequirementRecord getById(long ID) {
 		ProjectRequirementRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_PROJECTREQUIREMENTS_ROWID + "=?";
@@ -374,10 +374,10 @@ public class ProjectRequirementTable {
 		return record;
 	}
 
-	public long insert(String no, long activity, long projectRequirementType,
-			String dateNeeded, String squareMeters, String productsUsed,
-			String otherDetails, String createdTime, String modifiedTime,
-			long user) {
+	public long insert(String no, String crmNo, long activity,
+			long projectRequirementType, String dateNeeded,
+			String squareMeters, String productsUsed, String otherDetails,
+			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -386,6 +386,7 @@ public class ProjectRequirementTable {
 		ContentValues initialValues = new ContentValues();
 
 		initialValues.put(KEY_PROJECTREQUIREMENTS_NO, no);
+		initialValues.put(KEY_PROJECTREQUIREMENTS_CRMNO, crmNo);
 		initialValues.put(KEY_PROJECTREQUIREMENTS_ACTIVITY, activity);
 		initialValues.put(KEY_PROJECTREQUIREMENTS_TYPE, projectRequirementType);
 		initialValues.put(KEY_PROJECTREQUIREMENTS_DATENEEDED, dateNeeded);
@@ -418,12 +419,13 @@ public class ProjectRequirementTable {
 		}
 	}
 
-	public boolean update(long id, String no, long activity,
+	public boolean update(long id, String no, String crmNo, long activity,
 			long projectRequirementType, String dateNeeded,
 			String squareMeters, String productsUsed, String otherDetails,
 			String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PROJECTREQUIREMENTS_NO, no);
+		args.put(KEY_PROJECTREQUIREMENTS_CRMNO, crmNo);
 		args.put(KEY_PROJECTREQUIREMENTS_ACTIVITY, activity);
 		args.put(KEY_PROJECTREQUIREMENTS_TYPE, projectRequirementType);
 		args.put(KEY_PROJECTREQUIREMENTS_DATENEEDED, dateNeeded);

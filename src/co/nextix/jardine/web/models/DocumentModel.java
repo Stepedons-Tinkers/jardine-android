@@ -29,6 +29,8 @@ public class DocumentModel {
 	// }
 	// }
 	// ]
+	@SerializedName("record_id")
+	private int record_id;
 
 	@SerializedName("note_no")
 	private String note_no;
@@ -59,6 +61,14 @@ public class DocumentModel {
 
 	@SerializedName("assigned_user_id")
 	private String user_id;
+	
+	public int getRecordId() {
+		return this.record_id;
+	}
+
+	public void setRecordId(int recordId) {
+		this.record_id = recordId;
+	}
 
 	public String getNoteNo() {
 		return this.note_no;

@@ -168,7 +168,7 @@ public class BusinessUnitTable {
 		return rowsDeleted;
 	}
 
-	public BusinessUnitRecord getById(int ID) {
+	public BusinessUnitRecord getById(long ID) {
 		BusinessUnitRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_BUSINESSUNIT_ROWID + "=?";

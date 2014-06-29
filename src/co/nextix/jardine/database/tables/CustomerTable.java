@@ -306,7 +306,7 @@ public class CustomerTable {
 		return result;
 	}
 
-	public CustomerRecord getById(int ID) {
+	public CustomerRecord getById(long ID) {
 		CustomerRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CUSTOMER_ROWID + "=?";

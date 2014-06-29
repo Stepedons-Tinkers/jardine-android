@@ -180,7 +180,7 @@ public class SupplierTable {
 		return rowsDeleted;
 	}
 
-	public SupplierRecord getById(int ID) {
+	public SupplierRecord getById(long ID) {
 		SupplierRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_SUPPLIER_ROWID + "=?";

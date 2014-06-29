@@ -3,6 +3,19 @@ package co.nextix.jardine.web.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ProductModel {
+	// "createdtime": "2014-06-14 16:58:51",
+	// "modifiedtime": "2014-06-14 16:59:32",
+	// "smownerid": "12",
+	// "z_prd_bunit": "402",
+	// "z_prd_crmno": "PRD0000002",
+	// "z_prd_description": "ProductDesc1",
+	// "z_prd_isactive": "1",
+	// "z_prd_prodbrand": "ProductBrand1",
+	// "z_prd_prodnum": "ProductNo1",
+	// "z_prd_prodsize": "ProductSize1",
+	// "xproductid": "409",
+	// "deleted": "0"
+
 	@SerializedName("z_prd_crmno")
 	private String crm_no;
 

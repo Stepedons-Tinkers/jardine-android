@@ -171,7 +171,7 @@ public class SMRTable {
 		return rowsDeleted;
 	}
 
-	public SMRRecord getById(int ID) {
+	public SMRRecord getById(long ID) {
 		SMRRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_SMR_ROWID + "=?";

@@ -8,7 +8,7 @@ public class DocumentRecord {
 	// General Details
 
 	// id
-	// no (crm no)
+	// no (web no)
 	// title
 	// folder_name
 	// file_name
@@ -29,6 +29,8 @@ public class DocumentRecord {
 	private String modified_time;
 	private long user; // User Table
 
+	private String crm_no;
+
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
@@ -36,12 +38,14 @@ public class DocumentRecord {
 	public DocumentRecord() {
 	}
 
-	public DocumentRecord(long id, String no, String title, String moduleName,
-			String moduleId, String fileName, String fileType, String filePath,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public DocumentRecord(long id, String no, String crmNo, String title,
+			String moduleName, String moduleId, String fileName,
+			String fileType, String filePath, int isActive, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
+		this.crm_no = crmNo;
 		this.title = title;
 		this.module_name = moduleName;
 		this.module_id = moduleId;
@@ -68,6 +72,14 @@ public class DocumentRecord {
 
 	public String getNo() {
 		return this.no;
+	}
+	
+	public void setCrmNo(String crmNo) {
+		this.crm_no = crmNo;
+	}
+
+	public String getCrmNo() {
+		return this.crm_no;
 	}
 
 	public void setTitle(String title) {
@@ -109,7 +121,7 @@ public class DocumentRecord {
 	public String getFileType() {
 		return this.file_type;
 	}
-	
+
 	public void setFilePath(String filePath) {
 		this.file_path = filePath;
 	}

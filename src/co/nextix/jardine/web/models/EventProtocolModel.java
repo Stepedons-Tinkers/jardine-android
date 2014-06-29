@@ -3,17 +3,18 @@ package co.nextix.jardine.web.models;
 import com.google.gson.annotations.SerializedName;
 
 public class EventProtocolModel {
-	// CreatedTime: "2014-06-14 16:47:12"
-	// ModifiedTime: "2014-06-14 16:47:19"
-	// assigned_user_id: "10"
-	// z_evp_crmno: "EVP0000002"
-	// z_evp_desc: "defrgth"
-	// z_evp_lastupd: "2014-06-14"
-	// z_evp_tags: "sdfghj"
-	// z_evp_evtype: "On-Site Education Program"
-	// z_evp_isactv: "1"
-	// record_id: 407
-	// record_module: "XEventProtocol"
+	// "createdtime": "2014-06-14 16:47:12",
+	// "modifiedtime": "2014-06-14 16:47:19",
+	// "smownerid": "10",
+	// "z_evp_businessunit": "",
+	// "z_evp_crmno": "EVP0000002",
+	// "z_evp_desc": "defrgth",
+	// "z_evp_evtype": "On-Site Education Program",
+	// "z_evp_isactv": "1",
+	// "z_evp_lastupd": "2014-06-14",
+	// "z_evp_tags": "sdfghj",
+	// "xeventprotocolid": "407",
+	// "deleted": "0"
 
 	@SerializedName("z_evp_crmno")
 	private String crm_no;

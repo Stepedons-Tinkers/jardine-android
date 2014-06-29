@@ -4,18 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProjectRequirementModel {
 
-	// CreatedTime: "2014-06-18 00:06:34"
-	// ModifiedTime: "2014-06-18 00:06:34"
-	// assigned_user_id: "18"
-	// z_pr_crmno: "PRQ0000002"
-	// z_pr_activity: "423"
-	// z_pr_prtype: "Waterproofing"
-	// z_pr_dateneeded: "2014-06-18"
-	// z_pr_squaremtrs: "2"
-	// z_pr_prodused: "d"
-	// z_pr_otherdet: "d"
-	// record_id: 426
-	// record_module: "XProjectRequirement"
+	// "createdtime": "2014-06-18 00:06:34",
+	// "modifiedtime": "2014-06-18 00:06:34",
+	// "smownerid": "18",
+	// "z_pr_activity": "423",
+	// "z_pr_crmno": "PRQ0000002",
+	// "z_pr_dateneeded": "2014-06-18",
+	// "z_pr_otherdet": "d",
+	// "z_pr_prodused": "d",
+	// "z_pr_prtype": "Waterproofing",
+	// "z_pr_squaremtrs": "2",
+	// "xprojectrequirementid": "426",
+	// "deleted": "0"
 
 	@SerializedName("z_pr_crmno")
 	private String crm_no;

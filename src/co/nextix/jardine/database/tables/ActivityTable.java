@@ -472,7 +472,7 @@ public class ActivityTable {
 		return result;
 	}
 
-	public ActivityRecord getById(int ID) {
+	public ActivityRecord getById(long ID) {
 		ActivityRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_ACTIVITY_ROWID + "=?";

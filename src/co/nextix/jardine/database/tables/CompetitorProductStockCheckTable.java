@@ -300,7 +300,7 @@ public class CompetitorProductStockCheckTable {
 		return result;
 	}
 
-	public CompetitorProductStockCheckRecord getById(int ID) {
+	public CompetitorProductStockCheckRecord getById(long ID) {
 		CompetitorProductStockCheckRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=?";

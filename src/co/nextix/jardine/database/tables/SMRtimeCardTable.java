@@ -248,7 +248,7 @@ public class SMRtimeCardTable {
 		return result;
 	}
 
-	public SMRtimeCardRecord getById(int ID) {
+	public SMRtimeCardRecord getById(long ID) {
 		SMRtimeCardRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_SMRTIMECARD_ROWID + "=?";

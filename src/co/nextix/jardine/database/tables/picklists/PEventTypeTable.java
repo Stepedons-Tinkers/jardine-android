@@ -119,6 +119,26 @@ public class PEventTypeTable {
 		return rowsDeleted;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_EVENT_TYPE_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_EVENT_TYPE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_EVENT_TYPE_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
@@ -153,8 +173,8 @@ public class PEventTypeTable {
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_EVENT_TYPE_ROWID));
-				String tname = c
-						.getString(c.getColumnIndex(KEY_EVENT_TYPE_NAME));
+				String tname = c.getString(c
+						.getColumnIndex(KEY_EVENT_TYPE_NAME));
 
 				record = new PicklistRecord(id, tname);
 			}

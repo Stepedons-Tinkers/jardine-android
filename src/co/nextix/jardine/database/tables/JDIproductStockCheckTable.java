@@ -229,7 +229,7 @@ public class JDIproductStockCheckTable {
 		return rowsDeleted;
 	}
 
-	public JDIproductStockCheckRecord getById(int ID) {
+	public JDIproductStockCheckRecord getById(long ID) {
 		JDIproductStockCheckRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_JDIPRODUCTSTOCKCHECK_ROWID + "=?";

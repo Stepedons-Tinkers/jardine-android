@@ -249,7 +249,7 @@ public class WorkplanTable {
 		return result;
 	}
 
-	public WorkplanRecord getById(int ID) {
+	public WorkplanRecord getById(long ID) {
 		WorkplanRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_WORKPLAN_ROWID + "=?";

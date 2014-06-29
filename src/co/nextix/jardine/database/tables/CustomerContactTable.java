@@ -275,7 +275,7 @@ public class CustomerContactTable {
 		return result;
 	}
 
-	public CustomerContactRecord getById(int ID) {
+	public CustomerContactRecord getById(long ID) {
 		CustomerContactRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CUSTOMERCONTACT_ROWID + "=?";

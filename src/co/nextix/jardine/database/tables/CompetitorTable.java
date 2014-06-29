@@ -166,7 +166,7 @@ public class CompetitorTable {
 		return rowsDeleted;
 	}
 
-	public CompetitorRecord getById(int ID) {
+	public CompetitorRecord getById(long ID) {
 		CompetitorRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_COMPETITOR_ROWID + "=?";

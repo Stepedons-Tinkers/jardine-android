@@ -4,31 +4,28 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomerModel {
 
-	// CreatedTime: "2014-06-14 15:15:46"
-	// ModifiedTime: "2014-06-14 15:37:24"
-	// assigned_user_id: "12"
-	// z_cu_customer: "CUST0000008"
-	// z_cu_customername: "Customer1"
-	// z_cu_streetadd: "CustomerSA1"
-	// z_cu_chainname: "CustomerCN1"
-	// z_cu_landline: "12345"
-	// z_cu_customertype: "General Trade"
-	// z_cu_businessunit: "402"
-	// z_province: "BATAAN"
-	// z_city: "LIMAY"
-	// z_cu_isactive: "1"
-	// z_cu_fax: ""
-	// z_area: "CENTRAL LUZON AREA"
-	// z_cu_customersize: "Big"
-	// z_cu_customerrecstat: "Pending For Approval"
-	// record_id: 405
-	// record_module: "XCustomers"
-
-	@SerializedName("z_cu_crmno")
-	private String crm_no;
+	// "createdtime": "2014-06-14 15:15:46",
+	// "modifiedtime": "2014-06-24 11:15:27",
+	// "smownerid": "18",
+	// "z_area": "CENTRAL LUZON AREA",
+	// "z_city": "LIMAY",
+	// "z_cu_businessunit": "402",
+	// "z_cu_chainname": "CustomerCN1",
+	// "z_cu_customer": "CUST0000008",
+	// "z_cu_customername": "Customer1",
+	// "z_cu_customerrecstat": "Pending For Approval",
+	// "z_cu_customersize": "Big",
+	// "z_cu_customertype": "Modern Trade",
+	// "z_cu_fax": "",
+	// "z_cu_isactive": "1",
+	// "z_cu_landline": "12345",
+	// "z_cu_streetadd": "CustomerSA1",
+	// "z_province": "BATAAN",
+	// "xcustomersid": "405",
+	// "deleted": "0"
 
 	@SerializedName("z_cu_customer")
-	private String customer;
+	private String crm_no;
 
 	@SerializedName("z_cu_customername")
 	private String name;
@@ -90,14 +87,6 @@ public class CustomerModel {
 
 	public void setCrmNo(String crmNo) {
 		this.crm_no = crmNo;
-	}
-
-	public String getCustomer() {
-		return this.customer;
-	}
-
-	public void setCustomer(String customer) {
-		this.customer = customer;
 	}
 
 	public String getName() {
