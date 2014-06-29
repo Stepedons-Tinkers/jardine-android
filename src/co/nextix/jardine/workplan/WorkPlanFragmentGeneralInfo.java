@@ -9,6 +9,7 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
 
@@ -65,7 +66,11 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		actType.setText(strAct);
 
 		createdTime.setText(record.getCreatedTime());
-		assignedTo.setText(record.getUser() + "");
+
+		UserRecord userRecord = JardineApp.DB.getUser().getById(
+				record.getUser());
+		assignedTo.setText(userRecord.getFirstNameName() + " "
+				+ userRecord.getLastname());
 
 		String sCustomer = JardineApp.DB.getCustomer().getNoById(
 				record.getCustomer());
