@@ -120,6 +120,7 @@
     <string name="latitude">Latitude</string>
     <string name="objective">Objective</string>
     <string name="highlights">Highlights</string>
+    <string name="competitors_activities">Competitors Activities</string>
     <string name="follow_up_commitment_date">Follow-up Commitment Date</string>
     <string name="workplan_entry">Workplan Entry</string>
     <string name="first_time_visit">First Time Visit</string>
@@ -135,7 +136,15 @@
     <string name="planned_visit">Planned Visit</string>
     <string name="modified_time">Modified Time</string>
     <string name="edit_activity">Edit Activity</string>
+    <string name="source">Source</string>
     <string name="back_to_activity">Back to Activity </string>
+    <string name="others"> \"Others" Activity Type Remarks</string>
+    <string name="reason_remarks">Reason Remarks - Waiting or Travel</string>
+    <string name="business_unit">Business Unit</string>
+    <string name="details_admin_works">Details - Admin Works</string>
+    <string name="area">Area</string>
+    <string name="province">Province</string>
+    <string name="city_town">City/Town</string>
     <string name="no_data">Error 404: Search not found </string>
 
     <!-- Contact Person -->
