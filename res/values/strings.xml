@@ -136,7 +136,7 @@
     <string name="modified_time">Modified Time</string>
     <string name="edit_activity">Edit Activity</string>
     <string name="back_to_activity">Back to Activity </string>
-    <string name="no_data">No Data</string>
+    <string name="no_data">Error 404: Search not found </string>
 
     <!-- Contact Person -->
     <string name="contact_person_crm_no">CRM No</string>

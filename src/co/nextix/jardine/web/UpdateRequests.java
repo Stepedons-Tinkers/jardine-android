@@ -27,10 +27,22 @@ import android.text.TextUtils;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.tables.CompetitorTable;
+import co.nextix.jardine.database.tables.ActivityTypeTable;
+import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.CustomerTable;
+import co.nextix.jardine.database.tables.SMRTable;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.WorkplanEntryTable;
+import co.nextix.jardine.database.tables.WorkplanTable;
+import co.nextix.jardine.database.tables.picklists.PAreaTable;
+import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
+import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
+import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
+import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.WebCreateModel;
@@ -45,36 +57,69 @@ public class UpdateRequests {
 	private final String charset = "UTF-8";
 	private final DatabaseAdapter DB = DatabaseAdapter.getInstance();
 
-	public List<WebCreateModel> customer(
-			List<CustomerRecord> records) {
+	public List<WebCreateModel> customer(List<CustomerRecord> records) {
 
 		List<WebCreateModel> model = null;
 		JSONObject requestList = new JSONObject();
 		try {
 
 			UserTable userTable = DB.getUser();
-			CompetitorTable compTable = DB.getCompetitor();
+			PCustSizeTable cSizeTable = DB.getCustomerSize();
+			PCustTypeTable cTypeTable = DB.getCustomerType();
+			BusinessUnitTable buTable = DB.getBusinessUnit();
+			PAreaTable areaTable = DB.getArea();
+			PProvinceTable provinceTable = DB.getProvince();
+			PCityTownTable cityTable = DB.getCityTown();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
-//				// get user id from db
-//				String id = userTable.getNoById(records.get(x).getUser());
-//				requestObject.put("assigned_user_id", id);
-//				String competitor = compTable.getNoById(records.get(x)
-//						.getCompetitor());
-//				requestObject.put("z_cmp_comp", competitor);
-//				requestObject.put("z_cmp_prbrnd", records.get(x)
-//						.getProductBrand());
-//				requestObject.put("z_cmp_prdesc", records.get(x)
-//						.getProductDescription());
-//				requestObject.put("z_cmp_prsize", records.get(x)
-//						.getProductSize());
-//				requestObject.put("z_cmp_isactive", records.get(x)
-//						.getIsActive());
-//
-				requestList.put(String.valueOf(records.get(x).getId()),
-						requestObject);
+				String customerName = records.get(x).getCustomerName();
+				String streetAdd = records.get(x).getStreetAddress();
+				String chain = records.get(x).getChainName();
+				String size = cSizeTable.getNameById(records.get(x)
+						.getCustomerSize());
+				String land = records.get(x).getLandline();
+				String type = cTypeTable.getNameById(records.get(x)
+						.getCustomerType());
+				String businessUnit = buTable.getNoById(records.get(x)
+						.getBusinessUnit());
+				String area = areaTable.getNameById(records.get(x).getArea());
+				String prov = provinceTable.getNameById(records.get(x)
+						.getProvince());
+				String city = cityTable.getNameById(records.get(x)
+						.getCityTown());
+				int active = records.get(x).getIsActive();
+				String fax = records.get(x).getFax();
+
+				// get user id from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!customerName.equals(""))
+					requestObject.put("z_cu_customername", customerName);
+				if (!streetAdd.equals(""))
+					requestObject.put("z_cu_streetadd", streetAdd);
+				if (!chain.equals(""))
+					requestObject.put("z_cu_chainname", chain);
+				if (!land.equals(""))
+					requestObject.put("z_cu_landline", land);
+				if (!size.equals(""))
+					requestObject.put("z_cu_customersize", size);
+				if (!type.equals(""))
+					requestObject.put("z_cu_customertype", type);
+				if (!businessUnit.equals(""))
+					requestObject.put("z_cu_businessunit", businessUnit);
+				if (!area.equals(""))
+					requestObject.put("z_area", area);
+				if (!prov.equals(""))
+					requestObject.put("z_province", prov);
+				if (!city.equals(""))
+					requestObject.put("z_city ", city);
+				requestObject.put("z_cu_isactive", active);
+				if (!fax.equals(""))
+					requestObject.put("z_cu_fax ", fax);
+
+				requestList.put(String.valueOf(x), requestObject);
 			}
 
 		} catch (JSONException e1) {
@@ -91,13 +136,279 @@ public class UpdateRequests {
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// DataOutputStream dos = new DataOutputStream(
-			// JardineApp.httpConnection.getOutputStream());
-			//
-			// dos.writeBytes(requestList.toString());
-			//
-			// dos.flush();
-			// dos.close();
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.CompetitorProduct));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> customerContact(
+			List<CustomerContactRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			PCustConPositionTable ccPositiontable = DB
+					.getCustomerContactPosition();
+			CustomerTable customerTable = DB.getCustomer();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				String firstname = records.get(x).getFirstName();
+				String lastname = records.get(x).getLastName();
+				String position = ccPositiontable.getNameById(records.get(x)
+						.getPosition());
+				String mobile = records.get(x).getMobileNo();
+				String bday = records.get(x).getBirthday();
+				String email = records.get(x).getEmailAddress();
+				// get customer from db
+				String customer = customerTable.getNoById(records.get(x)
+						.getCustomer());
+				int active = records.get(x).getIsActive();
+
+				// get user id from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!firstname.equals(""))
+					requestObject.put("z_cuc_firstname", firstname);
+				if (!lastname.equals(""))
+					requestObject.put("z_cuc_lastname", lastname);
+				if (!position.equals(""))
+					requestObject.put("z_cuc_position", position);
+				if (!mobile.equals(""))
+					requestObject.put("z_cuc_mobileno", mobile);
+				if (!bday.equals(""))
+					requestObject.put("z_cuc_birthday", bday);
+				if (!email.equals(""))
+					requestObject.put("z_cuc_email", email);
+				if (!customer.equals(""))
+					requestObject.put("z_cuc_customer", customer);
+				requestObject.put("z_cuc_isactive", active);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.CompetitorProduct));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> activity(List<ActivityRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			WorkplanTable workplanTable = DB.getWorkplan();
+			ActivityTypeTable activityTypeTable = DB.getActivityType();
+			WorkplanEntryTable workplanEntryTable = DB.getWorkplanEntry();
+			CustomerTable customerTable = DB.getCustomer();
+			SMRTable smrTable = DB.getSMR();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get user id from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				String workplan = workplanTable.getNoById(records.get(x)
+						.getWorkplan());
+				if (!workplan.equals(""))
+					requestObject.put("z_ac_workplan", workplan);
+				if (!records.get(x).getStartTime().equals(""))
+					requestObject.put("z_ac_starttime", records.get(x)
+							.getStartTime());
+				if (!records.get(x).getEndTime().equals(""))
+					requestObject.put("z_ac_endtime", records.get(x)
+							.getEndTime());
+				if (records.get(x).getLatitude() != 0)
+					requestObject.put("z_ac_latitude", records.get(x)
+							.getLatitude());
+				if (records.get(x).getLongitude() != 0)
+					requestObject.put("z_ac_longitude", records.get(x)
+							.getLongitude());
+				if (!records.get(x).getObjectives().equals(""))
+					requestObject.put("z_ac_objective", records.get(x)
+							.getObjectives());
+				if (!records.get(x).getNotes().equals(""))
+					requestObject.put("z_ac_notes", records.get(x).getNotes());
+				if (!records.get(x).getHighlights().equals(""))
+					requestObject.put("z_ac_highlights", records.get(x)
+							.getHighlights());
+				if (!records.get(x).getNextSteps().equals(""))
+					requestObject.put("z_ac_nextsteps", records.get(x)
+							.getNextSteps());
+				if (!records.get(x).getFollowUpCommitmentDate().equals(""))
+					requestObject.put("z_ac_followupcomdate", records.get(x)
+							.getFollowUpCommitmentDate());
+				// get type from db
+				String type = activityTypeTable.getNoById(records.get(x)
+						.getActivityType());
+				if (!type.equals(""))
+					requestObject.put("z_ac_activitytype", type);
+				// get workplanEntry from db
+				String workplanEntry = workplanEntryTable.getNoById(records
+						.get(x).getWorkplanEntry());
+				if (!workplanEntry.equals(""))
+					requestObject.put("z_ac_workplanentry", workplanEntry);
+				// get customer from db
+				String customer = customerTable.getNoById(records.get(x)
+						.getCustomer());
+				if (!customer.equals(""))
+					requestObject.put("z_ac_customer", customer);
+				requestObject.put("z_ac_firsttimevisit", records.get(x)
+						.getFirstTimeVisit());
+				requestObject.put("z_ac_plannedvisit", records.get(x)
+						.getPlannedVisit());
+				// get smr from db
+				String smr = smrTable.getNoById(records.get(x).getSMR());
+				if (!smr.equals(""))
+					requestObject.put("z_ac_smr", smr);
+				if (!records.get(x).getIssuesIdentified().equals(""))
+					requestObject.put("z_ac_issuesidentified", records.get(x)
+							.getIssuesIdentified());
+				if (!records.get(x).getFeedbackFromCustomer().equals(""))
+					requestObject.put("z_ac_feedbackfromcu", records.get(x)
+							.getFeedbackFromCustomer());
+				if (!records.get(x).getOngoingCampaigns().equals(""))
+					requestObject.put("z_ac_ongoingcampaigns", records.get(x)
+							.getOngoingCampaigns());
+				if (!records.get(x).getLastDelivery().equals(""))
+					requestObject.put("z_ac_lastdelivery", records.get(x)
+							.getLastDelivery());
+				if (!records.get(x).getPromoStubsDetails().equals(""))
+					requestObject.put("z_ac_promostubsdetails", records.get(x)
+							.getPromoStubsDetails());
+				if (!records.get(x).getProjectName().equals(""))
+					requestObject.put("z_ac_projectname", records.get(x)
+							.getProjectName());
+				if (!records.get(x).getProjectStage().equals(""))
+					requestObject.put("z_ac_projectstage", records.get(x)
+							.getProjectStage());
+				if (!records.get(x).getProjectCategory().equals(""))
+					requestObject.put("projectCategory", records.get(x)
+							.getProjectCategory());
+				if (!records.get(x).getDate().equals(""))
+					requestObject.put("z_ac_date", records.get(x).getDate());
+				if (!records.get(x).getTime().equals(""))
+					requestObject.put("z_ac_time", records.get(x).getTime());
+				if (!records.get(x).getVenue().equals(""))
+					requestObject.put("z_ac_venue", records.get(x).getVenue());
+				if (!records.get(x).getNoOfAttendees().equals(""))
+					requestObject.put("z_ac_noofattenees", records.get(x)
+							.getNoOfAttendees());
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
 
 			// appending
 			List<NameValuePair> params = new ArrayList<NameValuePair>();

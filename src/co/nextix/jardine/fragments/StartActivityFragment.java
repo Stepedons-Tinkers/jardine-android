@@ -269,6 +269,11 @@ public class StartActivityFragment extends Fragment {
 
 			this.totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
+		} else {
+
+			this.setView();
+			this.isListHasNoData();
+			((TextView) this.rootView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
 		}
 	}
 
@@ -283,7 +288,7 @@ public class StartActivityFragment extends Fragment {
 			count = count + 1;
 		}
 
-		setView();
+		this.setView();
 	}
 
 	private void setView() {
@@ -308,13 +313,13 @@ public class StartActivityFragment extends Fragment {
 		final Bundle bundle = new Bundle();
 		bundle.putString("crm_no", tempValues.getCrm());
 		fragment.setArguments(bundle);
-		
+
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 	}
 
-	public void isListHasNoData() {
+	protected void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
 		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
