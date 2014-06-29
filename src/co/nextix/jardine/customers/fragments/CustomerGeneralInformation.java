@@ -6,8 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.BusinessUnitRecord;
+import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.ProvinceRecord;
 
 public class CustomerGeneralInformation extends Fragment {
 	private View view;
@@ -15,9 +20,22 @@ public class CustomerGeneralInformation extends Fragment {
 			cityOrTown, chainName, customerSize, streetAddress, landline, fax,
 			customerType, isActive;
 
+	private long customerId = 0;
+
+	public static CustomerGeneralInformation newInstance(long custId) {
+		CustomerGeneralInformation fragment = new CustomerGeneralInformation();
+		Bundle bundle = new Bundle();
+		bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID, custId);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+
+		customerId = getArguments().getLong(
+				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 
 		view = inflater.inflate(R.layout.customer_details, null);
 		initLayout();
@@ -42,37 +60,46 @@ public class CustomerGeneralInformation extends Fragment {
 		customerType = (TextView) view.findViewById(R.id.tvCustomerTypeInfo);
 		isActive = (TextView) view.findViewById(R.id.tvCustomerIsActiveInfo);
 
-		CustomerRecord record = new CustomerRecord();
-		record.setNo("EVP0001");
-		record.setCustomerName("Customer");
-		record.setBusinessUnit(0001);
-		record.setArea(0001);
-		record.setProvince(0001);
-		record.setCityTown(0001);
-		record.setChainName("Chain Name");
-		record.setCustomerSize(1);
-		record.setStreetAddress("Cebu City");
-		record.setLandline("236-0000");
-		record.setFax("253-0000");
-		record.setCustomerType(001);
-		record.setIsActive(1);
-		record.setCreatedTime("2014");
-		record.setModifiedTime("2014");
-		record.setUser(10000);
+		CustomerRecord record = JardineApp.DB.getCustomer().getById(customerId);
 
 		crmNo.setText(record.getNo());
 		customerName.setText(record.getCustomerName());
-		businessUnit.setText(String.valueOf(record.getBusinessUnit()));
-		area.setText(String.valueOf(record.getArea()));
-		province.setText(String.valueOf(record.getProvince()));
-		cityOrTown.setText(String.valueOf(record.getCityTown()));
+
+		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
+				record.getBusinessUnit());
+		businessUnit.setText(business.getBusinessUnitName());
+
+		PicklistRecord areaS = JardineApp.DB.getArea()
+				.getById(record.getArea());
+		area.setText(areaS.getName());
+
+		ProvinceRecord prov = JardineApp.DB.getProvince().getById(
+				record.getProvince());
+		province.setText(prov.getName());
+
+		CityTownRecord city = JardineApp.DB.getCityTown().getById(
+				record.getCityTown());
+		cityOrTown.setText(city.getName());
+
 		chainName.setText(record.getChainName());
-		customerSize.setText("" + record.getCustomerSize());
+		PicklistRecord cSize = JardineApp.DB.getCustomerSize().getById(
+				record.getCustomerSize());
+		customerSize.setText(cSize.getName());
+
 		streetAddress.setText(record.getStreetAddress());
 		landline.setText(record.getLandline());
 		fax.setText(record.getFax());
-		customerType.setText(String.valueOf(record.getCustomerType()));
-		isActive.setText(String.valueOf(record.getIsActive()));
+
+		PicklistRecord cType = JardineApp.DB.getCustomerType().getById(
+				record.getCustomerType());
+		customerType.setText(cType.getName());
+
+		if (record.getIsActive() == 1) {
+			isActive.setText("Active");
+
+		} else {
+			isActive.setText("Inactive");
+		}
 
 	}
 }

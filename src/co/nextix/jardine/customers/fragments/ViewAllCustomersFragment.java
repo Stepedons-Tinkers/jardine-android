@@ -23,6 +23,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.CustomerTable;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class ViewAllCustomersFragment extends Fragment implements
 		OnClickListener {
@@ -93,6 +94,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		list = (ListView) view.findViewById(R.id.lvCustomers);
 
 		list.addHeaderView(header);
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 
 		btnAddCustomer = (Button) view.findViewById(R.id.btnAddCustomer);
 		txtPage = (TextView) view.findViewById(R.id.ibCustomersPage);
@@ -107,19 +109,19 @@ public class ViewAllCustomersFragment extends Fragment implements
 		CustomerTable table = JardineApp.DB.getCustomer();
 		realRecord = new ArrayList<CustomerRecord>();
 		tempRecord = new ArrayList<CustomerRecord>();
-		realRecord = table.getAllRecords();
+		realRecord.addAll(table.getAllRecords());
 
-//		for (int i = 1; i <= 37; i++) {
-//			CustomerRecord rec = new CustomerRecord();
-//			rec.setNo("CUST000" + i);
-//			rec.setCustomerName("Customer " + i);
-//			rec.setBusinessUnit(i);
-//			rec.setArea(i);
-//			rec.setProvince(i);
-//			rec.setCityTown(i);
-//
-//			realRecord.add(rec);
-//		}
+		// for (int i = 1; i <= 37; i++) {
+		// CustomerRecord rec = new CustomerRecord();
+		// rec.setNo("CUST000" + i);
+		// rec.setCustomerName("Customer " + i);
+		// rec.setBusinessUnit(i);
+		// rec.setArea(i);
+		// rec.setProvince(i);
+		// rec.setCityTown(i);
+		//
+		// realRecord.add(rec);
+		// }
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -133,11 +135,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 			addItem(currentPage);
 
 		}
-	}
 
-	private void populateData() {
-		CustomerTable table = JardineApp.DB.getCustomer();
-		List<CustomerRecord> records = table.getAllRecords();
 	}
 
 	private void addItem(int count) {
@@ -159,6 +157,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		AdapterCustomers adapter = new AdapterCustomers(getActivity(),
 				R.layout.table_row_customers, tempRecord);
 		list.setAdapter(adapter);
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
@@ -173,8 +172,8 @@ public class ViewAllCustomersFragment extends Fragment implements
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									new CustomerDetailsFragment(),
-									JardineApp.TAG)
+									CustomerDetailsFragment.newInstance(cr
+											.getId()), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

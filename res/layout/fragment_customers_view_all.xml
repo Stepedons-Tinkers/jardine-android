@@ -23,7 +23,7 @@
             <ListView
                 android:id="@+id/lvCustomers"
                 android:layout_width="match_parent"
-                android:layout_height="337dp"
+                android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants"
                 android:divider="@null"
                 android:dividerHeight="0dp"
@@ -79,7 +79,7 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
-        <RelativeLayout
+        <LinearLayout
             android:id="@+id/llCustomersLL0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -94,8 +94,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" >
             </SearchView>
-        </RelativeLayout>
-
+            <Spinner
+                android:id="@+id/spiCollateralsEventProtolSpinnerSearch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:drawable/btn_dropdown"
+                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
+                android:spinnerMode="dropdown" />
+        </LinearLayout>
     </RelativeLayout>
 
 </ScrollView>
