@@ -14,9 +14,12 @@ import com.dd.CircularProgressButton;
 public class AddActivityGeneralInformationFragment extends Fragment {
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		View rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
-		final CircularProgressButton btnWithText1 = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		View rootView = inflater.inflate(R.layout.add_activity_gen_info,
+				container, false);
+		final CircularProgressButton btnWithText1 = (CircularProgressButton) rootView
+				.findViewById(R.id.btnWithText1);
 
 		btnWithText1.setOnClickListener(new View.OnClickListener() {
 			@Override
@@ -36,13 +39,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 		widthAnimation.setDuration(1500);
 		widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-		widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-			@Override
-			public void onAnimationUpdate(ValueAnimator animation) {
-				Integer value = (Integer) animation.getAnimatedValue();
-				button.setProgress(value);
-			}
-		});
+		widthAnimation
+				.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+					@Override
+					public void onAnimationUpdate(ValueAnimator animation) {
+						Integer value = (Integer) animation.getAnimatedValue();
+						button.setProgress(value);
+					}
+				});
 		widthAnimation.start();
 	}
 
@@ -50,16 +54,17 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 99);
 		widthAnimation.setDuration(1500);
 		widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-		widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-			@Override
-			public void onAnimationUpdate(ValueAnimator animation) {
-				Integer value = (Integer) animation.getAnimatedValue();
-				button.setProgress(value);
-				if (value == 99) {
-					button.setProgress(-1);
-				}
-			}
-		});
+		widthAnimation
+				.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+					@Override
+					public void onAnimationUpdate(ValueAnimator animation) {
+						Integer value = (Integer) animation.getAnimatedValue();
+						button.setProgress(value);
+						if (value == 99) {
+							button.setProgress(-1);
+						}
+					}
+				});
 		widthAnimation.start();
 	}
 }
