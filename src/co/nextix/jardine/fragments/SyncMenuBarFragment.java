@@ -94,6 +94,7 @@ import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.RetrieveRequests;
 import co.nextix.jardine.web.SyncRequests;
+import co.nextix.jardine.web.UpdateRequests;
 import co.nextix.jardine.web.models.ActivityModel;
 import co.nextix.jardine.web.models.ActivityTypeModel;
 import co.nextix.jardine.web.models.BusinessUnitModel;
@@ -463,7 +464,7 @@ public class SyncMenuBarFragment extends Fragment {
 					}
 				}
 			}
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -537,7 +538,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -623,7 +624,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -710,7 +711,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -791,7 +792,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -865,7 +866,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -949,7 +950,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1029,7 +1030,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1109,7 +1110,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1134,6 +1135,7 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncCustomerTask extends AsyncTask<Void, Void, Boolean> {
 		List<CustomerModel> updated = new ArrayList<CustomerModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<CustomerRecord> sendUpdate = new ArrayList<CustomerRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -1228,13 +1230,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.customer(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1260,6 +1271,7 @@ public class SyncMenuBarFragment extends Fragment {
 			AsyncTask<Void, Void, Boolean> {
 		List<CustomerContactModel> updated = new ArrayList<CustomerContactModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<CustomerContactRecord> sendUpdate = new ArrayList<CustomerContactRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -1327,13 +1339,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.customerContact(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1422,7 +1443,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1494,7 +1515,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1612,7 +1633,7 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			if (deleted != null) {
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1637,6 +1658,7 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncActivityTask extends AsyncTask<Void, Void, Boolean> {
 		List<ActivityModel> updated = new ArrayList<ActivityModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<ActivityRecord> sendUpdate = new ArrayList<ActivityRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -1762,13 +1784,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getTime(), model.getVenue(),
 									model.getNoofattenees());
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.activity(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1793,6 +1824,7 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncJDImerchTask extends AsyncTask<Void, Void, Boolean> {
 		List<JDImerchandisingCheckModel> updated = new ArrayList<JDImerchandisingCheckModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<JDImerchandisingCheckRecord> sendUpdate = new ArrayList<JDImerchandisingCheckRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -1852,13 +1884,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.jdiMerchandising(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1883,6 +1924,7 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncJDIproductTask extends AsyncTask<Void, Void, Boolean> {
 		List<JDIproductStockCheckModel> updated = new ArrayList<JDIproductStockCheckModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<JDIproductStockCheckRecord> sendUpdate = new ArrayList<JDIproductStockCheckRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -1959,13 +2001,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(), model
 											.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.jdiProduct(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -1991,6 +2042,7 @@ public class SyncMenuBarFragment extends Fragment {
 			AsyncTask<Void, Void, Boolean> {
 		List<CompetitorProductStockCheckModel> updated = new ArrayList<CompetitorProductStockCheckModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<CompetitorProductStockCheckRecord> sendUpdate = new ArrayList<CompetitorProductStockCheckRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -2064,13 +2116,22 @@ public class SyncMenuBarFragment extends Fragment {
 											.getCreatedTime(), model
 											.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.competitorProductStock(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -2095,6 +2156,7 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncMarketingIntelTask extends AsyncTask<Void, Void, Boolean> {
 		List<MarketingIntelModel> updated = new ArrayList<MarketingIntelModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<MarketingIntelRecord> sendUpdate = new ArrayList<MarketingIntelRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -2155,13 +2217,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.marketingIntel(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");
@@ -2187,6 +2258,7 @@ public class SyncMenuBarFragment extends Fragment {
 			AsyncTask<Void, Void, Boolean> {
 		List<ProjectRequirementModel> updated = new ArrayList<ProjectRequirementModel>();
 		List<String> deleted = new ArrayList<String>();
+		List<ProjectRequirementRecord> sendUpdate = new ArrayList<ProjectRequirementRecord>();
 
 		@Override
 		protected void onPreExecute() {
@@ -2252,13 +2324,22 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
 						}
 
 					}
 				}
 			}
 
-			if (deleted != null) {
+			if (sendUpdate.size() > 0) {
+				UpdateRequests update = new UpdateRequests();
+				update.projectRequirement(sendUpdate);
+			}
+
+			if (deleted.size() > 0) {
 				int num = table.deleteByCrmNo(deleted
 						.toArray(new String[deleted.size()]));
 				Log.d(TAG, num + " records deleted");

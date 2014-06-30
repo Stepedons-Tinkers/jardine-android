@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -34,6 +36,7 @@ import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
@@ -54,6 +57,7 @@ import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
 import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
 import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
@@ -881,8 +885,9 @@ public class CreateRequests {
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
-			ProductTable productTable = DB.getProduct();
-			PJDIprodStatusTable jStatusTable = DB.getJDIproductStatus();
+			CompetitorProductTable productTable = DB.getCompetitorProduct();
+			PComptProdStockStatusTable comptProdStatusTable = DB
+					.getCompetitorProductStockStatus();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -898,7 +903,7 @@ public class CreateRequests {
 				String product = productTable.getNoById(records.get(x)
 						.getCompetitorProduct());
 				requestObject.put("z_cps_competitorprod", product);
-				String status = jStatusTable.getNameById(records.get(x)
+				String status = comptProdStatusTable.getNameById(records.get(x)
 						.getStockStatus());
 				requestObject.put("z_cps_stockstatus", status);
 				requestObject.put("z_cps_loadedonshelves", records.get(x)
@@ -1163,80 +1168,165 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> documents(List<ProjectRequirementRecord> records) {
+	public List<WebCreateModel> documents(DocumentRecord records) {
 
 		List<WebCreateModel> model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
 
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
+			// { "0" : { "notes_title" : "gideon test", "assigned_user_id" :
+			// "1",
+			// "notecontent" : "gideon test", "filelocationtype" : "I",
+			// "fileversion" : "1",
+			// "filestatus" : "on", "folderid": "1", "mobile_id": "10",
+			// "forModule" : "XMarketingIntel", "forEntityId" : "412" } }
 
 			UserTable userTable = DB.getUser();
-			ActivityTable activityTable = DB.getActivity();
-			PProjReqTypeTable projReqTypeTable = DB.getProjectRequirementType();
 
-			for (int x = 0; x < records.size(); x++) {
-				JSONObject requestObject = new JSONObject();
+			JSONObject requestObject = new JSONObject();
 
-				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
-				requestObject.put("assigned_user_id", id);
-				// get activity id from db
-				String activity = activityTable.getNoById(records.get(x)
-						.getActivity());
-				requestObject.put("z_pr_activity", activity);
-				// get product id from db
-				String type = projReqTypeTable.getNameById(records.get(x)
-						.getProjectRequirementType());
-				requestObject.put("z_pr_prtype", type);
-				requestObject.put("z_pr_dateneeded", records.get(x)
-						.getDateNeeded());
-				requestObject.put("z_pr_squaremtrs", records.get(x)
-						.getSquareMeters());
-				requestObject.put("z_pr_prodused", records.get(x)
-						.getProductsUsed());
-				requestObject.put("z_pr_otherdet", records.get(x)
-						.getOtherDetails());
+			// get user id from db
+			String id = userTable.getNoById(records.getUser());
+			requestObject.put("assigned_user_id", id);
+			requestObject.put("notes_title", records.getTitle());
+			requestObject.put("notecontent", records.getFileName());
+			requestObject.put("filelocationtype", "I");
+			requestObject.put("fileversion", "1");
+			requestObject.put("filestatus", "on");
+			requestObject.put("folderid", "1");
+			requestObject.put("mobile_id", String.valueOf(records.getId()));
+			requestObject.put("forModule", records.getModuleName());
+			requestObject.put("forEntityId", records.getModuleId());
 
-				requestList.put(String.valueOf(records.get(x).getId()),
-						requestObject);
-			}
+			requestList.put(String.valueOf(0), requestObject);
 
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
 		Log.d(TAG, urlString);
 
+		FileInputStream fileInputStream = null;
+		File file = new File(JardineApp.JARDINE_DIRECTORY + "/"
+				+ records.getModuleName() + "/" + records.getFileName());
+
 		try {
+			fileInputStream = new FileInputStream(file);
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.JDIMerchCheck));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType", "Documents"));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"sessionName\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.SESSION_NAME);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"operation\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(operation);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"elementType\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Documents");
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"elements\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(requestList.toString());
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"file\";filename=\""
+					+ file.toString() + "\"" + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: image/jpeg"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			Log.e(JardineApp.TAG, "Headers are written 1");
+			// create a buffer of maximum size
+			int bytesAvailable = fileInputStream.available();
+			int maxBufferSize = 1024;
+			int bufferSize = Math.min(bytesAvailable, maxBufferSize);
+			byte[] buffer = new byte[bufferSize];
+			// read file and write it into form...
+			int bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+			while (bytesRead > 0) {
+				dos.write(buffer, 0, bufferSize);
+				bytesAvailable = fileInputStream.available();
+				bufferSize = Math.min(bytesAvailable, maxBufferSize);
+				bytesRead = fileInputStream.read(buffer, 0, bufferSize);
+			}
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY
+					+ JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_LINEEND); // this
+			// is
+			// for
+			// end
+			// of
+			// output
+
+			// close streams
+			fileInputStream.close();
+			dos.flush();
+			dos.close();
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();

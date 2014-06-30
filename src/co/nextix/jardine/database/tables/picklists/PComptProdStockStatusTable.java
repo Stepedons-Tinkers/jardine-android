@@ -147,6 +147,29 @@ public class PComptProdStockStatusTable {
 		return result;
 	}
 
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_COMPETITOR_PRODUCT_STOCK_STATUS_NAME
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_COMPETITOR_PRODUCT_STOCK_STATUS_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c
+						.getString(c
+								.getColumnIndex(KEY_COMPETITOR_PRODUCT_STOCK_STATUS_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public PicklistRecord getById(int ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

@@ -28,20 +28,33 @@ import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.records.ProjectRequirementRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.CompetitorTable;
 import co.nextix.jardine.database.tables.CustomerTable;
+import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.SMRTable;
+import co.nextix.jardine.database.tables.SupplierTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
 import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
 import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
+import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
+import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.requesters.DefaultRequester;
@@ -141,8 +154,7 @@ public class UpdateRequests {
 			params.add(new BasicNameValuePair("sessionName",
 					JardineApp.SESSION_NAME));
 			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.CompetitorProduct));
+			params.add(new BasicNameValuePair("elementType", Modules.Customers));
 			params.add(new BasicNameValuePair("elements", requestList
 					.toString()));
 
@@ -249,7 +261,7 @@ public class UpdateRequests {
 					JardineApp.SESSION_NAME));
 			params.add(new BasicNameValuePair("operation", operation));
 			params.add(new BasicNameValuePair("elementType",
-					Modules.CompetitorProduct));
+					Modules.CustomerContact));
 			params.add(new BasicNameValuePair("elements", requestList
 					.toString()));
 
@@ -415,8 +427,495 @@ public class UpdateRequests {
 			params.add(new BasicNameValuePair("sessionName",
 					JardineApp.SESSION_NAME));
 			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType", Modules.Activity));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> jdiMerchandising(
+			List<JDImerchandisingCheckRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			ActivityTable activityTable = DB.getActivity();
+			ProductTable productTable = DB.getProduct();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get activity id from db
+				String activity = activityTable.getNoById(records.get(x)
+						.getActivity());
+				// get product id from db
+				String product = productTable.getNoById(records.get(x)
+						.getProduct());
+				int active = records.get(x).getIsActive();
+
+				// get user id from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!activity.equals(""))
+					requestObject.put("z_jmc_activity", activity);
+				if (!product.equals(""))
+					requestObject.put("z_jmc_product", product);
+				requestObject.put("z_jmc_status", active);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
 			params.add(new BasicNameValuePair("elementType",
-					Modules.CompetitorProduct));
+					Modules.JDIMerchCheck));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> jdiProduct(
+			List<JDIproductStockCheckRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			ActivityTable activityTable = DB.getActivity();
+			ProductTable productTable = DB.getProduct();
+			PJDIprodStatusTable jStatusTable = DB.getJDIproductStatus();
+			SupplierTable supplierTable = DB.getSupplier();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get activity no from db
+				String activity = activityTable.getNoById(records.get(x)
+						.getActivity());
+				// get product no from db
+				String product = productTable.getNoById(records.get(x)
+						.getProduct());
+				String status = jStatusTable.getNameById(records.get(x)
+						.getStockStatus());
+				int loaded = records.get(x).getLoadedOnShelves();
+				// get product no from db
+				String supplier = supplierTable.getNoById(records.get(x)
+						.getSupplier());
+
+				// get user no from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!activity.equals(""))
+					requestObject.put("z_jps_activity", activity);
+				if (!product.equals(""))
+					requestObject.put("z_jps_product", product);
+				if (!status.equals(""))
+					requestObject.put("z_jps_stockstatus", status);
+				requestObject.put("z_jps_loadedonshelves", loaded);
+				if (!supplier.equals(""))
+					requestObject.put("z_jps_supplier", supplier);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.JDIProductStockCheck));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> competitorProductStock(
+			List<CompetitorProductStockCheckRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			ActivityTable activityTable = DB.getActivity();
+			CompetitorProductTable productTable = DB.getCompetitorProduct();
+			PComptProdStockStatusTable comptProdStatusTable = DB
+					.getCompetitorProductStockStatus();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get activity no from db
+				String activity = activityTable.getNoById(records.get(x)
+						.getActivity());
+				// get product no from db
+				String product = productTable.getNoById(records.get(x)
+						.getCompetitorProduct());
+				String status = comptProdStatusTable.getNameById(records.get(x)
+						.getStockStatus());
+				int loaded = records.get(x).getLoadedOnShelves();
+
+				// get user no from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!activity.equals(""))
+					requestObject.put("z_cps_activity", activity);
+				if (!product.equals(""))
+					requestObject.put("z_cps_competitorprod", product);
+				if (!status.equals(""))
+					requestObject.put("z_cps_stockstatus", status);
+				requestObject.put("z_cps_loadedonshelves", loaded);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.CompetitorProductStockCheck));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> marketingIntel(
+			List<MarketingIntelRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			ActivityTable activityTable = DB.getActivity();
+			CompetitorTable compTable = DB.getCompetitor();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get activity no from db
+				String activity = activityTable.getNoById(records.get(x)
+						.getActivity());
+				// get product no from db
+				String compt = compTable.getNoById(records.get(x)
+						.getCompetitor());
+				String details = records.get(x).getDetails();
+
+				// get user id from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!activity.equals(""))
+					requestObject.put("z_min_activity", activity);
+				if (!compt.equals(""))
+					requestObject.put("z_min_competitor", compt);
+				if (!details.equals(""))
+					requestObject.put("z_min_details", details);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.MarketingIntel));
+			params.add(new BasicNameValuePair("elements", requestList
+					.toString()));
+
+			// sending
+			OutputStream os = JardineApp.httpConnection.getOutputStream();
+			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			writer.write(getQuery(params));
+			writer.flush();
+			writer.close();
+			os.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				}.getType();
+				DefaultRequester<List<WebCreateModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<WebCreateModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<WebCreateModel> projectRequirement(
+			List<ProjectRequirementRecord> records) {
+
+		List<WebCreateModel> model = null;
+		JSONObject requestList = new JSONObject();
+		try {
+
+			UserTable userTable = DB.getUser();
+			ActivityTable activityTable = DB.getActivity();
+			PProjReqTypeTable projReqTypeTable = DB.getProjectRequirementType();
+
+			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				// get activity no from db
+				String activity = activityTable.getNoById(records.get(x)
+						.getActivity());
+				// get product no from db
+				String type = projReqTypeTable.getNameById(records.get(x)
+						.getProjectRequirementType());
+				String date = records.get(x).getDateNeeded();
+				String squaremeters = records.get(x).getSquareMeters();
+				String products = records.get(x).getProductsUsed();
+				String others = records.get(x).getOtherDetails();
+
+				// get user no from db
+				String id = userTable.getNoById(records.get(x).getUser());
+				requestObject.put("assigned_user_id", id);
+				if (!activity.equals(""))
+					requestObject.put("z_pr_activity", activity);
+				if (!type.equals(""))
+					requestObject.put("z_pr_prtype", type);
+				if (!date.equals(""))
+					requestObject.put("z_pr_dateneeded", date);
+				if (!squaremeters.equals(""))
+					requestObject.put("z_pr_squaremtrs", squaremeters);
+				if (!products.equals(""))
+					requestObject.put("z_pr_prodused", products);
+				if (!others.equals(""))
+					requestObject.put("z_pr_otherdet", others);
+
+				requestList.put(String.valueOf(x), requestObject);
+			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString);
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			// appending
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("sessionName",
+					JardineApp.SESSION_NAME));
+			params.add(new BasicNameValuePair("operation", operation));
+			params.add(new BasicNameValuePair("elementType",
+					Modules.ProjectRequirement));
 			params.add(new BasicNameValuePair("elements", requestList
 					.toString()));
 
