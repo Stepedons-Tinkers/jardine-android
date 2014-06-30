@@ -92,78 +92,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonCrmNoInfo"
-                    android:layout_width="match_parent"
-                    android:layout_column="1"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
-
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="2dp"
-                    android:background="@color/black" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_column="2"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:text="@string/contact_person_firstname"
-                    android:textColor="@color/black"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="2dp"
-                    android:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvContactPersonFirstNameInfo"
-                    android:layout_width="match_parent"
-                    android:layout_column="2"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/collaterals_tablerow_color1"
-                android:clickable="false"
-                android:focusable="false"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_column="0"
-                    android:layout_weight="1"
-                    android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:paddingLeft="2dp"
-                    android:text="@string/contact_person_lastname"
-                    android:textColor="@color/black"
-                    android:textSize="21sp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="2dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginRight="2dp"
-                    android:background="@color/black" />
-
-                <TextView
-                    android:id="@+id/tvContactPersonLastNameInfo"
+                    android:id="@+id/tvCustomerContactField1"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -196,7 +125,78 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonPositionInfo"
+                    android:id="@+id/tvCustomerContactField8"
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/collaterals_tablerow_color1"
+                android:clickable="false"
+                android:focusable="false"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="0"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:paddingLeft="2dp"
+                    android:text="@string/contact_person_firstname"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCustomerContactField2"
+                    android:layout_width="match_parent"
+                    android:layout_column="1"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_column="2"
+                    android:layout_weight="1"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="@string/contact_person_lastname"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="2dp"
+                    android:background="@color/black" />
+
+                <TextView
+                    android:id="@+id/tvCustomerContactField9"
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
@@ -234,7 +234,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonMobileNoInfo"
+                    android:id="@+id/tvCustomerContactField3"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -267,7 +267,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonBirthdayInfo"
+                    android:id="@+id/tvCustomerContactField10"
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
@@ -306,7 +306,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonEmailInfo"
+                    android:id="@+id/tvCustomerContactField4"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -327,6 +327,7 @@
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:padding="7dp"
+                    android:text="@string/customer_details_is_active"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -338,7 +339,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonCustomerInfo"
+                    android:id="@+id/tvCustomerContactField11"
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
@@ -365,6 +366,7 @@
                     android:maxLines="1"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
+                    android:text="@string/collaterals_ep_created_time"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -376,7 +378,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonIsActiveInfo"
+                    android:id="@+id/tvCustomerContactField5"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -397,6 +399,7 @@
                     android:layout_weight="1"
                     android:maxLines="1"
                     android:padding="7dp"
+                    android:text="@string/collaterals_file_modified_time"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -408,7 +411,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonProvinceInfo"
+                    android:id="@+id/tvCustomerContactField12"
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
@@ -435,6 +438,7 @@
                     android:maxLines="1"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
+                    android:text="@string/workplan_customer"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -446,7 +450,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonCityOrTownInfo"
+                    android:id="@+id/tvCustomerContactField6"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
@@ -505,6 +509,7 @@
                     android:maxLines="1"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
+                    android:text="@string/workplan_info_assignedto"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
@@ -516,7 +521,7 @@
                     android:background="@color/black" />
 
                 <TextView
-                    android:id="@+id/tvContactPersonFaxInfo"
+                    android:id="@+id/tvCustomerContactField7"
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"

@@ -1,4 +1,4 @@
-package co.nextix.jardine.customers.fragments;
+package co.nextix.jardine.customers;
 
 import java.util.Calendar;
 import java.util.List;
@@ -129,7 +129,7 @@ public class AddCustomerFragment extends Activity implements OnClickListener {
 
 		Calendar c = Calendar.getInstance();
 
-		JardineApp.DB.getCustomer().insert("777", "CUST0999",
+		JardineApp.DB.getCustomer().insert("", "",
 				field2.getText().toString(), field4.getText().toString(),
 				field5.getText().toString(), field12.getText().toString(),
 				((PicklistRecord) field6.getSelectedItem()).getId(),

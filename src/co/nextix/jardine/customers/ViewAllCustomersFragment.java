@@ -1,4 +1,4 @@
-package co.nextix.jardine.customers.fragments;
+package co.nextix.jardine.customers;
 
 import java.util.ArrayList;
 import java.util.List;

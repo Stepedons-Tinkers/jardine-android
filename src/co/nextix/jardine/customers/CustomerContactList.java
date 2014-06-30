@@ -1,4 +1,4 @@
-package co.nextix.jardine.contactperson.fragments;
+package co.nextix.jardine.customers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,10 +6,15 @@ import java.util.List;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.customers.fragments.AdapterCustomers;
-import co.nextix.jardine.customers.fragments.CustomerDetailsFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.collaterals.CollateralsDetails;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.workplan.AdapterWorkplanActivity;
+import co.nextix.jardine.workplan.WorkPlanConstants;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,11 +28,12 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class ViewAllContactPersonFragment extends Fragment implements
-OnClickListener {
-	private View view;
+public class CustomerContactList extends Fragment implements OnClickListener {
+
+	private View view, header;
 	private ListView list;
 	private int rowSize = 6;
 	private int totalPage = 0;
@@ -38,20 +44,28 @@ OnClickListener {
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
-	private View header;
-	private TextView txtCrm, txtFirstName, txtLastName, txtPosition, 
-	txtMobileNo;
-	private TableRow tablerow;
+	private TextView col1, col2, col3, col4, col5;
+	private TableRow trow;
 	private EditText search;
-	private Button bntAddContact;
+	private Button bntAdd;
+	private long customerId = 0;
+
+	public static CustomerContactList newInstance(long custd) {
+		CustomerContactList fragment = new CustomerContactList();
+		Bundle bundle = new Bundle();
+		bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID, custd);
+		fragment.setArguments(bundle);
+		return fragment;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.fragment_customer_contact_person_view_all, null);
-		header = inflater
-				.inflate(R.layout.table_row_customers, null);
+		customerId = getArguments().getLong(
+				CustomerConstants.KEY_CUSTOMER_LONG_ID);
+		view = inflater.inflate(R.layout.workplan_activities, container, false);
+		header = inflater.inflate(R.layout.customer_contact_row, null, false);
 		initLayout();
 		return view;
 	}
@@ -59,33 +73,26 @@ OnClickListener {
 	private void initLayout() {
 
 		// Header Data
-		tablerow = (TableRow) header.findViewById(R.id.trContactPersonRow);
-		txtCrm = (TextView) header.findViewById(R.id.tvContactPersonCRMNo);
-		txtFirstName = (TextView) header.findViewById(R.id.tvContactPersonFirstName);
-		txtLastName = (TextView) header.findViewById(R.id.tvContactPersonLastName);
-		txtPosition = (TextView) header.findViewById(R.id.tvContactPersonPosition); 
-		txtMobileNo = (TextView) header.findViewById(R.id.tvContactPersonMobileNo);
 
-		txtCrm.setText(getResources().getString(R.string.customer_crm_no));
-		tablerow.setBackgroundResource(R.color.tab_pressed);
+		trow = (TableRow) header.findViewById(R.id.trCustomerContactRow);
+		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
+		//
 
-		list = (ListView) view
-				.findViewById(R.id.lvCustomers);
+		list = (ListView) view.findViewById(R.id.lvWorkPlanActList);
 
 		list.addHeaderView(header);
 
-		bntAddContact = (Button) view.findViewById(R.id.btnAddContactPerson);
-		txtPage = (TextView) view
-				.findViewById(R.id.ibCustomersPage);
+		bntAdd = (Button) view.findViewById(R.id.bWorkPlanActAddActivity);
+		bntAdd.setText(CustomerConstants.ADD_CUSTOMER_CONTACT);
 
-		arrowLeft = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActLeft);
-		arrowRight = (ImageButton) view
-				.findViewById(R.id.ibWorkPlanActRight);
+		txtPage = (TextView) view.findViewById(R.id.tvWorkPlanActPage);
+
+		arrowLeft = (ImageButton) view.findViewById(R.id.ibWorkPlanActLeft);
+		arrowRight = (ImageButton) view.findViewById(R.id.ibWorkPlanActRight);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
@@ -93,16 +100,8 @@ OnClickListener {
 		realRecord = new ArrayList<CustomerContactRecord>();
 		tempRecord = new ArrayList<CustomerContactRecord>();
 
-		for (int i = 1; i <= 37; i++) {
-			CustomerContactRecord rec = new CustomerContactRecord();
-			rec.setNo("CUST000" + i);
-			rec.setFirstName("John");
-			rec.setLastName("Doe");
-			rec.setPosition(001);
-			rec.setMobileNo("0922-000-0000");
-
-			realRecord.add(rec);
-		}
+		realRecord.addAll(JardineApp.DB.getCustomerContact()
+				.getAllRecordsByCustomerId(customerId));
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -116,6 +115,20 @@ OnClickListener {
 			addItem(currentPage);
 
 		}
+
+		bntAdd.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				DashBoardActivity act = (DashBoardActivity) getActivity();
+				act.getSupportFragmentManager()
+						.beginTransaction()
+						.add(R.id.frame_container, new AddActivityFragment(),
+								JardineApp.TAG).addToBackStack(JardineApp.TAG)
+						.commit();
+
+			}
+		});
 	}
 
 	private void addItem(int count) {
@@ -134,50 +147,47 @@ OnClickListener {
 
 	private void setView() {
 
-		AdapterContactPerson adapter = new AdapterContactPerson(
-				getActivity(), R.layout.table_row_contact_person,
-				tempRecord);
+		AdapterCustomerContacts adapter = new AdapterCustomerContacts(
+				getActivity(), R.layout.customer_contact_row, tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				CustomerContactRecord cr = (CustomerContactRecord) parent
+				CustomerContactRecord epr = (CustomerContactRecord) parent
 						.getAdapter().getItem(position);
 
-				if (cr.getNo() != null) {
+				if (epr.getNo() != null) {
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									new ContactPersonDetailsFragment(), JardineApp.TAG)
+									CustomerContactPersonFragment.newInstance(customerId), JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 
 			}
 		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	@Override
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.ibCustomersLeft:
+		case R.id.ibWorkPlanActLeft:
 			if (currentPage > 0) {
 				currentPage--;
 				addItem(currentPage);
 			}
 			break;
-		case R.id.ibCustomersRight:
+		case R.id.ibWorkPlanActRight:
 			if (currentPage < totalPage - 1) {
 				currentPage++;
 				addItem(currentPage);
 			}
-			break;
-		case R.id.btnAddContactPerson:
-			// add customer contact here
 			break;
 		}
 

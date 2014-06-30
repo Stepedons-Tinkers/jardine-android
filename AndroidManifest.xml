@@ -65,7 +65,7 @@
             android:screenOrientation="fullSensor" >
         </activity>
         <activity
-            android:name=".customers.fragments.AddCustomerFragment"
+            android:name="co.nextix.jardine.customers.AddCustomerFragment"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Example" >

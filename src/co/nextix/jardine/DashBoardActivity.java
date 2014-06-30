@@ -20,7 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
-import co.nextix.jardine.customers.fragments.ViewAllCustomersFragment;
+import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
 import co.nextix.jardine.fragments.LogoutMenuBarFragment;

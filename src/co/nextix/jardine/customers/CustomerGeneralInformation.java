@@ -1,4 +1,4 @@
-package co.nextix.jardine.customers.fragments;
+package co.nextix.jardine.customers;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
