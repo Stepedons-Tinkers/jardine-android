@@ -19,6 +19,7 @@ public class CustomerDetailsFragment extends Fragment implements
 	private TabHost tabHost;
 	private String tab1, tab2;
 	private long customerId = 0;
+	private String customerName;
 
 	public CustomerDetailsFragment() {
 
@@ -40,6 +41,8 @@ public class CustomerDetailsFragment extends Fragment implements
 		customerId = getArguments().getLong(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 
+		customerName = getArguments().getString(
+				CustomerConstants.KEY_CUSTOMER_USERNAME);
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		view = inflater.inflate(R.layout.collaterals, container, false);
@@ -85,7 +88,8 @@ public class CustomerDetailsFragment extends Fragment implements
 			fragment = CustomerGeneralInformation.newInstance(customerId);
 			break;
 		case 1:
-			fragment = CustomerContactList.newInstance(customerId);
+			fragment = CustomerContactList
+					.newInstance(customerId);
 			break;
 		}
 

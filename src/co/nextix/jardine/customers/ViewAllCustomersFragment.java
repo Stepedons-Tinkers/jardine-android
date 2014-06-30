@@ -168,7 +168,8 @@ public class ViewAllCustomersFragment extends Fragment implements
 						.getItem(position);
 
 				if (cr.getNo() != null) {
-
+					
+					CustomerConstants.CUSTOMER_NAME = cr.getCustomerName();
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()

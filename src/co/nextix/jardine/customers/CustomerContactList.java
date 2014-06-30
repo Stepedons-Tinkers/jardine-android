@@ -15,6 +15,7 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import co.nextix.jardine.workplan.AdapterWorkplanActivity;
 import co.nextix.jardine.workplan.WorkPlanConstants;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -49,6 +50,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	private EditText search;
 	private Button bntAdd;
 	private long customerId = 0;
+	private String customerName;
 
 	public static CustomerContactList newInstance(long custd) {
 		CustomerContactList fragment = new CustomerContactList();
@@ -63,6 +65,9 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 			Bundle savedInstanceState) {
 
 		customerId = getArguments().getLong(
+				CustomerConstants.KEY_CUSTOMER_LONG_ID);
+
+		customerName = getArguments().getString(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 		view = inflater.inflate(R.layout.workplan_activities, container, false);
 		header = inflater.inflate(R.layout.customer_contact_row, null, false);
@@ -120,13 +125,15 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 			@Override
 			public void onClick(View v) {
-				DashBoardActivity act = (DashBoardActivity) getActivity();
-				act.getSupportFragmentManager()
-						.beginTransaction()
-						.add(R.id.frame_container, new AddActivityFragment(),
-								JardineApp.TAG).addToBackStack(JardineApp.TAG)
-						.commit();
-
+				Intent intent = new Intent(JardineApp.context,
+						AddCustomerContacts.class);
+				Bundle bundle = new Bundle();
+				bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID,
+						customerId);
+				bundle.putString(CustomerConstants.KEY_CUSTOMER_USERNAME,
+						customerName);
+				intent.putExtras(bundle);
+				startActivity(intent);
 			}
 		});
 	}
@@ -164,7 +171,9 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									CustomerContactPersonFragment.newInstance(customerId), JardineApp.TAG)
+									CustomerContactPersonFragment
+											.newInstance(customerId),
+									JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 
