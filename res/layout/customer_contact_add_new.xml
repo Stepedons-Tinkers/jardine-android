@@ -72,13 +72,14 @@
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etCustomerContactAddField1"
+                <TextView
+                    android:id="@+id/tvCustomerContactAddField1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
-                    android:hint="@string/customer_hint"
+                    android:gravity="center"
+                    android:hint="AUTO GENERATED"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
@@ -233,7 +234,7 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-                        android:id="@+id/ibWorkPlanCalendar"
+                        android:id="@+id/ibCustomerContactAddField6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:contentDescription="@string/desc_list_item_icon"
@@ -252,13 +253,42 @@
                     android:layout_weight="1"
                     android:gravity="start"
                     android:padding="10dp"
+                    android:text="@string/contact_person_email"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etCustomerContactAddField7"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:hint="@string/customer_hint"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="10dp"
                     android:text="@string/workplan_customer"
                     android:textColor="@color/black"
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCustomerContactAddField7"
+                    android:id="@+id/tvCustomerContactAddField8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -287,7 +317,7 @@
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/etCustomerContactAddField8"
+                    android:id="@+id/tvCustomerContactAddField9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
@@ -316,14 +346,19 @@
                     android:textSize="21sp"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spiCustomerContactAddField9"
+                <TextView
+                    android:id="@+id/tvCustomerContactAddField10"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
-                    android:spinnerMode="dropdown" >
-                </Spinner>
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:enabled="false"
+                    android:hint="@string/customer_hint"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text=""
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
             </TableRow>
         </TableLayout>
     </LinearLayout>
