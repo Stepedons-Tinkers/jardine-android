@@ -78,29 +78,23 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <HorizontalScrollView
+                <EditText
+                    android:id="@+id/TextView04"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="50dp"
                     android:layout_marginBottom="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#dcdcdc"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="related SMR Record"
+                    android:textColor="#FF0000" />
 
-                    <EditText
-                        android:id="@+id/TextView04"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related SMR Record"
-                        android:textColor="#FF0000" />
-
-                    <requestFocus />
-                </HorizontalScrollView>
+                <requestFocus />
             </TableRow>
         </TableLayout>
     </ScrollView>

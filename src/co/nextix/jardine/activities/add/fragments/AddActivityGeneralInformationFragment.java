@@ -16,8 +16,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
 		View rootView = inflater.inflate(R.layout.add_activity_gen_info,
 				container, false);
+		
 		final CircularProgressButton btnWithText1 = (CircularProgressButton) rootView
 				.findViewById(R.id.btnWithText1);
 
