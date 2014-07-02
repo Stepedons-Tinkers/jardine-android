@@ -12,6 +12,7 @@ import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.DocuInfoRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.database.records.ProjectRequirementRecord;
 
 public class DocumentTable {
 	// ===========================================================
@@ -175,6 +176,54 @@ public class DocumentTable {
 				c.close();
 			}
 		}
+		return list;
+	}
+
+	public List<DocumentRecord> getUnsyncedRecords() {
+		List<DocumentRecord> list = new ArrayList<DocumentRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_DOCUMENT_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_DOCUMENT_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_DOCUMENT_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_CRMNO));
+					String title = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_TITLE));
+					String moduleName = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODULENAME));
+					String moduleId = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODULEID));
+					String fileName = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILENAME));
+					String fileType = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILETYPE));
+					String filePath = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_FILEPATH));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
+
+					list.add(new DocumentRecord(id, no, crmNo, title,
+							moduleName, moduleId, fileName, fileType, filePath,
+							isActive, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
 		return list;
 	}
 
@@ -419,6 +468,28 @@ public class DocumentTable {
 	public boolean delete(long rowId) {
 		if (mDb.delete(mDatabaseTable, KEY_DOCUMENT_ROWID + "=" + rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_DOCUMENT_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_DOCUMENT_ROWID + "=" + id,
+				null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateCrmNo(long id, String crmNo) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_DOCUMENT_CRMNO, crmNo);
+		if (mDb.update(mDatabaseTable, args, KEY_DOCUMENT_ROWID + "=" + id,
+				null) > 0) {
 			return true;
 		} else {
 			return false;
