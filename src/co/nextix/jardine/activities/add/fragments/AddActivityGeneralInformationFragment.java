@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
@@ -164,6 +165,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				} else {
 					saveBtn.setProgress(0);
 				}
+			}
+		});
+		
+		((CircularProgressButton) this.rootView.findViewById(R.id.btnWithText2)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getActivity().getSupportFragmentManager().popBackStackImmediate();
 			}
 		});
 
