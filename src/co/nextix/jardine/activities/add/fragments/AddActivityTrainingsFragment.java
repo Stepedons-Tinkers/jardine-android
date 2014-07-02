@@ -28,7 +28,7 @@ public class AddActivityTrainingsFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					Editor editor = pref.edit();
 					editor.putString("date", ((EditText) rootView.findViewById(R.id.date)).getText().toString());
-					editor.putString("time", (String) ((Spinner) rootView.findViewById(R.id.time)).getSelectedItem());
+					editor.putString("time", String.valueOf(((Spinner) rootView.findViewById(R.id.time)).getSelectedItem()));
 					editor.putString("venue", v.getText().toString());
 					editor.putString("no_attendees", ((EditText) rootView.findViewById(R.id.number_of_attendees)).getText().toString());
 					editor.putString("attendance_sheet", ((EditText) rootView.findViewById(R.id.attendance_sheet)).getText().toString());

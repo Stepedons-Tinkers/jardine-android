@@ -77,7 +77,7 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <EditText
+                <Spinner
                     android:id="@+id/smr"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -85,13 +85,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:hint="related SMR Record"
-                    android:textColor="#000" />
+                    android:background="#dcdcdc" />
 
                 <requestFocus />
             </TableRow>

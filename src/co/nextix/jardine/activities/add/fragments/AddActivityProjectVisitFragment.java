@@ -31,9 +31,8 @@ public class AddActivityProjectVisitFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					Editor editor = pref.edit();
 					editor.putString("project_name", v.getText().toString());
-					editor.putString("project_stage", (String) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem());
-					editor.putString("project_category",
-							(String) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem());
+					editor.putString("project_stage", String.valueOf(((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()));
+					editor.putString("project_category", String.valueOf(((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem()));
 					editor.commit(); // commit changes
 				}
 
@@ -48,8 +47,8 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 				Editor editor = pref.edit();
 				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
-				editor.putString("project_stage", (String) parent.getSelectedItem());
-				editor.putString("project_category", (String) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem());
+				editor.putString("project_stage", String.valueOf(parent.getSelectedItem()));
+				editor.putString("project_category", String.valueOf(((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem()));
 				editor.commit(); // commit changes
 			}
 
@@ -68,8 +67,8 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 				Editor editor = pref.edit();
 				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
-				editor.putString("project_category", (String) parent.getSelectedItem());
-				editor.putString("project_stage", (String) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem());
+				editor.putString("project_category", String.valueOf(parent.getSelectedItem()));
+				editor.putString("project_stage", String.valueOf(((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()));
 				editor.commit(); // commit changes
 			}
 
@@ -80,6 +79,7 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				}
 			}
 		});
+		
 		return rootView;
 	}
 }
