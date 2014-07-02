@@ -194,6 +194,8 @@
     <!-- Create/Edit Activity Details / General Information -->
     <string name="workplan_gen_info">Workplan</string>
     <string name="venue">Venue:</string>
+    <string name="attendance_sheet">Attendance Sheet</string>
+    <string name="name_of_attendees">Name of Attendees</string>
     <string name="number_of_attendees">Number of Attendees:</string>
     <string name="with_coSMRs">With CoSMRs</string>
     <string name="smr">SMR:</string>

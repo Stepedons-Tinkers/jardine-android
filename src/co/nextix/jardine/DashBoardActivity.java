@@ -32,7 +32,7 @@ import co.nextix.jardine.model.NavDrawerItem;
 
 import com.squareup.timessquare.CalendarPickerView;
 
-public class DashBoardActivity extends FragmentActivity {
+public class DashBoardActivity extends FragmentActivity{
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -319,4 +319,5 @@ public class DashBoardActivity extends FragmentActivity {
 		String date = WorkplanMenuBarFragment.df.format(day);
 		return date;
 	}
+
 }

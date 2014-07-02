@@ -66,7 +66,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -75,12 +74,12 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/date_gen_info"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
                 <EditText
-                    android:id="@+id/objective"
+                    android:id="@+id/date"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
@@ -102,7 +101,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -111,7 +109,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/time_gen_info"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -124,11 +122,98 @@
                     android:background="#dcdcdc" >
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/time"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:scrollHorizontally="true" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/venue"
+                        android:textColor="#FF0000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <EditText
+                        android:id="@+id/venue"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <requestFocus />
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/number_of_attendees"
+                        android:textColor="#FF0000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <EditText
+                        android:id="@+id/number_of_attendees"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
+                        android:ems="10"
+                        android:inputType="textMultiLine|textImeMultiLine|number"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
 
@@ -147,7 +232,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -155,7 +239,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/venue"
+                        android:text="@string/attendance_sheet"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -168,13 +252,16 @@
                     android:background="#dcdcdc" >
 
                     <EditText
-                        android:id="@+id/objective"
+                        android:id="@+id/attendance_sheet"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
+                        android:hint="filename; attachment"
                         android:inputType="textMultiLine|textImeMultiLine"
                         android:maxLines="100"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
@@ -186,7 +273,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -194,7 +280,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/number_of_attendees"
+                        android:text="@string/name_of_attendees"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -207,11 +293,12 @@
                     android:background="#dcdcdc" >
 
                     <EditText
-                        android:id="@+id/objective"
+                        android:id="@+id/name_of_attendees"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
+                        android:hint="text area"
                         android:inputType="textMultiLine|textImeMultiLine|number"
                         android:maxLines="100"
                         android:scrollHorizontally="true"

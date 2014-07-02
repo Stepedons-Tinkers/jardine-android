@@ -66,7 +66,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -75,12 +74,12 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Issues Identified: "
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
                 <EditText
-                    android:id="@+id/objective"
+                    android:id="@+id/issues_identified"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
@@ -89,6 +88,7 @@
                     android:ems="10"
                     android:inputType="textMultiLine|textImeMultiLine"
                     android:maxLines="100"
+                    android:hint="text area"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
 
@@ -102,7 +102,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -111,7 +110,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Feedback From Customer:"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -124,13 +123,14 @@
                     android:background="#dcdcdc" >
 
                     <EditText
-                        android:id="@+id/objective"
+                        android:id="@+id/feedback_from_customer"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
                         android:inputType="textMultiLine|textImeMultiLine"
                         android:maxLines="100"
+                        android:hint="text area"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
@@ -151,7 +151,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -160,7 +159,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Ongoing Campaigns:"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -173,13 +172,14 @@
                     android:background="#dcdcdc" >
 
                     <EditText
-                        android:id="@+id/objective"
+                        android:id="@+id/ongoing_campaigns"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
                         android:ems="10"
                         android:inputType="textMultiLine|textImeMultiLine"
                         android:maxLines="100"
+                        android:hint="text area"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
                 </HorizontalScrollView>

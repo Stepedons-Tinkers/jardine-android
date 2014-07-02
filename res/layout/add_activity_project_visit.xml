@@ -64,7 +64,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -73,12 +72,12 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Name:"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
                 <EditText
-                    android:id="@+id/objective"
+                    android:id="@+id/project_name"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="4dp"
@@ -87,6 +86,7 @@
                     android:ems="10"
                     android:inputType="textMultiLine|textImeMultiLine"
                     android:maxLines="100"
+                    android:hint="text field"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
 
@@ -100,7 +100,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -109,7 +108,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Stage:"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -122,7 +121,7 @@
                     android:background="#dcdcdc" >
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/project_stage"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -145,7 +144,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
@@ -154,7 +152,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Category:"
-                        android:textColor="#000000"
+                        android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -167,7 +165,7 @@
                     android:background="#dcdcdc" >
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/project_category"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:background="#dcdcdc"
