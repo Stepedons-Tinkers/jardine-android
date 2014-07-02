@@ -283,7 +283,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="decimal"
+                        android:text="10.310235"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
 
@@ -322,7 +322,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="decimal"
+                        android:text="123.894882"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>

@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
+import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -49,10 +51,19 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private Calendar calendar = null;
 	private SimpleDateFormat df = null;
+	private String formattedDate = null;
+	private int day = 0;
+	private int month = 0;
+	private int year = 0;
+	private int flag;
 
 	public AddActivityGeneralInformationFragment() {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
+		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
+		this.month = this.calendar.get(Calendar.MONTH);
+		this.year = this.calendar.get(Calendar.YEAR);
+		this.flag = 0;
 	}
 
 	@Override
@@ -101,18 +112,56 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setAdapter(workplanEntryRecordAdapter);
 		((Spinner) this.rootView.findViewById(R.id.customer)).setAdapter(customerAdapter);
 
+		((TextView) this.rootView.findViewById(R.id.start_time)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				flag = 0;
+				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
+						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
+						AddActivityGeneralInformationFragment.this.day);
+				pickDialog.show();
+			}
+		});
+
+		((TextView) this.rootView.findViewById(R.id.end_time)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				flag = 4;
+				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
+						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
+						AddActivityGeneralInformationFragment.this.day);
+				pickDialog.show();
+			}
+		});
+
+		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				flag = 7;
+
+				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
+						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
+						AddActivityGeneralInformationFragment.this.day);
+				pickDialog.show();
+
+			}
+		});
+
 		saveBtn = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
 		saveBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
-					String workplan = (String) ((Spinner) rootView.findViewById(R.id.workplan)).getSelectedItem();
+					String workplan = String.valueOf(((Spinner) rootView.findViewById(R.id.workplan)).getSelectedItem());
 					String startTime = ((TextView) rootView.findViewById(R.id.start_time)).getText().toString();
 					String endTime = ((TextView) rootView.findViewById(R.id.end_time)).getText().toString();
 					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
 					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
 					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
-					String activityType = (String) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem();
+					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
 					String businessUnit = ((EditText) rootView.findViewById(R.id.business_unit)).getText().toString();
 					String source = String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem());
 
@@ -167,9 +216,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				}
 			}
 		});
-		
+
 		((CircularProgressButton) this.rootView.findViewById(R.id.btnWithText2)).setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				getActivity().getSupportFragmentManager().popBackStackImmediate();
@@ -179,7 +228,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		return rootView;
 	}
 
-	private class InsertTask extends AsyncTask<Void, Void, Boolean> {
+	protected class InsertTask extends AsyncTask<Void, Void, Boolean> {
 
 		private ValueAnimator widthAnimation = null;
 
@@ -314,12 +363,39 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		}
 	}
 
-	private void saveActivity(String no, String crmNo, long workplan, String startTime, String endTime, double longitude, double latitude,
-			String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate, long activityType,
-			long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime, long user,
-			long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery,
-			String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date, String time,
-			String venue, String noOfAttendees) {
+	protected DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+			AddActivityGeneralInformationFragment.this.year = selectedYear;
+			AddActivityGeneralInformationFragment.this.month = selectedMonth;
+			AddActivityGeneralInformationFragment.this.day = selectedDay;
+			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
+					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
+					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+
+			if (flag == 0) {
+				((TextView) rootView.findViewById(R.id.start_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+			} else if (flag == 4) {
+				((TextView) rootView.findViewById(R.id.end_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+			} else {
+				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
+						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
+			}
+		}
+	};
+
+	protected String FormatDateAndDay(int digit) {
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
+		return String.valueOf(formattedStringDigit);
+	}
+
+	protected void saveActivity(String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime,
+			String modifiedTime, long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns,
+			String lastDelivery, String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
 
 		// Insert to the database
 		JardineApp.DB.getActivity().insert(no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes, highlights,

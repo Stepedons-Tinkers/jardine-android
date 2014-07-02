@@ -52,7 +52,7 @@ public class StartActivityFragment extends Fragment {
 
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
-	private String formattedDate = null;
+	public String formattedDate = null;
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
