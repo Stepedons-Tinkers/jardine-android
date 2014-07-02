@@ -66,7 +66,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		List<PicklistRecord> sourceList = JardineApp.DB.getArea().getAllRecords();
 		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(JardineApp.DB.getUser().getCurrentUser().getId());
 
-		// Wala pa ni clear
+		// Karon clear na
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		List<WorkplanEntryRecord> workplanEntryList = JardineApp.DB.getWorkplanEntry().getAllRecords();
 		List<CustomerRecord> customerList = JardineApp.DB.getCustomer().getAllRecords();

@@ -42,10 +42,8 @@ public class WorkplanEntryRecord {
 	// Public constructors
 	// ===========================================================
 
-	public WorkplanEntryRecord(long id, String no, String crmNo, long customer,
-			String date, long status, long area, long province, long cityTown,
-			String remarks, long activityType, long workplan,
-			String createdTime, String modifiedTime, long user) {
+	public WorkplanEntryRecord(long id, String no, String crmNo, long customer, String date, long status, long area, long province,
+			long cityTown, String remarks, long activityType, long workplan, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
@@ -186,5 +184,10 @@ public class WorkplanEntryRecord {
 
 	public String getCreatedTime() {
 		return this.created_time;
+	}
+
+	@Override
+	public String toString() {
+		return this.crm_no;
 	}
 }

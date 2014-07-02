@@ -28,8 +28,7 @@ public class ActivityTypeRecord {
 	// Public constructors
 	// ===========================================================
 
-	public ActivityTypeRecord(long id, String no, String crmNo,
-			long activityTypeCategorization, int isActive, String createdTime,
+	public ActivityTypeRecord(long id, String no, String crmNo, long activityTypeCategorization, int isActive, String createdTime,
 			String modifiedTime, long user) {
 
 		this.id = id;
@@ -105,5 +104,10 @@ public class ActivityTypeRecord {
 
 	public long getUser() {
 		return this.user;
+	}
+
+	@Override
+	public String toString() {
+		return this.crm_no;
 	}
 }
