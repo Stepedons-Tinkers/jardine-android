@@ -88,7 +88,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
 
 		// Setting to text field auto populate data
-		((EditText) this.rootView.findViewById(R.id.business_unit)).setText(activity.toString());
+		((EditText) this.rootView.findViewById(R.id.business_unit)).setText(activity != null ? activity.toString() : "");
 		((EditText) this.rootView.findViewById(R.id.assigned_to)).setText(assignedToLname + "," + assignedToFname);
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setAdapter(this.areaAdapter);
@@ -105,13 +105,13 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
-					String workplan = ((EditText) rootView.findViewById(R.id.workplan)).getText().toString();
+					String workplan = (String) ((Spinner) rootView.findViewById(R.id.workplan)).getSelectedItem();
 					String startTime = ((TextView) rootView.findViewById(R.id.start_time)).getText().toString();
 					String endTime = ((TextView) rootView.findViewById(R.id.end_time)).getText().toString();
 					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
 					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
 					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
-					String activityType = ((EditText) rootView.findViewById(R.id.activity_type)).getText().toString();
+					String activityType = (String) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem();
 					String businessUnit = ((EditText) rootView.findViewById(R.id.business_unit)).getText().toString();
 					String source = String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem());
 

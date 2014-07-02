@@ -53,10 +53,8 @@ public class CustomerRecord {
 
 	}
 
-	public CustomerRecord(long id, String no, String crmNo,
-			String customerName, String chainName, String landline, String fax,
-			long customerSize, String streetAddress, long customerType,
-			long businessUnit, long area, long province, long cityTown,
+	public CustomerRecord(long id, String no, String crmNo, String customerName, String chainName, String landline, String fax,
+			long customerSize, String streetAddress, long customerType, long businessUnit, long area, long province, long cityTown,
 			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
@@ -95,7 +93,7 @@ public class CustomerRecord {
 	public String getNo() {
 		return this.no;
 	}
-	
+
 	public void setCrm(String crmNo) {
 		this.crm_no = crmNo;
 	}
@@ -230,5 +228,10 @@ public class CustomerRecord {
 
 	public String getCreatedTime() {
 		return this.created_time;
+	}
+
+	@Override
+	public String toString() {
+		return this.customer_name;
 	}
 }
