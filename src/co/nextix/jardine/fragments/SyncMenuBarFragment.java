@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.net.ConnectivityManager;
@@ -151,6 +152,8 @@ public class SyncMenuBarFragment extends Fragment {
 	List<FileRecord> Event_Files_IDs = new ArrayList<FileRecord>();
 	List<FileRecord> Marketing_Files_IDs = new ArrayList<FileRecord>();
 	protected PowerManager.WakeLock mWakeLock;
+	boolean isCancelled = false;
+	boolean isConnected = true;
 
 	public SyncMenuBarFragment() {
 	}
@@ -194,8 +197,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setCanceledOnTouchOutside(false);
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -210,6 +229,9 @@ public class SyncMenuBarFragment extends Fragment {
 			if (areas != null) {
 
 				for (PicklistDependencyModel a : areas) {
+					if (isCancelled()) {
+						break;
+					}
 					String area = a.getSourceValue().replace("&quot;", "");
 					if (!aTable.isExisting(area)) {
 						aId = aTable.insertArea(area);
@@ -240,6 +262,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (provinces != null) {
 				for (PicklistDependencyModel a : provinces) {
+					if (isCancelled()) {
+						break;
+					}
 					String province = a.getSourceValue().replace("&quot;", "");
 					pId = pTable.getIdByName(province);
 					if (pId != 0) {
@@ -264,23 +289,11 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			// List<PicklistRecord> aRecords = aTable.getRecords();
-			//
-			// PicklistRequests prequest = new PicklistRequests();
-			// provinces = prequest.province();
-			// if (provinces != null) {
-			//
-			// for (PicklistDependencyModel a : provinces) {
-			//
-			// }
-			// }
-
 			return true;
 		}
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-
 			if (result) {
 				new PicklistsTask().execute();
 			} else {
@@ -301,8 +314,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Please wait...");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -310,6 +339,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			PicklistRequests request = new PicklistRequests();
 			for (String module : Modules.picklists) {
+				if (isCancelled()) {
+					break;
+				}
 				picklist = request.picklists(module);
 				if (picklist != null) {
 					if (module.equals(Modules.smrtimecard_entry)) {
@@ -424,13 +456,29 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("BusinessUnit");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
 		}
 
 		@Override
-		protected Boolean doInBackground(Void... arg0) {
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
+		}
 
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+			Log.e(TAG, "###********************************** businessUnit ###");
 			BusinessUnitTable table = JardineApp.DB.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
@@ -439,6 +487,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (BusinessUnitModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getName(), model.getCode(),
@@ -464,10 +515,14 @@ public class SyncMenuBarFragment extends Fragment {
 					}
 				}
 			}
-			if (deleted.size() > 0) {
-				int num = table.deleteByCrmNo(deleted
-						.toArray(new String[deleted.size()]));
-				Log.d(TAG, num + " records deleted");
+			if (isCancelled()) {
+				cancel(true);
+			} else {
+				if (deleted.size() > 0) {
+					int num = table.deleteByCrmNo(deleted
+							.toArray(new String[deleted.size()]));
+					Log.d(TAG, num + " records deleted");
+				}
 			}
 
 			return true;
@@ -2976,6 +3031,59 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
+			// UserTable userTable = JardineApp.DB.getUser();
+			// userTable
+			// .updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
+			//
+			// dialog.dismiss();
+			if (result) {
+				new CreateDocumentsTask().execute();
+
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Documents");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+			List<DocumentRecord> records = table.getUnsyncedRecords();
+
+			if (records != null) {
+				CreateRequests request = new CreateRequests();
+				for (DocumentRecord rec : records) {
+					List<WebCreateModel> results = request.documents(rec);
+					if (results != null) {
+						for (WebCreateModel model : results) {
+							table.updateNo(model.getMobileId(),
+									String.valueOf(model.getCrmNo()));
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
 			UserTable userTable = JardineApp.DB.getUser();
 			userTable
 					.updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
@@ -2996,40 +3104,62 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPreExecute() {
+			isCancelled = false;
+
 			dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Connecting...");
 			dialog.setMessage("Please wait...");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
 		}
 
 		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
+		}
+
+		@Override
 		protected Boolean doInBackground(Void... arg0) {
+			boolean successful = false;
 			try {
-				LogRequests log = new LogRequests();
-				LoginModel model = log.login(
-						StoreAccount.restore(getActivity()).getString(
-								Account.USERNAME),
-						StoreAccount.restore(getActivity()).getString(
-								Account.PASSWORD));
-				if (model != null) {
-					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
+				if (isNetworkAvailable()) {
+					LogRequests log = new LogRequests();
+					LoginModel model = log.login(
+							StoreAccount.restore(getActivity()).getString(
+									Account.USERNAME),
+							StoreAccount.restore(getActivity()).getString(
+									Account.PASSWORD));
+					if (model != null) {
+						Log.i(JardineApp.TAG,
+								"session: " + model.getSessionName());
 
-					JardineApp.SESSION_NAME = model.getSessionName();
-					StoreAccount.saveSession(getActivity(),
-							model.getSessionName());
+						JardineApp.SESSION_NAME = model.getSessionName();
+						StoreAccount.saveSession(getActivity(),
+								model.getSessionName());
 
-					return true;
-				} else {
-					return false;
+						successful = true;
+					}
 				}
 
 			} catch (Exception e) {
 				e.printStackTrace();
 				return false;
 			}
+
+			return successful;
 		}
 
 		@Override
@@ -3039,8 +3169,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
+				buildAlertMessage();
 			}
 		}
 	}
