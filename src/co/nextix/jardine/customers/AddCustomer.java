@@ -28,7 +28,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddCustomerFragment extends Activity implements OnClickListener {
+public class AddCustomer extends Activity implements OnClickListener {
 
 	private Button save, cancel;
 
@@ -161,7 +161,7 @@ public class AddCustomerFragment extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(AddCustomerFragment.this);
+			dialog = new ProgressDialog(AddCustomer.this);
 			dialog.setMessage("Saving new Customer");
 			dialog.show();
 		}

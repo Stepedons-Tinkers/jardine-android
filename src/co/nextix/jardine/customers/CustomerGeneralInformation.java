@@ -26,6 +26,7 @@ public class CustomerGeneralInformation extends Fragment {
 			customerType, isActive;
 	private Button edit, delete;
 	private long customerId = 0;
+	private CustomerRecord record;
 
 	public static CustomerGeneralInformation newInstance(long custId) {
 		CustomerGeneralInformation fragment = new CustomerGeneralInformation();
@@ -71,15 +72,18 @@ public class CustomerGeneralInformation extends Fragment {
 		edit.setOnClickListener(click);
 		delete.setOnClickListener(click);
 
-		CustomerRecord record = JardineApp.DB.getCustomer().getById(customerId);
+		record = JardineApp.DB.getCustomer().getById(customerId);
 
 		crmNo.setText(record.getNo());
 		customerName.setText(record.getCustomerName());
 
 		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
 				record.getBusinessUnit());
-		businessUnit.setText(business.getBusinessUnitName());
-
+		if (business != null) {
+			businessUnit.setText(business.getBusinessUnitName());
+		} else {
+			businessUnit.setText("");
+		}
 		PicklistRecord areaS = JardineApp.DB.getArea()
 				.getById(record.getArea());
 		area.setText(areaS.getName());
@@ -123,7 +127,7 @@ public class CustomerGeneralInformation extends Fragment {
 				showDeleteDialog();
 				break;
 			case R.id.btnEditCustomer:
-
+				CustomerConstants.CUSTOMER_RECORD = record;
 				break;
 			}
 

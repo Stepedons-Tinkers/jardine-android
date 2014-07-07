@@ -201,7 +201,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		case R.id.btnAddCustomer:
 			// add customer here
 			Intent intent = new Intent(JardineApp.context,
-					AddCustomerFragment.class);
+					AddCustomer.class);
 			startActivity(intent);
 			break;
 		}

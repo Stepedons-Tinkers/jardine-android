@@ -86,7 +86,14 @@ public class AdapterCustomers extends ArrayAdapter<CustomerRecord> {
 
 			BusinessUnitRecord business = JardineApp.DB.getBusinessUnit()
 					.getById(holder.record.getBusinessUnit());
-			holder.txtBusinessUnit.setText(business.getBusinessUnitName());
+			if(business != null)
+			{
+				holder.txtBusinessUnit.setText(business.getBusinessUnitName());
+			}else
+			{
+				holder.txtBusinessUnit.setText("");
+			}
+			
 
 			PicklistRecord area = JardineApp.DB.getArea().getById(
 					holder.record.getArea());
