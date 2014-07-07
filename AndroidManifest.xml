@@ -65,7 +65,14 @@
             android:screenOrientation="fullSensor" >
         </activity>
         <activity
-            android:name=".customers.AddCustomerFragment"
+            android:name=".customers.AddCustomer"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.Example" >
+        </activity>
+        
+        <activity
+            android:name=".customers.EditCustomer"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Example" >

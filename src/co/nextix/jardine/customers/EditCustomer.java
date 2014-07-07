@@ -46,6 +46,8 @@ public class EditCustomer extends Activity implements OnClickListener {
 	private long userId;
 	private String userName;
 
+	private CustomerRecord record;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -59,11 +61,16 @@ public class EditCustomer extends Activity implements OnClickListener {
 	}
 
 	private void initLayout() {
+
+		record = CustomerConstants.CUSTOMER_RECORD;
+
 		cancel = (Button) findViewById(R.id.bCustomerAddCancel);
 		save = (Button) findViewById(R.id.bCustomerAddCreate);
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
+
+		save.setText("Update");
 
 		field1 = (TextView) findViewById(R.id.tvCustomerAddField1);
 
@@ -123,7 +130,31 @@ public class EditCustomer extends Activity implements OnClickListener {
 		field10.setAdapter(adapter10);
 		field11.setAdapter(adapter11);
 		field8.setAdapter(adapter8);
-		
+
+		field13.setText(userName);
+
+		field2.setText(record.getCustomerName());
+		field3.setText(record.getStreetAddress());
+		field4.setText(record.getChainName());
+		field5.setText(record.getLandline());
+
+		field6.setSelection((int) record.getCustomerSize() - 1);
+		field7.setSelection((int) record.getCustomerType() - 1);
+
+		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
+				record.getBusinessUnit());
+		int bPosition;
+		if (business == null) {
+			bPosition = 0;
+		} else {
+			bPosition = adapter8.getPosition(business);
+		}
+
+		field8.setSelection(bPosition);
+		field9.setSelection((int) record.getArea() - 1);
+		field10.setSelection((int) record.getProvince() - 1);
+		field11.setSelection((int) record.getCityTown() - 1);
+		field12.setText(record.getFax());
 		field13.setText(userName);
 
 	}
@@ -132,9 +163,23 @@ public class EditCustomer extends Activity implements OnClickListener {
 
 		Calendar c = Calendar.getInstance();
 
-		JardineApp.DB.getCustomer().insert("", "",
-				field2.getText().toString(), field4.getText().toString(),
-				field5.getText().toString(), field12.getText().toString(),
+		// JardineApp.DB.getCustomer().insert("", "",
+		// field2.getText().toString(),
+		// field4.getText().toString(), field5.getText().toString(),
+		// field12.getText().toString(),
+		// ((PicklistRecord) field6.getSelectedItem()).getId(),
+		// field3.getText().toString(),
+		// ((PicklistRecord) field7.getSelectedItem()).getId(),
+		// ((BusinessUnitRecord) field8.getSelectedItem()).getId(),
+		// ((PicklistRecord) field9.getSelectedItem()).getId(),
+		// ((ProvinceRecord) field10.getSelectedItem()).getId(),
+		// ((CityTownRecord) field11.getSelectedItem()).getId(), 1,
+		// c.getTime().toString(), c.getTime().toString(), userId);
+
+		JardineApp.DB.getCustomer().update(record.getId(), record.getNo(),
+				record.getCrm(), field2.getText().toString(),
+				field4.getText().toString(), field5.getText().toString(),
+				field12.getText().toString(),
 				((PicklistRecord) field6.getSelectedItem()).getId(),
 				field3.getText().toString(),
 				((PicklistRecord) field7.getSelectedItem()).getId(),
@@ -188,7 +233,8 @@ public class EditCustomer extends Activity implements OnClickListener {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				showMsg("Successfully added Customer");
+				showMsg("Successfully Updated Customer");
+				finish();
 			} else {
 				showMsg("Something went wrong, failed to add customer");
 			}
@@ -198,6 +244,7 @@ public class EditCustomer extends Activity implements OnClickListener {
 
 	private void showMsg(String txt) {
 		Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
+
 	}
 
 }

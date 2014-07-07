@@ -342,6 +342,12 @@
     <string name="customer_details_edit">Edit</string>
     <string name="customer_details_delete">Delete</string>
     <string name="customer_hint">type here</string>
+    <string name="customer_hint_customer_name">customer name</string>
+    <string name="customer_hint_street_address">street address</string>
+    <string name="customer_hint_chain_name">chain name</string>
+    <string name="customer_hint_landline">landline</string>
+    <string name="customer_hint_fax">fax no.</string>
+    
     <string name="customer_days_unchange">Days Unchange</string>
     <string name="customer_record_status">Customer Record Status</string>
 

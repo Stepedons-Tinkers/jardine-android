@@ -3,6 +3,7 @@ package co.nextix.jardine.customers;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -128,6 +129,8 @@ public class CustomerGeneralInformation extends Fragment {
 				break;
 			case R.id.btnEditCustomer:
 				CustomerConstants.CUSTOMER_RECORD = record;
+				Intent intent = new Intent(getActivity(), EditCustomer.class);
+				getActivity().startActivity(intent);
 				break;
 			}
 
