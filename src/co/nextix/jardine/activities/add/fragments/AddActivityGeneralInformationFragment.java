@@ -171,15 +171,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
 							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
 							&& businessUnit != null && !businessUnit.isEmpty() && source != null && !source.isEmpty() && pref != null
-							&& pref.getString("smr", null) != null && pref.getString("issues_identified", null) != null
+							/*&& pref.getString("smr", null) != null && pref.getString("issues_identified", null) != null
 							&& pref.getString("feedback_from_customer", null) != null && pref.getString("ongoing_campaigns", null) != null
 							&& pref.getString("last_delivery", null) != null && pref.getString("promo_stubs_details", null) != null
 							&& pref.getString("project_name", null) != null && pref.getString("project_stage", null) != null
 							&& pref.getString("project_category", null) != null && pref.getString("date", null) != null
 							&& pref.getString("time", null) != null && pref.getString("venue", null) != null
-							&& pref.getString("no_attendees", null) != null) {
+							&& pref.getString("no_attendees", null) != null*/) {
 
-						long smr = Long.parseLong(pref.getString("smr", null));
+						long smr = (long) 0.0004;//Long.parseLong(pref.getString("smr", null));
 						String issuesIdentified = pref.getString("issues_identified", null);
 						String feedBackFromCustomer = pref.getString("feedback_from_customer", null);
 						String ongoingCampaigns = pref.getString("ongoing_campaigns", null);
@@ -193,13 +193,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						String venue = pref.getString("venue", null);
 						String noOfAttendees = pref.getString("no_attendees", null);
 
-						new InsertTask("0", ((EditText) rootView.findViewById(R.id.crm_no)).getText().toString(), Long.parseLong(workplan),
+						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(), Long.parseLong(workplan),
 								startTime.concat(df.format(calendar.getTime())), endTime.concat(df.format(calendar.getTime())), 123.894882,
 								10.310235, ((EditText) rootView.findViewById(R.id.objective)).getText().toString(), notes,
-								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((EditText) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(activityType),
-								Long.parseLong(((EditText) rootView.findViewById(R.id.workplan_entry)).getText().toString()), Long
-										.parseLong(((EditText) rootView.findViewById(R.id.customer)).getText().toString()),
+								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount.
+												restore(JardineApp.context).getString(Account.ROWID)),
+								Long.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)),Long.parseLong(StoreAccount.
+										restore(JardineApp.context).getString(Account.ROWID)),
 								((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0,
 								((CheckBox) rootView.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime()
 										.toString(), calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context)

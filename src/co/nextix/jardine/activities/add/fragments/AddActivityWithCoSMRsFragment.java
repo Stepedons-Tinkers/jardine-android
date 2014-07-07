@@ -40,7 +40,7 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 				Editor editor = pref.edit();
-				editor.putString("smr", parent.getSelectedItem().toString());
+				editor.putLong("smr", Long.parseLong(parent.getSelectedItem().toString()));
 				editor.commit(); // commit changes
 			}
 
