@@ -51,7 +51,7 @@
             android:logo="@drawable/actionbar_logo"
             android:theme="@style/Theme.Example" >
             <item android:name="android:windowBackground">
-@android:color/transparent
+@android:color/transparent
             </item>
         </activity>
         <activity
@@ -70,9 +70,14 @@
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Example" >
         </activity>
-        
         <activity
             android:name=".customers.EditCustomer"
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="fullSensor"
+            android:theme="@style/Theme.Example" >
+        </activity>
+        <activity
+            android:name=".customers.EditCustomerContacts"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor"
             android:theme="@style/Theme.Example" >

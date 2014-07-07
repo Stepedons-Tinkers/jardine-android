@@ -1,5 +1,6 @@
 package co.nextix.jardine.customers;
 
+import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 
 public class CustomerConstants {
@@ -10,4 +11,7 @@ public class CustomerConstants {
 	public static long CUSTOMER_ID = 0;
 	public static String ADD_CUSTOMER_CONTACT = "Add Customer Contact";
 	public static CustomerRecord CUSTOMER_RECORD = null;
+	public static CustomerContactRecord CUSTOMER_CONTACT_RECORD = null;
+	
+	
 }

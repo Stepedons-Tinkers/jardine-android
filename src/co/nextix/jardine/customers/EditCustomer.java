@@ -187,7 +187,7 @@ public class EditCustomer extends Activity implements OnClickListener {
 				((PicklistRecord) field9.getSelectedItem()).getId(),
 				((ProvinceRecord) field10.getSelectedItem()).getId(),
 				((CityTownRecord) field11.getSelectedItem()).getId(), 1,
-				c.getTime().toString(), c.getTime().toString(), userId);
+				record.getCreatedTime(), c.getTime().toString(), userId);
 	}
 
 	@Override
@@ -236,7 +236,7 @@ public class EditCustomer extends Activity implements OnClickListener {
 				showMsg("Successfully Updated Customer");
 				finish();
 			} else {
-				showMsg("Something went wrong, failed to add customer");
+				showMsg("Something went wrong, failed to update customer");
 			}
 		}
 

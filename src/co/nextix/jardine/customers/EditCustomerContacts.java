@@ -5,14 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.BusinessUnitRecord;
-import co.nextix.jardine.database.records.CityTownRecord;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.ProvinceRecord;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
@@ -29,8 +21,14 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
+import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.CustomerContactRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
-public class AddCustomerContacts extends Activity implements OnClickListener {
+public class EditCustomerContacts extends Activity implements OnClickListener {
 
 	private long customerId;
 	private String customerName;
@@ -51,6 +49,8 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 	public static SimpleDateFormat df = null;
 	public static String formattedDate = null;
 
+	private CustomerContactRecord record;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -64,6 +64,8 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 	}
 
 	private void initLayout() {
+
+		record = CustomerConstants.CUSTOMER_CONTACT_RECORD;
 		customerId = this.getIntent().getExtras()
 				.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
 		customerName = this.getIntent().getExtras()
@@ -83,6 +85,8 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
+
+		save.setText("Update");
 
 		field1 = (TextView) findViewById(R.id.tvCustomerContactAddField1);
 
@@ -109,10 +113,17 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 				this, R.layout.workplan_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
-		field6a.setText(formattedDate);
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
 		field10.setText(userName);
+
+		field2.setText(record.getFirstName());
+		field3.setText(record.getLastName());
+		field4.setSelection((int) record.getPosition() - 1);
+		field5.setText(record.getMobileNo());
+		field6a.setText(record.getBirthday());
+		field7.setText(record.getEmailAddress());
+
 	}
 
 	@Override
@@ -161,7 +172,7 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(AddCustomerContacts.this);
+			dialog = new ProgressDialog(EditCustomerContacts.this);
 			dialog.setMessage("Saving new Customer");
 			dialog.show();
 		}
@@ -185,9 +196,10 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				showMsg("Successfully added Customer Contact");
+				showMsg("Successfully updated Customer Contact");
+				finish();
 			} else {
-				showMsg("Something went wrong, failed to add customer contact");
+				showMsg("Something went wrong, failed to update customer contact");
 			}
 		}
 
@@ -197,12 +209,20 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 
 		Calendar c = Calendar.getInstance();
 
-		JardineApp.DB.getCustomerContact().insert("", "",
-				field2.getText().toString(), field3.getText().toString(),
+		// JardineApp.DB.getCustomerContact().insert("", "",
+		// field2.getText().toString(), field3.getText().toString(),
+		// ((PicklistRecord) field4.getSelectedItem()).getId(),
+		// field5.getText().toString(), field6a.getText().toString(),
+		// field7.getText().toString(), customerId, 1,
+		// c.getTime().toString(), c.getTime().toString(), userId);
+
+		JardineApp.DB.getCustomerContact().update(record.getId(),
+				record.getNo(), record.getCrm(), field2.getText().toString(),
+				field3.getText().toString(),
 				((PicklistRecord) field4.getSelectedItem()).getId(),
 				field5.getText().toString(), field6a.getText().toString(),
 				field7.getText().toString(), customerId, 1,
-				c.getTime().toString(), c.getTime().toString(), userId);
+				record.getCreatedTime(), c.getTime().toString(), userId);
 
 	}
 
