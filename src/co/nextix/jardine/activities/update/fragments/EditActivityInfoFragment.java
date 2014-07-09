@@ -29,23 +29,31 @@ public class EditActivityInfoFragment extends Fragment {
 			for (ActivityRecord rec : records) {
 				if(rec.getCrm().equals(args.getString("crm_no"))){
 					((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(rec.getCrm());
-					((TextView) myFragmentView.findViewById(R.id.activity)).setText(String.valueOf(rec.getUser()));
+					((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(rec.getWorkplan()));
 					((TextView) myFragmentView.findViewById(R.id.start_time)).setText(rec.getStartTime());
 					((TextView) myFragmentView.findViewById(R.id.end_time)).setText(rec.getEndTime());
 					((TextView) myFragmentView.findViewById(R.id.latitude)).setText(String.valueOf(rec.getLatitude()));
 					((TextView) myFragmentView.findViewById(R.id.longitude)).setText(String.valueOf(rec.getLongitude()));
 					((TextView) myFragmentView.findViewById(R.id.objective)).setText(rec.getObjectives());
 					((TextView) myFragmentView.findViewById(R.id.notes)).setText(rec.getNotes());
+					((TextView) myFragmentView.findViewById(R.id.competitor_activities)).setText("getCompetitorActivities()");
 					((TextView) myFragmentView.findViewById(R.id.highlights)).setText(rec.getHighlights());
 					((TextView) myFragmentView.findViewById(R.id.nextSteps)).setText(rec.getNextSteps());
-					((TextView) myFragmentView.findViewById(R.id.follow_up_date)).setText(rec.getFollowUpCommitmentDate());
+					((TextView) myFragmentView.findViewById(R.id.follow_up_commitment_date)).setText(String.valueOf(rec.getFollowUpCommitmentDate()));
 					((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(String.valueOf(rec.getActivityType()));
+					((TextView) myFragmentView.findViewById(R.id.others)).setText(String.valueOf("getOthers()"));
+					((TextView) myFragmentView.findViewById(R.id.business_unit)).setText(String.valueOf("getBusinessUnit()"));
 					((TextView) myFragmentView.findViewById(R.id.workplan_entry)).setText(String.valueOf(rec.getWorkplanEntry()));
 					((TextView) myFragmentView.findViewById(R.id.customer)).setText(String.valueOf(rec.getCustomer()));
-					((TextView) myFragmentView.findViewById(R.id.first_time)).setText(String.valueOf(rec.getFirstTimeVisit()));
+					((TextView) myFragmentView.findViewById(R.id.area)).setText("getArea()");
+					((TextView) myFragmentView.findViewById(R.id.province)).setText("getProvince()");
+					((TextView) myFragmentView.findViewById(R.id.city_town)).setText("getCityTown()");
+					((TextView) myFragmentView.findViewById(R.id.first_time_visit)).setText(String.valueOf(rec.getFirstTimeVisit()));
 					((TextView) myFragmentView.findViewById(R.id.planned_visit)).setText(String.valueOf(rec.getPlannedVisit()));
+					((TextView) myFragmentView.findViewById(R.id.reason_remarks)).setText("getReasons()");
+					((TextView) myFragmentView.findViewById(R.id.details_admin_works)).setText("getDetailsAdminWorks()");
+					((TextView) myFragmentView.findViewById(R.id.source)).setText("getSource()");
 					((TextView) myFragmentView.findViewById(R.id.created_time)).setText(rec.getCreatedTime());
-					((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(rec.getModifiedTime());
 					((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(String.valueOf(rec.getUser()));
 				}
 			}
