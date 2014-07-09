@@ -25,9 +25,9 @@ public class EditActivityInfoFragment extends Fragment {
 		if (args != null && args.containsKey("crm_no")) {
 			ActivityTable table = JardineApp.DB.getActivity();
 			List<ActivityRecord> records = table.getAllRecords();
-			
+
 			for (ActivityRecord rec : records) {
-				if(rec.getCrm().equals(args.getString("crm_no"))){
+				if (rec.getCrm().equals(args.getString("crm_no"))) {
 					((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(rec.getCrm());
 					((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(rec.getWorkplan()));
 					((TextView) myFragmentView.findViewById(R.id.start_time)).setText(rec.getStartTime());
@@ -39,7 +39,8 @@ public class EditActivityInfoFragment extends Fragment {
 					((TextView) myFragmentView.findViewById(R.id.competitor_activities)).setText("getCompetitorActivities()");
 					((TextView) myFragmentView.findViewById(R.id.highlights)).setText(rec.getHighlights());
 					((TextView) myFragmentView.findViewById(R.id.nextSteps)).setText(rec.getNextSteps());
-					((TextView) myFragmentView.findViewById(R.id.follow_up_commitment_date)).setText(String.valueOf(rec.getFollowUpCommitmentDate()));
+					((TextView) myFragmentView.findViewById(R.id.follow_up_commitment_date)).setText(String.valueOf(rec
+							.getFollowUpCommitmentDate()));
 					((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(String.valueOf(rec.getActivityType()));
 					((TextView) myFragmentView.findViewById(R.id.others)).setText(String.valueOf("getOthers()"));
 					((TextView) myFragmentView.findViewById(R.id.business_unit)).setText(String.valueOf("getBusinessUnit()"));
@@ -54,7 +55,9 @@ public class EditActivityInfoFragment extends Fragment {
 					((TextView) myFragmentView.findViewById(R.id.details_admin_works)).setText("getDetailsAdminWorks()");
 					((TextView) myFragmentView.findViewById(R.id.source)).setText("getSource()");
 					((TextView) myFragmentView.findViewById(R.id.created_time)).setText(rec.getCreatedTime());
-					((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(String.valueOf(rec.getUser()));
+					((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(String.valueOf(JardineApp.DB.getUser()
+							.getCurrentUser().getLastname()
+							+ ", " + JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 				}
 			}
 		}
