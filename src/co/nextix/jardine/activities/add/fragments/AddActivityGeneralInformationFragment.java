@@ -16,6 +16,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -32,6 +34,8 @@ import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.tables.picklists.PCityTownTable;
+import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -72,8 +76,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		// List to be populated in spinner adapter
 		List<PicklistRecord> areaList = JardineApp.DB.getArea().getAllRecords();
-		List<ProvinceRecord> provinceList = JardineApp.DB.getProvince().getAllRecords();
-		List<CityTownRecord> city_townList = JardineApp.DB.getCityTown().getAllRecords();
 		List<PicklistRecord> sourceList = JardineApp.DB.getArea().getAllRecords();
 		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(JardineApp.DB.getUser().getCurrentUser().getId());
 
@@ -89,8 +91,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		// ArrayAdapter for spinners
 		this.areaAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, areaList);
-		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(JardineApp.context, R.layout.add_activity_textview, provinceList);
-		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(JardineApp.context, R.layout.add_activity_textview, city_townList);
 		this.sourceAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, sourceList);
 		this.workplanAdapter = new ArrayAdapter<String>(JardineApp.context, R.layout.add_activity_textview, workplanList);
 		this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
@@ -104,13 +104,44 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((EditText) this.rootView.findViewById(R.id.assigned_to)).setText(assignedToLname + "," + assignedToFname);
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setAdapter(this.areaAdapter);
-		((Spinner) this.rootView.findViewById(R.id.province)).setAdapter(this.provinceAdapter);
-		((Spinner) this.rootView.findViewById(R.id.city_town)).setAdapter(this.cityTownAdapter);
 		((Spinner) this.rootView.findViewById(R.id.source)).setAdapter(this.sourceAdapter);
 		((Spinner) this.rootView.findViewById(R.id.workplan)).setAdapter(workplanAdapter);
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setAdapter(activityTypeAdapter);
 		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setAdapter(workplanEntryRecordAdapter);
 		((Spinner) this.rootView.findViewById(R.id.customer)).setAdapter(customerAdapter);
+
+		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				PProvinceTable provinceTable = JardineApp.DB.getProvince();
+				provinceAdapter = new ArrayAdapter<ProvinceRecord>(JardineApp.context, R.layout.add_activity_textview, provinceTable
+						.getRecordsByAreaId(id + 1));
+				((Spinner) AddActivityGeneralInformationFragment.this.rootView.findViewById(R.id.province)).setAdapter(provinceAdapter);
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				Toast.makeText(getActivity().getApplicationContext(), "Must be filled!", Toast.LENGTH_SHORT).show();
+			}
+		});
+
+		((Spinner) this.rootView.findViewById(R.id.province)).setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				PCityTownTable cityTable = JardineApp.DB.getCityTown();
+				cityTownAdapter = new ArrayAdapter<CityTownRecord>(JardineApp.context, R.layout.add_activity_textview, cityTable
+						.getRecordsByProvinceId(id + 1));
+				((Spinner) AddActivityGeneralInformationFragment.this.rootView.findViewById(R.id.city_town)).setAdapter(cityTownAdapter);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				Toast.makeText(getActivity().getApplicationContext(), "Must be filled!", Toast.LENGTH_SHORT).show();
+			}
+		});
 
 		((TextView) this.rootView.findViewById(R.id.start_time)).setOnClickListener(new OnClickListener() {
 
@@ -171,15 +202,24 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
 							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
 							&& businessUnit != null && !businessUnit.isEmpty() && source != null && !source.isEmpty() && pref != null
-							/*&& pref.getString("smr", null) != null && pref.getString("issues_identified", null) != null
-							&& pref.getString("feedback_from_customer", null) != null && pref.getString("ongoing_campaigns", null) != null
-							&& pref.getString("last_delivery", null) != null && pref.getString("promo_stubs_details", null) != null
-							&& pref.getString("project_name", null) != null && pref.getString("project_stage", null) != null
-							&& pref.getString("project_category", null) != null && pref.getString("date", null) != null
-							&& pref.getString("time", null) != null && pref.getString("venue", null) != null
-							&& pref.getString("no_attendees", null) != null*/) {
+					/*
+					 * && pref.getString("smr", null) != null &&
+					 * pref.getString("issues_identified", null) != null &&
+					 * pref.getString("feedback_from_customer", null) != null &&
+					 * pref.getString("ongoing_campaigns", null) != null &&
+					 * pref.getString("last_delivery", null) != null &&
+					 * pref.getString("promo_stubs_details", null) != null &&
+					 * pref.getString("project_name", null) != null &&
+					 * pref.getString("project_stage", null) != null &&
+					 * pref.getString("project_category", null) != null &&
+					 * pref.getString("date", null) != null &&
+					 * pref.getString("time", null) != null &&
+					 * pref.getString("venue", null) != null &&
+					 * pref.getString("no_attendees", null) != null
+					 */) {
 
-						long smr = (long) 0.0004;//Long.parseLong(pref.getString("smr", null));
+						long smr = (long) 0.0004;// Long.parseLong(pref.getString("smr",
+													// null));
 						String issuesIdentified = pref.getString("issues_identified", null);
 						String feedBackFromCustomer = pref.getString("feedback_from_customer", null);
 						String ongoingCampaigns = pref.getString("ongoing_campaigns", null);
@@ -197,16 +237,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 								startTime.concat(df.format(calendar.getTime())), endTime.concat(df.format(calendar.getTime())), 123.894882,
 								10.310235, ((EditText) rootView.findViewById(R.id.objective)).getText().toString(), notes,
 								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount.
-												restore(JardineApp.context).getString(Account.ROWID)),
-								Long.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)),Long.parseLong(StoreAccount.
-										restore(JardineApp.context).getString(Account.ROWID)),
-								((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0,
-								((CheckBox) rootView.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime()
-										.toString(), calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context)
-										.getString(Account.ROWID)), smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns,
-								lastDelivery, promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue,
-								noOfAttendees).execute();
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount
+										.restore(JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
+										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
+										JardineApp.context).getString(Account.ROWID)), ((CheckBox) rootView
+										.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0, ((CheckBox) rootView
+										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime().toString(),
+								calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context).getString(
+										Account.ROWID)), smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+								promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees).execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
