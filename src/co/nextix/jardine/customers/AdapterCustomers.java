@@ -81,7 +81,7 @@ public class AdapterCustomers extends ArrayAdapter<CustomerRecord> {
 		if (holder.record.getNo() == null) {
 
 		} else {
-			holder.txtCrmNo.setText(holder.record.getNo());
+			holder.txtCrmNo.setText(holder.record.getCrm());
 			holder.txtCustomerName.setText(holder.record.getCustomerName());
 
 			BusinessUnitRecord business = JardineApp.DB.getBusinessUnit()

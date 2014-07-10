@@ -5,20 +5,28 @@ import java.util.List;
 
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -36,6 +44,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 	private List<CustomerRecord> realRecord;
 	private List<CustomerRecord> tempRecord;
+	private List<CustomerRecord> searchRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
@@ -45,6 +54,10 @@ public class ViewAllCustomersFragment extends Fragment implements
 	private TableRow tablerow;
 	private EditText search;
 	private Button btnAddCustomer;
+	private Spinner spinSearch;
+	private List<String> strSearcher;
+	private SearchView searchView;
+	private boolean searchMode = false;
 
 	public ViewAllCustomersFragment() {
 
@@ -66,6 +79,83 @@ public class ViewAllCustomersFragment extends Fragment implements
 	}
 
 	private void initLayout() {
+
+		strSearcher = new ArrayList<String>();
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(R.string.customer));
+		strSearcher.add(getResources().getString(
+				R.string.customer_business_unit));
+		strSearcher.add(getResources().getString(R.string.customer_area));
+		strSearcher.add(getResources().getString(
+				R.string.customer_header_province));
+		strSearcher.add(getResources()
+				.getString(R.string.customer_city_or_town));
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		// SearchView
+		searchView = (SearchView) view.findViewById(R.id.svCustomers);
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCustomers adapter = new AdapterCustomers(getActivity(),
+						R.layout.table_row_customers, tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getCustomer()
+							.getAllRecordsBySearch(arg0,
+									spinSearch.getSelectedItemPosition());
+
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+					
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
+		// Spinner
+		spinSearch = (Spinner) view
+				.findViewById(R.id.spiCollateralsEventProtolSpinnerSearch);
+		spinSearch.setAdapter(sAdapter);
 
 		// Header Data
 		tablerow = (TableRow) header.findViewById(R.id.trCustomersRow);
@@ -139,6 +229,33 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 	}
 
+	private void addItemFromSearch(int count) {
+
+		if (searchRecord.size() > 0) {
+			int remainder = searchRecord.size() % rowSize;
+			if (remainder > 0) {
+				for (int i = 0; i < rowSize - remainder; i++) {
+					CustomerRecord rec = new CustomerRecord();
+					searchRecord.add(rec);
+				}
+			}
+			totalPage = realRecord.size() / rowSize;
+
+		}
+
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		txtPage.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, searchRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
+	}
+
 	private void addItem(int count) {
 		tempRecord.clear();
 		count = count * rowSize;
@@ -168,7 +285,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 						.getItem(position);
 
 				if (cr.getNo() != null) {
-					
+
 					CustomerConstants.CUSTOMER_NAME = cr.getCustomerName();
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
@@ -189,19 +306,24 @@ public class ViewAllCustomersFragment extends Fragment implements
 		case R.id.ibCustomersLeft:
 			if (currentPage > 0) {
 				currentPage--;
-				addItem(currentPage);
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
 			}
 			break;
 		case R.id.ibCustomersRight:
 			if (currentPage < totalPage - 1) {
 				currentPage++;
-				addItem(currentPage);
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
 			}
 			break;
 		case R.id.btnAddCustomer:
 			// add customer here
-			Intent intent = new Intent(JardineApp.context,
-					AddCustomer.class);
+			Intent intent = new Intent(JardineApp.context, AddCustomer.class);
 			startActivity(intent);
 			break;
 		}

@@ -75,7 +75,7 @@ public class CustomerGeneralInformation extends Fragment {
 
 		record = JardineApp.DB.getCustomer().getById(customerId);
 
-		crmNo.setText(record.getNo());
+		crmNo.setText(record.getCrm());
 		customerName.setText(record.getCustomerName());
 
 		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(

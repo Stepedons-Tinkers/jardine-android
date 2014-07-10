@@ -87,7 +87,7 @@ public class AdapterCustomerContacts extends
 			holder.col5.setText("");
 
 		} else {
-			holder.col1.setText(holder.record.getNo());
+			holder.col1.setText(holder.record.getCrm());
 			holder.col2.setText(holder.record.getFirstName());
 
 			holder.col3.setText(holder.record.getLastName());
