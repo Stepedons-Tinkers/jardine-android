@@ -146,6 +146,74 @@ public class MarketingMaterialsTable {
 		return list;
 	}
 
+	public List<MarketingMaterialsRecord> getAllRecordsBySearch(long userId,
+			String hint, int column) {
+		Cursor c = null;
+		List<MarketingMaterialsRecord> list = new ArrayList<MarketingMaterialsRecord>();
+		String MY_QUERY = "";
+
+		switch (column) {
+		case 0:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%" + hint + "%'";
+			break;
+		case 1:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%" + hint
+					+ "%'";
+			break;
+		case 2:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint + "%'";
+			break;
+		default:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_MARKETINGMATERIALS_USER + " = " + userId;
+			break;
+
+		}
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CRMNO));
+					String description = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+
+					list.add(new MarketingMaterialsRecord(id, no, crmNo,
+							description, lastUpdate, tags, createdTime,
+							modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	public List<String> getNos() {
 		Cursor c = null;
 		List<String> list = new ArrayList<String>();

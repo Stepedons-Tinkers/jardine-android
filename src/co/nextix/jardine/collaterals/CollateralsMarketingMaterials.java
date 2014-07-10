@@ -3,8 +3,10 @@ package co.nextix.jardine.collaterals;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,10 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnQueryTextListener;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -39,16 +45,19 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 	private List<MarketingMaterialsRecord> realRecord;
 	private List<MarketingMaterialsRecord> tempRecord;
+	private List<MarketingMaterialsRecord> searchRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
 	private View header;
 	private TextView txtCrm, txtDesc, txtIsActive;
 	private TableRow trow;
-	private EditText search;
+	private SearchView searchView;
 
 	private List<String> strSearcher;
 	private Spinner spinner;
+	private boolean searchMode = false;
+	private long userId;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -63,7 +72,65 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	}
 
 	private void initLayout() {
+		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
+		searchView.setOnCloseListener(new OnCloseListener() {
 
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
+						getActivity(),
+						R.layout.collaterals_marketing_materials_row,
+						tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getMarketingMaterials()
+							.getAllRecordsBySearch(userId, arg0,
+									spinner.getSelectedItemPosition());
+
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
 		// Header Data
 		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
@@ -76,7 +143,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		txtDesc.setText(getResources().getString(
 				R.string.collaterals_ep_description));
 		txtIsActive.setText(getResources().getString(
-				R.string.collaterals_ep_is_active));
+				R.string.collaterals_ep_tags));
 		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
@@ -88,6 +155,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 				.getString(R.string.collaterals_ep_crm_no));
 		strSearcher.add(getResources().getString(
 				R.string.collaterals_ep_description));
+		strSearcher.add(getResources().getString(R.string.collaterals_ep_tags));
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.workplan_spinner_row, strSearcher);
 
@@ -102,7 +170,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
-		search = (EditText) view.findViewById(R.id.etCollateralsSearchMM);
+		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
 		arrowRight = (ImageButton) view
@@ -118,7 +186,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 		String id = StoreAccount.restore(getActivity())
 				.getString(Account.ROWID);
-		long userId = Long.parseLong(id);
+		userId = Long.parseLong(id);
 		realRecord.addAll(table.getAllRecordsByUser(userId));
 
 		// for (int i = 1; i <= 89; i++) {
@@ -142,6 +210,33 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			addItem(currentPage);
 
 		}
+	}
+
+	private void addItemFromSearch(int count) {
+
+		if (searchRecord.size() > 0) {
+			int remainder = searchRecord.size() % rowSize;
+			if (remainder > 0) {
+				for (int i = 0; i < rowSize - remainder; i++) {
+					MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+					searchRecord.add(rec);
+				}
+			}
+			totalPage = realRecord.size() / rowSize;
+
+		}
+
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		txtPage.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, searchRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
 	}
 
 	private void addItem(int count) {
@@ -195,13 +290,21 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		case R.id.ibColatteralsMarketingMaterialsLeft:
 			if (currentPage > 0) {
 				currentPage--;
-				addItem(currentPage);
+				currentPage++;
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
 			}
 			break;
 		case R.id.ibColatteralsMarketingMaterialsRight:
 			if (currentPage < totalPage - 1) {
 				currentPage++;
-				addItem(currentPage);
+				currentPage++;
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
 			}
 			break;
 		}

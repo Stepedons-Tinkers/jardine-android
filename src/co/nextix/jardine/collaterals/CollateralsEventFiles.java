@@ -16,10 +16,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,8 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private View header;
 	private TextView txtCrm, txtDesc, txtIsActive;
 	private TableRow trow;
+	private Spinner spinner;
+	private SearchView searchView;
 
 	private String moduleID = "";
 
@@ -67,6 +72,12 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 	private void initLayout() {
 
+		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
+		spinner = (Spinner) view
+				.findViewById(R.id.spiCollateralsMMSpinnerSearch);
+		searchView.setVisibility(View.INVISIBLE);
+		spinner.setVisibility(View.GONE);
+
 		// Header Data
 		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
@@ -87,9 +98,12 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		header.setOnClickListener(null);
 		//
 
+		
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
 
+		
+		
 		list.addHeaderView(header);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 

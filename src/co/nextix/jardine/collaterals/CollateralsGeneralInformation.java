@@ -53,7 +53,7 @@ public class CollateralsGeneralInformation extends Fragment {
 		UserTable user = JardineApp.DB.getUser();
 		UserRecord userRecord = user.getById(record.getUser());
 
-		crmNo.setText(record.getNo());
+		crmNo.setText(record.getCrm());
 		desc.setText(record.getDescription());
 		lastUpdate.setText(record.getLastUpdate());
 		tags.setText(record.getTags());

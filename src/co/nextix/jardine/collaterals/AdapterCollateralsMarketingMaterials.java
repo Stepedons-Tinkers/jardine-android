@@ -66,7 +66,7 @@ public class AdapterCollateralsMarketingMaterials extends
 					.setBackgroundResource(R.color.collaterals_tablerow_color1);
 		}
 
-		holder.txtCrmNo.setText(holder.record.getNo());
+		holder.txtCrmNo.setText(holder.record.getCrm());
 		holder.txtDescription.setText(holder.record.getDescription());
 		holder.txtIsActive.setText(holder.record.getTags());
 

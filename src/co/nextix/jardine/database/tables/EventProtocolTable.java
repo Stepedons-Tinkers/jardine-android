@@ -150,6 +150,80 @@ public class EventProtocolTable {
 		return list;
 	}
 
+	public List<EventProtocolRecord> getAllRecordsBySearch(long userId,
+			String hint, int column) {
+		Cursor c = null;
+		List<EventProtocolRecord> list = new ArrayList<EventProtocolRecord>();
+		String MY_QUERY = "";
+
+		switch (column) {
+		case 0:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_EVENTPROTOCOL_USER + " = " + userId + " AND "
+					+ KEY_EVENTPROTOCOL_CRMNO + " LIKE '%" + hint + "%'";
+			break;
+		case 1:
+
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_EVENTPROTOCOL_USER + " = " + userId + " AND "
+					+ KEY_EVENTPROTOCOL_DESCRIPTION + " LIKE '%" + hint + "%'";
+			break;
+		case 2:
+			// SELECT Event_Protocol.* FROM Event_Protocol inner join Event_Type
+			// on Event_Protocol.event_type = Event_Type._id Where
+			// Event_Protocol.user = 1 AND Event_Type.name LIKE '%-%'
+			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
+					+ " INNER JOIN Event_Type ON " + mDatabaseTable + "."
+					+ KEY_EVENTPROTOCOL_EVENTTYPE + " = Event_Type._id WHERE "
+					+ mDatabaseTable + "." + KEY_EVENTPROTOCOL_USER + " = "
+					+ userId + " AND Event_Type.name LIKE '%" + hint + "%'";
+
+			break;
+		default:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_EVENTPROTOCOL_USER + " = " + userId;
+			break;
+		}
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_CRMNO));
+					String description = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_TAGS));
+					long eventType = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_EVENTTYPE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_ISACTIVE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_EVENTPROTOCOL_USER));
+
+					list.add(new EventProtocolRecord(id, no, crmNo,
+							description, lastUpdate, tags, eventType, isActive,
+							createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	public List<String> getNos() {
 		Cursor c = null;
 		List<String> list = new ArrayList<String>();

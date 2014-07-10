@@ -2,8 +2,10 @@ package co.nextix.jardine.collaterals;
 
 import java.util.List;
 
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -70,14 +72,16 @@ public class AdapterCollateralsEventProtocols extends
 					.setBackgroundResource(R.color.collaterals_tablerow_color1);
 		}
 
-		holder.txtCrmNo.setText(holder.record.getNo());
+		holder.txtCrmNo.setText(holder.record.getCrm());
 		holder.txtDescription.setText(holder.record.getDescription());
 
 		if (holder.record.getNo() == null) {
 			holder.txtEventType.setText("");
 			holder.txtIsActive.setText("");
 		} else {
-			holder.txtEventType.setText(holder.record.getEventType() + "");
+			PicklistRecord rec = JardineApp.DB.getEventProtocolType().getById(
+					holder.record.getEventType());
+			holder.txtEventType.setText(rec.getName());
 			if (holder.record.getIsActive() == 0) {
 				holder.txtIsActive.setText("No");
 			} else if (holder.record.getIsActive() == 1) {
