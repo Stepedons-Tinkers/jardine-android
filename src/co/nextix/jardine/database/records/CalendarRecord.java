@@ -1,34 +1,6 @@
 package co.nextix.jardine.database.records;
 
 public class CalendarRecord {
-	// "activitytype": "Task",
-	// "contactid": null,
-	// "createdtime": "2014-06-25 20:41:43",
-	// "crmid": null,
-	// "date_start": "2014-06-25",
-	// "description":
-	// "Follow-up for Customer CUST0000010 - Company ABC&amp;amp;#039;s will be on 2014-06-25.",
-	// "due_date": "2014-06-25",
-	// "duration_hours": "",
-	// "duration_minutes": "",
-	// "eventstatus": "",
-	// "location": "",
-	// "modifiedby": "1",
-	// "modifiedtime": "2014-06-25 20:41:43",
-	// "notime": "1",
-	// "priority": "High",
-	// "recurringtype": "",
-	// "reminder_time": null,
-	// "sendnotification": "1",
-	// "smownerid": "18",
-	// "status": "Not Started",
-	// "subject":
-	// "Follow-up for Customer CUST0000010 - Company ABC&amp;amp;#039;s will be on 2014-06-25.",
-	// "time_end": "07:10:00",
-	// "time_start": "07:00:00",
-	// "visibility": "Private",
-	// "activityid": "499",
-	// "deleted": "0"
 
 	// ===========================================================
 	// Private fields

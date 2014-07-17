@@ -51,6 +51,7 @@ import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.CalendarTable;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CompetitorTable;
@@ -99,6 +100,7 @@ import co.nextix.jardine.web.UpdateRequests;
 import co.nextix.jardine.web.models.ActivityModel;
 import co.nextix.jardine.web.models.ActivityTypeModel;
 import co.nextix.jardine.web.models.BusinessUnitModel;
+import co.nextix.jardine.web.models.CalendarModel;
 import co.nextix.jardine.web.models.CompetitorModel;
 import co.nextix.jardine.web.models.CompetitorProductModel;
 import co.nextix.jardine.web.models.CompetitorProductStockCheckModel;
@@ -126,6 +128,7 @@ import co.nextix.jardine.web.requesters.WebCreateModel;
 import co.nextix.jardine.web.requesters.sync.SactRequester.ActResult;
 import co.nextix.jardine.web.requesters.sync.SacttypeRequester.ActTypeResult;
 import co.nextix.jardine.web.requesters.sync.SbuRequester.BuResult;
+import co.nextix.jardine.web.requesters.sync.ScalendarRequester.CalendarResult;
 import co.nextix.jardine.web.requesters.sync.ScompetitorRequester.ComptResult;
 import co.nextix.jardine.web.requesters.sync.ScompetrprodstockRequester.ComptProdStockResult;
 import co.nextix.jardine.web.requesters.sync.ScustRequester.CustResult;
@@ -2520,6 +2523,62 @@ public class SyncMenuBarFragment extends Fragment {
 							}
 						}
 					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				if (JardineApp.DB.getCalendar() != null) {
+					if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
+						new SyncCalendarTask().execute();
+				} else {
+					new SyncFilesTask().execute();
+				}
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncCalendarTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Notifications");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CalendarTable table = JardineApp.DB.getCalendar();
+			// ActivityTable actTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			CalendarResult result = request.Calendar(LASY_SYNC);
+			List<CalendarModel> models = result.getUpdated();
+			if (result != null) {
+				for (CalendarModel model : models) {
+					Log.w(TAG, "Calendar: actid ** " + model.getActivityId());
+					long rowid = table.insert(model.getActivityType(),
+							model.getDateStart(), model.getDueDate(),
+							model.getDescription(), model.getSubject(),
+							model.getTimeStart(), model.getTimeEnd(), 0,
+							model.getCreatedTime(), model.getModifiedTime(),
+							USER_ID);
+					Log.w(TAG, "Calendar ** Added ** " + rowid);
 				}
 			}
 

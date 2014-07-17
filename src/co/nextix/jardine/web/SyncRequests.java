@@ -18,6 +18,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
+import co.nextix.jardine.web.models.CalendarModel;
 import co.nextix.jardine.web.models.DocuRelModel;
 import co.nextix.jardine.web.models.DocumentModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
@@ -27,6 +28,8 @@ import co.nextix.jardine.web.requesters.sync.SacttypeRequester;
 import co.nextix.jardine.web.requesters.sync.SacttypeRequester.ActTypeResult;
 import co.nextix.jardine.web.requesters.sync.SbuRequester;
 import co.nextix.jardine.web.requesters.sync.SbuRequester.BuResult;
+import co.nextix.jardine.web.requesters.sync.ScalendarRequester;
+import co.nextix.jardine.web.requesters.sync.ScalendarRequester.CalendarResult;
 import co.nextix.jardine.web.requesters.sync.ScompetitorRequester;
 import co.nextix.jardine.web.requesters.sync.ScompetitorRequester.ComptResult;
 import co.nextix.jardine.web.requesters.sync.ScompetrprodRequester;
@@ -1078,6 +1081,56 @@ public class SyncRequests {
 		return result;
 	}
 
+	public CalendarResult Calendar(String lastSync) {
+
+		CalendarResult result = null;
+
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.Calendar + "&sessionName=" + JardineApp.SESSION_NAME
+				+ "&modifiedTime=" + time + "&operation=" + operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<ScalendarRequester>() {
+				}.getType();
+				ScalendarRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (CalendarResult) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
 	public List<DocuRelModel> DocumentRelationships(String crmNo) {
 
 		List<DocuRelModel> result = null;
@@ -1092,9 +1145,8 @@ public class SyncRequests {
 		}
 
 		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.Document + "&sessionName="
-				+ JardineApp.SESSION_NAME + "&query=" + query + "&operation="
-				+ "querypicklist";
+				+ Modules.Document + "&sessionName=" + JardineApp.SESSION_NAME
+				+ "&query=" + query + "&operation=" + "querypicklist";
 
 		URL url;
 		try {
