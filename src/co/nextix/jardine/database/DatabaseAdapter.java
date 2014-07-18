@@ -105,6 +105,11 @@ public class DatabaseAdapter {
 	private final String KEY_ACTIVITY_VENUE = "venue";
 	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
 	private final String KEY_ACTIVITY_CRMNO = "crm_no";
+	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+	private final String KEY_ACTIVITY_AREA = "area";
+	private final String KEY_ACTIVITY_PROVINCE = "province";
+	private final String KEY_ACTIVITY_CITYTOWN = "city_town";
+	private final String KEY_ACTIVITY_SOURCE = "source";
 
 	// Activity Type
 	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
@@ -411,7 +416,7 @@ public class DatabaseAdapter {
 	// ===========================================================
 
 	private String TABLE_CREATE_USER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s integer, %s integer, %s text, %s text);";
-	private String TABLE_CREATE_ACTIVITY = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real, %s integer, %s integer, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s));";
+	private String TABLE_CREATE_ACTIVITY = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s real, %s real, %s real, %s integer, %s integer, %s text, %s text, %s real, %s real, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s text, %s real,%s real,%s real,%s real,%s real,foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s));";
 	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
@@ -964,10 +969,13 @@ public class DatabaseAdapter {
 					KEY_ACTIVITY_OBJECTIVE, KEY_ACTIVITY_NOTES,
 					KEY_ACTIVITY_HIGHLIGHTS, KEY_ACTIVITY_NEXTSTEPS,
 					KEY_ACTIVITY_FOLLOWUP, KEY_ACTIVITY_ACTIVITYTYPE,
-					KEY_ACTIVITY_WORKPLANENTRY, KEY_ACTIVITY_CUSTOMER,
-					KEY_ACTIVITY_FIRSTTIMEVISIT, KEY_ACTIVITY_PLANNEDVISIT,
-					KEY_ACTIVITY_CREATEDTIME, KEY_ACTIVITY_MODIFIEDTIME,
-					KEY_ACTIVITY_USER, KEY_ACTIVITY_SMR, KEY_ACTIVITY_ISSUES,
+					KEY_ACTIVITY_WORKPLANENTRY, KEY_ACTIVITY_BUSINESSUNIT,
+					KEY_ACTIVITY_AREA, KEY_ACTIVITY_PROVINCE,
+					KEY_ACTIVITY_CITYTOWN, KEY_ACTIVITY_SOURCE,
+					KEY_ACTIVITY_CUSTOMER, KEY_ACTIVITY_FIRSTTIMEVISIT,
+					KEY_ACTIVITY_PLANNEDVISIT, KEY_ACTIVITY_CREATEDTIME,
+					KEY_ACTIVITY_MODIFIEDTIME, KEY_ACTIVITY_USER,
+					KEY_ACTIVITY_SMR, KEY_ACTIVITY_ISSUES,
 					KEY_ACTIVITY_FEEDBACK, KEY_ACTIVITY_ONGOINGCAMPAIGNS,
 					KEY_ACTIVITY_LASTDELIVERY, KEY_ACTIVITY_PROMOSTUBS,
 					KEY_ACTIVITY_PROJECTNAME, KEY_ACTIVITY_PROJECTCATEGORY,
@@ -980,7 +988,17 @@ public class DatabaseAdapter {
 					WORKPLAN_ENTRY_TABLE, KEY_WORKPLANENTRY_ROWID,
 					KEY_ACTIVITY_CUSTOMER, CUSTOMER_TABLE, KEY_CUSTOMER_ROWID,
 					KEY_ACTIVITY_USER, USER_TABLE, KEY_USER_ROWID,
-					KEY_ACTIVITY_SMR, SMR_TABLE, KEY_SMR_ROWID);
+					KEY_ACTIVITY_SMR, SMR_TABLE, KEY_SMR_ROWID,
+					KEY_ACTIVITY_BUSINESSUNIT, BUSINESS_UNIT_TABLE,
+					KEY_BUSINESSUNIT_ROWID, KEY_ACTIVITY_AREA, AREA_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_ACTIVITY_PROVINCE, PROVINCE_TABLE,
+					KEY_PROVINCE_ROWID, KEY_ACTIVITY_CITYTOWN, CITYTOWN_TABLE,
+					KEY_PROVINCE_ROWID);
+			// private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+			// private final String KEY_ACTIVITY_AREA = "area";
+			// private final String KEY_ACTIVITY_PROVINCE = "province";
+			// private final String KEY_ACTIVITY_CITYTOWN = "city_town";
+			// private final String KEY_ACTIVITY_SOURCE = "source";
 			String activityType = String.format(TABLE_CREATE_ACTIVITY_TYPE,
 					ACTIVITY_TYPE_TABLE, KEY_ACTIVITYTYPE_ROWID,
 					KEY_ACTIVITYTYPE_NO, KEY_ACTIVITYTYPE_CRMNO,
@@ -1238,7 +1256,7 @@ public class DatabaseAdapter {
 					KEY_CALENDAR_SUBJECT, KEY_CALENDAR_TIMESTART,
 					KEY_CALENDAR_TIMEEND, KEY_CALENDAR_ACTIVITY,
 					KEY_CALENDAR_CREATEDTIME, KEY_CALENDAR_MODIFIEDTIME,
-					KEY_DOCUMENT_USER, KEY_CALENDAR_ACTIVITY, ACTIVITY_TABLE,
+					KEY_CALENDAR_USER, KEY_CALENDAR_ACTIVITY, ACTIVITY_TABLE,
 					KEY_ACTIVITY_ROWID, KEY_DOCUMENT_USER, USER_TABLE,
 					KEY_USER_ROWID);
 

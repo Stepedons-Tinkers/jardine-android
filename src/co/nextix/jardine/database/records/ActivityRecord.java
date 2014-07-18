@@ -110,12 +110,19 @@ public class ActivityRecord {
 	public ActivityRecord() {
 	}
 
-	public ActivityRecord(long id, String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
-			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			long activityType, long workplanEntry, long business_unit, long area, long province, long city_town, long source,
-			long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime, long user, long smr,
-			String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery, String promoStubsDetails,
-			String projectName, String projectCategory, String projectStage, String date, String time, String venue, String noOfAttendees) {
+	public ActivityRecord(long id, String no, String crmNo, long workplan,
+			String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long business_unit,
+			long area, long province, long city_town, long source,
+			long customer, int firstTimeVisit, int plannedVisit,
+			String createdTime, String modifiedTime, long user, long smr,
+			String issuesIdentified, String feedBackFromCustomer,
+			String ongoingCampaigns, String lastDelivery,
+			String promoStubsDetails, String projectName,
+			String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
 
 		this.id = id;
 		this.no = no;
