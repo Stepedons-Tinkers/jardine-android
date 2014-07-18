@@ -1,12 +1,19 @@
 package co.nextix.jardine.activities.update.fragments;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
+import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
@@ -47,9 +54,13 @@ public class SaveActivityInfoFragment extends Fragment {
 	private CircularProgressButton saveBtn = null;
 	private String userName = null;
 	private long userId = 0;
+	private Calendar calendar = null;
+	private SimpleDateFormat df = null;
 
 	public SaveActivityInfoFragment() {
 		String id = StoreAccount.restore(JardineApp.context).getString(Account.ROWID);
+		this.calendar = Calendar.getInstance();
+		this.df = new SimpleDateFormat("HH:mm:ss");
 		this.userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
 		this.userId = Long.parseLong(id);
 		this.activityRecord = ActivitiesConstant.ACTIVITY_RECORD;
@@ -163,6 +174,231 @@ public class SaveActivityInfoFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.source)).setText(String.valueOf(this.activityRecord.getSource()));
 		((TextView) this.rootView.findViewById(R.id.created_time)).setText(this.activityRecord.getCreatedTime());
 
+		this.saveBtn = (CircularProgressButton) this.rootView.findViewById(R.id.btnWithText1);
+		this.saveBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				if (saveBtn.getProgress() == 0) {
+					String workplan = String.valueOf(((Spinner) rootView.findViewById(R.id.workplan)).getSelectedItem());
+					String startTime = ((TextView) rootView.findViewById(R.id.start_time)).getText().toString();
+					String endTime = ((TextView) rootView.findViewById(R.id.end_time)).getText().toString();
+					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
+					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
+					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
+					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
+					String businessUnit = ((EditText) rootView.findViewById(R.id.business_unit)).getText().toString();
+					String source = String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem());
+
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (workplan != null && !workplan.isEmpty() && startTime != null && !startTime.isEmpty() && endTime != null
+							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
+							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
+							&& businessUnit != null && !businessUnit.isEmpty() && source != null && !source.isEmpty() && pref != null
+					/*
+					 * && pref.getString("smr", null) != null &&
+					 * pref.getString("issues_identified", null) != null &&
+					 * pref.getString("feedback_from_customer", null) != null &&
+					 * pref.getString("ongoing_campaigns", null) != null &&
+					 * pref.getString("last_delivery", null) != null &&
+					 * pref.getString("promo_stubs_details", null) != null &&
+					 * pref.getString("project_name", null) != null &&
+					 * pref.getString("project_stage", null) != null &&
+					 * pref.getString("project_category", null) != null &&
+					 * pref.getString("date", null) != null &&
+					 * pref.getString("time", null) != null &&
+					 * pref.getString("venue", null) != null &&
+					 * pref.getString("no_attendees", null) != null
+					 */) {
+
+						long smr = (long) 0.0004;// Long.parseLong(pref.getString("smr",
+													// null));
+						String issuesIdentified = pref.getString("issues_identified", null);
+						String feedBackFromCustomer = pref.getString("feedback_from_customer", null);
+						String ongoingCampaigns = pref.getString("ongoing_campaigns", null);
+						String lastDelivery = pref.getString("last_delivery", null);
+						String promoStubsDetails = pref.getString("promo_stubs_details", null);
+						String projectName = pref.getString("project_name", null);
+						String projectCategory = pref.getString("project_category", null);
+						String projectStage = pref.getString("project_stage", null);
+						String date = pref.getString("date", null);
+						String time = pref.getString("time", null);
+						String venue = pref.getString("venue", null);
+						String noOfAttendees = pref.getString("no_attendees", null);
+
+						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(), Long.parseLong(workplan),
+								startTime.concat(df.format(calendar.getTime())), endTime.concat(df.format(calendar.getTime())), 123.894882,
+								10.310235, ((EditText) rootView.findViewById(R.id.objective)).getText().toString(), notes,
+								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount
+										.restore(JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
+										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
+										JardineApp.context).getString(Account.ROWID)), ((CheckBox) rootView
+										.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0, ((CheckBox) rootView
+										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime().toString(),
+								calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context).getString(
+										Account.ROWID)), smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+								promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees).execute();
+
+					} else {
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+					}
+
+				} else {
+					saveBtn.setProgress(0);
+				}
+			}
+		});
+
 		return rootView;
+	}
+
+	protected class InsertTask extends AsyncTask<Void, Void, Boolean> {
+
+		private ValueAnimator widthAnimation = null;
+
+		// String to be populated
+		private String no = null;
+		private String crmNo = null;
+		private String highlights = null;
+		private String followUpCommitmentDate = null;
+		private String startTime = null;
+		private String endTime = null;
+		private String objective = null;
+		private String notes = null;
+		private String nextSteps = null;
+		private String businessUnit = null;
+		private String createdTime = null;
+		private String modifiedTime = null;
+		private String source = null;
+
+		private int firstTimeVisit = 0;
+		private int plannedVisit = 0;
+		private double longitude = 0000;
+		private double latitude = 0000;
+		private long activityType = 0000;
+		private long workplan = 0000;
+		private long workplanEntry = 0000;
+		private long customer = 0000;
+		private long user = 0000;
+		private long smr = 0000;
+
+		private String issuesIdentified = null;
+		private String feedBackFromCustomer = null;
+		private String ongoingCampaigns = null;
+		private String lastDelivery = null;
+		private String promoStubsDetails = null;
+		private String projectName = null;
+		private String projectCategory = null;
+		private String projectStage = null;
+		private String date = null;
+		private String time = null;
+		private String venue = null;
+		private String noOfAttendees = null;
+
+		private boolean flag;
+
+		private InsertTask(String no, String crmNo, long workplan, String startTime, String endTime, double longitude, double latitude,
+				String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate, long activityType,
+				long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime,
+				long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery,
+				String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date, String time,
+				String venue, String noOfAttendees) {
+
+			this.no = no;
+			this.crmNo = crmNo;
+			this.workplan = workplan;
+			this.startTime = startTime;
+			this.endTime = endTime;
+			this.longitude = longitude;
+			this.latitude = latitude;
+			this.objective = objectives;
+			this.notes = notes;
+			this.highlights = highlights;
+			this.nextSteps = nextSteps;
+			this.followUpCommitmentDate = followUpCommitmentDate;
+			this.activityType = activityType;
+			this.workplanEntry = workplanEntry;
+			this.customer = customer;
+			this.firstTimeVisit = firstTimeVisit;
+			this.plannedVisit = plannedVisit;
+			this.createdTime = createdTime;
+			this.modifiedTime = modifiedTime;
+			this.user = user;
+			this.promoStubsDetails = promoStubsDetails;
+			this.projectName = projectName;
+			this.projectCategory = projectCategory;
+			this.projectStage = projectStage;
+			this.date = date;
+			this.time = time;
+			this.venue = venue;
+			this.noOfAttendees = noOfAttendees;
+
+		}
+
+		@Override
+		protected void onPreExecute() {
+			// Animate Button
+			this.widthAnimation = ValueAnimator.ofInt(1, 100);
+			this.widthAnimation.setDuration(1500);
+			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					Integer value = (Integer) animation.getAnimatedValue();
+					saveBtn.setProgress(value);
+
+					if (!flag) {
+						saveBtn.setProgress(-1);
+					}
+				}
+			});
+
+			this.widthAnimation.start();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... params) {
+			this.flag = false;
+			try {
+
+				saveActivity(this.no, this.crmNo, this.workplan, this.startTime, this.endTime, this.longitude, this.latitude,
+						this.objective, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate, this.activityType,
+						this.workplanEntry, this.customer, this.firstTimeVisit, this.plannedVisit, this.createdTime, this.modifiedTime,
+						this.user, this.smr, this.issuesIdentified, this.feedBackFromCustomer, this.ongoingCampaigns, this.lastDelivery,
+						this.promoStubsDetails, this.projectName, this.projectCategory, this.projectStage, this.date, this.time,
+						this.venue, this.noOfAttendees);
+
+				this.flag = true;
+			} catch (Exception e) {
+				this.flag = false;
+				Log.e("Jardine", e.toString());
+			}
+
+			return this.flag;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			if (result) {
+				saveBtn.setProgress(100);
+			} else {
+				this.flag = false;
+			}
+		}
+	}
+
+	protected void saveActivity(String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime,
+			String modifiedTime, long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns,
+			String lastDelivery, String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date,
+			String time, String venue, String noOfAttendees) {
+
+		// Insert to the database
+		JardineApp.DB.getActivity().update(this.activityRecord.getId(), no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes, highlights,
+				nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit, createdTime,
+				modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails,
+				projectName, projectCategory, projectStage, date, time, venue, noOfAttendees);
 	}
 }
