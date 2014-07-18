@@ -25,6 +25,7 @@ public class Modules {
 	public static String ProjectRequirement = "XProjectRequirement";
 	
 	public static String Document = "XDocuments";
+	public static String Calendar = "Calendar";
 
 	public static String smrtimecard_entry = "z_stc_picklist";
 	public static String customer_size = "z_cu_customersize";

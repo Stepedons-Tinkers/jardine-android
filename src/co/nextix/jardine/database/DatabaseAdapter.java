@@ -8,6 +8,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.CalendarTable;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CompetitorTable;
@@ -391,6 +392,20 @@ public class DatabaseAdapter {
 	private final String KEY_DOCUMENT_USER = "user";
 	private final String KEY_DOCUMENT_CRMNO = "crm_no";
 
+	// Calendar
+	private final String KEY_CALENDAR_ROWID = "_id";
+	private final String KEY_CALENDAR_ACTIVITYTYPE = "activitytype";
+	private final String KEY_CALENDAR_DATESTART = "date_start";
+	private final String KEY_CALENDAR_DUEDATE = "due_date";
+	private final String KEY_CALENDAR_DESCRIPTION = "description";
+	private final String KEY_CALENDAR_SUBJECT = "subject";
+	private final String KEY_CALENDAR_TIMESTART = "time_start";
+	private final String KEY_CALENDAR_TIMEEND = "time_end";
+	private final String KEY_CALENDAR_ACTIVITY = "activity";
+	private final String KEY_CALENDAR_CREATEDTIME = "created_time";
+	private final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
+	private final String KEY_CALENDAR_USER = "user";
+
 	// ===========================================================
 	// Table Create String
 	// ===========================================================
@@ -419,6 +434,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_CALENDAR = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 
 	// ===========================================================
 	// Public static field
@@ -446,6 +462,7 @@ public class DatabaseAdapter {
 	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
 	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
 	public static final String DOCUMENT_TABLE = "Document";
+	public static final String CALENDAR_TABLE = "Calendar";
 
 	// Picklists
 	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
@@ -497,6 +514,7 @@ public class DatabaseAdapter {
 	private MarketingMaterialsTable mMarketingMaterials;
 	private JDImerchandisingCheckTable mJDImerchandisingCheck;
 	private DocumentTable mDocument;
+	private CalendarTable mCalendar;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -721,6 +739,13 @@ public class DatabaseAdapter {
 			mDocument = new DocumentTable(mDb, DOCUMENT_TABLE);
 		}
 		return mDocument;
+	}
+
+	public CalendarTable getCalendar() {
+		if (mCalendar == null) {
+			mCalendar = new CalendarTable(mDb, CALENDAR_TABLE);
+		}
+		return mCalendar;
 	}
 
 	// Picklists
@@ -1194,6 +1219,28 @@ public class DatabaseAdapter {
 					KEY_DOCUMENT_CREATEDTIME, KEY_DOCUMENT_MODIFIEDTIME,
 					KEY_DOCUMENT_USER, KEY_DOCUMENT_USER, USER_TABLE,
 					KEY_USER_ROWID);
+			// private final String KEY_CALENDAR_ROWID = "_id";
+			// private final String KEY_CALENDAR_ACTIVITYTYPE = "activitytype";
+			// private final String KEY_CALENDAR_DATESTART = "date_start";
+			// private final String KEY_CALENDAR_DUEDATE = "due_date";
+			// private final String KEY_CALENDAR_DESCRIPTION = "description";
+			// private final String KEY_CALENDAR_SUBJECT = "subject";
+			// private final String KEY_CALENDAR_TIMESTART = "time_start";
+			// private final String KEY_CALENDAR_TIMEEND = "time_end";
+			// private final String KEY_CALENDAR_ACTIVITY = "activity";
+			// private final String KEY_CALENDAR_CREATEDTIME = "created_time";
+			// private final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
+			// private final String KEY_CALENDAR_USER = "user";
+			String calendar = String.format(TABLE_CREATE_CALENDAR,
+					CALENDAR_TABLE, KEY_CALENDAR_ROWID,
+					KEY_CALENDAR_ACTIVITYTYPE, KEY_CALENDAR_DATESTART,
+					KEY_CALENDAR_DUEDATE, KEY_CALENDAR_DESCRIPTION,
+					KEY_CALENDAR_SUBJECT, KEY_CALENDAR_TIMESTART,
+					KEY_CALENDAR_TIMEEND, KEY_CALENDAR_ACTIVITY,
+					KEY_CALENDAR_CREATEDTIME, KEY_CALENDAR_MODIFIEDTIME,
+					KEY_DOCUMENT_USER, KEY_CALENDAR_ACTIVITY, ACTIVITY_TABLE,
+					KEY_ACTIVITY_ROWID, KEY_DOCUMENT_USER, USER_TABLE,
+					KEY_USER_ROWID);
 
 			db.execSQL(user);
 			db.execSQL(activity);
@@ -1217,6 +1264,7 @@ public class DatabaseAdapter {
 			db.execSQL(marketingMaterials);
 			db.execSQL(jdiMerchandising);
 			db.execSQL(document);
+			db.execSQL(calendar);
 
 			// Picklists
 
