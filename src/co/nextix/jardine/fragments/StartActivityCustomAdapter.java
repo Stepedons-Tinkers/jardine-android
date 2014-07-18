@@ -2,8 +2,13 @@ package co.nextix.jardine.fragments;
 
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -15,14 +20,17 @@ import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class StartActivityCustomAdapter extends BaseAdapter implements OnClickListener {
 
 	/*********** Declare Used Variables *********/
-	private Context activity;
+	private Context context;
+	private FragmentActivity activity;
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
@@ -30,24 +38,25 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private View vi = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public StartActivityCustomAdapter(Context a, ArrayList<?> d, Fragment fragment) {
+	public StartActivityCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
-		activity = a;
-		frag = fragment;
-		data = d;
+		this.context = a;
+		this.activity = act;
+		this.frag = fragment;
+		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
-		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
 
 	/******** What is the size of Passed Arraylist Size ************/
 	public int getCount() {
 
-		if (data.size() <= 0)
+		if (this.data.size() <= 0)
 			return 1;
-		return data.size();
+		return this.data.size();
 	}
 
 	public Object getItem(int position) {
@@ -72,9 +81,9 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	}
 
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, final View convertView, ViewGroup parent) {
 
-		vi = convertView;
+		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
 		StartActivityFragment sct = (StartActivityFragment) frag;
@@ -82,7 +91,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			vi = inflater.inflate(R.layout.table_row_item, null);
+			this.vi = inflater.inflate(R.layout.table_row_item, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
@@ -96,29 +105,29 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
-			vi.setTag(holder);
+			this.vi.setTag(holder);
 
 		} else
 			holder = (ViewHolder) vi.getTag();
 
 		// Checking of the data gathered
-		if (data.size() <= 0) {
+		if (this.data.size() <= 0) {
 			sct.isListHasNoData();
 
 		} else {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			tempValues = null;
-			tempValues = (ActivityRecord) data.get(position);
+			this.tempValues = null;
+			this.tempValues = (ActivityRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(tempValues.getCrm());
-			holder.workplan_txt.setText(String.valueOf(tempValues.getWorkplan()));
-			holder.activity_type_txt.setText(String.valueOf(tempValues.getActivityType()));
-			holder.start_time_txt.setText(tempValues.getStartTime());
-			holder.end_time_txt.setText(tempValues.getEndTime());
-			holder.assigned_to_txt.setText(String.valueOf(tempValues.getCustomer()));
+			holder.crm_no_txt.setText(this.tempValues.getCrm());
+			holder.workplan_txt.setText(String.valueOf(this.tempValues.getWorkplan()));
+			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivityType()));
+			holder.start_time_txt.setText(this.tempValues.getStartTime());
+			holder.end_time_txt.setText(this.tempValues.getEndTime());
+			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCustomer()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
@@ -126,11 +135,9 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}
 
-			if (holder.start_time_txt.getText().toString().equals(null) 
-			 || holder.start_time_txt.getText().toString().equals("")
-			 || holder.end_time_txt.getText().toString().equals(null)
-			 || holder.end_time_txt.getText().toString().equals("")) {
-				
+			if (holder.start_time_txt.getText().toString().equals(null) || holder.start_time_txt.getText().toString().equals("")
+					|| holder.end_time_txt.getText().toString().equals(null) || holder.end_time_txt.getText().toString().equals("")) {
+
 				holder.workplan_txt.setText(null);
 				holder.activity_type_txt.setText(null);
 				holder.assigned_to_txt.setText(null);
@@ -142,7 +149,18 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
+					ActivityRecord tempValues = (ActivityRecord) data.get(position);
 
+					// Saving acquired activity details
+					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					Editor editor = pref.edit();
+					editor.putLong("activity_id", tempValues.getId());
+					editor.commit(); // commit changes
+
+					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
+					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 				}
 			});
 
@@ -151,6 +169,8 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
+					showDeleteDialog(position);
+					convertView.postInvalidate();
 				}
 			});
 
@@ -264,5 +284,35 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			StartActivityFragment sct = (StartActivityFragment) frag;
 			sct.onItemClick(mPosition);
 		}
+	}
+
+	private void showDeleteDialog(final int mPosition) {
+		AlertDialog.Builder dialog = new AlertDialog.Builder(this.activity);
+		dialog.setTitle("Delete Customer");
+		dialog.setMessage("Are you sure you want to delete Customer?");
+		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+
+				ActivityRecord tempValues = (ActivityRecord) data.get(mPosition);
+				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
+					Toast.makeText(activity, "Successfully delete customer", Toast.LENGTH_LONG).show();
+				} else {
+					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
+				}
+
+			}
+		});
+		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+
+			}
+		});
+
+		dialog.show();
 	}
 }

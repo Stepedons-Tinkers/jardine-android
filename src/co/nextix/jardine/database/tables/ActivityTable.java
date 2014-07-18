@@ -33,6 +33,11 @@ public class ActivityTable {
 	private final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
 	private final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
 	private final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
+	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+	private final String KEY_ACTIVITY_AREA = "area";
+	private final String KEY_ACTIVITY_PROVINCE = "province";
+	private final String KEY_ACTIVITY_CITYTOWN = "city_town";
+	private final String KEY_ACTIVITY_SOURCE = "source";
 	private final String KEY_ACTIVITY_CUSTOMER = "customer";
 	private final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
 	private final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
@@ -94,79 +99,49 @@ public class ActivityTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-					long workplan = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
-					String startTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_STARTTIME));
-					String endTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ENDTIME));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
-					String notes = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOTES));
-					String highlights = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
-					String nextSteps = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
-					String followUpCommitmentDate = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-					long activityType = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
-					long workplanEntry = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					long customer = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
-					int firstTimeVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
-					int plannedVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+					long workplan = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+					String startTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+					String endTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+					double longitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+					String objectives = c.getString(c.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+					String notes = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
+					String highlights = c.getString(c.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+					String nextSteps = c.getString(c.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+					String followUpCommitmentDate = c.getString(c.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					long activityType = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+					long workplanEntry = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+					long province = c.getLong(c.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITYTOWN));
+					long source = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SOURCE));
+					long customer = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+					int firstTimeVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+					int plannedVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+					String createdTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
 					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
-					String issuesIdentified = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ISSUES));
-					String feedBackFromCustomer = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
-					String ongoingCampaigns = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
-					String lastDelivery = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
-					String promoStubsDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
-					String projectName = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectCategory = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
-					String projectStage = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String date = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_DATE));
-					String time = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TIME));
-					String venue = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_VENUE));
-					String noOfAttendees = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CRMNO));
+					String issuesIdentified = c.getString(c.getColumnIndex(KEY_ACTIVITY_ISSUES));
+					String feedBackFromCustomer = c.getString(c.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+					String ongoingCampaigns = c.getString(c.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+					String lastDelivery = c.getString(c.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+					String promoStubsDetails = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+					String projectName = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectCategory = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String projectStage = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
+					String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
+					String venue = c.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+					String noOfAttendees = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, crmNo, workplan,
-							startTime, endTime, longitude, latitude,
-							objectives, notes, highlights, nextSteps,
-							followUpCommitmentDate, activityType,
-							workplanEntry, customer, firstTimeVisit,
-							plannedVisit, createdTime, modifiedTime, user, smr,
-							issuesIdentified, feedBackFromCustomer,
-							ongoingCampaigns, lastDelivery, promoStubsDetails,
-							projectName, projectCategory, projectStage, date,
-							time, venue, noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+							highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, businessUnit, area, province,
+							cityTown, source, customer, firstTimeVisit, plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails, projectName,
+							projectCategory, projectStage, date, time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -180,87 +155,56 @@ public class ActivityTable {
 	public List<ActivityRecord> getAllRecordsByWorkEntry(long wId) {
 		Cursor c = null;
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_WORKPLANENTRY + " = " + wId;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_WORKPLANENTRY + " = " + wId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-					long workplan = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
-					String startTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_STARTTIME));
-					String endTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ENDTIME));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
-					String notes = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOTES));
-					String highlights = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
-					String nextSteps = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
-					String followUpCommitmentDate = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-					long activityType = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
-					long workplanEntry = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					long customer = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
-					int firstTimeVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
-					int plannedVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+					long workplan = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+					String startTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+					String endTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+					double longitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+					String objectives = c.getString(c.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+					String notes = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
+					String highlights = c.getString(c.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+					String nextSteps = c.getString(c.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+					String followUpCommitmentDate = c.getString(c.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					long activityType = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+					long workplanEntry = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+					long province = c.getLong(c.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITYTOWN));
+					long source = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SOURCE));
+					long customer = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+					int firstTimeVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+					int plannedVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+					String createdTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
 					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
-					String issuesIdentified = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ISSUES));
-					String feedBackFromCustomer = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
-					String ongoingCampaigns = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
-					String lastDelivery = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
-					String promoStubsDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
-					String projectName = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectCategory = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
-					String projectStage = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String date = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_DATE));
-					String time = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TIME));
-					String venue = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_VENUE));
-					String noOfAttendees = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CRMNO));
+					String issuesIdentified = c.getString(c.getColumnIndex(KEY_ACTIVITY_ISSUES));
+					String feedBackFromCustomer = c.getString(c.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+					String ongoingCampaigns = c.getString(c.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+					String lastDelivery = c.getString(c.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+					String promoStubsDetails = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+					String projectName = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectCategory = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String projectStage = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
+					String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
+					String venue = c.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+					String noOfAttendees = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, crmNo, workplan,
-							startTime, endTime, longitude, latitude,
-							objectives, notes, highlights, nextSteps,
-							followUpCommitmentDate, activityType,
-							workplanEntry, customer, firstTimeVisit,
-							plannedVisit, createdTime, modifiedTime, user, smr,
-							issuesIdentified, feedBackFromCustomer,
-							ongoingCampaigns, lastDelivery, promoStubsDetails,
-							projectName, projectCategory, projectStage, date,
-							time, venue, noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+							highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, businessUnit, area, province,
+							cityTown, source, customer, firstTimeVisit, plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails, projectName,
+							projectCategory, projectStage, date, time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -277,8 +221,7 @@ public class ActivityTable {
 
 	public List<ActivityRecord> getUnsyncedRecords() {
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_NO + " ISNULL";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + " ISNULL";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -287,79 +230,49 @@ public class ActivityTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-					long workplan = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
-					String startTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_STARTTIME));
-					String endTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ENDTIME));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
-					String notes = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOTES));
-					String highlights = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
-					String nextSteps = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
-					String followUpCommitmentDate = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-					long activityType = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
-					long workplanEntry = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					long customer = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
-					int firstTimeVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
-					int plannedVisit = c.getInt(c
-							.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+					long workplan = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+					String startTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+					String endTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+					double longitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+					String objectives = c.getString(c.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+					String notes = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
+					String highlights = c.getString(c.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+					String nextSteps = c.getString(c.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+					String followUpCommitmentDate = c.getString(c.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					long activityType = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+					long workplanEntry = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+					long province = c.getLong(c.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITYTOWN));
+					long source = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SOURCE));
+					long customer = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+					int firstTimeVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+					int plannedVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+					String createdTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
 					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
-					String issuesIdentified = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ISSUES));
-					String feedBackFromCustomer = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
-					String ongoingCampaigns = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
-					String lastDelivery = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
-					String promoStubsDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
-					String projectName = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectCategory = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
-					String projectStage = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String date = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_DATE));
-					String time = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TIME));
-					String venue = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_VENUE));
-					String noOfAttendees = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_CRMNO));
+					String issuesIdentified = c.getString(c.getColumnIndex(KEY_ACTIVITY_ISSUES));
+					String feedBackFromCustomer = c.getString(c.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+					String ongoingCampaigns = c.getString(c.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+					String lastDelivery = c.getString(c.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+					String promoStubsDetails = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+					String projectName = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectCategory = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String projectStage = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
+					String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
+					String venue = c.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+					String noOfAttendees = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String crmNo = c.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-					list.add(new ActivityRecord(id, no, crmNo, workplan,
-							startTime, endTime, longitude, latitude,
-							objectives, notes, highlights, nextSteps,
-							followUpCommitmentDate, activityType,
-							workplanEntry, customer, firstTimeVisit,
-							plannedVisit, createdTime, modifiedTime, user, smr,
-							issuesIdentified, feedBackFromCustomer,
-							ongoingCampaigns, lastDelivery, promoStubsDetails,
-							projectName, projectCategory, projectStage, date,
-							time, venue, noOfAttendees));
+					list.add(new ActivityRecord(id, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+							highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, businessUnit, area, province,
+							cityTown, source, customer, firstTimeVisit, plannedVisit, createdTime, modifiedTime, user, smr,
+							issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails, projectName,
+							projectCategory, projectStage, date, time, venue, noOfAttendees));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -374,8 +287,7 @@ public class ActivityTable {
 	public boolean updateNo(long id, String no) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
-		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
-				null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,
 			// productDescription, productSize, isActive, createdTime,
 			// modifiedTime, user);
@@ -387,8 +299,7 @@ public class ActivityTable {
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_NO + "='" + webID + "'";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + "='" + webID + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -416,8 +327,7 @@ public class ActivityTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_ROWID
-				+ " IN (" + ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_ROWID + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -440,8 +350,7 @@ public class ActivityTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ("
-				+ ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -454,8 +363,7 @@ public class ActivityTable {
 
 	public long getIdByNo(String no) {
 		long result = 0;
-		String MY_QUERY = "SELECT " + KEY_ACTIVITY_ROWID + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + "=?";
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_ROWID + " FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
@@ -474,8 +382,7 @@ public class ActivityTable {
 
 	public ActivityRecord getById(long ID) {
 		ActivityRecord record = null;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_ROWID + "=?";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -483,76 +390,49 @@ public class ActivityTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-				long workplan = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
-				String startTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_STARTTIME));
-				String endTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ENDTIME));
-				double longitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
-				double latitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-				String objectives = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
-				String notes = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
-				String highlights = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
-				String nextSteps = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
-				String followUpCommitmentDate = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-				long activityType = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
-				long workplanEntry = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-				long customer = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
-				int firstTimeVisit = c.getInt(c
-						.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
-				int plannedVisit = c.getInt(c
-						.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
-				String createdTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
-				String modifiedTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+				long workplan = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+				String startTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+				String endTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+				double longitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				double latitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+				String objectives = c.getString(c.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+				String notes = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
+				String highlights = c.getString(c.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+				String nextSteps = c.getString(c.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+				String followUpCommitmentDate = c.getString(c.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+				long activityType = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+				long workplanEntry = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+				long businessUnit = c.getLong(c.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+				long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+				long province = c.getLong(c.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+				long cityTown = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITYTOWN));
+				long source = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SOURCE));
+				long customer = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+				int firstTimeVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+				int plannedVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+				String createdTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+				String modifiedTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
 				long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
-				String issuesIdentified = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ISSUES));
-				String feedBackFromCustomer = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
-				String ongoingCampaigns = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
-				String lastDelivery = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
-				String promoStubsDetails = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
-				String projectName = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-				String projectCategory = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
-				String projectStage = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String issuesIdentified = c.getString(c.getColumnIndex(KEY_ACTIVITY_ISSUES));
+				String feedBackFromCustomer = c.getString(c.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+				String ongoingCampaigns = c.getString(c.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+				String lastDelivery = c.getString(c.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+				String promoStubsDetails = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+				String projectName = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+				String projectCategory = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+				String projectStage = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
 				String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
 				String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
-				String venue = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
-				String noOfAttendees = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
-				String crmNo = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
+				String venue = c.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				String noOfAttendees = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String crmNo = c.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-				record = new ActivityRecord(id, no, crmNo, workplan, startTime,
-						endTime, longitude, latitude, objectives, notes,
-						highlights, nextSteps, followUpCommitmentDate,
-						activityType, workplanEntry, customer, firstTimeVisit,
-						plannedVisit, createdTime, modifiedTime, user, smr,
-						issuesIdentified, feedBackFromCustomer,
-						ongoingCampaigns, lastDelivery, promoStubsDetails,
-						projectName, projectCategory, projectStage, date, time,
-						venue, noOfAttendees);
+				record = new ActivityRecord(id, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+						highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, businessUnit, area, province, cityTown,
+						source, customer, firstTimeVisit, plannedVisit, createdTime, modifiedTime, user, smr, issuesIdentified,
+						feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails, projectName, projectCategory,
+						projectStage, date, time, venue, noOfAttendees);
 			}
 		} finally {
 			if (c != null) {
@@ -565,8 +445,7 @@ public class ActivityTable {
 
 	public String getNoById(long ID) {
 		String result = null;
-		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_ACTIVITY_ROWID + "=?";
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_NO + " FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -585,8 +464,7 @@ public class ActivityTable {
 
 	public ActivityRecord getByWebId(String ID) {
 		ActivityRecord record = null;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_NO + "=?";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_ACTIVITY_NO + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -594,76 +472,49 @@ public class ActivityTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-				long workplan = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
-				String startTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_STARTTIME));
-				String endTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ENDTIME));
-				double longitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
-				double latitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-				String objectives = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
-				String notes = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
-				String highlights = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
-				String nextSteps = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
-				String followUpCommitmentDate = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-				long activityType = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
-				long workplanEntry = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-				long customer = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
-				int firstTimeVisit = c.getInt(c
-						.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
-				int plannedVisit = c.getInt(c
-						.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
-				String createdTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
-				String modifiedTime = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+				long workplan = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLAN));
+				String startTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_STARTTIME));
+				String endTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_ENDTIME));
+				double longitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				double latitude = c.getDouble(c.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+				String objectives = c.getString(c.getColumnIndex(KEY_ACTIVITY_OBJECTIVE));
+				String notes = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOTES));
+				String highlights = c.getString(c.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+				String nextSteps = c.getString(c.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+				String followUpCommitmentDate = c.getString(c.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+				long activityType = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+				long workplanEntry = c.getLong(c.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+				long businessUnit = c.getLong(c.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+				long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+				long province = c.getLong(c.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+				long cityTown = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITYTOWN));
+				long source = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SOURCE));
+				long customer = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+				int firstTimeVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+				int plannedVisit = c.getInt(c.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+				String createdTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+				String modifiedTime = c.getString(c.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITY_USER));
 				long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
-				String issuesIdentified = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ISSUES));
-				String feedBackFromCustomer = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
-				String ongoingCampaigns = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
-				String lastDelivery = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
-				String promoStubsDetails = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
-				String projectName = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-				String projectCategory = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
-				String projectStage = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String issuesIdentified = c.getString(c.getColumnIndex(KEY_ACTIVITY_ISSUES));
+				String feedBackFromCustomer = c.getString(c.getColumnIndex(KEY_ACTIVITY_FEEDBACK));
+				String ongoingCampaigns = c.getString(c.getColumnIndex(KEY_ACTIVITY_ONGOINGCAMPAIGNS));
+				String lastDelivery = c.getString(c.getColumnIndex(KEY_ACTIVITY_LASTDELIVERY));
+				String promoStubsDetails = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROMOSTUBS));
+				String projectName = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+				String projectCategory = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+				String projectStage = c.getString(c.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
 				String date = c.getString(c.getColumnIndex(KEY_ACTIVITY_DATE));
 				String time = c.getString(c.getColumnIndex(KEY_ACTIVITY_TIME));
-				String venue = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
-				String noOfAttendees = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
-				String crmNo = c
-						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
+				String venue = c.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				String noOfAttendees = c.getString(c.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String crmNo = c.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
 
-				record = new ActivityRecord(id, no, crmNo, workplan, startTime,
-						endTime, longitude, latitude, objectives, notes,
-						highlights, nextSteps, followUpCommitmentDate,
-						activityType, workplanEntry, customer, firstTimeVisit,
-						plannedVisit, createdTime, modifiedTime, user, smr,
-						issuesIdentified, feedBackFromCustomer,
-						ongoingCampaigns, lastDelivery, promoStubsDetails,
-						projectName, projectCategory, projectStage, date, time,
-						venue, noOfAttendees);
+				record = new ActivityRecord(id, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+						highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, businessUnit, area, province, cityTown,
+						source, customer, firstTimeVisit, plannedVisit, createdTime, modifiedTime, user, smr, issuesIdentified,
+						feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails, projectName, projectCategory,
+						projectStage, date, time, venue, noOfAttendees);
 			}
 		} finally {
 			if (c != null) {
@@ -674,17 +525,12 @@ public class ActivityTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, long workplan,
-			String startTime, String endTime, double longitude,
-			double latitude, String objectives, String notes,
-			String highlights, String nextSteps, String followUpCommitmentDate,
-			long activityType, long workplanEntry, long customer,
-			int firstTimeVisit, int plannedVisit, String createdTime,
-			String modifiedTime, long user, long smr, String issuesIdentified,
-			String feedBackFromCustomer, String ongoingCampaigns,
-			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage, String date,
-			String time, String venue, String noOfAttendees) {
+	public long insert(String no, String crmNo, long workplan, String startTime, String endTime, double longitude, double latitude,
+			String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate, long activityType,
+			long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime, long user,
+			long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery,
+			String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date, String time,
+			String venue, String noOfAttendees) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -764,22 +610,16 @@ public class ActivityTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "").replace(", ", "','");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ('"
-				+ ids + "')", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_ACTIVITY_NO + " IN ('" + ids + "')", null);
 
 		return rowsDeleted;
 	}
 
-	public boolean update(long id, String no, String crmNo, long workplan,
-			String startTime, String endTime, double longitude,
-			double latitude, String objectives, String notes,
-			String highlights, String nextSteps, String followUpCommitmentDate,
-			long activityType, long workplanEntry, long customer,
-			int firstTimeVisit, int plannedVisit, String createdTime,
-			String modifiedTime, long user, long smr, String issuesIdentified,
-			String feedBackFromCustomer, String ongoingCampaigns,
-			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage, String date,
+	public boolean update(long id, String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime,
+			String modifiedTime, long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns,
+			String lastDelivery, String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date,
 			String time, String venue, String noOfAttendees) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
@@ -815,8 +655,7 @@ public class ActivityTable {
 		args.put(KEY_ACTIVITY_VENUE, venue);
 		args.put(KEY_ACTIVITY_NOOFATTENDEES, noOfAttendees);
 		args.put(KEY_ACTIVITY_CRMNO, crmNo);
-		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
-				null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, workplan, startTime, endTime,
 			// longitude, latitude, objectives, notes, highlights,
 			// nextSteps, followUpCommitmentDate, activityType,

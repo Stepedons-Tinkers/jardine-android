@@ -71,6 +71,11 @@ public class ActivityRecord {
 	private String follow_up_commitment_date;
 	private long activity_type; // activity type table
 	private long workplan_entry; // workplan entry table
+	private long business_unit;
+	private long area;
+	private long province;
+	private long city_town;
+	private long source;
 	private long customer; // customer table
 	private int first_time_visit;
 	private int planned_visit;
@@ -95,7 +100,7 @@ public class ActivityRecord {
 	private String time;
 	private String venue;
 	private String no_of_attendees;
-	
+
 	private String crm_no;
 
 	// ===========================================================
@@ -105,17 +110,12 @@ public class ActivityRecord {
 	public ActivityRecord() {
 	}
 
-	public ActivityRecord(long id, String no, String crmNo, long workplan, String startTime,
-			String endTime, double longitude, double latitude,
-			String objectives, String notes, String highlights,
-			String nextSteps, String followUpCommitmentDate, long activityType,
-			long workplanEntry, long customer, int firstTimeVisit,
-			int plannedVisit, String createdTime, String modifiedTime,
-			long user, long smr, String issuesIdentified,
-			String feedBackFromCustomer, String ongoingCampaigns,
-			String lastDelivery, String promoStubsDetails, String projectName,
-			String projectCategory, String projectStage, String date,
-			String time, String venue, String noOfAttendees) {
+	public ActivityRecord(long id, String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
+			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			long activityType, long workplanEntry, long business_unit, long area, long province, long city_town, long source,
+			long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime, long user, long smr,
+			String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery, String promoStubsDetails,
+			String projectName, String projectCategory, String projectStage, String date, String time, String venue, String noOfAttendees) {
 
 		this.id = id;
 		this.no = no;
@@ -132,6 +132,11 @@ public class ActivityRecord {
 		this.follow_up_commitment_date = followUpCommitmentDate;
 		this.activity_type = activityType;
 		this.workplan_entry = workplanEntry;
+		this.business_unit = business_unit;
+		this.area = area;
+		this.province = province;
+		this.city_town = city_town;
+		this.source = source;
 		this.customer = customer;
 		this.first_time_visit = firstTimeVisit;
 		this.planned_visit = plannedVisit;
@@ -168,7 +173,7 @@ public class ActivityRecord {
 	public String getNo() {
 		return this.no;
 	}
-	
+
 	public void setCrm(String crmNo) {
 		this.crm_no = crmNo;
 	}
@@ -271,6 +276,46 @@ public class ActivityRecord {
 
 	public long getWorkplanEntry() {
 		return this.workplan_entry;
+	}
+
+	public void setBusinessUnit(long businessUnit) {
+		this.business_unit = businessUnit;
+	}
+
+	public long getBusinessUnit() {
+		return this.business_unit;
+	}
+
+	public void setArea(long area) {
+		this.area = area;
+	}
+
+	public long getArea() {
+		return this.area;
+	}
+
+	public void setProvince(long province) {
+		this.province = province;
+	}
+
+	public long getProvince() {
+		return this.province;
+	}
+
+	public void setCityTown(long cityTown) {
+		this.city_town = cityTown;
+	}
+
+	public long getCityTown() {
+		return this.city_town;
+	}
+
+	public void setSource(long source) {
+		this.source = source;
+	}
+
+	public long getSource() {
+		return this.source;
 	}
 
 	public void setCustomer(long customer) {

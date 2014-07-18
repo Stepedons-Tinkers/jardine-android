@@ -8,6 +8,8 @@ import java.util.List;
 
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -30,11 +32,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
+import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.customers.CustomerConstants;
+import co.nextix.jardine.customers.CustomerDetailsFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
@@ -120,7 +127,7 @@ public class StartActivityFragment extends Fragment {
 
 					CustomListView = getActivity().getApplicationContext();
 					list = (ListView) rootView.findViewById(R.id.list);
-					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), itemSearch, StartActivityFragment.this);
 					list.setAdapter(adapter);
 					ListViewUtility.setListViewHeightBasedOnChildren(list);
 				} else {
@@ -169,7 +176,7 @@ public class StartActivityFragment extends Fragment {
 
 					CustomListView = getActivity().getApplicationContext();
 					list = (ListView) rootView.findViewById(R.id.list);
-					adapter = new StartActivityCustomAdapter(CustomListView, itemSearch, StartActivityFragment.this);
+					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), itemSearch, StartActivityFragment.this);
 					list.setAdapter(adapter);
 					ListViewUtility.setListViewHeightBasedOnChildren(list);
 				}
@@ -296,24 +303,74 @@ public class StartActivityFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.rootView.findViewById(R.id.list);
-		this.adapter = new StartActivityCustomAdapter(this.CustomListView, this.tempRecord, this);
+		this.adapter = new StartActivityCustomAdapter(this.CustomListView, getActivity(), this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	// Event item listener
 	public void onItemClick(int mPosition) {
-		ActivityRecord tempValues = (ActivityRecord) tempRecord.get(mPosition);
-		Toast.makeText(
-				getActivity(),
-				"CRM No." + tempValues.getCrm() + " \n Workplan:" + tempValues.getWorkplan() + " \n Activity Type:"
-						+ tempValues.getActivityType(), Toast.LENGTH_SHORT).show();
+		ActivityRecord tempValues = (ActivityRecord) this.tempRecord.get(mPosition);
+		// Toast.makeText(
+		// getActivity(),
+		// "CRM No." + tempValues.getCrm() + " \n Workplan:" +
+		// tempValues.getWorkplan() + " \n Activity Type:"
+		// + tempValues.getActivityType(), Toast.LENGTH_SHORT).show();
+
+		// ActivityRecord ar = (ActivityRecord)
+		// this.list.getAdapter().getItem(mPosition);
+		// if (ar.getNo() != null) {
+		//
+		// ActivitiesConstant.ACTIVITY_ID = ar.getId();
+		// DashBoardActivity act = (DashBoardActivity) getActivity();
+		// act.getSupportFragmentManager().beginTransaction()
+		// .add(R.id.frame_container,
+		// CustomerDetailsFragment.newInstance(ar.getId()), JardineApp.TAG)
+		// .addToBackStack(JardineApp.TAG).commit();
+		// }
+
+		// Saving acquired activity details
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		Editor editor = pref.edit();
+		editor.putLong("activity_id", tempValues.getId());
+		editor.putString("crm_no", tempValues.getCrm());
+		editor.putString("workplan", String.valueOf(tempValues.getWorkplan()));
+		editor.putString("start_time", tempValues.getStartTime());
+		editor.putString("end_time", tempValues.getEndTime());
+		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
+		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
+		editor.putString("objective", tempValues.getObjectives());
+		editor.putString("notes", tempValues.getNotes());
+		editor.putString("competitor_activities", "getCompetitorActivities()");
+		editor.putString("highlights", tempValues.getHighlights());
+		editor.putString("nextSteps", tempValues.getNextSteps());
+		editor.putString("follow_up_commitment_date", tempValues.getFollowUpCommitmentDate());
+		editor.putString("activity_type", String.valueOf(tempValues.getActivityType()));
+		editor.putString("others", "getOthers()");
+		editor.putString("business_unit", "getBusinessUnit()");
+		editor.putString("workplan_entry", String.valueOf(tempValues.getWorkplanEntry()));
+		editor.putString("customer", String.valueOf(tempValues.getCustomer()));
+		editor.putString("area", "getArea()");
+		editor.putString("province", "getProvince");
+		editor.putString("city_town", "getCityTown()");
+		editor.putString("first_time_visit", String.valueOf(tempValues.getFirstTimeVisit()));
+		editor.putString("planned_visit", String.valueOf(tempValues.getPlannedVisit()));
+		editor.putString("reason_remarks", "getReasonRemarks()");
+		editor.putString("details_admin_works", "getDetailsAdminWorks()");
+		editor.putString("source", "getSource()");
+		editor.putString("created_time", tempValues.getCreatedTime());
+		editor.putString(
+				"assigned_to",
+				String.valueOf(JardineApp.DB.getUser().getCurrentUser().getLastname() + ", "
+						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
+
+		editor.commit(); // commit changes
+
+		// final Bundle bundle = new Bundle();
+		// bundle.putString("crm_no", tempValues.getCrm());
+		// fragment.setArguments(bundle);
 
 		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		final Bundle bundle = new Bundle();
-		bundle.putString("crm_no", tempValues.getCrm());
-		fragment.setArguments(bundle);
-
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();

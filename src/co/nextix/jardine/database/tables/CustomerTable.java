@@ -80,37 +80,23 @@ public class CustomerTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CRMNO));
-					String customerName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_NAME));
-					String chainName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
-					String landline = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
-					String fax = c
-							.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-					long customerSize = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_SIZE));
-					String streetAddress = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+					String crmNo = c.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
+					String customerName = c.getString(c.getColumnIndex(KEY_CUSTOMER_NAME));
+					String chainName = c.getString(c.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+					String landline = c.getString(c.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+					String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
+					long customerSize = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE));
+					String streetAddress = c.getString(c.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 					// long customerRecordStatus = c.getLong(c
 					// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
-					long customerType = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_TYPE));
-					long businessUnit = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+					long customerType = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
 					long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
-					long province = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_PROVINCE));
-					long cityTown = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
-					int isActive = c.getInt(c
-							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+					long province = c.getLong(c.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+					int isActive = c.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String createdTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 					// list.add(new CustomerRecord(id, no, customerName,
@@ -119,11 +105,8 @@ public class CustomerTable {
 					// businessUnit,
 					// area, province, cityTown, isActive, createdTime,
 					// modifiedTime, user));
-					list.add(new CustomerRecord(id, no, crmNo, customerName,
-							chainName, landline, fax, customerSize,
-							streetAddress, customerType, businessUnit, area,
-							province, cityTown, isActive, createdTime,
-							modifiedTime, user));
+					list.add(new CustomerRecord(id, no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress,
+							customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -141,12 +124,10 @@ public class CustomerTable {
 
 		switch (column) {
 		case 0:
-			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_CUSTOMER_CRMNO + " LIKE " + "'%" + hint + "%'";
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_CRMNO + " LIKE " + "'%" + hint + "%'";
 			break;
 		case 1:
-			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_CUSTOMER_NAME + " LIKE " + "'%" + hint + "%'";
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NAME + " LIKE " + "'%" + hint + "%'";
 			break;
 		case 2:
 
@@ -154,38 +135,29 @@ public class CustomerTable {
 		case 3:
 			// SELECT Customer.* FROM Customer inner join Area on Customer.area
 			// = Area._id Where Area.name LIKE 'north%'
-			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN Area ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_AREA + " = Area._id WHERE Area.name LIKE '"
-					+ hint + "%'";
+			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable + " INNER JOIN Area ON " + mDatabaseTable + "."
+					+ KEY_CUSTOMER_AREA + " = Area._id WHERE Area.name LIKE '" + hint + "%'";
 			break;
 		case 4:
 			// SELECT Customer.* FROM Customer inner join Province on
 			// Customer.province = Province._id Where Province.name LIKE
 			// '%bata%'
-			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN Province ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_PROVINCE
-					+ " = Province._id WHERE Province.name LIKE '%" + hint
-					+ "%'";
+			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable + " INNER JOIN Province ON " + mDatabaseTable + "."
+					+ KEY_CUSTOMER_PROVINCE + " = Province._id WHERE Province.name LIKE '%" + hint + "%'";
 
 			break;
 		case 5:
 			// SELECT Customer.* FROM Customer inner join City_Town on
 			// Customer.city_town = City_Town._id Where City_Town.name LIKE
 			// '%veri%'
-			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN City_Town ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_CITYTOWN
-					+ " = City_Town._id WHERE City_Town.name LIKE '%" + hint
-					+ "%'";
+			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable + " INNER JOIN City_Town ON " + mDatabaseTable + "."
+					+ KEY_CUSTOMER_CITYTOWN + " = City_Town._id WHERE City_Town.name LIKE '%" + hint + "%'";
 
 			break;
 		case 6:
 			break;
 		default:
-			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_CUSTOMER_NAME + " LIKE " + "'%" + hint + "%'";
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NAME + " LIKE " + "'%" + hint + "%'";
 			break;
 
 		}
@@ -196,37 +168,23 @@ public class CustomerTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CRMNO));
-					String customerName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_NAME));
-					String chainName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
-					String landline = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
-					String fax = c
-							.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-					long customerSize = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_SIZE));
-					String streetAddress = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+					String crmNo = c.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
+					String customerName = c.getString(c.getColumnIndex(KEY_CUSTOMER_NAME));
+					String chainName = c.getString(c.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+					String landline = c.getString(c.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+					String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
+					long customerSize = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE));
+					String streetAddress = c.getString(c.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 					// long customerRecordStatus = c.getLong(c
 					// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
-					long customerType = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_TYPE));
-					long businessUnit = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+					long customerType = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
 					long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
-					long province = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_PROVINCE));
-					long cityTown = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
-					int isActive = c.getInt(c
-							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+					long province = c.getLong(c.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+					int isActive = c.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String createdTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 					// list.add(new CustomerRecord(id, no, customerName,
@@ -235,11 +193,8 @@ public class CustomerTable {
 					// businessUnit,
 					// area, province, cityTown, isActive, createdTime,
 					// modifiedTime, user));
-					list.add(new CustomerRecord(id, no, crmNo, customerName,
-							chainName, landline, fax, customerSize,
-							streetAddress, customerType, businessUnit, area,
-							province, cityTown, isActive, createdTime,
-							modifiedTime, user));
+					list.add(new CustomerRecord(id, no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress,
+							customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -256,8 +211,7 @@ public class CustomerTable {
 
 	public List<CustomerRecord> getUnsyncedRecords() {
 		List<CustomerRecord> list = new ArrayList<CustomerRecord>();
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_NO + " ISNULL";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + " ISNULL";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -266,37 +220,23 @@ public class CustomerTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CRMNO));
-					String customerName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_NAME));
-					String chainName = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
-					String landline = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_LANDLINE));
-					String fax = c
-							.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-					long customerSize = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_SIZE));
-					String streetAddress = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+					String crmNo = c.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
+					String customerName = c.getString(c.getColumnIndex(KEY_CUSTOMER_NAME));
+					String chainName = c.getString(c.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+					String landline = c.getString(c.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+					String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
+					long customerSize = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE));
+					String streetAddress = c.getString(c.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 					// long customerRecordStatus = c.getLong(c
 					// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
-					long customerType = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_TYPE));
-					long businessUnit = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+					long customerType = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE));
+					long businessUnit = c.getLong(c.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
 					long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
-					long province = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_PROVINCE));
-					long cityTown = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
-					int isActive = c.getInt(c
-							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String createdTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
-					String modifiedTime = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+					long province = c.getLong(c.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+					long cityTown = c.getLong(c.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+					int isActive = c.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String createdTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+					String modifiedTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 					// list.add(new CustomerRecord(id, no, customerName,
@@ -305,11 +245,8 @@ public class CustomerTable {
 					// businessUnit,
 					// area, province, cityTown, isActive, createdTime,
 					// modifiedTime, user));
-					list.add(new CustomerRecord(id, no, crmNo, customerName,
-							chainName, landline, fax, customerSize,
-							streetAddress, customerType, businessUnit, area,
-							province, cityTown, isActive, createdTime,
-							modifiedTime, user));
+					list.add(new CustomerRecord(id, no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress,
+							customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -324,8 +261,7 @@ public class CustomerTable {
 	public boolean updateNo(long id, String no) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
-		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id,
-				null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,
 			// productDescription, productSize, isActive, createdTime,
 			// modifiedTime, user);
@@ -337,8 +273,7 @@ public class CustomerTable {
 
 	public boolean isExisting(String webID) {
 		boolean exists = false;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_NO + "='" + webID + "'";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + "='" + webID + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -366,8 +301,7 @@ public class CustomerTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_ROWID
-				+ " IN (" + ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_ROWID + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -390,8 +324,7 @@ public class CustomerTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_NO + " IN ("
-				+ ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_NO + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -404,8 +337,7 @@ public class CustomerTable {
 
 	public long getIdByNo(String no) {
 		long result = 0;
-		String MY_QUERY = "SELECT " + KEY_CUSTOMER_ROWID + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + "=?";
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_ROWID + " FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
@@ -424,8 +356,7 @@ public class CustomerTable {
 
 	public CustomerRecord getById(long ID) {
 		CustomerRecord record = null;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_ROWID + "=?";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -433,36 +364,23 @@ public class CustomerTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
-				String crmNo = c
-						.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
-				String customerName = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_NAME));
-				String chainName = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
-				String landline = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+				String crmNo = c.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
+				String customerName = c.getString(c.getColumnIndex(KEY_CUSTOMER_NAME));
+				String chainName = c.getString(c.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+				String landline = c.getString(c.getColumnIndex(KEY_CUSTOMER_LANDLINE));
 				String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-				long customerSize = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_SIZE));
-				String streetAddress = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+				long customerSize = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE));
+				String streetAddress = c.getString(c.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 				// long customerRecordStatus = c.getLong(c
 				// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
-				long customerType = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_TYPE));
-				long businessUnit = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+				long customerType = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE));
+				long businessUnit = c.getLong(c.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
 				long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
-				long province = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_PROVINCE));
-				long cityTown = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
-				int isActive = c
-						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-				String createdTime = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
-				String modifiedTime = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+				long province = c.getLong(c.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+				long cityTown = c.getLong(c.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+				int isActive = c.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+				String createdTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+				String modifiedTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 				// record = new CustomerRecord(id, no, customerName, chainName,
@@ -471,10 +389,8 @@ public class CustomerTable {
 				// area, province, cityTown, isActive, createdTime,
 				// modifiedTime, user);
 
-				record = new CustomerRecord(id, no, crmNo, customerName,
-						chainName, landline, fax, customerSize, streetAddress,
-						customerType, businessUnit, area, province, cityTown,
-						isActive, createdTime, modifiedTime, user);
+				record = new CustomerRecord(id, no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress,
+						customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -487,8 +403,7 @@ public class CustomerTable {
 
 	public String getNoById(long ID) {
 		String result = null;
-		String MY_QUERY = "SELECT " + KEY_CUSTOMER_NO + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_ROWID + "=?";
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_NO + " FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -507,8 +422,7 @@ public class CustomerTable {
 
 	public CustomerRecord getByWebId(String ID) {
 		CustomerRecord record = null;
-		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_NO + "=?";
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_CUSTOMER_NO + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
@@ -516,36 +430,23 @@ public class CustomerTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_ROWID));
 				String no = c.getString(c.getColumnIndex(KEY_CUSTOMER_NO));
-				String crmNo = c
-						.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
-				String customerName = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_NAME));
-				String chainName = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
-				String landline = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_LANDLINE));
+				String crmNo = c.getString(c.getColumnIndex(KEY_CUSTOMER_CRMNO));
+				String customerName = c.getString(c.getColumnIndex(KEY_CUSTOMER_NAME));
+				String chainName = c.getString(c.getColumnIndex(KEY_CUSTOMER_CHAINNAME));
+				String landline = c.getString(c.getColumnIndex(KEY_CUSTOMER_LANDLINE));
 				String fax = c.getString(c.getColumnIndex(KEY_CUSTOMER_FAX));
-				long customerSize = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_SIZE));
-				String streetAddress = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
+				long customerSize = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE));
+				String streetAddress = c.getString(c.getColumnIndex(KEY_CUSTOMER_STREETADDRESS));
 				// long customerRecordStatus = c.getLong(c
 				// .getColumnIndex(KEY_CUSTOMER_RECORDSTATUS));
-				long customerType = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_TYPE));
-				long businessUnit = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
+				long customerType = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE));
+				long businessUnit = c.getLong(c.getColumnIndex(KEY_CUSTOMER_BUSINESSUNIT));
 				long area = c.getLong(c.getColumnIndex(KEY_CUSTOMER_AREA));
-				long province = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_PROVINCE));
-				long cityTown = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
-				int isActive = c
-						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-				String createdTime = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
-				String modifiedTime = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
+				long province = c.getLong(c.getColumnIndex(KEY_CUSTOMER_PROVINCE));
+				long cityTown = c.getLong(c.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
+				int isActive = c.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+				String createdTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
+				String modifiedTime = c.getString(c.getColumnIndex(KEY_CUSTOMER_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_CUSTOMER_USER));
 
 				// record = new CustomerRecord(id, no, customerName, chainName,
@@ -554,10 +455,8 @@ public class CustomerTable {
 				// province, cityTown, isActive, createdTime,
 				// modifiedTime, user);
 
-				record = new CustomerRecord(id, no, crmNo, customerName,
-						chainName, landline, fax, customerSize, streetAddress,
-						customerType, businessUnit, area, province, cityTown,
-						isActive, createdTime, modifiedTime, user);
+				record = new CustomerRecord(id, no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress,
+						customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -568,10 +467,8 @@ public class CustomerTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, String customerName,
-			String chainName, String landline, String fax, long customerSize,
-			String streetAddress, long customerType, long businessUnit,
-			long area, long province, long cityTown, int isActive,
+	public long insert(String no, String crmNo, String customerName, String chainName, String landline, String fax, long customerSize,
+			String streetAddress, long customerType, long businessUnit, long area, long province, long cityTown, int isActive,
 			String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -621,10 +518,8 @@ public class CustomerTable {
 		}
 	}
 
-	public boolean update(long id, String no, String crmNo,
-			String customerName, String chainName, String landline, String fax,
-			long customerSize, String streetAddress, long customerType,
-			long businessUnit, long area, long province, long cityTown,
+	public boolean update(long id, String no, String crmNo, String customerName, String chainName, String landline, String fax,
+			long customerSize, String streetAddress, long customerType, long businessUnit, long area, long province, long cityTown,
 			int isActive, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
@@ -645,8 +540,7 @@ public class CustomerTable {
 		args.put(KEY_CUSTOMER_CREATEDTIME, createdTime);
 		args.put(KEY_CUSTOMER_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_CUSTOMER_USER, user);
-		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id,
-				null) > 0) {
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, customerName, chainName, landline,
 			// customerSize, customerRecordStatus, customerType,
 			// businessUnit, province, cityTown, isActive, createdTime,
