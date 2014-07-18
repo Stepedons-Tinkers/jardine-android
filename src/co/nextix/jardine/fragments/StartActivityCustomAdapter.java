@@ -18,6 +18,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
@@ -36,14 +37,16 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private static LayoutInflater inflater = null;
 	private ActivityRecord tempValues = null;
 	private View vi = null;
+	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public StartActivityCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
+	public StartActivityCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
 		this.activity = act;
 		this.frag = fragment;
+		this.listView = listView;
 		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
@@ -118,7 +121,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = null;
 			this.tempValues = (ActivityRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
@@ -169,8 +171,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
-					showDeleteDialog(position);
-					convertView.postInvalidate();
+					showDeleteDialog(position, listView);
 				}
 			});
 
@@ -286,7 +287,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		}
 	}
 
-	private void showDeleteDialog(final int mPosition) {
+	private void showDeleteDialog(final int mPosition, final ListView list) {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this.activity);
 		dialog.setTitle("Delete Customer");
 		dialog.setMessage("Are you sure you want to delete Customer?");
@@ -294,14 +295,20 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-
 				ActivityRecord tempValues = (ActivityRecord) data.get(mPosition);
 				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
-					Toast.makeText(activity, "Successfully delete customer", Toast.LENGTH_LONG).show();
+
+					activity.runOnUiThread(new Runnable() {
+						public void run() {
+							StartActivityFragment sct = (StartActivityFragment) frag;
+							sct.refreshListView();
+						}
+					});
+
+					Toast.makeText(activity, "Successfully deleted activity", Toast.LENGTH_LONG).show();
 				} else {
 					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
 				}
-
 			}
 		});
 		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {

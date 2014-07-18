@@ -127,7 +127,7 @@ public class StartActivityFragment extends Fragment {
 
 					CustomListView = getActivity().getApplicationContext();
 					list = (ListView) rootView.findViewById(R.id.list);
-					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), itemSearch, StartActivityFragment.this);
+					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), list, itemSearch, StartActivityFragment.this);
 					list.setAdapter(adapter);
 					ListViewUtility.setListViewHeightBasedOnChildren(list);
 				} else {
@@ -176,7 +176,7 @@ public class StartActivityFragment extends Fragment {
 
 					CustomListView = getActivity().getApplicationContext();
 					list = (ListView) rootView.findViewById(R.id.list);
-					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), itemSearch, StartActivityFragment.this);
+					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), list, itemSearch, StartActivityFragment.this);
 					list.setAdapter(adapter);
 					ListViewUtility.setListViewHeightBasedOnChildren(list);
 				}
@@ -303,7 +303,7 @@ public class StartActivityFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.rootView.findViewById(R.id.list);
-		this.adapter = new StartActivityCustomAdapter(this.CustomListView, getActivity(), this.tempRecord, this);
+		this.adapter = new StartActivityCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
@@ -386,6 +386,10 @@ public class StartActivityFragment extends Fragment {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
 		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+	}
+
+	protected void refreshListView() {
+		this.setListData();
 	}
 
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
