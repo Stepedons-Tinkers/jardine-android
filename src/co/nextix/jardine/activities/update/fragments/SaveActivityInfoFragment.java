@@ -186,15 +186,18 @@ public class SaveActivityInfoFragment extends Fragment {
 					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
 					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
 					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
-					String businessUnit = ((EditText) rootView.findViewById(R.id.business_unit)).getText().toString();
-					String source = String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem());
+					long businessUnit = Long.parseLong(((EditText) rootView.findViewById(R.id.business_unit)).getText().toString());
+					long area = Long.parseLong(String.valueOf(((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()));
+					long province = Long.parseLong(String.valueOf(((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()));
+					long cityTown = Long.parseLong(String.valueOf(((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()));
+					long source = Long.parseLong(String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem()));
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (workplan != null && !workplan.isEmpty() && startTime != null && !startTime.isEmpty() && endTime != null
 							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
 							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
-							&& businessUnit != null && !businessUnit.isEmpty() && source != null && !source.isEmpty() && pref != null
+							&& businessUnit != 0 && source != 0 && pref != null
 					/*
 					 * && pref.getString("smr", null) != null &&
 					 * pref.getString("issues_identified", null) != null &&
@@ -238,7 +241,8 @@ public class SaveActivityInfoFragment extends Fragment {
 										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime().toString(),
 								calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context).getString(
 										Account.ROWID)), smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-								promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees).execute();
+								promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees,
+								businessUnit, area, province, cityTown, source).execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
@@ -267,10 +271,8 @@ public class SaveActivityInfoFragment extends Fragment {
 		private String objective = null;
 		private String notes = null;
 		private String nextSteps = null;
-		private String businessUnit = null;
 		private String createdTime = null;
 		private String modifiedTime = null;
-		private String source = null;
 
 		private int firstTimeVisit = 0;
 		private int plannedVisit = 0;
@@ -282,6 +284,11 @@ public class SaveActivityInfoFragment extends Fragment {
 		private long customer = 0000;
 		private long user = 0000;
 		private long smr = 0000;
+		private long businessUnit = 0000;
+		private long area = 0000;
+		private long province = 0000;
+		private long cityTown = 0000;
+		private long source = 0000;
 
 		private String issuesIdentified = null;
 		private String feedBackFromCustomer = null;
@@ -303,7 +310,7 @@ public class SaveActivityInfoFragment extends Fragment {
 				long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime,
 				long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery,
 				String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date, String time,
-				String venue, String noOfAttendees) {
+				String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -333,7 +340,11 @@ public class SaveActivityInfoFragment extends Fragment {
 			this.time = time;
 			this.venue = venue;
 			this.noOfAttendees = noOfAttendees;
-
+			this.businessUnit = businessUnit;
+			this.area = area;
+			this.province = province;
+			this.cityTown = cityTown;
+			this.source = source;
 		}
 
 		@Override
@@ -367,7 +378,7 @@ public class SaveActivityInfoFragment extends Fragment {
 						this.workplanEntry, this.customer, this.firstTimeVisit, this.plannedVisit, this.createdTime, this.modifiedTime,
 						this.user, this.smr, this.issuesIdentified, this.feedBackFromCustomer, this.ongoingCampaigns, this.lastDelivery,
 						this.promoStubsDetails, this.projectName, this.projectCategory, this.projectStage, this.date, this.time,
-						this.venue, this.noOfAttendees);
+						this.venue, this.noOfAttendees, this.businessUnit, this.area, this.province, this.cityTown, this.source);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -393,12 +404,13 @@ public class SaveActivityInfoFragment extends Fragment {
 			long activityType, long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime,
 			String modifiedTime, long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns,
 			String lastDelivery, String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date,
-			String time, String venue, String noOfAttendees) {
+			String time, String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().update(this.activityRecord.getId(), no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes, highlights,
-				nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit, createdTime,
-				modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails,
-				projectName, projectCategory, projectStage, date, time, venue, noOfAttendees);
+		JardineApp.DB.getActivity().update(this.activityRecord.getId(), no, crmNo, workplan, startTime, endTime, longitude, latitude,
+				objectives, notes, highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit,
+				plannedVisit, createdTime, modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+				promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area,
+				province, cityTown, source);
 	}
 }
