@@ -31,17 +31,11 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
-import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.customers.CustomerConstants;
-import co.nextix.jardine.customers.CustomerDetailsFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 

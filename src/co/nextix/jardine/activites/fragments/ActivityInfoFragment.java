@@ -23,14 +23,6 @@ public class ActivityInfoFragment extends Fragment {
 
 		// Add a fucking fragment
 		StaticActivityInfoFragment myFragmentAddActivity = new StaticActivityInfoFragment();
-		final Bundle data = new Bundle();
-		final Bundle args = getArguments();
-
-		if (args != null && args.containsKey("crm_no")) {
-			data.putString("crm_no", args.getString("crm_no"));
-			myFragmentAddActivity.setArguments(data);
-		}
-
 		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
 		fragmentTransaction.commit();
 

@@ -33,7 +33,6 @@ import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
-import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.security.StoreAccount;
@@ -140,13 +139,13 @@ public class SaveActivityInfoFragment extends Fragment {
 			}
 		});
 
-		((Spinner) this.rootView.findViewById(R.id.area)).setSelection((int) this.activityRecord.getArea());
+		((Spinner) this.rootView.findViewById(R.id.area)).setSelection((int) this.activityRecord.getArea() - 1);
 		((Spinner) this.rootView.findViewById(R.id.source)).setSelection((int) this.activityRecord.getSource() - 1);
 		((Spinner) this.rootView.findViewById(R.id.workplan)).setSelection((int) this.activityRecord.getWorkplan() - 1);
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection((int) this.activityRecord.getActivityType() - 1);
-		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setSelection((int) this.activityRecord.getWorkplanEntry());
-		((Spinner) this.rootView.findViewById(R.id.customer)).setSelection((int) this.activityRecord.getCustomer());
-		((Spinner) this.rootView.findViewById(R.id.province)).setSelection((int) this.activityRecord.getProvince());
+		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setSelection((int) this.activityRecord.getWorkplanEntry() - 1);
+		((Spinner) this.rootView.findViewById(R.id.customer)).setSelection((int) this.activityRecord.getCustomer() - 1);
+		((Spinner) this.rootView.findViewById(R.id.province)).setSelection((int) this.activityRecord.getProvince() - 1);
 
 		((TextView) this.rootView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
 		((TextView) this.rootView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
