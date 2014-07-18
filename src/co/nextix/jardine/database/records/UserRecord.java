@@ -18,6 +18,7 @@ public class UserRecord {
 	private int logged_in;
 	private int status;
 	private String last_sync;
+	private String area;
 	private String created_time;
 
 	// ===========================================================
@@ -26,7 +27,8 @@ public class UserRecord {
 
 	public UserRecord(long id, String no, String username, String password,
 			String emailAdd, String lastName, String midName, String firstName,
-			int loggedIn, int status, String lastSync, String createdTime) {
+			int loggedIn, int status, String lastSync, String area,
+			String createdTime) {
 
 		this.id = id;
 		this.no = no;
@@ -39,6 +41,7 @@ public class UserRecord {
 		this.logged_in = loggedIn;
 		this.status = status;
 		this.last_sync = lastSync;
+		this.area = area;
 		this.created_time = createdTime;
 	}
 
@@ -128,6 +131,14 @@ public class UserRecord {
 
 	public String getLastSync() {
 		return this.last_sync;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
+	}
+
+	public String getArea() {
+		return this.area;
 	}
 
 	public void setCreatedTime(String createdTime) {

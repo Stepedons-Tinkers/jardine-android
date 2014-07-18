@@ -96,8 +96,8 @@ public class LoginActivity extends Activity {
 										.getText().toString(), model
 										.getDetails().getEmail(), model
 										.getDetails().getLastName(), "", model
-										.getDetails().getFirstName(), 1, 1,
-								MyDateUtils.getOneYearAgo(), MyDateUtils
+										.getDetails().getFirstName(), 1, 1, "",
+								model.getDetails().getArea(), MyDateUtils
 										.getCurrentTimeStamp());
 					} else {
 						// rowid = Long.parseLong(StoreAccount.restore(
@@ -109,7 +109,8 @@ public class LoginActivity extends Activity {
 								.getDetails().getUserName(), editPassword
 								.getText().toString(), model.getDetails()
 								.getEmail(), model.getDetails().getLastName(),
-								"", model.getDetails().getFirstName(), 1);
+								"", model.getDetails().getFirstName(), model
+										.getDetails().getArea(), 1);
 					}
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()

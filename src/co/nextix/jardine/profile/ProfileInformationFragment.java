@@ -47,6 +47,18 @@ public class ProfileInformationFragment extends Fragment {
 				txtUsername.setText(user.getUsername());
 				txtFirstname.setText(user.getFirstNameName());
 				txtLastname.setText(user.getLastname());
+				String lastSync = user.getLastSync();
+				if (lastSync != null) {
+					if (!lastSync.equals("")) {
+						txtLastSync.setText(lastSync);
+					} else {
+						txtLastSync.setText("not yet synced");
+					}
+				} else {
+					txtLastSync.setText("not yet synced");
+				}
+				String area = user.getArea().replace("|", "").replace("#", ",");
+				txtAreas.setText(area);
 			}
 		}
 		// txtLastSync.

@@ -32,6 +32,7 @@ public class UserTable {
 	private final String KEY_USER_LOGGEDIN = "logged_in";
 	private final String KEY_USER_STATUS = "status";
 	private final String KEY_USER_LASTSYNC = "last_sync";
+	private final String KEY_USER_AREA = "area";
 	private final String KEY_USER_CREATEDTIME = "created_time";
 
 	// ===========================================================
@@ -91,12 +92,13 @@ public class UserTable {
 					int status = c.getInt(c.getColumnIndex(KEY_USER_STATUS));
 					String lastSync = c.getString(c
 							.getColumnIndex(KEY_USER_LASTSYNC));
+					String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_USER_CREATEDTIME));
 
 					list.add(new UserRecord(id, no, username, password, email,
 							lastname, middlename, firstname, loggedin, status,
-							lastSync, createdTime));
+							lastSync, area, createdTime));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -157,12 +159,13 @@ public class UserTable {
 				int status = c.getInt(c.getColumnIndex(KEY_USER_STATUS));
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
+				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				record = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, createdTime);
+						lastSync, area, createdTime);
 				Log.i(JardineApp.TAG, "Usertable: getCurrent");
 			}
 		} finally {
@@ -224,12 +227,13 @@ public class UserTable {
 				int status = c.getInt(c.getColumnIndex(KEY_USER_STATUS));
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
+				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				user = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, createdTime);
+						lastSync, area, createdTime);
 			}
 		} finally {
 			if (c != null) {
@@ -261,7 +265,7 @@ public class UserTable {
 	}
 
 	public String getLastSync() {
-		String result = null;
+		String result = "";
 		String MY_QUERY = "SELECT " + KEY_USER_LASTSYNC + " FROM "
 				+ mDatabaseTable + " WHERE " + KEY_USER_LOGGEDIN + "=1";
 		Cursor c = null;
@@ -307,12 +311,13 @@ public class UserTable {
 				int status = c.getInt(c.getColumnIndex(KEY_USER_STATUS));
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
+				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				user = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, createdTime);
+						lastSync, area, createdTime);
 			}
 		} finally {
 			if (c != null) {
@@ -325,7 +330,8 @@ public class UserTable {
 
 	public long insertUser(String no, String username, String password,
 			String email, String lastname, String middlename, String firstname,
-			int loggedin, int status, String lastSync, String createdTime) {
+			int loggedin, int status, String lastSync, String area,
+			String createdTime) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -343,6 +349,7 @@ public class UserTable {
 		initialValues.put(KEY_USER_LOGGEDIN, loggedin);
 		initialValues.put(KEY_USER_STATUS, status);
 		initialValues.put(KEY_USER_LASTSYNC, lastSync);
+		initialValues.put(KEY_USER_AREA, area);
 		initialValues.put(KEY_USER_CREATEDTIME, createdTime);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
@@ -367,7 +374,7 @@ public class UserTable {
 
 	public boolean updateUser(long id, String no, String username,
 			String password, String email, String lastname, String middlename,
-			String firstname, int loggedin) {
+			String firstname, String area, int loggedin) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_USER_NO, no);
 		args.put(KEY_USER_USERNAME, username);
@@ -377,6 +384,7 @@ public class UserTable {
 		args.put(KEY_USER_MIDDLENAME, middlename);
 		args.put(KEY_USER_FIRSTNAME, firstname);
 		args.put(KEY_USER_LOGGEDIN, loggedin);
+		args.put(KEY_USER_AREA, area);
 		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, username, password, email, lastname,
 			// middlename, firstname, loggedin, lastSync);

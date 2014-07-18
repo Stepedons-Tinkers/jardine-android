@@ -12,7 +12,6 @@
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Johndoe"
         android:textColor="@color/black"
         android:textSize="@dimen/text_xxxlarge" />
 
@@ -81,7 +80,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="John"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_xxlarge" />
 
@@ -90,7 +88,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Doe"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_xxlarge" />
 
@@ -99,7 +96,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="Area 1, area 2, area 3"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_xxlarge" />
         </LinearLayout>
@@ -151,7 +147,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:gravity="left"
-                android:text="June 6, 2014 10:55am"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_xxlarge" />
         </LinearLayout>
