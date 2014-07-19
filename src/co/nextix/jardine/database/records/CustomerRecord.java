@@ -41,7 +41,8 @@ public class CustomerRecord {
 	private int is_active;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
+	private String customer_record_status;
 
 	private String crm_no;
 
@@ -53,8 +54,10 @@ public class CustomerRecord {
 
 	}
 
-	public CustomerRecord(long id, String no, String crmNo, String customerName, String chainName, String landline, String fax,
-			long customerSize, String streetAddress, long customerType, long businessUnit, long area, long province, long cityTown,
+	public CustomerRecord(long id, String no, String crmNo,
+			String customerName, String chainName, String landline, String fax,
+			long customerSize, String streetAddress, long customerType,
+			long businessUnit, long area, long province, long cityTown,
 			int isActive, String createdTime, String modifiedTime, long user) {
 
 		this.id = id;
@@ -75,7 +78,7 @@ public class CustomerRecord {
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = user;
 	}
 
 	// ===========================================================
@@ -214,12 +217,12 @@ public class CustomerRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long user) {
+		this.created_by = user;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -233,5 +236,13 @@ public class CustomerRecord {
 	@Override
 	public String toString() {
 		return this.customer_name;
+	}
+
+	public String getCustomerRecordStatus() {
+		return customer_record_status;
+	}
+
+	public void setCustomerRecordStatus(String customer_record_status) {
+		this.customer_record_status = customer_record_status;
 	}
 }

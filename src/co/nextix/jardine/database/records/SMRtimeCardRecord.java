@@ -110,11 +110,11 @@ public class SMRtimeCardRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
+	public void setCreatedBy(long user) {
 		this.created_by = user;
 	}
 
-	public long getUser() {
+	public long getCreatedBy() {
 		return this.created_by;
 	}
 }

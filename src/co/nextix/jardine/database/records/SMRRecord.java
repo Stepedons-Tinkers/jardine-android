@@ -133,19 +133,19 @@ public class SMRRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
+	public void setCreatedBy(long user) {
 		this.created_by = user;
 	}
 
-	public long getUser() {
+	public long getCreatedBy() {
 		return this.created_by;
 	}
 
-	public long getBusiness_unit() {
+	public long getBusinessUnit() {
 		return business_unit;
 	}
 
-	public void setBusiness_unit(long business_unit) {
+	public void setBusinessUnit(long business_unit) {
 		this.business_unit = business_unit;
 	}
 }
