@@ -81,7 +81,8 @@ public class MarketingIntelTable {
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
 					long competitorProduct = c
-							.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 					String details = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 					String remarks = c.getString(c
@@ -131,7 +132,8 @@ public class MarketingIntelTable {
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
 					long competitorProduct = c
-							.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 					String details = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 					String remarks = c.getString(c
@@ -140,12 +142,12 @@ public class MarketingIntelTable {
 							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-					long user = c.getLong(c
+					long createdBy = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 					list.add(new MarketingIntelRecord(id, no, crmNo, activity,
-							competitor, competitorProduct, details, remarks, createdTime,
-							modifiedTime, user));
+							competitor, competitorProduct, details, remarks,
+							createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -164,7 +166,7 @@ public class MarketingIntelTable {
 				+ id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,
 			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
+			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;
@@ -276,8 +278,8 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
-				long competitorProduct = c
-						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
+				long competitorProduct = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 				String details = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 				String remarks = c.getString(c
@@ -286,12 +288,12 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-				long user = c.getLong(c
+				long createdBy = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 				record = new MarketingIntelRecord(id, no, crmNo, activity,
-						competitor, competitorProduct, details, remarks, createdTime,
-						modifiedTime, user);
+						competitor, competitorProduct, details, remarks,
+						createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -320,8 +322,8 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
-				long competitorProduct = c
-						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
+				long competitorProduct = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 				String details = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 				String remarks = c.getString(c
@@ -330,12 +332,12 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-				long user = c.getLong(c
+				long createdBy = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 				record = new MarketingIntelRecord(id, no, crmNo, activity,
-						competitor, competitorProduct, details, remarks, createdTime,
-						modifiedTime, user);
+						competitor, competitorProduct, details, remarks,
+						createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -347,8 +349,8 @@ public class MarketingIntelTable {
 	}
 
 	public long insert(String no, String crmNo, long activity, long competitor,
-			String details, String remarks, String createdTime,
-			String modifiedTime, long user) {
+			long competitorProduct, String details, String remarks,
+			String createdTime, String modifiedTime, long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -360,16 +362,18 @@ public class MarketingIntelTable {
 		initialValues.put(KEY_MARKETINGINTEL_CRMNO, crmNo);
 		initialValues.put(KEY_MARKETINGINTEL_ACTIVITY, activity);
 		initialValues.put(KEY_MARKETINGINTEL_COMPETITOR, competitor);
+		initialValues.put(KEY_MARKETINGINTEL_COMPETITORPRODUCT,
+				competitorProduct);
 		initialValues.put(KEY_MARKETINGINTEL_DETAILS, details);
 		initialValues.put(KEY_MARKETINGINTEL_REMARKS, remarks);
 		initialValues.put(KEY_MARKETINGINTEL_CREATEDTIME, createdTime);
 		initialValues.put(KEY_MARKETINGINTEL_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_MARKETINGINTEL_CREATEDBY, user);
+		initialValues.put(KEY_MARKETINGINTEL_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
 			// collection.add(ids, no, activity, competitor, details, remarks,
-			// createdTime, modifiedTime, user);
+			// createdTime, modifiedTime, createdBy);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -388,23 +392,25 @@ public class MarketingIntelTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, long activity,
-			long competitor, String details, String remarks,
-			String createdTime, String modifiedTime, long user) {
+			long competitor, long competitorProduct, String details,
+			String remarks, String createdTime, String modifiedTime,
+			long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_MARKETINGINTEL_NO, no);
 		args.put(KEY_MARKETINGINTEL_CRMNO, crmNo);
 		args.put(KEY_MARKETINGINTEL_ACTIVITY, activity);
 		args.put(KEY_MARKETINGINTEL_COMPETITOR, competitor);
+		args.put(KEY_MARKETINGINTEL_COMPETITORPRODUCT, competitorProduct);
 		args.put(KEY_MARKETINGINTEL_DETAILS, details);
 		args.put(KEY_MARKETINGINTEL_REMARKS, remarks);
 		args.put(KEY_MARKETINGINTEL_CREATEDTIME, createdTime);
 		args.put(KEY_MARKETINGINTEL_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_MARKETINGINTEL_CREATEDBY, user);
+		args.put(KEY_MARKETINGINTEL_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGINTEL_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, activity, competitor, details,
 			// remarks,
-			// createdTime, modifiedTime, user);
+			// createdTime, modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;
