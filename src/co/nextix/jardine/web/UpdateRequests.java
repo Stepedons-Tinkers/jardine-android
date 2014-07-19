@@ -687,7 +687,7 @@ public class UpdateRequests {
 				int loaded = records.get(x).getLoadedOnShelves();
 
 				// get user no from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_cps_activity", activity);
@@ -781,7 +781,7 @@ public class UpdateRequests {
 				String details = records.get(x).getDetails();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_min_activity", activity);
@@ -877,7 +877,7 @@ public class UpdateRequests {
 				String others = records.get(x).getOtherDetails();
 
 				// get user no from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_pr_activity", activity);

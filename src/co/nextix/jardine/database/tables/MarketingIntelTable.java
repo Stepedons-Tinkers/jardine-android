@@ -23,11 +23,12 @@ public class MarketingIntelTable {
 	private final String KEY_MARKETINGINTEL_NO = "no";
 	private final String KEY_MARKETINGINTEL_ACTIVITY = "activity";
 	private final String KEY_MARKETINGINTEL_COMPETITOR = "competitor";
+	private final String KEY_MARKETINGINTEL_COMPETITORPRODUCT = "competitor_product";
 	private final String KEY_MARKETINGINTEL_DETAILS = "details";
 	private final String KEY_MARKETINGINTEL_REMARKS = "remarks";
 	private final String KEY_MARKETINGINTEL_CREATEDTIME = "created_time";
 	private final String KEY_MARKETINGINTEL_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGINTEL_USER = "user";
+	private final String KEY_MARKETINGINTEL_CREATEDBY = "created_by";
 
 	private final String KEY_MARKETINGINTEL_CRMNO = "crm_no";
 
@@ -79,6 +80,8 @@ public class MarketingIntelTable {
 							.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+					long competitorProduct = c
+							.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 					String details = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 					String remarks = c.getString(c
@@ -87,12 +90,12 @@ public class MarketingIntelTable {
 							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_MARKETINGINTEL_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 					list.add(new MarketingIntelRecord(id, no, crmNo, activity,
-							competitor, details, remarks, createdTime,
-							modifiedTime, user));
+							competitor, competitorProduct, details, remarks,
+							createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -127,6 +130,8 @@ public class MarketingIntelTable {
 							.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 					long competitor = c.getLong(c
 							.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+					long competitorProduct = c
+							.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 					String details = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 					String remarks = c.getString(c
@@ -136,10 +141,10 @@ public class MarketingIntelTable {
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_MARKETINGINTEL_USER));
+							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 					list.add(new MarketingIntelRecord(id, no, crmNo, activity,
-							competitor, details, remarks, createdTime,
+							competitor, competitorProduct, details, remarks, createdTime,
 							modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -271,6 +276,8 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+				long competitorProduct = c
+						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 				String details = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 				String remarks = c.getString(c
@@ -279,11 +286,11 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-				long user = c
-						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_USER));
+				long user = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 				record = new MarketingIntelRecord(id, no, crmNo, activity,
-						competitor, details, remarks, createdTime,
+						competitor, competitorProduct, details, remarks, createdTime,
 						modifiedTime, user);
 			}
 		} finally {
@@ -313,6 +320,8 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
 				long competitor = c.getLong(c
 						.getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+				long competitorProduct = c
+						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
 				String details = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
 				String remarks = c.getString(c
@@ -321,11 +330,11 @@ public class MarketingIntelTable {
 						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
-				long user = c
-						.getLong(c.getColumnIndex(KEY_MARKETINGINTEL_USER));
+				long user = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
 
 				record = new MarketingIntelRecord(id, no, crmNo, activity,
-						competitor, details, remarks, createdTime,
+						competitor, competitorProduct, details, remarks, createdTime,
 						modifiedTime, user);
 			}
 		} finally {
@@ -355,7 +364,7 @@ public class MarketingIntelTable {
 		initialValues.put(KEY_MARKETINGINTEL_REMARKS, remarks);
 		initialValues.put(KEY_MARKETINGINTEL_CREATEDTIME, createdTime);
 		initialValues.put(KEY_MARKETINGINTEL_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_MARKETINGINTEL_USER, user);
+		initialValues.put(KEY_MARKETINGINTEL_CREATEDBY, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -390,7 +399,7 @@ public class MarketingIntelTable {
 		args.put(KEY_MARKETINGINTEL_REMARKS, remarks);
 		args.put(KEY_MARKETINGINTEL_CREATEDTIME, createdTime);
 		args.put(KEY_MARKETINGINTEL_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_MARKETINGINTEL_USER, user);
+		args.put(KEY_MARKETINGINTEL_CREATEDBY, user);
 		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGINTEL_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, activity, competitor, details,

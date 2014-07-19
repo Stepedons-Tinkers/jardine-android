@@ -26,10 +26,11 @@ public class ProjectRequirementTable {
 	private final String KEY_PROJECTREQUIREMENTS_DATENEEDED = "date_needed";
 	private final String KEY_PROJECTREQUIREMENTS_SQUAREMETERS = "square_meters";
 	private final String KEY_PROJECTREQUIREMENTS_PRODUCTSUSED = "products_used";
+	private final String KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND = "products_brand";
 	private final String KEY_PROJECTREQUIREMENTS_OTHERDETAILS = "other_details";
 	private final String KEY_PROJECTREQUIREMENTS_CREATEDTIME = "created_time";
 	private final String KEY_PROJECTREQUIREMENTS_MODIFIEDTIME = "modified_time";
-	private final String KEY_PROJECTREQUIREMENTS_USER = "user";
+	private final String KEY_PROJECTREQUIREMENTS_CREATEDBY = "created_by";
 	private final String KEY_PROJECTREQUIREMENTS_CRMNO = "crm_no";
 
 	// ===========================================================
@@ -89,6 +90,9 @@ public class ProjectRequirementTable {
 					String productsUsed = c
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSUSED));
+					String productsBrand = c
+							.getString(c
+									.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND));
 					String otherDetails = c
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_OTHERDETAILS));
@@ -99,12 +103,12 @@ public class ProjectRequirementTable {
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
+							.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDBY));
 
 					list.add(new ProjectRequirementRecord(id, no, crmNo,
 							activity, projectRequirementType, dateNeeded,
-							squareMeters, productsUsed, otherDetails,
-							createdTime, modifiedTime, user));
+							squareMeters, productsUsed, productsBrand,
+							otherDetails, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -148,6 +152,9 @@ public class ProjectRequirementTable {
 					String productsUsed = c
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSUSED));
+					String productsBrand = c
+							.getString(c
+									.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND));
 					String otherDetails = c
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_OTHERDETAILS));
@@ -158,12 +165,12 @@ public class ProjectRequirementTable {
 							.getString(c
 									.getColumnIndex(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
+							.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDBY));
 
 					list.add(new ProjectRequirementRecord(id, no, crmNo,
 							activity, projectRequirementType, dateNeeded,
-							squareMeters, productsUsed, otherDetails,
-							createdTime, modifiedTime, user));
+							squareMeters, productsUsed, productsBrand,
+							otherDetails, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -303,6 +310,8 @@ public class ProjectRequirementTable {
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_SQUAREMETERS));
 				String productsUsed = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSUSED));
+				String productsBrand = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND));
 				String otherDetails = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_OTHERDETAILS));
 				String createdTime = c.getString(c
@@ -310,12 +319,12 @@ public class ProjectRequirementTable {
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME));
 				long user = c.getLong(c
-						.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDBY));
 
 				record = new ProjectRequirementRecord(id, no, crmNo, activity,
 						projectRequirementType, dateNeeded, squareMeters,
-						productsUsed, otherDetails, createdTime, modifiedTime,
-						user);
+						productsUsed, productsBrand, otherDetails, createdTime,
+						modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -351,6 +360,8 @@ public class ProjectRequirementTable {
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_SQUAREMETERS));
 				String productsUsed = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSUSED));
+				String productsBrand = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND));
 				String otherDetails = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_OTHERDETAILS));
 				String createdTime = c.getString(c
@@ -358,12 +369,12 @@ public class ProjectRequirementTable {
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME));
 				long user = c.getLong(c
-						.getColumnIndex(KEY_PROJECTREQUIREMENTS_USER));
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDBY));
 
 				record = new ProjectRequirementRecord(id, no, crmNo, activity,
 						projectRequirementType, dateNeeded, squareMeters,
-						productsUsed, otherDetails, createdTime, modifiedTime,
-						user);
+						productsUsed, productsBrand, otherDetails, createdTime,
+						modifiedTime, user);
 			}
 		} finally {
 			if (c != null) {
@@ -395,7 +406,7 @@ public class ProjectRequirementTable {
 		initialValues.put(KEY_PROJECTREQUIREMENTS_OTHERDETAILS, otherDetails);
 		initialValues.put(KEY_PROJECTREQUIREMENTS_CREATEDTIME, createdTime);
 		initialValues.put(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_PROJECTREQUIREMENTS_USER, user);
+		initialValues.put(KEY_PROJECTREQUIREMENTS_CREATEDBY, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -434,7 +445,7 @@ public class ProjectRequirementTable {
 		args.put(KEY_PROJECTREQUIREMENTS_OTHERDETAILS, otherDetails);
 		args.put(KEY_PROJECTREQUIREMENTS_CREATEDTIME, createdTime);
 		args.put(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_PROJECTREQUIREMENTS_USER, user);
+		args.put(KEY_PROJECTREQUIREMENTS_CREATEDBY, user);
 		if (mDb.update(mDatabaseTable, args, KEY_PROJECTREQUIREMENTS_ROWID
 				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, projectRequirementType, dateNeeded,

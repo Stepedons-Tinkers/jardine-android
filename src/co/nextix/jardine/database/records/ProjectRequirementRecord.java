@@ -25,10 +25,11 @@ public class ProjectRequirementRecord {
 	private String date_needed;
 	private String square_meters;
 	private String products_used;
+	private String products_brand;
 	private String other_details;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -38,8 +39,9 @@ public class ProjectRequirementRecord {
 
 	public ProjectRequirementRecord(long id, String no, String crmNo,
 			long activity, long projectRequirementType, String dateNeeded,
-			String squareMeters, String productsUsed, String otherDetails,
-			String createdTime, String modifiedTime, long user) {
+			String squareMeters, String productsUsed, String productsBrand,
+			String otherDetails, String createdTime, String modifiedTime,
+			long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -49,10 +51,11 @@ public class ProjectRequirementRecord {
 		this.date_needed = dateNeeded;
 		this.square_meters = squareMeters;
 		this.products_used = productsUsed;
+		this.products_brand = productsBrand;
 		this.other_details = otherDetails;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -119,6 +122,14 @@ public class ProjectRequirementRecord {
 		return this.products_used;
 	}
 
+	public void setProductsBrand(String products_brand) {
+		this.products_brand = products_brand;
+	}
+
+	public String getProductsBrand() {
+		return products_brand;
+	}
+
 	public void setOtherDetails(String otherDetails) {
 		this.other_details = otherDetails;
 	}
@@ -135,12 +146,12 @@ public class ProjectRequirementRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {

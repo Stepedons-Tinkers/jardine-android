@@ -893,7 +893,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -992,7 +992,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -1087,7 +1087,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
