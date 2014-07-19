@@ -9,13 +9,17 @@ import android.view.ViewGroup;
 
 public class AddJDIProductStockFragment extends Fragment {
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		
-		View myFragmentView = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check,
-				container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		View myFragmentView = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
 		return myFragmentView;
 	}
 
+	public void onCancel(View view) {
+		getActivity().getSupportFragmentManager().popBackStackImmediate();
+	}
+	
+	public void createJDIProductStockCheck(View view){
+		
+	}
 }

@@ -257,7 +257,7 @@ public class StartActivityFragment extends Fragment {
 		List<ActivityRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
-		Log.d("Jardine", String.valueOf(records.size()));
+		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -270,6 +270,7 @@ public class StartActivityFragment extends Fragment {
 
 			this.totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
+
 		} else {
 
 			this.setView();

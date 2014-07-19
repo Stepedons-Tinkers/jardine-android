@@ -1,12 +1,10 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.activites.fragments;
 
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
@@ -18,16 +16,14 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class StartActivityCustomAdapter extends BaseAdapter implements OnClickListener {
+public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements OnClickListener {
 
 	/*********** Declare Used Variables *********/
 	private Context context;
@@ -35,18 +31,16 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private ActivityRecord tempValues = null;
+	private JDIproductStockCheckRecord tempValues = null;
 	private View vi = null;
-	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public StartActivityCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public JDIProductStockCheckCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
 		this.activity = act;
 		this.frag = fragment;
-		this.listView = listView;
 		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
@@ -73,10 +67,11 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
 		public TextView crm_no_txt;
-		public TextView workplan_txt;
-		public TextView activity_type_txt;
-		public TextView start_time_txt;
-		public TextView end_time_txt;
+		public TextView activity_txt;
+		public TextView product_txt;
+		public TextView stock_status_txt;
+		public TextView quantity_txt;
+		public TextView loaded_on_shelves_txt;
 		public TextView assigned_to_txt;
 		public TextView action_txt;
 		public TextView edit_txt;
@@ -89,20 +84,21 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		StartActivityFragment sct = (StartActivityFragment) frag;
+		JDIProductStockFragment sct = (JDIProductStockFragment) frag;
 
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_item, null);
+			this.vi = inflater.inflate(R.layout.table_row_jdi_product_stock_check, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
 			holder.crm_no_txt = (TextView) vi.findViewById(R.id.crm_no_txt);
-			holder.workplan_txt = (TextView) vi.findViewById(R.id.workplan_txt);
-			holder.activity_type_txt = (TextView) vi.findViewById(R.id.activity_type_txt);
-			holder.start_time_txt = (TextView) vi.findViewById(R.id.start_time_txt);
-			holder.end_time_txt = (TextView) vi.findViewById(R.id.end_time_txt);
+			holder.activity_txt = (TextView) vi.findViewById(R.id.activity_txt);
+			holder.product_txt = (TextView) vi.findViewById(R.id.product_txt);
+			holder.stock_status_txt = (TextView) vi.findViewById(R.id.stock_status_txt);
+			holder.quantity_txt = (TextView) vi.findViewById(R.id.quantity_txt);
+			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.loaded_on_shelves_txt);
 			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
@@ -121,28 +117,27 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (ActivityRecord) this.data.get(position);
+			this.tempValues = (JDIproductStockCheckRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.workplan_txt.setText(String.valueOf(this.tempValues.getWorkplan()));
-			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivityType()));
-			holder.start_time_txt.setText(this.tempValues.getStartTime());
-			holder.end_time_txt.setText(this.tempValues.getEndTime());
+			holder.activity_txt.setText(String.valueOf(this.tempValues.getActivity()));
+			holder.product_txt.setText(String.valueOf(this.tempValues.getProduct()));
+			holder.stock_status_txt.setText(String.valueOf(this.tempValues.getStockStatus()));
+			holder.quantity_txt.setText(String.valueOf(this.tempValues.getQuantity()));
+			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
 			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getUser()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
-				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}
-
-			if (holder.start_time_txt.getText().toString().equals(null) || holder.start_time_txt.getText().toString().equals("")
-					|| holder.end_time_txt.getText().toString().equals(null) || holder.end_time_txt.getText().toString().equals("")) {
-
-				holder.workplan_txt.setText(null);
-				holder.activity_type_txt.setText(null);
+				holder.activity_txt.setText(null);
+				holder.product_txt.setText(null);
+				holder.stock_status_txt.setText(null);
+				holder.quantity_txt.setText(null);
+				holder.loaded_on_shelves_txt.setText(null);
 				holder.assigned_to_txt.setText(null);
+				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
@@ -151,18 +146,25 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					ActivityRecord tempValues = (ActivityRecord) data.get(position);
+					// JDIproductStockCheckRecord tempValues =
+					// (JDIproductStockCheckRecord) data.get(position);
 
 					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putLong("activity_id", tempValues.getId());
-					editor.commit(); // commit changes
-
-					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					// SharedPreferences pref =
+					// activity.getApplicationContext().getSharedPreferences("ActivityInfo",
+					// 0);
+					// Editor editor = pref.edit();
+					// editor.putLong("activity_id", tempValues.getId());
+					// editor.commit(); // commit changes
+					//
+					// android.support.v4.app.Fragment fragment = new
+					// ActivityInfoFragment();
+					// android.support.v4.app.FragmentManager fragmentManager =
+					// activity.getSupportFragmentManager();
+					// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+					// R.anim.slide_out_left)
+					// .replace(R.id.frame_container,
+					// fragment).addToBackStack(null).commit();
 				}
 			});
 
@@ -171,7 +173,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
-					showDeleteDialog(position, listView);
+					showDeleteDialog(position);
 				}
 			});
 
@@ -191,58 +193,72 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				}
 			});
 
-			((HorizontalScrollView) vi.findViewById(R.id.workplan_hsv)).setOnTouchListener(new OnTouchListener() {
+			((HorizontalScrollView) vi.findViewById(R.id.activity_hsv)).setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
 							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
 
-						v.findViewById(R.id.workplan_txt).setClickable(true);
-						v.findViewById(R.id.workplan_txt).setOnClickListener(new OnItemClickListener(pos));
+						v.findViewById(R.id.activity_txt).setClickable(true);
+						v.findViewById(R.id.activity_txt).setOnClickListener(new OnItemClickListener(pos));
 					}
 					return false;
 				}
 			});
 
-			((HorizontalScrollView) vi.findViewById(R.id.activity_type_hsv)).setOnTouchListener(new OnTouchListener() {
+			((HorizontalScrollView) vi.findViewById(R.id.product_hsv)).setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
 							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
 
-						v.findViewById(R.id.activity_type_txt).setClickable(true);
-						v.findViewById(R.id.activity_type_txt).setOnClickListener(new OnItemClickListener(pos));
+						v.findViewById(R.id.product_txt).setClickable(true);
+						v.findViewById(R.id.product_txt).setOnClickListener(new OnItemClickListener(pos));
 					}
 					return false;
 				}
 			});
 
-			((HorizontalScrollView) vi.findViewById(R.id.start_time_hsv)).setOnTouchListener(new OnTouchListener() {
+			((HorizontalScrollView) vi.findViewById(R.id.stock_status_hsv)).setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
 							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
 
-						v.findViewById(R.id.start_time_txt).setClickable(true);
-						v.findViewById(R.id.start_time_txt).setOnClickListener(new OnItemClickListener(pos));
+						v.findViewById(R.id.stock_status_txt).setClickable(true);
+						v.findViewById(R.id.stock_status_txt).setOnClickListener(new OnItemClickListener(pos));
 					}
 
 					return false;
 				}
 			});
 
-			((HorizontalScrollView) vi.findViewById(R.id.end_time_hsv)).setOnTouchListener(new OnTouchListener() {
+			((HorizontalScrollView) vi.findViewById(R.id.quantity_hsv)).setOnTouchListener(new OnTouchListener() {
 
 				@Override
 				public boolean onTouch(View v, MotionEvent event) {
 					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
 							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
 
-						v.findViewById(R.id.end_time_txt).setClickable(true);
-						v.findViewById(R.id.end_time_txt).setOnClickListener(new OnItemClickListener(pos));
+						v.findViewById(R.id.quantity_txt).setClickable(true);
+						v.findViewById(R.id.quantity_txt).setOnClickListener(new OnItemClickListener(pos));
+					}
+					return false;
+				}
+			});
+
+			((HorizontalScrollView) vi.findViewById(R.id.loaded_on_shelves_hsv)).setOnTouchListener(new OnTouchListener() {
+
+				@Override
+				public boolean onTouch(View v, MotionEvent event) {
+					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+
+						v.findViewById(R.id.loaded_on_shelves_txt).setClickable(true);
+						v.findViewById(R.id.loaded_on_shelves_txt).setOnClickListener(new OnItemClickListener(pos));
 					}
 					return false;
 				}
@@ -282,31 +298,33 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 		@Override
 		public void onClick(View arg0) {
-			StartActivityFragment sct = (StartActivityFragment) frag;
+			JDIProductStockFragment sct = (JDIProductStockFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
 
-	private void showDeleteDialog(final int mPosition, final ListView list) {
+	private void showDeleteDialog(final int mPosition) {
 		AlertDialog.Builder dialog = new AlertDialog.Builder(this.activity);
-		dialog.setTitle("Delete Activity");
-		dialog.setMessage("Are you sure you want to delete Activity?");
+		dialog.setTitle("Delete JDI Product Stock");
+		dialog.setMessage("Are you sure you want to delete this stock?");
 		dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ActivityRecord tempValues = (ActivityRecord) data.get(mPosition);
-				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
+				JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) data.get(mPosition);
+				if (JardineApp.DB.getJDIproductStockCheck().delete(tempValues.getId())) {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							StartActivityFragment sct = (StartActivityFragment) frag;
+							JDIProductStockFragment sct = (JDIProductStockFragment) frag;
 							sct.refreshListView();
 						}
 					});
 
-					Toast.makeText(activity, "Successfully deleted activity", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Successfully deleted stock", Toast.LENGTH_LONG).show();
+
 				} else {
+
 					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
 				}
 			}

@@ -11,7 +11,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/activity_info"
+            android:id="@+id/back_to_jdi_product_stock_check"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="-8dp"
@@ -28,8 +28,9 @@
             android:layout_marginLeft="-9dp"
             android:layout_marginTop="-8dp"
             android:layout_weight="3.74"
+            android:clickable="false"
+            android:focusable="false"
             android:inputType="text|textCapCharacters"
-            android:onClick="jdiStockCheck"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/all_caps_add_jdi_product_stock_check"
@@ -86,15 +87,16 @@
                     android:layout_weight="1" >
 
                     <Button
-                        android:id="@+id/edit_activity"
+                        android:id="@+id/cancel"
                         android:layout_width="154dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_toLeftOf="@+id/edit_activity"
+                        android:onClick="onCancelCreate"
                         android:text="@string/cancel" />
 
                     <Button
-                        android:id="@+id/edit_activity"
+                        android:id="@+id/create_jdi_product_stock_check"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
