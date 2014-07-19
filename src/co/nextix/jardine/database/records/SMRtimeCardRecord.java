@@ -23,7 +23,7 @@ public class SMRtimeCardRecord {
 	private long entry_type;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -43,7 +43,7 @@ public class SMRtimeCardRecord {
 		this.entry_type = entryType;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = user;
 	}
 
 	// ===========================================================
@@ -111,10 +111,10 @@ public class SMRtimeCardRecord {
 	}
 
 	public void setUser(long user) {
-		this.user = user;
+		this.created_by = user;
 	}
 
 	public long getUser() {
-		return this.user;
+		return this.created_by;
 	}
 }

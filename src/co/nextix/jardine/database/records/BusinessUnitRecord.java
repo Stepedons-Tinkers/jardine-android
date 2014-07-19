@@ -24,7 +24,8 @@ public class BusinessUnitRecord {
 	private String modified_time;
 	private long user; // User Table
 
-	private String crm_no;
+	private String crm_no;	
+	private long created_by;
 
 	// ===========================================================
 	// Public constructors
@@ -121,6 +122,14 @@ public class BusinessUnitRecord {
 	public String toString() {
 		// TODO Auto-generated method stub
 		return this.business_unit_name;
+	}
+
+	public long getCreated_by() {
+		return created_by;
+	}
+
+	public void setCreated_by(long created_by) {
+		this.created_by = created_by;
 	}
 	
 	
