@@ -94,7 +94,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				String competitor = compTable.getNoById(records.get(x)
 						.getCompetitor());
