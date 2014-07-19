@@ -57,7 +57,7 @@ public class ProfileInformationFragment extends Fragment {
 				} else {
 					txtLastSync.setText("not yet synced");
 				}
-				String area = user.getArea().replace("|", "").replace("#", ",");
+				String area = user.getArea().replace("|", "").replace("##", ",");
 				txtAreas.setText(area);
 			}
 		}
