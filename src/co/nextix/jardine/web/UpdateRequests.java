@@ -106,7 +106,7 @@ public class UpdateRequests {
 				String fax = records.get(x).getFax();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!customerName.equals(""))
 					requestObject.put("z_cu_customername", customerName);

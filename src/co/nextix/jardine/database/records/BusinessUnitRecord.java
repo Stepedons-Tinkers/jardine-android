@@ -22,7 +22,7 @@ public class BusinessUnitRecord {
 	private int is_active;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -42,7 +42,7 @@ public class BusinessUnitRecord {
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = user;
 	}
 
 	// ===========================================================
@@ -101,12 +101,12 @@ public class BusinessUnitRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long user) {
+		this.created_by = user;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -122,6 +122,5 @@ public class BusinessUnitRecord {
 		// TODO Auto-generated method stub
 		return this.business_unit_name;
 	}
-	
-	
+
 }

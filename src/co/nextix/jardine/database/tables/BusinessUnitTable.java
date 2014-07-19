@@ -24,7 +24,7 @@ public class BusinessUnitTable {
 	private final String KEY_BUSINESSUNIT_ISACTIVE = "is_active";
 	private final String KEY_BUSINESSUNIT_CREATEDTIME = "created_time";
 	private final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
-	private final String KEY_BUSINESSUNIT_USER = "user";
+	private final String KEY_BUSINESSUNIT_CREATED_BY = "created_by";
 
 	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
 
@@ -82,11 +82,11 @@ public class BusinessUnitTable {
 							.getColumnIndex(KEY_BUSINESSUNIT_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_BUSINESSUNIT_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_BUSINESSUNIT_USER));
+					long created_by = c.getLong(c
+							.getColumnIndex(KEY_BUSINESSUNIT_CREATED_BY));
 
 					list.add(new BusinessUnitRecord(id, no, crmNo, name, code,
-							isActive, createdTime, modifiedTime, user));
+							isActive, createdTime, modifiedTime, created_by));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -191,10 +191,10 @@ public class BusinessUnitTable {
 						.getColumnIndex(KEY_BUSINESSUNIT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_BUSINESSUNIT_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_USER));
+				long created_by = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_CREATED_BY));
 
 				record = new BusinessUnitRecord(id, no, crmNo, name, code,
-						isActive, createdTime, modifiedTime, user);
+						isActive, createdTime, modifiedTime, created_by);
 			}
 		} finally {
 			if (c != null) {
@@ -228,10 +228,10 @@ public class BusinessUnitTable {
 						.getColumnIndex(KEY_BUSINESSUNIT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_BUSINESSUNIT_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_USER));
+				long created_by = c.getLong(c.getColumnIndex(KEY_BUSINESSUNIT_CREATED_BY));
 
 				record = new BusinessUnitRecord(id, no, crmNo, name, code,
-						isActive, createdTime, modifiedTime, user);
+						isActive, createdTime, modifiedTime, created_by);
 			}
 		} finally {
 			if (c != null) {
@@ -284,7 +284,7 @@ public class BusinessUnitTable {
 
 	public long insert(String no, String crmNo, String businessUnitName,
 			String businessUnitCode, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long created_by) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -299,7 +299,7 @@ public class BusinessUnitTable {
 		initialValues.put(KEY_BUSINESSUNIT_ISACTIVE, isActive);
 		initialValues.put(KEY_BUSINESSUNIT_CREATEDTIME, createdTime);
 		initialValues.put(KEY_BUSINESSUNIT_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_BUSINESSUNIT_USER, user);
+		initialValues.put(KEY_BUSINESSUNIT_CREATED_BY, created_by);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -324,7 +324,7 @@ public class BusinessUnitTable {
 
 	public boolean update(long id, String no, String crmNo,
 			String businessUnitName, String businessUnitCode, int isActive,
-			String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long created_by) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_BUSINESSUNIT_NO, no);
 		args.put(KEY_BUSINESSUNIT_CRMNO, crmNo);
@@ -333,7 +333,7 @@ public class BusinessUnitTable {
 		args.put(KEY_BUSINESSUNIT_ISACTIVE, isActive);
 		args.put(KEY_BUSINESSUNIT_CREATEDTIME, createdTime);
 		args.put(KEY_BUSINESSUNIT_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_BUSINESSUNIT_USER, user);
+		args.put(KEY_BUSINESSUNIT_CREATED_BY, created_by);
 		if (mDb.update(mDatabaseTable, args, KEY_BUSINESSUNIT_ROWID + "=" + id,
 				null) > 0) {
 			// getRecords().update(id, no, businessUnitName, businessUnitCode,

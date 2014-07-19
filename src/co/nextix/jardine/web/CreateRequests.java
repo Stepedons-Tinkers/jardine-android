@@ -192,7 +192,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				requestObject.put("z_stc_date", records.get(x).getDate());
 				requestObject.put("z_stc_time", records.get(x).getTimestamp());
@@ -292,7 +292,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				requestObject.put("z_cu_customername", records.get(x)
 						.getCustomerName());
