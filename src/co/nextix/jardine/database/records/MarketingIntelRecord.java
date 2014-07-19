@@ -21,11 +21,12 @@ public class MarketingIntelRecord {
 	private String no;
 	private long activity; // activity table
 	private long competitor; // competitor table
+	private long competitor_product;
 	private String details;
 	private String remarks;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -34,19 +35,21 @@ public class MarketingIntelRecord {
 	// ===========================================================
 
 	public MarketingIntelRecord(long id, String no, String crmNo,
-			long activity, long competitor, String details, String remarks,
-			String createdTime, String modifiedTime, long user) {
+			long activity, long competitor, long competitor_product,
+			String details, String remarks, String createdTime,
+			String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
 		this.activity = activity;
 		this.competitor = competitor;
+		this.competitor_product = competitor_product;
 		this.details = details;
 		this.remarks = remarks;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -89,6 +92,14 @@ public class MarketingIntelRecord {
 		return this.competitor;
 	}
 
+	public void setCompetitorProduct(long competitor_product) {
+		this.competitor_product = competitor_product;
+	}
+
+	public long getCompetitorProduct() {
+		return competitor_product;
+	}
+
 	public void setDetails(String details) {
 		this.details = details;
 	}
@@ -113,12 +124,12 @@ public class MarketingIntelRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
