@@ -23,12 +23,12 @@ public class ProductTable {
 	private final String KEY_PRODUCT_NUMBER = "product_number";
 	private final String KEY_PRODUCT_BRAND = "product_brand";
 	private final String KEY_PRODUCT_DESCRIPTION = "product_description";
-	private final String KEY_PRODUCT_SIZE = "product_size";
+	private final String KEY_PRODUCT_PACKSIZE = "pack_size";
 	private final String KEY_PRODUCT_BUSINESSUNIT = "business_unit";
 	private final String KEY_PRODUCT_ISACTIVE = "is_active";
 	private final String KEY_PRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_PRODUCT_USER = "user";
+	private final String KEY_PRODUCT_CREATEDBY = "created_by";
 	private final String KEY_PRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
@@ -79,8 +79,8 @@ public class ProductTable {
 							.getColumnIndex(KEY_PRODUCT_BRAND));
 					String productDescription = c.getString(c
 							.getColumnIndex(KEY_PRODUCT_DESCRIPTION));
-					String productSize = c.getString(c
-							.getColumnIndex(KEY_PRODUCT_SIZE));
+					String packSize = c.getString(c
+							.getColumnIndex(KEY_PRODUCT_PACKSIZE));
 					long businessUnit = c.getLong(c
 							.getColumnIndex(KEY_PRODUCT_BUSINESSUNIT));
 					int isActive = c.getInt(c
@@ -89,12 +89,12 @@ public class ProductTable {
 							.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-					long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
+					long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 					list.add(new ProductRecord(id, no, crmNo, productNumber,
-							productBrand, productDescription, productSize,
+							productBrand, productDescription, packSize,
 							businessUnit, isActive, createdTime, modifiedTime,
-							user));
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -194,8 +194,8 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_BRAND));
 				String productDescription = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_DESCRIPTION));
-				String productSize = c.getString(c
-						.getColumnIndex(KEY_PRODUCT_SIZE));
+				String packSize = c.getString(c
+						.getColumnIndex(KEY_PRODUCT_PACKSIZE));
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_PRODUCT_BUSINESSUNIT));
 				int isActive = c.getInt(c.getColumnIndex(KEY_PRODUCT_ISACTIVE));
@@ -203,11 +203,11 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
+				long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 				record = new ProductRecord(id, no, crmNo, productNumber,
-						productBrand, productDescription, productSize,
-						businessUnit, isActive, createdTime, modifiedTime, user);
+						productBrand, productDescription, packSize,
+						businessUnit, isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -276,8 +276,8 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_BRAND));
 				String productDescription = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_DESCRIPTION));
-				String productSize = c.getString(c
-						.getColumnIndex(KEY_PRODUCT_SIZE));
+				String packSize = c.getString(c
+						.getColumnIndex(KEY_PRODUCT_PACKSIZE));
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_PRODUCT_BUSINESSUNIT));
 				int isActive = c.getInt(c.getColumnIndex(KEY_PRODUCT_ISACTIVE));
@@ -285,11 +285,11 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_PRODUCT_USER));
+				long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 				record = new ProductRecord(id, no, crmNo, productNumber,
-						productBrand, productDescription, productSize,
-						businessUnit, isActive, createdTime, modifiedTime, user);
+						productBrand, productDescription, packSize,
+						businessUnit, isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -301,9 +301,9 @@ public class ProductTable {
 	}
 
 	public long insert(String no, String crmNo, String productNumber,
-			String productBrand, String productDescription, String productSize,
+			String productBrand, String productDescription, String packSize,
 			long businessUnit, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -316,12 +316,12 @@ public class ProductTable {
 		initialValues.put(KEY_PRODUCT_NUMBER, productNumber);
 		initialValues.put(KEY_PRODUCT_BRAND, productBrand);
 		initialValues.put(KEY_PRODUCT_DESCRIPTION, productDescription);
-		initialValues.put(KEY_PRODUCT_SIZE, productSize);
+		initialValues.put(KEY_PRODUCT_PACKSIZE, packSize);
 		initialValues.put(KEY_PRODUCT_BUSINESSUNIT, businessUnit);
 		initialValues.put(KEY_PRODUCT_ISACTIVE, isActive);
 		initialValues.put(KEY_PRODUCT_CREATEDTIME, createdTime);
 		initialValues.put(KEY_PRODUCT_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_PRODUCT_USER, user);
+		initialValues.put(KEY_PRODUCT_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -346,20 +346,20 @@ public class ProductTable {
 
 	public boolean update(long id, String no, String crmNo,
 			String productNumber, String productBrand,
-			String productDescription, String productSize, long businessUnit,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			String productDescription, String packSize, long businessUnit,
+			int isActive, String createdTime, String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PRODUCT_NO, no);
 		args.put(KEY_PRODUCT_CRMNO, crmNo);
 		args.put(KEY_PRODUCT_NUMBER, productNumber);
 		args.put(KEY_PRODUCT_BRAND, productBrand);
 		args.put(KEY_PRODUCT_DESCRIPTION, productDescription);
-		args.put(KEY_PRODUCT_SIZE, productSize);
+		args.put(KEY_PRODUCT_PACKSIZE, packSize);
 		args.put(KEY_PRODUCT_BUSINESSUNIT, businessUnit);
 		args.put(KEY_PRODUCT_ISACTIVE, isActive);
 		args.put(KEY_PRODUCT_CREATEDTIME, createdTime);
 		args.put(KEY_PRODUCT_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_PRODUCT_USER, user);
+		args.put(KEY_PRODUCT_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args, KEY_PRODUCT_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, productNumber, productBrand,
 			// productDescription, productSize, businessUnit, isActive,

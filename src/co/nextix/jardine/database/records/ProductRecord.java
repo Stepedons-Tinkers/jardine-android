@@ -24,12 +24,12 @@ public class ProductRecord {
 	private String product_number;
 	private String product_brand;
 	private String product_description;
-	private String product_size;
+	private String pack_size;
 	private long business_unit; // business unit table
 	private int is_active;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -39,8 +39,8 @@ public class ProductRecord {
 
 	public ProductRecord(long id, String no, String crmNo,
 			String productNumber, String productBrand,
-			String productDescription, String productSize, long businessUnit,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			String productDescription, String packSize, long businessUnit,
+			int isActive, String createdTime, String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -48,12 +48,12 @@ public class ProductRecord {
 		this.product_number = productNumber;
 		this.product_brand = productBrand;
 		this.product_description = productDescription;
-		this.product_size = productSize;
+		this.pack_size = packSize;
 		this.business_unit = businessUnit;
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -104,12 +104,12 @@ public class ProductRecord {
 		return this.product_description;
 	}
 
-	public void setProductSize(String productSize) {
-		this.product_size = productSize;
+	public void setPackSize(String packSize) {
+		this.pack_size = packSize;
 	}
 
-	public String getProductSize() {
-		return this.product_size;
+	public String getPackSize() {
+		return this.pack_size;
 	}
 
 	public void setBusinessUnit(long businessUnit) {
@@ -144,11 +144,11 @@ public class ProductRecord {
 		return this.created_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long user) {
+		this.created_by = user;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 }

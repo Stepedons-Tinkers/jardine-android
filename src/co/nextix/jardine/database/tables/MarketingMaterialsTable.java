@@ -25,7 +25,7 @@ public class MarketingMaterialsTable {
 	private final String KEY_MARKETINGMATERIALS_TAGS = "tags";
 	private final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
 	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGMATERIALS_USER = "user";
+	private final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
 
 	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
 
@@ -86,12 +86,12 @@ public class MarketingMaterialsTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
 							description, lastUpdate, tags, createdTime,
-							modifiedTime, user));
+							modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -106,7 +106,7 @@ public class MarketingMaterialsTable {
 		Cursor c = null;
 		List<MarketingMaterialsRecord> list = new ArrayList<MarketingMaterialsRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_MARKETINGMATERIALS_USER + " = " + userId;
+				+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
@@ -130,12 +130,12 @@ public class MarketingMaterialsTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
 							description, lastUpdate, tags, createdTime,
-							modifiedTime, user));
+							modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -155,23 +155,23 @@ public class MarketingMaterialsTable {
 		switch (column) {
 		case 0:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
 					+ KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%" + hint + "%'";
 			break;
 		case 1:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
 					+ KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%" + hint
 					+ "%'";
 			break;
 		case 2:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_USER + " = " + userId + " AND "
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
 					+ KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint + "%'";
 			break;
 		default:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_USER + " = " + userId;
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId;
 			break;
 
 		}
@@ -198,12 +198,12 @@ public class MarketingMaterialsTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
 							description, lastUpdate, tags, createdTime,
-							modifiedTime, user));
+							modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -353,12 +353,12 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 				record = new MarketingMaterialsRecord(id, no, crmNo,
 						description, lastUpdate, tags, createdTime,
-						modifiedTime, user);
+						modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -394,12 +394,12 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_MARKETINGMATERIALS_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 				record = new MarketingMaterialsRecord(id, no, crmNo,
 						description, lastUpdate, tags, createdTime,
-						modifiedTime, user);
+						modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -412,7 +412,7 @@ public class MarketingMaterialsTable {
 
 	public long insert(String no, String crmNo, String description,
 			String lastUpdate, String tags, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -427,7 +427,7 @@ public class MarketingMaterialsTable {
 		initialValues.put(KEY_MARKETINGMATERIALS_TAGS, tags);
 		initialValues.put(KEY_MARKETINGMATERIALS_CREATEDTIME, createdTime);
 		initialValues.put(KEY_MARKETINGMATERIALS_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_MARKETINGMATERIALS_USER, user);
+		initialValues.put(KEY_MARKETINGMATERIALS_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -453,7 +453,7 @@ public class MarketingMaterialsTable {
 
 	public boolean update(long id, String no, String crmNo, String description,
 			String lastUpdate, String tags, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_MARKETINGMATERIALS_NO, no);
 		args.put(KEY_MARKETINGMATERIALS_CRMNO, crmNo);
@@ -462,7 +462,7 @@ public class MarketingMaterialsTable {
 		args.put(KEY_MARKETINGMATERIALS_TAGS, tags);
 		args.put(KEY_MARKETINGMATERIALS_CREATEDTIME, createdTime);
 		args.put(KEY_MARKETINGMATERIALS_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_MARKETINGMATERIALS_USER, user);
+		args.put(KEY_MARKETINGMATERIALS_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGMATERIALS_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, description, lastUpdate, tags,

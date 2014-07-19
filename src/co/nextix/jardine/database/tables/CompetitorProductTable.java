@@ -27,7 +27,7 @@ public class CompetitorProductTable {
 	private final String KEY_COMPETITORPRODUCT_ISACTIVE = "is_active";
 	private final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_COMPETITORPRODUCT_USER = "user";
+	private final String KEY_COMPETITORPRODUCT_CREATEDBY = "created_by";
 	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
@@ -74,7 +74,7 @@ public class CompetitorProductTable {
 							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
-					long competitor = c.getLong(c
+					String competitor = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 					String productBrand = c
 							.getString(c
@@ -91,13 +91,13 @@ public class CompetitorProductTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDBY));
 
 					list.add(new CompetitorProductRecord(id, no, crmNo,
 							competitor, productBrand, productDescription,
 							productSize, isActive, createdTime, modifiedTime,
-							user));
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -195,7 +195,7 @@ public class CompetitorProductTable {
 							.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
-					long competitor = c.getLong(c
+					String competitor = c.getString(c
 							.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 					String productBrand = c
 							.getString(c
@@ -212,13 +212,13 @@ public class CompetitorProductTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDBY));
 
 					records.add(new CompetitorProductRecord(id, no, crmNo,
 							competitor, productBrand, productDescription,
 							productSize, isActive, createdTime, modifiedTime,
-							user));
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -245,7 +245,7 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
-				long competitor = c.getLong(c
+				String competitor = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 				String productBrand = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTBRAND));
@@ -260,12 +260,12 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDBY));
 
 				record = new CompetitorProductRecord(id, no, crmNo, competitor,
 						productBrand, productDescription, productSize,
-						isActive, createdTime, modifiedTime, user);
+						isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -334,7 +334,7 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_NO));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_CRMNO));
-				long competitor = c.getLong(c
+				String competitor = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_COMPETITOR));
 				String productBrand = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_PRODUCTBRAND));
@@ -349,12 +349,12 @@ public class CompetitorProductTable {
 						.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_COMPETITORPRODUCT_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCT_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_COMPETITORPRODUCT_CREATEDBY));
 
 				record = new CompetitorProductRecord(id, no, crmNo, competitor,
 						productBrand, productDescription, productSize,
-						isActive, createdTime, modifiedTime, user);
+						isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -367,7 +367,7 @@ public class CompetitorProductTable {
 
 	public long insert(String no, String crmNo, long competitor,
 			String productBrand, String productDescription, String productSize,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			int isActive, String createdTime, String modifiedTime, long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -385,7 +385,7 @@ public class CompetitorProductTable {
 		initialValues.put(KEY_COMPETITORPRODUCT_ISACTIVE, isActive);
 		initialValues.put(KEY_COMPETITORPRODUCT_CREATEDTIME, createdTime);
 		initialValues.put(KEY_COMPETITORPRODUCT_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_COMPETITORPRODUCT_USER, user);
+		initialValues.put(KEY_COMPETITORPRODUCT_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -411,7 +411,7 @@ public class CompetitorProductTable {
 
 	public boolean update(long id, String no, String crmNo, long competitor,
 			String productBrand, String productDescription, String productSize,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			int isActive, String createdTime, String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCT_NO, no);
 		args.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);
@@ -422,7 +422,7 @@ public class CompetitorProductTable {
 		args.put(KEY_COMPETITORPRODUCT_ISACTIVE, isActive);
 		args.put(KEY_COMPETITORPRODUCT_CREATEDTIME, createdTime);
 		args.put(KEY_COMPETITORPRODUCT_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_COMPETITORPRODUCT_USER, user);
+		args.put(KEY_COMPETITORPRODUCT_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,

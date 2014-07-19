@@ -24,7 +24,7 @@ public class MarketingMaterialsRecord {
 	private String tags;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -37,7 +37,7 @@ public class MarketingMaterialsRecord {
 
 	public MarketingMaterialsRecord(long id, String no, String crmNo,
 			String description, String lastUdpate, String tags,
-			String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -47,7 +47,7 @@ public class MarketingMaterialsRecord {
 		this.tags = tags;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -114,11 +114,11 @@ public class MarketingMaterialsRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 }

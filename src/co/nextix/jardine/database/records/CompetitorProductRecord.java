@@ -20,14 +20,14 @@ public class CompetitorProductRecord {
 
 	private long id;
 	private String no;
-	private long competitor;
+	private String competitor;
 	private String product_brand;
 	private String product_description;
 	private String product_size;
 	private int is_active;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
+	private long created_by; // User Table
 
 	private String crm_no;
 
@@ -36,9 +36,9 @@ public class CompetitorProductRecord {
 	// ===========================================================
 
 	public CompetitorProductRecord(long id, String no, String crmNo,
-			long competitor, String productBrand, String productDescription,
+			String competitor, String productBrand, String productDescription,
 			String productSize, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -50,7 +50,7 @@ public class CompetitorProductRecord {
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -77,11 +77,11 @@ public class CompetitorProductRecord {
 		return this.crm_no;
 	}
 
-	public void setCompetitor(long competitor) {
+	public void setCompetitor(String competitor) {
 		this.competitor = competitor;
 	}
 
-	public long getCompetitor() {
+	public String getCompetitor() {
 		return this.competitor;
 	}
 
@@ -133,11 +133,11 @@ public class CompetitorProductRecord {
 		return this.created_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 }
