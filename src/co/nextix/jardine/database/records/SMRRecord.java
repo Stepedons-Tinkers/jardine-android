@@ -38,7 +38,7 @@ public class SMRRecord {
 
 	public SMRRecord(long id, String no, String crmNo, String firstname,
 			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long created_by, long business_unit) {
 
 		this.id = id;
 		this.no = no;
@@ -50,7 +50,8 @@ public class SMRRecord {
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.created_by = user;
+		this.created_by = created_by;
+		this.business_unit = business_unit;
 	}
 
 	// ===========================================================

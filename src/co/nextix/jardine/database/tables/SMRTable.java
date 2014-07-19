@@ -27,7 +27,8 @@ public class SMRTable {
 	private final String KEY_SMR_ISACTIVE = "is_active";
 	private final String KEY_SMR_CREATEDTIME = "created_time";
 	private final String KEY_SMR_MODIFIEDTIME = "modified_time";
-	private final String KEY_SMR_USER = "user";
+	private final String KEY_SMR_CREATED_BY = "created_by";
+	private final String KEY_SMR_BUSINESS_UNIT = "business_unit";
 	private final String KEY_SMR_CRMNO = "crm_no";
 
 	// ===========================================================
@@ -83,13 +84,17 @@ public class SMRTable {
 							.getColumnIndex(KEY_SMR_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-					long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
+					long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
 
 					// list.add(new SMRRecord(id, no, firstname, lastname,
 					// region,
 					// area, isActive, createdTime, modifiedTime, user));
 					list.add(new SMRRecord(id, no, crmNo, firstname, lastname,
-							area, isActive, createdTime, modifiedTime, user));
+							area, isActive, createdTime, modifiedTime, created_by,
+							businessUnit));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -194,12 +199,16 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
+				long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
 
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
 				record = new SMRRecord(id, no, crmNo, firstname, lastname,
-						area, isActive, createdTime, modifiedTime, user);
+						area, isActive, createdTime, modifiedTime, created_by,
+						businessUnit);
 			}
 		} finally {
 			if (c != null) {
@@ -273,12 +282,16 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_SMR_USER));
+				long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
 
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
 				record = new SMRRecord(id, no, crmNo, firstname, lastname,
-						area, isActive, createdTime, modifiedTime, user);
+						area, isActive, createdTime, modifiedTime, created_by,
+						businessUnit);
 			}
 		} finally {
 			if (c != null) {
@@ -291,7 +304,7 @@ public class SMRTable {
 
 	public long insert(String no, String crmNo, String firstname,
 			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long created_by, long businessUnit) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -308,7 +321,8 @@ public class SMRTable {
 		initialValues.put(KEY_SMR_ISACTIVE, isActive);
 		initialValues.put(KEY_SMR_CREATEDTIME, createdTime);
 		initialValues.put(KEY_SMR_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_SMR_USER, user);
+		initialValues.put(KEY_SMR_CREATED_BY, created_by);
+		initialValues.put(KEY_SMR_BUSINESS_UNIT, businessUnit);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -332,7 +346,7 @@ public class SMRTable {
 
 	public boolean update(long id, String no, String crmNo, String firstname,
 			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			String modifiedTime, long created_by, long businessUnit) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMR_NO, no);
 		args.put(KEY_SMR_CRMNO, crmNo);
@@ -343,7 +357,9 @@ public class SMRTable {
 		args.put(KEY_SMR_ISACTIVE, isActive);
 		args.put(KEY_SMR_CREATEDTIME, createdTime);
 		args.put(KEY_SMR_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_SMR_USER, user);
+		args.put(KEY_SMR_CREATED_BY, created_by);
+		args.put(KEY_SMR_BUSINESS_UNIT, businessUnit);
+
 		if (mDb.update(mDatabaseTable, args, KEY_SMR_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, firstname, lastname, region, area,
 			// isActive, createdTime, modifiedTime, user);
