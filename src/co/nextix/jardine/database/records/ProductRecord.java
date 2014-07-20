@@ -21,6 +21,7 @@ public class ProductRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String product_number;
 	private String product_brand;
 	private String product_description;
@@ -31,8 +32,6 @@ public class ProductRecord {
 	private String modified_time;
 	private long created_by; // User Table
 
-	private String crm_no;
-
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
@@ -40,7 +39,8 @@ public class ProductRecord {
 	public ProductRecord(long id, String no, String crmNo,
 			String productNumber, String productBrand,
 			String productDescription, String packSize, long businessUnit,
-			int isActive, String createdTime, String modifiedTime, long created_by) {
+			int isActive, String createdTime, String modifiedTime,
+			long created_by) {
 
 		this.id = id;
 		this.no = no;

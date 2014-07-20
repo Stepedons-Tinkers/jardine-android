@@ -21,17 +21,17 @@ public class JDIproductStockCheckTable {
 
 	private final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_CRMNO = "crm_no";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCT = "product";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND = "product_brand";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
+	// private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	private final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_USER = "user";
-
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CRMNO = "crm_no";
+	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -79,31 +79,36 @@ public class JDIproductStockCheckTable {
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
-					long product = c.getLong(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT));
+					long productBrand = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND));
 					long stockStatus = c
 							.getLong(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
-					int quantity = c.getInt(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+					// int quantity = c.getInt(c
+					// .getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
 					int loadedOnShelves = c
 							.getInt(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
 					long supplier = c.getLong(c
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+					String otherRemarks = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS));
 					String createdTime = c
 							.getString(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_USER));
+					long createdBy = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY));
 
 					list.add(new JDIproductStockCheckRecord(id, no, crmNo,
-							activity, product, stockStatus, quantity,
-							loadedOnShelves, supplier, createdTime,
-							modifiedTime, user));
+							activity, productBrand, stockStatus,
+							loadedOnShelves, supplier, otherRemarks,
+							createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -136,31 +141,36 @@ public class JDIproductStockCheckTable {
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
-					long product = c.getLong(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT));
+					long productBrand = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND));
 					long stockStatus = c
 							.getLong(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
-					int quantity = c.getInt(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+					// int quantity = c.getInt(c
+					// .getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
 					int loadedOnShelves = c
 							.getInt(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
 					long supplier = c.getLong(c
 							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+					String otherRemarks = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS));
 					String createdTime = c
 							.getString(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_USER));
+					long createdBy = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY));
 
 					list.add(new JDIproductStockCheckRecord(id, no, crmNo,
-							activity, product, stockStatus, quantity,
-							loadedOnShelves, supplier, createdTime,
-							modifiedTime, user));
+							activity, productBrand, stockStatus,
+							loadedOnShelves, supplier, otherRemarks,
+							createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -246,28 +256,30 @@ public class JDIproductStockCheckTable {
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
-				long product = c.getLong(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT));
+				long productBrand = c.getLong(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND));
 				long stockStatus = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
-				int quantity = c.getInt(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+				// int quantity = c.getInt(c
+				// .getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
 				int loadedOnShelves = c
 						.getInt(c
 								.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
 				long supplier = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+				String otherRemarks = c.getString(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new JDIproductStockCheckRecord(id, no, crmNo,
-						activity, product, stockStatus, quantity,
-						loadedOnShelves, supplier, createdTime, modifiedTime,
-						user);
+						activity, productBrand, stockStatus, loadedOnShelves,
+						supplier, otherRemarks, createdTime, modifiedTime,
+						createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -295,28 +307,30 @@ public class JDIproductStockCheckTable {
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
-				long product = c.getLong(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT));
+				long productBrand = c.getLong(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND));
 				long stockStatus = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
-				int quantity = c.getInt(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+				// int quantity = c.getInt(c
+				// .getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
 				int loadedOnShelves = c
 						.getInt(c
 								.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
 				long supplier = c.getLong(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+				String otherRemarks = c.getString(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new JDIproductStockCheckRecord(id, no, crmNo,
-						activity, product, stockStatus, quantity,
-						loadedOnShelves, supplier, createdTime, modifiedTime,
-						user);
+						activity, productBrand, stockStatus, loadedOnShelves,
+						supplier, otherRemarks, createdTime, modifiedTime,
+						createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -374,8 +388,9 @@ public class JDIproductStockCheckTable {
 	}
 
 	public long insert(String no, String crmNo, long activity, long product,
-			long stockStatus, int quantity, int loadedOnShelves, long supplier,
-			String createdTime, String modifiedTime, long user) {
+			long stockStatus, int loadedOnShelves, long customerType,
+			String otherRemarks, String createdTime, String modifiedTime,
+			long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -386,15 +401,16 @@ public class JDIproductStockCheckTable {
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_NO, no);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY, activity);
-		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT, product);
+		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND, product);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS, stockStatus);
-		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY, quantity);
+		// initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY, quantity);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES,
 				loadedOnShelves);
-		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER, supplier);
+		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER, customerType);
+		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS, otherRemarks);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME, createdTime);
 		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_USER, user);
+		initialValues.put(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -418,20 +434,22 @@ public class JDIproductStockCheckTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, long activity,
-			long product, long stockStatus, int quantity, int loadedOnShelves,
-			long supplier, String createdTime, String modifiedTime, long user) {
+			long product, long stockStatus, int loadedOnShelves,
+			long customerType, String otherRemarks, String createdTime,
+			String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_NO, no);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY, activity);
-		args.put(KEY_JDIPRODUCTSTOCKCHECK_PRODUCT, product);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND, product);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS, stockStatus);
-		args.put(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY, quantity);
+		// args.put(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY, quantity);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES, loadedOnShelves);
-		args.put(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER, supplier);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER, customerType);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS, otherRemarks);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME, createdTime);
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_JDIPRODUCTSTOCKCHECK_USER, user);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args, KEY_JDIPRODUCTSTOCKCHECK_ROWID
 				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, activity, product, stockStatus,

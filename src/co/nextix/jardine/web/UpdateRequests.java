@@ -39,14 +39,10 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
-import co.nextix.jardine.database.tables.CompetitorTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.ProductTable;
-import co.nextix.jardine.database.tables.SMRTable;
-import co.nextix.jardine.database.tables.SupplierTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
-import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
@@ -220,7 +216,7 @@ public class UpdateRequests {
 				int active = records.get(x).getIsActive();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!firstname.equals(""))
 					requestObject.put("z_cuc_firstname", firstname);
@@ -306,37 +302,37 @@ public class UpdateRequests {
 		try {
 
 			UserTable userTable = DB.getUser();
-			WorkplanTable workplanTable = DB.getWorkplan();
+			// WorkplanTable workplanTable = DB.getWorkplan();
 			ActivityTypeTable activityTypeTable = DB.getActivityType();
 			WorkplanEntryTable workplanEntryTable = DB.getWorkplanEntry();
 			CustomerTable customerTable = DB.getCustomer();
-			SMRTable smrTable = DB.getSMR();
+			// SMRTable smrTable = DB.getSMR();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				String workplan = workplanTable.getNoById(records.get(x)
-						.getWorkplan());
-				if (!workplan.equals(""))
-					requestObject.put("z_ac_workplan", workplan);
-				if (!records.get(x).getStartTime().equals(""))
-					requestObject.put("z_ac_starttime", records.get(x)
-							.getStartTime());
-				if (!records.get(x).getEndTime().equals(""))
-					requestObject.put("z_ac_endtime", records.get(x)
-							.getEndTime());
+				// String workplan = workplanTable.getNoById(records.get(x)
+				// .getWorkplan());
+				// if (!workplan.equals(""))
+				// requestObject.put("z_ac_workplan", workplan);
+				// if (!records.get(x).getStartTime().equals(""))
+				// requestObject.put("z_ac_starttime", records.get(x)
+				// .getStartTime());
+				// if (!records.get(x).getEndTime().equals(""))
+				// requestObject.put("z_ac_endtime", records.get(x)
+				// .getEndTime());
 				if (records.get(x).getLatitude() != 0)
 					requestObject.put("z_ac_latitude", records.get(x)
 							.getLatitude());
 				if (records.get(x).getLongitude() != 0)
 					requestObject.put("z_ac_longitude", records.get(x)
 							.getLongitude());
-				if (!records.get(x).getObjectives().equals(""))
-					requestObject.put("z_ac_objective", records.get(x)
-							.getObjectives());
+				// if (!records.get(x).getObjectives().equals(""))
+				// requestObject.put("z_ac_objective", records.get(x)
+				// .getObjectives());
 				if (!records.get(x).getNotes().equals(""))
 					requestObject.put("z_ac_notes", records.get(x).getNotes());
 				if (!records.get(x).getHighlights().equals(""))
@@ -368,42 +364,42 @@ public class UpdateRequests {
 				requestObject.put("z_ac_plannedvisit", records.get(x)
 						.getPlannedVisit());
 				// get smr from db
-				String smr = smrTable.getNoById(records.get(x).getSMR());
-				if (!smr.equals(""))
-					requestObject.put("z_ac_smr", smr);
-				if (!records.get(x).getIssuesIdentified().equals(""))
-					requestObject.put("z_ac_issuesidentified", records.get(x)
-							.getIssuesIdentified());
-				if (!records.get(x).getFeedbackFromCustomer().equals(""))
-					requestObject.put("z_ac_feedbackfromcu", records.get(x)
-							.getFeedbackFromCustomer());
-				if (!records.get(x).getOngoingCampaigns().equals(""))
-					requestObject.put("z_ac_ongoingcampaigns", records.get(x)
-							.getOngoingCampaigns());
-				if (!records.get(x).getLastDelivery().equals(""))
-					requestObject.put("z_ac_lastdelivery", records.get(x)
-							.getLastDelivery());
-				if (!records.get(x).getPromoStubsDetails().equals(""))
-					requestObject.put("z_ac_promostubsdetails", records.get(x)
-							.getPromoStubsDetails());
-				if (!records.get(x).getProjectName().equals(""))
-					requestObject.put("z_ac_projectname", records.get(x)
-							.getProjectName());
-				if (!records.get(x).getProjectStage().equals(""))
-					requestObject.put("z_ac_projectstage", records.get(x)
-							.getProjectStage());
-				if (!records.get(x).getProjectCategory().equals(""))
-					requestObject.put("projectCategory", records.get(x)
-							.getProjectCategory());
-				if (!records.get(x).getDate().equals(""))
-					requestObject.put("z_ac_date", records.get(x).getDate());
-				if (!records.get(x).getTime().equals(""))
-					requestObject.put("z_ac_time", records.get(x).getTime());
-				if (!records.get(x).getVenue().equals(""))
-					requestObject.put("z_ac_venue", records.get(x).getVenue());
-				if (!records.get(x).getNoOfAttendees().equals(""))
-					requestObject.put("z_ac_noofattenees", records.get(x)
-							.getNoOfAttendees());
+				// String smr = smrTable.getNoById(records.get(x).getSMR());
+				// if (!smr.equals(""))
+				// requestObject.put("z_ac_smr", smr);
+				// if (!records.get(x).getIssuesIdentified().equals(""))
+				// requestObject.put("z_ac_issuesidentified", records.get(x)
+				// .getIssuesIdentified());
+				// if (!records.get(x).getFeedbackFromCustomer().equals(""))
+				// requestObject.put("z_ac_feedbackfromcu", records.get(x)
+				// .getFeedbackFromCustomer());
+				// if (!records.get(x).getOngoingCampaigns().equals(""))
+				// requestObject.put("z_ac_ongoingcampaigns", records.get(x)
+				// .getOngoingCampaigns());
+				// if (!records.get(x).getLastDelivery().equals(""))
+				// requestObject.put("z_ac_lastdelivery", records.get(x)
+				// .getLastDelivery());
+				// if (!records.get(x).getPromoStubsDetails().equals(""))
+				// requestObject.put("z_ac_promostubsdetails", records.get(x)
+				// .getPromoStubsDetails());
+				// if (!records.get(x).getProjectName().equals(""))
+				// requestObject.put("z_ac_projectname", records.get(x)
+				// .getProjectName());
+				// if (!records.get(x).getProjectStage().equals(""))
+				// requestObject.put("z_ac_projectstage", records.get(x)
+				// .getProjectStage());
+				// if (!records.get(x).getProjectCategory().equals(""))
+				// requestObject.put("projectCategory", records.get(x)
+				// .getProjectCategory());
+				// if (!records.get(x).getDate().equals(""))
+				// requestObject.put("z_ac_date", records.get(x).getDate());
+				// if (!records.get(x).getTime().equals(""))
+				// requestObject.put("z_ac_time", records.get(x).getTime());
+				// if (!records.get(x).getVenue().equals(""))
+				// requestObject.put("z_ac_venue", records.get(x).getVenue());
+				// if (!records.get(x).getNoOfAttendees().equals(""))
+				// requestObject.put("z_ac_noofattenees", records.get(x)
+				// .getNoOfAttendees());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -484,17 +480,17 @@ public class UpdateRequests {
 						.getActivity());
 				// get product id from db
 				String product = productTable.getNoById(records.get(x)
-						.getProduct());
-				int active = records.get(x).getIsActive();
+						.getProductBrand());
+				// int active = records.get(x).getIsActive();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_jmc_activity", activity);
 				if (!product.equals(""))
 					requestObject.put("z_jmc_product", product);
-				requestObject.put("z_jmc_status", active);
+				// requestObject.put("z_jmc_status", active);
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -568,7 +564,7 @@ public class UpdateRequests {
 			ActivityTable activityTable = DB.getActivity();
 			ProductTable productTable = DB.getProduct();
 			PJDIprodStatusTable jStatusTable = DB.getJDIproductStatus();
-			SupplierTable supplierTable = DB.getSupplier();
+//			SupplierTable supplierTable = DB.getSupplier();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -578,16 +574,16 @@ public class UpdateRequests {
 						.getActivity());
 				// get product no from db
 				String product = productTable.getNoById(records.get(x)
-						.getProduct());
+						.getProductBrand());
 				String status = jStatusTable.getNameById(records.get(x)
 						.getStockStatus());
 				int loaded = records.get(x).getLoadedOnShelves();
 				// get product no from db
-				String supplier = supplierTable.getNoById(records.get(x)
-						.getSupplier());
+//				String supplier = supplierTable.getNoById(records.get(x)
+//						.getSupplier());
 
 				// get user no from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_jps_activity", activity);
@@ -596,8 +592,8 @@ public class UpdateRequests {
 				if (!status.equals(""))
 					requestObject.put("z_jps_stockstatus", status);
 				requestObject.put("z_jps_loadedonshelves", loaded);
-				if (!supplier.equals(""))
-					requestObject.put("z_jps_supplier", supplier);
+//				if (!supplier.equals(""))
+//					requestObject.put("z_jps_supplier", supplier);
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -767,7 +763,7 @@ public class UpdateRequests {
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
-			CompetitorTable compTable = DB.getCompetitor();
+			// CompetitorTable compTable = DB.getCompetitor();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -776,8 +772,8 @@ public class UpdateRequests {
 				String activity = activityTable.getNoById(records.get(x)
 						.getActivity());
 				// get product no from db
-				String compt = compTable.getNoById(records.get(x)
-						.getCompetitor());
+				// String compt = compTable.getNoById(records.get(x)
+				// .getCompetitor());
 				String details = records.get(x).getDetails();
 
 				// get user id from db
@@ -785,8 +781,8 @@ public class UpdateRequests {
 				requestObject.put("assigned_user_id", id);
 				if (!activity.equals(""))
 					requestObject.put("z_min_activity", activity);
-				if (!compt.equals(""))
-					requestObject.put("z_min_competitor", compt);
+				// if (!compt.equals(""))
+				// requestObject.put("z_min_competitor", compt);
 				if (!details.equals(""))
 					requestObject.put("z_min_details", details);
 
@@ -873,7 +869,7 @@ public class UpdateRequests {
 						.getProjectRequirementType());
 				String date = records.get(x).getDateNeeded();
 				String squaremeters = records.get(x).getSquareMeters();
-				String products = records.get(x).getProductsUsed();
+				// String products = records.get(x).getProductsUsed();
 				String others = records.get(x).getOtherDetails();
 
 				// get user no from db
@@ -887,8 +883,8 @@ public class UpdateRequests {
 					requestObject.put("z_pr_dateneeded", date);
 				if (!squaremeters.equals(""))
 					requestObject.put("z_pr_squaremtrs", squaremeters);
-				if (!products.equals(""))
-					requestObject.put("z_pr_prodused", products);
+				// if (!products.equals(""))
+				// requestObject.put("z_pr_prodused", products);
 				if (!others.equals(""))
 					requestObject.put("z_pr_otherdet", others);
 

@@ -20,6 +20,7 @@ public class ProductTable {
 
 	private final String KEY_PRODUCT_ROWID = "_id";
 	private final String KEY_PRODUCT_NO = "no";
+	private final String KEY_PRODUCT_CRMNO = "crm_no";
 	private final String KEY_PRODUCT_NUMBER = "product_number";
 	private final String KEY_PRODUCT_BRAND = "product_brand";
 	private final String KEY_PRODUCT_DESCRIPTION = "product_description";
@@ -29,7 +30,6 @@ public class ProductTable {
 	private final String KEY_PRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
 	private final String KEY_PRODUCT_CREATEDBY = "created_by";
-	private final String KEY_PRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -89,7 +89,8 @@ public class ProductTable {
 							.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-					long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 					list.add(new ProductRecord(id, no, crmNo, productNumber,
 							productBrand, productDescription, packSize,
@@ -203,11 +204,13 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-				long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 				record = new ProductRecord(id, no, crmNo, productNumber,
 						productBrand, productDescription, packSize,
-						businessUnit, isActive, createdTime, modifiedTime, createdBy);
+						businessUnit, isActive, createdTime, modifiedTime,
+						createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -285,11 +288,13 @@ public class ProductTable {
 						.getColumnIndex(KEY_PRODUCT_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_PRODUCT_MODIFIEDTIME));
-				long createdBy = c.getLong(c.getColumnIndex(KEY_PRODUCT_CREATEDBY));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_PRODUCT_CREATEDBY));
 
 				record = new ProductRecord(id, no, crmNo, productNumber,
 						productBrand, productDescription, packSize,
-						businessUnit, isActive, createdTime, modifiedTime, createdBy);
+						businessUnit, isActive, createdTime, modifiedTime,
+						createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -347,7 +352,8 @@ public class ProductTable {
 	public boolean update(long id, String no, String crmNo,
 			String productNumber, String productBrand,
 			String productDescription, String packSize, long businessUnit,
-			int isActive, String createdTime, String modifiedTime, long createdBy) {
+			int isActive, String createdTime, String modifiedTime,
+			long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PRODUCT_NO, no);
 		args.put(KEY_PRODUCT_CRMNO, crmNo);

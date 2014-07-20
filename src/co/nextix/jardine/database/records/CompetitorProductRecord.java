@@ -20,6 +20,7 @@ public class CompetitorProductRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String competitor;
 	private String product_brand;
 	private String product_description;
@@ -28,8 +29,6 @@ public class CompetitorProductRecord {
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -68,7 +67,7 @@ public class CompetitorProductRecord {
 	public String getNo() {
 		return this.no;
 	}
-	
+
 	public void setCrm(String crmNo) {
 		this.crm_no = crmNo;
 	}

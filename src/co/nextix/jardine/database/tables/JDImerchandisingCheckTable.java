@@ -20,14 +20,13 @@ public class JDImerchandisingCheckTable {
 
 	private final String KEY_JDIMERCHANDISING_ROWID = "_id";
 	private final String KEY_JDIMERCHANDISING_NO = "no";
+	private final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
 	private final String KEY_JDIMERCHANDISING_ACTIVITY = "activity";
-	private final String KEY_JDIMERCHANDISING_PRODUCT = "product";
-	private final String KEY_JDIMERCHANDISING_ISACTIVE = "is_active";
+	private final String KEY_JDIMERCHANDISING_PRODUCTBRAND = "product_brand";
+	private final String KEY_JDIMERCHANDISING_STATUS = "status";
 	private final String KEY_JDIMERCHANDISING_CREATEDTIME = "created_time";
 	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIMERCHANDISING_USER = "user";
-
-	private final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
+	private final String KEY_JDIMERCHANDISING_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -74,20 +73,20 @@ public class JDImerchandisingCheckTable {
 							.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
-					long product = c.getLong(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCT));
-					int isActive = c.getInt(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_ISACTIVE));
+					long productBrand = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCTBRAND));
+					int status = c.getInt(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDBY));
 
 					list.add(new JDImerchandisingCheckRecord(id, no, crmNo,
-							activity, product, isActive, createdTime,
-							modifiedTime, user));
+							activity, productBrand, status, createdTime,
+							modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -120,20 +119,20 @@ public class JDImerchandisingCheckTable {
 							.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 					long activity = c.getLong(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
-					long product = c.getLong(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCT));
-					int isActive = c.getInt(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_ISACTIVE));
+					long productBrand = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCTBRAND));
+					int status = c.getInt(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
-					long user = c.getLong(c
-							.getColumnIndex(KEY_JDIMERCHANDISING_USER));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDBY));
 
 					list.add(new JDImerchandisingCheckRecord(id, no, crmNo,
-							activity, product, isActive, createdTime,
-							modifiedTime, user));
+							activity, productBrand, status, createdTime,
+							modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -264,20 +263,20 @@ public class JDImerchandisingCheckTable {
 						.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
-				long product = c.getLong(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCT));
-				int isActive = c.getInt(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_ISACTIVE));
+				long productBrand = c.getLong(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCTBRAND));
+				int status = c.getInt(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDBY));
 
 				record = new JDImerchandisingCheckRecord(id, no, crmNo,
-						activity, product, isActive, createdTime, modifiedTime,
-						user);
+						activity, productBrand, status, createdTime,
+						modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -326,20 +325,20 @@ public class JDImerchandisingCheckTable {
 						.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
 				long activity = c.getLong(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
-				long product = c.getLong(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCT));
-				int isActive = c.getInt(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_ISACTIVE));
+				long productBrand = c.getLong(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCTBRAND));
+				int status = c.getInt(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_JDIMERCHANDISING_USER));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDBY));
 
 				record = new JDImerchandisingCheckRecord(id, no, crmNo,
-						activity, product, isActive, createdTime, modifiedTime,
-						user);
+						activity, productBrand, status, createdTime,
+						modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -350,8 +349,9 @@ public class JDImerchandisingCheckTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, long activity, long product,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, long activity,
+			long productBrand, long status, String createdTime,
+			String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -362,11 +362,11 @@ public class JDImerchandisingCheckTable {
 		initialValues.put(KEY_JDIMERCHANDISING_NO, no);
 		initialValues.put(KEY_JDIMERCHANDISING_CRMNO, crmNo);
 		initialValues.put(KEY_JDIMERCHANDISING_ACTIVITY, activity);
-		initialValues.put(KEY_JDIMERCHANDISING_PRODUCT, product);
-		initialValues.put(KEY_JDIMERCHANDISING_ISACTIVE, isActive);
+		initialValues.put(KEY_JDIMERCHANDISING_PRODUCTBRAND, productBrand);
+		initialValues.put(KEY_JDIMERCHANDISING_STATUS, status);
 		initialValues.put(KEY_JDIMERCHANDISING_CREATEDTIME, createdTime);
 		initialValues.put(KEY_JDIMERCHANDISING_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_JDIMERCHANDISING_USER, user);
+		initialValues.put(KEY_JDIMERCHANDISING_CREATEDBY, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -389,17 +389,17 @@ public class JDImerchandisingCheckTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, long activity,
-			long product, int isActive, String createdTime,
+			long productBrand, long status, String createdTime,
 			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDIMERCHANDISING_NO, no);
 		args.put(KEY_JDIMERCHANDISING_CRMNO, crmNo);
 		args.put(KEY_JDIMERCHANDISING_ACTIVITY, activity);
-		args.put(KEY_JDIMERCHANDISING_PRODUCT, product);
-		args.put(KEY_JDIMERCHANDISING_ISACTIVE, isActive);
+		args.put(KEY_JDIMERCHANDISING_PRODUCTBRAND, productBrand);
+		args.put(KEY_JDIMERCHANDISING_STATUS, status);
 		args.put(KEY_JDIMERCHANDISING_CREATEDTIME, createdTime);
 		args.put(KEY_JDIMERCHANDISING_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_JDIMERCHANDISING_USER, user);
+		args.put(KEY_JDIMERCHANDISING_CREATEDBY, user);
 		if (mDb.update(mDatabaseTable, args, KEY_JDIMERCHANDISING_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, type, category, isActive, user);

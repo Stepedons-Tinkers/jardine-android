@@ -21,6 +21,7 @@ public class CompetitorProductStockCheckTable {
 
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID = "_id";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_NO = "no";
+	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY = "activity";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
@@ -28,8 +29,6 @@ public class CompetitorProductStockCheckTable {
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
-
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -104,7 +103,8 @@ public class CompetitorProductStockCheckTable {
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
 							crmNo, activity, competitorProduct, stockStatus,
-							loadedOnShelves, createdTime, modifiedTime, createdBy));
+							loadedOnShelves, createdTime, modifiedTime,
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -162,7 +162,8 @@ public class CompetitorProductStockCheckTable {
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
 							crmNo, activity, competitorProduct, stockStatus,
-							loadedOnShelves, createdTime, modifiedTime, createdBy));
+							loadedOnShelves, createdTime, modifiedTime,
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -333,8 +334,9 @@ public class CompetitorProductStockCheckTable {
 				String modifiedTime = c
 						.getString(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long createdBy = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
+				long createdBy = c
+						.getLong(c
+								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,
@@ -382,8 +384,9 @@ public class CompetitorProductStockCheckTable {
 				String modifiedTime = c
 						.getString(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long createdBy = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
+				long createdBy = c
+						.getLong(c
+								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,

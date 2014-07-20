@@ -20,18 +20,17 @@ public class ProjectRequirementRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity;
 	private long project_requirement_type;
 	private String date_needed;
 	private String square_meters;
-	private String products_used;
+	// private String products_used;
 	private String products_brand;
 	private String other_details;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -39,9 +38,8 @@ public class ProjectRequirementRecord {
 
 	public ProjectRequirementRecord(long id, String no, String crmNo,
 			long activity, long projectRequirementType, String dateNeeded,
-			String squareMeters, String productsUsed, String productsBrand,
-			String otherDetails, String createdTime, String modifiedTime,
-			long created_by) {
+			String squareMeters, String productsBrand, String otherDetails,
+			String createdTime, String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -50,7 +48,7 @@ public class ProjectRequirementRecord {
 		this.project_requirement_type = projectRequirementType;
 		this.date_needed = dateNeeded;
 		this.square_meters = squareMeters;
-		this.products_used = productsUsed;
+		// this.products_used = productsUsed;
 		this.products_brand = productsBrand;
 		this.other_details = otherDetails;
 		this.created_time = createdTime;
@@ -114,13 +112,13 @@ public class ProjectRequirementRecord {
 		return this.square_meters;
 	}
 
-	public void setProductsUsed(String productsUsed) {
-		this.products_used = productsUsed;
-	}
-
-	public String getProductsUsed() {
-		return this.products_used;
-	}
+	// public void setProductsUsed(String productsUsed) {
+	// this.products_used = productsUsed;
+	// }
+	//
+	// public String getProductsUsed() {
+	// return this.products_used;
+	// }
 
 	public void setProductsBrand(String products_brand) {
 		this.products_brand = products_brand;
@@ -136,6 +134,14 @@ public class ProjectRequirementRecord {
 
 	public String getOtherDetails() {
 		return this.other_details;
+	}
+
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
 	}
 
 	public void setModifiedTime(String modifiedTime) {
@@ -154,11 +160,4 @@ public class ProjectRequirementRecord {
 		return this.created_by;
 	}
 
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
-	}
 }

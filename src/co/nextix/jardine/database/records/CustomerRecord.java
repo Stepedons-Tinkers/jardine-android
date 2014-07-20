@@ -26,13 +26,14 @@ public class CustomerRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String customer_name;
 	private String chain_name;
 	private String landline;
 	private String fax;
 	private long customer_size;
 	private String street_address;
-	// private long customer_record_status; removed
+	private long customer_record_status; // removed
 	private long customer_type;
 	private long business_unit;
 	private long area;
@@ -42,9 +43,8 @@ public class CustomerRecord {
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-	private String customer_record_status;
 
-	private String crm_no;
+	// private String customer_record_status;
 
 	// ===========================================================
 	// Public constructors
@@ -56,9 +56,10 @@ public class CustomerRecord {
 
 	public CustomerRecord(long id, String no, String crmNo,
 			String customerName, String chainName, String landline, String fax,
-			long customerSize, String streetAddress, long customerType,
-			long businessUnit, long area, long province, long cityTown,
-			int isActive, String createdTime, String modifiedTime, long user) {
+			long customerSize, String streetAddress, long customerRecordStatus,
+			long customerType, long businessUnit, long area, long province,
+			long cityTown, int isActive, String createdTime,
+			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
@@ -69,7 +70,7 @@ public class CustomerRecord {
 		this.fax = fax;
 		this.customer_size = customerSize;
 		this.street_address = streetAddress;
-		// this.customer_record_status = customerRecordStatus;
+		this.customer_record_status = customerRecordStatus;
 		this.customer_type = customerType;
 		this.business_unit = businessUnit;
 		this.area = area;
@@ -153,13 +154,13 @@ public class CustomerRecord {
 		return this.street_address;
 	}
 
-	// public void setCustomerRecordStatus(long customerRecordStatus) {
-	// this.customer_record_status = customerRecordStatus;
-	// }
-	//
-	// public long getCustomerRecordStatus() {
-	// return this.customer_record_status;
-	// }
+	public void setCustomerRecordStatus(long customerRecordStatus) {
+		this.customer_record_status = customerRecordStatus;
+	}
+
+	public long getCustomerRecordStatus() {
+		return this.customer_record_status;
+	}
 
 	public void setCustomerType(long customerType) {
 		this.customer_type = customerType;
@@ -238,11 +239,11 @@ public class CustomerRecord {
 		return this.customer_name;
 	}
 
-	public String getCustomerRecordStatus() {
-		return customer_record_status;
-	}
-
-	public void setCustomerRecordStatus(String customer_record_status) {
-		this.customer_record_status = customer_record_status;
-	}
+	// public String getCustomerRecordStatus() {
+	// return customer_record_status;
+	// }
+	//
+	// public void setCustomerRecordStatus(String customer_record_status) {
+	// this.customer_record_status = customer_record_status;
+	// }
 }

@@ -74,9 +74,9 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 		holder.txtCrmNo.setText(holder.record.getNo());
 
 		if (holder.record.getNo() != null) {
-			String cus = JardineApp.DB.getCustomer().getNoById(
-					holder.record.getCustomer());
-			holder.txtDescription.setText(cus);
+//			String cus = JardineApp.DB.getCustomer().getNoById(
+//					holder.record.getCustomer());
+//			holder.txtDescription.setText(cus);
 
 			holder.txtEventType.setText(holder.record.getDate());
 

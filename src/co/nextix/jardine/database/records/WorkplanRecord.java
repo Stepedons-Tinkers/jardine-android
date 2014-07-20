@@ -14,18 +14,17 @@ public class WorkplanRecord {
 	// status
 	// createdTime
 	// modifiedTime
-	// user (assignedTo)
+	// created_by (assignedTo)
 
 	private long id;
 	private String no;
-	private String start_date;
-	private String end_date;
+	private String crm_no;
+	private String from_date;
+	private String to_date;
 	// private int status;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-
-	private String crm_no;
+	private long created_by; // User Table
 
 	// ===========================================================
 	// Public constructors
@@ -34,18 +33,19 @@ public class WorkplanRecord {
 	public WorkplanRecord() {
 	}
 
-	public WorkplanRecord(long id, String no, String crmNo, String startDate,
-			String endDate, String createdTime, String modifiedTime, long user) {
+	public WorkplanRecord(long id, String no, String crmNo, String fromDate,
+			String toDate, String createdTime, String modifiedTime,
+			long createdBy) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
-		this.start_date = startDate;
-		this.end_date = endDate;
+		this.from_date = fromDate;
+		this.to_date = toDate;
 		// this.status = status;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = createdBy;
 	}
 
 	// ===========================================================
@@ -72,20 +72,28 @@ public class WorkplanRecord {
 		return this.crm_no;
 	}
 
-	public void setStartDate(String startDate) {
-		this.start_date = startDate;
+	public void setFromDate(String fromDate) {
+		this.from_date = fromDate;
 	}
 
-	public String getStartDate() {
-		return this.start_date;
+	public String getFromDate() {
+		return this.from_date;
 	}
 
-	public void setEndDate(String endDate) {
-		this.end_date = endDate;
+	public void setToDate(String toDate) {
+		this.to_date = toDate;
 	}
 
-	public String getEndDate() {
-		return this.end_date;
+	public String getToDate() {
+		return this.to_date;
+	}
+
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
 	}
 
 	public void setModifiedTime(String modifiedTime) {
@@ -96,12 +104,12 @@ public class WorkplanRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	// public void setStatus(int status) {
@@ -112,11 +120,4 @@ public class WorkplanRecord {
 	// return this.status;
 	// }
 
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
-	}
 }

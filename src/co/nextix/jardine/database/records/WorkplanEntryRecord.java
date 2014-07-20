@@ -23,52 +23,56 @@ public class WorkplanEntryRecord {
 
 	private long id;
 	private String no;
-	private long customer; // Customer table
+	private String crm_no;
+	// private long customer; // Customer table
 	private String date;
 	private long status; // workplan entry status table
 	private long area;
 	private long province; // province table
-	private long city_town; // citytown table
-	private String remarks;
+	private long city; // citytown table
 	private long activity_type; // activity type table
+	private String remarks;
 	private long workplan; // workplan table
+	private int activity_quantity;
+	private long business_unit; // business unit table
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-
-	private String crm_no;
+	private long created_by; // User Table
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public WorkplanEntryRecord(long id, String no, String crmNo, long customer, String date, long status, long area, long province,
-			long cityTown, String remarks, long activityType, long workplan, String createdTime, String modifiedTime, long user) {
+	public WorkplanEntryRecord() {
+	}
+
+	public WorkplanEntryRecord(long id, String no, String crmNo, String date,
+			long status, long area, long province, long city,
+			long activityType, String remarks, long workplan,
+			int activityQuantity, long businessUnit, String createdTime,
+			String modifiedTime, long createdBy) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
-		this.customer = customer;
+		// this.customer = customer;
 		this.date = date;
 		this.status = status;
 		this.area = area;
 		this.province = province;
-		this.city_town = cityTown;
-		this.remarks = remarks;
+		this.city = city;
 		this.activity_type = activityType;
+		this.remarks = remarks;
 		this.workplan = workplan;
+		this.activity_quantity = activityQuantity;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = createdBy;
 	}
 
 	// ===========================================================
 	// Public methods
 	// ===========================================================
-
-	public WorkplanEntryRecord() {
-		// TODO Auto-generated constructor stub
-	}
 
 	public long getId() {
 		return this.id;
@@ -88,14 +92,6 @@ public class WorkplanEntryRecord {
 
 	public String getCrm() {
 		return this.crm_no;
-	}
-
-	public void setCustomer(long customer) {
-		this.customer = customer;
-	}
-
-	public long getCustomer() {
-		return this.customer;
 	}
 
 	public void setDate(String date) {
@@ -130,20 +126,12 @@ public class WorkplanEntryRecord {
 		return this.province;
 	}
 
-	public void setCityTown(long cityTown) {
-		this.city_town = cityTown;
+	public void setCity(long city) {
+		this.city = city;
 	}
 
-	public long getCityTown() {
-		return this.city_town;
-	}
-
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public String getRemarks() {
-		return this.remarks;
+	public long getCity() {
+		return this.city;
 	}
 
 	public void setActivityType(long activityType) {
@@ -154,12 +142,44 @@ public class WorkplanEntryRecord {
 		return this.activity_type;
 	}
 
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
+	public String getRemarks() {
+		return this.remarks;
+	}
+
 	public void setWorkplan(long workplan) {
 		this.workplan = workplan;
 	}
 
 	public long getWorkplan() {
 		return this.workplan;
+	}
+
+	public void setActivityQuantity(int activityQuantity) {
+		this.activity_quantity = activityQuantity;
+	}
+
+	public int getActivityQuantity() {
+		return this.activity_quantity;
+	}
+
+	public void setBusinessUnit(long businessUnit) {
+		this.business_unit = businessUnit;
+	}
+
+	public long getBusinessUnit() {
+		return this.business_unit;
+	}
+
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
 	}
 
 	public void setModifiedTime(String modifiedTime) {
@@ -170,20 +190,12 @@ public class WorkplanEntryRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
 	}
 
-	public long getUser() {
-		return this.user;
-	}
-
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
 	@Override

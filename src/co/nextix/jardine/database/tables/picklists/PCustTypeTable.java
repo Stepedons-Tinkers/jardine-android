@@ -168,16 +168,36 @@ public class PCustTypeTable {
 		return record;
 	}
 
-	public String getNameById(long ID) {
+	public String getNameById(long string) {
 		String result = null;
 		String MY_QUERY = "SELECT " + KEY_CUSTOMER_TYPE_NAME + " FROM "
 				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_TYPE_ROWID + "=?";
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(string) });
 
 			if ((c != null) && c.moveToFirst()) {
 				result = c.getString(c.getColumnIndex(KEY_CUSTOMER_TYPE_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_TYPE_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_TYPE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE_ROWID));
 			}
 		} finally {
 			if (c != null) {

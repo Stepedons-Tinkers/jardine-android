@@ -19,34 +19,32 @@ public class MarketingIntelRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity; // activity table
-	private long competitor; // competitor table
-	private long competitor_product;
+	// private long competitor; // competitor table
+	private long competitor_product; // brand // competitor product table
 	private String details;
-	private String remarks;
+	// private String remarks;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
 	public MarketingIntelRecord(long id, String no, String crmNo,
-			long activity, long competitor, long competitor_product,
-			String details, String remarks, String createdTime,
-			String modifiedTime, long created_by) {
+			long activity, long competitor_product, String details,
+			String createdTime, String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
 		this.activity = activity;
-		this.competitor = competitor;
+		// this.competitor = competitor;
 		this.competitor_product = competitor_product;
 		this.details = details;
-		this.remarks = remarks;
+		// this.remarks = remarks;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.created_by = created_by;
@@ -84,13 +82,13 @@ public class MarketingIntelRecord {
 		return this.activity;
 	}
 
-	public void setCompetitor(long competitor) {
-		this.competitor = competitor;
-	}
-
-	public long getCompetitor() {
-		return this.competitor;
-	}
+	// public void setCompetitor(long competitor) {
+	// this.competitor = competitor;
+	// }
+	//
+	// public long getCompetitor() {
+	// return this.competitor;
+	// }
 
 	public void setCompetitorProduct(long competitor_product) {
 		this.competitor_product = competitor_product;
@@ -108,13 +106,13 @@ public class MarketingIntelRecord {
 		return this.details;
 	}
 
-	public void setRemarks(String remarks) {
-		this.remarks = remarks;
-	}
-
-	public String getRemarks() {
-		return this.remarks;
-	}
+	// public void setRemarks(String remarks) {
+	// this.remarks = remarks;
+	// }
+	//
+	// public String getRemarks() {
+	// return this.remarks;
+	// }
 
 	public void setModifiedTime(String modifiedTime) {
 		this.modified_time = modifiedTime;

@@ -122,11 +122,11 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
 			holder.activity_txt.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.product_txt.setText(String.valueOf(this.tempValues.getProduct()));
+//			holder.product_txt.setText(String.valueOf(this.tempValues.getProduct()));
 			holder.stock_status_txt.setText(String.valueOf(this.tempValues.getStockStatus()));
-			holder.quantity_txt.setText(String.valueOf(this.tempValues.getQuantity()));
+//			holder.quantity_txt.setText(String.valueOf(this.tempValues.getQuantity()));
 			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
-			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getUser()));
+//			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getUser()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);

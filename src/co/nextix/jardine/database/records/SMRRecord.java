@@ -20,25 +20,24 @@ public class SMRRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String firstname;
 	private String lastname;
 	// private long region; removed
 	private long area; // area table
 	private int is_active;
+	private long business_unit; // business unit table
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-	private long business_unit; // business unit table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
 	public SMRRecord(long id, String no, String crmNo, String firstname,
-			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long created_by, long business_unit) {
+			String lastname, long area, int isActive, long business_unit,
+			String createdTime, String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -48,10 +47,10 @@ public class SMRRecord {
 		// this.region = region;
 		this.area = area;
 		this.is_active = isActive;
+		this.business_unit = business_unit;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.created_by = created_by;
-		this.business_unit = business_unit;
 	}
 
 	// ===========================================================
@@ -118,6 +117,14 @@ public class SMRRecord {
 		return this.is_active;
 	}
 
+	public long getBusinessUnit() {
+		return business_unit;
+	}
+
+	public void setBusinessUnit(long business_unit) {
+		this.business_unit = business_unit;
+	}
+
 	public void setCreatedTime(String createdTime) {
 		this.created_time = createdTime;
 	}
@@ -140,13 +147,5 @@ public class SMRRecord {
 
 	public long getCreatedBy() {
 		return this.created_by;
-	}
-
-	public long getBusinessUnit() {
-		return business_unit;
-	}
-
-	public void setBusinessUnit(long business_unit) {
-		this.business_unit = business_unit;
 	}
 }

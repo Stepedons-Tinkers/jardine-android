@@ -19,15 +19,14 @@ public class CompetitorProductStockCheckRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity;
-	private long competitor_product;
+	private long competitor_product; // product brand // competitorproduct table
 	private long stock_status;
 	private int loaded_on_shelves;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -106,6 +105,14 @@ public class CompetitorProductStockCheckRecord {
 		return this.loaded_on_shelves;
 	}
 
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
+	}
+
 	public void setModifiedTime(String modifiedTime) {
 		this.modified_time = modifiedTime;
 	}
@@ -122,11 +129,4 @@ public class CompetitorProductStockCheckRecord {
 		return this.created_by;
 	}
 
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
-	}
 }

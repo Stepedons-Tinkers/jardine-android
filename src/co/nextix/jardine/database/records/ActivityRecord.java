@@ -70,7 +70,7 @@ public class ActivityRecord {
 	private String project_requirements; // project requirements table
 
 	// trainings
-	private long trainings;
+	private String trainings;
 
 	// identify product focus
 	private String identify_product_focus;
@@ -80,25 +80,6 @@ public class ActivityRecord {
 
 	// activity photos and attachments
 	private String activity_photos_and_attachments;
-
-	// private String start_time;
-	// private String end_time;
-	// private String objectives;
-	// private long business_unit;
-	// private long source;
-	// private long smr; // smr table
-	// private String issues_identified;
-	// private String feedback_from_customer;
-	// private String ongoing_campaigns;
-	// private String last_delivery;
-	// private String promo_stubs_details;
-	// private String project_name;
-	// private String project_category;
-	// private String project_stage;
-	// private String date;
-	// private String time;
-	// private String venue;
-	// private String no_of_attendees;
 
 	// ===========================================================
 	// Public constructors
@@ -119,7 +100,7 @@ public class ActivityRecord {
 			long jdiProductStockCheck, long productSupplier,
 			long jdiMerchandising, long jdiCompetitorProductStockCheck,
 			long marketingIntel, String projectVisitDetails,
-			String projectRequirements, long trainings,
+			String projectRequirements, String trainings,
 			String identifyProductFocus, String fullBrandActivation,
 			String activityPhotosAttachment) {
 
@@ -187,7 +168,7 @@ public class ActivityRecord {
 	public String getCrm() {
 		return this.crm_no;
 	}
-	
+
 	public void setSmrUserId(String smrUserId) {
 		this.smr_user_id = smrUserId;
 	}
@@ -211,7 +192,15 @@ public class ActivityRecord {
 	public String getCheckIn() {
 		return this.check_in;
 	}
-	
+
+	public void setCheckOut(String checkOut) {
+		this.check_out = checkOut;
+	}
+
+	public String getCheckOut() {
+		return this.check_out;
+	}
+
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
@@ -219,7 +208,7 @@ public class ActivityRecord {
 	public double getLongitude() {
 		return this.longitude;
 	}
-	
+
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
@@ -235,7 +224,7 @@ public class ActivityRecord {
 	public long getCreatedBy() {
 		return this.created_by;
 	}
-	
+
 	public void setCreatedTime(String createdTime) {
 		this.created_time = createdTime;
 	}
@@ -259,7 +248,7 @@ public class ActivityRecord {
 	public String getReasonRemarks() {
 		return this.reason_remarks;
 	}
-	
+
 	public void setWorkWith(String workWith) {
 		this.work_with = workWith;
 	}
@@ -267,7 +256,7 @@ public class ActivityRecord {
 	public String getWorkWith() {
 		return this.work_with;
 	}
-	
+
 	public void setAdminWorkDetails(String adminWorkDetails) {
 		this.admin_work_details = adminWorkDetails;
 	}
@@ -275,7 +264,7 @@ public class ActivityRecord {
 	public String getAdminWorkDetails() {
 		return this.admin_work_details;
 	}
-	
+
 	public void setCustomer(long customer) {
 		this.customer = customer;
 	}
@@ -283,7 +272,7 @@ public class ActivityRecord {
 	public long getCustomer() {
 		return this.customer;
 	}
-	
+
 	public void setArea(long area) {
 		this.area = area;
 	}
@@ -307,7 +296,7 @@ public class ActivityRecord {
 	public long getCity() {
 		return this.city;
 	}
-	
+
 	public void setWorkplanEntry(long workplanEntry) {
 		this.workplan_entry = workplanEntry;
 	}
@@ -315,7 +304,7 @@ public class ActivityRecord {
 	public long getWorkplanEntry() {
 		return this.workplan_entry;
 	}
-	
+
 	public void setObjectiveOfActivity(String objectiveOfActivity) {
 		this.objective_of_activity = objectiveOfActivity;
 	}
@@ -323,7 +312,7 @@ public class ActivityRecord {
 	public String getObjectiveOfActivity() {
 		return this.objective_of_activity;
 	}
-	
+
 	public void setFirstTimeVisit(int firstTimeVisit) {
 		this.first_time_visit = firstTimeVisit;
 	}
@@ -395,7 +384,7 @@ public class ActivityRecord {
 	public long getProductSupplier() {
 		return this.product_supplier;
 	}
-	
+
 	public void setJdiMerchandisingCheck(long jdiMerchandisingCheck) {
 		this.jdi_merchandising_check = jdiMerchandisingCheck;
 	}
@@ -403,21 +392,71 @@ public class ActivityRecord {
 	public long getJdiMerchandisingCheck() {
 		return this.jdi_merchandising_check;
 	}
-	
-	public void setBusinessUnit(long businessUnit) {
-		this.business_unit = businessUnit;
+
+	public void setJdiCompetitorProductStockCheck(
+			long jdiCompetitorProductStockCheck) {
+		this.jdi_competitor_product_stock_check = jdiCompetitorProductStockCheck;
 	}
 
-	public long getBusinessUnit() {
-		return this.business_unit;
+	public long getJdiCompetitorProductStockCheck() {
+		return this.jdi_competitor_product_stock_check;
 	}
 
-	public void setSource(long source) {
-		this.source = source;
+	public void setMarketingIntel(long marketingIntel) {
+		this.marketing_intel = marketingIntel;
 	}
 
-	public long getSource() {
-		return this.source;
+	public long getMarketingIntel() {
+		return this.marketing_intel;
+	}
+
+	public void setProjectVisitDetails(String projectVisitDetails) {
+		this.project_visit_details = projectVisitDetails;
+	}
+
+	public String getProjectVisitDetails() {
+		return this.project_visit_details;
+	}
+
+	public void setProjectRequirements(String projectRequirements) {
+		this.project_requirements = projectRequirements;
+	}
+
+	public String getProjectRequirements() {
+		return this.project_requirements;
+	}
+
+	public void setTrainings(String trainings) {
+		this.trainings = trainings;
+	}
+
+	public String getTrainings() {
+		return this.trainings;
+	}
+
+	public void setIdentifyProductFocus(String identifyProductFocus) {
+		this.identify_product_focus = identifyProductFocus;
+	}
+
+	public String getIdentifyProductFocus() {
+		return this.identify_product_focus;
+	}
+
+	public void setFullBrandActivation(String fullBrandActivation) {
+		this.full_brand_activation = fullBrandActivation;
+	}
+
+	public String getFullBrandActivation() {
+		return this.full_brand_activation;
+	}
+
+	public void setActivityPhotosAndAttachments(
+			String activityPhotosAndAttachments) {
+		this.activity_photos_and_attachments = activityPhotosAndAttachments;
+	}
+
+	public String getActivityPhotosAndAttachments() {
+		return this.activity_photos_and_attachments;
 	}
 
 }

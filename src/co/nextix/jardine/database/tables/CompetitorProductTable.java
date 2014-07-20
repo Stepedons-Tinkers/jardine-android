@@ -20,6 +20,7 @@ public class CompetitorProductTable {
 
 	private final String KEY_COMPETITORPRODUCT_ROWID = "_id";
 	private final String KEY_COMPETITORPRODUCT_NO = "no";
+	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
 	private final String KEY_COMPETITORPRODUCT_COMPETITOR = "competitor";
 	private final String KEY_COMPETITORPRODUCT_PRODUCTBRAND = "product_brand";
 	private final String KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION = "product_description";
@@ -28,7 +29,6 @@ public class CompetitorProductTable {
 	private final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
 	private final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
 	private final String KEY_COMPETITORPRODUCT_CREATEDBY = "created_by";
-	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -365,7 +365,7 @@ public class CompetitorProductTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, long competitor,
+	public long insert(String no, String crmNo, String competitor,
 			String productBrand, String productDescription, String productSize,
 			int isActive, String createdTime, String modifiedTime, long createdBy) {
 		// if (name == null) {
@@ -409,7 +409,7 @@ public class CompetitorProductTable {
 		}
 	}
 
-	public boolean update(long id, String no, String crmNo, long competitor,
+	public boolean update(long id, String no, String crmNo, String competitor,
 			String productBrand, String productDescription, String productSize,
 			int isActive, String createdTime, String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();

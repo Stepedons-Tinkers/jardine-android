@@ -20,14 +20,13 @@ public class MarketingMaterialsTable {
 
 	private final String KEY_MARKETINGMATERIALS_ROWID = "_id";
 	private final String KEY_MARKETINGMATERIALS_NO = "no";
+	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
 	private final String KEY_MARKETINGMATERIALS_DESCRIPTION = "description";
 	private final String KEY_MARKETINGMATERIALS_LASTUPDATE = "last_update";
 	private final String KEY_MARKETINGMATERIALS_TAGS = "tags";
 	private final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
 	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
 	private final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
-
-	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -155,19 +154,21 @@ public class MarketingMaterialsTable {
 		switch (column) {
 		case 0:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
-					+ KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%" + hint + "%'";
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
+					+ " AND " + KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%"
+					+ hint + "%'";
 			break;
 		case 1:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
-					+ KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%" + hint
-					+ "%'";
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
+					+ " AND " + KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%"
+					+ hint + "%'";
 			break;
 		case 2:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId + " AND "
-					+ KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint + "%'";
+					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
+					+ " AND " + KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint
+					+ "%'";
 			break;
 		default:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

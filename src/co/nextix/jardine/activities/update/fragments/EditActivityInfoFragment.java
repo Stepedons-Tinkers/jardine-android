@@ -26,12 +26,12 @@ public class EditActivityInfoFragment extends Fragment {
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
-		((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(this.activityRecord.getWorkplan()));
-		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
-		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
+//		((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(this.activityRecord.getWorkplan()));
+//		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
+//		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
 		((TextView) myFragmentView.findViewById(R.id.latitude)).setText(String.valueOf(this.activityRecord.getLatitude()));
 		((TextView) myFragmentView.findViewById(R.id.longitude)).setText(String.valueOf(this.activityRecord.getLongitude()));
-		((TextView) myFragmentView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
+//		((TextView) myFragmentView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
 		((TextView) myFragmentView.findViewById(R.id.notes)).setText(this.activityRecord.getNotes());
 		((TextView) myFragmentView.findViewById(R.id.competitor_activities)).setText("getCompetitorActivities()");
 		((TextView) myFragmentView.findViewById(R.id.highlights)).setText(this.activityRecord.getHighlights());
@@ -40,18 +40,18 @@ public class EditActivityInfoFragment extends Fragment {
 				.getFollowUpCommitmentDate()));
 		((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(String.valueOf(this.activityRecord.getActivityType()));
 		((TextView) myFragmentView.findViewById(R.id.others)).setText(String.valueOf("getOthers()"));
-		((TextView) myFragmentView.findViewById(R.id.business_unit)).setText(String.valueOf(String.valueOf(this.activityRecord
-				.getBusinessUnit())));
+//		((TextView) myFragmentView.findViewById(R.id.business_unit)).setText(String.valueOf(String.valueOf(this.activityRecord
+//				.getBusinessUnit())));
 		((TextView) myFragmentView.findViewById(R.id.workplan_entry)).setText(String.valueOf(this.activityRecord.getWorkplanEntry()));
 		((TextView) myFragmentView.findViewById(R.id.customer)).setText(String.valueOf(this.activityRecord.getCustomer()));
 		((TextView) myFragmentView.findViewById(R.id.area)).setText(String.valueOf(this.activityRecord.getArea()));
 		((TextView) myFragmentView.findViewById(R.id.province)).setText(String.valueOf(this.activityRecord.getProvince()));
-		((TextView) myFragmentView.findViewById(R.id.city_town)).setText(String.valueOf(this.activityRecord.getCityTown()));
+//		((TextView) myFragmentView.findViewById(R.id.city_town)).setText(String.valueOf(this.activityRecord.getCityTown()));
 		((TextView) myFragmentView.findViewById(R.id.first_time_visit)).setText(String.valueOf(this.activityRecord.getFirstTimeVisit()));
 		((TextView) myFragmentView.findViewById(R.id.planned_visit)).setText(String.valueOf(this.activityRecord.getPlannedVisit()));
 		((TextView) myFragmentView.findViewById(R.id.reason_remarks)).setText("getReasons()");
 		((TextView) myFragmentView.findViewById(R.id.details_admin_works)).setText("getDetailsAdminWorks()");
-		((TextView) myFragmentView.findViewById(R.id.source)).setText(String.valueOf(this.activityRecord.getSource()));
+//		((TextView) myFragmentView.findViewById(R.id.source)).setText(String.valueOf(this.activityRecord.getSource()));
 		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.activityRecord.getCreatedTime());
 		((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(String.valueOf(JardineApp.DB.getUser().getCurrentUser()
 				.getLastname()

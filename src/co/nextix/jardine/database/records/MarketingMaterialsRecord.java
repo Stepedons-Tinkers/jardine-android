@@ -19,14 +19,13 @@ public class MarketingMaterialsRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String description;
 	private String last_update;
 	private String tags;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
-
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
@@ -65,7 +64,7 @@ public class MarketingMaterialsRecord {
 	public String getNo() {
 		return this.no;
 	}
-	
+
 	public void setCrm(String crmNo) {
 		this.crm_no = crmNo;
 	}
