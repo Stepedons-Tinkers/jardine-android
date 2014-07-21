@@ -59,7 +59,7 @@ public class CollateralsMMGeneralInformation extends Fragment {
 		MarketingMaterialsRecord record = JardineApp.DB.getMarketingMaterials()
 				.getById(CollateralsConstants.ROW_ID);
 		UserTable user = JardineApp.DB.getUser();
-		UserRecord userRecord = user.getById(record.getUser());
+		UserRecord userRecord = user.getById(record.getCreatedBy());
 
 		crmNo.setText(record.getCrm());
 		desc.setText(record.getDescription());

@@ -50,9 +50,10 @@
             android:configChanges="mcc|mnc|orientation|screenSize"
             android:logo="@drawable/actionbar_logo"
             android:theme="@style/Theme.Example" >
+            <!-- 
             <item android:name="android:windowBackground">
-@android:color/transparent
-            </item>
+@android:color/transparent
+            </item>  -->
         </activity>
         <activity
             android:name="LoginActivity"

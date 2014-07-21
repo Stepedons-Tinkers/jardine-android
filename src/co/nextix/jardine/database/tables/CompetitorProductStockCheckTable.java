@@ -21,15 +21,14 @@ public class CompetitorProductStockCheckTable {
 
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID = "_id";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_NO = "no";
+	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY = "activity";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loaded_on_shelves";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_USER = "user";
-
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
+	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -98,13 +97,14 @@ public class CompetitorProductStockCheckTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-					long user = c
+					long createdBy = c
 							.getLong(c
-									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
 							crmNo, activity, competitorProduct, stockStatus,
-							loadedOnShelves, createdTime, modifiedTime, user));
+							loadedOnShelves, createdTime, modifiedTime,
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -156,13 +156,14 @@ public class CompetitorProductStockCheckTable {
 					String modifiedTime = c
 							.getString(c
 									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-					long user = c
+					long createdBy = c
 							.getLong(c
-									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 					list.add(new CompetitorProductStockCheckRecord(id, no,
 							crmNo, activity, competitorProduct, stockStatus,
-							loadedOnShelves, createdTime, modifiedTime, user));
+							loadedOnShelves, createdTime, modifiedTime,
+							createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -181,7 +182,7 @@ public class CompetitorProductStockCheckTable {
 				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,
 			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
+			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;
@@ -333,12 +334,13 @@ public class CompetitorProductStockCheckTable {
 				String modifiedTime = c
 						.getString(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
+				long createdBy = c
+						.getLong(c
+								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,
-						loadedOnShelves, createdTime, modifiedTime, user);
+						loadedOnShelves, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -382,12 +384,13 @@ public class CompetitorProductStockCheckTable {
 				String modifiedTime = c
 						.getString(c
 								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
-				long user = c.getLong(c
-						.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_USER));
+				long createdBy = c
+						.getLong(c
+								.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
 
 				record = new CompetitorProductStockCheckRecord(id, no, crmNo,
 						activity, competitorProduct, stockStatus,
-						loadedOnShelves, createdTime, modifiedTime, user);
+						loadedOnShelves, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -400,7 +403,7 @@ public class CompetitorProductStockCheckTable {
 
 	public long insert(String no, String crmNo, long activity,
 			long competitorProduct, long stockStatus, int loadedOnShelves,
-			String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -421,12 +424,12 @@ public class CompetitorProductStockCheckTable {
 				createdTime);
 		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME,
 				modifiedTime);
-		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_USER, user);
+		initialValues.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY, createdBy);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
 			// collection.add(ids, no, activity, competitorProduct, stockStatus,
-			// loadedOnShelves, createdTime, modifiedTime, user);
+			// loadedOnShelves, createdTime, modifiedTime, createdBy);
 			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
@@ -446,7 +449,7 @@ public class CompetitorProductStockCheckTable {
 
 	public boolean update(long id, String no, String crmNo, long activity,
 			long competitorProduct, long stockStatus, int loadedOnShelves,
-			String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO, crmNo);
@@ -458,7 +461,7 @@ public class CompetitorProductStockCheckTable {
 				loadedOnShelves);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME, createdTime);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_USER, user);
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY, createdBy);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, activity, competitorProduct,

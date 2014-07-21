@@ -19,15 +19,14 @@ public class CompetitorProductStockCheckRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity;
-	private long competitor_product;
+	private long competitor_product; // product brand // competitorproduct table
 	private long stock_status;
 	private int loaded_on_shelves;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-
-	private String crm_no;
+	private long created_by; // User Table
 
 	// ===========================================================
 	// Public constructors
@@ -36,7 +35,7 @@ public class CompetitorProductStockCheckRecord {
 	public CompetitorProductStockCheckRecord(long id, String no, String crmNo,
 			long activity, long competitorProduct, long stockStatus,
 			int loadedOnShelves, String createdTime, String modifiedTime,
-			long user) {
+			long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -47,7 +46,7 @@ public class CompetitorProductStockCheckRecord {
 		this.loaded_on_shelves = loadedOnShelves;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -106,6 +105,14 @@ public class CompetitorProductStockCheckRecord {
 		return this.loaded_on_shelves;
 	}
 
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
+	}
+
 	public void setModifiedTime(String modifiedTime) {
 		this.modified_time = modifiedTime;
 	}
@@ -114,19 +121,12 @@ public class CompetitorProductStockCheckRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
-	}
 }

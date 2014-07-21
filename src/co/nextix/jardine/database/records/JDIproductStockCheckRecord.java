@@ -10,50 +10,51 @@ public class JDIproductStockCheckRecord {
 	// _id
 	// no
 	// activity (activity table)
-	// product (product table)
+	// product_brand (product_brand table)
 	// stock_status (stock table / picklist)
 	// quantity
 	// loaded_on_shelves (checkbox)
 	// supplier (supplier table)
 	// created_time
 	// modified_time
-	// user(assigned_to / user table)
+	// created_by(assigned_to / created_by table)
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity; // Activity table
-	private long product; // product table
+	private long product_brand; // product_brand table
 	private long stock_status;
-	private int quantity;
+	// private int quantity;
 	private int loaded_on_shelves;
-	private long supplier; // supplier table
+	private long supplier; // customer type table
+	private String other_remarks;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-
-	private String crm_no;
+	private long created_by; // created_by Table
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
 	public JDIproductStockCheckRecord(long id, String no, String crmNo,
-			long activity, long product, long stockStatus, int quantity,
-			int loadedOnShelves, long supplier, String createdTime,
-			String modifiedTime, long user) {
+			long activity, long productBrand, long stockStatus,
+			int loadedOnShelves, long supplier, String otherRemarks,
+			String createdTime, String modifiedTime, long createdBy) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
 		this.activity = activity;
-		this.product = product;
+		this.product_brand = productBrand;
 		this.stock_status = stockStatus;
-		this.quantity = quantity;
+		// this.quantity = quantity;
 		this.loaded_on_shelves = loadedOnShelves;
 		this.supplier = supplier;
+		this.other_remarks = otherRemarks;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = createdBy;
 	}
 
 	// ===========================================================
@@ -88,12 +89,12 @@ public class JDIproductStockCheckRecord {
 		return this.activity;
 	}
 
-	public void setProduct(long product) {
-		this.product = product;
+	public void setProductBrand(long productBrand) {
+		this.product_brand = productBrand;
 	}
 
-	public long getProduct() {
-		return this.product;
+	public long getProductBrand() {
+		return this.product_brand;
 	}
 
 	public void setStockStatus(long stockStatus) {
@@ -104,13 +105,13 @@ public class JDIproductStockCheckRecord {
 		return this.stock_status;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
-	}
-
-	public int getQuantity() {
-		return this.quantity;
-	}
+	// public void setQuantity(int quantity) {
+	// this.quantity = quantity;
+	// }
+	//
+	// public int getQuantity() {
+	// return this.quantity;
+	// }
 
 	public void setLoadedOnShelves(int loadedOnShelves) {
 		this.loaded_on_shelves = loadedOnShelves;
@@ -128,20 +129,12 @@ public class JDIproductStockCheckRecord {
 		return this.supplier;
 	}
 
-	public void setModifiedTime(String modifiedTime) {
-		this.modified_time = modifiedTime;
+	public void setOtherRemarks(String otherRemarks) {
+		this.other_remarks = otherRemarks;
 	}
 
-	public String getModifiedTime() {
-		return this.modified_time;
-	}
-
-	public void setUser(long user) {
-		this.user = user;
-	}
-
-	public long getUser() {
-		return this.user;
+	public String getOtherRemarks() {
+		return this.other_remarks;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -151,4 +144,21 @@ public class JDIproductStockCheckRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+
+	public void setModifiedTime(String modifiedTime) {
+		this.modified_time = modifiedTime;
+	}
+
+	public String getModifiedTime() {
+		return this.modified_time;
+	}
+
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
+	}
+
+	public long getCreatedBy() {
+		return this.created_by;
+	}
+
 }

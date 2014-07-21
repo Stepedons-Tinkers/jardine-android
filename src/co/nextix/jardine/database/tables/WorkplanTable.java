@@ -19,14 +19,13 @@ public class WorkplanTable {
 
 	private final String KEY_WORKPLAN_ROWID = "_id";
 	private final String KEY_WORKPLAN_NO = "no";
-	private final String KEY_WORKPLAN_STARTDATE = "customer";
-	private final String KEY_WORKPLAN_ENDDATE = "date";
+	private final String KEY_WORKPLAN_CRMNO = "crm_no";
+	private final String KEY_WORKPLAN_FROMDATE = "from_date";
+	private final String KEY_WORKPLAN_TODATE = "to_date";
 	// private final String KEY_WORKPLAN_STATUS = "status"; removed
 	private final String KEY_WORKPLAN_CREATEDTIME = "created_time";
 	private final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
-	private final String KEY_WORKPLAN_USER = "user";
-
-	private final String KEY_WORKPLAN_CRMNO = "crm_no";
+	private final String KEY_WORKPLAN_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -71,16 +70,17 @@ public class WorkplanTable {
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CRMNO));
 					String startDate = c.getString(c
-							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+							.getColumnIndex(KEY_WORKPLAN_FROMDATE));
 					String endDate = c.getString(c
-							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+							.getColumnIndex(KEY_WORKPLAN_TODATE));
 					// int status = c
 					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
-					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDBY));
 
 					// list.add(new WorkplanRecord(id, no, startDate, endDate,
 					// status, createdTime, modifiedTime, user));
@@ -101,7 +101,7 @@ public class WorkplanTable {
 		Cursor c = null;
 		List<WorkplanRecord> list = new ArrayList<WorkplanRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_WORKPLAN_USER + " = " + userId + " AND "
+				+ KEY_WORKPLAN_CREATEDBY + " = " + userId + " AND "
 				+ KEY_WORKPLAN_NO + " = '" + workPlan + "' AND "
 				+ KEY_WORKPLAN_CREATEDTIME + " = '" + date + "'";
 		try {
@@ -113,16 +113,17 @@ public class WorkplanTable {
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CRMNO));
 					String startDate = c.getString(c
-							.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+							.getColumnIndex(KEY_WORKPLAN_FROMDATE));
 					String endDate = c.getString(c
-							.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+							.getColumnIndex(KEY_WORKPLAN_TODATE));
 					// int status = c
 					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
-					long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDBY));
 
 					list.add(new WorkplanRecord(id, no, crmNo, startDate,
 							endDate, createdTime, modifiedTime, user));
@@ -140,7 +141,7 @@ public class WorkplanTable {
 		Cursor c = null;
 		List<String> list = new ArrayList<String>();
 		String MY_QUERY = "SELECT " + KEY_WORKPLAN_NO + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_WORKPLAN_USER + " = "
+				+ mDatabaseTable + " WHERE " + KEY_WORKPLAN_CREATEDBY + " = "
 				+ userId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -263,15 +264,15 @@ public class WorkplanTable {
 				String crmNo = c
 						.getString(c.getColumnIndex(KEY_WORKPLAN_CRMNO));
 				String startDate = c.getString(c
-						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+						.getColumnIndex(KEY_WORKPLAN_FROMDATE));
 				String endDate = c.getString(c
-						.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+						.getColumnIndex(KEY_WORKPLAN_TODATE));
 				// int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_CREATEDBY));
 
 				// record = new WorkplanRecord(id, no, startDate, endDate,
 				// status,
@@ -322,15 +323,15 @@ public class WorkplanTable {
 				String crmNo = c
 						.getString(c.getColumnIndex(KEY_WORKPLAN_CRMNO));
 				String startDate = c.getString(c
-						.getColumnIndex(KEY_WORKPLAN_STARTDATE));
+						.getColumnIndex(KEY_WORKPLAN_FROMDATE));
 				String endDate = c.getString(c
-						.getColumnIndex(KEY_WORKPLAN_ENDDATE));
+						.getColumnIndex(KEY_WORKPLAN_TODATE));
 				// int status = c.getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
-				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_USER));
+				long user = c.getLong(c.getColumnIndex(KEY_WORKPLAN_CREATEDBY));
 
 				// record = new WorkplanRecord(id, no, startDate, endDate,
 				// status,
@@ -358,12 +359,12 @@ public class WorkplanTable {
 
 		initialValues.put(KEY_WORKPLAN_NO, no);
 		initialValues.put(KEY_WORKPLAN_CRMNO, crmNo);
-		initialValues.put(KEY_WORKPLAN_STARTDATE, startDate);
-		initialValues.put(KEY_WORKPLAN_ENDDATE, endDate);
+		initialValues.put(KEY_WORKPLAN_FROMDATE, startDate);
+		initialValues.put(KEY_WORKPLAN_TODATE, endDate);
 		// initialValues.put(KEY_WORKPLAN_STATUS, status);
 		initialValues.put(KEY_WORKPLAN_CREATEDTIME, createdTime);
 		initialValues.put(KEY_WORKPLAN_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_WORKPLAN_USER, user);
+		initialValues.put(KEY_WORKPLAN_CREATEDBY, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -390,12 +391,12 @@ public class WorkplanTable {
 		ContentValues args = new ContentValues();
 		args.put(KEY_WORKPLAN_NO, no);
 		args.put(KEY_WORKPLAN_CRMNO, crmNo);
-		args.put(KEY_WORKPLAN_STARTDATE, startDate);
-		args.put(KEY_WORKPLAN_ENDDATE, endDate);
+		args.put(KEY_WORKPLAN_FROMDATE, startDate);
+		args.put(KEY_WORKPLAN_TODATE, endDate);
 		// args.put(KEY_WORKPLAN_STATUS, status);
 		args.put(KEY_WORKPLAN_CREATEDTIME, createdTime);
 		args.put(KEY_WORKPLAN_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_WORKPLAN_USER, user);
+		args.put(KEY_WORKPLAN_CREATEDBY, user);
 		if (mDb.update(mDatabaseTable, args, KEY_WORKPLAN_ROWID + "=" + id,
 				null) > 0) {
 			// getRecords().update(id, no, startDate, endDate, status,
@@ -415,103 +416,4 @@ public class WorkplanTable {
 			e.printStackTrace();
 		}
 	}
-
-	// ===========================================================
-	// Public Foreign Key Methods
-	// ===========================================================
-
-	// ===========================================================
-	// Collection
-	// ===========================================================
-
-	// public WorkplanCollection getRecords() {
-	// if (workplanCollection == null) {
-	// workplanCollection = new WorkplanCollection();
-	// workplanCollection.list = getAllRecords();
-	// }
-	// return workplanCollection;
-	// }
-	//
-	// public final class WorkplanCollection implements Iterable<WorkplanRecord>
-	// {
-	//
-	// private List<WorkplanRecord> list;
-	//
-	// private WorkplanCollection() {
-	// }
-	//
-	// public int size() {
-	// return list.size();
-	// }
-	//
-	// public WorkplanRecord get(int i) {
-	// return list.get(i);
-	// }
-	//
-	// public WorkplanRecord getById(long id) {
-	// for (WorkplanRecord record : list) {
-	// if (record.getId() == id) {
-	// return record;
-	// }
-	// }
-	// return null;
-	// }
-	//
-	// private void add(long id, String no, String startDate, String endDate,
-	// int status, String createdTime, String modifiedTime, long user) {
-	// list.add(new WorkplanRecord(id, no, startDate, endDate, status,
-	// createdTime, modifiedTime, user));
-	// }
-	//
-	// private void clear() {
-	// list.clear();
-	// }
-	//
-	// private void deleteById(long id) {
-	// list.remove(getById(id));
-	// }
-	//
-	// private void update(long id, String no, String startDate,
-	// String endDate, int status, String createdTime,
-	// String modifiedTime, long user) {
-	// WorkplanRecord record = getById(id);
-	// record.setNo(no);
-	// record.setStartDate(startDate);
-	// record.setEndDate(endDate);
-	// record.setStatus(status);
-	// record.setCreatedTime(createdTime);
-	// record.setModifiedTime(modifiedTime);
-	// record.setUser(user);
-	// }
-	//
-	// @Override
-	// public Iterator<WorkplanRecord> iterator() {
-	// Iterator<WorkplanRecord> iter = new Iterator<WorkplanRecord>() {
-	// private int current = 0;
-	//
-	// @Override
-	// public void remove() {
-	// if (list.size() > 0) {
-	// deleteUser(list.get(current).getId());
-	// deleteById(list.get(current).getId());
-	// list.remove(current);
-	// }
-	// }
-	//
-	// @Override
-	// public WorkplanRecord next() {
-	// if (list.size() > 0) {
-	// return list.get(current++);
-	// }
-	// return null;
-	// }
-	//
-	// @Override
-	// public boolean hasNext() {
-	// return list.size() > 0 && current < list.size();
-	// }
-	// };
-	// return iter;
-	// }
-	// }
 }

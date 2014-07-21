@@ -39,57 +39,72 @@ public class JDIProductStockFragment extends Fragment {
 	private int currentPage = 0;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_product_stock_check, container, false);
+		this.myFragmentView = inflater.inflate(
+				R.layout.fragment_activity_jdi_product_stock_check, container,
+				false);
 		this.setListData();
 
-		((Button) myFragmentView.findViewById(R.id.add_btn_jdi_product_stock_check)).setOnClickListener(new OnClickListener() {
+		((Button) myFragmentView
+				.findViewById(R.id.add_btn_jdi_product_stock_check))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+					@Override
+					public void onClick(View v) {
+						v.getBackground().setColorFilter(
+								new LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddJDIProductStockFragment();
+						android.support.v4.app.Fragment newFragment = new AddJDIProductStockFragment();
 
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+						// Create new transaction
+						android.support.v4.app.FragmentTransaction transaction = getActivity()
+								.getSupportFragmentManager()
+								.beginTransaction()
+								.setCustomAnimations(R.anim.slide_in_left,
+										R.anim.slide_out_left);
 
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
+						// Replace whatever is in the fragment_container view
+						// with this
+						// fragment,
+						// and add the transaction to the back stack
+						transaction
+								.replace(R.id.activity_fragment, newFragment);
+						transaction.addToBackStack(null);
 
-				// Commit the transaction
-				transaction.commit();
-			}
-		});
+						// Commit the transaction
+						transaction.commit();
+					}
+				});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+		((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "<==== ni sud here", Toast.LENGTH_SHORT).show();
-				if (currentPage > 0) {
-					currentPage--;
-					addItem(currentPage);
-				}
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getActivity(), "<==== ni sud here",
+								Toast.LENGTH_SHORT).show();
+						if (currentPage > 0) {
+							currentPage--;
+							addItem(currentPage);
+						}
+					}
+				});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+		((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(View v) {
-				Toast.makeText(getActivity(), "ni sud here ====>", Toast.LENGTH_SHORT).show();
-				if (currentPage < totalPage - 1) {
-					currentPage++;
-					addItem(currentPage);
-				}
-			}
-		});
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(getActivity(), "ni sud here ====>",
+								Toast.LENGTH_SHORT).show();
+						if (currentPage < totalPage - 1) {
+							currentPage++;
+							addItem(currentPage);
+						}
+					}
+				});
 
 		return myFragmentView;
 	}
@@ -99,17 +114,21 @@ public class JDIProductStockFragment extends Fragment {
 		this.realRecord = new ArrayList<JDIproductStockCheckRecord>();
 		this.tempRecord = new ArrayList<JDIproductStockCheckRecord>();
 
-		JDIproductStockCheckTable table = JardineApp.DB.getJDIproductStockCheck();
+		JDIproductStockCheckTable table = JardineApp.DB
+				.getJDIproductStockCheck();
 		List<JDIproductStockCheckRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
-		Log.d("Jardine", "JDIProductStockCheck" + String.valueOf(records.size()));
+		Log.d("Jardine",
+				"JDIProductStockCheck" + String.valueOf(records.size()));
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					realRecord.add(new JDIproductStockCheckRecord(i, "", "", i, i, i, i, i, i, "", "", i));
+					// realRecord.add(new JDIproductStockCheckRecord(i, "", "",
+					// i,
+					// i, i, i, i, i, "", "", i));
 				}
 			}
 
@@ -120,7 +139,8 @@ public class JDIProductStockFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+					.setText("The database is still empty. Wanna sync first?");
 		}
 	}
 
@@ -128,7 +148,8 @@ public class JDIProductStockFragment extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
+				.setText(temp + " of " + totalPage);
 
 		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
@@ -143,18 +164,23 @@ public class JDIProductStockFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new JDIProductStockCheckCustomAdapter(this.CustomListView, getActivity(), this.tempRecord, this);
+		this.adapter = new JDIProductStockCheckCustomAdapter(
+				this.CustomListView, getActivity(), this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	// Event item listener
 	public void onItemClick(int mPosition) {
-		JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) this.tempRecord.get(mPosition);
+		JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) this.tempRecord
+				.get(mPosition);
 		Toast.makeText(
 				getActivity(),
-				"CRM No." + tempValues.getCrm() + " \n Activity:" + String.valueOf(tempValues.getActivity()) + " \n Product:"
-						+ String.valueOf(tempValues.getProduct()), Toast.LENGTH_SHORT).show();
+				"CRM No." + tempValues.getCrm() + " \n Activity:"
+						+ String.valueOf(tempValues.getActivity())
+						+ " \n Product:"
+						+ String.valueOf(tempValues.getProductBrand()),
+				Toast.LENGTH_SHORT).show();
 
 		// JDIproductStockCheckRecord ar = (JDIproductStockCheckRecord)
 		// this.list.getAdapter().getItem(mPosition);
@@ -172,14 +198,18 @@ public class JDIProductStockFragment extends Fragment {
 
 	protected void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((View) this.myFragmentView.findViewById(R.id.view_stub))
+				.setVisibility(View.GONE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+				.setVisibility(View.VISIBLE);
 	}
 
 	protected void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((View) this.myFragmentView.findViewById(R.id.view_stub))
+				.setVisibility(View.VISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+				.setVisibility(View.INVISIBLE);
 	}
 
 	protected void refreshListView() {

@@ -102,12 +102,13 @@ public class StartActivityFragment extends Fragment {
 								&& searchItem.equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-						} else if (parent.getSelectedItem().toString()
-								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
-
-							itemSearch.add(records.get(i));
-						} else if (parent.getSelectedItem().toString()
+//						} else if (parent.getSelectedItem().toString()
+//								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+//								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
+//
+//							itemSearch.add(records.get(i));
+						} 
+						else if (parent.getSelectedItem().toString()
 								.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& searchItem.equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -153,10 +154,10 @@ public class StartActivityFragment extends Fragment {
 								&& v.getText().toString().equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
-
-							itemSearch.add(records.get(i));
+//						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+//								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
+//
+//							itemSearch.add(records.get(i));
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -329,12 +330,12 @@ public class StartActivityFragment extends Fragment {
 		Editor editor = pref.edit();
 		editor.putLong("activity_id", tempValues.getId());
 		editor.putString("crm_no", tempValues.getCrm());
-		editor.putString("workplan", String.valueOf(tempValues.getWorkplan()));
-		editor.putString("start_time", tempValues.getStartTime());
-		editor.putString("end_time", tempValues.getEndTime());
+//		editor.putString("workplan", String.valueOf(tempValues.getWorkplan()));
+//		editor.putString("start_time", tempValues.getStartTime());
+//		editor.putString("end_time", tempValues.getEndTime());
 		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
 		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
-		editor.putString("objective", tempValues.getObjectives());
+//		editor.putString("objective", tempValues.getObjectives());
 		editor.putString("notes", tempValues.getNotes());
 		editor.putString("competitor_activities", "getCompetitorActivities()");
 		editor.putString("highlights", tempValues.getHighlights());

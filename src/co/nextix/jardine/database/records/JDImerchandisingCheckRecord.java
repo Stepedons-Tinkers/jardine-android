@@ -10,19 +10,20 @@ public class JDImerchandisingCheckRecord {
 	// _id
 	// no
 	// activity (activity table)
-	// product (product table)
+	// product_brand (product_brand table)
 	// status
-	// user (user table)
+	// created_by (created_by table)
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private long activity;
-	private long product;
-	private int is_active;
+	private long product_brand; // brand from Product Table
+	// private int is_active;
+	private long status;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-	private String crm_no;
+	private long created_by; // created_by Table
 
 	// ===========================================================
 	// Public constructors
@@ -32,18 +33,18 @@ public class JDImerchandisingCheckRecord {
 	}
 
 	public JDImerchandisingCheckRecord(long id, String no, String crmNo,
-			long activity, long product, int isActive, String createdTime,
-			String modifiedTime, long user) {
+			long activity, long productBrand, long status, String createdTime,
+			String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
 		this.activity = activity;
-		this.product = product;
-		this.is_active = isActive;
+		this.product_brand = productBrand;
+		this.status = status;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = created_by;
 	}
 
 	// ===========================================================
@@ -78,20 +79,20 @@ public class JDImerchandisingCheckRecord {
 		return this.activity;
 	}
 
-	public void setProduct(long product) {
-		this.product = product;
+	public void setProductBrand(long productBrand) {
+		this.product_brand = productBrand;
 	}
 
-	public long getProduct() {
-		return this.product;
+	public long getProductBrand() {
+		return this.product_brand;
 	}
 
-	public void setIsActive(int isActive) {
-		this.is_active = isActive;
+	public void setStatus(long status) {
+		this.status = status;
 	}
 
-	public int getIsActive() {
-		return this.is_active;
+	public long getStatus() {
+		return this.status;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -110,11 +111,11 @@ public class JDImerchandisingCheckRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long created_by) {
+		this.created_by = created_by;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 }

@@ -140,23 +140,23 @@ public class SaveActivityInfoFragment extends Fragment {
 		});
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setSelection((int) this.activityRecord.getArea() - 1);
-		((Spinner) this.rootView.findViewById(R.id.source)).setSelection((int) this.activityRecord.getSource() - 1);
-		((Spinner) this.rootView.findViewById(R.id.workplan)).setSelection((int) this.activityRecord.getWorkplan() - 1);
+//		((Spinner) this.rootView.findViewById(R.id.source)).setSelection((int) this.activityRecord.getSource() - 1);
+//		((Spinner) this.rootView.findViewById(R.id.workplan)).setSelection((int) this.activityRecord.getWorkplan() - 1);
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection((int) this.activityRecord.getActivityType() - 1);
 		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setSelection((int) this.activityRecord.getWorkplanEntry() - 1);
 		((Spinner) this.rootView.findViewById(R.id.customer)).setSelection((int) this.activityRecord.getCustomer() - 1);
 		((Spinner) this.rootView.findViewById(R.id.province)).setSelection((int) this.activityRecord.getProvince() - 1);
 
 		((TextView) this.rootView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
-		((TextView) this.rootView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
-		((TextView) this.rootView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
+//		((TextView) this.rootView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
+//		((TextView) this.rootView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
 		((TextView) this.rootView.findViewById(R.id.latitude)).setText(String.valueOf(this.activityRecord.getLatitude()));
 		((TextView) this.rootView.findViewById(R.id.longitude)).setText(String.valueOf(this.activityRecord.getLongitude()));
 		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setText(this.activityRecord.getFollowUpCommitmentDate());
 
 		((EditText) this.rootView.findViewById(R.id.reason_remarks)).setText("getRemarks()");
 		((EditText) this.rootView.findViewById(R.id.details_admin_works)).setText("getDetailedWorks()");
-		((EditText) this.rootView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
+//		((EditText) this.rootView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
 		((EditText) this.rootView.findViewById(R.id.notes)).setText(this.activityRecord.getNotes());
 		((EditText) this.rootView.findViewById(R.id.competitors_activities)).setText("getCompetitorActivities()");
 		((EditText) this.rootView.findViewById(R.id.highlights)).setText(this.activityRecord.getHighlights());
@@ -404,10 +404,10 @@ public class SaveActivityInfoFragment extends Fragment {
 			String time, String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().update(this.userId, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
-				highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit,
-				createdTime, modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-				promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area,
-				province, cityTown, source);
+//		JardineApp.DB.getActivity().update(this.userId, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
+//				highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit,
+//				createdTime, modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
+//				promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area,
+//				province, cityTown, source);
 	}
 }

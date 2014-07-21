@@ -22,6 +22,7 @@ public class CustomerContactRecord {
 
 	private long id;
 	private String no;
+	private String crm_no;
 	private String first_name;
 	private String last_name;
 	private long position;
@@ -32,9 +33,7 @@ public class CustomerContactRecord {
 	private int is_active;
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-
-	private String crm_no;
+	private long created_by; // User Table
 
 	// ===========================================================
 	// Public constructors
@@ -47,7 +46,7 @@ public class CustomerContactRecord {
 	public CustomerContactRecord(long id, String no, String crmNo,
 			String firstName, String lastName, long position, String mobileNo,
 			String birthday, String emailAddress, long customer, int isActive,
-			String createdTime, String modifiedTime, long user) {
+			String createdTime, String modifiedTime, long createdBy) {
 
 		this.id = id;
 		this.no = no;
@@ -62,7 +61,7 @@ public class CustomerContactRecord {
 		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
+		this.created_by = createdBy;
 	}
 
 	// ===========================================================
@@ -153,6 +152,14 @@ public class CustomerContactRecord {
 		return this.is_active;
 	}
 
+	public void setCreatedTime(String createdTime) {
+		this.created_time = createdTime;
+	}
+
+	public String getCreatedTime() {
+		return this.created_time;
+	}
+
 	public void setModifiedTime(String modifiedTime) {
 		this.modified_time = modifiedTime;
 	}
@@ -161,19 +168,12 @@ public class CustomerContactRecord {
 		return this.modified_time;
 	}
 
-	public void setUser(long user) {
-		this.user = user;
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
 	}
 
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return this.created_by;
 	}
 
-	public void setCreatedTime(String createdTime) {
-		this.created_time = createdTime;
-	}
-
-	public String getCreatedTime() {
-		return this.created_time;
-	}
 }

@@ -21,6 +21,7 @@ public class CustomerContactTable {
 
 	private final String KEY_CUSTOMERCONTACT_ROWID = "_id";
 	private final String KEY_CUSTOMERCONTACT_NO = "no";
+	private final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
 	private final String KEY_CUSTOMERCONTACT_FIRSTNAME = "first_name";
 	private final String KEY_CUSTOMERCONTACT_LASTNAME = "last_name";
 	private final String KEY_CUSTOMERCONTACT_POSITION = "position";
@@ -31,9 +32,7 @@ public class CustomerContactTable {
 	private final String KEY_CUSTOMERCONTACT_ISACTIVE = "is_active";
 	private final String KEY_CUSTOMERCONTACT_CREATEDTIME = "created_time";
 	private final String KEY_CUSTOMERCONTACT_MODIFIEDTIME = "modified_time";
-	private final String KEY_CUSTOMERCONTACT_USER = "user";
-
-	private final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
+	private final String KEY_CUSTOMERCONTACT_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -100,7 +99,7 @@ public class CustomerContactTable {
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDBY));
 
 					list.add(new CustomerContactRecord(id, no, crmNo,
 							firstName, lastName, position, mobileNo, birthday,
@@ -152,7 +151,7 @@ public class CustomerContactTable {
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDBY));
 
 					list.add(new CustomerContactRecord(id, no, crmNo,
 							firstName, lastName, position, mobileNo, birthday,
@@ -209,7 +208,7 @@ public class CustomerContactTable {
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
 					long user = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+							.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDBY));
 
 					list.add(new CustomerContactRecord(id, no, crmNo,
 							firstName, lastName, position, mobileNo, birthday,
@@ -363,7 +362,7 @@ public class CustomerContactTable {
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
 				long user = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+						.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDBY));
 
 				record = new CustomerContactRecord(id, no, crmNo, firstName,
 						lastName, position, mobileNo, birthday, emailAddress,
@@ -414,7 +413,7 @@ public class CustomerContactTable {
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMERCONTACT_MODIFIEDTIME));
 				long user = c.getLong(c
-						.getColumnIndex(KEY_CUSTOMERCONTACT_USER));
+						.getColumnIndex(KEY_CUSTOMERCONTACT_CREATEDBY));
 
 				record = new CustomerContactRecord(id, no, crmNo, firstName,
 						lastName, position, mobileNo, birthday, emailAddress,
@@ -452,7 +451,7 @@ public class CustomerContactTable {
 		initialValues.put(KEY_CUSTOMERCONTACT_ISACTIVE, isActive);
 		initialValues.put(KEY_CUSTOMERCONTACT_CREATEDTIME, createdTime);
 		initialValues.put(KEY_CUSTOMERCONTACT_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_CUSTOMERCONTACT_USER, user);
+		initialValues.put(KEY_CUSTOMERCONTACT_CREATEDBY, user);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -493,7 +492,7 @@ public class CustomerContactTable {
 		args.put(KEY_CUSTOMERCONTACT_ISACTIVE, isActive);
 		args.put(KEY_CUSTOMERCONTACT_CREATEDTIME, createdTime);
 		args.put(KEY_CUSTOMERCONTACT_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_CUSTOMERCONTACT_USER, user);
+		args.put(KEY_CUSTOMERCONTACT_CREATEDBY, user);
 		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMERCONTACT_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, firstName, lastName, position,
@@ -514,113 +513,4 @@ public class CustomerContactTable {
 			e.printStackTrace();
 		}
 	}
-
-	// ===========================================================
-	// Public Foreign Key Methods
-	// ===========================================================
-
-	// ===========================================================
-	// Collection
-	// ===========================================================
-
-	// public CustomerContactCollection getRecords() {
-	// if (customerContactRecords == null) {
-	// customerContactRecords = new CustomerContactCollection();
-	// customerContactRecords.list = getAllRecords();
-	// }
-	// return customerContactRecords;
-	// }
-	//
-	// public final class CustomerContactCollection implements
-	// Iterable<CustomerContactRecord> {
-	//
-	// private List<CustomerContactRecord> list;
-	//
-	// private CustomerContactCollection() {
-	// }
-	//
-	// public int size() {
-	// return list.size();
-	// }
-	//
-	// public CustomerContactRecord get(int i) {
-	// return list.get(i);
-	// }
-	//
-	// public CustomerContactRecord getById(long id) {
-	// for (CustomerContactRecord record : list) {
-	// if (record.getId() == id) {
-	// return record;
-	// }
-	// }
-	// return null;
-	// }
-	//
-	// private void add(long id, String no, String firstName, String lastName,
-	// long position, String mobileNo, String birthday,
-	// String emailAddress, long customer, int isActive,
-	// String createdTime, String modifiedTime, long user) {
-	// list.add(new CustomerContactRecord(id, no, firstName, lastName,
-	// position, mobileNo, birthday, emailAddress, customer,
-	// isActive, createdTime, modifiedTime, user));
-	// }
-	//
-	// private void clear() {
-	// list.clear();
-	// }
-	//
-	// private void deleteById(long id) {
-	// list.remove(getById(id));
-	// }
-	//
-	// private void update(long id, String no, String firstName,
-	// String lastName, long position, String mobileNo,
-	// String birthday, String emailAddress, long customer,
-	// int isActive, String createdTime, String modifiedTime, long user) {
-	// CustomerContactRecord record = getById(id);
-	// record.setNo(no);
-	// record.setFirstName(firstName);
-	// record.setLastName(lastName);
-	// record.setPosition(position);
-	// record.setMobileNo(mobileNo);
-	// record.setBirthday(birthday);
-	// record.setEmailAddress(emailAddress);
-	// record.setCustomer(customer);
-	// record.setIsActive(isActive);
-	// record.setCreatedTime(createdTime);
-	// record.setModifiedTime(modifiedTime);
-	// record.setUser(user);
-	// }
-	//
-	// @Override
-	// public Iterator<CustomerContactRecord> iterator() {
-	// Iterator<CustomerContactRecord> iter = new
-	// Iterator<CustomerContactRecord>() {
-	// private int current = 0;
-	//
-	// @Override
-	// public void remove() {
-	// if (list.size() > 0) {
-	// deleteUser(list.get(current).getId());
-	// deleteById(list.get(current).getId());
-	// list.remove(current);
-	// }
-	// }
-	//
-	// @Override
-	// public CustomerContactRecord next() {
-	// if (list.size() > 0) {
-	// return list.get(current++);
-	// }
-	// return null;
-	// }
-	//
-	// @Override
-	// public boolean hasNext() {
-	// return list.size() > 0 && current < list.size();
-	// }
-	// };
-	// return iter;
-	// }
-	// }
 }

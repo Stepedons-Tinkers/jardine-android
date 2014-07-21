@@ -58,7 +58,7 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		area.setText(strArea);
 
 		String strCity = JardineApp.DB.getCityTown().getNameById(
-				record.getCityTown());
+				record.getCity());
 		city.setText(strCity);
 
 		String strAct = JardineApp.DB.getActivityType().getNoById(
@@ -68,13 +68,13 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		createdTime.setText(record.getCreatedTime());
 
 		UserRecord userRecord = JardineApp.DB.getUser().getById(
-				record.getUser());
+				record.getCreatedBy());
 		assignedTo.setText(userRecord.getFirstNameName() + " "
 				+ userRecord.getLastname());
 
-		String sCustomer = JardineApp.DB.getCustomer().getNoById(
-				record.getCustomer());
-		customer.setText(sCustomer);
+//		String sCustomer = JardineApp.DB.getCustomer().getNoById(
+//				record.getCustomer());
+//		customer.setText(sCustomer);
 
 		PicklistRecord pic = JardineApp.DB.getWorkplanEntryStatus().getById(
 				record.getStatus());

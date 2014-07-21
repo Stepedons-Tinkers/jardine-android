@@ -449,11 +449,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			String time, String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes, highlights,
-				nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit, createdTime,
-				modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails,
-				projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area, province, cityTown,
-				source);
+//		JardineApp.DB.getActivity().insert(no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes, highlights,
+//				nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit, createdTime,
+//				modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery, promoStubsDetails,
+//				projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area, province, cityTown,
+//				source);
 	}
 
 }

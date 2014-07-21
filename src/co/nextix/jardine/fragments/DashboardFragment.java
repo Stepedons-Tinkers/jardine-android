@@ -68,14 +68,13 @@ public class DashboardFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// JardineApp.DB.getSMRentryType().g
-				if (JardineApp.DB.getSMRTimeCard().insert("", "",
-						MyDateUtils.getCurrentDate(),
-						MyDateUtils.getCurrentTime(), 2,
-						MyDateUtils.getCurrentTimeStamp(),
-						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
-					Toast.makeText(getActivity(), "Checked-in!",
-							Toast.LENGTH_SHORT).show();
+//				if (JardineApp.DB.getSMRTimeCard().insert("", "",
+//						MyDateUtils.getCurrentDate(),
+//						MyDateUtils.getCurrentTime(), 2,
+//						MyDateUtils.getCurrentTimeStamp(),
+//						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+//					Toast.makeText(getActivity(), "Checked-in!",
+//							Toast.LENGTH_SHORT).show();
 			}
 
 		});
@@ -84,19 +83,13 @@ public class DashboardFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// JardineApp.DB.getSMRentryType().g
-				if (JardineApp.DB.getSMRTimeCard().insert("", "",
-						MyDateUtils.getCurrentDate(),
-						MyDateUtils.getCurrentTime(), 3,
-						MyDateUtils.getCurrentTimeStamp(),
-						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
-					Toast.makeText(getActivity(), "Checked-out!",
-							Toast.LENGTH_SHORT).show();
-				// WorkplanEntryTable table = JardineApp.DB.getWorkplanEntry();
-				// List<WorkplanEntryRecord> list = table.getAllRecords();
-				// Toast.makeText(getActivity(), "wokrplanEntry: " +
-				// list.size(),
-				// Toast.LENGTH_SHORT).show();
+//				if (JardineApp.DB.getSMRTimeCard().insert("", "",
+//						MyDateUtils.getCurrentDate(),
+//						MyDateUtils.getCurrentTime(), 3,
+//						MyDateUtils.getCurrentTimeStamp(),
+//						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+//					Toast.makeText(getActivity(), "Checked-out!",
+//							Toast.LENGTH_SHORT).show();
 			}
 
 		});

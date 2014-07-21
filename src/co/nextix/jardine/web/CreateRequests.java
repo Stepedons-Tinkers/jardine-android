@@ -23,7 +23,6 @@ import java.util.List;
 
 import org.apache.http.NameValuePair;
 import org.apache.http.message.BasicNameValuePair;
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -41,20 +40,14 @@ import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
-import co.nextix.jardine.database.records.SMRtimeCardRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
-import co.nextix.jardine.database.tables.CompetitorTable;
-import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.ProductTable;
-import co.nextix.jardine.database.tables.SMRTable;
-import co.nextix.jardine.database.tables.SupplierTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
-import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
@@ -64,7 +57,6 @@ import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
-import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.WebCreateModel;
@@ -88,17 +80,17 @@ public class CreateRequests {
 		try {
 
 			UserTable userTable = DB.getUser();
-			CompetitorTable compTable = DB.getCompetitor();
+			// CompetitorTable compTable = DB.getCompetitor();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				String competitor = compTable.getNoById(records.get(x)
-						.getCompetitor());
-				requestObject.put("z_cmp_comp", competitor);
+				// String competitor = compTable.getNoById(records.get(x)
+				// .getCompetitor());
+				// requestObject.put("z_cmp_comp", competitor);
 				requestObject.put("z_cmp_prbrnd", records.get(x)
 						.getProductBrand());
 				requestObject.put("z_cmp_prdesc", records.get(x)
@@ -178,90 +170,90 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> smrTimecard(List<SMRtimeCardRecord> records) {
-
-		List<WebCreateModel> model = null;
-
-		JSONObject requestList = new JSONObject();
-		try {
-
-			UserTable userTable = DB.getUser();
-			PSMRentryTypeTable smrEntry = DB.getSMRentryType();
-
-			for (int x = 0; x < records.size(); x++) {
-				JSONObject requestObject = new JSONObject();
-
-				// get user id from db
-				String id = userTable.getNoById(records.get(x).getCreatedBy());
-				requestObject.put("assigned_user_id", id);
-				requestObject.put("z_stc_date", records.get(x).getDate());
-				requestObject.put("z_stc_time", records.get(x).getTimestamp());
-				// get entry type from db
-				String entryType = smrEntry.getById(
-						records.get(x).getEntryType()).getName();
-				requestObject.put("z_stc_picklist", entryType);
-
-				requestList.put(String.valueOf(records.get(x).getId()),
-						requestObject);
-			}
-
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-
-		BufferedWriter writer;
-		URL url;
-		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
-
-		try {
-
-			url = new URL(urlString);
-			getConnection(url, "POST");
-
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.SMRTimeCard));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
-
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
-
-			// status
-			int status = JardineApp.httpConnection.getResponseCode();
-
-			if (status == 200) {
-
-				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
-				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
-
-			} else {
-				// getResponse();
-			}
-		} catch (ProtocolException e) {
-			e.printStackTrace();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-		return model;
-	}
+//	public List<WebCreateModel> smrTimecard(List<SMRtimeCardRecord> records) {
+//
+//		List<WebCreateModel> model = null;
+//
+//		JSONObject requestList = new JSONObject();
+//		try {
+//
+//			UserTable userTable = DB.getUser();
+//			PSMRentryTypeTable smrEntry = DB.getSMRentryType();
+//
+//			for (int x = 0; x < records.size(); x++) {
+//				JSONObject requestObject = new JSONObject();
+//
+//				// get user id from db
+//				String id = userTable.getNoById(records.get(x).getCreatedBy());
+//				requestObject.put("assigned_user_id", id);
+//				requestObject.put("z_stc_date", records.get(x).getDate());
+//				requestObject.put("z_stc_time", records.get(x).getTimestamp());
+//				// get entry type from db
+//				String entryType = smrEntry.getById(
+//						records.get(x).getEntryType()).getName();
+//				requestObject.put("z_stc_picklist", entryType);
+//
+//				requestList.put(String.valueOf(records.get(x).getId()),
+//						requestObject);
+//			}
+//
+//		} catch (JSONException e1) {
+//			e1.printStackTrace();
+//		}
+//
+//		BufferedWriter writer;
+//		URL url;
+//		String urlString = JardineApp.WEB_URL;
+//		Log.d(TAG, urlString);
+//
+//		try {
+//
+//			url = new URL(urlString);
+//			getConnection(url, "POST");
+//
+//			// appending
+//			List<NameValuePair> params = new ArrayList<NameValuePair>();
+//			params.add(new BasicNameValuePair("sessionName",
+//					JardineApp.SESSION_NAME));
+//			params.add(new BasicNameValuePair("operation", operation));
+//			params.add(new BasicNameValuePair("elementType",
+//					Modules.SMRTimeCard));
+//			params.add(new BasicNameValuePair("elements", requestList
+//					.toString()));
+//
+//			// sending
+//			OutputStream os = JardineApp.httpConnection.getOutputStream();
+//			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+//			writer.write(getQuery(params));
+//			writer.flush();
+//			writer.close();
+//			os.close();
+//
+//			// status
+//			int status = JardineApp.httpConnection.getResponseCode();
+//
+//			if (status == 200) {
+//
+//				Gson gson = new Gson();
+//				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+//				}.getType();
+//				DefaultRequester<List<WebCreateModel>> requester = gson
+//						.fromJson(getReader(), typeOfT);
+//				model = (List<WebCreateModel>) requester.getResult();
+//
+//			} else {
+//				// getResponse();
+//			}
+//		} catch (ProtocolException e) {
+//			e.printStackTrace();
+//		} catch (MalformedURLException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
+//
+//		return model;
+//	}
 
 	public List<WebCreateModel> customer(List<CustomerRecord> records) {
 
@@ -413,7 +405,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				requestObject.put("z_cuc_firstname", records.get(x)
 						.getFirstName());
@@ -535,31 +527,32 @@ public class CreateRequests {
 			// numberAttendees z_ac_noofattenees
 
 			UserTable userTable = DB.getUser();
-			WorkplanTable workplanTable = DB.getWorkplan();
+			// WorkplanTable workplanTable = DB.getWorkplan();
 			ActivityTypeTable activityTypeTable = DB.getActivityType();
 			WorkplanEntryTable workplanEntryTable = DB.getWorkplanEntry();
 			CustomerTable customerTable = DB.getCustomer();
-			SMRTable smrTable = DB.getSMR();
+			// SMRTable smrTable = DB.getSMR();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get user id from db
-				String workplan = workplanTable.getNoById(records.get(x)
-						.getWorkplan());
-				requestObject.put("z_ac_workplan", workplan);
-				requestObject.put("z_ac_starttime", records.get(x)
-						.getStartTime());
-				requestObject.put("z_ac_endtime", records.get(x).getEndTime());
+				// String workplan = workplanTable.getNoById(records.get(x)
+				// .getWorkplan());
+				// requestObject.put("z_ac_workplan", workplan);
+				// requestObject.put("z_ac_starttime", records.get(x)
+				// .getStartTime());
+				// requestObject.put("z_ac_endtime",
+				// records.get(x).getEndTime());
 				requestObject
 						.put("z_ac_latitude", records.get(x).getLatitude());
 				requestObject.put("z_ac_longitude", records.get(x)
 						.getLongitude());
-				requestObject.put("z_ac_objective", records.get(x)
-						.getObjectives());
+				// requestObject.put("z_ac_objective", records.get(x)
+				// .getObjectives());
 				requestObject.put("z_ac_notes", records.get(x).getNotes());
 				requestObject.put("z_ac_highlights", records.get(x)
 						.getHighlights());
@@ -584,30 +577,30 @@ public class CreateRequests {
 				requestObject.put("z_ac_plannedvisit", records.get(x)
 						.getPlannedVisit());
 				// get smr from db
-				String smr = smrTable.getNoById(records.get(x).getSMR());
-				requestObject.put("z_ac_smr", smr);
+				// String smr = smrTable.getNoById(records.get(x).getSMR());
+				// requestObject.put("z_ac_smr", smr);
 
-				requestObject.put("z_ac_issuesidentified", records.get(x)
-						.getIssuesIdentified());
-				requestObject.put("z_ac_feedbackfromcu", records.get(x)
-						.getFeedbackFromCustomer());
-				requestObject.put("z_ac_ongoingcampaigns", records.get(x)
-						.getOngoingCampaigns());
-				requestObject.put("z_ac_lastdelivery", records.get(x)
-						.getLastDelivery());
-				requestObject.put("z_ac_promostubsdetails", records.get(x)
-						.getPromoStubsDetails());
-				requestObject.put("z_ac_projectname", records.get(x)
-						.getProjectName());
-				requestObject.put("z_ac_projectstage", records.get(x)
-						.getProjectStage());
-				requestObject.put("projectCategory", records.get(x)
-						.getProjectCategory());
-				requestObject.put("z_ac_date", records.get(x).getDate());
-				requestObject.put("z_ac_time", records.get(x).getTime());
-				requestObject.put("z_ac_venue", records.get(x).getVenue());
-				requestObject.put("z_ac_noofattenees", records.get(x)
-						.getNoOfAttendees());
+				// requestObject.put("z_ac_issuesidentified", records.get(x)
+				// .getIssuesIdentified());
+				// requestObject.put("z_ac_feedbackfromcu", records.get(x)
+				// .getFeedbackFromCustomer());
+				// requestObject.put("z_ac_ongoingcampaigns", records.get(x)
+				// .getOngoingCampaigns());
+				// requestObject.put("z_ac_lastdelivery", records.get(x)
+				// .getLastDelivery());
+				// requestObject.put("z_ac_promostubsdetails", records.get(x)
+				// .getPromoStubsDetails());
+				// requestObject.put("z_ac_projectname", records.get(x)
+				// .getProjectName());
+				// requestObject.put("z_ac_projectstage", records.get(x)
+				// .getProjectStage());
+				// requestObject.put("projectCategory", records.get(x)
+				// .getProjectCategory());
+				// requestObject.put("z_ac_date", records.get(x).getDate());
+				// requestObject.put("z_ac_time", records.get(x).getTime());
+				// requestObject.put("z_ac_venue", records.get(x).getVenue());
+				// requestObject.put("z_ac_noofattenees", records.get(x)
+				// .getNoOfAttendees());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -691,7 +684,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -699,9 +692,9 @@ public class CreateRequests {
 				requestObject.put("z_jmc_activity", activity);
 				// get product id from db
 				String product = productTable.getNoById(records.get(x)
-						.getProduct());
+						.getProductBrand());
 				requestObject.put("z_jmc_product", product);
-				requestObject.put("z_jmc_status", records.get(x).getIsActive());
+				// requestObject.put("z_jmc_status", records.get(x).getst);
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -782,13 +775,13 @@ public class CreateRequests {
 			ActivityTable activityTable = DB.getActivity();
 			ProductTable productTable = DB.getProduct();
 			PJDIprodStatusTable jStatusTable = DB.getJDIproductStatus();
-			SupplierTable supplierTable = DB.getSupplier();
+//			SupplierTable supplierTable = DB.getSupplier();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -796,16 +789,16 @@ public class CreateRequests {
 				requestObject.put("z_jps_activity", activity);
 				// get product id from db
 				String product = productTable.getNoById(records.get(x)
-						.getProduct());
+						.getProductBrand());
 				requestObject.put("z_jps_product", product);
 				String status = jStatusTable.getNameById(records.get(x)
 						.getStockStatus());
 				requestObject.put("z_jps_stockstatus", status);
 				requestObject.put("z_jps_loadedonshelves", records.get(x)
 						.getLoadedOnShelves());
-				String supplier = supplierTable.getNoById(records.get(x)
-						.getSupplier());
-				requestObject.put("z_jps_supplier", supplier);
+//				String supplier = supplierTable.getNoById(records.get(x)
+//						.getSupplier());
+//				requestObject.put("z_jps_supplier", supplier);
 				// requestObject.put("quantity", records.get(x).getQuantity());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
@@ -893,7 +886,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -986,22 +979,22 @@ public class CreateRequests {
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
-			CompetitorTable compTable = DB.getCompetitor();
+//			CompetitorTable compTable = DB.getCompetitor();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
 						.getActivity());
 				requestObject.put("z_min_activity", activity);
 				// get product id from db
-				String compt = compTable.getNoById(records.get(x)
-						.getCompetitor());
-				requestObject.put("z_min_competitor", compt);
+//				String compt = compTable.getNoById(records.get(x)
+//						.getCompetitorProduct());
+//				requestObject.put("z_min_competitor", compt);
 				requestObject.put("z_min_details", records.get(x).getDetails());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
@@ -1087,7 +1080,7 @@ public class CreateRequests {
 				JSONObject requestObject = new JSONObject();
 
 				// get user id from db
-				String id = userTable.getNoById(records.get(x).getUser());
+				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
 				// get activity id from db
 				String activity = activityTable.getNoById(records.get(x)
@@ -1101,8 +1094,7 @@ public class CreateRequests {
 						.getDateNeeded());
 				requestObject.put("z_pr_squaremtrs", records.get(x)
 						.getSquareMeters());
-				requestObject.put("z_pr_prodused", records.get(x)
-						.getProductsUsed());
+				// requestObject.put("z_pr_prodused", records.get(x).getpro);
 				requestObject.put("z_pr_otherdet", records.get(x)
 						.getOtherDetails());
 

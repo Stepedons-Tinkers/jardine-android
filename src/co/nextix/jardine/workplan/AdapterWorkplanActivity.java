@@ -74,7 +74,7 @@ public class AdapterWorkplanActivity extends ArrayAdapter<ActivityRecord>{
 
 		holder.txtEventType.setText("");
 		holder.txtIsActive.setText("");
-		holder.txtEventType.setText(holder.record.getDate() + "");
+//		holder.txtEventType.setText(holder.record.getDate() + "");
 		holder.txtIsActive.setText(holder.record.getActivityType() + "");
 
 		return view;

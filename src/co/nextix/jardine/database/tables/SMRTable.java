@@ -20,16 +20,16 @@ public class SMRTable {
 
 	private final String KEY_SMR_ROWID = "_id";
 	private final String KEY_SMR_NO = "no";
+	private final String KEY_SMR_CRMNO = "crm_no";
 	private final String KEY_SMR_FIRSTNAME = "firstname";
 	private final String KEY_SMR_LASTNAME = "lastname";
 	// private final String KEY_SMR_REGION = "region";
 	private final String KEY_SMR_AREA = "area";
 	private final String KEY_SMR_ISACTIVE = "is_active";
+	private final String KEY_SMR_BUSINESS_UNIT = "business_unit";
 	private final String KEY_SMR_CREATEDTIME = "created_time";
 	private final String KEY_SMR_MODIFIEDTIME = "modified_time";
 	private final String KEY_SMR_CREATED_BY = "created_by";
-	private final String KEY_SMR_BUSINESS_UNIT = "business_unit";
-	private final String KEY_SMR_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -84,7 +84,8 @@ public class SMRTable {
 							.getColumnIndex(KEY_SMR_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-					long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+					long created_by = c.getLong(c
+							.getColumnIndex(KEY_SMR_CREATED_BY));
 
 					long businessUnit = c.getLong(c
 							.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
@@ -93,8 +94,8 @@ public class SMRTable {
 					// region,
 					// area, isActive, createdTime, modifiedTime, user));
 					list.add(new SMRRecord(id, no, crmNo, firstname, lastname,
-							area, isActive, createdTime, modifiedTime, created_by,
-							businessUnit));
+							area, isActive, businessUnit, createdTime,
+							modifiedTime, created_by));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -199,7 +200,8 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-				long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+				long created_by = c.getLong(c
+						.getColumnIndex(KEY_SMR_CREATED_BY));
 
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
@@ -207,8 +209,8 @@ public class SMRTable {
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
 				record = new SMRRecord(id, no, crmNo, firstname, lastname,
-						area, isActive, createdTime, modifiedTime, created_by,
-						businessUnit);
+						area, isActive, businessUnit, createdTime,
+						modifiedTime, created_by);
 			}
 		} finally {
 			if (c != null) {
@@ -282,7 +284,8 @@ public class SMRTable {
 						.getColumnIndex(KEY_SMR_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_SMR_MODIFIEDTIME));
-				long created_by = c.getLong(c.getColumnIndex(KEY_SMR_CREATED_BY));
+				long created_by = c.getLong(c
+						.getColumnIndex(KEY_SMR_CREATED_BY));
 
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_SMR_BUSINESS_UNIT));
@@ -290,8 +293,8 @@ public class SMRTable {
 				// record = new SMRRecord(id, no, firstname, lastname, region,
 				// area, isActive, createdTime, modifiedTime, user);
 				record = new SMRRecord(id, no, crmNo, firstname, lastname,
-						area, isActive, createdTime, modifiedTime, created_by,
-						businessUnit);
+						area, isActive, businessUnit, createdTime,
+						modifiedTime, created_by);
 			}
 		} finally {
 			if (c != null) {
@@ -303,8 +306,8 @@ public class SMRTable {
 	}
 
 	public long insert(String no, String crmNo, String firstname,
-			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long created_by, long businessUnit) {
+			String lastname, long area, int isActive, long businessUnit,
+			String createdTime, String modifiedTime, long created_by) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -345,8 +348,8 @@ public class SMRTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, String firstname,
-			String lastname, long area, int isActive, String createdTime,
-			String modifiedTime, long created_by, long businessUnit) {
+			String lastname, long area, int isActive, long businessUnit,
+			String createdTime, String modifiedTime, long created_by) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_SMR_NO, no);
 		args.put(KEY_SMR_CRMNO, crmNo);

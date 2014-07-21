@@ -8,6 +8,7 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class LogoutMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 
 			StoreAccount.clear(getActivity());
-//			JardineApp.DB.close();
+			// JardineApp.DB.close();
 			JardineApp.SESSION_NAME = null;
 			return true;
 		}
@@ -95,6 +96,9 @@ public class LogoutMenuBarFragment extends Fragment {
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
 						dialog.dismiss();
+						getFragmentManager();
+						getFragmentManager().popBackStack("logout",
+								FragmentManager.POP_BACK_STACK_INCLUSIVE);
 					}
 				});
 		builderSingle.show();

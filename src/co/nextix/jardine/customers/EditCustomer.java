@@ -176,18 +176,18 @@ public class EditCustomer extends Activity implements OnClickListener {
 		// ((CityTownRecord) field11.getSelectedItem()).getId(), 1,
 		// c.getTime().toString(), c.getTime().toString(), userId);
 
-		JardineApp.DB.getCustomer().update(record.getId(), record.getNo(),
-				record.getCrm(), field2.getText().toString(),
-				field4.getText().toString(), field5.getText().toString(),
-				field12.getText().toString(),
-				((PicklistRecord) field6.getSelectedItem()).getId(),
-				field3.getText().toString(),
-				((PicklistRecord) field7.getSelectedItem()).getId(),
-				((BusinessUnitRecord) field8.getSelectedItem()).getId(),
-				((PicklistRecord) field9.getSelectedItem()).getId(),
-				((ProvinceRecord) field10.getSelectedItem()).getId(),
-				((CityTownRecord) field11.getSelectedItem()).getId(), 1,
-				record.getCreatedTime(), c.getTime().toString(), userId);
+//		JardineApp.DB.getCustomer().update(record.getId(), record.getNo(),
+//				record.getCrm(), field2.getText().toString(),
+//				field4.getText().toString(), field5.getText().toString(),
+//				field12.getText().toString(),
+//				((PicklistRecord) field6.getSelectedItem()).getId(),
+//				field3.getText().toString(),
+//				((PicklistRecord) field7.getSelectedItem()).getId(),
+//				((BusinessUnitRecord) field8.getSelectedItem()).getId(),
+//				((PicklistRecord) field9.getSelectedItem()).getId(),
+//				((ProvinceRecord) field10.getSelectedItem()).getId(),
+//				((CityTownRecord) field11.getSelectedItem()).getId(), 1,
+//				record.getCreatedTime(), c.getTime().toString(), userId);
 	}
 
 	@Override

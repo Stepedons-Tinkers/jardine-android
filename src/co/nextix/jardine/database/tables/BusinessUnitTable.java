@@ -19,14 +19,13 @@ public class BusinessUnitTable {
 
 	private final String KEY_BUSINESSUNIT_ROWID = "_id";
 	private final String KEY_BUSINESSUNIT_NO = "no";
+	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
 	private final String KEY_BUSINESSUNIT_NAME = "business_unit_name";
 	private final String KEY_BUSINESSUNIT_CODE = "business_unit_code";
 	private final String KEY_BUSINESSUNIT_ISACTIVE = "is_active";
 	private final String KEY_BUSINESSUNIT_CREATEDTIME = "created_time";
 	private final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
 	private final String KEY_BUSINESSUNIT_CREATED_BY = "created_by";
-
-	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
