@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.records.SMRtimeCardRecord;
 
 public class CustomerTable {
 	// ===========================================================
