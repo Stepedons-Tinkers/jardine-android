@@ -15,6 +15,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PowerManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -170,6 +171,8 @@ public class SyncMenuBarFragment extends Fragment {
 	@Override
 	public void onDestroy() {
 		this.mWakeLock.release();
+		getFragmentManager();
+		getFragmentManager().popBackStack("sync", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		super.onDestroy();
 	}
 
