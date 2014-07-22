@@ -57,11 +57,11 @@
     <!-- Profile Info View -->
     <string name="profile_info_userinformation">User Information</string>
     <string name="profile_info_username">Username</string>
-    <string name="profile_info_firstname">First Name</string>
-    <string name="profile_info_lastname">Last Name</string>
-    <string name="profile_info_area">Area(s) assigned</string>
+    <string name="profile_info_firstname">First Name:</string>
+    <string name="profile_info_lastname">Last Name:</string>
+    <string name="profile_info_area">Area(s) assigned:</string>
     <string name="profile_info_syncinformation">Syncing Information</string>
-    <string name="profile_info_lastsync">Last sync</string>
+    <string name="profile_info_lastsync">Last sync:</string>
 
     <!-- Profile Notif View -->
     <string name="profile_notif_date">Date</string>

@@ -5,6 +5,7 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import android.support.v4.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,9 @@ public class ProfileInformationFragment extends Fragment {
 		txtLastSync = (TextView) view
 				.findViewById(R.id.profileinfo_txt_lastsync);
 
+		txtUsername.setTypeface(Typeface.createFromAsset(getActivity()
+				.getAssets(), "fonts/Roboto-Light.ttf"));
+
 		populate();
 
 		return view;
@@ -57,7 +61,8 @@ public class ProfileInformationFragment extends Fragment {
 				} else {
 					txtLastSync.setText("not yet synced");
 				}
-				String area = user.getArea().replace("|", "").replace("##", ",");
+				String area = user.getArea().replace("|", "")
+						.replace("##", ",");
 				txtAreas.setText(area);
 			}
 		}
