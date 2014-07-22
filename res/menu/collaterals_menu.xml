@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/itemCollateralSearch"
+        android:actionViewClass="android.widget.SearchView"
+        android:icon="@android:drawable/ic_menu_search"
+        android:showAsAction="always"
+        android:title="@string/search"/>
+    <item
+        android:id="@+id/itemCollateralSpinner"
+        android:actionLayout="@layout/collaterals_spinner"
+        android:showAsAction="always"
+        android:title="@string/search"/>
+
+</menu>
