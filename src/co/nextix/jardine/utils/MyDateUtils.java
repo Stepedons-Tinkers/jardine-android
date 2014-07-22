@@ -1,11 +1,13 @@
 package co.nextix.jardine.utils;
 
 import android.annotation.SuppressLint;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.TimeZone;
 
 public class MyDateUtils {
@@ -87,6 +89,24 @@ public class MyDateUtils {
 		try {
 			date = formatter.parse(YearMonthDay);
 			DateFormat df = new SimpleDateFormat("MMMM dd,yyyy");
+			txtDate = df.format(date);
+
+		} catch (Exception e) {
+
+		}
+
+		return txtDate;
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	public static String convertDateTime(String YearMonthDayHourMinuteSeconds) {
+		String txtDate = "";
+		String expectedPattern = "yyyy-MM-dd HH:mm:ss";
+		SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+		Date date;
+		try {
+			date = formatter.parse(YearMonthDayHourMinuteSeconds);
+			DateFormat df = new SimpleDateFormat("MMMM dd,yyyy @ HH:mm");
 			txtDate = df.format(date);
 
 		} catch (Exception e) {
