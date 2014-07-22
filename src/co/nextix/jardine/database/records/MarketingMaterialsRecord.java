@@ -23,6 +23,9 @@ public class MarketingMaterialsRecord {
 	private String description;
 	private String last_update;
 	private String tags;
+	private long business_unit;
+	private int is_new;
+	private int is_active;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
@@ -36,7 +39,8 @@ public class MarketingMaterialsRecord {
 
 	public MarketingMaterialsRecord(long id, String no, String crmNo,
 			String description, String lastUdpate, String tags,
-			String createdTime, String modifiedTime, long created_by) {
+			long businessUnit, int isNew, int isActive, String createdTime,
+			String modifiedTime, long created_by) {
 
 		this.id = id;
 		this.no = no;
@@ -44,6 +48,9 @@ public class MarketingMaterialsRecord {
 		this.description = description;
 		this.last_update = lastUdpate;
 		this.tags = tags;
+		this.business_unit = businessUnit;
+		this.is_new = isNew;
+		this.is_active = isActive;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.created_by = created_by;
@@ -95,6 +102,30 @@ public class MarketingMaterialsRecord {
 
 	public String getTags() {
 		return this.tags;
+	}
+
+	public void setBusinessUnit(long businessUnit) {
+		this.business_unit = businessUnit;
+	}
+
+	public long getBusinessUnit() {
+		return business_unit;
+	}
+
+	public void setIsNew(int isNew) {
+		this.is_new = isNew;
+	}
+
+	public int getIsNew() {
+		return is_new;
+	}
+
+	public void setIsActive(int isActive) {
+		this.is_active = isActive;
+	}
+
+	public int getIsActive() {
+		return is_active;
 	}
 
 	public void setCreatedTime(String createdTime) {
