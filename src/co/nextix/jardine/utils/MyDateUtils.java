@@ -1,5 +1,6 @@
 package co.nextix.jardine.utils;
 
+import android.annotation.SuppressLint;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -75,5 +76,23 @@ public class MyDateUtils {
 		// n > 0 after
 		// n == 0 equal
 		return serverTime.compareTo(deviceTime);
+	}
+
+	@SuppressLint("SimpleDateFormat")
+	public static String convertDate(String YearMonthDay) {
+		String txtDate = "";
+		String expectedPattern = "yyyy-MM-dd";
+		SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+		Date date;
+		try {
+			date = formatter.parse(YearMonthDay);
+			DateFormat df = new SimpleDateFormat("MMMM dd,yyyy");
+			txtDate = df.format(date);
+
+		} catch (Exception e) {
+
+		}
+
+		return txtDate;
 	}
 }
