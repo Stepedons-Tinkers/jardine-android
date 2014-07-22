@@ -125,10 +125,10 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-//			holder.workplan_txt.setText(String.valueOf(this.tempValues.getWorkplan()));
+			holder.workplan_txt.setText(String.valueOf(this.tempValues.getWorkplanEntry()));
 			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivityType()));
-//			holder.start_time_txt.setText(this.tempValues.getStartTime());
-//			holder.end_time_txt.setText(this.tempValues.getEndTime());
+			holder.start_time_txt.setText(this.tempValues.getCheckIn());
+			holder.end_time_txt.setText(this.tempValues.getCheckOut());
 			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
