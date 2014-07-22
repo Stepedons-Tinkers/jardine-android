@@ -33,6 +33,7 @@ public class UserTable {
 	private final String KEY_USER_STATUS = "status";
 	private final String KEY_USER_LASTSYNC = "last_sync";
 	private final String KEY_USER_AREA = "area";
+	private final String KEY_USER_LOGGEDAREA = "logged_area";
 	private final String KEY_USER_CREATEDTIME = "created_time";
 
 	// ===========================================================
@@ -93,12 +94,14 @@ public class UserTable {
 					String lastSync = c.getString(c
 							.getColumnIndex(KEY_USER_LASTSYNC));
 					String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
+					String loggedArea = c.getString(c
+							.getColumnIndex(KEY_USER_LOGGEDAREA));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_USER_CREATEDTIME));
 
 					list.add(new UserRecord(id, no, username, password, email,
 							lastname, middlename, firstname, loggedin, status,
-							lastSync, area, createdTime));
+							lastSync, area, loggedArea, createdTime));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -160,12 +163,14 @@ public class UserTable {
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
 				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
+				String loggedArea = c.getString(c
+						.getColumnIndex(KEY_USER_LOGGEDAREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				record = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, area, createdTime);
+						lastSync, area, loggedArea, createdTime);
 				Log.i(JardineApp.TAG, "Usertable: getCurrent");
 			}
 		} finally {
@@ -228,12 +233,14 @@ public class UserTable {
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
 				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
+				String loggedArea = c.getString(c
+						.getColumnIndex(KEY_USER_LOGGEDAREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				user = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, area, createdTime);
+						lastSync, area, loggedArea, createdTime);
 			}
 		} finally {
 			if (c != null) {
@@ -312,12 +319,14 @@ public class UserTable {
 				String lastSync = c.getString(c
 						.getColumnIndex(KEY_USER_LASTSYNC));
 				String area = c.getString(c.getColumnIndex(KEY_USER_AREA));
+				String loggedArea = c.getString(c
+						.getColumnIndex(KEY_USER_LOGGEDAREA));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_USER_CREATEDTIME));
 
 				user = new UserRecord(id, no, username, password, email,
 						lastname, middlename, firstname, loggedin, status,
-						lastSync, area, createdTime);
+						lastSync, area, loggedArea, createdTime);
 			}
 		} finally {
 			if (c != null) {
@@ -408,6 +417,17 @@ public class UserTable {
 	public boolean updateLastsync(long id, String lastSync) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_USER_LASTSYNC, lastSync);
+		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
+			// getRecords().updateLogStat(id, loggedin);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateLoggedArea(long id, String loggedArea) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_USER_LOGGEDAREA, loggedArea);
 		if (mDb.update(mDatabaseTable, args, KEY_USER_ROWID + "=" + id, null) > 0) {
 			// getRecords().updateLogStat(id, loggedin);
 			return true;

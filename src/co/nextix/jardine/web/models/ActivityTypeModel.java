@@ -3,15 +3,15 @@ package co.nextix.jardine.web.models;
 import com.google.gson.annotations.SerializedName;
 
 public class ActivityTypeModel {
-	// CreatedTime: "2014-06-05 23:19:15"
-	// ModifiedTime: "2014-06-05 23:19:15"
-	// assigned_user_id: "7"
-	// z_act_crmno: "ATY000003"
-	// z_act_acttypcat: "Visit"
-	// z_act_active: "1"
-	// z_act_activitytype: "Retail Visits (Traditional Hardware)"
-	// record_id: 351
-	// record_module: "XActivityType"
+	// "createdtime": "2014-06-25 18:50:25",
+	// "modifiedtime": "2014-06-25 18:52:14",
+	// "smownerid": "1",
+	// "z_act_active": "1",
+	// "z_act_activitytype": "On-site/Project Visit",
+	// "z_act_acttypcat": "Visit",
+	// "z_act_crmno": "ATY000050",
+	// "xactivitytypeid": "495",
+	// "deleted": "0"
 
 	@SerializedName("z_act_crmno")
 	private String crm_no;
@@ -111,4 +111,11 @@ public class ActivityTypeModel {
 	public void setUserId(String userId) {
 		this.user_id = userId;
 	}
+
+	@Override
+	public String toString() {
+		return activitytype;
+		// return super.toString();
+	}
+
 }

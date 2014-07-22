@@ -4,106 +4,80 @@ import java.util.List;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.model.ProfileNotification;
+import co.nextix.jardine.database.records.CalendarRecord;
+import co.nextix.jardine.utils.MyDateUtils;
 
-public class ProfileNotifAdapter extends ArrayAdapter<ProfileNotification> {
+public class ProfileNotifAdapter extends ArrayAdapter<CalendarRecord> {
 
 	private Context theContext;
-	List<ProfileNotification> listModel;
-	ViewHolder holder;
-
-	String USER_ROLE;
+	private ViewHolder holder;
+	private int layout;
 
 	public ProfileNotifAdapter(Context context, int textViewResourceId,
-			List<ProfileNotification> objects) {
+			List<CalendarRecord> objects) {
 		super(context, textViewResourceId, objects);
-		listModel = objects;
 		theContext = context;
+		this.layout = textViewResourceId;
 	}
 
 	@Override
 	public View getView(final int position, View convertView, ViewGroup parent) {
 
 		holder = null;
-		LayoutInflater layoutInflator = LayoutInflater.from(getContext());
+		LayoutInflater layoutInflator = LayoutInflater.from(theContext);
 
 		if (convertView == null) {
 			holder = new ViewHolder();
-			convertView = layoutInflator.inflate(
-					R.layout.profile_notif_list_item, parent, false);
+			convertView = layoutInflator.inflate(layout, parent, false);
 			convertView.setTag(holder);
 
 		} else {
 			holder = (ViewHolder) convertView.getTag();
 		}
 
-		holder.txtDate = (TextView) convertView
-				.findViewById(R.id.profilenotif_date);
-		holder.txtNotification = (TextView) convertView
-				.findViewById(R.id.profilenotif_notif);
-		holder.txtAction = (TextView) convertView
-				.findViewById(R.id.profilenotif_action);
-		holder.lDate = (LinearLayout) convertView
-				.findViewById(R.id.profilenotif_ldate);
-		holder.lNotification = (LinearLayout) convertView
-				.findViewById(R.id.profilenotif_lnotif);
-		holder.lAction = (LinearLayout) convertView
-				.findViewById(R.id.profilenotif_laction);
+		holder.col1 = (TextView) convertView.findViewById(R.id.tvProfileCol1);
+		holder.col2 = (TextView) convertView.findViewById(R.id.tvProfileCol2);
+		holder.tRow = (TableRow) convertView.findViewById(R.id.trProfileRow);
 
 		if (position % 2 == 0) {
-			holder.lDate.setBackground(theContext.getResources().getDrawable(
-					R.drawable.notif_list_item_left));
-			holder.lNotification.setBackground(theContext.getResources()
-					.getDrawable(R.drawable.notif_list_item_center));
-			holder.lAction.setBackground(theContext.getResources().getDrawable(
-					R.drawable.notif_list_item_right));
+			holder.tRow.setBackgroundResource(R.color.white);
+		} else {
+			holder.tRow
+					.setBackgroundResource(R.color.collaterals_tablerow_color1);
 		}
 
-		holder.txtDate.setText(getItem(position).getDate());
-		holder.txtNotification.setText(getItem(position).getNotification());
+		holder.list = getItem(position);
 
-		holder.lAction.setOnClickListener(new OnClickListener() {
+		holder.col1.setGravity(Gravity.CENTER);
 
-			@Override
-			public void onClick(View arg0) {
-				Toast.makeText(theContext, "removed!", Toast.LENGTH_SHORT)
-						.show();
-			}
+		final String dateRange = MyDateUtils.convertDate(holder.list
+				.getDateStart())
+				+ "\n to \n"
+				+ MyDateUtils.convertDate(holder.list.getDateEnd());
 
-		});
+		holder.col1.setText(dateRange);
+		holder.col2.setText(holder.list.getSubject());
 
 		return convertView;
 	}
 
-	@Override
-	public ProfileNotification getItem(int position) {
-
-		return listModel.get(position);
-		// return super.getItem(position);
-	}
-
-	@Override
-	public int getCount() {
-		return listModel != null ? listModel.size() : 0;
-		// return super.getCount();
-	}
-
 	public class ViewHolder {
-		TextView txtDate;
-		TextView txtNotification;
-		TextView txtAction;
-		LinearLayout lDate;
-		LinearLayout lNotification;
-		LinearLayout lAction;
+
+		CalendarRecord list;
+		TextView col1;
+		TextView col2;
+		TableRow tRow;
 	}
 }

@@ -4,6 +4,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.utils.MyDateUtils;
 import android.support.v4.app.Fragment;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -54,7 +55,9 @@ public class ProfileInformationFragment extends Fragment {
 				String lastSync = user.getLastSync();
 				if (lastSync != null) {
 					if (!lastSync.equals("")) {
-						txtLastSync.setText(lastSync);
+						txtLastSync.setText(MyDateUtils
+								.convertDateTime(lastSync));
+
 					} else {
 						txtLastSync.setText("not yet synced");
 					}
