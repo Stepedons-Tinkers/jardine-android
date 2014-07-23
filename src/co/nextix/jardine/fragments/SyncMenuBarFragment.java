@@ -82,6 +82,7 @@ import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
+import co.nextix.jardine.utils.Tools;
 import co.nextix.jardine.web.CreateRequests;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
@@ -674,12 +675,11 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Boolean result) {
 
-			dialog.dismiss();
 			if (result) {
 				new PicklistDependencyTask().execute();
 
 			} else {
-
+				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -993,9 +993,11 @@ public class SyncMenuBarFragment extends Fragment {
 						break;
 					}
 					if (!table.isExisting(model.getRecordId())) {
+						int isActive = Tools.parseWithDefault(
+								model.getIsactive(), 0);
+
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getName(), model.getCode(),
-								Integer.parseInt(model.getIsactive()),
+								model.getName(), model.getCode(), isActive,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1005,10 +1007,12 @@ public class SyncMenuBarFragment extends Fragment {
 							if (MyDateUtils.isTimeAfter(
 									model.getModifiedTime(),
 									record.getModifiedTime()) > 0) {
+								int isActive = Tools.parseWithDefault(
+										model.getIsactive(), 0);
+
 								table.update(id, model.getRecordId(),
 										model.getCrmNo(), model.getName(),
-										model.getCode(),
-										Integer.parseInt(model.getIsactive()),
+										model.getCode(), isActive,
 										model.getCreatedTime(),
 										model.getModifiedTime(), USER_ID);
 								Log.i(TAG, "update: " + id);
@@ -1064,6 +1068,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			MarketingMaterialsTable table = JardineApp.DB
 					.getMarketingMaterials();
+			BusinessUnitTable businessTable = JardineApp.DB.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
 			MarketMatResult result = request.MarketingMaterials(LAST_SYNC);
@@ -1073,10 +1078,15 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (MarketingMaterialsModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						// TODO add business unit, isnew, isactive
+						long businessUnit = businessTable.getIdByNo(model
+								.getBusinessUnit());
+						int isNew = Tools.parseWithDefault(model.getIsNew(), 0);
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
+
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
-								model.getTags(), 0, 1, 1,
+								model.getTags(), businessUnit, isNew, isActive,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1085,11 +1095,19 @@ public class SyncMenuBarFragment extends Fragment {
 						MarketingMaterialsRecord record = table.getById(id);
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
-							// TODO add business unit, isnew, isactive
+
+							long businessUnit = businessTable.getIdByNo(model
+									.getBusinessUnit());
+							int isNew = Tools.parseWithDefault(
+									model.getIsNew(), 0);
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
+
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getDescription(),
-									model.getLastUpdat(), model.getTags(), 0,
-									1, 1, model.getCreatedTime(),
+									model.getLastUpdat(), model.getTags(),
+									businessUnit, isNew, isActive,
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -1480,10 +1498,10 @@ public class SyncMenuBarFragment extends Fragment {
 						// .getCompetitor());
 
 						// if (competitor > 0)
-						// TODO change competitor to string
-						table.insert(model.getRecordId(), model.getCrmNo(), "",
-								model.getProdBrand(), model.getProdDesc(),
-								model.getProdSize(),
+						// **changed competitor to string
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getCompetitor(), model.getProdBrand(),
+								model.getProdDesc(), model.getProdSize(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1498,10 +1516,11 @@ public class SyncMenuBarFragment extends Fragment {
 							// .getCompetitor());
 
 							// if (competitor > 0)
-							// TODO change competitor to string
+							// **changed competitor to string
 							table.update(id, model.getRecordId(),
-									model.getCrmNo(), "", model.getProdBrand(),
-									model.getProdDesc(), model.getProdSize(),
+									model.getCrmNo(), model.getCompetitor(),
+									model.getProdBrand(), model.getProdDesc(),
+									model.getProdSize(),
 									Integer.parseInt(model.getIsActive()),
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
@@ -1552,6 +1571,7 @@ public class SyncMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 
 			SMRTable table = JardineApp.DB.getSMR();
+			BusinessUnitTable businessTable = JardineApp.DB.getBusinessUnit();
 			PAreaTable areaTable = JardineApp.DB.getArea();
 
 			SyncRequests request = new SyncRequests();
@@ -1562,12 +1582,15 @@ public class SyncMenuBarFragment extends Fragment {
 				for (SMRModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
-
+						long businessUnit = businessTable.getIdByNo(model
+								.getBusinessUnit());
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
 						// if (area > 0)
-						// TODO add business unit
+						// **added business unit
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getFirstname(), model.getLastname(),
-								area, Integer.parseInt(model.getIsActive()), 0,
+								area, isActive, businessUnit,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1578,14 +1601,17 @@ public class SyncMenuBarFragment extends Fragment {
 								record.getModifiedTime()) > 0) {
 
 							long area = areaTable.getIdByName(model.getArea());
+							long businessUnit = businessTable.getIdByNo(model
+									.getBusinessUnit());
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
 
 							// if (area > 0)
-							// TODO add business unit
+							// **added business unit
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getFirstname(),
-									model.getLastname(), area,
-									Integer.parseInt(model.getIsActive()), 0,
-									model.getCreatedTime(),
+									model.getLastname(), area, isActive,
+									businessUnit, model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -1721,6 +1747,7 @@ public class SyncMenuBarFragment extends Fragment {
 			PCityTownTable cityTable = JardineApp.DB.getCityTown();
 			PCustTypeTable customerTypeTable = JardineApp.DB.getCustomerType();
 			PCustSizeTable customerSizeTable = JardineApp.DB.getCustomerSize();
+//			PCust
 			BusinessUnitTable businessUnitTable = JardineApp.DB
 					.getBusinessUnit();
 
@@ -3171,12 +3198,12 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
-				if (JardineApp.DB.getCalendar() != null) {
-					if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
-						new SyncCalendarTask().execute();
-				} else {
-					new SyncFilesTask().execute();
-				}
+				// if (JardineApp.DB.getCalendar() != null) {
+				// if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
+				new SyncCalendarTask().execute();
+				// } else {
+				// new SyncFilesTask().execute();
+				// }
 			} else {
 				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
@@ -3284,7 +3311,6 @@ public class SyncMenuBarFragment extends Fragment {
 			if (result) {
 				// new CreateCompetitorProductTask().execute();
 			} else {
-				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
