@@ -22,10 +22,10 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:text="@string/collaterals_file_title"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -39,9 +39,10 @@
             android:layout_column="1"
             android:layout_weight="1"
             android:maxLines="1"
+            android:padding="5dp"
             android:text="@string/collaterals_filename"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -49,16 +50,30 @@
             android:layout_marginRight="2dp"
             android:background="@color/black" />
 
-        <TextView
-            android:id="@+id/tvCollateralsMMIsActive"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_column="2"
-            android:layout_weight="1"
-            android:maxLines="1"
-            android:text="@string/collaterals_file_modified_time"
-            android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:layout_weight="1" >
 
+            <TextView
+                android:id="@+id/tvCollateralsMMIsActive"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:text="@string/collaterals_file_modified_time"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_xxlarge" />
+
+            <ImageView
+                android:id="@+id/ivCollateralsMMNewIndicator"
+                android:layout_width="@dimen/text_xxxxlarge"
+                android:layout_height="@dimen/text_xxxxlarge"
+                android:layout_gravity="center|end"
+                android:background="@null"
+                android:src="@drawable/collaterals_new"
+                android:visibility="gone" />
+        </FrameLayout>
     </TableRow>
 
 </LinearLayout>

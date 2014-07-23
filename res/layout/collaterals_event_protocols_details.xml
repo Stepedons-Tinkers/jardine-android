@@ -56,7 +56,7 @@
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_crm_no"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -72,7 +72,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -87,7 +87,7 @@
                     android:padding="7dp"
                     android:text="@string/collaterals_ep_description"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -103,7 +103,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -123,7 +123,7 @@
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_last_update"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -139,7 +139,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -154,7 +154,7 @@
                     android:padding="7dp"
                     android:text="@string/collaterals_ep_tags"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -170,7 +170,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -191,7 +191,7 @@
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_event_type"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -207,7 +207,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -222,7 +222,7 @@
                     android:padding="7dp"
                     android:text="@string/collaterals_ep_is_active"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -238,7 +238,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -259,7 +259,7 @@
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_created_time"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -275,7 +275,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -290,7 +290,7 @@
                     android:padding="7dp"
                     android:text="@string/collaterals_file_modified_time"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -306,7 +306,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -327,7 +327,7 @@
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_assigned_to"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -343,7 +343,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -357,7 +357,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -371,7 +371,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -391,7 +391,7 @@
                     android:padding="7dp"
                     android:paddingLeft="2dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -405,7 +405,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -419,7 +419,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -433,7 +433,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -453,7 +453,7 @@
                     android:padding="7dp"
                     android:paddingLeft="2dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -467,7 +467,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -481,7 +481,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -495,7 +495,7 @@
                     android:maxLines="2"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
         </TableLayout>
     </RelativeLayout>
