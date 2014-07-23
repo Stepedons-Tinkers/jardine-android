@@ -27,6 +27,7 @@
             android:stretchColumns="*" >
 
             <include layout="@layout/detail_view_activity" />
+
         </TableLayout>
     </ScrollView>
 

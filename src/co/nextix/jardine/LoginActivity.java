@@ -3,7 +3,9 @@ package co.nextix.jardine;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +16,7 @@ import android.widget.Toast;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.utils.NetworkUtils;
 import co.nextix.jardine.web.LogRequests;
@@ -23,6 +26,7 @@ import co.nextix.jardine.web.requesters.LoginModel;
 public class LoginActivity extends Activity {
 
 	EditText editUsername, editPassword;
+	int areaChoice = 0;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +72,64 @@ public class LoginActivity extends Activity {
 
 	}
 
+	private void showDialogButtonClick(final String[] choices) {
+		AlertDialog.Builder builder = new AlertDialog.Builder(
+				LoginActivity.this);
+		builder.setTitle("Choose Area");
+
+		// final CharSequence[] choiceList = { "Coke", "Pepsi", "Sprite",
+		// "Seven Up" };
+
+		builder.setSingleChoiceItems(choices, 0,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						// set to buffKey instead of selected
+						// (when cancel not save to selected)
+						// buffKey = which;
+						areaChoice = which;
+						Log.d(JardineApp.TAG, choices[which]);
+
+					}
+				})
+				.setCancelable(false)
+				.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						Log.d(JardineApp.TAG, "Selected " + choices[areaChoice]);
+						long rowID = Long.parseLong(StoreAccount.restore(
+								LoginActivity.this).getString(Account.ROWID));
+						UserTable table = JardineApp.DB.getUser();
+						table.updateLoggedArea(rowID, choices[areaChoice]);
+
+						finish();
+						startActivity(new Intent(getApplicationContext(),
+								DashBoardActivity.class));
+						overridePendingTransition(R.anim.slide_in_left,
+								R.anim.slide_out_left);
+
+						dialog.dismiss();
+					}
+				})
+				.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+							}
+						});
+
+		AlertDialog alert = builder.create();
+		alert.show();
+	}
+
 	private class LoginTask extends AsyncTask<Void, Void, Boolean> {
 		ProgressDialog dialog;
 		List<WorkplanModel> models;
 		long rowid = 0;
+		String[] choiceList;
 
 		@Override
 		protected void onPreExecute() {
@@ -93,6 +151,10 @@ public class LoginActivity extends Activity {
 
 					JardineApp.SESSION_NAME = model.getSessionName();
 					UserTable userTable = JardineApp.DB.getUser();
+
+					String areas = model.getDetails().getArea()
+							.replace("|##|", ",");
+
 					if (!userTable.isExisting(model.getUserId())) {
 						rowid = userTable.insertUser(model.getUserId(),
 								editUsername.getText().toString(), editPassword
@@ -100,20 +162,21 @@ public class LoginActivity extends Activity {
 										.getDetails().getEmail(), model
 										.getDetails().getLastName(), "", model
 										.getDetails().getFirstName(), 1, 1, "",
-								model.getDetails().getArea(), MyDateUtils
-										.getCurrentTimeStamp());
+								areas, MyDateUtils.getCurrentTimeStamp());
 					} else {
 						// rowid = Long.parseLong(StoreAccount.restore(
 						// getApplicationContext()).getString(
 						// Account.ROWID));
 						rowid = userTable.getByWebId(model.getUserId()).getId();
 						userTable.updateLogStatus(rowid, 1);
-						userTable.updateUser(rowid, model.getUserId(), model
-								.getDetails().getUserName(), editPassword
-								.getText().toString(), model.getDetails()
-								.getEmail(), model.getDetails().getLastName(),
-								"", model.getDetails().getFirstName(), model
-										.getDetails().getArea(), 1);
+						userTable
+								.updateUser(rowid, model.getUserId(), model
+										.getDetails().getUserName(),
+										editPassword.getText().toString(),
+										model.getDetails().getEmail(), model
+												.getDetails().getLastName(),
+										"", model.getDetails().getFirstName(),
+										areas, 1);
 					}
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()
@@ -122,6 +185,9 @@ public class LoginActivity extends Activity {
 					// RetrieveRequests retrieve = new RetrieveRequests();
 					// models = retrieve.Workplan(new String[] { "422", "432"
 					// });
+
+					choiceList = areas.split("\\s*,\\s*");
+
 					return true;
 				} else {
 					return false;
@@ -137,11 +203,15 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				finish();
-				startActivity(new Intent(getApplicationContext(),
-						DashBoardActivity.class));
-				overridePendingTransition(R.anim.slide_in_left,
-						R.anim.slide_out_left);
+				// finish();
+				// startActivity(new Intent(getApplicationContext(),
+				// DashBoardActivity.class));
+				// overridePendingTransition(R.anim.slide_in_left,
+				// R.anim.slide_out_left);
+
+				if (choiceList != null)
+					showDialogButtonClick(choiceList);
+
 				// if (models != null)
 				// Toast.makeText(getApplicationContext(),
 				// "Workplan: " + models.get(0).getCrmNo(),

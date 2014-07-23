@@ -161,7 +161,7 @@
                 android:id="@+id/profileinfo_txt_lastsync"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:gravity="left"
+                android:gravity="center_vertical"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_xxlarge" />
         </LinearLayout>

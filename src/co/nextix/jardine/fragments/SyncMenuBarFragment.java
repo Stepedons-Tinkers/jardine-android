@@ -141,6 +141,8 @@ public class SyncMenuBarFragment extends Fragment {
 	boolean isCancelled = false;
 	boolean isConnected = true;
 
+	private final Context CONTEXT = getActivity();
+
 	public SyncMenuBarFragment() {
 	}
 
@@ -172,7 +174,8 @@ public class SyncMenuBarFragment extends Fragment {
 	public void onDestroy() {
 		this.mWakeLock.release();
 		getFragmentManager();
-		getFragmentManager().popBackStack("sync", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getFragmentManager().popBackStack("sync",
+				FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		super.onDestroy();
 	}
 
@@ -227,12 +230,12 @@ public class SyncMenuBarFragment extends Fragment {
 					String area = a.getSourceValue().replace("&quot;", "");
 					if (!aTable.isExisting(area)) {
 						aId = aTable.insertArea(area);
-						Log.d(TAG, "AREA: " + area);
+//						Log.d(TAG, "AREA: " + area);
 						String pr = a.getTargetValues();
 						if (pr != null) {
 							String SAprovinces = pr.replace("[", "")
 									.replace("]", "").replace("&quot;", "");
-							Log.w(TAG, "provinces: " + SAprovinces);
+//							Log.w(TAG, "provinces: " + SAprovinces);
 							List<String> provinces = Arrays.asList(SAprovinces
 									.split("\\s*,\\s*"));
 							if (provinces != null) {
@@ -240,7 +243,7 @@ public class SyncMenuBarFragment extends Fragment {
 									String prov = p.replace("&quot;", "");
 									if (!pTable.isExisting(prov)) {
 										pTable.insertProvince(prov, aId);
-										Log.i(TAG, "Province: " + prov);
+//										Log.i(TAG, "Province: " + prov);
 									}
 								}
 							}
@@ -264,7 +267,7 @@ public class SyncMenuBarFragment extends Fragment {
 						if (ct != null) {
 							String SAcities = ct.replace("[", "")
 									.replace("]", "").replace("&quot;", "");
-							Log.w(TAG, "cities: " + SAcities);
+//							Log.w(TAG, "cities: " + SAcities);
 							List<String> cities = Arrays.asList(SAcities
 									.split("\\s*,\\s*"));
 							if (cities != null) {
@@ -272,7 +275,7 @@ public class SyncMenuBarFragment extends Fragment {
 									String cty = c.replace("&quot;", "");
 									if (!cTable.isExisting(cty)) {
 										cTable.insert(cty, pId);
-										Log.i(TAG, "City: " + cty);
+//										Log.i(TAG, "City: " + cty);
 									}
 								}
 							}
@@ -563,9 +566,11 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (MarketingMaterialsModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
+						// TODO add business unit, isnew, isactive
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
-								model.getTags(), model.getCreatedTime(),
+								model.getTags(), 0, 1, 1,
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -573,10 +578,11 @@ public class SyncMenuBarFragment extends Fragment {
 						MarketingMaterialsRecord record = table.getById(id);
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
+							// TODO add business unit, isnew, isactive
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getDescription(),
-									model.getLastUpdat(), model.getTags(),
-									model.getCreatedTime(),
+									model.getLastUpdat(), model.getTags(), 0,
+									1, 1, model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -1466,8 +1472,11 @@ public class SyncMenuBarFragment extends Fragment {
 								.getActivitytypeCategory());
 
 						// if ((type > 0) && (category > 0))
+						// TODO Add
+//						Toast.makeText(CONTEXT, model.getActivitytype(),
+//								Toast.LENGTH_SHORT).show();
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								category,
+								model.getActivitytype(), category,
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1478,6 +1487,9 @@ public class SyncMenuBarFragment extends Fragment {
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
 
+//							Toast.makeText(CONTEXT, model.getActivitytype(),
+//									Toast.LENGTH_SHORT).show();
+
 							// long type = acttypeTypeTable.getIdByName(model
 							// .getActivitytype());
 							long category = actCategoryTable.getIdByName(model
@@ -1485,7 +1497,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 							// if ((type > 0) && (category > 0))
 							table.update(id, model.getRecordId(),
-									model.getCrmNo(), category,
+									model.getCrmNo(), model.getActivitytype(),
+									category,
 									Integer.parseInt(model.getIsActive()),
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
@@ -1510,6 +1523,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (result) {
 				new SyncWorkplanTask().execute();
+				// new SyncWorkplanEntryTask().execute();
 			} else {
 				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",

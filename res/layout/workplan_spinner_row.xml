@@ -9,5 +9,5 @@
     android:padding="4dp"
     android:text="asdadas"
     android:textColor="@color/black"
-    android:textSize="21sp"
+    android:textSize="@dimen/text_medium"
     android:textStyle="bold" />

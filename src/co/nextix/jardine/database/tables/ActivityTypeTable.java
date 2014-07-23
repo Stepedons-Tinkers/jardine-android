@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 
@@ -19,14 +20,14 @@ public class ActivityTypeTable {
 
 	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
 	private final String KEY_ACTIVITYTYPE_NO = "no";
+	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
 	// private final String KEY_ACTIVITYTYPE_TYPE = "activity_type";
+	private final String KEY_ACTIVITYTYPE_NAME = "name";
 	private final String KEY_ACTIVITYTYPE_CATEGORY = "activity_type_categorization";
 	private final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
-	private final String KEY_ACTIVITYTYPE_USER = "user";
-
-	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
 	private final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
 	private final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
+	private final String KEY_ACTIVITYTYPE_USER = "user";
 
 	// ===========================================================
 	// Private fields
@@ -74,6 +75,8 @@ public class ActivityTypeTable {
 					// .getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
+					String name = c.getString(c
+							.getColumnIndex(KEY_ACTIVITYTYPE_NAME));
 					long category = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 					int isActive = c.getInt(c
@@ -85,8 +88,8 @@ public class ActivityTypeTable {
 					long user = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-					list.add(new ActivityTypeRecord(id, no, crmNo, category,
-							isActive, createdTime, modifiedTime, user));
+					list.add(new ActivityTypeRecord(id, no, crmNo, name,
+							category, isActive, createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -203,6 +206,8 @@ public class ActivityTypeTable {
 				// c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
+				String name = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_NAME));
 				long category = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
@@ -213,7 +218,7 @@ public class ActivityTypeTable {
 						.getColumnIndex(KEY_ACTIVITYTYPE_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-				record = new ActivityTypeRecord(id, no, crmNo, category,
+				record = new ActivityTypeRecord(id, no, crmNo, name, category,
 						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -260,6 +265,8 @@ public class ActivityTypeTable {
 				// c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_TYPE));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CRMNO));
+				String name = c.getString(c
+						.getColumnIndex(KEY_ACTIVITYTYPE_NAME));
 				long category = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITYTYPE_CATEGORY));
 				int isActive = c.getInt(c
@@ -270,7 +277,7 @@ public class ActivityTypeTable {
 						.getColumnIndex(KEY_ACTIVITYTYPE_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_ACTIVITYTYPE_USER));
 
-				record = new ActivityTypeRecord(id, no, crmNo, category,
+				record = new ActivityTypeRecord(id, no, crmNo, name, category,
 						isActive, createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -282,8 +289,8 @@ public class ActivityTypeTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, long category, int isActive,
-			String createdTime, String modifiedTime, long user) {
+	public long insert(String no, String crmNo, String name, long category,
+			int isActive, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -294,6 +301,8 @@ public class ActivityTypeTable {
 		initialValues.put(KEY_ACTIVITYTYPE_NO, no);
 		initialValues.put(KEY_ACTIVITYTYPE_CRMNO, crmNo);
 		// initialValues.put(KEY_ACTIVITYTYPE_TYPE, type);
+		initialValues.put(KEY_ACTIVITYTYPE_NAME, name);
+		Log.w(JardineApp.TAG, "name: " + name);
 		initialValues.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		initialValues.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);
 		initialValues.put(KEY_ACTIVITYTYPE_CREATEDTIME, createdTime);
@@ -303,7 +312,7 @@ public class ActivityTypeTable {
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
 			// collection.add(ids, no, type, category, isActive, user);
-			Log.i("WEB", "DB insert " + no);
+//			Log.i("WEB", "DB insert " + no);
 		} else {
 			throw new SQLException("insert failed");
 		}
@@ -320,11 +329,13 @@ public class ActivityTypeTable {
 		}
 	}
 
-	public boolean update(long id, String no, String crmNo, long category,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public boolean update(long id, String no, String crmNo, String name,
+			long category, int isActive, String createdTime,
+			String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITYTYPE_NO, no);
 		// args.put(KEY_ACTIVITYTYPE_TYPE, type);
+		args.put(KEY_ACTIVITYTYPE_NAME, name);
 		args.put(KEY_ACTIVITYTYPE_CRMNO, crmNo);
 		args.put(KEY_ACTIVITYTYPE_CATEGORY, category);
 		args.put(KEY_ACTIVITYTYPE_ISACTIVE, isActive);

@@ -87,7 +87,7 @@ public class JDIProductStockFragment extends Fragment {
 								Toast.LENGTH_SHORT).show();
 						if (currentPage > 0) {
 							currentPage--;
-							addItem(currentPage);
+//							addItem(currentPage);
 						}
 					}
 				});
@@ -101,7 +101,7 @@ public class JDIProductStockFragment extends Fragment {
 								Toast.LENGTH_SHORT).show();
 						if (currentPage < totalPage - 1) {
 							currentPage++;
-							addItem(currentPage);
+//							addItem(currentPage);
 						}
 					}
 				});
@@ -133,7 +133,7 @@ public class JDIProductStockFragment extends Fragment {
 			}
 
 			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
+//			addItem(currentPage);
 
 		} else {
 
@@ -144,20 +144,20 @@ public class JDIProductStockFragment extends Fragment {
 		}
 	}
 
-	private void addItem(int count) {
-		tempRecord.clear();
-		count = count * rowSize;
-		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
-				.setText(temp + " of " + totalPage);
-
-		for (int j = 0; j < rowSize; j++) {
-			tempRecord.add(j, realRecord.get(count));
-			count = count + 1;
-		}
-
-		this.setView();
-	}
+//	private void addItem(int count) {
+//		tempRecord.clear();
+//		count = count * rowSize;
+//		int temp = currentPage + 1;
+//		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
+//				.setText(temp + " of " + totalPage);
+//
+//		for (int j = 0; j < rowSize; j++) {
+//			tempRecord.add(j, realRecord.get(count));
+//			count = count + 1;
+//		}
+//
+//		this.setView();
+//	}
 
 	private void setView() {
 
