@@ -72,12 +72,6 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 	private void initLayout() {
 
-		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
-		spinner = (Spinner) view
-				.findViewById(R.id.spiCollateralsMMSpinnerSearch);
-		searchView.setVisibility(View.INVISIBLE);
-		spinner.setVisibility(View.GONE);
-
 		// Header Data
 		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
@@ -98,12 +92,9 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 		header.setOnClickListener(null);
 		//
 
-		
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
 
-		
-		
 		list.addHeaderView(header);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 

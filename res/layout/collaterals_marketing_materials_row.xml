@@ -22,10 +22,10 @@
             android:layout_weight="1"
             android:ellipsize="end"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:text="@string/collaterals_file_title"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -39,9 +39,10 @@
             android:layout_column="1"
             android:layout_weight="1"
             android:maxLines="1"
+            android:padding="5dp"
             android:text="@string/collaterals_filename"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -55,10 +56,10 @@
             android:layout_column="2"
             android:layout_weight="1"
             android:maxLines="1"
+            android:padding="5dp"
             android:text="@string/collaterals_file_modified_time"
             android:textColor="@color/black"
-            android:textSize="21sp" />
-
+            android:textSize="@dimen/text_xxlarge" />
     </TableRow>
 
 </LinearLayout>

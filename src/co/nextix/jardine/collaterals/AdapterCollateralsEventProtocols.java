@@ -91,4 +91,7 @@ public class AdapterCollateralsEventProtocols extends
 
 		return view;
 	}
+	
+	
+	
 }
