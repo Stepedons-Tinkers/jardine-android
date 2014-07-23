@@ -179,6 +179,513 @@ public class SyncMenuBarFragment extends Fragment {
 		super.onDestroy();
 	}
 
+	private class CreateCompetitorProductTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("CompetitorProduct");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CompetitorProductTable table = JardineApp.DB.getCompetitorProduct();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.competitorProduct(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateCustomerTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	// private class CreateSMRtimeCardTask extends AsyncTask<Void, Void,
+	// Boolean> {
+	//
+	// @Override
+	// protected void onPreExecute() {
+	// // dialog = new ProgressDialog(getActivity());
+	// dialog.setTitle("Create");
+	// dialog.setMessage("SMRtimeCard");
+	// dialog.setCancelable(false);
+	// dialog.setCanceledOnTouchOutside(false);
+	// dialog.show();
+	// super.onPreExecute();
+	// }
+	//
+	// @Override
+	// protected Boolean doInBackground(Void... arg0) {
+	//
+	// SMRtimeCardTable table = JardineApp.DB.getSMRTimeCard();
+	//
+	// CreateRequests request = new CreateRequests();
+	// List<WebCreateModel> results = request.smrTimecard(table
+	// .getUnsyncedRecords());
+	// if (results != null) {
+	// for (WebCreateModel model : results) {
+	// table.updateNo(model.getMobileId(),
+	// String.valueOf(model.getCrmNo()));
+	// }
+	// }
+	//
+	// return true;
+	// }
+	//
+	// @Override
+	// protected void onPostExecute(Boolean result) {
+	//
+	// if (result) {
+	// new CreateCustomerTask().execute();
+	// } else {
+	// dialog.dismiss();
+	// Toast.makeText(getActivity(), "Check Internet connection",
+	// Toast.LENGTH_SHORT).show();
+	// }
+	// }
+	// }
+
+	private class CreateCustomerTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Customer");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CustomerTable table = JardineApp.DB.getCustomer();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.customer(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateCustomerContactTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateCustomerContactTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("CustomerContact");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CustomerContactTable table = JardineApp.DB.getCustomerContact();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.customerContact(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateActivityTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateActivityTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Activity");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ActivityTable table = JardineApp.DB.getActivity();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.activity(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateJDImerchCheckTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateJDImerchCheckTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("JDImerchandisingCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			JDImerchandisingCheckTable table = JardineApp.DB
+					.getJDImerchandisingCheck();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.jdiMerchandising(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateJDIproductCheckTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateJDIproductCheckTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("JDIproductCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			JDIproductStockCheckTable table = JardineApp.DB
+					.getJDIproductStockCheck();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.jdiProductStock(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateCompetitorProductCheckTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateCompetitorProductCheckTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("CompetitorProductStockCheck");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CompetitorProductStockCheckTable table = JardineApp.DB
+					.getCompetitorProductStockCheck();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.competitorProductStock(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateMarketingIntelTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateMarketingIntelTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("MarketingIntel");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.marketingIntel(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateProjectRequirementTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateProjectRequirementTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("ProjectRequirementTask");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ProjectRequirementTable table = JardineApp.DB
+					.getProjectRequirement();
+
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.projectRequirements(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			// UserTable userTable = JardineApp.DB.getUser();
+			// userTable
+			// .updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
+			//
+			// dialog.dismiss();
+			if (result) {
+				new CreateDocumentsTask().execute();
+
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Documents");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+			List<DocumentRecord> records = table.getUnsyncedRecords();
+
+			if (records != null) {
+				CreateRequests request = new CreateRequests();
+				for (DocumentRecord rec : records) {
+					List<WebCreateModel> results = request.documents(rec);
+					if (results != null) {
+						for (WebCreateModel model : results) {
+							table.updateNo(model.getMobileId(),
+									String.valueOf(model.getCrmNo()));
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			dialog.dismiss();
+			if (result) {
+				new PicklistDependencyTask().execute();
+
+			} else {
+
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
 	private class PicklistDependencyTask extends AsyncTask<Void, Void, Boolean> {
 		List<PicklistDependencyModel> areas, provinces;
 		long aId = 0, pId = 0;
@@ -230,12 +737,12 @@ public class SyncMenuBarFragment extends Fragment {
 					String area = a.getSourceValue().replace("&quot;", "");
 					if (!aTable.isExisting(area)) {
 						aId = aTable.insertArea(area);
-//						Log.d(TAG, "AREA: " + area);
+						// Log.d(TAG, "AREA: " + area);
 						String pr = a.getTargetValues();
 						if (pr != null) {
 							String SAprovinces = pr.replace("[", "")
 									.replace("]", "").replace("&quot;", "");
-//							Log.w(TAG, "provinces: " + SAprovinces);
+							// Log.w(TAG, "provinces: " + SAprovinces);
 							List<String> provinces = Arrays.asList(SAprovinces
 									.split("\\s*,\\s*"));
 							if (provinces != null) {
@@ -243,7 +750,7 @@ public class SyncMenuBarFragment extends Fragment {
 									String prov = p.replace("&quot;", "");
 									if (!pTable.isExisting(prov)) {
 										pTable.insertProvince(prov, aId);
-//										Log.i(TAG, "Province: " + prov);
+										// Log.i(TAG, "Province: " + prov);
 									}
 								}
 							}
@@ -267,7 +774,7 @@ public class SyncMenuBarFragment extends Fragment {
 						if (ct != null) {
 							String SAcities = ct.replace("[", "")
 									.replace("]", "").replace("&quot;", "");
-//							Log.w(TAG, "cities: " + SAcities);
+							// Log.w(TAG, "cities: " + SAcities);
 							List<String> cities = Arrays.asList(SAcities
 									.split("\\s*,\\s*"));
 							if (cities != null) {
@@ -275,7 +782,7 @@ public class SyncMenuBarFragment extends Fragment {
 									String cty = c.replace("&quot;", "");
 									if (!cTable.isExisting(cty)) {
 										cTable.insert(cty, pId);
-//										Log.i(TAG, "City: " + cty);
+										// Log.i(TAG, "City: " + cty);
 									}
 								}
 							}
@@ -1473,8 +1980,8 @@ public class SyncMenuBarFragment extends Fragment {
 
 						// if ((type > 0) && (category > 0))
 						// TODO Add
-//						Toast.makeText(CONTEXT, model.getActivitytype(),
-//								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(CONTEXT, model.getActivitytype(),
+						// Toast.LENGTH_SHORT).show();
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getActivitytype(), category,
 								Integer.parseInt(model.getIsActive()),
@@ -1487,8 +1994,8 @@ public class SyncMenuBarFragment extends Fragment {
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
 
-//							Toast.makeText(CONTEXT, model.getActivitytype(),
-//									Toast.LENGTH_SHORT).show();
+							// Toast.makeText(CONTEXT, model.getActivitytype(),
+							// Toast.LENGTH_SHORT).show();
 
 							// long type = acttypeTypeTable.getIdByName(model
 							// .getActivitytype());
@@ -2770,521 +3277,14 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-			// dialog.dismiss();
-			if (result) {
-				new CreateCompetitorProductTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateCompetitorProductTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("CompetitorProduct");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CompetitorProductTable table = JardineApp.DB.getCompetitorProduct();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProduct(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateCustomerTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	// private class CreateSMRtimeCardTask extends AsyncTask<Void, Void,
-	// Boolean> {
-	//
-	// @Override
-	// protected void onPreExecute() {
-	// // dialog = new ProgressDialog(getActivity());
-	// dialog.setTitle("Create");
-	// dialog.setMessage("SMRtimeCard");
-	// dialog.setCancelable(false);
-	// dialog.setCanceledOnTouchOutside(false);
-	// dialog.show();
-	// super.onPreExecute();
-	// }
-	//
-	// @Override
-	// protected Boolean doInBackground(Void... arg0) {
-	//
-	// SMRtimeCardTable table = JardineApp.DB.getSMRTimeCard();
-	//
-	// CreateRequests request = new CreateRequests();
-	// List<WebCreateModel> results = request.smrTimecard(table
-	// .getUnsyncedRecords());
-	// if (results != null) {
-	// for (WebCreateModel model : results) {
-	// table.updateNo(model.getMobileId(),
-	// String.valueOf(model.getCrmNo()));
-	// }
-	// }
-	//
-	// return true;
-	// }
-	//
-	// @Override
-	// protected void onPostExecute(Boolean result) {
-	//
-	// if (result) {
-	// new CreateCustomerTask().execute();
-	// } else {
-	// dialog.dismiss();
-	// Toast.makeText(getActivity(), "Check Internet connection",
-	// Toast.LENGTH_SHORT).show();
-	// }
-	// }
-	// }
-
-	private class CreateCustomerTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("Customer");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CustomerTable table = JardineApp.DB.getCustomer();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customer(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateCustomerContactTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateCustomerContactTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("CustomerContact");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CustomerContactTable table = JardineApp.DB.getCustomerContact();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customerContact(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateActivityTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateActivityTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("Activity");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			ActivityTable table = JardineApp.DB.getActivity();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.activity(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateJDImerchCheckTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateJDImerchCheckTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("JDImerchandisingCheck");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			JDImerchandisingCheckTable table = JardineApp.DB
-					.getJDImerchandisingCheck();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiMerchandising(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateJDIproductCheckTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateJDIproductCheckTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("JDIproductCheck");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			JDIproductStockCheckTable table = JardineApp.DB
-					.getJDIproductStockCheck();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiProductStock(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateCompetitorProductCheckTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateCompetitorProductCheckTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("CompetitorProductStockCheck");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CompetitorProductStockCheckTable table = JardineApp.DB
-					.getCompetitorProductStockCheck();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProductStock(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateMarketingIntelTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateMarketingIntelTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("MarketingIntel");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.marketingIntel(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				new CreateProjectRequirementTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateProjectRequirementTask extends
-			AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("ProjectRequirementTask");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			ProjectRequirementTable table = JardineApp.DB
-					.getProjectRequirement();
-
-			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.projectRequirements(table
-					.getUnsyncedRecords());
-			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-			// UserTable userTable = JardineApp.DB.getUser();
-			// userTable
-			// .updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
-			//
-			// dialog.dismiss();
-			if (result) {
-				new CreateDocumentsTask().execute();
-
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Create");
-			dialog.setMessage("Documents");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			DocumentTable table = JardineApp.DB.getDocument();
-			List<DocumentRecord> records = table.getUnsyncedRecords();
-
-			if (records != null) {
-				CreateRequests request = new CreateRequests();
-				for (DocumentRecord rec : records) {
-					List<WebCreateModel> results = request.documents(rec);
-					if (results != null) {
-						for (WebCreateModel model : results) {
-							table.updateNo(model.getMobileId(),
-									String.valueOf(model.getCrmNo()));
-						}
-					}
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
 			UserTable userTable = JardineApp.DB.getUser();
 			userTable
 					.updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
-
 			dialog.dismiss();
 			if (result) {
-				// new CreateCustomerTask().execute();
-
+				// new CreateCompetitorProductTask().execute();
 			} else {
-
+				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -3356,8 +3356,8 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Boolean result) {
 			if (result) {
-				new PicklistDependencyTask().execute();
-
+				// new PicklistDependencyTask().execute();
+				new CreateCompetitorProductTask().execute();
 			} else {
 				dialog.dismiss();
 				buildAlertMessage();

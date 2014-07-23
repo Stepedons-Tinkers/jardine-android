@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -60,6 +64,14 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	private long userId;
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+
+		this.setHasOptionsMenu(true);
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -72,65 +84,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	}
 
 	private void initLayout() {
-		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
-		searchView.setOnCloseListener(new OnCloseListener() {
 
-			@Override
-			public boolean onClose() {
-				searchView.clearFocus();
-				currentPage = 0;
-				addItem(currentPage);
-				searchView.onActionViewCollapsed();
-				searchMode = false;
-				return true;
-			}
-		});
-		searchView.setOnSearchClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				tempRecord.clear();
-				AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
-						getActivity(),
-						R.layout.collaterals_marketing_materials_row,
-						tempRecord);
-				list.setAdapter(adapter);
-				searchView.clearFocus();
-				searchMode = true;
-			}
-		});
-		searchView.setOnQueryTextListener(new OnQueryTextListener() {
-
-			@Override
-			public boolean onQueryTextChange(String arg0) {
-
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
-				currentPage = 0;
-				try {
-					searchRecord = JardineApp.DB.getMarketingMaterials()
-							.getAllRecordsBySearch(userId, arg0,
-									spinner.getSelectedItemPosition());
-
-					if (searchRecord.size() > 0)
-						addItemFromSearch(currentPage);
-					else
-						Toast.makeText(getActivity(), "No records found!",
-								Toast.LENGTH_SHORT).show();
-
-				} catch (SQLiteException e) {
-
-					Log.e("Tugs", e.toString());
-				}
-
-				searchView.clearFocus();
-				return true;
-			}
-
-		});
 		// Header Data
 		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
@@ -145,23 +99,21 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		txtIsActive.setText(getResources().getString(
 				R.string.collaterals_ep_tags));
 		trow.setBackgroundResource(R.color.tab_pressed);
+
+		trow.setGravity(Gravity.CENTER);
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtDesc.setTypeface(null, Typeface.BOLD);
+		txtIsActive.setTypeface(null, Typeface.BOLD);
+
+		txtCrm.setGravity(Gravity.CENTER);
+		txtDesc.setGravity(Gravity.CENTER);
+		txtIsActive.setGravity(Gravity.CENTER);
+
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
 		//
-
-		strSearcher.add(getResources()
-				.getString(R.string.collaterals_ep_crm_no));
-		strSearcher.add(getResources().getString(
-				R.string.collaterals_ep_description));
-		strSearcher.add(getResources().getString(R.string.collaterals_ep_tags));
-		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.workplan_spinner_row, strSearcher);
-
-		spinner = (Spinner) view
-				.findViewById(R.id.spiCollateralsMMSpinnerSearch);
-		spinner.setAdapter(sAdapter);
 
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
@@ -170,7 +122,6 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
-		searchView = (SearchView) view.findViewById(R.id.svMarketingMats);
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
 		arrowRight = (ImageButton) view
@@ -209,6 +160,12 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 
+		} else {
+			AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
+					getActivity(), R.layout.collaterals_event_protocol_row,
+					realRecord);
+
+			list.setAdapter(adapter);
 		}
 	}
 
@@ -269,12 +226,14 @@ public class CollateralsMarketingMaterials extends Fragment implements
 				CollateralsConstants.FROM_WHERE = 2;
 				if (epr.getNo() != null) {
 
+					CollateralsDetails frag = CollateralsDetails.newInstance(
+							epr.getId(), epr.getNo());
+					frag.setTargetFragment(CollateralsMarketingMaterials.this,
+							15);
+
 					DashBoardActivity act = (DashBoardActivity) getActivity();
-					act.getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId(),
-											epr.getNo()))
+					act.getSupportFragmentManager().beginTransaction()
+							.add(R.id.frame_container, frag)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 
@@ -309,5 +268,91 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			break;
 		}
 
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.collaterals_menu, menu);
+
+		searchView = (SearchView) menu.findItem(R.id.itemCollateralSearch)
+				.getActionView();
+		spinner = (Spinner) menu.findItem(R.id.itemCollateralSpinner)
+				.getActionView();
+
+		strSearcher = new ArrayList<String>();
+
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_description));
+		strSearcher.add(getResources().getString(R.string.collaterals_ep_tags));
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+
+		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		spinner.setAdapter(cus);
+
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
+						getActivity(),
+						R.layout.collaterals_marketing_materials_row,
+						tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getMarketingMaterials()
+							.getAllRecordsBySearch(userId, arg0,
+									spinner.getSelectedItemPosition());
+
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
 	}
 }

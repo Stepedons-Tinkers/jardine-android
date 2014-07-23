@@ -80,6 +80,19 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		getTargetFragment().setMenuVisibility(false);
+	}
+
+	@Override
+	public void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+		getTargetFragment().setMenuVisibility(true);
+	}
+
+	@Override
 	public void onTabChanged(String tabId) {
 
 		Fragment fragment = new CollateralsEventProtocols();

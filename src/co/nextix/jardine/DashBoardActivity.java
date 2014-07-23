@@ -5,9 +5,12 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.app.Fragment;
@@ -32,6 +35,7 @@ import co.nextix.jardine.fragments.StartActivityFragment;
 import co.nextix.jardine.fragments.SyncMenuBarFragment;
 import co.nextix.jardine.fragments.WorkplanMenuBarFragment;
 import co.nextix.jardine.model.NavDrawerItem;
+import co.nextix.jardine.security.StoreAccount;
 
 import com.squareup.timessquare.CalendarPickerView;
 
@@ -235,7 +239,8 @@ public class DashBoardActivity extends FragmentActivity {
 			break;
 
 		case 7:
-			fragment = new LogoutMenuBarFragment();
+//			fragment = new LogoutMenuBarFragment();
+			logoutAlert();
 			break;
 
 		default:
@@ -248,9 +253,10 @@ public class DashBoardActivity extends FragmentActivity {
 
 			FragmentTransaction ft = getSupportFragmentManager()
 					.beginTransaction();
-			ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left,
-					R.anim.enter_from_right, R.anim.exit_to_left);
-			
+			ft.setCustomAnimations(R.anim.enter_from_right,
+					R.anim.exit_to_left, R.anim.enter_from_right,
+					R.anim.exit_to_left);
+
 			int itemPosition = 0;
 
 			switch (position) {
@@ -308,9 +314,9 @@ public class DashBoardActivity extends FragmentActivity {
 			}
 
 			// update selected item and title, then close the drawer
-//			mDrawerList.setItemChecked(itemPosition, true);
+			// mDrawerList.setItemChecked(itemPosition, true);
 			mDrawerList.setSelection(itemPosition);
-//			setTitle(navMenuTitles[itemPosition]);
+			// setTitle(navMenuTitles[itemPosition]);
 			mDrawerLayout.closeDrawer(mDrawerList);
 
 		} else {
@@ -322,8 +328,8 @@ public class DashBoardActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		
-		if(getSupportFragmentManager().findFragmentByTag("dashboard-name") instanceof DashboardFragment){
+
+		if (getSupportFragmentManager().findFragmentByTag("dashboard-name") instanceof DashboardFragment) {
 			mDrawerList.setItemChecked(0, true);
 			mDrawerList.setSelection(0);
 			setTitle(navMenuTitles[0]);
@@ -435,5 +441,73 @@ public class DashBoardActivity extends FragmentActivity {
 	public static String toddMMyy(Date day) {
 		String date = WorkplanMenuBarFragment.df.format(day);
 		return date;
+	}
+
+	private class LogoutTask extends AsyncTask<Void, Void, Boolean> {
+		ProgressDialog dialog;
+
+		@Override
+		protected void onPreExecute() {
+			dialog = new ProgressDialog(DashBoardActivity.this);
+			dialog.setTitle("Signing out");
+			dialog.setMessage("Please wait...");
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			StoreAccount.clear(DashBoardActivity.this);
+			// JardineApp.DB.close();
+			JardineApp.SESSION_NAME = null;
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+			dialog.dismiss();
+			if (result) {
+				startActivity(new Intent(DashBoardActivity.this,
+						LoginActivity.class));
+				DashBoardActivity.this.overridePendingTransition(
+						R.anim.slide_in_left, R.anim.slide_out_left);
+
+			} else {
+				Toast.makeText(DashBoardActivity.this, "Error",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private void logoutAlert() {
+
+		AlertDialog.Builder builderSingle = new AlertDialog.Builder(
+				DashBoardActivity.this);
+		builderSingle.setTitle("Logout");
+		builderSingle.setMessage("Are you sure?");
+		builderSingle.setPositiveButton("Yes",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.dismiss();
+						new LogoutTask().execute();
+					}
+				});
+		builderSingle.setNegativeButton("No",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+						getFragmentManager();
+						getFragmentManager().popBackStack("logout",
+								FragmentManager.POP_BACK_STACK_INCLUSIVE);
+					}
+				});
+		builderSingle.show();
+
 	}
 }
