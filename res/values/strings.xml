@@ -363,7 +363,7 @@
     <string name="position_contact_person">Position</string>
     <string name="customer_contact_person">Customer</string>
     <string name="mobile_no_contact_person">Mobile No</string>
-    <string name="assigned_to_contact_person">Assigned To</string>
+    <string name="assigned_to_contact_person">Created By</string>
     <string name="action_contact_person">Action</string>
     <string name="add_customer_contact_person">Add Customer Contact Person</string>
     <string name="all_caps_add_customer_contact_person">ADD CUSTOMER CONTACT PERSON</string>
