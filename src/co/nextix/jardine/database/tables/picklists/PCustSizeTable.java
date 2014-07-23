@@ -188,6 +188,26 @@ public class PCustSizeTable {
 		return result;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_SIZE_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_SIZE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_CUSTOMER_SIZE_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 
