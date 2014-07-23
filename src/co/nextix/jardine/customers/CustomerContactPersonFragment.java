@@ -14,9 +14,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -87,7 +90,14 @@ public class CustomerContactPersonFragment extends Fragment {
 
 		String username = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
-		field7.setText(username);
+		UserTable u = DatabaseAdapter.getInstance().getUser();
+		if (u != null) {
+			UserRecord user = u.getCurrentUser();
+			if (user != null) {
+				field7.setText(user.getFirstNameName() + " "
+						+ user.getLastname());
+			}
+		}
 
 		PicklistRecord pos = JardineApp.DB.getCustomerContactPosition()
 				.getById(record.getPosition());

@@ -7,10 +7,13 @@ import java.util.List;
 
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import android.app.Activity;
@@ -112,7 +115,13 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 		field6a.setText(formattedDate);
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
-		field10.setText(userName);
+		UserTable u = DatabaseAdapter.getInstance().getUser();
+		if (u != null) {
+			UserRecord user = u.getCurrentUser();
+			if (user != null) {
+				field10.setText(user.getFirstNameName() + user.getLastname());
+			}
+		}
 	}
 
 	@Override
