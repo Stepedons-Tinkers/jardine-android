@@ -80,7 +80,7 @@
     <string name="workplan_info_citytown">City or Town</string>
     <string name="workplan_info_acttype">Activity Type</string>
     <string name="workplan_info_createdtime">Created Time</string>
-    <string name="workplan_info_assignedto">Assigned To</string>
+    <string name="workplan_info_assignedto">Created By</string>
     <string name="workplan_info_customer">Customer</string>
     <string name="workplan_info_status">Status</string>
     <string name="workplan_info_province">Province</string>
