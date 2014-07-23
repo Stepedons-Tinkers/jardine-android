@@ -2,7 +2,6 @@ package co.nextix.jardine.database.tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -24,6 +23,9 @@ public class MarketingMaterialsTable {
 	private final String KEY_MARKETINGMATERIALS_DESCRIPTION = "description";
 	private final String KEY_MARKETINGMATERIALS_LASTUPDATE = "last_update";
 	private final String KEY_MARKETINGMATERIALS_TAGS = "tags";
+	private final String KEY_MARKETINGMATERIALS_BUSINESSUNIT = "business_unit";
+	private final String KEY_MARKETINGMATERIALS_ISNEW = "is_new";
+	private final String KEY_MARKETINGMATERIALS_ISACTIVE = "is_active";
 	private final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
 	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
 	private final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
@@ -79,6 +81,13 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
 					String tags = c.getString(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+					long businessUnit = c
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_BUSINESSUNIT));
+					int isNew = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISNEW));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISACTIVE));
 					String createdTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
@@ -89,8 +98,8 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
-							description, lastUpdate, tags, createdTime,
-							modifiedTime, createdBy));
+							description, lastUpdate, tags, businessUnit, isNew,
+							isActive, createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -123,6 +132,13 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
 					String tags = c.getString(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+					long businessUnit = c
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_BUSINESSUNIT));
+					int isNew = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISNEW));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISACTIVE));
 					String createdTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
@@ -133,8 +149,8 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
-							description, lastUpdate, tags, createdTime,
-							modifiedTime, createdBy));
+							description, lastUpdate, tags, businessUnit, isNew,
+							isActive, createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -193,6 +209,13 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
 					String tags = c.getString(c
 							.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+					long businessUnit = c
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGMATERIALS_BUSINESSUNIT));
+					int isNew = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISNEW));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_MARKETINGMATERIALS_ISACTIVE));
 					String createdTime = c
 							.getString(c
 									.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
@@ -203,8 +226,8 @@ public class MarketingMaterialsTable {
 							.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 					list.add(new MarketingMaterialsRecord(id, no, crmNo,
-							description, lastUpdate, tags, createdTime,
-							modifiedTime, createdBy));
+							description, lastUpdate, tags, businessUnit, isNew,
+							isActive, createdTime, modifiedTime, createdBy));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -350,6 +373,12 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
 				String tags = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_BUSINESSUNIT));
+				int isNew = c.getInt(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_ISNEW));
+				int isActive = c.getInt(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_ISACTIVE));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
 				String modifiedTime = c.getString(c
@@ -358,8 +387,8 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 				record = new MarketingMaterialsRecord(id, no, crmNo,
-						description, lastUpdate, tags, createdTime,
-						modifiedTime, createdBy);
+						description, lastUpdate, tags, businessUnit, isNew,
+						isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -391,6 +420,12 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_LASTUPDATE));
 				String tags = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_TAGS));
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_BUSINESSUNIT));
+				int isNew = c.getInt(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_ISNEW));
+				int isActive = c.getInt(c
+						.getColumnIndex(KEY_MARKETINGMATERIALS_ISACTIVE));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDTIME));
 				String modifiedTime = c.getString(c
@@ -399,8 +434,8 @@ public class MarketingMaterialsTable {
 						.getColumnIndex(KEY_MARKETINGMATERIALS_CREATEDBY));
 
 				record = new MarketingMaterialsRecord(id, no, crmNo,
-						description, lastUpdate, tags, createdTime,
-						modifiedTime, createdBy);
+						description, lastUpdate, tags, businessUnit, isNew,
+						isActive, createdTime, modifiedTime, createdBy);
 			}
 		} finally {
 			if (c != null) {
@@ -412,8 +447,9 @@ public class MarketingMaterialsTable {
 	}
 
 	public long insert(String no, String crmNo, String description,
-			String lastUpdate, String tags, String createdTime,
-			String modifiedTime, long createdBy) {
+			String lastUpdate, String tags, long businessUnit, int isNew,
+			int isActive, String createdTime, String modifiedTime,
+			long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -426,6 +462,9 @@ public class MarketingMaterialsTable {
 		initialValues.put(KEY_MARKETINGMATERIALS_DESCRIPTION, description);
 		initialValues.put(KEY_MARKETINGMATERIALS_LASTUPDATE, lastUpdate);
 		initialValues.put(KEY_MARKETINGMATERIALS_TAGS, tags);
+		initialValues.put(KEY_MARKETINGMATERIALS_BUSINESSUNIT, businessUnit);
+		initialValues.put(KEY_MARKETINGMATERIALS_ISNEW, isNew);
+		initialValues.put(KEY_MARKETINGMATERIALS_ISACTIVE, isActive);
 		initialValues.put(KEY_MARKETINGMATERIALS_CREATEDTIME, createdTime);
 		initialValues.put(KEY_MARKETINGMATERIALS_MODIFIEDTIME, modifiedTime);
 		initialValues.put(KEY_MARKETINGMATERIALS_CREATEDBY, createdBy);
@@ -453,14 +492,18 @@ public class MarketingMaterialsTable {
 	}
 
 	public boolean update(long id, String no, String crmNo, String description,
-			String lastUpdate, String tags, String createdTime,
-			String modifiedTime, long createdBy) {
+			String lastUpdate, String tags, long businessUnit, int isNew,
+			int isActive, String createdTime, String modifiedTime,
+			long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_MARKETINGMATERIALS_NO, no);
 		args.put(KEY_MARKETINGMATERIALS_CRMNO, crmNo);
 		args.put(KEY_MARKETINGMATERIALS_DESCRIPTION, description);
 		args.put(KEY_MARKETINGMATERIALS_LASTUPDATE, lastUpdate);
 		args.put(KEY_MARKETINGMATERIALS_TAGS, tags);
+		args.put(KEY_MARKETINGMATERIALS_BUSINESSUNIT, businessUnit);
+		args.put(KEY_MARKETINGMATERIALS_ISNEW, isNew);
+		args.put(KEY_MARKETINGMATERIALS_ISACTIVE, isActive);
 		args.put(KEY_MARKETINGMATERIALS_CREATEDTIME, createdTime);
 		args.put(KEY_MARKETINGMATERIALS_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_MARKETINGMATERIALS_CREATEDBY, createdBy);
