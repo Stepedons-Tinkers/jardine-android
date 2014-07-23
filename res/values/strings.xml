@@ -225,7 +225,7 @@
     <string name="crm_no_jdi">CRM No.</string>
     <string name="activity_jdi">Activity</string>
     <string name="product_jdi">Product</string>
-    <string name="jdi_stock_status">Stock Status</string>
+    <string name="jdi_stock_status">Status</string>
     <string name="jdi_quantity">Quantity</string>
     <string name="loaded_on_shelves_jdi">Loaded On Shelves</string>
     <string name="assigned_to_jdi">Assigned To</string>
