@@ -8,10 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class AdapterCollateralsMarketingMaterials extends
 		ArrayAdapter<MarketingMaterialsRecord> {
@@ -33,6 +35,7 @@ public class AdapterCollateralsMarketingMaterials extends
 		public TextView txtDescription;
 		public TextView txtIsActive;
 		public TableRow row;
+		public ImageView imgNew;
 	}
 
 	@Override
@@ -52,6 +55,8 @@ public class AdapterCollateralsMarketingMaterials extends
 					.findViewById(R.id.tvCollateralsMMDescription);
 			holder.txtIsActive = (TextView) view
 					.findViewById(R.id.tvCollateralsMMIsActive);
+			holder.imgNew = (ImageView) view
+					.findViewById(R.id.ivCollateralsMMNewIndicator);
 
 			view.setTag(holder);
 		} else {
@@ -69,6 +74,12 @@ public class AdapterCollateralsMarketingMaterials extends
 		holder.txtCrmNo.setText(holder.record.getCrm());
 		holder.txtDescription.setText(holder.record.getDescription());
 		holder.txtIsActive.setText(holder.record.getTags());
+
+		if (MyDateUtils.isDateNew(holder.record.getCreatedTime())) {
+			holder.imgNew.setVisibility(View.VISIBLE);
+		} else {
+			holder.imgNew.setVisibility(View.GONE);
+		}
 
 		return view;
 	}
