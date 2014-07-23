@@ -35,7 +35,10 @@ public class LoginActivity extends Activity {
 
 		editUsername = (EditText) findViewById(R.id.login_email);
 		editPassword = (EditText) findViewById(R.id.login_password);
-
+		
+		editUsername.setText("test_smr1");
+		editPassword.setText("1212");
+		
 		if (StoreAccount.exists(getApplicationContext())) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),

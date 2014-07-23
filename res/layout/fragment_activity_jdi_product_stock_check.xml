@@ -105,7 +105,7 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/product_jdi"
+                            android:text="@string/product_brand_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -145,31 +145,6 @@
                         android:background="#b0b0b0" >
 
                         <TextView
-                            android:id="@+id/assigned_to"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="@string/jdi_quantity"
-                            android:textColor="#000"
-                            android:textSize="14sp" />
-
-                        <requestFocus />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
-
-                        <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
@@ -177,27 +152,6 @@
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:text="@string/loaded_on_shelves_jdi"
-                            android:textColor="#000"
-                            android:textSize="14sp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:text="@string/assigned_to_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -218,10 +172,11 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/action_jdi"
+                            android:text="@string/created_by"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
+                    
                 </TableRow>
 
                 <ListView
