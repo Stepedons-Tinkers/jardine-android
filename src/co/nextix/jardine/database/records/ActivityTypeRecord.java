@@ -19,7 +19,7 @@ public class ActivityTypeRecord {
 	private long activity_type_categorization;
 	private int is_active;
 	private long user; // User Table
-
+	private String name;
 	private String crm_no;
 	private String created_time;
 	private String modified_time;
@@ -28,12 +28,14 @@ public class ActivityTypeRecord {
 	// Public constructors
 	// ===========================================================
 
-	public ActivityTypeRecord(long id, String no, String crmNo, long activityTypeCategorization, int isActive, String createdTime,
+	public ActivityTypeRecord(long id, String no, String crmNo, String name,
+			long activityTypeCategorization, int isActive, String createdTime,
 			String modifiedTime, long user) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
+		this.name = name;
 		// this.activity_type = activityType;
 		this.activity_type_categorization = activityTypeCategorization;
 		this.is_active = isActive;
@@ -106,8 +108,16 @@ public class ActivityTypeRecord {
 		return this.user;
 	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getName() {
+		return name;
+	}
+
 	@Override
 	public String toString() {
-		return this.crm_no;
+		return this.name;
 	}
 }

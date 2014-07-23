@@ -27,8 +27,8 @@ public class EditActivityInfoFragment extends Fragment {
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
 //		((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(this.activityRecord.getWorkplan()));
-//		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
-//		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
+		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getCheckIn());
+		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getCheckOut());
 		((TextView) myFragmentView.findViewById(R.id.latitude)).setText(String.valueOf(this.activityRecord.getLatitude()));
 		((TextView) myFragmentView.findViewById(R.id.longitude)).setText(String.valueOf(this.activityRecord.getLongitude()));
 //		((TextView) myFragmentView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());

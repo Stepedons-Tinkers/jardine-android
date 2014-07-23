@@ -4,22 +4,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.support.v4.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.CalendarRecord;
 import co.nextix.jardine.model.ProfileNotification;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class ProfileNoticationsFragment extends Fragment {
 
-	ListView listView;
-	ProfileNotifAdapter listAdapter;
-	List<ProfileNotification> dummyList = new ArrayList<ProfileNotification>();
+	private ListView listView;
+	private View view, header;
+	private ProfileNotifAdapter listAdapter;
+
+	private TableRow tRow;
+	private TextView h1, h2;
+	private List<CalendarRecord> calendarRecords;
+
+	private long userId;
 
 	public static Fragment newInstance() {
 		ProfileNoticationsFragment fragment = new ProfileNoticationsFragment();
@@ -29,44 +44,60 @@ public class ProfileNoticationsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		View view = inflater.inflate(R.layout.profile_notifications_layout,
-				null);
+		view = inflater.inflate(R.layout.profile_notifications_layout, null,
+				false);
 
-		listView = (ListView) view.findViewById(R.id.profilenotif_listview);
-		ViewGroup header = (ViewGroup) inflater.inflate(
-				R.layout.profile_notif_list_header, listView, false);
-		listView.addHeaderView(header, null, false);
+		header = (View) inflater.inflate(R.layout.profile_row, null, false);
 
-		populateList();
+		initLayout();
+
+		populateData();
 
 		return view;
 	}
 
-	private void populateList() {
-		dummyList
-				.add(new ProfileNotification("2014-06-12", "Independence day"));
-		dummyList.add(new ProfileNotification("2014-06-13",
-				"Friday the 13th special!"));
-		dummyList.add(new ProfileNotification("2014-06-14",
-				"Beach beach beach!"));
-		dummyList.add(new ProfileNotification("2014-06-15", "Weekend work!"));
-		dummyList.add(new ProfileNotification("2014-06-16", "Back to work!"));
+	private void initLayout() {
 
+		// for header data of table
+		tRow = (TableRow) header.findViewById(R.id.trProfileRow);
+		h1 = (TextView) header.findViewById(R.id.tvProfileCol1);
+		h2 = (TextView) header.findViewById(R.id.tvProfileCol2);
+
+		h1.setTypeface(null, Typeface.BOLD);
+		h2.setTypeface(null, Typeface.BOLD);
+
+		h1.setGravity(Gravity.CENTER);
+		h2.setGravity(Gravity.CENTER);
+
+		tRow.setBackgroundResource(R.color.tab_pressed);
+		h1.setText(getResources().getString(R.string.profile_notif_date));
+		h2.setText(getResources()
+				.getString(R.string.profile_notif_notification));
+
+		listView = (ListView) view
+				.findViewById(R.id.lvProfileListNotifListView);
+		listView.addHeaderView(header);
+		calendarRecords = new ArrayList<CalendarRecord>();
 		listAdapter = new ProfileNotifAdapter(getActivity(),
-				R.layout.profile_notif_list_item, dummyList);
+				R.layout.profile_row, calendarRecords);
+
 		listView.setAdapter(listAdapter);
 
-		listView.setOnItemClickListener(new OnItemClickListener() {
-
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				ProfileNotification item = (ProfileNotification) parent
-						.getItemAtPosition(position);
-				Toast.makeText(getActivity(), item.getNotification(),
-						Toast.LENGTH_SHORT).show();
-			}
-
-		});
 	}
+
+	private void populateData() {
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		userId = Long.parseLong(id);
+
+		List<CalendarRecord> dummy = JardineApp.DB.getCalendar()
+				.getAllRecordsByUserId(userId, MyDateUtils.getCurrentDate());
+
+		if (dummy != null) {
+			calendarRecords.addAll(dummy);
+			listAdapter.notifyDataSetChanged();
+		}
+
+	}
+
 }

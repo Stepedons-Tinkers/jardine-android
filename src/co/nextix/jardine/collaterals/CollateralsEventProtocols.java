@@ -6,19 +6,23 @@ import java.util.List;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.customers.AdapterCustomers;
-import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
-import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import android.app.Activity;
+import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -27,7 +31,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -59,12 +62,20 @@ public class CollateralsEventProtocols extends Fragment implements
 	private Spinner spinner;
 	private boolean searchMode = false;
 	private long userId;
+	private ArrayAdapter<String> sAdapter;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+
+		this.setHasOptionsMenu(true);
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		strSearcher = new ArrayList<String>();
 		view = inflater.inflate(R.layout.collaterals_event_protocols, null);
 		header = inflater
 				.inflate(R.layout.collaterals_event_protocol_row, null);
@@ -74,64 +85,9 @@ public class CollateralsEventProtocols extends Fragment implements
 
 	private void initLayout() {
 
-		searchView = (SearchView) view.findViewById(R.id.svEventProtocols);
-		searchView.setOnCloseListener(new OnCloseListener() {
+		getActivity().invalidateOptionsMenu();
+		// searchView = (SearchView) view.findViewById(R.id.svEventProtocols);
 
-			@Override
-			public boolean onClose() {
-				searchView.clearFocus();
-				currentPage = 0;
-				addItem(currentPage);
-				searchView.onActionViewCollapsed();
-				searchMode = false;
-				return true;
-			}
-		});
-		searchView.setOnSearchClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				tempRecord.clear();
-				AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
-						getActivity(), R.layout.collaterals_event_protocol_row,
-						tempRecord);
-				list.setAdapter(adapter);
-				searchView.clearFocus();
-				searchMode = true;
-			}
-		});
-		searchView.setOnQueryTextListener(new OnQueryTextListener() {
-
-			@Override
-			public boolean onQueryTextChange(String arg0) {
-
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
-				currentPage = 0;
-				try {
-					searchRecord = JardineApp.DB.getEventProtocol()
-							.getAllRecordsBySearch(userId, arg0,
-									spinner.getSelectedItemPosition());
-
-					if (searchRecord.size() > 0)
-						addItemFromSearch(currentPage);
-					else
-						Toast.makeText(getActivity(), "No records found!",
-								Toast.LENGTH_SHORT).show();
-
-				} catch (SQLiteException e) {
-
-					Log.e("Tugs", e.toString());
-				}
-
-				searchView.clearFocus();
-				return true;
-			}
-
-		});
 		// Header Data
 		trow = (TableRow) header
 				.findViewById(R.id.trCollateralsEventerProtocolRow);
@@ -143,6 +99,17 @@ public class CollateralsEventProtocols extends Fragment implements
 				.findViewById(R.id.tvCollateralsEventerProtocolEventType);
 		txtIsActive = (TextView) header
 				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
+
+		trow.setGravity(Gravity.CENTER);
+		txtCrm.setGravity(Gravity.CENTER);
+		txtDesc.setGravity(Gravity.CENTER);
+		txtEvent.setGravity(Gravity.CENTER);
+		txtIsActive.setGravity(Gravity.CENTER);
+
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtDesc.setTypeface(null, Typeface.BOLD);
+		txtEvent.setTypeface(null, Typeface.BOLD);
+		txtIsActive.setTypeface(null, Typeface.BOLD);
 
 		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
 		txtDesc.setText(getResources().getString(
@@ -156,16 +123,6 @@ public class CollateralsEventProtocols extends Fragment implements
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
-		//
-
-		strSearcher.add(getResources()
-				.getString(R.string.collaterals_ep_crm_no));
-		strSearcher.add(getResources().getString(
-				R.string.collaterals_ep_description));
-		strSearcher.add(getResources().getString(
-				R.string.collaterals_ep_event_type));
-		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.workplan_spinner_row, strSearcher);
 
 		list = (ListView) view
 				.findViewById(R.id.lvCollateralsEventProtocolsList);
@@ -174,12 +131,6 @@ public class CollateralsEventProtocols extends Fragment implements
 
 		txtPage = (TextView) view
 				.findViewById(R.id.tvCollateralssEventProtocolPage);
-
-		searchView = (SearchView) view.findViewById(R.id.svEventProtocols);
-
-		spinner = (Spinner) view
-				.findViewById(R.id.spiCollateralsEventProtolSpinnerSearch);
-		spinner.setAdapter(sAdapter);
 
 		arrowLeft = (ImageButton) view
 				.findViewById(R.id.ibColatteralsEventProtocolLeft);
@@ -225,7 +176,19 @@ public class CollateralsEventProtocols extends Fragment implements
 			}
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
+		} else {
+			AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
+					getActivity(), R.layout.collaterals_event_protocol_row,
+					realRecord);
+
+			list.setAdapter(adapter);
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
 	}
 
 	private void addItemFromSearch(int count) {
@@ -285,13 +248,15 @@ public class CollateralsEventProtocols extends Fragment implements
 				CollateralsConstants.FROM_WHERE = 1;
 				if (epr.getNo() != null) {
 
+					CollateralsDetails frag = CollateralsDetails.newInstance(
+							epr.getId(), epr.getNo());
+					frag.setTargetFragment(CollateralsEventProtocols.this, 15);
+
 					DashBoardActivity act = (DashBoardActivity) getActivity();
-					act.getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId(),
-											epr.getNo()), JardineApp.TAG)
+					act.getSupportFragmentManager().beginTransaction()
+							.add(R.id.frame_container, frag, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
+
 				}
 
 			}
@@ -324,4 +289,93 @@ public class CollateralsEventProtocols extends Fragment implements
 		}
 
 	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.collaterals_menu, menu);
+
+		searchView = (SearchView) menu.findItem(R.id.itemCollateralSearch)
+				.getActionView();
+		spinner = (Spinner) menu.findItem(R.id.itemCollateralSpinner)
+				.getActionView();
+
+		strSearcher = new ArrayList<String>();
+
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_description));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_event_type));
+		sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+
+		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		spinner.setAdapter(cus);
+
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
+						getActivity(), R.layout.collaterals_event_protocol_row,
+						tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getEventProtocol()
+							.getAllRecordsBySearch(userId, arg0,
+									spinner.getSelectedItemPosition());
+
+					Log.d("Tugs", spinner.getSelectedItemPosition() + "");
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
+
+	}
+
 }

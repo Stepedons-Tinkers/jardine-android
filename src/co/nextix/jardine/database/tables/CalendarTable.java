@@ -102,6 +102,52 @@ public class CalendarTable {
 		return list;
 	}
 
+	public List<CalendarRecord> getAllRecordsByUserId(long userId, String date) {
+		Cursor c = null;
+		List<CalendarRecord> list = new ArrayList<CalendarRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CALENDAR_USER + " = " + userId + " AND "
+				+ KEY_CALENDAR_DUEDATE + " >= DATE('" + date + "')";
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_CALENDAR_ROWID));
+					String activityType = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_ACTIVITYTYPE));
+					String dateStart = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_DATESTART));
+					String dueDate = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_DUEDATE));
+					String description = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_DESCRIPTION));
+					String subject = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_SUBJECT));
+					String timeStart = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_TIMESTART));
+					String timeEnd = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_TIMEEND));
+					int activity = c.getInt(c
+							.getColumnIndex(KEY_CALENDAR_ACTIVITY));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_CALENDAR_MODIFIEDTIME));
+					long user = c.getLong(c.getColumnIndex(KEY_CALENDAR_USER));
+
+					list.add(new CalendarRecord(id, activityType, dateStart,
+							dueDate, description, subject, timeStart, timeEnd,
+							activity, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================

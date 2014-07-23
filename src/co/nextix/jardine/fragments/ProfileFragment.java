@@ -7,11 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TabHost;
+import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabContentFactory;
 import co.nextix.jardine.R;
 import co.nextix.jardine.profile.ProfileInformationFragment;
 import co.nextix.jardine.profile.ProfileNoticationsFragment;
+import co.nextix.jardine.view.group.utils.TabFactory;
 
 public class ProfileFragment extends Fragment {
 
@@ -38,18 +40,8 @@ public class ProfileFragment extends Fragment {
 
 		tabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
 		tabHost.setup();
-		tabHost.addTab(tabHost
-				.newTabSpec(
-						getResources().getString(R.string.profile_information))
-				.setIndicator(
-						getResources().getString(R.string.profile_information))
-				.setContent(new TabFactory()));
-		tabHost.addTab(tabHost
-				.newTabSpec(
-						getResources().getString(R.string.profile_notification))
-				.setIndicator(
-						getResources().getString(R.string.profile_notification))
-				.setContent(new TabFactory()));
+		setupTabHost();
+
 		tabHost.setOnTabChangedListener(new OnTabChangeListener() {
 
 			@Override
@@ -74,6 +66,27 @@ public class ProfileFragment extends Fragment {
 		tabHost.setCurrentTab(0);
 
 		return rootView;
+	}
+
+	private void setupTabHost() {
+		String tab1 = getResources().getString(R.string.profile_information);
+		String tab2 = getResources().getString(R.string.profile_notification);
+		tabHost.setup();
+		tabHost.addTab(tabHost.newTabSpec(tab1).setIndicator(tab1)
+				.setContent(new TabFactory()));
+		tabHost.addTab(tabHost.newTabSpec(tab2).setIndicator(tab2)
+				.setContent(new TabFactory()));
+
+		for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
+			View v = tabHost.getTabWidget().getChildAt(i);
+			TextView tv = (TextView) tabHost.getTabWidget().getChildAt(i)
+					.findViewById(android.R.id.title);
+			tv.setTextColor(getResources().getColor(R.color.tab_txt_color));
+			v.setBackgroundResource(R.drawable.xml_tab_indicator);
+		}
+
+		tabHost.setCurrentTab(0);
+
 	}
 
 	private class TabFactory implements TabContentFactory {

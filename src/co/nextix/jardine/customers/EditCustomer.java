@@ -23,11 +23,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -155,7 +158,16 @@ public class EditCustomer extends Activity implements OnClickListener {
 		field10.setSelection((int) record.getProvince() - 1);
 		field11.setSelection((int) record.getCityTown() - 1);
 		field12.setText(record.getFax());
-		field13.setText(userName);
+		
+		
+		UserTable u = DatabaseAdapter.getInstance().getUser();
+		  if (u != null) {
+		   UserRecord user = u.getCurrentUser();
+		   if (user != null) {
+		    field13.setText(user.getFirstNameName() + " " + " "  + user.getLastname());
+		   }
+		  }
+	
 
 	}
 

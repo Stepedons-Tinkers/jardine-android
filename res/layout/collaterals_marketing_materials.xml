@@ -1,35 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white"
     android:overScrollMode="never" >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:background="@color/white" >
 
-        <LinearLayout
-            android:id="@+id/tvCollateralsSearchMarketingMaterials"
+        <FrameLayout
+            android:id="@+id/flCollateralsMarketingMaterial01"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:gravity="right" >
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/tvCollateralsSearchMarketingMaterials"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/xml_tablelayout_bg"
+            android:padding="2dp" >
 
-            <SearchView
-                android:id="@+id/svMarketingMats"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </SearchView>
-
-            <Spinner
-                android:id="@+id/spiCollateralsMMSpinnerSearch"
-                android:layout_width="wrap_content"
+            <ListView
+                android:id="@+id/lvCollateralsMarketingMaterialsList"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="true"
+                android:listSelector="@color/collaterals_tablerow_trasparent_select"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+        </FrameLayout>
 
         <LinearLayout
             android:id="@+id/llColatteralsMarketingMaterialsPage"
@@ -62,30 +66,6 @@
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_media_next" />
         </LinearLayout>
-
-        <FrameLayout
-            android:id="@+id/flCollateralsMarketingMaterial01"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tvCollateralsSearchMarketingMaterials"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:background="@drawable/xml_tablelayout_bg"
-            android:padding="2dp" >
-
-            <ListView
-                android:id="@+id/lvCollateralsMarketingMaterialsList"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:descendantFocusability="blocksDescendants"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:drawSelectorOnTop="true"
-                android:listSelector="@color/collaterals_tablerow_trasparent_select"
-                android:overScrollMode="never"
-                android:scrollbars="none" />
-        </FrameLayout>
     </RelativeLayout>
 
 </ScrollView>
