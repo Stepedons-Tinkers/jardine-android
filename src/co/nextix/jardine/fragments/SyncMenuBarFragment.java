@@ -3375,7 +3375,9 @@ public class SyncMenuBarFragment extends Fragment {
 							StoreAccount.restore(getActivity()).getString(
 									Account.USERNAME),
 							StoreAccount.restore(getActivity()).getString(
-									Account.PASSWORD));
+									Account.PASSWORD),
+							StoreAccount.restore(getActivity()).getString(
+									Account.AREA));
 					if (model != null) {
 						Log.i(JardineApp.TAG,
 								"session: " + model.getSessionName());

@@ -9,13 +9,14 @@ public class StoreAccount {
 	public static final String PREFERENCE_FILENAME = "userDetails";
 	public static final String PASSWORD_KEY = "password";
 	public static final String USERNAME_KEY = "username";
+	public static final String AREA_KEY = "area";
 	public static final String SESSION_EXISTS_KEY = "sessionExists";
 	public static final String ID_KEY = "userid";
 	public static final String ROWID_KEY = "userrowid";
 	public static final String SESSIONNAME_KEY = "sessionName";
 
 	public static void save(Context context, String username, String password,
-			String id, String rowid, String sessionName) {
+			String id, String rowid, String sessionName, String area) {
 		final Editor editor = context.getSharedPreferences(PREFERENCE_FILENAME,
 				Context.MODE_PRIVATE).edit();
 		try {
@@ -27,6 +28,7 @@ public class StoreAccount {
 			editor.putString(StoreAccount.ROWID_KEY, AEShelper.encrypt(rowid));
 			editor.putString(StoreAccount.SESSIONNAME_KEY,
 					AEShelper.encrypt(sessionName));
+			editor.putString(StoreAccount.AREA_KEY, AEShelper.encrypt(area));
 			editor.putBoolean(StoreAccount.SESSION_EXISTS_KEY, true);
 			editor.commit();
 		} catch (Exception e) {
@@ -57,6 +59,7 @@ public class StoreAccount {
 		final String rowid = prefs.getString(StoreAccount.ROWID_KEY, "");
 		final String sessionname = prefs.getString(
 				StoreAccount.SESSIONNAME_KEY, "");
+		final String area = prefs.getString(StoreAccount.AREA_KEY, "");
 		try {
 			bundle.putString(Account.USERNAME, AEShelper.decrypt(username));
 			bundle.putString(Account.PASSWORD, AEShelper.decrypt(password));
@@ -64,10 +67,22 @@ public class StoreAccount {
 			bundle.putString(Account.ROWID, AEShelper.decrypt(rowid));
 			bundle.putString(Account.SESSION_NAME,
 					AEShelper.decrypt(sessionname));
+			bundle.putString(Account.AREA, AEShelper.decrypt(area));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return bundle;
+	}
+
+	public static void updateArea(Context context, String area) {
+		final Editor editor = context.getSharedPreferences(PREFERENCE_FILENAME,
+				Context.MODE_PRIVATE).edit();
+		try {
+			editor.putString(StoreAccount.AREA_KEY, AEShelper.encrypt(area));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		editor.commit();
 	}
 
 	public static boolean exists(Context context) {
@@ -89,6 +104,7 @@ public class StoreAccount {
 	public static class Account {
 		public static final String USERNAME = "username_key";
 		public static final String PASSWORD = "password_key";
+		public static final String AREA = "area_key";
 		public static final String ID = "userid_key";
 		public static final String ROWID = "userrowid_key";
 		public static final String SESSION_NAME = "sessionName_key";

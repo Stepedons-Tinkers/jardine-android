@@ -47,11 +47,40 @@
             android:gravity="left"
             android:hint="Password"
             android:inputType="textPersonName"
-            android:paddingBottom="9dp"
+            android:paddingBottom="5dp"
             android:paddingLeft="14dp"
             android:paddingTop="9dp"
             android:textColor="@android:color/white"
             android:textSize="24sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:weightSum="5" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@drawable/email_bg"
+                android:gravity="center"
+                android:text="Area"
+                android:textSize="24sp" />
+
+            <Spinner
+                android:id="@+id/login_spinner_area"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:background="@android:drawable/btn_dropdown"
+                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
+                android:spinnerMode="dropdown" >
+            </Spinner>
+        </LinearLayout>
 
         <Button
             android:id="@+id/login_sign_in"
