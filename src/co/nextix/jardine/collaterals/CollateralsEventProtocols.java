@@ -14,9 +14,11 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.app.Activity;
 import android.content.Context;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,7 +44,7 @@ public class CollateralsEventProtocols extends Fragment implements
 
 	private View view;
 	private ListView list;
-	private int rowSize = 6;
+	private int rowSize = 8;
 	private int totalPage = 0;
 	private int currentPage = 0;
 
@@ -97,6 +99,17 @@ public class CollateralsEventProtocols extends Fragment implements
 				.findViewById(R.id.tvCollateralsEventerProtocolEventType);
 		txtIsActive = (TextView) header
 				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
+
+		trow.setGravity(Gravity.CENTER);
+		txtCrm.setGravity(Gravity.CENTER);
+		txtDesc.setGravity(Gravity.CENTER);
+		txtEvent.setGravity(Gravity.CENTER);
+		txtIsActive.setGravity(Gravity.CENTER);
+
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtDesc.setTypeface(null, Typeface.BOLD);
+		txtEvent.setTypeface(null, Typeface.BOLD);
+		txtIsActive.setTypeface(null, Typeface.BOLD);
 
 		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
 		txtDesc.setText(getResources().getString(
@@ -163,6 +176,12 @@ public class CollateralsEventProtocols extends Fragment implements
 			}
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
+		} else {
+			AdapterCollateralsEventProtocols adapter = new AdapterCollateralsEventProtocols(
+					getActivity(), R.layout.collaterals_event_protocol_row,
+					realRecord);
+
+			list.setAdapter(adapter);
 		}
 	}
 
@@ -229,13 +248,15 @@ public class CollateralsEventProtocols extends Fragment implements
 				CollateralsConstants.FROM_WHERE = 1;
 				if (epr.getNo() != null) {
 
+					CollateralsDetails frag = CollateralsDetails.newInstance(
+							epr.getId(), epr.getNo());
+					frag.setTargetFragment(CollateralsEventProtocols.this, 15);
+
 					DashBoardActivity act = (DashBoardActivity) getActivity();
-					act.getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.frame_container,
-									CollateralsDetails.newInstance(epr.getId(),
-											epr.getNo()), JardineApp.TAG)
+					act.getSupportFragmentManager().beginTransaction()
+							.add(R.id.frame_container, frag, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
+
 				}
 
 			}
@@ -354,47 +375,6 @@ public class CollateralsEventProtocols extends Fragment implements
 			}
 
 		});
-
-	}
-
-	private class CustomSpinnerAdapter extends ArrayAdapter<String> {
-
-		private Context context;
-		private View viewN, viewDD;
-
-		public CustomSpinnerAdapter(Context context, int resource,
-				List<String> objects) {
-			super(context, resource, objects);
-			this.context = context;
-		}
-
-		@Override
-		public View getView(int position, View convertView, ViewGroup parent) {
-			viewN = convertView;
-			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-			viewN = inflater.inflate(R.layout.workplan_spinner_row, parent,
-					false);
-			TextView txtView = (TextView) viewN;
-			txtView.setText(this.getItem(position));
-
-			return viewN;
-		}
-
-		@Override
-		public View getDropDownView(int position, View convertView,
-				ViewGroup parent) {
-			viewDD = convertView;
-			LayoutInflater inflater = ((Activity) context).getLayoutInflater();
-
-			viewDD = inflater.inflate(R.layout.workplan_spinner_row, parent,
-					false);
-			TextView txtView = (TextView) viewDD;
-			txtView.setText(this.getItem(position));
-			txtView.setTextSize(getResources().getDimension(
-					R.dimen.text_xxxlarge));
-			txtView.setTextColor(getResources().getColor(R.color.white));
-			return viewDD;
-		}
 
 	}
 

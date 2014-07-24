@@ -4,17 +4,18 @@ import com.google.gson.annotations.SerializedName;
 
 public class JDIproductStockCheckModel {
 
-	// CreatedTime: "2014-06-18 00:12:39"
-	// ModifiedTime: "2014-06-18 00:12:39"
-	// assigned_user_id: "18"
-	// z_jps_crmno: "JDISTCKCH000002"
-	// z_jps_activity: "423"
-	// z_jps_product: "409"
-	// z_jps_stockstatus: "A - On Stock"
-	// z_jps_loadedonshelves: "1"
-	// z_jps_supplier: "411"
-	// record_id: 427
-	// record_module: "XJDIProductStockCheck"
+	// "createdtime": "2014-06-26 08:28:28",
+	// "modifiedtime": "2014-06-26 08:30:14",
+	// "smownerid": "18",
+	// "z_jps_activity": "439",
+	// "z_jps_crmno": "JDISTCKCH000005",
+	// "z_jps_loadedonshelves": "1",
+	// "z_jps_othertyprmrks": "TEST",
+	// "z_jps_product": "409",
+	// "z_jps_stockstatus": "- Select -",
+	// "z_jps_supplier": "411",
+	// "xjdiproductstockcheckid": "500",
+	// "deleted": "0"
 
 	@SerializedName("z_jps_crmno")
 	private String crm_no;
@@ -30,6 +31,9 @@ public class JDIproductStockCheckModel {
 
 	@SerializedName("z_jps_loadedonshelves")
 	private String loadedonshelves;
+
+	@SerializedName("z_jps_othertyprmrks")
+	private String othertyprmrks;
 
 	@SerializedName("z_jps_supplier")
 	private String supplier;
@@ -95,6 +99,14 @@ public class JDIproductStockCheckModel {
 
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
+	}
+	
+	public String getOtherRemarks() {
+		return othertyprmrks;
+	}
+	
+	public void setOtherRemarks(String remarks) {
+		this.othertyprmrks = remarks;
 	}
 
 	public String getRecordId() {

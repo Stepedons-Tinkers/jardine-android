@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketingIntelModel {
 
-	// CreatedTime: "2014-06-14 17:42:40"
-	// ModifiedTime: "2014-06-14 18:13:56"
-	// assigned_user_id: "18"
-	// z_min_crmno: "MIN0000002"
-	// z_min_activity: ""
-	// z_min_competitor: "403"
-	// z_min_details: "test"
-	// record_id: 412
-	// record_module: "XMarketingIntel"
+	// "createdtime": "2014-06-23 00:40:09",
+	// "modifiedtime": "2014-07-21 17:52:13",
+	// "smownerid": "18",
+	// "z_min_activity": "423",
+	// "z_min_competitorprod": "409",
+	// "z_min_crmno": "MIN0000003",
+	// "z_min_details": "sa",
+	// "xmarketingintelid": "438",
+	// "deleted": "0"
 
 	@SerializedName("z_min_crmno")
 	private String crm_no;
@@ -20,7 +20,7 @@ public class MarketingIntelModel {
 	@SerializedName("z_min_activity")
 	private String activity;
 
-	@SerializedName("z_min_competitor")
+	@SerializedName("z_min_competitorprod")
 	private String competitor;
 
 	@SerializedName("z_min_details")
