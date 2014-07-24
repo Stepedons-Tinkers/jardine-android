@@ -17,4 +17,7 @@
     <dimen name="text_superxlarge">28sp</dimen>
     <dimen name="stroke_width">4dp</dimen>
 
+    <!-- Button sizes -->
+    <dimen name="calendar_button">35dp</dimen>
+
 </resources>
