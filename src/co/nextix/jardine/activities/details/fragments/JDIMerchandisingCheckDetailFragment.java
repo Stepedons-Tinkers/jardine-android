@@ -12,7 +12,7 @@ public class JDIMerchandisingCheckDetailFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		View myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check,
+		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_jdi_product_stock_check,
 				container, false);
 		
 		return myFragmentView;

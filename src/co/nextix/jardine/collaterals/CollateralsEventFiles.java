@@ -10,8 +10,10 @@ import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,7 +34,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 	private View view;
 	private ListView list;
-	private int rowSize = 6;
+	private int rowSize = 8;
 	private int totalPage = 0;
 	private int currentPage = 0;
 
@@ -79,6 +81,15 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 				.findViewById(R.id.tvCollateralsMMDescription);
 		txtIsActive = (TextView) header
 				.findViewById(R.id.tvCollateralsMMIsActive);
+
+		trow.setGravity(Gravity.CENTER);
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtDesc.setTypeface(null, Typeface.BOLD);
+		txtIsActive.setTypeface(null, Typeface.BOLD);
+
+		txtCrm.setGravity(Gravity.CENTER);
+		txtDesc.setGravity(Gravity.CENTER);
+		txtIsActive.setGravity(Gravity.CENTER);
 
 		txtCrm.setText(getResources()
 				.getString(R.string.collaterals_file_title));
@@ -143,6 +154,13 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 
+		} else {
+
+			AdapterCollateralsFiles adapter = new AdapterCollateralsFiles(
+					getActivity(),
+					R.layout.collaterals_marketing_materials_row, realRecord);
+
+			list.setAdapter(adapter);
 		}
 	}
 

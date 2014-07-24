@@ -32,6 +32,7 @@ import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
+import co.nextix.jardine.database.tables.picklists.PCustRecordStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
 import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
 import co.nextix.jardine.database.tables.picklists.PEventTypeTable;
@@ -516,50 +517,52 @@ public class DatabaseAdapter {
 	// Public static field
 	// ===========================================================
 
-	public static final String USER_TABLE = "User";
-	public static final String ACTIVITY_TABLE = "Activity";
-	public static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
-	public static final String BUSINESS_UNIT_TABLE = "Business_Unit";
-	public static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
-	public static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
-	public static final String COMPETITOR_TABLE = "Competitor";
-	public static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
-	public static final String CUSTOMER_TABLE = "Customer";
-	public static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
-	public static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
-	public static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
-	public static final String PRODUCT_TABLE = "Product";
-	public static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
-	public static final String SMR_TABLE = "SMR";
-	// public static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
-	public static final String SUPPLIER_TABLE = "Supplier";
-	public static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
-	public static final String WORKPLAN_TABLE = "Workplan";
-	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
-	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
-	public static final String DOCUMENT_TABLE = "Document";
-	public static final String CALENDAR_TABLE = "Calendar";
+	private static final String USER_TABLE = "User";
+	private static final String ACTIVITY_TABLE = "Activity";
+	private static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
+	private static final String BUSINESS_UNIT_TABLE = "Business_Unit";
+	private static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
+	private static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
+	// private static final String COMPETITOR_TABLE = "Competitor";
+	private static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
+	private static final String CUSTOMER_TABLE = "Customer";
+	private static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
+	private static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
+	private static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
+	private static final String PRODUCT_TABLE = "Product";
+	private static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
+	private static final String SMR_TABLE = "SMR";
+	// private static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
+	// private static final String SUPPLIER_TABLE = "Supplier";
+	private static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
+	private static final String WORKPLAN_TABLE = "Workplan";
+	private static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
+	private static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
+	private static final String DOCUMENT_TABLE = "Document";
+	private static final String CALENDAR_TABLE = "Calendar";
 
 	// Picklists
-	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
-	public static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
-	public static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
-	// public static final String ACTIVITYTYPE_TYPE_TABLE = "ActivityType_Type";
-	public static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
-	public static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
-	public static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
-	public static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
-	public static final String EVENT_TYPE_TABLE = "Event_Type";
-	public static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
-	public static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
-	public static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
-	public static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
-	public static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
+	private static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
+	private static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
+	private static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
+	// private static final String ACTIVITYTYPE_TYPE_TABLE =
+	// "ActivityType_Type";
+	private static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
+	private static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
+	private static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
+	private static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
+	private static final String CUSTOMER_RECORD_STATUS_TABLE = "Customer_Record_Status";
+	private static final String EVENT_TYPE_TABLE = "Event_Type";
+	private static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
+	private static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
+	private static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
+	private static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
+	private static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
 
 	// Location
-	public static final String AREA_TABLE = "Area";
-	public static final String CITYTOWN_TABLE = "City_Town";
-	public static final String PROVINCE_TABLE = "Province";
+	private static final String AREA_TABLE = "Area";
+	private static final String CITYTOWN_TABLE = "City_Town";
+	private static final String PROVINCE_TABLE = "Province";
 
 	// ===========================================================
 	// Private fields
@@ -601,6 +604,7 @@ public class DatabaseAdapter {
 	private PCustConPositionTable mCustomerContactPosition;
 	private PCustSizeTable mCustomerSize;
 	private PCustTypeTable mCustomerType;
+	private PCustRecordStatusTable mCustomerRecordStatus;
 	private PEventTypeTable mEventProtocolType;
 	private PJDImerchCheckStatusTable mJDImerchCheckStatus;
 	private PJDIprodStatusTable mJDIproductStatus;
@@ -886,6 +890,14 @@ public class DatabaseAdapter {
 			mCustomerType = new PCustTypeTable(mDb, CUSTOMER_TYPE_TABLE);
 		}
 		return mCustomerType;
+	}
+
+	public PCustRecordStatusTable getCustomerRecordStatus() {
+		if (mCustomerRecordStatus == null) {
+			mCustomerRecordStatus = new PCustRecordStatusTable(mDb,
+					CUSTOMER_RECORD_STATUS_TABLE);
+		}
+		return mCustomerRecordStatus;
 	}
 
 	public PEventTypeTable getEventProtocolType() {
@@ -1384,6 +1396,9 @@ public class DatabaseAdapter {
 			String customerType = String.format(TABLE_CREATE_PICKLISTS,
 					CUSTOMER_TYPE_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PICKLISTS_NAME);
+			String customerRecordStatus = String.format(TABLE_CREATE_PICKLISTS,
+					CUSTOMER_RECORD_STATUS_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_PICKLISTS_NAME);
 			String eventType = String.format(TABLE_CREATE_PICKLISTS,
 					EVENT_TYPE_TABLE, KEY_PICKLISTS_ROWID, KEY_PICKLISTS_NAME);
 			String jdiMerchandisingCheckStatus = String.format(
@@ -1410,6 +1425,7 @@ public class DatabaseAdapter {
 			db.execSQL(customercontactPosition);
 			db.execSQL(customerSize);
 			db.execSQL(customerType);
+			db.execSQL(customerRecordStatus);
 			db.execSQL(eventType);
 			db.execSQL(jdiMerchandisingCheckStatus);
 			db.execSQL(jdiProductStockStatus);
