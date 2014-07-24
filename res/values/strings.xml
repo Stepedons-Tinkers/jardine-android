@@ -242,7 +242,7 @@
     <string name="edit_jdi_product_stock_check_detail">Edit JDI Product Stock Check</string>
     <string name="other_remarks_jdi_product_stock_check_detail">Other Remarks</string>
     <string name="create">Create</string>
-	<string name="created_by">Create By</string>
+	<string name="created_by">Created By</string>
     
     <!-- JDI Merchandising Check -->
     <string name="crm_no_jdi_merchandising">CRM No</string>

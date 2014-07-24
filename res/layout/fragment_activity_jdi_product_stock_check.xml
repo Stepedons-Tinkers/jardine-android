@@ -56,7 +56,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:text="@string/crm_no_jdi"
@@ -78,7 +78,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:state_selected="true"
@@ -102,7 +102,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:text="@string/product_brand_jdi"
@@ -124,7 +124,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:state_selected="true"
@@ -148,10 +148,31 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
                             android:text="@string/loaded_on_shelves_jdi"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/created_by"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -169,14 +190,13 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:padding="14dip"
+                            android:padding="14dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/created_by"
+                            android:text="@string/action_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
-                    
                 </TableRow>
 
                 <ListView
@@ -199,61 +219,61 @@
                     android:layout_height="4dp"
                     android:background="@color/black" />
             </TableLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_table"
+                android:layout_marginBottom="7dp" >
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBottom="@+id/status_count_text"
+                        android:layout_alignTop="@+id/status_count_text"
+                        android:layout_toLeftOf="@+id/status_count_text"
+                        android:onClick="prev"
+                        android:src="@drawable/prev" />
+
+                    <TextView
+                        android:id="@+id/status_count_text"
+                        android:layout_width="74dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dp"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="1 of 1"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24dp"
+                        android:onClick="next"
+                        android:src="@drawable/next" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/add_btn_jdi_product_stock_check"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/add_jdi_product_stock_check" />
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/scrollView"
-        android:layout_marginBottom="7dp" >
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:gravity="center" >
-
-            <ImageButton
-                android:id="@+id/imageButton1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/status_count_text"
-                android:layout_alignTop="@+id/status_count_text"
-                android:layout_toLeftOf="@+id/status_count_text"
-                android:onClick="prev"
-                android:src="@drawable/prev" />
-
-            <TextView
-                android:id="@+id/status_count_text"
-                android:layout_width="74dp"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:padding="14dip"
-                android:scrollHorizontally="true"
-                android:singleLine="true"
-                android:text="1 of 1"
-                android:textColor="#000000"
-                android:textSize="17sp" />
-
-            <ImageButton
-                android:id="@+id/imageButton3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="24dp"
-                android:onClick="next"
-                android:src="@drawable/next" />
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/add_btn_jdi_product_stock_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="14dp"
-            android:text="@string/add_jdi_product_stock_check" />
-    </RelativeLayout>
 
     <TextView
         android:id="@+id/status_list_view"

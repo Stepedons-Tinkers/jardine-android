@@ -36,7 +36,6 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 	/************* CustomAdapter Constructor *****************/
 	public JDIProductStockCheckCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
-
 		/********** Take passed values **********/
 		this.context = a;
 		this.activity = act;
@@ -93,7 +92,6 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 		JDIProductStockFragment sct = (JDIProductStockFragment) frag;
 
 		if (convertView == null) {
-
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
 			this.vi = inflater.inflate(R.layout.table_row_jdi_product_stock_check, null);
 

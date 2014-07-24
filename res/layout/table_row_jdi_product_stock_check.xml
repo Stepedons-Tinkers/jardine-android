@@ -112,6 +112,7 @@
             android:id="@+id/stock_status_txt"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:background="#dcdcdc"
             android:focusable="true"
             android:focusableInTouchMode="true"
