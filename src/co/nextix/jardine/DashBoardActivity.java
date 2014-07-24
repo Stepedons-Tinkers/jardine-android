@@ -29,7 +29,6 @@ import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
-import co.nextix.jardine.fragments.LogoutMenuBarFragment;
 import co.nextix.jardine.fragments.ProfileFragment;
 import co.nextix.jardine.fragments.StartActivityFragment;
 import co.nextix.jardine.fragments.SyncMenuBarFragment;
@@ -69,12 +68,10 @@ public class DashBoardActivity extends FragmentActivity {
 		this.mTitle = mDrawerTitle = getTitle();
 
 		// load slide menu items
-		this.navMenuTitles = getResources().getStringArray(
-				R.array.nav_drawer_items);
+		this.navMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
 
 		// nav drawer icons from resources
-		this.navMenuIcons = getResources().obtainTypedArray(
-				R.array.nav_drawer_icons);
+		this.navMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
 
 		this.mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		this.mDrawerList = (ListView) findViewById(R.id.list_slidermenu);
@@ -83,36 +80,28 @@ public class DashBoardActivity extends FragmentActivity {
 
 		// adding nav drawer items to array
 		// DashBoard
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[0],
-				navMenuIcons.getResourceId(0, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[0], navMenuIcons.getResourceId(0, -1)));
 
 		// Profile
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[1],
-				navMenuIcons.getResourceId(1, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[1], navMenuIcons.getResourceId(1, -1)));
 
 		// Sync
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[2],
-				navMenuIcons.getResourceId(2, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[2], navMenuIcons.getResourceId(2, -1)));
 
 		// Workplan
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[3],
-				navMenuIcons.getResourceId(3, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[3], navMenuIcons.getResourceId(3, -1)));
 
 		// Activities
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[4],
-				navMenuIcons.getResourceId(4, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[4], navMenuIcons.getResourceId(4, -1)));
 
 		// Customers
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[5],
-				navMenuIcons.getResourceId(5, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[5], navMenuIcons.getResourceId(5, -1)));
 
 		// Collaterals
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[6],
-				navMenuIcons.getResourceId(6, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[6], navMenuIcons.getResourceId(6, -1)));
 
 		// Collaterals
-		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[7],
-				navMenuIcons.getResourceId(7, -1)));
+		this.navDrawerItems.add(new NavDrawerItem(navMenuTitles[7], navMenuIcons.getResourceId(7, -1)));
 
 		// Recycle the typed array
 		this.navMenuIcons.recycle();
@@ -120,19 +109,17 @@ public class DashBoardActivity extends FragmentActivity {
 		this.mDrawerList.setOnItemClickListener(new SlideMenuClickListener());
 
 		// setting the nav drawer list adapter
-		this.adapter = new NavDrawerListAdapter(getApplicationContext(),
-				navDrawerItems);
+		this.adapter = new NavDrawerListAdapter(getApplicationContext(), navDrawerItems);
 		this.mDrawerList.setAdapter(adapter);
 
 		// enabling action bar app icon and behaving it as toggle button
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setHomeButtonEnabled(true);
 
-		this.mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout,
-				R.drawable.ic_drawer, // nav
-										// menu
-										// toggle
-										// icon
+		this.mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.drawable.ic_drawer, // nav
+																									// menu
+																									// toggle
+																									// icon
 				R.string.app_name, // nav drawer open - description for
 									// accessibility
 				R.string.app_name // nav drawer close - description for
@@ -165,11 +152,9 @@ public class DashBoardActivity extends FragmentActivity {
 	/**
 	 * Slide menu item click listener
 	 * */
-	private class SlideMenuClickListener implements
-			ListView.OnItemClickListener {
+	private class SlideMenuClickListener implements ListView.OnItemClickListener {
 		@Override
-		public void onItemClick(AdapterView<?> parent, View view, int position,
-				long id) {
+		public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 			// display view for selected nav drawer item
 			displayView(position);
 		}
@@ -239,7 +224,7 @@ public class DashBoardActivity extends FragmentActivity {
 			break;
 
 		case 7:
-//			fragment = new LogoutMenuBarFragment();
+			// fragment = new LogoutMenuBarFragment();
 			logoutAlert();
 			break;
 
@@ -251,11 +236,8 @@ public class DashBoardActivity extends FragmentActivity {
 
 			clearStack();
 
-			FragmentTransaction ft = getSupportFragmentManager()
-					.beginTransaction();
-			ft.setCustomAnimations(R.anim.enter_from_right,
-					R.anim.exit_to_left, R.anim.enter_from_right,
-					R.anim.exit_to_left);
+			FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+			ft.setCustomAnimations(R.anim.enter_from_right, R.anim.exit_to_left, R.anim.enter_from_right, R.anim.exit_to_left);
 
 			int itemPosition = 0;
 
@@ -314,9 +296,9 @@ public class DashBoardActivity extends FragmentActivity {
 			}
 
 			// update selected item and title, then close the drawer
-			// mDrawerList.setItemChecked(itemPosition, true);
+			mDrawerList.setItemChecked(itemPosition, true);
 			mDrawerList.setSelection(itemPosition);
-			// setTitle(navMenuTitles[itemPosition]);
+			setTitle(navMenuTitles[itemPosition]);
 			mDrawerLayout.closeDrawer(mDrawerList);
 
 		} else {
@@ -338,20 +320,13 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	private void clearStack() {
-		getSupportFragmentManager().popBackStack("profile",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("sync",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("workplan",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("activities",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("customers",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("collaterals",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
-		getSupportFragmentManager().popBackStack("logout",
-				FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("sync", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("workplan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("activities", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("customers", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("collaterals", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		getSupportFragmentManager().popBackStack("logout", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 	}
 
 	@Override
@@ -387,21 +362,16 @@ public class DashBoardActivity extends FragmentActivity {
 		final Calendar lastYear = Calendar.getInstance();
 		lastYear.add(Calendar.YEAR, -1);
 
-		dialogView = (CalendarPickerView) getLayoutInflater().inflate(
-				R.layout.custom_calendarview_dialog, null, false);
+		dialogView = (CalendarPickerView) getLayoutInflater().inflate(R.layout.custom_calendarview_dialog, null, false);
 		dialogView.init(lastYear.getTime(), nextYear.getTime()) //
 				.withSelectedDate(new Date());
-		theDialog = new AlertDialog.Builder(DashBoardActivity.this)
-				.setTitle(null)
-				.setView(dialogView)
-				.setNeutralButton("Dismiss",
-						new DialogInterface.OnClickListener() {
-							@Override
-							public void onClick(
-									DialogInterface dialogInterface, int i) {
-								dialogInterface.dismiss();
-							}
-						}).create();
+		theDialog = new AlertDialog.Builder(DashBoardActivity.this).setTitle(null).setView(dialogView)
+				.setNeutralButton("Dismiss", new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialogInterface, int i) {
+						dialogInterface.dismiss();
+					}
+				}).create();
 
 		theDialog.setOnShowListener(new DialogInterface.OnShowListener() {
 			@Override
@@ -415,22 +385,18 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void checkin(View view) {
-		Toast.makeText(getApplicationContext(), "Checking in..",
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(getApplicationContext(), "Checking in..", Toast.LENGTH_SHORT).show();
 	}
 
 	public void checkout(View view) {
-		Toast.makeText(getApplicationContext(), "Checking out..",
-				Toast.LENGTH_LONG).show();
+		Toast.makeText(getApplicationContext(), "Checking out..", Toast.LENGTH_LONG).show();
 	}
 
 	/************* Activites *********************/
 	public void startActivity(View view) {
 		android.support.v4.app.Fragment fragment = new StartActivityFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction()
-				.replace(R.id.frame_container, fragment).addToBackStack(null)
-				.commit();
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 		setTitle("Activities");
 	}
 
@@ -468,45 +434,38 @@ public class DashBoardActivity extends FragmentActivity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				startActivity(new Intent(DashBoardActivity.this,
-						LoginActivity.class));
-				DashBoardActivity.this.overridePendingTransition(
-						R.anim.slide_in_left, R.anim.slide_out_left);
+				startActivity(new Intent(DashBoardActivity.this, LoginActivity.class));
+				DashBoardActivity.this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
 			} else {
-				Toast.makeText(DashBoardActivity.this, "Error",
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(DashBoardActivity.this, "Error", Toast.LENGTH_SHORT).show();
 			}
 		}
 	}
 
 	private void logoutAlert() {
 
-		AlertDialog.Builder builderSingle = new AlertDialog.Builder(
-				DashBoardActivity.this);
+		AlertDialog.Builder builderSingle = new AlertDialog.Builder(DashBoardActivity.this);
 		builderSingle.setTitle("Logout");
 		builderSingle.setMessage("Are you sure?");
-		builderSingle.setPositiveButton("Yes",
-				new DialogInterface.OnClickListener() {
+		builderSingle.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
 
-						dialog.dismiss();
-						new LogoutTask().execute();
-					}
-				});
-		builderSingle.setNegativeButton("No",
-				new DialogInterface.OnClickListener() {
+				dialog.dismiss();
+				new LogoutTask().execute();
+			}
+		});
+		builderSingle.setNegativeButton("No", new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
-						getFragmentManager();
-						getFragmentManager().popBackStack("logout",
-								FragmentManager.POP_BACK_STACK_INCLUSIVE);
-					}
-				});
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				dialog.dismiss();
+				getFragmentManager();
+				getFragmentManager().popBackStack("logout", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+			}
+		});
 		builderSingle.show();
 
 	}
