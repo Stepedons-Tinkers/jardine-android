@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activites.fragments.adapters;
 
 import java.util.ArrayList;
 
@@ -20,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
@@ -36,6 +37,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 	/************* CustomAdapter Constructor *****************/
 	public JDIProductStockCheckCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
+
 		/********** Take passed values **********/
 		this.context = a;
 		this.activity = act;
@@ -65,19 +67,14 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
+		
+//		public LinearLayout 
 		public TextView crm_no_txt;
 		public TextView activity_txt;
-		public TextView product_brand_txt;
-//		public TextView product_txt;
+		public TextView product_txt;
 		public TextView stock_status_txt;
 		public TextView loaded_on_shelves_txt;
-//		public TextView supplier_txt;
-//		public TextView created_time_txt;
-//		public TextView modified_time_txt;
 		public TextView created_by_txt;
-//		public TextView other_remarks_txt;
-//		public TextView quantity_txt;
-//		public TextView assigned_to_txt;
 		public TextView action_txt;
 		public TextView edit_txt;
 		public TextView delete_txt;
@@ -92,20 +89,18 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 		JDIProductStockFragment sct = (JDIProductStockFragment) frag;
 
 		if (convertView == null) {
+
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_jdi_product_stock_check, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_eight_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.crm_no_txt = (TextView) vi.findViewById(R.id.crm_no_txt);
-			holder.activity_txt = (TextView) vi.findViewById(R.id.activity_txt);
-			holder.product_brand_txt = (TextView) vi.findViewById(R.id.product_brand_txt);
-//			holder.product_txt = (TextView) vi.findViewById(R.id.product_txt);
-			holder.stock_status_txt = (TextView) vi.findViewById(R.id.stock_status_txt);
-			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.loaded_on_shelves_txt);
-			holder.created_by_txt = (TextView) vi.findViewById(R.id.created_by_txt);
-//			holder.quantity_txt = (TextView) vi.findViewById(R.id.quantity_txt);
-//			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
+			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
+			holder.product_txt = (TextView) vi.findViewById(R.id.column_three);
+			holder.stock_status_txt = (TextView) vi.findViewById(R.id.column_four);
+			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.column_six);
+			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_seven);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
@@ -129,24 +124,18 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
 			holder.activity_txt.setText(String.valueOf(this.tempValues.getActivity()));
 //			holder.product_txt.setText(String.valueOf(this.tempValues.getProduct()));
-			holder.product_brand_txt.setText(String.valueOf(this.tempValues.getProductBrand()));
 			holder.stock_status_txt.setText(String.valueOf(this.tempValues.getStockStatus()));
-			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
-			holder.created_by_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
 //			holder.quantity_txt.setText(String.valueOf(this.tempValues.getQuantity()));
+			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
 //			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getUser()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.activity_txt.setText(null);
-				holder.product_brand_txt.setText(null);
-//				holder.product_txt.setText(null);
+				holder.product_txt.setText(null);
 				holder.stock_status_txt.setText(null);
 				holder.loaded_on_shelves_txt.setText(null);
-				holder.created_by_txt.setText(null);
-//				holder.quantity_txt.setText(null);
-//				holder.assigned_to_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}
 
@@ -188,134 +177,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			});
 
 			// Events
-			((HorizontalScrollView) vi.findViewById(R.id.crm_no_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.crm_no_txt).setClickable(true);
-						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.activity_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.activity_txt).setClickable(true);
-						v.findViewById(R.id.activity_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-
-//			((HorizontalScrollView) vi.findViewById(R.id.product_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.product_txt).setClickable(true);
-//						v.findViewById(R.id.product_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//					return false;
-//				}
-//			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.product_brand_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.product_brand_txt).setClickable(true);
-						v.findViewById(R.id.product_brand_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
 			
-			((HorizontalScrollView) vi.findViewById(R.id.stock_status_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.stock_status_txt).setClickable(true);
-						v.findViewById(R.id.stock_status_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-
-					return false;
-				}
-			});
-
-//			((HorizontalScrollView) vi.findViewById(R.id.quantity_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.quantity_txt).setClickable(true);
-//						v.findViewById(R.id.quantity_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//					return false;
-//				}
-//			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.loaded_on_shelves_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.loaded_on_shelves_txt).setClickable(true);
-						v.findViewById(R.id.loaded_on_shelves_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.created_by_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.created_by_txt).setClickable(true);
-						v.findViewById(R.id.created_by_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-			
-//			((HorizontalScrollView) vi.findViewById(R.id.assigned_to_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.assigned_to_txt).setClickable(true);
-//						v.findViewById(R.id.assigned_to_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//
-//					return false;
-//				}
-//			});
 		}
 
 		return vi;

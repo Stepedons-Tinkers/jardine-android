@@ -18,5 +18,9 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 		return myFragmentView;
 	}
+	
+	public void createJDIProductStockCheck(View view){
+		
+	}
 
 }
