@@ -6,11 +6,12 @@ public class SMRModel {
 	// CreatedTime: "2014-06-14 17:04:00"
 	// ModifiedTime: "2014-06-14 17:05:53"
 	// assigned_user_id: "18"
-	// z_smr_crmno: "SMR0000002"
-	// z_smr_firstname: "test_smr1"
-	// z_smr_lastname: "test_smr1"
-	// z_area: "NORTHEAST LUZON AREA"
-	// z_smr_issmrv: "1"
+	// "z_smr_crmno": "SMR0000002",
+	// "z_smr_firstname": "test_smr1",
+	// "z_smr_lastname": "test_smr1",
+	// "z_area": "NORTHEAST LUZON AREA",
+	// "z_smr_isactv": "1",
+	// "z_smr_businessunit": "",
 	// record_id: 410
 	// record_module: "XSMR"
 
@@ -28,6 +29,9 @@ public class SMRModel {
 
 	@SerializedName("z_smr_isactv")
 	private String isactv;
+
+	@SerializedName("z_smr_businessunit")
+	private String business_unit;
 
 	@SerializedName("xsmrid")
 	private String record_id;
@@ -75,13 +79,21 @@ public class SMRModel {
 	public void setArea(String area) {
 		this.area = area;
 	}
-	
+
 	public String getIsActive() {
 		return this.isactv;
 	}
 
 	public void setIsActive(String isActive) {
 		this.isactv = isActive;
+	}
+
+	public String getBusinessUnit() {
+		return business_unit;
+	}
+
+	public void setBusinessUnit(String businessUnit) {
+		this.business_unit = businessUnit;
 	}
 
 	public String getRecordId() {

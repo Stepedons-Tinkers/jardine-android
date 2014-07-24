@@ -4,16 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class MarketingMaterialsModel {
 
-	// "createdtime": "2014-06-14 16:51:49",
-	// "modifiedtime": "2014-06-25 17:04:35",
-	// "smownerid": "12",
-	// "z_mm_businessunit": "",
-	// "z_mm_crmno": "MKM0000002",
-	// "z_mm_desc": "sdfgh",
-	// "z_mm_isactv": "1",
-	// "z_mm_lastup": "2014-06-14",
-	// "z_mm_tags": "sdfgh",
-	// "xmarketingmatid": "408",
+	// "createdtime": "2014-07-21 21:41:39",
+	// "modifiedtime": "2014-07-21 21:41:39",
+	// "smownerid": "1",
+	// "z_mm_businessunit": "402",
+	// "z_mm_crmno": "MKM0000004",
+	// "z_mm_desc": "asd",
+	// "z_mm_isactv": "0",
+	// "z_mm_lastup": "2014-07-21",
+	// "z_mm_new": "1",
+	// "z_mm_tags": "sdas",
+	// "xmarketingmatid": "524",
 	// "deleted": "0"
 
 	@SerializedName("z_mm_crmno")
@@ -27,6 +28,12 @@ public class MarketingMaterialsModel {
 
 	@SerializedName("z_mm_tags")
 	private String tags;
+	
+	@SerializedName("z_mm_businessunit")
+	private String business_unit;
+	
+	@SerializedName("z_mm_new")
+	private String is_new;
 
 	@SerializedName("z_evp_isactv")
 	private String isactive;
@@ -76,6 +83,22 @@ public class MarketingMaterialsModel {
 
 	public void setTags(String tags) {
 		this.tags = tags;
+	}
+	
+	public String getBusinessUnit() {
+		return business_unit;
+	}
+	
+	public void setBusinessUnit(String businessUnit) {
+		this.business_unit = businessUnit;
+	}
+	
+	public String getIsNew() {
+		return is_new;
+	}
+	
+	public void setIsNew(String isNew) {
+		this.is_new = isNew;
 	}
 
 	public String getIsActive() {

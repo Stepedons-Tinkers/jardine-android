@@ -32,10 +32,11 @@
                 android:layout_height="64dp"
                 android:layout_alignBottom="@+id/search_activities"
                 android:layout_alignParentLeft="true"
-                android:gravity="top"
                 android:layout_marginRight="4dp"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
+                android:gravity="top"
                 android:spinnerMode="dropdown" />
+
             <!-- android:background="@android:drawable/btn_dropdown" -->
 
             <EditText
@@ -47,7 +48,9 @@
                 android:drawableLeft="@android:drawable/ic_menu_search"
                 android:ems="10"
                 android:gravity="center"
-                android:inputType="textMultiLine" />
+                android:inputType="textMultiLine"
+                android:visibility="invisible" />
+
         </RelativeLayout>
 
         <ImageButton

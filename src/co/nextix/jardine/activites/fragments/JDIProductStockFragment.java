@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -46,7 +44,7 @@ public class JDIProductStockFragment extends Fragment {
 				R.layout.fragment_activity_jdi_product_stock_check, container,
 				false);
 		this.setListData();
-
+		Log.e("jdi"," size");
 		((Button) myFragmentView
 				.findViewById(R.id.add_btn_jdi_product_stock_check))
 				.setOnClickListener(new OnClickListener() {
@@ -87,7 +85,7 @@ public class JDIProductStockFragment extends Fragment {
 								Toast.LENGTH_SHORT).show();
 						if (currentPage > 0) {
 							currentPage--;
-							addItem(currentPage);
+//							addItem(currentPage);
 						}
 					}
 				});
@@ -101,7 +99,7 @@ public class JDIProductStockFragment extends Fragment {
 								Toast.LENGTH_SHORT).show();
 						if (currentPage < totalPage - 1) {
 							currentPage++;
-							addItem(currentPage);
+//							addItem(currentPage);
 						}
 					}
 				});

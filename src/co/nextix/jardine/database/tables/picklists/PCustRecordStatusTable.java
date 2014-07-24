@@ -12,13 +12,13 @@ import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.PicklistRecord;
 
-public class PWorkEntryStatusTable {
+public class PCustRecordStatusTable {
 	// ===========================================================
 	// Private static fields
 	// ===========================================================
 
-	private final String KEY_WORKPLANENTRY_STATUS_ROWID = "_id";
-	private final String KEY_WORKPLANENTRY_STATUS_NAME = "name";
+	private final String KEY_CUSTOMER_RECORDSTATUS_ROWID = "_id";
+	private final String KEY_CUSTOMER_RECORDSTATUS_NAME = "name";
 
 	// ===========================================================
 	// Private fields
@@ -32,7 +32,7 @@ public class PWorkEntryStatusTable {
 	// Public constructor
 	// ===========================================================
 
-	public PWorkEntryStatusTable(SQLiteDatabase database, String tableName) {
+	public PCustRecordStatusTable(SQLiteDatabase database, String tableName) {
 		mDb = database;
 		mDatabaseTable = tableName;
 
@@ -58,9 +58,9 @@ public class PWorkEntryStatusTable {
 			if (c.moveToFirst()) {
 				do {
 					long id = c.getLong(c
-							.getColumnIndex(KEY_WORKPLANENTRY_STATUS_ROWID));
+							.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_ROWID));
 					String name = c.getString(c
-							.getColumnIndex(KEY_WORKPLANENTRY_STATUS_NAME));
+							.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_NAME));
 
 					list.add(new PicklistRecord(id, name));
 				} while (c.moveToNext());
@@ -80,7 +80,7 @@ public class PWorkEntryStatusTable {
 	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_WORKPLANENTRY_STATUS_NAME + "='" + name + "'";
+				+ KEY_CUSTOMER_RECORDSTATUS_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -109,7 +109,7 @@ public class PWorkEntryStatusTable {
 		ids = ids.replace("[", "").replace("]", "");
 
 		int rowsDeleted = mDb.delete(mDatabaseTable,
-				KEY_WORKPLANENTRY_STATUS_ROWID + " IN (" + ids + ")", null);
+				KEY_CUSTOMER_RECORDSTATUS_ROWID + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -123,16 +123,16 @@ public class PWorkEntryStatusTable {
 	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_WORKPLANENTRY_STATUS_ROWID + "=?";
+				+ KEY_CUSTOMER_RECORDSTATUS_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
-						.getColumnIndex(KEY_WORKPLANENTRY_STATUS_ROWID));
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_ROWID));
 				String name = c.getString(c
-						.getColumnIndex(KEY_WORKPLANENTRY_STATUS_NAME));
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_NAME));
 
 				record = new PicklistRecord(id, name);
 			}
@@ -148,16 +148,16 @@ public class PWorkEntryStatusTable {
 	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_WORKPLANENTRY_STATUS_NAME + "=?";
+				+ KEY_CUSTOMER_RECORDSTATUS_NAME + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
-						.getColumnIndex(KEY_WORKPLANENTRY_STATUS_ROWID));
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_ROWID));
 				String sname = c.getString(c
-						.getColumnIndex(KEY_WORKPLANENTRY_STATUS_NAME));
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_NAME));
 
 				record = new PicklistRecord(id, sname);
 			}
@@ -170,18 +170,40 @@ public class PWorkEntryStatusTable {
 		return record;
 	}
 
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_RECORDSTATUS_NAME + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_RECORDSTATUS_ROWID
+				+ "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long getIdByName(String name) {
 		long result = 0;
-		String MY_QUERY = "SELECT " + KEY_WORKPLANENTRY_STATUS_ROWID + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_WORKPLANENTRY_STATUS_NAME
-				+ "=?";
+		String MY_QUERY = "SELECT " + KEY_CUSTOMER_RECORDSTATUS_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CUSTOMER_RECORDSTATUS_NAME + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
 				result = c.getLong(c
-						.getColumnIndex(KEY_WORKPLANENTRY_STATUS_ROWID));
+						.getColumnIndex(KEY_CUSTOMER_RECORDSTATUS_ROWID));
 			}
 		} finally {
 			if (c != null) {
@@ -197,7 +219,7 @@ public class PWorkEntryStatusTable {
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(KEY_WORKPLANENTRY_STATUS_NAME, no);
+		initialValues.put(KEY_CUSTOMER_RECORDSTATUS_NAME, no);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -210,7 +232,7 @@ public class PWorkEntryStatusTable {
 	}
 
 	public boolean delete(long rowId) {
-		if (mDb.delete(mDatabaseTable, KEY_WORKPLANENTRY_STATUS_ROWID + "="
+		if (mDb.delete(mDatabaseTable, KEY_CUSTOMER_RECORDSTATUS_ROWID + "="
 				+ rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
 			return true;
@@ -222,8 +244,8 @@ public class PWorkEntryStatusTable {
 	public boolean update(long id, String no, long category, int isActive,
 			long user) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_WORKPLANENTRY_STATUS_NAME, no);
-		if (mDb.update(mDatabaseTable, args, KEY_WORKPLANENTRY_STATUS_ROWID
+		args.put(KEY_CUSTOMER_RECORDSTATUS_NAME, no);
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_RECORDSTATUS_ROWID
 				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);
 			return true;

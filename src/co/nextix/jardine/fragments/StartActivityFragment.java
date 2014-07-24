@@ -30,6 +30,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;

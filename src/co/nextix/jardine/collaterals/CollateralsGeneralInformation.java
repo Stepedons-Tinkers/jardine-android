@@ -9,6 +9,8 @@ import co.nextix.jardine.database.tables.UserTable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -24,6 +26,14 @@ public class CollateralsGeneralInformation extends Fragment {
 		b.putLong(CollateralsConstants.KEY_ROW_ID, id);
 		fragment.setArguments(b);
 		return fragment;
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+
+		this.setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -67,5 +77,8 @@ public class CollateralsGeneralInformation extends Fragment {
 		modifiedTime.setText(record.getModifiedTime());
 		assigned.setText(userRecord.getFirstNameName() + " "
 				+ userRecord.getLastname());
+		
+		
 	}
+
 }

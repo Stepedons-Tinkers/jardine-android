@@ -50,6 +50,9 @@ public class WorkplanEntryModel {
 	@SerializedName("z_wpe_activityquantity")
 	private String activityquantity;
 
+	@SerializedName("z_wpe_businessunit")
+	private String business_unit;
+
 	@SerializedName("xworkplanentryid")
 	private String record_id;
 
@@ -159,6 +162,14 @@ public class WorkplanEntryModel {
 
 	public void setRecordModule(String recordModule) {
 		this.record_module = recordModule;
+	}
+
+	public String getBusinessUnit() {
+		return business_unit;
+	}
+
+	public void setBusinessUnit(String businessUnit) {
+		this.business_unit = businessUnit;
 	}
 
 	public String getCreatedTime() {

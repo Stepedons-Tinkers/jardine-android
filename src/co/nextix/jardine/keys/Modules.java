@@ -30,6 +30,7 @@ public class Modules {
 	public static String smrtimecard_entry = "z_stc_picklist";
 	public static String customer_size = "z_cu_customersize";
 	public static String customer_type = "z_cu_customertype";
+	public static String customer_record_status = "z_cu_customerrecstat";
 	public static String customercontact_position = "z_cuc_position";
 	public static String eventprotocol_eventtype = "z_evp_evtype";
 //	public static String activitytype_type = "";
