@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table_row_item"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:background="#000000" >
+    
+    <LinearLayout
+        android:id="@+id/table_row_clickable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="7">
+
+    <TextView
+        android:id="@+id/column_one"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/column_two"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/column_three"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/column_four"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/column_five"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+    
+    <TextView
+        android:id="@+id/column_six"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+    
+    <TextView
+        android:id="@+id/column_seven"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:background="#dcdcdc"
+        android:clickable="false"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:padding="14dip"
+        android:scrollHorizontally="true"
+        android:singleLine="false"
+        android:soundEffectsEnabled="true"
+        android:text="@string/sample"
+        android:textColor="#000000" />
+    
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/column_eight"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/action_edit_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="#dcdcdc"
+            android:drawableRight="@drawable/vertical_line"
+            android:gravity="right"
+            android:paddingBottom="14dip"
+            android:paddingLeft="7dip"
+            android:paddingTop="14dip"
+            android:scrollHorizontally="true"
+            android:singleLine="false"
+            android:soundEffectsEnabled="true"
+            android:text="@string/edit"
+            android:textColor="#000000" />
+
+        <TextView
+            android:id="@+id/action_delete_txt"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:background="#dcdcdc"
+            android:gravity="left"
+            android:paddingBottom="14dip"
+            android:paddingRight="7dip"
+            android:paddingTop="14dip"
+            android:scrollHorizontally="true"
+            android:singleLine="false"
+            android:soundEffectsEnabled="true"
+            android:text="@string/del"
+            android:textColor="#000000" />
+    </LinearLayout>
+
+</TableRow>

@@ -1,12 +1,8 @@
 package co.nextix.jardine.activites.fragments;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -15,40 +11,32 @@ import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
 import co.nextix.jardine.activities.add.fragments.AddJDIMerchandisingStockFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
-import co.nextix.jardine.fragments.StartActivityCustomAdapter;
-import co.nextix.jardine.fragments.StartActivityFragment;
+import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class JDIMerchandisingCheckFragment extends Fragment {
 	
-	private StartActivityCustomAdapter adapter = null;
-	private ArrayList<ActivityRecord> realRecord = null;
-	private ArrayList<ActivityRecord> tempRecord = null;
-	private ArrayList<ActivityRecord> itemSearch = null;
+	private JDIMerchandisingCheckCustomAdapter adapter = null;
+	private ArrayList<JDImerchandisingCheckRecord> realRecord = null;
+	private ArrayList<JDImerchandisingCheckRecord> tempRecord = null;
+	private ArrayList<JDImerchandisingCheckRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View myFragmentView = null;
 	private ListView list = null;
@@ -58,7 +46,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	private int currentPage = 0;
 	
 	public JDIMerchandisingCheckFragment() {
-		this.itemSearch = new ArrayList<ActivityRecord>();
+		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
 	}
 
 
@@ -67,9 +55,9 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
-		setListData();
 
 		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check, container, false);
+		setListData();
 		
 		((Button) this.myFragmentView.findViewById(R.id.add_btn_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
 
@@ -135,17 +123,6 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //			}
 //		});
 
-		((Button) this.myFragmentView.findViewById(R.id.add_activity_button)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				android.support.v4.app.Fragment fragment = new AddActivityFragment();
-				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-			}
-		});
-
 		((ImageButton) this.myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -175,11 +152,11 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
-		this.realRecord = new ArrayList<ActivityRecord>();
-		this.tempRecord = new ArrayList<ActivityRecord>();
+		this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
 
-		ActivityTable table = JardineApp.DB.getActivity();
-		List<ActivityRecord> records = table.getAllRecords();
+		JDImerchandisingCheckTable table = JardineApp.DB.getJDImerchandisingCheck();
+		List<JDImerchandisingCheckRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
@@ -188,7 +165,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					ActivityRecord rec = new ActivityRecord();
+					JDImerchandisingCheckRecord rec = new JDImerchandisingCheckRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -223,46 +200,55 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new StartActivityCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new JDIMerchandisingCheckCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				
+			}
+		});
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	// Event item listener
 	public void onItemClick(int mPosition) {
-		ActivityRecord tempValues = (ActivityRecord) this.tempRecord.get(mPosition);
+		JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) this.tempRecord.get(mPosition);
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		Editor editor = pref.edit();
-		editor.putLong("activity_id", tempValues.getId());
-		editor.putString("crm_no", tempValues.getCrm());
-		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
-		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
-		editor.putString("notes", tempValues.getNotes());
-		editor.putString("competitor_activities", "getCompetitorActivities()");
-		editor.putString("highlights", tempValues.getHighlights());
-		editor.putString("nextSteps", tempValues.getNextSteps());
-		editor.putString("follow_up_commitment_date", tempValues.getFollowUpCommitmentDate());
-		editor.putString("activity_type", String.valueOf(tempValues.getActivityType()));
-		editor.putString("others", "getOthers()");
-		editor.putString("business_unit", "getBusinessUnit()");
-		editor.putString("workplan_entry", String.valueOf(tempValues.getWorkplanEntry()));
-		editor.putString("customer", String.valueOf(tempValues.getCustomer()));
-		editor.putString("area", "getArea()");
-		editor.putString("province", "getProvince");
-		editor.putString("city_town", "getCityTown()");
-		editor.putString("first_time_visit", String.valueOf(tempValues.getFirstTimeVisit()));
-		editor.putString("planned_visit", String.valueOf(tempValues.getPlannedVisit()));
-		editor.putString("reason_remarks", "getReasonRemarks()");
-		editor.putString("details_admin_works", "getDetailsAdminWorks()");
-		editor.putString("source", "getSource()");
-		editor.putString("created_time", tempValues.getCreatedTime());
-		editor.putString(
-				"assigned_to",
-				String.valueOf(JardineApp.DB.getUser().getCurrentUser().getLastname() + ", "
-						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
-
-		editor.commit(); 
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		Editor editor = pref.edit();
+//		editor.putLong("activity_id", tempValues.getId());
+//		editor.putString("crm_no", tempValues.getCrm());
+//		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
+//		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
+//		editor.putString("notes", tempValues.getNotes());
+//		editor.putString("competitor_activities", "getCompetitorActivities()");
+//		editor.putString("highlights", tempValues.getHighlights());
+//		editor.putString("nextSteps", tempValues.getNextSteps());
+//		editor.putString("follow_up_commitment_date", tempValues.getFollowUpCommitmentDate());
+//		editor.putString("activity_type", String.valueOf(tempValues.getActivityType()));
+//		editor.putString("others", "getOthers()");
+//		editor.putString("business_unit", "getBusinessUnit()");
+//		editor.putString("workplan_entry", String.valueOf(tempValues.getWorkplanEntry()));
+//		editor.putString("customer", String.valueOf(tempValues.getCustomer()));
+//		editor.putString("area", "getArea()");
+//		editor.putString("province", "getProvince");
+//		editor.putString("city_town", "getCityTown()");
+//		editor.putString("first_time_visit", String.valueOf(tempValues.getFirstTimeVisit()));
+//		editor.putString("planned_visit", String.valueOf(tempValues.getPlannedVisit()));
+//		editor.putString("reason_remarks", "getReasonRemarks()");
+//		editor.putString("details_admin_works", "getDetailsAdminWorks()");
+//		editor.putString("source", "getSource()");
+//		editor.putString("created_time", tempValues.getCreatedTime());
+//		editor.putString(
+//				"assigned_to",
+//				String.valueOf(JardineApp.DB.getUser().getCurrentUser().getLastname() + ", "
+//						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
+//
+//		editor.commit(); 
 
 		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
@@ -270,19 +256,20 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 	}
 
-	protected void isListHasNoData() {
+	//TODO Protected before but was changed to public due to some issues
+	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
 		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
-	protected void isListHasData() {
+	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
 		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
-	protected void refreshListView() {
+	public void refreshListView() {
 		this.setListData();
 	}
 

@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.adapters.JDIProductStockCheckCustomAdapter;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -196,7 +197,7 @@ public class JDIProductStockFragment extends Fragment {
 
 	}
 
-	protected void isListHasNoData() {
+	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.GONE);
@@ -204,7 +205,7 @@ public class JDIProductStockFragment extends Fragment {
 				.setVisibility(View.VISIBLE);
 	}
 
-	protected void isListHasData() {
+	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.VISIBLE);
@@ -212,7 +213,7 @@ public class JDIProductStockFragment extends Fragment {
 				.setVisibility(View.INVISIBLE);
 	}
 
-	protected void refreshListView() {
+	public void refreshListView() {
 		this.setListData();
 	}
 }
