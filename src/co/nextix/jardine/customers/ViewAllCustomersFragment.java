@@ -10,6 +10,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -30,6 +32,8 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.collaterals.AdapterCollateralsMarketingMaterials;
+import co.nextix.jardine.collaterals.CustomSpinnerAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -64,6 +68,13 @@ public class ViewAllCustomersFragment extends Fragment implements
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		this.setHasOptionsMenu(true);
+	}
+	
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
@@ -79,83 +90,6 @@ public class ViewAllCustomersFragment extends Fragment implements
 	}
 
 	private void initLayout() {
-
-		strSearcher = new ArrayList<String>();
-		strSearcher.add(getResources()
-				.getString(R.string.collaterals_ep_crm_no));
-		strSearcher.add(getResources().getString(R.string.customer));
-		strSearcher.add(getResources().getString(
-				R.string.customer_business_unit));
-		strSearcher.add(getResources().getString(R.string.customer_area));
-		strSearcher.add(getResources().getString(
-				R.string.customer_header_province));
-		strSearcher.add(getResources()
-				.getString(R.string.customer_city_or_town));
-		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.workplan_spinner_row, strSearcher);
-		// SearchView
-		searchView = (SearchView) view.findViewById(R.id.svCustomers);
-		searchView.setOnCloseListener(new OnCloseListener() {
-
-			@Override
-			public boolean onClose() {
-				searchView.clearFocus();
-				currentPage = 0;
-				addItem(currentPage);
-				searchView.onActionViewCollapsed();
-				searchMode = false;
-				return true;
-			}
-		});
-		searchView.setOnSearchClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				tempRecord.clear();
-				AdapterCustomers adapter = new AdapterCustomers(getActivity(),
-						R.layout.table_row_customers, tempRecord);
-				list.setAdapter(adapter);
-				searchView.clearFocus();
-				searchMode = true;
-			}
-		});
-		searchView.setOnQueryTextListener(new OnQueryTextListener() {
-
-			@Override
-			public boolean onQueryTextChange(String arg0) {
-
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
-				currentPage = 0;
-				try {
-					searchRecord = JardineApp.DB.getCustomer()
-							.getAllRecordsBySearch(arg0,
-									spinSearch.getSelectedItemPosition());
-
-					if (searchRecord.size() > 0)
-						addItemFromSearch(currentPage);
-					else
-						Toast.makeText(getActivity(), "No records found!",
-								Toast.LENGTH_SHORT).show();
-
-				} catch (SQLiteException e) {
-					
-
-					Log.e("Tugs", e.toString());
-				}
-
-				searchView.clearFocus();
-				return true;
-			}
-
-		});
-		// Spinner
-		spinSearch = (Spinner) view
-				.findViewById(R.id.spiCollateralsEventProtolSpinnerSearch);
-		spinSearch.setAdapter(sAdapter);
 
 		// Header Data
 		tablerow = (TableRow) header.findViewById(R.id.trCustomersRow);
@@ -327,6 +261,97 @@ public class ViewAllCustomersFragment extends Fragment implements
 			startActivity(intent);
 			break;
 		}
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.customer_menu, menu);
+
+		searchView = (SearchView) menu.findItem(R.id.itemCustomerSearch)
+				.getActionView();
+		spinSearch = (Spinner) menu.findItem(R.id.itemCustomerSpinner)
+				.getActionView();
+
+		strSearcher = new ArrayList<String>();
+
+		strSearcher.add(getResources()
+			    .getString(R.string.collaterals_ep_crm_no));
+			  strSearcher.add(getResources().getString(R.string.customer));
+			  strSearcher.add(getResources().getString(
+			    R.string.customer_business_unit));
+			  strSearcher.add(getResources().getString(R.string.customer_area));
+			  strSearcher.add(getResources().getString(
+			    R.string.customer_header_province));
+			  strSearcher.add(getResources()
+			    .getString(R.string.customer_city_or_town));
+			  
+		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+
+		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		spinSearch.setAdapter(cus);
+
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCustomers adapter = new AdapterCustomers(getActivity(),
+						R.layout.table_row_customers, tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getCustomer()
+							.getAllRecordsBySearch(arg0,
+									spinSearch.getSelectedItemPosition());
+
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+					
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
 	}
 
 }
