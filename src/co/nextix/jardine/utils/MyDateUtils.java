@@ -115,4 +115,33 @@ public class MyDateUtils {
 
 		return txtDate;
 	}
+
+	@SuppressLint("SimpleDateFormat")
+	public static boolean isDateNew(String YearMonthDayHourMinuteSeconds) {
+		boolean flag = false;
+
+		int numOfDays = -14;
+
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DAY_OF_YEAR, numOfDays);
+		Date fourteenDaysAgo = cal.getTime();
+
+		String expectedPattern = "yyyy-MM-dd HH:mm:ss";
+
+		SimpleDateFormat formatter = new SimpleDateFormat(expectedPattern);
+		Date date;
+		try {
+			date = formatter.parse(YearMonthDayHourMinuteSeconds);
+			if (date.after(fourteenDaysAgo) || date.equals(fourteenDaysAgo)) {
+				flag = true;
+			} else {
+				flag = false;
+			}
+
+		} catch (Exception e) {
+			flag = false;
+		}
+
+		return flag;
+	}
 }

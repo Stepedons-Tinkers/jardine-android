@@ -44,7 +44,7 @@ public class CollateralsEventProtocols extends Fragment implements
 
 	private View view;
 	private ListView list;
-	private int rowSize = 6;
+	private int rowSize = 8;
 	private int totalPage = 0;
 	private int currentPage = 0;
 

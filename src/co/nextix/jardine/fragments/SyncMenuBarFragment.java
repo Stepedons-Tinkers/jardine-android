@@ -69,6 +69,7 @@ import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
+import co.nextix.jardine.database.tables.picklists.PCustRecordStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
 import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
 import co.nextix.jardine.database.tables.picklists.PEventTypeTable;
@@ -82,6 +83,7 @@ import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
+import co.nextix.jardine.utils.Tools;
 import co.nextix.jardine.web.CreateRequests;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
@@ -674,12 +676,11 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected void onPostExecute(Boolean result) {
 
-			dialog.dismiss();
 			if (result) {
 				new PicklistDependencyTask().execute();
 
 			} else {
-
+				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
@@ -993,9 +994,11 @@ public class SyncMenuBarFragment extends Fragment {
 						break;
 					}
 					if (!table.isExisting(model.getRecordId())) {
+						int isActive = Tools.parseWithDefault(
+								model.getIsactive(), 0);
+
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getName(), model.getCode(),
-								Integer.parseInt(model.getIsactive()),
+								model.getName(), model.getCode(), isActive,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1005,10 +1008,12 @@ public class SyncMenuBarFragment extends Fragment {
 							if (MyDateUtils.isTimeAfter(
 									model.getModifiedTime(),
 									record.getModifiedTime()) > 0) {
+								int isActive = Tools.parseWithDefault(
+										model.getIsactive(), 0);
+
 								table.update(id, model.getRecordId(),
 										model.getCrmNo(), model.getName(),
-										model.getCode(),
-										Integer.parseInt(model.getIsactive()),
+										model.getCode(), isActive,
 										model.getCreatedTime(),
 										model.getModifiedTime(), USER_ID);
 								Log.i(TAG, "update: " + id);
@@ -1064,6 +1069,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			MarketingMaterialsTable table = JardineApp.DB
 					.getMarketingMaterials();
+			BusinessUnitTable businessTable = JardineApp.DB.getBusinessUnit();
 
 			SyncRequests request = new SyncRequests();
 			MarketMatResult result = request.MarketingMaterials(LAST_SYNC);
@@ -1073,10 +1079,15 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (MarketingMaterialsModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						// TODO add business unit, isnew, isactive
+						long businessUnit = businessTable.getIdByNo(model
+								.getBusinessUnit());
+						int isNew = Tools.parseWithDefault(model.getIsNew(), 0);
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
+
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getDescription(), model.getLastUpdat(),
-								model.getTags(), 0, 1, 1,
+								model.getTags(), businessUnit, isNew, isActive,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1085,11 +1096,19 @@ public class SyncMenuBarFragment extends Fragment {
 						MarketingMaterialsRecord record = table.getById(id);
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
-							// TODO add business unit, isnew, isactive
+
+							long businessUnit = businessTable.getIdByNo(model
+									.getBusinessUnit());
+							int isNew = Tools.parseWithDefault(
+									model.getIsNew(), 0);
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
+
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getDescription(),
-									model.getLastUpdat(), model.getTags(), 0,
-									1, 1, model.getCreatedTime(),
+									model.getLastUpdat(), model.getTags(),
+									businessUnit, isNew, isActive,
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -1480,10 +1499,10 @@ public class SyncMenuBarFragment extends Fragment {
 						// .getCompetitor());
 
 						// if (competitor > 0)
-						// TODO change competitor to string
-						table.insert(model.getRecordId(), model.getCrmNo(), "",
-								model.getProdBrand(), model.getProdDesc(),
-								model.getProdSize(),
+						// **changed competitor to string
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getCompetitor(), model.getProdBrand(),
+								model.getProdDesc(), model.getProdSize(),
 								Integer.parseInt(model.getIsActive()),
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
@@ -1498,10 +1517,11 @@ public class SyncMenuBarFragment extends Fragment {
 							// .getCompetitor());
 
 							// if (competitor > 0)
-							// TODO change competitor to string
+							// **changed competitor to string
 							table.update(id, model.getRecordId(),
-									model.getCrmNo(), "", model.getProdBrand(),
-									model.getProdDesc(), model.getProdSize(),
+									model.getCrmNo(), model.getCompetitor(),
+									model.getProdBrand(), model.getProdDesc(),
+									model.getProdSize(),
 									Integer.parseInt(model.getIsActive()),
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
@@ -1552,6 +1572,7 @@ public class SyncMenuBarFragment extends Fragment {
 		protected Boolean doInBackground(Void... arg0) {
 
 			SMRTable table = JardineApp.DB.getSMR();
+			BusinessUnitTable businessTable = JardineApp.DB.getBusinessUnit();
 			PAreaTable areaTable = JardineApp.DB.getArea();
 
 			SyncRequests request = new SyncRequests();
@@ -1562,12 +1583,15 @@ public class SyncMenuBarFragment extends Fragment {
 				for (SMRModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
-
+						long businessUnit = businessTable.getIdByNo(model
+								.getBusinessUnit());
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
 						// if (area > 0)
-						// TODO add business unit
+						// **added business unit
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getFirstname(), model.getLastname(),
-								area, Integer.parseInt(model.getIsActive()), 0,
+								area, isActive, businessUnit,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -1578,14 +1602,17 @@ public class SyncMenuBarFragment extends Fragment {
 								record.getModifiedTime()) > 0) {
 
 							long area = areaTable.getIdByName(model.getArea());
+							long businessUnit = businessTable.getIdByNo(model
+									.getBusinessUnit());
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
 
 							// if (area > 0)
-							// TODO add business unit
+							// **added business unit
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getFirstname(),
-									model.getLastname(), area,
-									Integer.parseInt(model.getIsActive()), 0,
-									model.getCreatedTime(),
+									model.getLastname(), area, isActive,
+									businessUnit, model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -1721,6 +1748,8 @@ public class SyncMenuBarFragment extends Fragment {
 			PCityTownTable cityTable = JardineApp.DB.getCityTown();
 			PCustTypeTable customerTypeTable = JardineApp.DB.getCustomerType();
 			PCustSizeTable customerSizeTable = JardineApp.DB.getCustomerSize();
+			PCustRecordStatusTable customerRecordStatusTable = JardineApp.DB
+					.getCustomerRecordStatus();
 			BusinessUnitTable businessUnitTable = JardineApp.DB
 					.getBusinessUnit();
 
@@ -1732,32 +1761,31 @@ public class SyncMenuBarFragment extends Fragment {
 				for (CustomerModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
-						long customerType = 0, customerSize = 0;
-						if (customerTypeTable.getByName(model.getType()) != null)
-							customerType = customerTypeTable.getByName(
-									model.getType()).getId();
-						if (customerSizeTable
-								.getByName(model.getCustomerSize()) != null)
-							customerSize = customerSizeTable.getByName(
-									model.getCustomerSize()).getId();
+						long customerType = customerTypeTable.getIdByName(model
+								.getType());
+						long customerSize = customerSizeTable.getIdByName(model
+								.getCustomerSize());
 						long businessUnit = businessUnitTable.getIdByNo(model
 								.getBusinessunit());
 						long province = provinceTable.getIdByName(model
 								.getProvince());
 						long cityTown = cityTable.getIdByName(model.getCity());
+						long customerRecordStatus = customerRecordStatusTable
+								.getIdByName(model.getCustomerRecStat());
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
 
 						// if ((area > 0) && (customerType > 0)
 						// && (businessUnit > 0) && (province > 0)
 						// && (cityTown > 0))
-						// TODO add customerRecordStatus
+						// **added customerRecordStatus
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getName(), model.getChainname(),
 								model.getLandline(), model.getFax(),
-								customerSize, model.getStreetadd(), 0,
-								customerType, businessUnit, area, province,
-								cityTown,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
+								customerSize, model.getStreetadd(),
+								customerRecordStatus, customerType,
+								businessUnit, area, province, cityTown,
+								isActive, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1767,33 +1795,32 @@ public class SyncMenuBarFragment extends Fragment {
 								record.getModifiedTime()) > 0) {
 
 							long area = areaTable.getIdByName(model.getArea());
-							long customerType = 0, customerSize = 0;
-							if (customerTypeTable.getByName(model.getType()) != null)
-								customerType = customerTypeTable.getByName(
-										model.getType()).getId();
-							if (customerSizeTable.getByName(model
-									.getCustomerSize()) != null)
-								customerSize = customerSizeTable.getByName(
-										model.getCustomerSize()).getId();
+							long customerType = customerTypeTable
+									.getIdByName(model.getType());
+							long customerSize = customerSizeTable
+									.getIdByName(model.getCustomerSize());
 							long businessUnit = businessUnitTable
 									.getIdByNo(model.getBusinessunit());
 							long province = provinceTable.getIdByName(model
 									.getProvince());
 							long cityTown = cityTable.getIdByName(model
 									.getCity());
+							long customerRecordStatus = customerRecordStatusTable
+									.getIdByName(model.getCustomerRecStat());
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
 
 							// if ((area > 0) && (customerType > 0)
 							// && (businessUnit > 0) && (province > 0)
 							// && (cityTown > 0))
-							// TODO add customerRecordStatus
+							// **added customerRecordStatus
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getName(),
 									model.getChainname(), model.getLandline(),
 									model.getFax(), customerSize,
-									model.getStreetadd(), 0, customerType,
-									businessUnit, area, province, cityTown,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
+									model.getStreetadd(), customerRecordStatus,
+									customerType, businessUnit, area, province,
+									cityTown, isActive, model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(
@@ -1977,14 +2004,14 @@ public class SyncMenuBarFragment extends Fragment {
 						// .getActivitytype());
 						long category = actCategoryTable.getIdByName(model
 								.getActivitytypeCategory());
+						int isActive = Tools.parseWithDefault(
+								model.getIsActive(), 0);
 
 						// if ((type > 0) && (category > 0))
-						// TODO Add
 						// Toast.makeText(CONTEXT, model.getActivitytype(),
 						// Toast.LENGTH_SHORT).show();
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getActivitytype(), category,
-								Integer.parseInt(model.getIsActive()),
+								model.getActivitytype(), category, isActive,
 								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
@@ -2001,13 +2028,13 @@ public class SyncMenuBarFragment extends Fragment {
 							// .getActivitytype());
 							long category = actCategoryTable.getIdByName(model
 									.getActivitytypeCategory());
+							int isActive = Tools.parseWithDefault(
+									model.getIsActive(), 0);
 
 							// if ((type > 0) && (category > 0))
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), model.getActivitytype(),
-									category,
-									Integer.parseInt(model.getIsActive()),
-									model.getCreatedTime(),
+									category, isActive, model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						}
@@ -2137,6 +2164,10 @@ public class SyncMenuBarFragment extends Fragment {
 			ActivityTypeTable activityTypeTable = JardineApp.DB
 					.getActivityType();
 			WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
+			BusinessUnitTable businessUnitTable = JardineApp.DB
+					.getBusinessUnit();
+			PWorkEntryStatusTable entryStatusTable = JardineApp.DB
+					.getWorkplanEntryStatus();
 
 			SyncRequests request = new SyncRequests();
 			WorkEntryResult result = request.WorkplanEntry(LAST_SYNC);
@@ -2160,14 +2191,21 @@ public class SyncMenuBarFragment extends Fragment {
 								.getActivityType());
 						long workplan = workplanTable.getIdByNo(model
 								.getWorkplan());
+						long businessUnit = businessUnitTable.getIdByNo(model
+								.getBusinessUnit());
+						int quantity = Tools.parseWithDefault(
+								model.getActivityQuantity(), 0);
+						long status = entryStatusTable.getIdByName(model
+								.getStatus());
 
 						// if ((area > 0) && (province > 0) && (cityTown > 0)
 						// && (activityType > 0) && (workplan > 0))
-						// TODO add status, activityQuantity & businessunit
+						// **added status, activityQuantity & businessunit
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getDate(), 1, area, province, cityTown,
-								activityType, model.getOthersRemarks(),
-								workplan, 0, 0, model.getCreatedTime(),
+								model.getDate(), status, area, province,
+								cityTown, activityType,
+								model.getOthersRemarks(), workplan, quantity,
+								businessUnit, model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -2191,15 +2229,22 @@ public class SyncMenuBarFragment extends Fragment {
 									.getIdByNo(model.getActivityType());
 							long workplan = workplanTable.getByWebId(
 									model.getWorkplan()).getId();
+							long businessUnit = businessUnitTable
+									.getIdByNo(model.getBusinessUnit());
+							int quantity = Tools.parseWithDefault(
+									model.getActivityQuantity(), 0);
+							long status = entryStatusTable.getIdByName(model
+									.getStatus());
 
 							// if ((area > 0) && (province > 0) && (cityTown >
 							// 0)
 							// && (activityType > 0) && (workplan > 0))
-							// TODO add status, activityQuantity & businessunit
+							// **added status, activityQuantity & businessunit
 							table.update(id, model.getRecordId(),
-									model.getCrmNo(), model.getDate(), 1, area,
-									province, cityTown, activityType,
-									model.getOthersRemarks(), workplan, 0, 0,
+									model.getCrmNo(), model.getDate(), status,
+									area, province, cityTown, activityType,
+									model.getOthersRemarks(), workplan,
+									quantity, businessUnit,
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
@@ -2643,26 +2688,27 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (JDIproductStockCheckModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						long activity = 0;
 						long stockStatus = jdiProdStatusTable.getIdByName(model
 								.getStockstatus());
 						// long supplier = supplierTable.getIdByNo(model
 						// .getSupplier());
 						long customerType = cTypeTable.getIdByName(model
 								.getSupplier());
-						if (activityTable.getByWebId(model.getActivity()) != null)
-							activity = activityTable.getByWebId(
-									model.getActivity()).getId();
+						long activity = activityTable.getIdByNo(model
+								.getActivity());
 						long product = productTable.getIdByNo(model
 								.getProduct());
+						int loadedOnShelves = Tools.parseWithDefault(
+								model.getLoadedonshelves(), 0);
 
 						// if ((stockStatus > 0) && (supplier > 0)
 						// && (activity > 0) && (product > 0))
-						// TODO add remarks, change supplier to customerType
+						// **added remarks, change supplier to customerType
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								activity, product, stockStatus,
-								Integer.parseInt(model.getLoadedonshelves()),
-								customerType, "", model.getCreatedTime(),
+								loadedOnShelves, customerType,
+								model.getOtherRemarks(),
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -2683,15 +2729,17 @@ public class SyncMenuBarFragment extends Fragment {
 										model.getActivity()).getId();
 							long product = productTable.getIdByNo(model
 									.getProduct());
+							int loadedOnShelves = Tools.parseWithDefault(
+									model.getLoadedonshelves(), 0);
 
 							// if ((stockStatus > 0) && (supplier > 0)
 							// && (activity > 0) && (product > 0))
-							// TODO add remarks, change supplier to customerType
-							table.update(id, model.getRecordId(), model
-									.getCrmNo(), activity, product,
-									stockStatus, Integer.parseInt(model
-											.getLoadedonshelves()),
-									customerType, "", model.getCreatedTime(),
+							// **added remarks, change supplier to customerType
+							table.update(id, model.getRecordId(),
+									model.getCrmNo(), activity, product,
+									stockStatus, loadedOnShelves, customerType,
+									model.getOtherRemarks(),
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(
@@ -2879,15 +2927,13 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (MarketingIntelModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
-						long activity = 0;
 						long competitor = compProdTable.getIdByNo(model
 								.getCompetitor());
-						if (activityTable.getByWebId(model.getActivity()) != null)
-							activity = activityTable.getByWebId(
-									model.getActivity()).getId();
+						long activity = activityTable.getIdByNo(model
+								.getActivity());
 
 						// if ((activity > 0) && (competitor > 0))
-						// TODO removed remarks
+						// **removed remarks
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								activity, competitor, model.getDetails(),
 								model.getCreatedTime(),
@@ -2899,15 +2945,13 @@ public class SyncMenuBarFragment extends Fragment {
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
 
-							long activity = 0;
 							long competitor = compProdTable.getIdByNo(model
 									.getCompetitor());
-							if (activityTable.getByWebId(model.getActivity()) != null)
-								activity = activityTable.getByWebId(
-										model.getActivity()).getId();
+							long activity = activityTable.getIdByNo(model
+									.getActivity());
 
 							// if ((activity > 0) && (competitor > 0))
-							// TODO removed remarks
+							// **removed remarks
 							table.update(id, model.getRecordId(),
 									model.getCrmNo(), activity, competitor,
 									model.getDetails(), model.getCreatedTime(),
@@ -3171,12 +3215,12 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
-				if (JardineApp.DB.getCalendar() != null) {
-					if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
-						new SyncCalendarTask().execute();
-				} else {
-					new SyncFilesTask().execute();
-				}
+				// if (JardineApp.DB.getCalendar() != null) {
+				// if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
+				new SyncCalendarTask().execute();
+				// } else {
+				// new SyncFilesTask().execute();
+				// }
 			} else {
 				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
@@ -3284,7 +3328,6 @@ public class SyncMenuBarFragment extends Fragment {
 			if (result) {
 				// new CreateCompetitorProductTask().execute();
 			} else {
-				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
