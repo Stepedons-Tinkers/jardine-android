@@ -296,9 +296,9 @@ public class DashBoardActivity extends FragmentActivity {
 			}
 
 			// update selected item and title, then close the drawer
-			// mDrawerList.setItemChecked(itemPosition, true);
+			mDrawerList.setItemChecked(itemPosition, true);
 			mDrawerList.setSelection(itemPosition);
-			// setTitle(navMenuTitles[itemPosition]);
+			setTitle(navMenuTitles[itemPosition]);
 			mDrawerLayout.closeDrawer(mDrawerList);
 
 		} else {

@@ -1,7 +1,6 @@
 package co.nextix.jardine.fragments;
 
 import java.util.Calendar;
-import java.util.List;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -12,16 +11,12 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.Animation.AnimationListener;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.WorkplanEntryRecord;
-import co.nextix.jardine.database.tables.WorkplanEntryTable;
-import co.nextix.jardine.utils.MyDateUtils;
 
 public class DashboardFragment extends Fragment {
 
