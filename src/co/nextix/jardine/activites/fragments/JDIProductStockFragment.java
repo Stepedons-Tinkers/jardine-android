@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.adapters.JDIProductStockCheckCustomAdapter;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -46,7 +45,7 @@ public class JDIProductStockFragment extends Fragment {
 				R.layout.fragment_activity_jdi_product_stock_check, container,
 				false);
 		this.setListData();
-
+		Log.e("jdi"," size");
 		((Button) myFragmentView
 				.findViewById(R.id.add_btn_jdi_product_stock_check))
 				.setOnClickListener(new OnClickListener() {
@@ -133,7 +132,7 @@ public class JDIProductStockFragment extends Fragment {
 			}
 
 			this.totalPage = realRecord.size() / rowSize;
-//			addItem(currentPage);
+			addItem(currentPage);
 
 		} else {
 
@@ -144,20 +143,20 @@ public class JDIProductStockFragment extends Fragment {
 		}
 	}
 
-//	private void addItem(int count) {
-//		tempRecord.clear();
-//		count = count * rowSize;
-//		int temp = currentPage + 1;
-//		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
-//				.setText(temp + " of " + totalPage);
-//
-//		for (int j = 0; j < rowSize; j++) {
-//			tempRecord.add(j, realRecord.get(count));
-//			count = count + 1;
-//		}
-//
-//		this.setView();
-//	}
+	private void addItem(int count) {
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
+				.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, realRecord.get(count));
+			count = count + 1;
+		}
+
+		this.setView();
+	}
 
 	private void setView() {
 
@@ -196,7 +195,7 @@ public class JDIProductStockFragment extends Fragment {
 
 	}
 
-	protected void isListHasNoData() {
+	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.GONE);
@@ -204,7 +203,7 @@ public class JDIProductStockFragment extends Fragment {
 				.setVisibility(View.VISIBLE);
 	}
 
-	protected void isListHasData() {
+	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.VISIBLE);
@@ -212,7 +211,7 @@ public class JDIProductStockFragment extends Fragment {
 				.setVisibility(View.INVISIBLE);
 	}
 
-	protected void refreshListView() {
+	public void refreshListView() {
 		this.setListData();
 	}
 }

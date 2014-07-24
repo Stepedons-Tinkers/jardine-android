@@ -310,8 +310,6 @@ public class CollateralsEventProtocols extends Fragment implements
 				R.string.collaterals_ep_description));
 		strSearcher.add(getResources().getString(
 				R.string.collaterals_ep_event_type));
-		sAdapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.workplan_spinner_row, strSearcher);
 
 		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
 				R.layout.workplan_spinner_row, strSearcher);

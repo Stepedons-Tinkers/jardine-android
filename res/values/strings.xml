@@ -90,6 +90,8 @@
     <string name="workplan_add_activity">Add Activity</string>
     <string name="workplan_start_time">Start Time</string>
     <string name="workplan_end_time">End Time</string>
+    <string name="workplan_from">From:</string>
+    <string name="workplan_to">To:</string>
 
     <!-- Workplan View -->
     <string name="workplan_title">Workplan</string>
@@ -120,12 +122,12 @@
     <string name="latitude">Latitude</string>
     <string name="objective">Objective</string>
     <string name="highlights">Highlights</string>
-    <string name="competitors_activities">Competitors Activities</string>
-    <string name="follow_up_commitment_date">Follow-up Commitment Date</string>
+    <string name="competitors_activities">Competitors\nActivities</string>
+    <string name="follow_up_commitment_date">Follow-up\nCommitment Date</string>
     <string name="workplan_entry">Workplan Entry</string>
     <string name="first_time_visit">First Time Visit</string>
     <string name="created_time">Created Time</string>
-    <string name="assigned_to">Assigned To</string>
+    <string name="assigned_to">Created By</string>
     <string name="activity_gen">Activity</string>
     <string name="end_time">End Time</string>
     <string name="longitude">Longitude</string>
@@ -138,10 +140,10 @@
     <string name="edit_activity">Edit Activity</string>
     <string name="source">Source</string>
     <string name="back_to_activity">Back to Activity </string>
-    <string name="others"> \"Others" Activity Type Remarks</string>
-    <string name="reason_remarks">Reason Remarks - Waiting or Travel</string>
+    <string name="others"> \"Others" Activity\nType Remarks</string>
+    <string name="reason_remarks">Reason Remarks\n- Waiting or Travel</string>
     <string name="business_unit">Business Unit</string>
-    <string name="details_admin_works">Details - Admin Works</string>
+    <string name="details_admin_works">Details -\nAdmin Works</string>
     <string name="area">Area</string>
     <string name="province">Province</string>
     <string name="city_town">City/Town</string>
@@ -225,9 +227,10 @@
     <string name="crm_no_jdi">CRM No.</string>
     <string name="activity_jdi">Activity</string>
     <string name="product_jdi">Product</string>
+    <string name="product_brand_jdi">Product Brand</string>
     <string name="jdi_stock_status">Stock Status</string>
-    <string name="jdi_quantity">Quantity</string>
     <string name="loaded_on_shelves_jdi">Loaded On Shelves</string>
+    <string name="jdi_quantity">Quantity</string>
     <string name="assigned_to_jdi">Assigned To</string>
     <string name="action_jdi">Action</string>
     <string name="add_jdi_product_stock_check"> Add JDI Product Stock Check</string>
@@ -239,8 +242,10 @@
     <string name="created_time_jdi_product_stock_check">Created Time</string>
     <string name="modified_time_jdi_product_stock_check">Modified Time</string>
     <string name="edit_jdi_product_stock_check_detail">Edit JDI Product Stock Check</string>
+    <string name="other_remarks_jdi_product_stock_check_detail">Other Remarks</string>
     <string name="create">Create</string>
-
+	<string name="created_by">Created By</string>
+    
     <!-- JDI Merchandising Check -->
     <string name="crm_no_jdi_merchandising">CRM No</string>
     <string name="activity_jdi_merchandising">Activity</string>
@@ -347,12 +352,10 @@
     <string name="customer_hint_chain_name">chain name</string>
     <string name="customer_hint_landline">landline</string>
     <string name="customer_hint_fax">fax no.</string>
-    
     <string name="customer_contact_hint_fname">first name</string>
     <string name="customer_contact_hint_lname">last name</string>
     <string name="customer_contact_hint_mobile">mobile no.</string>
     <string name="customer_contact_hint_email">email address</string>
-    
     <string name="customer_days_unchange">Days Unchange</string>
     <string name="customer_record_status">Customer Record Status</string>
 

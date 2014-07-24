@@ -8,9 +8,13 @@ import java.util.List;
 
 import android.app.DatePickerDialog;
 import android.content.pm.ActivityInfo;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
@@ -22,6 +26,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -30,6 +35,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
+import co.nextix.jardine.collaterals.CustomSpinnerAdapter;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
@@ -55,10 +61,12 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private ImageButton arrowLeft, arrowRight, btnCalendar;
 	private TextView txtPage;
 	private View header;
-	private TextView txtCrm, txtCust, txtDate, txtIsActType, txtActualDate;
+	private TextView txtCrm, txtCust, txtDate, txtIsActType;
 	private TableRow trow;
-	private EditText search;
-	private Spinner spinner;
+	private TextView txtFrom, txtTo;
+	private Spinner spinner, searchSpinner;
+	private SearchView searchView;
+	private ImageButton imgFrom, imgTo;
 
 	private List<WorkplanEntryRecord> realRecord;
 	private List<WorkplanEntryRecord> tempRecord;
@@ -69,16 +77,25 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	public static SimpleDateFormat df = null;
 	public static String formattedDate = null;
 
+	private WorkplanCustomerAdapter adap;
+
 	public int day, month, year;
 
-	private List<String> workplans = new ArrayList<String>();
-	private ArrayAdapter<String> adap;
+	private List<WorkplanRecord> workplans = new ArrayList<WorkplanRecord>();
+	// private ArrayAdapter<String> adap;
 
 	private WorkplanTable table;
 	private WorkplanEntryTable entry;
 
 	public WorkplanMenuBarFragment() {
 
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		this.setHasOptionsMenu(true);
 	}
 
 	@Override
@@ -112,11 +129,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	private void initLayout() {
 
-		txtActualDate = (TextView) view.findViewById(R.id.tvWorkPlanCalendar);
-		txtActualDate.setText(formattedDate);
-		spinner = (Spinner) view.findViewById(R.id.spiWorkPlanList);
-
 		// Header Data
+		getActivity().invalidateOptionsMenu();
 		trow = (TableRow) header
 				.findViewById(R.id.trCollateralsEventerProtocolRow);
 		txtCrm = (TextView) header
@@ -128,34 +142,58 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		txtIsActType = (TextView) header
 				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
 
+		trow.setGravity(Gravity.CENTER);
+		txtCrm.setGravity(Gravity.CENTER);
+		txtCust.setGravity(Gravity.CENTER);
+		txtCust.setGravity(Gravity.CENTER);
+		txtIsActType.setGravity(Gravity.CENTER);
+
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtCust.setTypeface(null, Typeface.BOLD);
+		txtDate.setTypeface(null, Typeface.BOLD);
+		txtIsActType.setTypeface(null, Typeface.BOLD);
+
 		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
 		txtCust.setText(getResources().getString(R.string.workplan_customer));
 		txtDate.setText(getResources().getString(R.string.workplan_date));
 		txtIsActType.setText(getResources().getString(
 				R.string.workplan_activity_type));
+
 		trow.setBackgroundResource(R.color.tab_pressed);
+
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
-		//
 
 		list = (ListView) view.findViewById(R.id.lvWorkPlan);
-
 		list.addHeaderView(header);
 
-		txtPage = (TextView) view.findViewById(R.id.ibWorkPlanPage);
+		searchSpinner = (Spinner) view.findViewById(R.id.spiWorkPlanSpinner);
 
-		search = (EditText) view.findViewById(R.id.tvWorkPlanSearch);
+		txtPage = (TextView) view.findViewById(R.id.ibWorkPlanPage);
+		txtFrom = (TextView) view.findViewById(R.id.tvWorkPlanFromCalendar);
+		txtTo = (TextView) view.findViewById(R.id.tvWorkPlanToCalendar);
+
+		imgFrom = (ImageButton) view.findViewById(R.id.ibWorkPlanFromCalendar);
+		imgTo = (ImageButton) view.findViewById(R.id.ibWorkPlanToCalendar);
+
+		txtFrom.setOnClickListener(this);
+		txtTo.setOnClickListener(this);
+
+		imgFrom.setOnClickListener(this);
+		imgTo.setOnClickListener(this);
+
+		// search = (EditText) view.findViewById(R.id.tvWorkPlanSearch);
 
 		arrowLeft = (ImageButton) view.findViewById(R.id.ibWorkPlanLeft);
 		arrowRight = (ImageButton) view.findViewById(R.id.ibWorkPlanRight);
 
-		btnCalendar = (ImageButton) view.findViewById(R.id.ibWorkPlanCalendar);
+		// btnCalendar = (ImageButton)
+		// view.findViewById(R.id.ibWorkPlanCalendar);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
-		btnCalendar.setOnClickListener(this);
 
 		realRecord = new ArrayList<WorkplanEntryRecord>();
 		tempRecord = new ArrayList<WorkplanEntryRecord>();
@@ -170,23 +208,25 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		long userId = Long.parseLong(id);
 
 		try {
-			workplans.addAll(table.getAllWorkplan(userId));
+			workplans.addAll(table.getAllRecords(userId));
 		} catch (Exception e) {
 
 		}
 
-		adap = new ArrayAdapter<String>(getActivity(),
+		adap = new WorkplanCustomerAdapter(getActivity(),
 				R.layout.workplan_spinner_row, workplans);
-		spinner.setAdapter(adap);
 
-		spinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		searchSpinner.setAdapter(adap);
+
+		searchSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				String str = (String) parent.getAdapter().getItem(position);
-				setupWorkplanEntry(str);
+				WorkplanRecord str = (WorkplanRecord) parent.getAdapter()
+						.getItem(position);
+				setupWorkplanEntry(str.getId());
 			}
 
 			@Override
@@ -198,13 +238,11 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	}
 
-	private void setupWorkplanEntry(String str) {
-
-		long wId = JardineApp.DB.getWorkplan().getIdByNo(str);
+	private void setupWorkplanEntry(long workplanId) {
 
 		realRecord.clear();
 		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-				.getRecordsByWorkplanId(wId));
+				.getRecordsByWorkplanId(workplanId));
 
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
@@ -213,6 +251,11 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				realRecord.add(rec);
 			}
 
+		} else {
+			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
+					getActivity(), R.layout.collaterals_event_protocol_row,
+					realRecord);
+			list.setAdapter(adapter);
 		}
 
 		if (realRecord.size() > 0) {
@@ -285,18 +328,33 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			}
 			break;
 
-		case R.id.ibWorkPlanCalendar:
-			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
-					android.R.style.Theme_Holo_Panel, datePickerListener, year,
-					month, day);
-			pickDialog.show();
+		case R.id.ibWorkPlanFromCalendar:
+			DatePickerDialog pickDialog1 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerFrom,
+					year, month, day);
+			pickDialog1.show();
 
+			break;
+
+		case R.id.ibWorkPlanToCalendar:
+			DatePickerDialog pickDialog2 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerTo,
+					year, month, day);
+			pickDialog2.show();
+
+			break;
+
+		case R.id.tvWorkPlanFromCalendar:
+			txtFrom.setText("");
+			break;
+		case R.id.tvWorkPlanToCalendar:
+			txtTo.setText("");
 			break;
 		}
 
 	}
 
-	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
+	private DatePickerDialog.OnDateSetListener datePickerListenerFrom = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
 		public void onDateSet(DatePicker view, int selectedYear,
@@ -306,15 +364,51 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			month = selectedMonth;
 			day = selectedDay;
 
-			// set selected date into textview
-			// txtActualDate.setText(new StringBuilder().append(month + 1)
-			// .append("/").append(day).append("/").append(year)
-			// .append(" "));
 			formattedDate = (month + 1) + "/" + day + "/" + year;
-			txtActualDate.setText(formattedDate);
+			txtFrom.setText(formattedDate);
 
 		}
 
 	};
+
+	private DatePickerDialog.OnDateSetListener datePickerListenerTo = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			txtTo.setText(formattedDate);
+
+		}
+
+	};
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		// TODO Auto-generated method stub
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.collaterals_menu, menu);
+		searchView = (SearchView) menu.findItem(R.id.itemCollateralSearch)
+				.getActionView();
+		spinner = (Spinner) menu.findItem(R.id.itemCollateralSpinner)
+				.getActionView();
+
+		List<String> strSearcher = new ArrayList<String>();
+
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(R.string.workplan_customer));
+		strSearcher.add(getResources().getString(
+				R.string.workplan_activity_type));
+
+		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		spinner.setAdapter(cus);
+	}
 
 }

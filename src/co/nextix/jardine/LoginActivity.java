@@ -67,6 +67,7 @@ public class LoginActivity extends Activity {
 
 		editUsername = (EditText) findViewById(R.id.login_email);
 		editPassword = (EditText) findViewById(R.id.login_password);
+
 		spinnArea = (Spinner) findViewById(R.id.login_spinner_area);
 		spinnerAdapter = new ArrayAdapter<String>(this,
 				android.R.layout.simple_dropdown_item_1line, AREA_LIST);
@@ -87,7 +88,10 @@ public class LoginActivity extends Activity {
 			}
 
 		});
-
+		
+		editUsername.setText("test_smr1");
+		editPassword.setText("1212");
+		
 		if (StoreAccount.exists(getApplicationContext())) {
 			finish();
 			startActivity(new Intent(getApplicationContext(),
