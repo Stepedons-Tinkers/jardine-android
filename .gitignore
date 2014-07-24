@@ -6,3 +6,5 @@ gen/*
 ic_launcher-web.png
 lint.xml
 project.properties
+/gen
+/bin
