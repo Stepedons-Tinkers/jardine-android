@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.SuperAwesomeCardFragment;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.database.records.ActivityRecord;
 
@@ -68,7 +70,8 @@ public class EditActivityInfoFragment extends Fragment {
 
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+				fragmentTransaction.replace(ActivityInfoFragment.fl.getId(), myFragment);
+				fragmentTransaction.addToBackStack(null);
 				fragmentTransaction.commit();
 			}
 		});
