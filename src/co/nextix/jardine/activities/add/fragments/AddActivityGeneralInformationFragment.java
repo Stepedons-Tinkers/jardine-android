@@ -193,15 +193,21 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
 					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
 					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
-					long businessUnit = Long.parseLong(((EditText) rootView.findViewById(R.id.business_unit)).getText().toString());
-					long source = Long.parseLong(String.valueOf(((Spinner) rootView.findViewById(R.id.source)).getSelectedItem()));
+
+					// long businessUnit = Long.parseLong(((EditText)
+					// rootView.findViewById(R.id.business_unit)).getText().toString());
+					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
+							JardineApp.DB.getUser().getCurrentUser().getId());
+
+					// long source = Long.parseLong(String.valueOf(((Spinner)
+					// rootView.findViewById(R.id.source)).getSelectedItem()));
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (workplan != null && !workplan.isEmpty() && startTime != null && !startTime.isEmpty() && endTime != null
 							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
 							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
-							&& businessUnit != 0 && source != 0 && pref != null
+							&& businessUnit != null && pref != null
 					/*
 					 * && pref.getString("smr", null) != null &&
 					 * pref.getString("issues_identified", null) != null &&
