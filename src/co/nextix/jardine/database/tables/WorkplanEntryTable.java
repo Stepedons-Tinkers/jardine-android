@@ -225,7 +225,9 @@ public class WorkplanEntryTable {
 						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase + "%'";
 				break;
 			case 1:
-				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM" + mDatabaseTable + " INNER JOIN ";
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM" + mDatabaseTable + " INNER JOIN "
+				+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON " + mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
+				+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + ".";
 				break;
 			}
 
