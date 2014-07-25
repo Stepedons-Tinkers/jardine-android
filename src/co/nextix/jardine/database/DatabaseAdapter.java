@@ -74,42 +74,36 @@ public class DatabaseAdapter {
 	private final String KEY_ACTIVITY_ROWID = "_id";
 	private final String KEY_ACTIVITY_NO = "no";
 	private final String KEY_ACTIVITY_CRMNO = "crm_no";
-	private final String KEY_ACTIVITY_SMRUSERID = "smr_user_id";
 	private final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
 	private final String KEY_ACTIVITY_CHECKIN = "check_in";
 	private final String KEY_ACTIVITY_CHECKOUT = "check_out";
+	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
 	private final String KEY_ACTIVITY_LONGITUDE = "longitude";
 	private final String KEY_ACTIVITY_LATITUDE = "latitude";
-	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
 	private final String KEY_ACTIVITY_CREATEDTIME = "created_time";
 	private final String KEY_ACTIVITY_MODIFIEDTIME = "modified_time";
 	private final String KEY_ACTIVITY_REASONREMARKS = "reason_remarks";
-	private final String KEY_ACTIVITY_WORKWITH = "work_with";
+	private final String KEY_ACTIVITY_SMR = "smr";
 	private final String KEY_ACTIVITY_ADMINWORKDETAILS = "admin_work_details";
 	private final String KEY_ACTIVITY_CUSTOMER = "customer";
 	private final String KEY_ACTIVITY_AREA = "area";
 	private final String KEY_ACTIVITY_PROVINCE = "province";
 	private final String KEY_ACTIVITY_CITY = "city";
 	private final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
-	private final String KEY_ACTIVITY_OBJECTIVEOFACTIVITY = "objective_of_activity";
+	private final String KEY_ACTIVITY_OBJECTIVES = "objectives";
 	private final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
 	private final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
 	private final String KEY_ACTIVITY_NOTES = "notes";
 	private final String KEY_ACTIVITY_HIGHLIGHTS = "highlights";
 	private final String KEY_ACTIVITY_NEXTSTEPS = "next_steps";
 	private final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
-	private final String KEY_ACTIVITY_CONTACTPERSON = "contact_person";
-	private final String KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK = "jdi_product_stock_check";
-	private final String KEY_ACTIVITY_PRODUCTSUPPLIER = "product_supplier";
-	private final String KEY_ACTIVITY_JDIMERCHCHECK = "jdi_merchandising_check";
-	private final String KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK = "jdi_competitor_product_stock_check";
-	private final String KEY_ACTIVITY_MARKETINGINTEL = "marketing_intel";
-	private final String KEY_ACTIVITY_PROJECTVISITDETAILS = "project_visit_details";
-	private final String KEY_ACTIVITY_PROJECTREQUIREMENTS = "project_requirements";
-	private final String KEY_ACTIVITY_TRAININGS = "trainings";
-	private final String KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS = "identify_product_focus";
-	private final String KEY_ACTIVITY_FULLBRANDACTIVATION = "full_brand_activation";
-	private final String KEY_ACTIVITY_PHOTOSATTACHMENT = "activity_photos_and_attachments";
+	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
+	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
+	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
+	private final String KEY_ACTIVITY_VENUE = "venue";
+	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
+	private final String KEY_ACTIVITY_ENDUSERACTIVITYTYPES = "end_user_activity_types";
 
 	// Activity Type
 	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
@@ -432,60 +426,42 @@ public class DatabaseAdapter {
 			+ " (" + KEY_ACTIVITY_ROWID
 			+ " integer primary key autoincrement, " + KEY_ACTIVITY_NO
 			+ " text, " + KEY_ACTIVITY_CRMNO + " text, "
-			+ KEY_ACTIVITY_SMRUSERID + " text, " + KEY_ACTIVITY_ACTIVITYTYPE
-			+ " real, " + KEY_ACTIVITY_CHECKIN + " text,"
-			+ KEY_ACTIVITY_CHECKOUT + " text, " + KEY_ACTIVITY_LONGITUDE
-			+ " real, " + KEY_ACTIVITY_LATITUDE + " real, "
-			+ KEY_ACTIVITY_CREATEDBY + " real, " + KEY_ACTIVITY_CREATEDTIME
+			+ KEY_ACTIVITY_ACTIVITYTYPE + " real, " + KEY_ACTIVITY_CHECKIN
+			+ " text," + KEY_ACTIVITY_CHECKOUT + " text, "
+			+ KEY_ACTIVITY_BUSINESSUNIT + " real," + KEY_ACTIVITY_CREATEDBY
+			+ " real," + KEY_ACTIVITY_LONGITUDE + " real, "
+			+ KEY_ACTIVITY_LATITUDE + " real, " + KEY_ACTIVITY_CREATEDTIME
 			+ " text, " + KEY_ACTIVITY_MODIFIEDTIME + " text, "
-			+ KEY_ACTIVITY_REASONREMARKS + " text, " + KEY_ACTIVITY_WORKWITH
-			+ " text, " + KEY_ACTIVITY_ADMINWORKDETAILS + " text, "
+			+ KEY_ACTIVITY_REASONREMARKS + " text, " + KEY_ACTIVITY_SMR
+			+ " real, " + KEY_ACTIVITY_ADMINWORKDETAILS + " text, "
 			+ KEY_ACTIVITY_CUSTOMER + " real, " + KEY_ACTIVITY_AREA + " real, "
 			+ KEY_ACTIVITY_PROVINCE + " real, " + KEY_ACTIVITY_CITY + " real, "
-			+ KEY_ACTIVITY_WORKPLANENTRY + " real, "
-			+ KEY_ACTIVITY_OBJECTIVEOFACTIVITY + " text, "
-			+ KEY_ACTIVITY_FIRSTTIMEVISIT + " integer, "
+			+ KEY_ACTIVITY_WORKPLANENTRY + " real, " + KEY_ACTIVITY_OBJECTIVES
+			+ " text, " + KEY_ACTIVITY_FIRSTTIMEVISIT + " integer, "
 			+ KEY_ACTIVITY_PLANNEDVISIT + " integer, " + KEY_ACTIVITY_NOTES
 			+ " text, " + KEY_ACTIVITY_HIGHLIGHTS + " text, "
 			+ KEY_ACTIVITY_NEXTSTEPS + " text, " + KEY_ACTIVITY_FOLLOWUP
-			+ " text, " + KEY_ACTIVITY_CONTACTPERSON + " real, "
-			+ KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK + " real, "
-			+ KEY_ACTIVITY_PRODUCTSUPPLIER + " real, "
-			+ KEY_ACTIVITY_JDIMERCHCHECK + " real, "
-			+ KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK + " real, "
-			+ KEY_ACTIVITY_MARKETINGINTEL + " real, "
-			+ KEY_ACTIVITY_PROJECTVISITDETAILS + " text, "
-			+ KEY_ACTIVITY_PROJECTREQUIREMENTS + " text, "
-			+ KEY_ACTIVITY_TRAININGS + " text, "
-			+ KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS + " text, "
-			+ KEY_ACTIVITY_FULLBRANDACTIVATION + " text, "
-			+ KEY_ACTIVITY_PHOTOSATTACHMENT + " text, foreign key("
+			+ " text, " + KEY_ACTIVITY_PROJECTNAME + " text, "
+			+ KEY_ACTIVITY_PROJECTSTAGE + " text, "
+			+ KEY_ACTIVITY_PROJECTCATEGORY + " text, " + KEY_ACTIVITY_VENUE
+			+ " text, " + KEY_ACTIVITY_NOOFATTENDEES + " integer, "
+			+ KEY_ACTIVITY_ENDUSERACTIVITYTYPES + " text, foreign key("
 			+ KEY_ACTIVITY_ACTIVITYTYPE + ") references " + ACTIVITY_TYPE_TABLE
 			+ "(" + KEY_ACTIVITYTYPE_ROWID + "), foreign key("
+			+ KEY_ACTIVITY_BUSINESSUNIT + ") references " + BUSINESS_UNIT_TABLE
+			+ "(" + KEY_BUSINESSUNIT_ROWID + "), foreign key("
 			+ KEY_ACTIVITY_CREATEDBY + ") references " + USER_TABLE + " ("
-			+ KEY_USER_ROWID + "), foreign key(" + KEY_ACTIVITY_CUSTOMER
-			+ ") references " + CUSTOMER_TABLE + " (" + KEY_CUSTOMER_ROWID
-			+ "), foreign key(" + KEY_ACTIVITY_AREA + ") references "
-			+ AREA_TABLE + " (" + KEY_PICKLISTS_ROWID + "), foreign key("
-			+ KEY_ACTIVITY_PROVINCE + ") references " + PROVINCE_TABLE + "("
-			+ KEY_PROVINCE_ROWID + "), foreign key(" + KEY_ACTIVITY_CITY
-			+ ") references " + CITYTOWN_TABLE + "(" + KEY_CITYTOWN_ROWID
-			+ "), foreign key(" + KEY_ACTIVITY_WORKPLANENTRY + ") references "
-			+ WORKPLAN_ENTRY_TABLE + "(" + KEY_WORKPLANENTRY_ROWID
-			+ "), foreign key(" + KEY_ACTIVITY_CONTACTPERSON + ") references "
-			+ CUSTOMER_CONTACT_TABLE + "(" + KEY_CUSTOMERCONTACT_ROWID
-			+ "), foreign key(" + KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK
-			+ ") references " + JDI_PRODUCT_STOCK_CHECK_TABLE + "("
-			+ KEY_JDIPRODUCTSTOCKCHECK_ROWID + "), foreign key("
-			+ KEY_ACTIVITY_PRODUCTSUPPLIER + ") references " + PRODUCT_TABLE
-			+ "(" + KEY_PRODUCT_ROWID + "), foreign key("
-			+ KEY_ACTIVITY_JDIMERCHCHECK + ") references "
-			+ JDI_MERCHANDISING_CHECK_TABLE + "(" + KEY_JDIMERCHANDISING_ROWID
-			+ "), foreign key(" + KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK
-			+ ") references " + COMPETITOR_PRODUCT_STOCK_CHECK_TABLE + "("
-			+ KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "), foreign key("
-			+ KEY_ACTIVITY_MARKETINGINTEL + ") references "
-			+ MARKETING_INTEL_TABLE + "(" + KEY_MARKETINGINTEL_ROWID + "));";
+			+ KEY_USER_ROWID + "), foreign key(" + KEY_ACTIVITY_SMR
+			+ ") references " + SMR_TABLE + " (" + KEY_SMR_ROWID
+			+ "), foreign key(" + KEY_ACTIVITY_CUSTOMER + ") references "
+			+ CUSTOMER_TABLE + " (" + KEY_CUSTOMER_ROWID + "), foreign key("
+			+ KEY_ACTIVITY_AREA + ") references " + AREA_TABLE + " ("
+			+ KEY_PICKLISTS_ROWID + "), foreign key(" + KEY_ACTIVITY_PROVINCE
+			+ ") references " + PROVINCE_TABLE + "(" + KEY_PROVINCE_ROWID
+			+ "), foreign key(" + KEY_ACTIVITY_CITY + ") references "
+			+ CITYTOWN_TABLE + "(" + KEY_CITYTOWN_ROWID + "), foreign key("
+			+ KEY_ACTIVITY_WORKPLANENTRY + ") references "
+			+ WORKPLAN_ENTRY_TABLE + "(" + KEY_WORKPLANENTRY_ROWID + "));";
 	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text,%s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
