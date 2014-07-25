@@ -1,6 +1,5 @@
 package co.nextix.jardine.keys;
 
-
 public class Modules {
 	// Webservice Keys
 	public static String BusinessUnit = "XBusinessUnit";
@@ -23,9 +22,11 @@ public class Modules {
 	public static String CompetitorProductStockCheck = "XCompProdStockCheck";
 	public static String MarketingIntel = "XMarketingIntel";
 	public static String ProjectRequirement = "XProjectRequirement";
-	
+
 	public static String Document = "XDocuments";
 	public static String Calendar = "Calendar";
+	public static String SalesProtocols = "XSalesProtocols";
+	public static String ProductSupplier = "XProductSupplier";
 
 	public static String smrtimecard_entry = "z_stc_picklist";
 	public static String customer_size = "z_cu_customersize";
@@ -33,7 +34,7 @@ public class Modules {
 	public static String customer_record_status = "z_cu_customerrecstat";
 	public static String customercontact_position = "z_cuc_position";
 	public static String eventprotocol_eventtype = "z_evp_evtype";
-//	public static String activitytype_type = "";
+	// public static String activitytype_type = "";
 	public static String activitytype_category = "z_act_acttypcat";
 	public static String workplanentry_status = "z_wpe_status";
 	public static String activity_projectstage = "z_ac_projectstage";
@@ -42,6 +43,7 @@ public class Modules {
 	public static String jdimerchcheck_status = "z_jmc_status";
 	public static String projrequirement_type = "z_pr_prtype";
 	public static String end_user_activity_types = "z_ac_enduseractype";
+	public static String salesprotocol_type = "z_sp_protocoltype";
 
 	public static String[] picklists = new String[] { smrtimecard_entry,
 			customer_size, customer_type, customercontact_position,

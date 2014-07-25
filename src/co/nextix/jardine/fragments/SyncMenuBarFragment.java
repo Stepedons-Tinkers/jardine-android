@@ -38,8 +38,10 @@ import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
 import co.nextix.jardine.database.records.SMRRecord;
+import co.nextix.jardine.database.records.SalesProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
@@ -56,9 +58,11 @@ import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
+import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.database.tables.SMRTable;
+import co.nextix.jardine.database.tables.SalesProtocolTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
@@ -78,6 +82,7 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
+import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
@@ -107,8 +112,10 @@ import co.nextix.jardine.web.models.MarketingIntelModel;
 import co.nextix.jardine.web.models.MarketingMaterialsModel;
 import co.nextix.jardine.web.models.PicklistDependencyModel;
 import co.nextix.jardine.web.models.ProductModel;
+import co.nextix.jardine.web.models.ProductSupplierModel;
 import co.nextix.jardine.web.models.ProjectRequirementModel;
 import co.nextix.jardine.web.models.SMRModel;
+import co.nextix.jardine.web.models.SalesProtocolModel;
 import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.LoginModel;
@@ -126,7 +133,9 @@ import co.nextix.jardine.web.requesters.sync.SjdiprodRequester.JdiProdResult;
 import co.nextix.jardine.web.requesters.sync.SmarkintRequester.MarketIntResult;
 import co.nextix.jardine.web.requesters.sync.SmarmatRequester.MarketMatResult;
 import co.nextix.jardine.web.requesters.sync.SproductRequester.ProdResult;
+import co.nextix.jardine.web.requesters.sync.SproductSupplierRequester.ProductSupplierResult;
 import co.nextix.jardine.web.requesters.sync.SprojreqRequester.ProjReqResult;
+import co.nextix.jardine.web.requesters.sync.SsalesProtocolRequester.SalesProtocolResult;
 import co.nextix.jardine.web.requesters.sync.SsmrRequester.SmrResult;
 import co.nextix.jardine.web.requesters.sync.SworkplanRequester.WorkResult;
 import co.nextix.jardine.web.requesters.sync.SworkplanentryRequester.WorkEntryResult;
@@ -139,6 +148,8 @@ public class SyncMenuBarFragment extends Fragment {
 	String LAST_SYNC = JardineApp.DB.getUser().getLastSync();
 	List<FileRecord> Event_Files_IDs = new ArrayList<FileRecord>();
 	List<FileRecord> Marketing_Files_IDs = new ArrayList<FileRecord>();
+	List<FileRecord> Sales_Files_IDs = new ArrayList<FileRecord>();
+	List<FileRecord> Activities_Files_IDs = new ArrayList<FileRecord>();
 	protected PowerManager.WakeLock mWakeLock;
 	boolean isCancelled = false;
 	boolean isConnected = true;
@@ -3104,6 +3115,235 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
+				new SyncCalendarTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncCalendarTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Notifications");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CalendarTable table = JardineApp.DB.getCalendar();
+			// ActivityTable actTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			CalendarResult result = request.Calendar(LAST_SYNC);
+			List<CalendarModel> models = result.getUpdated();
+			if (result != null) {
+				for (CalendarModel model : models) {
+					// if (!table.isExisting(model.)) {
+					Log.w(TAG, "Calendar: actid ** " + model.getActivityId());
+					long rowid = table.insert(model.getActivityType(),
+							model.getDateStart(), model.getDueDate(),
+							model.getDescription(), model.getSubject(),
+							model.getTimeStart(), model.getTimeEnd(), 0,
+							model.getCreatedTime(), model.getModifiedTime(),
+							USER_ID);
+					Log.w(TAG, "Calendar ** Added ** " + rowid);
+					// }else{
+					//
+					// }
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncProductSupplierTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncProductSupplierTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		List<ProductSupplierRecord> sendUpdate = new ArrayList<ProductSupplierRecord>();
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("ProductSuppliers");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			ProductSupplierTable table = JardineApp.DB.getProductSupplier();
+			CustomerTable customerTable = JardineApp.DB.getCustomer();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			ProductSupplierResult result = request.ProductSuppliers(LAST_SYNC);
+			List<ProductSupplierModel> models = result.getUpdated();
+			if (result != null) {
+				for (ProductSupplierModel model : models) {
+					if (!table.isExisting(model.getRecordId())) {
+						long supplier = customerTable.getIdByNo(model
+								.getSupplier());
+						long activity = activityTable.getIdByNo(model
+								.getActivity());
+
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								model.getProductbrand(), supplier,
+								model.getOthersRemarks(), activity, USER_ID,
+								model.getCreatedTime(), model.getModifiedTime());
+					} else {
+						long id = table.getIdByNo(model.getRecordId());
+
+						ProductSupplierRecord record = table.getById(id);
+						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
+								record.getModifiedTime()) > 0) {
+
+							long supplier = customerTable.getIdByNo(model
+									.getSupplier());
+							long activity = activityTable.getIdByNo(model
+									.getActivity());
+
+							table.update(id, model.getRecordId(),
+									model.getCrmNo(), model.getProductbrand(),
+									supplier, model.getOthersRemarks(),
+									activity, USER_ID, model.getCreatedTime(),
+									model.getModifiedTime());
+							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncSalesProtocolTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncSalesProtocolTask extends AsyncTask<Void, Void, Boolean> {
+
+		List<SalesProtocolRecord> sendUpdate = new ArrayList<SalesProtocolRecord>();
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("SalesProtocol");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			SalesProtocolTable table = JardineApp.DB.getSalesProtocol();
+			BusinessUnitTable businessUnitTable = JardineApp.DB
+					.getBusinessUnit();
+			PSalesProtocolTypeTable protocolTypeTable = JardineApp.DB
+					.getSalesProtocolType();
+
+			SyncRequests request = new SyncRequests();
+			SalesProtocolResult result = request.SalesProtocol(LAST_SYNC);
+			List<SalesProtocolModel> models = result.getUpdated();
+			if (result != null) {
+				for (SalesProtocolModel model : models) {
+					if (!table.isExisting(model.getRecordId())) {
+						long businessUnit = businessUnitTable.getIdByNo(model
+								.getBusinessUnit());
+						long protocolType = protocolTypeTable.getIdByName(model
+								.getProtocoltype());
+
+						table.insert(model.getRecordId(), model.getCrmNo(),
+								businessUnit, model.getDescription(), model
+										.getLastupdate(), model.getTags(),
+								protocolType, Tools.parseIntWithDefault(
+										model.getIsactive(), 0), USER_ID, model
+										.getCreatedTime(), model
+										.getModifiedTime());
+					} else {
+						long id = table.getIdByNo(model.getRecordId());
+
+						SalesProtocolRecord record = table.getById(id);
+						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
+								record.getModifiedTime()) > 0) {
+
+							long businessUnit = businessUnitTable
+									.getIdByNo(model.getBusinessUnit());
+							long protocolType = protocolTypeTable
+									.getIdByName(model.getProtocoltype());
+
+							table.update(
+									id,
+									model.getRecordId(),
+									model.getCrmNo(),
+									businessUnit,
+									model.getDescription(),
+									model.getLastupdate(),
+									model.getTags(),
+									protocolType,
+									Tools.parseIntWithDefault(
+											model.getIsactive(), 0), USER_ID,
+									model.getCreatedTime(),
+									model.getModifiedTime());
+							Log.i(TAG, "update: " + id);
+						} else if (MyDateUtils.isTimeAfter(
+								model.getModifiedTime(),
+								record.getModifiedTime()) < 0) {
+							sendUpdate.add(record);
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
 				new SyncDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
@@ -3133,8 +3373,13 @@ public class SyncMenuBarFragment extends Fragment {
 			EventProtocolTable eventTable = JardineApp.DB.getEventProtocol();
 			MarketingMaterialsTable marketingMatTable = JardineApp.DB
 					.getMarketingMaterials();
+			SalesProtocolTable salesProtocolsTable = JardineApp.DB
+					.getSalesProtocol();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
 			List<String> eventProtocols = eventTable.getNos();
 			List<String> marketingMats = marketingMatTable.getNos();
+			List<String> salesProtocols = salesProtocolsTable.getNos();
+			List<String> activities = activityTable.getNos();
 
 			if (eventProtocols != null) {
 				for (String id : eventProtocols) {
@@ -3220,59 +3465,88 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
-				// if (JardineApp.DB.getCalendar() != null) {
-				// if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
-				new SyncCalendarTask().execute();
-				// } else {
-				// new SyncFilesTask().execute();
-				// }
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
+			if (salesProtocols != null) {
+				for (String id : salesProtocols) {
+					SyncRequests request = new SyncRequests();
+					List<DocuRelModel> result = request
+							.DocumentRelationships(id);
+					if (result != null) {
+						for (DocuRelModel model : result) {
+							RetrieveRequests retrieve = new RetrieveRequests();
+							DocumentModel data = retrieve.Document(model
+									.getNotesid());
+							if (data != null) {
+								// for (DocumentModel mod : data) {
+								Log.w(TAG,
+										"Document: salesprotocol ** "
+												+ data.getNoteNo());
+								if (!table.isExisting(String.valueOf(data
+										.getRecordId()))) {
+									long rowid = table.insert(
+											String.valueOf(data.getRecordId()),
+											data.getNoteNo(),
+											data.getNotesTitle(),
+											Modules.SalesProtocols,
+											model.getCrmId(),
+											data.getFilename(),
+											data.getFileType(),
+											data.getFilePath(), 1,
+											data.getCreatedTime(),
+											data.getModifiedTime(), USER_ID);
+									Log.w(TAG, "Document: event ** Added ** "
+											+ rowid);
+									Sales_Files_IDs.add(new FileRecord(data
+											.getFilename(), data.getFilePath(),
+											data.getFileSize(),
+											Modules.SalesProtocols));
+								}
+								// }
+							}
+						}
+					}
+				}
 			}
-		}
-	}
 
-	private class SyncCalendarTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Syncing");
-			dialog.setMessage("Notifications");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CalendarTable table = JardineApp.DB.getCalendar();
-			// ActivityTable actTable = JardineApp.DB.getActivity();
-
-			SyncRequests request = new SyncRequests();
-			CalendarResult result = request.Calendar(LAST_SYNC);
-			List<CalendarModel> models = result.getUpdated();
-			if (result != null) {
-				for (CalendarModel model : models) {
-					Log.w(TAG, "Calendar: actid ** " + model.getActivityId());
-					long rowid = table.insert(model.getActivityType(),
-							model.getDateStart(), model.getDueDate(),
-							model.getDescription(), model.getSubject(),
-							model.getTimeStart(), model.getTimeEnd(), 0,
-							model.getCreatedTime(), model.getModifiedTime(),
-							USER_ID);
-					Log.w(TAG, "Calendar ** Added ** " + rowid);
+			if (activities != null) {
+				for (String id : activities) {
+					SyncRequests request = new SyncRequests();
+					List<DocuRelModel> result = request
+							.DocumentRelationships(id);
+					if (result != null) {
+						for (DocuRelModel model : result) {
+							RetrieveRequests retrieve = new RetrieveRequests();
+							DocumentModel data = retrieve.Document(model
+									.getNotesid());
+							if (data != null) {
+								// for (DocumentModel mod : data) {
+								Log.w(TAG,
+										"Document: activity ** "
+												+ data.getNoteNo());
+								if (!table.isExisting(String.valueOf(data
+										.getRecordId()))) {
+									long rowid = table.insert(
+											String.valueOf(data.getRecordId()),
+											data.getNoteNo(),
+											data.getNotesTitle(),
+											Modules.Activity, model.getCrmId(),
+											data.getFilename(),
+											data.getFileType(),
+											data.getFilePath(), 1,
+											data.getCreatedTime(),
+											data.getModifiedTime(), USER_ID);
+									Log.w(TAG,
+											"Document: activity ** Added ** "
+													+ rowid);
+									Activities_Files_IDs.add(new FileRecord(
+											data.getFilename(), data
+													.getFilePath(), data
+													.getFileSize(),
+											Modules.Activity));
+								}
+								// }
+							}
+						}
+					}
 				}
 			}
 
@@ -3283,7 +3557,12 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
+				// if (JardineApp.DB.getCalendar() != null) {
+				// if (JardineApp.DB.getCalendar().getAllRecords().size() == 0)
 				new SyncFilesTask().execute();
+				// } else {
+				// new SyncFilesTask().execute();
+				// }
 			} else {
 				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
@@ -3320,6 +3599,26 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (Marketing_Files_IDs != null) {
 				for (FileRecord record : Marketing_Files_IDs) {
+					RetrieveRequests request = new RetrieveRequests();
+					request.DownloadFile(
+							Integer.parseInt(record.getFileSize()),
+							record.getFilePath(), record.getModuleName(),
+							record.getFileName());
+				}
+			}
+
+			if (Sales_Files_IDs != null) {
+				for (FileRecord record : Sales_Files_IDs) {
+					RetrieveRequests request = new RetrieveRequests();
+					request.DownloadFile(
+							Integer.parseInt(record.getFileSize()),
+							record.getFilePath(), record.getModuleName(),
+							record.getFileName());
+				}
+			}
+
+			if (Activities_Files_IDs != null) {
+				for (FileRecord record : Activities_Files_IDs) {
 					RetrieveRequests request = new RetrieveRequests();
 					request.DownloadFile(
 							Integer.parseInt(record.getFileSize()),
