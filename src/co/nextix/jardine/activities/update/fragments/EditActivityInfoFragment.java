@@ -3,6 +3,7 @@ package co.nextix.jardine.activities.update.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,14 +12,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.SuperAwesomeCardFragment;
-import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.database.records.ActivityRecord;
 
 public class EditActivityInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+	
+	private int theLayoutID = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -26,6 +27,14 @@ public class EditActivityInfoFragment extends Fragment {
 		View myFragmentView = inflater.inflate(R.layout.fragment_start_activity, container, false);
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
+		
+		Bundle extras = getArguments();
+		
+		if(extras != null){
+			Log.e("extras","not null");
+			theLayoutID = extras.getInt("layoutID");
+			Log.e("id","" + theLayoutID);
+		}
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
 //		((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(this.activityRecord.getWorkplan()));
@@ -70,8 +79,7 @@ public class EditActivityInfoFragment extends Fragment {
 
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(ActivityInfoFragment.fl.getId(), myFragment);
-				fragmentTransaction.addToBackStack(null);
+				fragmentTransaction.replace(theLayoutID, myFragment);
 				fragmentTransaction.commit();
 			}
 		});

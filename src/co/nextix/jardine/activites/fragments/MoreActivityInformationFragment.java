@@ -22,12 +22,12 @@ public class MoreActivityInformationFragment extends Fragment {
 				new LightingColorFilter(0x0033FF, 0x0066FF));
 
 		/*** Appoint to the first fragment ***/
-		android.support.v4.app.Fragment newFragment = new JDIProductStockFragment();
-		android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-		transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-		transaction.replace(R.id.activity_fragment, newFragment);
-		transaction.addToBackStack(null);
-		transaction.commit();
+//		android.support.v4.app.Fragment newFragment = new JDIProductStockFragment();
+//		android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//		transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//		transaction.replace(R.id.activity_fragment, newFragment);
+//		transaction.addToBackStack(null);
+//		transaction.commit();
 
 		// Event Listeners
 		((Button) this.myFragmentView.findViewById(R.id.jdi_stock_check)).setOnClickListener(new OnClickListener() {
@@ -53,20 +53,20 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new JDIProductStockFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new JDIProductStockFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 		});
 
@@ -86,19 +86,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new JDIMerchandisingCheckFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new JDIMerchandisingCheckFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {
@@ -124,18 +124,18 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new CompetitorStockCheckFragment();
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new CompetitorStockCheckFragment();
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {
@@ -161,19 +161,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new MarketingIntelFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new MarketingIntelFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {
@@ -199,19 +199,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new ProjectRequirementsFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new ProjectRequirementsFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {
@@ -237,19 +237,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new DIYSupermarketPhotosFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new DIYSupermarketPhotosFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {
@@ -281,19 +281,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new CustomerContactPersonFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new CustomerContactPersonFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 
 			}
 		});
@@ -314,19 +314,19 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-				android.support.v4.app.Fragment newFragment = new ProductsFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				android.support.v4.app.Fragment newFragment = new ProductsFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
+//				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 
 			private void clearColorFilter(View findViewById) {

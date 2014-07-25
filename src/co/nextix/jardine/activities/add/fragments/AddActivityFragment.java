@@ -1,249 +1,151 @@
 package co.nextix.jardine.activities.add.fragments;
 
-import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v4.view.ViewPager;
+import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.Button;
+import android.widget.FrameLayout;
 import co.nextix.jardine.R;
+import co.nextix.jardine.SuperAwesomeCardFragment;
+
+import com.astuetz.PagerSlidingTabStrip;
 
 public class AddActivityFragment extends Fragment {
 
 	private View rootView = null;
 
-	public AddActivityFragment() {
+	private PagerSlidingTabStrip tabs;
+	private ViewPager pager;
+	private MyPagerAdapter adapter;
 
-	}
+	private int firstPos;
+
+	private FragmentTransaction ft;
+
+	private FrameLayout fl;
+	
+	private Bundle bundle;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		this.rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
-		android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-		android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		// Add a fucking fragment
-		AddActivityGeneralInformationFragment myFragment = new AddActivityGeneralInformationFragment();
-		fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-		fragmentTransaction.commit();
+		rootView = inflater.inflate(R.layout.add_activity_fragment, container,
+				false);
 
-		((Button) this.rootView.findViewById(R.id.general_info_button)).getBackground().setColorFilter(
-				new LightingColorFilter(0x0033FF, 0x0066FF));
+		ft = getFragmentManager().beginTransaction();
+		fl = (FrameLayout) rootView.findViewById(R.id.layoutForAddingFrag);
+		
+		bundle = new Bundle();
+		bundle.putInt("layoutID", fl.getId());
 
-		this.clearColorFilter(this.rootView.findViewById(R.id.with_co_smrs_button));
-		this.clearColorFilter(this.rootView.findViewById(R.id.diy_or_supermarket_button));
-		this.clearColorFilter(this.rootView.findViewById(R.id.retail_visit_button));
-		this.clearColorFilter(this.rootView.findViewById(R.id.project_visit_button));
-		this.clearColorFilter(this.rootView.findViewById(R.id.trainings_button));
+		tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
+		pager = (ViewPager) rootView.findViewById(R.id.pager);
+		adapter = new MyPagerAdapter(getFragmentManager());
 
-		((Button) this.rootView.findViewById(R.id.general_info_button)).setOnClickListener(new OnClickListener() {
+		pager.setAdapter(adapter);
 
-			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.general_info_button)).getBackground().setColorFilter(
-						new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Clear the highlight color of the button
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
+		final int pageMargin = (int) TypedValue.applyDimension(
+				TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
+						.getDisplayMetrics());
+		pager.setPageMargin(pageMargin);
+		pager.setCurrentItem(0);
 
-				// Set click event listener to true
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.trainings_button));
-	
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+		tabs.setViewPager(pager, true);
+		
+		if(tabs.getId() == 2){
+			Log.e("tabID","2");
+		}
 
-				// Add a fucking fragment
-				AddActivityGeneralInformationFragment myFragment = new AddActivityGeneralInformationFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-			}
-		});
-
-		((Button) this.rootView.findViewById(R.id.with_co_smrs_button)).setOnClickListener(new OnClickListener() {
+		tabs.setOnPageChangeListener(new OnPageChangeListener() {
 
 			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.with_co_smrs_button)).getBackground().setColorFilter(
-						new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Color
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
-				
-				// Event
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.trainings_button));
+			public void onPageSelected(int position) {
+				firstPos = position;
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+				ft.setCustomAnimations(R.anim.slide_in_left,
+						R.anim.slide_out_left);
 
-				// Add a fucking fragment
-				AddActivityWithCoSMRsFragment myFragment = new AddActivityWithCoSMRsFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+				if (position == 0) {
+					
+					AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment();
+					addActGenInfoFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
+					ft.commit();
+				}else if(position == 1){
+					
+					AddActivityWithCoSMRsFragment addActWCoSmrFrag = new AddActivityWithCoSMRsFragment();
+					addActWCoSmrFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActWCoSmrFrag);
+					ft.commit();
+				}else if(position == 2){
+					
+					AddActivityDIYorSupermarketFragment addActDiyOrSupFrag = new AddActivityDIYorSupermarketFragment();
+					addActDiyOrSupFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActDiyOrSupFrag);
+					ft.commit();
+				}else if(position == 3){
+					
+					AddActivityRetailVisitFragment addActRetVisFrag = new AddActivityRetailVisitFragment();
+					addActRetVisFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActRetVisFrag);
+					ft.commit();
+				}else if(position == 4){
+					
+					AddActivityProjectVisitFragment addActProjVisFrag = new AddActivityProjectVisitFragment();
+					addActProjVisFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActProjVisFrag);
+					ft.commit();
+				}else if(position == 5){
+					
+					AddActivityTrainingsFragment addActTrainFrag = new AddActivityTrainingsFragment();
+					addActTrainFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				}
 			}
-		});
-
-		((Button) this.rootView.findViewById(R.id.diy_or_supermarket_button)).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.diy_or_supermarket_button)).getBackground().setColorFilter(
-						new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Color
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
-				
-				// Event
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.trainings_button));
-				
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+			public void onPageScrolled(int arg0, float arg1, int arg2) {
+				// TODO Auto-generated method stub
 
-				// Add a fucking fragment
-				AddActivityDIYorSupermarketFragment myFragment = new AddActivityDIYorSupermarketFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
 			}
-		});
-
-		((Button) this.rootView.findViewById(R.id.retail_visit_button)).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.retail_visit_button)).getBackground().setColorFilter(
-						new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Color
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
-				
-				// Event
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.trainings_button));
-				
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+			public void onPageScrollStateChanged(int arg0) {
+				// TODO Auto-generated method stub
 
-				// Add a fucking fragment
-				AddActivityRetailVisitFragment myFragment = new AddActivityRetailVisitFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
 			}
 		});
+		
+		AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment();
+		addActGenInfoFrag.setArguments(bundle);
 
-		((Button) this.rootView.findViewById(R.id.project_visit_button)).setOnClickListener(new OnClickListener() {
+		ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
+		ft.commit();
 
-			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.project_visit_button)).getBackground().setColorFilter(
-						new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Color
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
-				
-				// Event
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.general_info_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.trainings_button));
-				
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityProjectVisitFragment myFragment = new AddActivityProjectVisitFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-			}
-		});
-
-		((Button) this.rootView.findViewById(R.id.trainings_button)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				v.setClickable(false);
-				((Button) v.findViewById(R.id.trainings_button)).getBackground()
-						.setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
-				
-				// Color
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
-				
-				// Event
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.with_co_smrs_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.diy_or_supermarket_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.retail_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.project_visit_button));
-				AddActivityFragment.this.setClickable(rootView.findViewById(R.id.general_info_button));
-				
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityTrainingsFragment myFragment = new AddActivityTrainingsFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
-			}
-		});
-
-		return this.rootView;
+		return rootView;
 	}
 
 	protected void clearColorFilter(View view) {
@@ -254,5 +156,31 @@ public class AddActivityFragment extends Fragment {
 
 	protected void setClickable(View findViewById) {
 		findViewById.setClickable(true);
+	}
+	
+	public class MyPagerAdapter extends FragmentPagerAdapter {
+
+		private final String[] TITLES = { "General Information", "With CoSMRs",
+				"DIY or Supermarket", "Retail Visit", "Project Visit",
+				"Trainings" };
+
+		public MyPagerAdapter(FragmentManager fm) {
+			super(fm);
+		}
+
+		@Override
+		public CharSequence getPageTitle(int position) {
+			return TITLES[position];
+		}
+
+		@Override
+		public int getCount() {
+			return TITLES.length;
+		}
+
+		@Override
+		public Fragment getItem(int position) {
+			return SuperAwesomeCardFragment.newInstance(firstPos);
+		}
 	}
 }

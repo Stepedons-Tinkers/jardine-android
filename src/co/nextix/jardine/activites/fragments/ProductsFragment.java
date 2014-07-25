@@ -23,22 +23,22 @@ public class ProductsFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
-
-				android.support.v4.app.Fragment newFragment = new SelectProductFragment();
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
+//				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+//
+//				android.support.v4.app.Fragment newFragment = new SelectProductFragment();
+//
+//				// Create new transaction
+//				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Replace whatever is in the fragment_container view with this
+//				// fragment,
+//				// and add the transaction to the back stack
+//				transaction.replace(R.id.activity_fragment, newFragment);
+//				transaction.addToBackStack(null);
+//
+//				// Commit the transaction
+//				transaction.commit();
 			}
 		});
 
