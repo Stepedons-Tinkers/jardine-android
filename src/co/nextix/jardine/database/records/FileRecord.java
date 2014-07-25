@@ -58,4 +58,9 @@ public class FileRecord {
 	public String getModuleName() {
 		return this.module_name;
 	}
+	
+	@Override
+	public String toString() {
+		return this.file_name;
+	}
 }

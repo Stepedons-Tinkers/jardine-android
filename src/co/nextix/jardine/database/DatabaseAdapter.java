@@ -19,9 +19,12 @@ import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
+import co.nextix.jardine.database.tables.ProductFocusTable;
+import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.database.tables.SMRTable;
+import co.nextix.jardine.database.tables.SalesProtocolTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
@@ -41,7 +44,9 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
+import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
+import co.nextix.jardine.database.tables.picklists.PactEndUserActTypeTable;
 
 public class DatabaseAdapter {
 
@@ -55,365 +60,398 @@ public class DatabaseAdapter {
 	private static final int DATABASE_VERSION = 1;
 
 	// User
-	private final String KEY_USER_ROWID = "_id";
-	private final String KEY_USER_NO = "no";
-	private final String KEY_USER_USERNAME = "username";
-	private final String KEY_USER_PASSWORD = "password";
-	private final String KEY_USER_EMAILADDRESS = "email_address";
-	private final String KEY_USER_LASTNAME = "last_name";
-	private final String KEY_USER_MIDDLENAME = "middle_name";
-	private final String KEY_USER_FIRSTNAME = "first_name";
-	private final String KEY_USER_LOGGEDIN = "logged_in";
-	private final String KEY_USER_STATUS = "status";
-	private final String KEY_USER_LASTSYNC = "last_sync";
-	private final String KEY_USER_AREA = "area";
-	private final String KEY_USER_LOGGEDAREA = "logged_area";
-	private final String KEY_USER_CREATEDTIME = "created_time";
+	public static final String KEY_USER_ROWID = "_id";
+	public static final String KEY_USER_NO = "no";
+	public static final String KEY_USER_USERNAME = "username";
+	public static final String KEY_USER_PASSWORD = "password";
+	public static final String KEY_USER_EMAILADDRESS = "email_address";
+	public static final String KEY_USER_LASTNAME = "last_name";
+	public static final String KEY_USER_MIDDLENAME = "middle_name";
+	public static final String KEY_USER_FIRSTNAME = "first_name";
+	public static final String KEY_USER_LOGGEDIN = "logged_in";
+	public static final String KEY_USER_STATUS = "status";
+	public static final String KEY_USER_LASTSYNC = "last_sync";
+	public static final String KEY_USER_AREA = "area";
+	public static final String KEY_USER_LOGGEDAREA = "logged_area";
+	public static final String KEY_USER_CREATEDTIME = "created_time";
 
 	// Activity
-	private final String KEY_ACTIVITY_ROWID = "_id";
-	private final String KEY_ACTIVITY_NO = "no";
-	private final String KEY_ACTIVITY_CRMNO = "crm_no";
-	private final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
-	private final String KEY_ACTIVITY_CHECKIN = "check_in";
-	private final String KEY_ACTIVITY_CHECKOUT = "check_out";
-	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
-	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
-	private final String KEY_ACTIVITY_LONGITUDE = "longitude";
-	private final String KEY_ACTIVITY_LATITUDE = "latitude";
-	private final String KEY_ACTIVITY_CREATEDTIME = "created_time";
-	private final String KEY_ACTIVITY_MODIFIEDTIME = "modified_time";
-	private final String KEY_ACTIVITY_REASONREMARKS = "reason_remarks";
-	private final String KEY_ACTIVITY_SMR = "smr";
-	private final String KEY_ACTIVITY_ADMINWORKDETAILS = "admin_work_details";
-	private final String KEY_ACTIVITY_CUSTOMER = "customer";
-	private final String KEY_ACTIVITY_AREA = "area";
-	private final String KEY_ACTIVITY_PROVINCE = "province";
-	private final String KEY_ACTIVITY_CITY = "city";
-	private final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
-	private final String KEY_ACTIVITY_OBJECTIVES = "objectives";
-	private final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
-	private final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
-	private final String KEY_ACTIVITY_NOTES = "notes";
-	private final String KEY_ACTIVITY_HIGHLIGHTS = "highlights";
-	private final String KEY_ACTIVITY_NEXTSTEPS = "next_steps";
-	private final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
-	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
-	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
-	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
-	private final String KEY_ACTIVITY_VENUE = "venue";
-	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
-	private final String KEY_ACTIVITY_ENDUSERACTIVITYTYPES = "end_user_activity_types";
+	public static final String KEY_ACTIVITY_ROWID = "_id";
+	public static final String KEY_ACTIVITY_NO = "no";
+	public static final String KEY_ACTIVITY_CRMNO = "crm_no";
+	public static final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
+	public static final String KEY_ACTIVITY_CHECKIN = "check_in";
+	public static final String KEY_ACTIVITY_CHECKOUT = "check_out";
+	public static final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+	public static final String KEY_ACTIVITY_CREATEDBY = "created_by";
+	public static final String KEY_ACTIVITY_LONGITUDE = "longitude";
+	public static final String KEY_ACTIVITY_LATITUDE = "latitude";
+	public static final String KEY_ACTIVITY_CREATEDTIME = "created_time";
+	public static final String KEY_ACTIVITY_MODIFIEDTIME = "modified_time";
+	public static final String KEY_ACTIVITY_REASONREMARKS = "reason_remarks";
+	public static final String KEY_ACTIVITY_SMR = "smr";
+	public static final String KEY_ACTIVITY_ADMINWORKDETAILS = "admin_work_details";
+	public static final String KEY_ACTIVITY_CUSTOMER = "customer";
+	public static final String KEY_ACTIVITY_AREA = "area";
+	public static final String KEY_ACTIVITY_PROVINCE = "province";
+	public static final String KEY_ACTIVITY_CITY = "city";
+	public static final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
+	public static final String KEY_ACTIVITY_OBJECTIVES = "objectives";
+	public static final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
+	public static final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
+	public static final String KEY_ACTIVITY_NOTES = "notes";
+	public static final String KEY_ACTIVITY_HIGHLIGHTS = "highlights";
+	public static final String KEY_ACTIVITY_NEXTSTEPS = "next_steps";
+	public static final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
+	public static final String KEY_ACTIVITY_PROJECTNAME = "project_name";
+	public static final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
+	public static final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
+	public static final String KEY_ACTIVITY_VENUE = "venue";
+	public static final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
+	public static final String KEY_ACTIVITY_ENDUSERACTIVITYTYPES = "end_user_activity_types";
 
 	// Activity Type
-	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
-	private final String KEY_ACTIVITYTYPE_NO = "no";
-	// private final String KEY_ACTIVITYTYPE_TYPE = "activity_type";
-	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
-	private final String KEY_ACTIVITYTYPE_NAME = "name";
-	private final String KEY_ACTIVITYTYPE_CATEGORY = "activity_type_categorization";
-	private final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
-	private final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
-	private final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
-	private final String KEY_ACTIVITYTYPE_USER = "user";
+	public static final String KEY_ACTIVITYTYPE_ROWID = "_id";
+	public static final String KEY_ACTIVITYTYPE_NO = "no";
+	// public static final String KEY_ACTIVITYTYPE_TYPE = "activity_type";
+	public static final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
+	public static final String KEY_ACTIVITYTYPE_NAME = "name";
+	public static final String KEY_ACTIVITYTYPE_CATEGORY = "activity_type_categorization";
+	public static final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
+	public static final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
+	public static final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
+	public static final String KEY_ACTIVITYTYPE_USER = "user";
 
 	// Business Unit
-	private final String KEY_BUSINESSUNIT_ROWID = "_id";
-	private final String KEY_BUSINESSUNIT_NO = "no";
-	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
-	private final String KEY_BUSINESSUNIT_NAME = "business_unit_name";
-	private final String KEY_BUSINESSUNIT_CODE = "business_unit_code";
-	private final String KEY_BUSINESSUNIT_ISACTIVE = "is_active";
-	private final String KEY_BUSINESSUNIT_CREATEDTIME = "created_time";
-	private final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
-	private final String KEY_BUSINESSUNIT_CREATED_BY = "created_by";
+	public static final String KEY_BUSINESSUNIT_ROWID = "_id";
+	public static final String KEY_BUSINESSUNIT_NO = "no";
+	public static final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
+	public static final String KEY_BUSINESSUNIT_NAME = "business_unit_name";
+	public static final String KEY_BUSINESSUNIT_CODE = "business_unit_code";
+	public static final String KEY_BUSINESSUNIT_ISACTIVE = "is_active";
+	public static final String KEY_BUSINESSUNIT_CREATEDTIME = "created_time";
+	public static final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
+	public static final String KEY_BUSINESSUNIT_CREATED_BY = "created_by";
 
 	// Competitor Product Stock Check
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID = "_id";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_NO = "no";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY = "activity";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loaded_on_shelves";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
-	private final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID = "_id";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_NO = "no";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO = "crm_no";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY = "activity";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loaded_on_shelves";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
 
 	// Competitor Product
-	private final String KEY_COMPETITORPRODUCT_ROWID = "_id";
-	private final String KEY_COMPETITORPRODUCT_NO = "no";
-	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
-	private final String KEY_COMPETITORPRODUCT_COMPETITOR = "competitor";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTBRAND = "product_brand";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION = "product_description";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTSIZE = "product_size";
-	private final String KEY_COMPETITORPRODUCT_ISACTIVE = "is_active";
-	private final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
-	private final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_COMPETITORPRODUCT_CREATEDBY = "created_by";
+	public static final String KEY_COMPETITORPRODUCT_ROWID = "_id";
+	public static final String KEY_COMPETITORPRODUCT_NO = "no";
+	public static final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
+	public static final String KEY_COMPETITORPRODUCT_COMPETITOR = "competitor";
+	public static final String KEY_COMPETITORPRODUCT_PRODUCTBRAND = "product_brand";
+	public static final String KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION = "product_description";
+	public static final String KEY_COMPETITORPRODUCT_PRODUCTSIZE = "product_size";
+	public static final String KEY_COMPETITORPRODUCT_ISACTIVE = "is_active";
+	public static final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
+	public static final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
+	public static final String KEY_COMPETITORPRODUCT_CREATEDBY = "created_by";
 
 	// // Competitor
-	// private final String KEY_COMPETITOR_ROWID = "_id";
-	// private final String KEY_COMPETITOR_NO = "no";
-	// private final String KEY_COMPETITOR_CRMNO = "crm_no";
-	// private final String KEY_COMPETITOR_NAME = "competitor_name";
-	// private final String KEY_COMPETITOR_ISACTIVE = "is_active";
-	// private final String KEY_COMPETITOR_CREATEDTIME = "created_time";
-	// private final String KEY_COMPETITOR_MODIFIEDTIME = "modified_time";
-	// private final String KEY_COMPETITOR_USER = "user";
+	// public static final String KEY_COMPETITOR_ROWID = "_id";
+	// public static final String KEY_COMPETITOR_NO = "no";
+	// public static final String KEY_COMPETITOR_CRMNO = "crm_no";
+	// public static final String KEY_COMPETITOR_NAME = "competitor_name";
+	// public static final String KEY_COMPETITOR_ISACTIVE = "is_active";
+	// public static final String KEY_COMPETITOR_CREATEDTIME = "created_time";
+	// public static final String KEY_COMPETITOR_MODIFIEDTIME = "modified_time";
+	// public static final String KEY_COMPETITOR_USER = "user";
 
 	// Customer Contact
-	private final String KEY_CUSTOMERCONTACT_ROWID = "_id";
-	private final String KEY_CUSTOMERCONTACT_NO = "no";
-	private final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
-	private final String KEY_CUSTOMERCONTACT_FIRSTNAME = "first_name";
-	private final String KEY_CUSTOMERCONTACT_LASTNAME = "last_name";
-	private final String KEY_CUSTOMERCONTACT_POSITION = "position";
-	private final String KEY_CUSTOMERCONTACT_MOBILENO = "mobile_no";
-	private final String KEY_CUSTOMERCONTACT_BIRTHDAY = "birthday";
-	private final String KEY_CUSTOMERCONTACT_EMAIL = "email_address";
-	private final String KEY_CUSTOMERCONTACT_CUSTOMER = "customer";
-	private final String KEY_CUSTOMERCONTACT_ISACTIVE = "is_active";
-	private final String KEY_CUSTOMERCONTACT_CREATEDTIME = "created_time";
-	private final String KEY_CUSTOMERCONTACT_MODIFIEDTIME = "modified_time";
-	private final String KEY_CUSTOMERCONTACT_CREATEDBY = "created_by";
+	public static final String KEY_CUSTOMERCONTACT_ROWID = "_id";
+	public static final String KEY_CUSTOMERCONTACT_NO = "no";
+	public static final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
+	public static final String KEY_CUSTOMERCONTACT_FIRSTNAME = "first_name";
+	public static final String KEY_CUSTOMERCONTACT_LASTNAME = "last_name";
+	public static final String KEY_CUSTOMERCONTACT_POSITION = "position";
+	public static final String KEY_CUSTOMERCONTACT_MOBILENO = "mobile_no";
+	public static final String KEY_CUSTOMERCONTACT_BIRTHDAY = "birthday";
+	public static final String KEY_CUSTOMERCONTACT_EMAIL = "email_address";
+	public static final String KEY_CUSTOMERCONTACT_CUSTOMER = "customer";
+	public static final String KEY_CUSTOMERCONTACT_ISACTIVE = "is_active";
+	public static final String KEY_CUSTOMERCONTACT_CREATEDTIME = "created_time";
+	public static final String KEY_CUSTOMERCONTACT_MODIFIEDTIME = "modified_time";
+	public static final String KEY_CUSTOMERCONTACT_CREATEDBY = "created_by";
 
 	// Customer
-	private final String KEY_CUSTOMER_ROWID = "_id";
-	private final String KEY_CUSTOMER_NO = "no";
-	private final String KEY_CUSTOMER_CRMNO = "crm_no";
-	private final String KEY_CUSTOMER_NAME = "customer_name";
-	private final String KEY_CUSTOMER_CHAINNAME = "chain_name";
-	private final String KEY_CUSTOMER_LANDLINE = "landline";
-	private final String KEY_CUSTOMER_FAX = "fax";
-	private final String KEY_CUSTOMER_SIZE = "customer_size";
-	private final String KEY_CUSTOMER_STREETADDRESS = "street_address";
-	private final String KEY_CUSTOMER_RECORDSTATUS = "customer_record_status";
-	private final String KEY_CUSTOMER_TYPE = "customer_type";
-	private final String KEY_CUSTOMER_BUSINESSUNIT = "business_unit";
-	private final String KEY_CUSTOMER_AREA = "area";
-	private final String KEY_CUSTOMER_PROVINCE = "province";
-	private final String KEY_CUSTOMER_CITYTOWN = "city_town";
-	private final String KEY_CUSTOMER_ISACTIVE = "is_active";
-	private final String KEY_CUSTOMER_CREATEDTIME = "created_time";
-	private final String KEY_CUSTOMER_MODIFIEDTIME = "modified_time";
-	private final String KEY_CUSTOMER_CREATED_BY = "created_by";
+	public static final String KEY_CUSTOMER_ROWID = "_id";
+	public static final String KEY_CUSTOMER_NO = "no";
+	public static final String KEY_CUSTOMER_CRMNO = "crm_no";
+	public static final String KEY_CUSTOMER_NAME = "customer_name";
+	public static final String KEY_CUSTOMER_CHAINNAME = "chain_name";
+	public static final String KEY_CUSTOMER_LANDLINE = "landline";
+	public static final String KEY_CUSTOMER_FAX = "fax";
+	public static final String KEY_CUSTOMER_SIZE = "customer_size";
+	public static final String KEY_CUSTOMER_STREETADDRESS = "street_address";
+	public static final String KEY_CUSTOMER_RECORDSTATUS = "customer_record_status";
+	public static final String KEY_CUSTOMER_TYPE = "customer_type";
+	public static final String KEY_CUSTOMER_BUSINESSUNIT = "business_unit";
+	public static final String KEY_CUSTOMER_AREA = "area";
+	public static final String KEY_CUSTOMER_PROVINCE = "province";
+	public static final String KEY_CUSTOMER_CITYTOWN = "city_town";
+	public static final String KEY_CUSTOMER_ISACTIVE = "is_active";
+	public static final String KEY_CUSTOMER_CREATEDTIME = "created_time";
+	public static final String KEY_CUSTOMER_MODIFIEDTIME = "modified_time";
+	public static final String KEY_CUSTOMER_CREATED_BY = "created_by";
 
 	// Event Protocol
-	private final String KEY_EVENTPROTOCOL_ROWID = "_id";
-	private final String KEY_EVENTPROTOCOL_NO = "no";
-	private final String KEY_EVENTPROTOCOL_DESCRIPTION = "description";
-	private final String KEY_EVENTPROTOCOL_LASTUPDATE = "last_update";
-	private final String KEY_EVENTPROTOCOL_TAGS = "tags";
-	private final String KEY_EVENTPROTOCOL_EVENTTYPE = "event_type";
-	private final String KEY_EVENTPROTOCOL_ISACTIVE = "is_active";
-	private final String KEY_EVENTPROTOCOL_CREATEDTIME = "created_time";
-	private final String KEY_EVENTPROTOCOL_MODIFIEDTIME = "modified_time";
-	private final String KEY_EVENTPROTOCOL_USER = "user";
-	private final String KEY_EVENTPROTOCOL_CRMNO = "crm_no";
+	public static final String KEY_EVENTPROTOCOL_ROWID = "_id";
+	public static final String KEY_EVENTPROTOCOL_NO = "no";
+	public static final String KEY_EVENTPROTOCOL_DESCRIPTION = "description";
+	public static final String KEY_EVENTPROTOCOL_LASTUPDATE = "last_update";
+	public static final String KEY_EVENTPROTOCOL_TAGS = "tags";
+	public static final String KEY_EVENTPROTOCOL_EVENTTYPE = "event_type";
+	public static final String KEY_EVENTPROTOCOL_ISACTIVE = "is_active";
+	public static final String KEY_EVENTPROTOCOL_CREATEDTIME = "created_time";
+	public static final String KEY_EVENTPROTOCOL_MODIFIEDTIME = "modified_time";
+	public static final String KEY_EVENTPROTOCOL_USER = "user";
+	public static final String KEY_EVENTPROTOCOL_CRMNO = "crm_no";
 
 	// JDI Product Stock Check
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CRMNO = "crm_no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND = "product_brand";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
-	// private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_CRMNO = "crm_no";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND = "product_brand";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
+	// public static final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY =
+	// "quantity";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
+	public static final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
 
 	// Marketing Intel
-	private final String KEY_MARKETINGINTEL_ROWID = "_id";
-	private final String KEY_MARKETINGINTEL_NO = "no";
-	private final String KEY_MARKETINGINTEL_CRMNO = "crm_no";
-	private final String KEY_MARKETINGINTEL_ACTIVITY = "activity";
-	// private final String KEY_MARKETINGINTEL_COMPETITOR = "competitor";
-	private final String KEY_MARKETINGINTEL_COMPETITORPRODUCT = "competitor_product";
-	private final String KEY_MARKETINGINTEL_DETAILS = "details";
-	// private final String KEY_MARKETINGINTEL_REMARKS = "remarks";
-	private final String KEY_MARKETINGINTEL_CREATEDTIME = "created_time";
-	private final String KEY_MARKETINGINTEL_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGINTEL_CREATEDBY = "created_by";
+	public static final String KEY_MARKETINGINTEL_ROWID = "_id";
+	public static final String KEY_MARKETINGINTEL_NO = "no";
+	public static final String KEY_MARKETINGINTEL_CRMNO = "crm_no";
+	public static final String KEY_MARKETINGINTEL_ACTIVITY = "activity";
+	// public static final String KEY_MARKETINGINTEL_COMPETITOR = "competitor";
+	public static final String KEY_MARKETINGINTEL_COMPETITORPRODUCT = "competitor_product";
+	public static final String KEY_MARKETINGINTEL_DETAILS = "details";
+	// public static final String KEY_MARKETINGINTEL_REMARKS = "remarks";
+	public static final String KEY_MARKETINGINTEL_CREATEDTIME = "created_time";
+	public static final String KEY_MARKETINGINTEL_MODIFIEDTIME = "modified_time";
+	public static final String KEY_MARKETINGINTEL_CREATEDBY = "created_by";
 
 	// Product
-	private final String KEY_PRODUCT_ROWID = "_id";
-	private final String KEY_PRODUCT_NO = "no";
-	private final String KEY_PRODUCT_CRMNO = "crm_no";
-	private final String KEY_PRODUCT_NUMBER = "product_number";
-	private final String KEY_PRODUCT_BRAND = "product_brand";
-	private final String KEY_PRODUCT_DESCRIPTION = "product_description";
-	private final String KEY_PRODUCT_PACKSIZE = "pack_size";
-	private final String KEY_PRODUCT_BUSINESSUNIT = "business_unit";
-	private final String KEY_PRODUCT_ISACTIVE = "is_active";
-	private final String KEY_PRODUCT_CREATEDTIME = "created_time";
-	private final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_PRODUCT_CREATEDBY = "created_by";
+	public static final String KEY_PRODUCT_ROWID = "_id";
+	public static final String KEY_PRODUCT_NO = "no";
+	public static final String KEY_PRODUCT_CRMNO = "crm_no";
+	public static final String KEY_PRODUCT_NUMBER = "product_number";
+	public static final String KEY_PRODUCT_BRAND = "product_brand";
+	public static final String KEY_PRODUCT_DESCRIPTION = "product_description";
+	public static final String KEY_PRODUCT_PACKSIZE = "pack_size";
+	public static final String KEY_PRODUCT_BUSINESSUNIT = "business_unit";
+	public static final String KEY_PRODUCT_ISACTIVE = "is_active";
+	public static final String KEY_PRODUCT_CREATEDTIME = "created_time";
+	public static final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
+	public static final String KEY_PRODUCT_CREATEDBY = "created_by";
 
 	// Project Requirement
-	private final String KEY_PROJECTREQUIREMENTS_ROWID = "_id";
-	private final String KEY_PROJECTREQUIREMENTS_NO = "no";
-	private final String KEY_PROJECTREQUIREMENTS_CRMNO = "crm_no";
-	private final String KEY_PROJECTREQUIREMENTS_ACTIVITY = "activity";
-	private final String KEY_PROJECTREQUIREMENTS_TYPE = "project_requirement_type";
-	private final String KEY_PROJECTREQUIREMENTS_DATENEEDED = "date_needed";
-	private final String KEY_PROJECTREQUIREMENTS_SQUAREMETERS = "square_meters";
-	// private final String KEY_PROJECTREQUIREMENTS_PRODUCTSUSED =
+	public static final String KEY_PROJECTREQUIREMENTS_ROWID = "_id";
+	public static final String KEY_PROJECTREQUIREMENTS_NO = "no";
+	public static final String KEY_PROJECTREQUIREMENTS_CRMNO = "crm_no";
+	public static final String KEY_PROJECTREQUIREMENTS_ACTIVITY = "activity";
+	public static final String KEY_PROJECTREQUIREMENTS_TYPE = "project_requirement_type";
+	public static final String KEY_PROJECTREQUIREMENTS_DATENEEDED = "date_needed";
+	public static final String KEY_PROJECTREQUIREMENTS_SQUAREMETERS = "square_meters";
+	// public static final String KEY_PROJECTREQUIREMENTS_PRODUCTSUSED =
 	// "products_used";
-	private final String KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND = "products_brand";
-	private final String KEY_PROJECTREQUIREMENTS_OTHERDETAILS = "other_details";
-	private final String KEY_PROJECTREQUIREMENTS_CREATEDTIME = "created_time";
-	private final String KEY_PROJECTREQUIREMENTS_MODIFIEDTIME = "modified_time";
-	private final String KEY_PROJECTREQUIREMENTS_CREATEDBY = "created_by";
+	public static final String KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND = "products_brand";
+	public static final String KEY_PROJECTREQUIREMENTS_OTHERDETAILS = "other_details";
+	public static final String KEY_PROJECTREQUIREMENTS_CREATEDTIME = "created_time";
+	public static final String KEY_PROJECTREQUIREMENTS_MODIFIEDTIME = "modified_time";
+	public static final String KEY_PROJECTREQUIREMENTS_CREATEDBY = "created_by";
 
 	// SMR
-	private final String KEY_SMR_ROWID = "_id";
-	private final String KEY_SMR_NO = "no";
-	private final String KEY_SMR_CRMNO = "crm_no";
-	private final String KEY_SMR_FIRSTNAME = "firstname";
-	private final String KEY_SMR_LASTNAME = "lastname";
-	// private final String KEY_SMR_REGION = "region";
-	private final String KEY_SMR_AREA = "area";
-	private final String KEY_SMR_ISACTIVE = "is_active";
-	private final String KEY_SMR_BUSINESS_UNIT = "business_unit";
-	private final String KEY_SMR_CREATEDTIME = "created_time";
-	private final String KEY_SMR_MODIFIEDTIME = "modified_time";
-	private final String KEY_SMR_CREATED_BY = "created_by";
+	public static final String KEY_SMR_ROWID = "_id";
+	public static final String KEY_SMR_NO = "no";
+	public static final String KEY_SMR_CRMNO = "crm_no";
+	public static final String KEY_SMR_FIRSTNAME = "firstname";
+	public static final String KEY_SMR_LASTNAME = "lastname";
+	// public static final String KEY_SMR_REGION = "region";
+	public static final String KEY_SMR_AREA = "area";
+	public static final String KEY_SMR_ISACTIVE = "is_active";
+	public static final String KEY_SMR_BUSINESS_UNIT = "business_unit";
+	public static final String KEY_SMR_CREATEDTIME = "created_time";
+	public static final String KEY_SMR_MODIFIEDTIME = "modified_time";
+	public static final String KEY_SMR_CREATED_BY = "created_by";
 
 	// // SMR Time Card
-	// private final String KEY_SMRTIMECARD_ROWID = "_id";
-	// private final String KEY_SMRTIMECARD_NO = "no";
-	// private final String KEY_SMRTIMECARD_DATE = "date";
-	// private final String KEY_SMRTIMECARD_TIMESTAMP = "timestamp";
-	// private final String KEY_SMRTIMECARD_ENTRYTYPE = "entry_type";
-	// private final String KEY_SMRTIMECARD_CREATEDTIME = "created_time";
-	// private final String KEY_SMRTIMECARD_MODIFIEDTIME = "modified_time";
-	// private final String KEY_SMRTIMECARD_USER = "user";
-	// private final String KEY_SMRTIMECARD_CRMNO = "crm_no";
+	// public static final String KEY_SMRTIMECARD_ROWID = "_id";
+	// public static final String KEY_SMRTIMECARD_NO = "no";
+	// public static final String KEY_SMRTIMECARD_DATE = "date";
+	// public static final String KEY_SMRTIMECARD_TIMESTAMP = "timestamp";
+	// public static final String KEY_SMRTIMECARD_ENTRYTYPE = "entry_type";
+	// public static final String KEY_SMRTIMECARD_CREATEDTIME = "created_time";
+	// public static final String KEY_SMRTIMECARD_MODIFIEDTIME =
+	// "modified_time";
+	// public static final String KEY_SMRTIMECARD_USER = "user";
+	// public static final String KEY_SMRTIMECARD_CRMNO = "crm_no";
 
 	// // Supplier
-	// private final String KEY_SUPPLIER_ROWID = "_id";
-	// private final String KEY_SUPPLIER_NO = "no";
-	// private final String KEY_SUPPLIER_NAME = "supplier_name";
-	// private final String KEY_SUPPLIER_LANDLINE = "supplier_landline";
-	// private final String KEY_SUPPLIER_ADDRESS = "supplier_address";
-	// private final String KEY_SUPPLIER_CREDITLINE = "credit_line";
-	// private final String KEY_SUPPLIER_CREDITTERM = "credit_term";
-	// private final String KEY_SUPPLIER_CONTACTPERSON = "contact_person";
-	// private final String KEY_SUPPLIER_ISACTIVE = "is_active";
-	// private final String KEY_SUPPLIER_CREATEDTIME = "created_time";
-	// private final String KEY_SUPPLIER_MODIFIEDTIME = "modified_time";
-	// private final String KEY_SUPPLIER_USER = "user";
-	// private final String KEY_SUPPLIER_CRMNO = "crm_no";
+	// public static final String KEY_SUPPLIER_ROWID = "_id";
+	// public static final String KEY_SUPPLIER_NO = "no";
+	// public static final String KEY_SUPPLIER_NAME = "supplier_name";
+	// public static final String KEY_SUPPLIER_LANDLINE = "supplier_landline";
+	// public static final String KEY_SUPPLIER_ADDRESS = "supplier_address";
+	// public static final String KEY_SUPPLIER_CREDITLINE = "credit_line";
+	// public static final String KEY_SUPPLIER_CREDITTERM = "credit_term";
+	// public static final String KEY_SUPPLIER_CONTACTPERSON = "contact_person";
+	// public static final String KEY_SUPPLIER_ISACTIVE = "is_active";
+	// public static final String KEY_SUPPLIER_CREATEDTIME = "created_time";
+	// public static final String KEY_SUPPLIER_MODIFIEDTIME = "modified_time";
+	// public static final String KEY_SUPPLIER_USER = "user";
+	// public static final String KEY_SUPPLIER_CRMNO = "crm_no";
 
 	// Workplan Entry
-	private final String KEY_WORKPLANENTRY_ROWID = "_id";
-	private final String KEY_WORKPLANENTRY_NO = "no";
-	private final String KEY_WORKPLANENTRY_CRMNO = "crm_no";
-	// private final String KEY_WORKPLANENTRY_CUSTOMER = "customer";
-	private final String KEY_WORKPLANENTRY_DATE = "date";
-	private final String KEY_WORKPLANENTRY_STATUS = "status";
-	private final String KEY_WORKPLANENTRY_AREA = "area";
-	private final String KEY_WORKPLANENTRY_PROVINCE = "province";
-	private final String KEY_WORKPLANENTRY_CITY = "city";
-	private final String KEY_WORKPLANENTRY_ACTIVITYTYPE = "activity_type";
-	private final String KEY_WORKPLANENTRY_REMARKS = "remarks";
-	private final String KEY_WORKPLANENTRY_WORKPLAN = "workplan";
-	private final String KEY_WORKPLANENTRY_ACTIVITYQUANTITY = "activity_quantity";
-	private final String KEY_WORKPLANENTRY_BUSINESSUNIT = "business_unit";
-	private final String KEY_WORKPLANENTRY_CREATEDTIME = "created_time";
-	private final String KEY_WORKPLANENTRY_MODIFIEDTIME = "modified_time";
-	private final String KEY_WORKPLANENTRY_CREATEDBY = "created_by";
+	public static final String KEY_WORKPLANENTRY_ROWID = "_id";
+	public static final String KEY_WORKPLANENTRY_NO = "no";
+	public static final String KEY_WORKPLANENTRY_CRMNO = "crm_no";
+	// public static final String KEY_WORKPLANENTRY_CUSTOMER = "customer";
+	public static final String KEY_WORKPLANENTRY_DATE = "date";
+	public static final String KEY_WORKPLANENTRY_STATUS = "status";
+	public static final String KEY_WORKPLANENTRY_AREA = "area";
+	public static final String KEY_WORKPLANENTRY_PROVINCE = "province";
+	public static final String KEY_WORKPLANENTRY_CITY = "city";
+	public static final String KEY_WORKPLANENTRY_ACTIVITYTYPE = "activity_type";
+	public static final String KEY_WORKPLANENTRY_REMARKS = "remarks";
+	public static final String KEY_WORKPLANENTRY_WORKPLAN = "workplan";
+	public static final String KEY_WORKPLANENTRY_ACTIVITYQUANTITY = "activity_quantity";
+	public static final String KEY_WORKPLANENTRY_BUSINESSUNIT = "business_unit";
+	public static final String KEY_WORKPLANENTRY_CREATEDTIME = "created_time";
+	public static final String KEY_WORKPLANENTRY_MODIFIEDTIME = "modified_time";
+	public static final String KEY_WORKPLANENTRY_CREATEDBY = "created_by";
 
 	// Workplan
-	private final String KEY_WORKPLAN_ROWID = "_id";
-	private final String KEY_WORKPLAN_NO = "no";
-	private final String KEY_WORKPLAN_CRMNO = "crm_no";
-	private final String KEY_WORKPLAN_FROMDATE = "from_date";
-	private final String KEY_WORKPLAN_TODATE = "to_date";
-	// private final String KEY_WORKPLAN_STATUS = "status"; removed
-	private final String KEY_WORKPLAN_CREATEDTIME = "created_time";
-	private final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
-	private final String KEY_WORKPLAN_CREATEDBY = "created_by";
+	public static final String KEY_WORKPLAN_ROWID = "_id";
+	public static final String KEY_WORKPLAN_NO = "no";
+	public static final String KEY_WORKPLAN_CRMNO = "crm_no";
+	public static final String KEY_WORKPLAN_FROMDATE = "from_date";
+	public static final String KEY_WORKPLAN_TODATE = "to_date";
+	// public static final String KEY_WORKPLAN_STATUS = "status"; removed
+	public static final String KEY_WORKPLAN_CREATEDTIME = "created_time";
+	public static final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
+	public static final String KEY_WORKPLAN_CREATEDBY = "created_by";
 
 	// Marketing Materials
-	private final String KEY_MARKETINGMATERIALS_ROWID = "_id";
-	private final String KEY_MARKETINGMATERIALS_NO = "no";
-	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
-	private final String KEY_MARKETINGMATERIALS_DESCRIPTION = "description";
-	private final String KEY_MARKETINGMATERIALS_LASTUPDATE = "last_update";
-	private final String KEY_MARKETINGMATERIALS_TAGS = "tags";
-	private final String KEY_MARKETINGMATERIALS_BUSINESSUNIT = "business_unit";
-	private final String KEY_MARKETINGMATERIALS_ISNEW = "is_new";
-	private final String KEY_MARKETINGMATERIALS_ISACTIVE = "is_active";
-	private final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
-	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
+	public static final String KEY_MARKETINGMATERIALS_ROWID = "_id";
+	public static final String KEY_MARKETINGMATERIALS_NO = "no";
+	public static final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
+	public static final String KEY_MARKETINGMATERIALS_DESCRIPTION = "description";
+	public static final String KEY_MARKETINGMATERIALS_LASTUPDATE = "last_update";
+	public static final String KEY_MARKETINGMATERIALS_TAGS = "tags";
+	public static final String KEY_MARKETINGMATERIALS_BUSINESSUNIT = "business_unit";
+	public static final String KEY_MARKETINGMATERIALS_ISNEW = "is_new";
+	public static final String KEY_MARKETINGMATERIALS_ISACTIVE = "is_active";
+	public static final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
+	public static final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
+	public static final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
 
 	// JDI Merchandising
-	private final String KEY_JDIMERCHANDISING_ROWID = "_id";
-	private final String KEY_JDIMERCHANDISING_NO = "no";
-	private final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
-	private final String KEY_JDIMERCHANDISING_ACTIVITY = "activity";
-	private final String KEY_JDIMERCHANDISING_PRODUCTBRAND = "product_brand";
-	private final String KEY_JDIMERCHANDISING_STATUS = "status";
-	private final String KEY_JDIMERCHANDISING_CREATEDTIME = "created_time";
-	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIMERCHANDISING_CREATEDBY = "created_by";
+	public static final String KEY_JDIMERCHANDISING_ROWID = "_id";
+	public static final String KEY_JDIMERCHANDISING_NO = "no";
+	public static final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
+	public static final String KEY_JDIMERCHANDISING_ACTIVITY = "activity";
+	public static final String KEY_JDIMERCHANDISING_PRODUCTBRAND = "product_brand";
+	public static final String KEY_JDIMERCHANDISING_STATUS = "status";
+	public static final String KEY_JDIMERCHANDISING_CREATEDTIME = "created_time";
+	public static final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
+	public static final String KEY_JDIMERCHANDISING_CREATEDBY = "created_by";
+
+	// Documents
+	public static final String KEY_DOCUMENT_ROWID = "_id";
+	public static final String KEY_DOCUMENT_NO = "no";
+	public static final String KEY_DOCUMENT_TITLE = "title";
+	public static final String KEY_DOCUMENT_MODULENAME = "module_name";
+	public static final String KEY_DOCUMENT_MODULEID = "module_id";
+	public static final String KEY_DOCUMENT_FILENAME = "file_name";
+	public static final String KEY_DOCUMENT_FILETYPE = "file_type";
+	public static final String KEY_DOCUMENT_FILEPATH = "file_path";
+	public static final String KEY_DOCUMENT_ISACTIVE = "is_active";
+	public static final String KEY_DOCUMENT_CREATEDTIME = "created_time";
+	public static final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
+	public static final String KEY_DOCUMENT_USER = "user";
+	public static final String KEY_DOCUMENT_CRMNO = "crm_no";
+
+	// Calendar
+	public static final String KEY_CALENDAR_ROWID = "_id";
+	public static final String KEY_CALENDAR_ACTIVITYTYPE = "activitytype";
+	public static final String KEY_CALENDAR_DATESTART = "date_start";
+	public static final String KEY_CALENDAR_DUEDATE = "due_date";
+	public static final String KEY_CALENDAR_DESCRIPTION = "description";
+	public static final String KEY_CALENDAR_SUBJECT = "subject";
+	public static final String KEY_CALENDAR_TIMESTART = "time_start";
+	public static final String KEY_CALENDAR_TIMEEND = "time_end";
+	public static final String KEY_CALENDAR_ACTIVITY = "activity";
+	public static final String KEY_CALENDAR_CREATEDTIME = "created_time";
+	public static final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
+	public static final String KEY_CALENDAR_USER = "user";
+
+	// Product Focus
+	public static final String KEY_PRODUCTFOCUS_ROWID = "_id";
+	public static final String KEY_PRODUCTFOCUS_PRODUCT = "product";
+	public static final String KEY_PRODUCTFOCUS_ACTIVITY = "activity";
+
+	// Product Supplier
+	public static final String KEY_PRODUCTSUPPLIER_ROWID = "_id";
+	public static final String KEY_PRODUCTSUPPLIER_NO = "no";
+	public static final String KEY_PRODUCTSUPPLIER_CRMNO = "crm_no";
+	public static final String KEY_PRODUCTSUPPLIER_PRODUCTBRAND = "product_brand";
+	public static final String KEY_PRODUCTSUPPLIER_SUPPLIER = "supplier";
+	public static final String KEY_PRODUCTSUPPLIER_OTHERREMARKS = "others_remarks";
+	public static final String KEY_PRODUCTSUPPLIER_ACTIVITY = "activity";
+	public static final String KEY_PRODUCTSUPPLIER_CREATEDBY = "created_by";
+	public static final String KEY_PRODUCTSUPPLIER_CREATEDTIME = "created_time";
+	public static final String KEY_PRODUCTSUPPLIER_MODIFIEDTIME = "modified_time";
+
+	// Sales Protocol
+	public static final String KEY_SALESPROTOCOL_ROWID = "_id";
+	public static final String KEY_SALESPROTOCOL_NO = "no";
+	public static final String KEY_SALESPROTOCOL_CRMNO = "crm_no";
+	public static final String KEY_SALESPROTOCOL_BUSINESSUNIT = "business_unit";
+	public static final String KEY_SALESPROTOCOL_DESCRIPTION = "description";
+	public static final String KEY_SALESPROTOCOL_LASTUPDATE = "last_update";
+	public static final String KEY_SALESPROTOCOL_TAGS = "tags";
+	public static final String KEY_SALESPROTOCOL_PROTOCOLTYPE = "protocol_type";
+	public static final String KEY_SALESPROTOCOL_ISACTIVE = "is_active";
+	public static final String KEY_SALESPROTOCOL_CREATEDBY = "created_by";
+	public static final String KEY_SALESPROTOCOL_CREATEDTIME = "created_time";
+	public static final String KEY_SALESPROTOCOL_MODIFIEDTIME = "modified_time";
 
 	// Picklists
-	private final String KEY_PICKLISTS_ROWID = "_id";
-	private final String KEY_PICKLISTS_NAME = "name";
+	public static final String KEY_PICKLISTS_ROWID = "_id";
+	public static final String KEY_PICKLISTS_NAME = "name";
 
 	// // Picklist Activitytype Type
-	// private final String KEY_ACTIVITYTYPE_TYPE_ROWID = "_id";
-	// private final String KEY_ACTIVITYTYPE_TYPE_NAME = "name";
-	// private final String KEY_ACTIVITYTYPE_TYPE_CATEGORY =
+	// public static final String KEY_ACTIVITYTYPE_TYPE_ROWID = "_id";
+	// public static final String KEY_ACTIVITYTYPE_TYPE_NAME = "name";
+	// public static final String KEY_ACTIVITYTYPE_TYPE_CATEGORY =
 	// "activity_category";
 
 	// Location Province
-	private final String KEY_PROVINCE_ROWID = "_id";
-	private final String KEY_PROVINCE_NAME = "name";
-	private final String KEY_PROVINCE_AREA = "area";
+	public static final String KEY_PROVINCE_ROWID = "_id";
+	public static final String KEY_PROVINCE_NAME = "name";
+	public static final String KEY_PROVINCE_AREA = "area";
 
 	// Location CityTown
-	private final String KEY_CITYTOWN_ROWID = "_id";
-	private final String KEY_CITYTOWN_NAME = "name";
-	private final String KEY_CITYTOWN_PROVINCE = "province";
-
-	// Documents
-	private final String KEY_DOCUMENT_ROWID = "_id";
-	private final String KEY_DOCUMENT_NO = "no";
-	private final String KEY_DOCUMENT_TITLE = "title";
-	private final String KEY_DOCUMENT_MODULENAME = "module_name";
-	private final String KEY_DOCUMENT_MODULEID = "module_id";
-	private final String KEY_DOCUMENT_FILENAME = "file_name";
-	private final String KEY_DOCUMENT_FILETYPE = "file_type";
-	private final String KEY_DOCUMENT_FILEPATH = "file_path";
-	private final String KEY_DOCUMENT_ISACTIVE = "is_active";
-	private final String KEY_DOCUMENT_CREATEDTIME = "created_time";
-	private final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
-	private final String KEY_DOCUMENT_USER = "user";
-	private final String KEY_DOCUMENT_CRMNO = "crm_no";
-
-	// Calendar
-	private final String KEY_CALENDAR_ROWID = "_id";
-	private final String KEY_CALENDAR_ACTIVITYTYPE = "activitytype";
-	private final String KEY_CALENDAR_DATESTART = "date_start";
-	private final String KEY_CALENDAR_DUEDATE = "due_date";
-	private final String KEY_CALENDAR_DESCRIPTION = "description";
-	private final String KEY_CALENDAR_SUBJECT = "subject";
-	private final String KEY_CALENDAR_TIMESTART = "time_start";
-	private final String KEY_CALENDAR_TIMEEND = "time_end";
-	private final String KEY_CALENDAR_ACTIVITY = "activity";
-	private final String KEY_CALENDAR_CREATEDTIME = "created_time";
-	private final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
-	private final String KEY_CALENDAR_USER = "user";
+	public static final String KEY_CITYTOWN_ROWID = "_id";
+	public static final String KEY_CITYTOWN_NAME = "name";
+	public static final String KEY_CITYTOWN_PROVINCE = "province";
 
 	// ===========================================================
 	// Table Create String
@@ -484,61 +522,69 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_WORKPLAN = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_MATERIALS = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s real, %s integer, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s real, %s real, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
-	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CALENDAR = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
+	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
+	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 
 	// ===========================================================
 	// Public static field
 	// ===========================================================
 
-	private static final String USER_TABLE = "User";
-	private static final String ACTIVITY_TABLE = "Activity";
-	private static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
-	private static final String BUSINESS_UNIT_TABLE = "Business_Unit";
-	private static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
-	private static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
-	// private static final String COMPETITOR_TABLE = "Competitor";
-	private static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
-	private static final String CUSTOMER_TABLE = "Customer";
-	private static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
-	private static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
-	private static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
-	private static final String PRODUCT_TABLE = "Product";
-	private static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
-	private static final String SMR_TABLE = "SMR";
-	// private static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
-	// private static final String SUPPLIER_TABLE = "Supplier";
-	private static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
-	private static final String WORKPLAN_TABLE = "Workplan";
-	private static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
-	private static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
-	private static final String DOCUMENT_TABLE = "Document";
-	private static final String CALENDAR_TABLE = "Calendar";
+	public static final String USER_TABLE = "User";
+	public static final String ACTIVITY_TABLE = "Activity";
+	public static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
+	public static final String BUSINESS_UNIT_TABLE = "Business_Unit";
+	public static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
+	public static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
+	// public static final String COMPETITOR_TABLE = "Competitor";
+	public static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
+	public static final String CUSTOMER_TABLE = "Customer";
+	public static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
+	public static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
+	public static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
+	public static final String PRODUCT_TABLE = "Product";
+	public static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
+	public static final String SMR_TABLE = "SMR";
+	// public static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
+	// public static final String SUPPLIER_TABLE = "Supplier";
+	public static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
+	public static final String WORKPLAN_TABLE = "Workplan";
+	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
+	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
+	public static final String DOCUMENT_TABLE = "Document";
+	public static final String CALENDAR_TABLE = "Calendar";
+	public static final String PRODUCT_FOCUS_TABLE = "Product_Focus";
+	public static final String PRODUCT_SUPPLIER_TABLE = "Product_Supplier";
+	public static final String SALES_PROTOCOL_TABLE = "Sales_Protocol";
 
 	// Picklists
-	private static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
-	private static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
-	private static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
-	// private static final String ACTIVITYTYPE_TYPE_TABLE =
+	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
+	public static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
+	public static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
+	// public static final String ACTIVITYTYPE_TYPE_TABLE =
 	// "ActivityType_Type";
-	private static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
-	private static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
-	private static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
-	private static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
-	private static final String CUSTOMER_RECORD_STATUS_TABLE = "Customer_Record_Status";
-	private static final String EVENT_TYPE_TABLE = "Event_Type";
-	private static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
-	private static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
-	private static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
-	private static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
-	private static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
+	public static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
+	public static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
+	public static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
+	public static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
+	public static final String CUSTOMER_RECORD_STATUS_TABLE = "Customer_Record_Status";
+	public static final String EVENT_TYPE_TABLE = "Event_Type";
+	public static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
+	public static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
+	public static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
+	public static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
+	public static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
+	public static final String ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE = "Enduser_Activity_Type";
+	public static final String SALES_PROTOCOL_TYPE_TABLE = "Sales_Protocol_Type";
 
 	// Location
-	private static final String AREA_TABLE = "Area";
-	private static final String CITYTOWN_TABLE = "City_Town";
-	private static final String PROVINCE_TABLE = "Province";
+	public static final String AREA_TABLE = "Area";
+	public static final String CITYTOWN_TABLE = "City_Town";
+	public static final String PROVINCE_TABLE = "Province";
 
 	// ===========================================================
 	// Private fields
@@ -570,6 +616,9 @@ public class DatabaseAdapter {
 	private JDImerchandisingCheckTable mJDImerchandisingCheck;
 	private DocumentTable mDocument;
 	private CalendarTable mCalendar;
+	private ProductFocusTable mProductFocus;
+	private ProductSupplierTable mProductSupplier;
+	private SalesProtocolTable mSalesProtocol;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -587,6 +636,8 @@ public class DatabaseAdapter {
 	private PProjReqTypeTable mProjectRequirementType;
 	private PSMRentryTypeTable mSMRentryType;
 	private PWorkEntryStatusTable mWorkplanEntryStatus;
+	private PactEndUserActTypeTable mActivityEndUserActType;
+	private PSalesProtocolTypeTable mSalesProtocolTypeTable;
 
 	// Location
 	private PAreaTable mArea;
@@ -921,6 +972,44 @@ public class DatabaseAdapter {
 					WORKPLAN_ENTRY_STATUS_TABLE);
 		}
 		return mWorkplanEntryStatus;
+	}
+
+	public PactEndUserActTypeTable getActEndUserActivityType() {
+		if (mActivityEndUserActType == null) {
+			mActivityEndUserActType = new PactEndUserActTypeTable(mDb,
+					ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE);
+		}
+		return mActivityEndUserActType;
+	}
+
+	public PSalesProtocolTypeTable getSalesProtocolType() {
+		if (mSalesProtocolTypeTable == null) {
+			mSalesProtocolTypeTable = new PSalesProtocolTypeTable(mDb,
+					SALES_PROTOCOL_TYPE_TABLE);
+		}
+		return mSalesProtocolTypeTable;
+	}
+
+	public ProductFocusTable getProductFocus() {
+		if (mProductFocus == null) {
+			mProductFocus = new ProductFocusTable(mDb, PRODUCT_FOCUS_TABLE);
+		}
+		return mProductFocus;
+	}
+
+	public ProductSupplierTable getProductSupplier() {
+		if (mProductSupplier == null) {
+			mProductSupplier = new ProductSupplierTable(mDb,
+					PRODUCT_SUPPLIER_TABLE);
+		}
+		return mProductSupplier;
+	}
+
+	public SalesProtocolTable getSalesProtocol() {
+		if (mSalesProtocol == null) {
+			mSalesProtocol = new SalesProtocolTable(mDb, SALES_PROTOCOL_TABLE);
+		}
+		return mSalesProtocol;
 	}
 
 	// Location
@@ -1319,6 +1408,39 @@ public class DatabaseAdapter {
 					KEY_CALENDAR_USER, KEY_CALENDAR_ACTIVITY, ACTIVITY_TABLE,
 					KEY_ACTIVITY_ROWID, KEY_DOCUMENT_USER, USER_TABLE,
 					KEY_USER_ROWID);
+			String productFocus = String.format(TABLE_CREATE_PRODUCTFOCUS,
+					PRODUCT_FOCUS_TABLE, KEY_PRODUCTFOCUS_ROWID,
+					KEY_PRODUCTFOCUS_PRODUCT, KEY_PRODUCTFOCUS_ACTIVITY,
+					KEY_PRODUCTFOCUS_PRODUCT, PRODUCT_TABLE, KEY_PRODUCT_ROWID,
+					KEY_PRODUCTFOCUS_ACTIVITY, ACTIVITY_TABLE,
+					KEY_ACTIVITY_ROWID);
+			String productSupplier = String.format(
+					TABLE_CREATE_PRODUCTSUPPLIER, PRODUCT_SUPPLIER_TABLE,
+					KEY_PRODUCTSUPPLIER_ROWID, KEY_PRODUCTSUPPLIER_NO,
+					KEY_PRODUCTSUPPLIER_CRMNO,
+					KEY_PRODUCTSUPPLIER_PRODUCTBRAND,
+					KEY_PRODUCTSUPPLIER_SUPPLIER,
+					KEY_PRODUCTSUPPLIER_OTHERREMARKS,
+					KEY_PRODUCTFOCUS_ACTIVITY, KEY_PRODUCTSUPPLIER_CREATEDBY,
+					KEY_PRODUCTSUPPLIER_CREATEDTIME,
+					KEY_PRODUCTSUPPLIER_MODIFIEDTIME,
+					KEY_PRODUCTSUPPLIER_SUPPLIER, CUSTOMER_TABLE,
+					KEY_CUSTOMER_ROWID, KEY_PRODUCTSUPPLIER_ACTIVITY,
+					ACTIVITY_TABLE, KEY_ACTIVITY_ROWID,
+					KEY_PRODUCTSUPPLIER_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
+			String salesProtocol = String.format(TABLE_CREATE_SALESPROTOCOLS,
+					SALES_PROTOCOL_TABLE, KEY_SALESPROTOCOL_ROWID,
+					KEY_SALESPROTOCOL_NO, KEY_SALESPROTOCOL_CRMNO,
+					KEY_SALESPROTOCOL_BUSINESSUNIT,
+					KEY_SALESPROTOCOL_DESCRIPTION,
+					KEY_SALESPROTOCOL_LASTUPDATE, KEY_SALESPROTOCOL_TAGS,
+					KEY_SALESPROTOCOL_PROTOCOLTYPE, KEY_SALESPROTOCOL_ISACTIVE,
+					KEY_SALESPROTOCOL_CREATEDBY, KEY_SALESPROTOCOL_CREATEDTIME,
+					KEY_SALESPROTOCOL_MODIFIEDTIME,
+					KEY_SALESPROTOCOL_BUSINESSUNIT, BUSINESS_UNIT_TABLE,
+					KEY_BUSINESSUNIT_ROWID, KEY_SALESPROTOCOL_PROTOCOLTYPE,
+					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_SALESPROTOCOL_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
 
 			db.execSQL(user);
 			db.execSQL(TABLE_CREATE_ACTIVITY);
@@ -1343,6 +1465,9 @@ public class DatabaseAdapter {
 			db.execSQL(jdiMerchandising);
 			db.execSQL(document);
 			db.execSQL(calendar);
+			db.execSQL(productFocus);
+			db.execSQL(productSupplier);
+			db.execSQL(salesProtocol);
 
 			// Picklists
 
@@ -1393,6 +1518,13 @@ public class DatabaseAdapter {
 			String workplanentryStatus = String.format(TABLE_CREATE_PICKLISTS,
 					WORKPLAN_ENTRY_STATUS_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PICKLISTS_NAME);
+			String salesProtocolType = String.format(TABLE_CREATE_PICKLISTS,
+					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_PICKLISTS_NAME);
+			String actEndUserActivityType = String.format(
+					TABLE_CREATE_PICKLISTS,
+					ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_PICKLISTS_NAME);
 			db.execSQL(activityProjectCategory);
 			db.execSQL(activityProjectStage);
 			db.execSQL(activitytypeCategory);
@@ -1408,6 +1540,8 @@ public class DatabaseAdapter {
 			db.execSQL(projectRequirementsType);
 			db.execSQL(smrTimecardEntry);
 			db.execSQL(workplanentryStatus);
+			db.execSQL(salesProtocolType);
+			db.execSQL(actEndUserActivityType);
 
 			// Location
 			String area = String.format(TABLE_CREATE_PICKLISTS, AREA_TABLE,

@@ -204,10 +204,9 @@ public class PJDImerchCheckStatusTable {
 		}
 	}
 
-	public boolean update(long id, String no, long category, int isActive,
-			long user) {
+	public boolean update(long id, String name) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME, no);
+		args.put(KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME, name);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);

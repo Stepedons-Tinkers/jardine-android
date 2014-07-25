@@ -41,7 +41,6 @@ public class PicklistRecord {
 
 	@Override
 	public String toString() {
-
 		return this.name;
 	}
 

@@ -139,4 +139,9 @@ public class CompetitorProductRecord {
 	public long getCreatedBy() {
 		return this.created_by;
 	}
+	
+	@Override
+	public String toString() {
+		return this.product_brand;
+	}
 }

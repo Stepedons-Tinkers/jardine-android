@@ -45,6 +45,9 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 	
+	private Bundle bundle;
+	private int frag_layout_id;
+	
 	public JDIMerchandisingCheckFragment() {
 		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
 	}
@@ -58,6 +61,12 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check, container, false);
 		setListData();
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 		
 		((Button) this.myFragmentView.findViewById(R.id.add_btn_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
 
@@ -74,7 +83,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
+				transaction.replace(frag_layout_id, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction

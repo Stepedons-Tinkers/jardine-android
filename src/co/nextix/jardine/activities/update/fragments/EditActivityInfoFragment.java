@@ -3,6 +3,7 @@ package co.nextix.jardine.activities.update.fragments;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,6 +18,9 @@ import co.nextix.jardine.database.records.ActivityRecord;
 public class EditActivityInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+	
+	private int frag_layout_id;
+	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -24,6 +28,12 @@ public class EditActivityInfoFragment extends Fragment {
 		View myFragmentView = inflater.inflate(R.layout.fragment_start_activity, container, false);
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
 //		((TextView) myFragmentView.findViewById(R.id.workplan)).setText(String.valueOf(this.activityRecord.getWorkplan()));
@@ -68,7 +78,7 @@ public class EditActivityInfoFragment extends Fragment {
 
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+				fragmentTransaction.replace(frag_layout_id, myFragment);
 				fragmentTransaction.commit();
 			}
 		});
