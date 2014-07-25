@@ -50,7 +50,6 @@
                 android:gravity="center"
                 android:inputType="textMultiLine"
                 android:visibility="invisible" />
-
         </RelativeLayout>
 
         <ImageButton
@@ -128,21 +127,22 @@
                     android:background="#000000"
                     android:orientation="horizontal" >
 
-                    <HorizontalScrollView
+                    <LinearLayout
+                        android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
+                        android:layout_height="wrap_content"
+                        android:layout_weight="5" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -153,24 +153,16 @@
                             android:text="@string/crm_no"
                             android:textColor="#000"
                             android:textSize="14dp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/customer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -181,23 +173,15 @@
                             android:text="@string/workplan_info_workplan"
                             android:textColor="#000"
                             android:textSize="14dp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -208,24 +192,16 @@
                             android:text="@string/activity_type"
                             android:textColor="#000"
                             android:textSize="14dp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/activity_type"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -236,24 +212,16 @@
                             android:text="@string/start_time"
                             android:textColor="#000"
                             android:textSize="14dp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
 
                         <TextView
                             android:id="@+id/assigned_to"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -265,25 +233,15 @@
                             android:textColor="#000"
                             android:textSize="14dp" />
 
-                        <requestFocus />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:clickable="false"
-                        android:focusable="false"
-                        android:focusableInTouchMode="false" >
-
                         <TextView
                             android:id="@+id/assigned_to"
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:clickable="false"
                             android:focusable="false"
                             android:focusableInTouchMode="false"
@@ -295,10 +253,8 @@
                             android:textColor="#000"
                             android:textSize="14dp" />
 
-                        <requestFocus />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
+                        <!--
+                         <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
@@ -324,6 +280,8 @@
                             android:textColor="#000"
                             android:textSize="14dp" />
                     </HorizontalScrollView>
+                        -->
+                    </LinearLayout>
                 </TableRow>
 
                 <ListView
