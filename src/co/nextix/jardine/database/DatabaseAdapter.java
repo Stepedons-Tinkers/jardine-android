@@ -19,9 +19,12 @@ import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
+import co.nextix.jardine.database.tables.ProductFocusTable;
+import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.database.tables.SMRTable;
+import co.nextix.jardine.database.tables.SalesProtocolTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
@@ -41,7 +44,9 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
+import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
+import co.nextix.jardine.database.tables.picklists.PactEndUserActTypeTable;
 
 public class DatabaseAdapter {
 
@@ -366,26 +371,6 @@ public class DatabaseAdapter {
 	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
 	private final String KEY_JDIMERCHANDISING_CREATEDBY = "created_by";
 
-	// Picklists
-	private final String KEY_PICKLISTS_ROWID = "_id";
-	private final String KEY_PICKLISTS_NAME = "name";
-
-	// // Picklist Activitytype Type
-	// private final String KEY_ACTIVITYTYPE_TYPE_ROWID = "_id";
-	// private final String KEY_ACTIVITYTYPE_TYPE_NAME = "name";
-	// private final String KEY_ACTIVITYTYPE_TYPE_CATEGORY =
-	// "activity_category";
-
-	// Location Province
-	private final String KEY_PROVINCE_ROWID = "_id";
-	private final String KEY_PROVINCE_NAME = "name";
-	private final String KEY_PROVINCE_AREA = "area";
-
-	// Location CityTown
-	private final String KEY_CITYTOWN_ROWID = "_id";
-	private final String KEY_CITYTOWN_NAME = "name";
-	private final String KEY_CITYTOWN_PROVINCE = "province";
-
 	// Documents
 	private final String KEY_DOCUMENT_ROWID = "_id";
 	private final String KEY_DOCUMENT_NO = "no";
@@ -414,6 +399,57 @@ public class DatabaseAdapter {
 	private final String KEY_CALENDAR_CREATEDTIME = "created_time";
 	private final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
 	private final String KEY_CALENDAR_USER = "user";
+
+	// Product Focus
+	private final String KEY_PRODUCTFOCUS_ROWID = "_id";
+	private final String KEY_PRODUCTFOCUS_PRODUCT = "product";
+	private final String KEY_PRODUCTFOCUS_ACTIVITY = "activity";
+
+	// Product Supplier
+	private final String KEY_PRODUCTSUPPLIER_ROWID = "_id";
+	private final String KEY_PRODUCTSUPPLIER_NO = "no";
+	private final String KEY_PRODUCTSUPPLIER_CRMNO = "crm_no";
+	private final String KEY_PRODUCTSUPPLIER_PRODUCTBRAND = "product_brand";
+	private final String KEY_PRODUCTSUPPLIER_SUPPLIER = "supplier";
+	private final String KEY_PRODUCTSUPPLIER_OTHERREMARKS = "others_remarks";
+	private final String KEY_PRODUCTSUPPLIER_ACTIVITY = "activity";
+	private final String KEY_PRODUCTSUPPLIER_CREATEDBY = "created_by";
+	private final String KEY_PRODUCTSUPPLIER_CREATEDTIME = "created_time";
+	private final String KEY_PRODUCTSUPPLIER_MODIFIEDTIME = "modified_time";
+
+	// Sales Protocol
+	private final String KEY_SALESPROTOCOL_ROWID = "_id";
+	private final String KEY_SALESPROTOCOL_NO = "no";
+	private final String KEY_SALESPROTOCOL_CRMNO = "crm_no";
+	private final String KEY_SALESPROTOCOL_BUSINESSUNIT = "business_unit";
+	private final String KEY_SALESPROTOCOL_DESCRIPTION = "description";
+	private final String KEY_SALESPROTOCOL_LASTUPDATE = "last_update";
+	private final String KEY_SALESPROTOCOL_TAGS = "tags";
+	private final String KEY_SALESPROTOCOL_PROTOCOLTYPE = "protocol_type";
+	private final String KEY_SALESPROTOCOL_ISACTIVE = "is_active";
+	private final String KEY_SALESPROTOCOL_CREATEDBY = "created_by";
+	private final String KEY_SALESPROTOCOL_CREATEDTIME = "created_time";
+	private final String KEY_SALESPROTOCOL_MODIFIEDTIME = "modified_time";
+
+	// Picklists
+	private final String KEY_PICKLISTS_ROWID = "_id";
+	private final String KEY_PICKLISTS_NAME = "name";
+
+	// // Picklist Activitytype Type
+	// private final String KEY_ACTIVITYTYPE_TYPE_ROWID = "_id";
+	// private final String KEY_ACTIVITYTYPE_TYPE_NAME = "name";
+	// private final String KEY_ACTIVITYTYPE_TYPE_CATEGORY =
+	// "activity_category";
+
+	// Location Province
+	private final String KEY_PROVINCE_ROWID = "_id";
+	private final String KEY_PROVINCE_NAME = "name";
+	private final String KEY_PROVINCE_AREA = "area";
+
+	// Location CityTown
+	private final String KEY_CITYTOWN_ROWID = "_id";
+	private final String KEY_CITYTOWN_NAME = "name";
+	private final String KEY_CITYTOWN_PROVINCE = "province";
 
 	// ===========================================================
 	// Table Create String
@@ -484,61 +520,69 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_WORKPLAN = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_MATERIALS = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s real, %s integer, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s real, %s real, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
-	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CALENDAR = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
+	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
+	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 
 	// ===========================================================
 	// Public static field
 	// ===========================================================
 
-	private static final String USER_TABLE = "User";
-	private static final String ACTIVITY_TABLE = "Activity";
-	private static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
-	private static final String BUSINESS_UNIT_TABLE = "Business_Unit";
-	private static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
-	private static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
-	// private static final String COMPETITOR_TABLE = "Competitor";
-	private static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
-	private static final String CUSTOMER_TABLE = "Customer";
-	private static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
-	private static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
-	private static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
-	private static final String PRODUCT_TABLE = "Product";
-	private static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
-	private static final String SMR_TABLE = "SMR";
-	// private static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
-	// private static final String SUPPLIER_TABLE = "Supplier";
-	private static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
-	private static final String WORKPLAN_TABLE = "Workplan";
-	private static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
-	private static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
-	private static final String DOCUMENT_TABLE = "Document";
-	private static final String CALENDAR_TABLE = "Calendar";
+	public static final String USER_TABLE = "User";
+	public static final String ACTIVITY_TABLE = "Activity";
+	public static final String ACTIVITY_TYPE_TABLE = "Activity_Type";
+	public static final String BUSINESS_UNIT_TABLE = "Business_Unit";
+	public static final String COMPETITOR_PRODUCT_TABLE = "Competitor_Product";
+	public static final String COMPETITOR_PRODUCT_STOCK_CHECK_TABLE = "Competitor_Product_Stock_Check";
+	// public static final String COMPETITOR_TABLE = "Competitor";
+	public static final String CUSTOMER_CONTACT_TABLE = "Customer_Contact";
+	public static final String CUSTOMER_TABLE = "Customer";
+	public static final String EVENT_PROTOCOL_TABLE = "Event_Protocol";
+	public static final String JDI_PRODUCT_STOCK_CHECK_TABLE = "JDI_Product_Stock_Check";
+	public static final String MARKETING_INTEL_TABLE = "Marketing_Intel";
+	public static final String PRODUCT_TABLE = "Product";
+	public static final String PROJECT_REQUIREMENTS_TABLE = "Project_Requirements";
+	public static final String SMR_TABLE = "SMR";
+	// public static final String SMR_TIMECARD_TABLE = "SMR_Time_Card";
+	// public static final String SUPPLIER_TABLE = "Supplier";
+	public static final String WORKPLAN_ENTRY_TABLE = "Workplan_Entry";
+	public static final String WORKPLAN_TABLE = "Workplan";
+	public static final String MARKETING_MATERIALS_TABLE = "Marketing_Materials";
+	public static final String JDI_MERCHANDISING_CHECK_TABLE = "JDI_Merchandising_Check";
+	public static final String DOCUMENT_TABLE = "Document";
+	public static final String CALENDAR_TABLE = "Calendar";
+	public static final String PRODUCT_FOCUS_TABLE = "Product_Focus";
+	public static final String PRODUCT_SUPPLIER_TABLE = "Product_Supplier";
+	public static final String SALES_PROTOCOL_TABLE = "Sales_Protocol";
 
 	// Picklists
-	private static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
-	private static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
-	private static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
-	// private static final String ACTIVITYTYPE_TYPE_TABLE =
+	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
+	public static final String ACTIVITY_PROJECT_STAGE_TABLE = "Activity_Project_Stage";
+	public static final String ACTIVITYTYPE_CATEGORY_TABLE = "ActivityType_Category";
+	// public static final String ACTIVITYTYPE_TYPE_TABLE =
 	// "ActivityType_Type";
-	private static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
-	private static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
-	private static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
-	private static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
-	private static final String CUSTOMER_RECORD_STATUS_TABLE = "Customer_Record_Status";
-	private static final String EVENT_TYPE_TABLE = "Event_Type";
-	private static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
-	private static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
-	private static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
-	private static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
-	private static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
+	public static final String COMPETITOR_PRODUCT_STOCKSTATUS_TABLE = "Competitor_Product_StockStatus";
+	public static final String CUSTOMERCONTACT_POSITION_TABLE = "Customer_Contact_Position";
+	public static final String CUSTOMER_SIZE_TABLE = "Customer_Size";
+	public static final String CUSTOMER_TYPE_TABLE = "Customer_Type";
+	public static final String CUSTOMER_RECORD_STATUS_TABLE = "Customer_Record_Status";
+	public static final String EVENT_TYPE_TABLE = "Event_Type";
+	public static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
+	public static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
+	public static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
+	public static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
+	public static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
+	public static final String ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE = "Enduser_Activity_Type";
+	public static final String SALES_PROTOCOL_TYPE_TABLE = "Sales_Protocol_Type";
 
 	// Location
-	private static final String AREA_TABLE = "Area";
-	private static final String CITYTOWN_TABLE = "City_Town";
-	private static final String PROVINCE_TABLE = "Province";
+	public static final String AREA_TABLE = "Area";
+	public static final String CITYTOWN_TABLE = "City_Town";
+	public static final String PROVINCE_TABLE = "Province";
 
 	// ===========================================================
 	// Private fields
@@ -570,6 +614,9 @@ public class DatabaseAdapter {
 	private JDImerchandisingCheckTable mJDImerchandisingCheck;
 	private DocumentTable mDocument;
 	private CalendarTable mCalendar;
+	private ProductFocusTable mProductFocus;
+	private ProductSupplierTable mProductSupplier;
+	private SalesProtocolTable mSalesProtocol;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -587,6 +634,8 @@ public class DatabaseAdapter {
 	private PProjReqTypeTable mProjectRequirementType;
 	private PSMRentryTypeTable mSMRentryType;
 	private PWorkEntryStatusTable mWorkplanEntryStatus;
+	private PactEndUserActTypeTable mActivityEndUserActType;
+	private PSalesProtocolTypeTable mSalesProtocolTypeTable;
 
 	// Location
 	private PAreaTable mArea;
@@ -921,6 +970,44 @@ public class DatabaseAdapter {
 					WORKPLAN_ENTRY_STATUS_TABLE);
 		}
 		return mWorkplanEntryStatus;
+	}
+
+	public PactEndUserActTypeTable getActEndUserActivityType() {
+		if (mActivityEndUserActType == null) {
+			mActivityEndUserActType = new PactEndUserActTypeTable(mDb,
+					ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE);
+		}
+		return mActivityEndUserActType;
+	}
+
+	public PSalesProtocolTypeTable getSalesProtocolType() {
+		if (mSalesProtocolTypeTable == null) {
+			mSalesProtocolTypeTable = new PSalesProtocolTypeTable(mDb,
+					SALES_PROTOCOL_TYPE_TABLE);
+		}
+		return mSalesProtocolTypeTable;
+	}
+
+	public ProductFocusTable getProductFocus() {
+		if (mProductFocus == null) {
+			mProductFocus = new ProductFocusTable(mDb, PRODUCT_FOCUS_TABLE);
+		}
+		return mProductFocus;
+	}
+
+	public ProductSupplierTable getProductSupplier() {
+		if (mProductSupplier == null) {
+			mProductSupplier = new ProductSupplierTable(mDb,
+					PRODUCT_SUPPLIER_TABLE);
+		}
+		return mProductSupplier;
+	}
+
+	public SalesProtocolTable getSalesProtocol() {
+		if (mSalesProtocol == null) {
+			mSalesProtocol = new SalesProtocolTable(mDb, SALES_PROTOCOL_TABLE);
+		}
+		return mSalesProtocol;
 	}
 
 	// Location
@@ -1319,6 +1406,39 @@ public class DatabaseAdapter {
 					KEY_CALENDAR_USER, KEY_CALENDAR_ACTIVITY, ACTIVITY_TABLE,
 					KEY_ACTIVITY_ROWID, KEY_DOCUMENT_USER, USER_TABLE,
 					KEY_USER_ROWID);
+			String productFocus = String.format(TABLE_CREATE_PRODUCTFOCUS,
+					PRODUCT_FOCUS_TABLE, KEY_PRODUCTFOCUS_ROWID,
+					KEY_PRODUCTFOCUS_PRODUCT, KEY_PRODUCTFOCUS_ACTIVITY,
+					KEY_PRODUCTFOCUS_PRODUCT, PRODUCT_TABLE, KEY_PRODUCT_ROWID,
+					KEY_PRODUCTFOCUS_ACTIVITY, ACTIVITY_TABLE,
+					KEY_ACTIVITY_ROWID);
+			String productSupplier = String.format(
+					TABLE_CREATE_PRODUCTSUPPLIER, PRODUCT_SUPPLIER_TABLE,
+					KEY_PRODUCTSUPPLIER_ROWID, KEY_PRODUCTSUPPLIER_NO,
+					KEY_PRODUCTSUPPLIER_CRMNO,
+					KEY_PRODUCTSUPPLIER_PRODUCTBRAND,
+					KEY_PRODUCTSUPPLIER_SUPPLIER,
+					KEY_PRODUCTSUPPLIER_OTHERREMARKS,
+					KEY_PRODUCTFOCUS_ACTIVITY, KEY_PRODUCTSUPPLIER_CREATEDBY,
+					KEY_PRODUCTSUPPLIER_CREATEDTIME,
+					KEY_PRODUCTSUPPLIER_MODIFIEDTIME,
+					KEY_PRODUCTSUPPLIER_SUPPLIER, CUSTOMER_TABLE,
+					KEY_CUSTOMER_ROWID, KEY_PRODUCTSUPPLIER_ACTIVITY,
+					ACTIVITY_TABLE, KEY_ACTIVITY_ROWID,
+					KEY_PRODUCTSUPPLIER_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
+			String salesProtocol = String.format(TABLE_CREATE_SALESPROTOCOLS,
+					SALES_PROTOCOL_TABLE, KEY_SALESPROTOCOL_ROWID,
+					KEY_SALESPROTOCOL_NO, KEY_SALESPROTOCOL_CRMNO,
+					KEY_SALESPROTOCOL_BUSINESSUNIT,
+					KEY_SALESPROTOCOL_DESCRIPTION,
+					KEY_SALESPROTOCOL_LASTUPDATE, KEY_SALESPROTOCOL_TAGS,
+					KEY_SALESPROTOCOL_PROTOCOLTYPE, KEY_SALESPROTOCOL_ISACTIVE,
+					KEY_SALESPROTOCOL_CREATEDBY, KEY_SALESPROTOCOL_CREATEDTIME,
+					KEY_SALESPROTOCOL_MODIFIEDTIME,
+					KEY_SALESPROTOCOL_BUSINESSUNIT, BUSINESS_UNIT_TABLE,
+					KEY_BUSINESSUNIT_ROWID, KEY_SALESPROTOCOL_PROTOCOLTYPE,
+					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_SALESPROTOCOL_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
 
 			db.execSQL(user);
 			db.execSQL(TABLE_CREATE_ACTIVITY);
@@ -1343,6 +1463,9 @@ public class DatabaseAdapter {
 			db.execSQL(jdiMerchandising);
 			db.execSQL(document);
 			db.execSQL(calendar);
+			db.execSQL(productFocus);
+			db.execSQL(productSupplier);
+			db.execSQL(salesProtocol);
 
 			// Picklists
 
@@ -1393,6 +1516,13 @@ public class DatabaseAdapter {
 			String workplanentryStatus = String.format(TABLE_CREATE_PICKLISTS,
 					WORKPLAN_ENTRY_STATUS_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PICKLISTS_NAME);
+			String salesProtocolType = String.format(TABLE_CREATE_PICKLISTS,
+					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_PICKLISTS_NAME);
+			String actEndUserActivityType = String.format(
+					TABLE_CREATE_PICKLISTS,
+					ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_PICKLISTS_NAME);
 			db.execSQL(activityProjectCategory);
 			db.execSQL(activityProjectStage);
 			db.execSQL(activitytypeCategory);
@@ -1408,6 +1538,8 @@ public class DatabaseAdapter {
 			db.execSQL(projectRequirementsType);
 			db.execSQL(smrTimecardEntry);
 			db.execSQL(workplanentryStatus);
+			db.execSQL(salesProtocolType);
+			db.execSQL(actEndUserActivityType);
 
 			// Location
 			String area = String.format(TABLE_CREATE_PICKLISTS, AREA_TABLE,

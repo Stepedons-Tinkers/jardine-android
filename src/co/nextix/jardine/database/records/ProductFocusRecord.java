@@ -1,6 +1,6 @@
 package co.nextix.jardine.database.records;
 
-public class ProvinceRecord {
+public class ProductFocusRecord {
 	// ===========================================================
 	// Private fields
 	// ===========================================================
@@ -8,22 +8,25 @@ public class ProvinceRecord {
 	// General Details
 
 	// _id
-	// name
-	// area (Area table)
+	// no
+	// activity_type_categorization ( activity type category table / picklist)
+	// is_active (checkbox)
+	// user(assigned_to / user table)
 
 	private long id;
-	private String name;
-	private long area;
+	private long product;
+	// private long activity_type;
+	private long activity;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public ProvinceRecord(long id, String name, long area) {
+	public ProductFocusRecord(long id, long product, long activity) {
 
 		this.id = id;
-		this.name = name;
-		this.area = area;
+		this.product = product;
+		this.activity = activity;
 	}
 
 	// ===========================================================
@@ -34,25 +37,20 @@ public class ProvinceRecord {
 		return this.id;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setProduct(long product) {
+		this.product = product;
 	}
 
-	public String getName() {
-		return this.name;
+	public long getProduct() {
+		return product;
 	}
 
-	public void setArea(long area) {
-		this.area = area;
+	public void setActivity(long activity) {
+		this.activity = activity;
 	}
 
-	public long getArea() {
-		return this.area;
-	}
-
-	@Override
-	public String toString() {
-		return this.name;
+	public long getActivity() {
+		return activity;
 	}
 
 }

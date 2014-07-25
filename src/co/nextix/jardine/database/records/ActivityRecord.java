@@ -373,4 +373,10 @@ public class ActivityRecord {
 	public String getEndUserActivityTypes() {
 		return end_user_activity_types;
 	}
+
+	@Override
+	public String toString() {
+		return crm_no;
+	}
+
 }

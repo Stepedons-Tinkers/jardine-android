@@ -1,57 +1,46 @@
 package co.nextix.jardine.database.records;
 
-public class EventProtocolRecord {
+public class SalesProtocolRecord {
 	// ===========================================================
 	// Private fields
 	// ===========================================================
 
 	// General Details
 
-	// _id
-	// no (crm_no)
-	// description
-	// last_update
-	// tags
-	// event_type (event type table / picklist)
-	// is_active
-	// created_time
-	// modified_time
-	// user(assigned_to / user table)
-
 	private long id;
 	private String no;
+	private String crm_no;
+	private long business_unit; // Business Unit table
 	private String description;
 	private String last_update;
 	private String tags;
-	private long event_type;
+	private long protocol_type; // sales protocol type table
 	private int is_active;
+	private long created_by; // User Table
 	private String created_time;
 	private String modified_time;
-	private long user; // User Table
-	private String crm_no;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public EventProtocolRecord() {
-	}
-
-	public EventProtocolRecord(long id, String no, String crmNo,
-			String description, String lastUpdate, String tags, long eventType,
-			int isActive, String createdTime, String modifiedTime, long user) {
+	public SalesProtocolRecord(long id, String no, String crmNo,
+			long businessUnit, String description, String lastUpdate,
+			String tags, long protocolType, int isActive, long createdBy,
+			String createdTime, String modifiedTime) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
+		this.business_unit = businessUnit;
 		this.description = description;
 		this.last_update = lastUpdate;
 		this.tags = tags;
-		this.event_type = eventType;
+		this.protocol_type = protocolType;
 		this.is_active = isActive;
+		this.created_by = createdBy;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.user = user;
 	}
 
 	// ===========================================================
@@ -78,12 +67,20 @@ public class EventProtocolRecord {
 		return this.crm_no;
 	}
 
+	public void setBusinessUnit(long businessUnit) {
+		this.business_unit = businessUnit;
+	}
+
+	public long getBusinessUnit() {
+		return business_unit;
+	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
 
 	public String getDescription() {
-		return this.description;
+		return description;
 	}
 
 	public void setLastUpdate(String lastUpdate) {
@@ -91,7 +88,7 @@ public class EventProtocolRecord {
 	}
 
 	public String getLastUpdate() {
-		return this.last_update;
+		return last_update;
 	}
 
 	public void setTags(String tags) {
@@ -99,15 +96,15 @@ public class EventProtocolRecord {
 	}
 
 	public String getTags() {
-		return this.tags;
+		return tags;
 	}
 
-	public void setEventType(long eventType) {
-		this.event_type = eventType;
+	public void setProtocolType(long protocolType) {
+		this.protocol_type = protocolType;
 	}
 
-	public long getEventType() {
-		return this.event_type;
+	public long getProtocolType() {
+		return protocol_type;
 	}
 
 	public void setIsActive(int isActive) {
@@ -118,20 +115,12 @@ public class EventProtocolRecord {
 		return this.is_active;
 	}
 
-	public void setModifiedTime(String modifiedTime) {
-		this.modified_time = modifiedTime;
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
 	}
 
-	public String getModifiedTime() {
-		return this.modified_time;
-	}
-
-	public void setUser(long user) {
-		this.user = user;
-	}
-
-	public long getUser() {
-		return this.user;
+	public long getCreatedBy() {
+		return created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -141,7 +130,15 @@ public class EventProtocolRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
-	
+
+	public void setModifiedTime(String modifiedTime) {
+		this.modified_time = modifiedTime;
+	}
+
+	public String getModifiedTime() {
+		return this.modified_time;
+	}
+
 	@Override
 	public String toString() {
 		return this.description;

@@ -1,51 +1,42 @@
 package co.nextix.jardine.database.records;
 
-public class WorkplanRecord {
+public class ProductSupplierRecord {
 	// ===========================================================
 	// Private fields
 	// ===========================================================
 
 	// General Details
 
-	// id
-	// no (crm no)
-	// startDate (from) - (yyyy-mm-dd)
-	// endDate (to)
-	// status
-	// createdTime
-	// modifiedTime
-	// created_by (assignedTo)
-
 	private long id;
 	private String no;
 	private String crm_no;
-	private String from_date;
-	private String to_date;
-	// private int status;
+	private String product_brand;
+	private long supplier; // Customer table
+	private String others_remarks;
+	private long activity; // Activity table
+	private long created_by; // User Table
 	private String created_time;
 	private String modified_time;
-	private long created_by; // User Table
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public WorkplanRecord() {
-	}
-
-	public WorkplanRecord(long id, String no, String crmNo, String fromDate,
-			String toDate, String createdTime, String modifiedTime,
-			long createdBy) {
+	public ProductSupplierRecord(long id, String no, String crmNo,
+			String productBrand, long supplier, String othersRemarks,
+			long activity, long createdBy, String createdTime,
+			String modifiedTime) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
-		this.from_date = fromDate;
-		this.to_date = toDate;
-		// this.status = status;
+		this.product_brand = productBrand;
+		this.supplier = supplier;
+		this.others_remarks = othersRemarks;
+		this.activity = activity;
+		this.created_by = createdBy;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.created_by = createdBy;
 	}
 
 	// ===========================================================
@@ -72,20 +63,20 @@ public class WorkplanRecord {
 		return this.crm_no;
 	}
 
-	public void setFromDate(String fromDate) {
-		this.from_date = fromDate;
+	public void setProductBrand(String productBrand) {
+		this.product_brand = productBrand;
 	}
 
-	public String getFromDate() {
-		return this.from_date;
+	public String getProductBrand() {
+		return product_brand;
 	}
 
-	public void setToDate(String toDate) {
-		this.to_date = toDate;
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
 	}
 
-	public String getToDate() {
-		return this.to_date;
+	public long getCreatedBy() {
+		return created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -103,26 +94,33 @@ public class WorkplanRecord {
 	public String getModifiedTime() {
 		return this.modified_time;
 	}
-
-	public void setCreatedBy(long createdBy) {
-		this.created_by = createdBy;
+	
+	public void setSupplier(long supplier) {
+		this.supplier = supplier;
 	}
-
-	public long getCreatedBy() {
-		return this.created_by;
+	
+	public long getSupplier() {
+		return supplier;
+	}
+	
+	public void setOthersRemarks(String othersRemarks) {
+		this.others_remarks = othersRemarks;
+	}
+	
+	public String getOthersRemarks() {
+		return others_remarks;
+	}
+	
+	public void setActivity(long activity) {
+		this.activity = activity;
+	}
+	
+	public long getActivity() {
+		return activity;
 	}
 
 	@Override
 	public String toString() {
-		return this.crm_no;
+		return this.product_brand;
 	}
-
-	// public void setStatus(int status) {
-	// this.status = status;
-	// }
-	//
-	// public int getStatus() {
-	// return this.status;
-	// }
-
 }

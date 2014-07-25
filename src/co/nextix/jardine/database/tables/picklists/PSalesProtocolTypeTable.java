@@ -12,13 +12,13 @@ import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.PicklistRecord;
 
-public class PCustTypeTable {
+public class PSalesProtocolTypeTable {
 	// ===========================================================
 	// Private static fields
 	// ===========================================================
 
-	private final String KEY_CUSTOMER_TYPE_ROWID = "_id";
-	private final String KEY_CUSTOMER_TYPE_NAME = "name";
+	private final String KEY_SALESPROTOCOL_TYPE_ROWID = "_id";
+	private final String KEY_SALESPROTOCOL_TYPE_NAME = "name";
 
 	// ===========================================================
 	// Private fields
@@ -32,7 +32,7 @@ public class PCustTypeTable {
 	// Public constructor
 	// ===========================================================
 
-	public PCustTypeTable(SQLiteDatabase database, String tableName) {
+	public PSalesProtocolTypeTable(SQLiteDatabase database, String tableName) {
 		mDb = database;
 		mDatabaseTable = tableName;
 
@@ -58,9 +58,9 @@ public class PCustTypeTable {
 			if (c.moveToFirst()) {
 				do {
 					long id = c.getLong(c
-							.getColumnIndex(KEY_CUSTOMER_TYPE_ROWID));
+							.getColumnIndex(KEY_SALESPROTOCOL_TYPE_ROWID));
 					String name = c.getString(c
-							.getColumnIndex(KEY_CUSTOMER_TYPE_NAME));
+							.getColumnIndex(KEY_SALESPROTOCOL_TYPE_NAME));
 
 					list.add(new PicklistRecord(id, name));
 				} while (c.moveToNext());
@@ -80,7 +80,7 @@ public class PCustTypeTable {
 	public boolean isExisting(String name) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_TYPE_NAME + "='" + name + "'";
+				+ KEY_SALESPROTOCOL_TYPE_NAME + "='" + name + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -108,8 +108,8 @@ public class PCustTypeTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable, KEY_CUSTOMER_TYPE_ROWID
-				+ " IN (" + ids + ")", null);
+		int rowsDeleted = mDb.delete(mDatabaseTable,
+				KEY_SALESPROTOCOL_TYPE_ROWID + " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -123,15 +123,16 @@ public class PCustTypeTable {
 	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_TYPE_ROWID + "=?";
+				+ KEY_SALESPROTOCOL_TYPE_ROWID + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE_ROWID));
+				long id = c.getLong(c
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_ROWID));
 				String name = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_TYPE_NAME));
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_NAME));
 
 				record = new PicklistRecord(id, name);
 			}
@@ -147,15 +148,16 @@ public class PCustTypeTable {
 	public PicklistRecord getByName(String name) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_TYPE_NAME + "=?";
+				+ KEY_SALESPROTOCOL_TYPE_NAME + "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
-				long id = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE_ROWID));
+				long id = c.getLong(c
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_ROWID));
 				String tname = c.getString(c
-						.getColumnIndex(KEY_CUSTOMER_TYPE_NAME));
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_NAME));
 
 				record = new PicklistRecord(id, tname);
 			}
@@ -170,14 +172,16 @@ public class PCustTypeTable {
 
 	public String getNameById(long string) {
 		String result = null;
-		String MY_QUERY = "SELECT " + KEY_CUSTOMER_TYPE_NAME + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_TYPE_ROWID + "=?";
+		String MY_QUERY = "SELECT " + KEY_SALESPROTOCOL_TYPE_NAME + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_SALESPROTOCOL_TYPE_ROWID
+				+ "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(string) });
 
 			if ((c != null) && c.moveToFirst()) {
-				result = c.getString(c.getColumnIndex(KEY_CUSTOMER_TYPE_NAME));
+				result = c.getString(c
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_NAME));
 			}
 		} finally {
 			if (c != null) {
@@ -190,14 +194,16 @@ public class PCustTypeTable {
 
 	public long getIdByName(String name) {
 		long result = 0;
-		String MY_QUERY = "SELECT " + KEY_CUSTOMER_TYPE_ROWID + " FROM "
-				+ mDatabaseTable + " WHERE " + KEY_CUSTOMER_TYPE_NAME + "=?";
+		String MY_QUERY = "SELECT " + KEY_SALESPROTOCOL_TYPE_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_SALESPROTOCOL_TYPE_NAME
+				+ "=?";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
 
 			if ((c != null) && c.moveToFirst()) {
-				result = c.getLong(c.getColumnIndex(KEY_CUSTOMER_TYPE_ROWID));
+				result = c.getLong(c
+						.getColumnIndex(KEY_SALESPROTOCOL_TYPE_ROWID));
 			}
 		} finally {
 			if (c != null) {
@@ -213,7 +219,7 @@ public class PCustTypeTable {
 
 		ContentValues initialValues = new ContentValues();
 
-		initialValues.put(KEY_CUSTOMER_TYPE_NAME, no);
+		initialValues.put(KEY_SALESPROTOCOL_TYPE_NAME, no);
 
 		long ids = mDb.insert(mDatabaseTable, null, initialValues);
 		if (ids >= 0) {
@@ -226,8 +232,8 @@ public class PCustTypeTable {
 	}
 
 	public boolean delete(long rowId) {
-		if (mDb.delete(mDatabaseTable, KEY_CUSTOMER_TYPE_ROWID + "=" + rowId,
-				null) > 0) {
+		if (mDb.delete(mDatabaseTable, KEY_SALESPROTOCOL_TYPE_ROWID + "="
+				+ rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
 			return true;
 		} else {
@@ -237,9 +243,9 @@ public class PCustTypeTable {
 
 	public boolean update(long id, String name) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_CUSTOMER_TYPE_NAME, name);
-		if (mDb.update(mDatabaseTable, args,
-				KEY_CUSTOMER_TYPE_ROWID + "=" + id, null) > 0) {
+		args.put(KEY_SALESPROTOCOL_TYPE_NAME, name);
+		if (mDb.update(mDatabaseTable, args, KEY_SALESPROTOCOL_TYPE_ROWID + "="
+				+ id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);
 			return true;
 		} else {

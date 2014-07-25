@@ -137,4 +137,9 @@ public class MarketingIntelRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+	
+	@Override
+	public String toString() {
+		return this.details;
+	}
 }
