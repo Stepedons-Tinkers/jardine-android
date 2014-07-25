@@ -90,6 +90,8 @@
     <string name="workplan_add_activity">Add Activity</string>
     <string name="workplan_start_time">Start Time</string>
     <string name="workplan_end_time">End Time</string>
+    <string name="workplan_from">From:</string>
+    <string name="workplan_to">To:</string>
 
     <!-- Workplan View -->
     <string name="workplan_title">Workplan</string>

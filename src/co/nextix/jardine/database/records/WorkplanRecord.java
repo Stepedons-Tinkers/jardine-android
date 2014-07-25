@@ -112,6 +112,12 @@ public class WorkplanRecord {
 		return this.created_by;
 	}
 
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return this.crm_no;
+	}
+
 	// public void setStatus(int status) {
 	// this.status = status;
 	// }

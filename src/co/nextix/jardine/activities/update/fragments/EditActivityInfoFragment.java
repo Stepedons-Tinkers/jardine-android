@@ -19,7 +19,8 @@ public class EditActivityInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
 	
-	private int theLayoutID = 0;
+	private int frag_layout_id;
+	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -28,12 +29,10 @@ public class EditActivityInfoFragment extends Fragment {
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
 		
-		Bundle extras = getArguments();
+		bundle = getArguments();
 		
-		if(extras != null){
-			Log.e("extras","not null");
-			theLayoutID = extras.getInt("layoutID");
-			Log.e("id","" + theLayoutID);
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
 		}
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
@@ -79,7 +78,7 @@ public class EditActivityInfoFragment extends Fragment {
 
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(theLayoutID, myFragment);
+				fragmentTransaction.replace(frag_layout_id, myFragment);
 				fragmentTransaction.commit();
 			}
 		});

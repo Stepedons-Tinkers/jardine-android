@@ -25,6 +25,7 @@ import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
 import co.nextix.jardine.web.models.PicklistDependencyModel;
 import co.nextix.jardine.web.models.PicklistModel;
+import co.nextix.jardine.web.models.picklist.PactivityEndUserActivityTypes;
 import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
 import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
 import co.nextix.jardine.web.models.picklist.PactivitytypeCategoryModel;
@@ -358,6 +359,56 @@ public class PicklistRequests {
 		}
 
 		return result;
+	}
+
+	public List<PactivityEndUserActivityTypes> endUserActivityTypes() {
+		List<PactivityEndUserActivityTypes> model = null;
+
+		String query = "";
+		try {
+			query = URLEncoder.encode("select * from vtiger_"
+					+ Modules.end_user_activity_types, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<PicklistRequester<List<PactivityEndUserActivityTypes>>>() {
+				}.getType();
+				PicklistRequester<List<PactivityEndUserActivityTypes>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (List<PactivityEndUserActivityTypes>) requester
+						.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
 	}
 
 	public List<PicklistDependencyModel> area() {

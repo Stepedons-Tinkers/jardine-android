@@ -11,7 +11,13 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.tables.UserTable;
@@ -26,7 +32,29 @@ import co.nextix.jardine.web.requesters.LoginModel;
 public class LoginActivity extends Activity {
 
 	EditText editUsername, editPassword;
+	Spinner spinnArea;
 	int areaChoice = 0;
+	// CENTRAL LUZON AREA
+	// NORTHEAST LUZON AREA
+	// NORTHWEST LUZON AREA
+	// SOUTHEAST LUZON
+	// SOUTHWEST LUZON
+	// CENTRAL NCR AREA
+	// NORTHERN NCR AREA
+	// SOUTHERN NCR AREA
+	// CENTRAL VISAYAS
+	// EASTERN VISAYAS
+	// WESTERN VISAYAS
+	// CENTRAL MINDANAO
+	// NORTH WEST MINDANAO
+	// SOUTH CENTRAL MINDANAO
+	final String[] AREA_LIST = { "CENTRAL LUZON AREA", "NORTHEAST LUZON AREA",
+			"NORTHWEST LUZON AREA", "SOUTHEAST LUZON", "SOUTHWEST LUZON",
+			"CENTRAL NCR AREA", "NORTHERN NCR AREA", "SOUTHERN NCR AREA",
+			"CENTRAL VISAYAS", "EASTERN VISAYAS", "WESTERN VISAYAS",
+			"CENTRAL MINDANAO", "NORTH WEST MINDANAO", "SOUTH CENTRAL MINDANAO" };
+	ArrayAdapter<String> spinnerAdapter;
+	String SELECTED_AREA = "";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +67,27 @@ public class LoginActivity extends Activity {
 
 		editUsername = (EditText) findViewById(R.id.login_email);
 		editPassword = (EditText) findViewById(R.id.login_password);
+
+		spinnArea = (Spinner) findViewById(R.id.login_spinner_area);
+		spinnerAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_dropdown_item_1line, AREA_LIST);
+		SELECTED_AREA = AREA_LIST[0];
+
+		spinnArea.setAdapter(spinnerAdapter);
+		spinnArea.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parentView,
+					View selectedItemView, int position, long id) {
+				SELECTED_AREA = (String) parentView.getAdapter().getItem(
+						position);
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parentView) {
+				SELECTED_AREA = AREA_LIST[0];
+			}
+
+		});
 		
 		editUsername.setText("test_smr1");
 		editPassword.setText("1212");
@@ -145,7 +194,7 @@ public class LoginActivity extends Activity {
 			try {
 				LogRequests log = new LogRequests();
 				LoginModel model = log.login(editUsername.getText().toString(),
-						editPassword.getText().toString());
+						editPassword.getText().toString(), SELECTED_AREA);
 				if (model != null) {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
@@ -181,7 +230,8 @@ public class LoginActivity extends Activity {
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()
 							.toString(), model.getUserId(), String
-							.valueOf(rowid), model.getSessionName());
+							.valueOf(rowid), model.getSessionName(),
+							SELECTED_AREA);
 					// RetrieveRequests retrieve = new RetrieveRequests();
 					// models = retrieve.Workplan(new String[] { "422", "432"
 					// });
@@ -203,14 +253,14 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				// finish();
-				// startActivity(new Intent(getApplicationContext(),
-				// DashBoardActivity.class));
-				// overridePendingTransition(R.anim.slide_in_left,
-				// R.anim.slide_out_left);
+				finish();
+				startActivity(new Intent(getApplicationContext(),
+						DashBoardActivity.class));
+				overridePendingTransition(R.anim.slide_in_left,
+						R.anim.slide_out_left);
 
-				if (choiceList != null)
-					showDialogButtonClick(choiceList);
+				// if (choiceList != null)
+				// showDialogButtonClick(choiceList);
 
 				// if (models != null)
 				// Toast.makeText(getApplicationContext(),

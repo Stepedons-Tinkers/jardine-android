@@ -96,6 +96,46 @@ public class WorkplanTable {
 		return list;
 	}
 
+	public List<WorkplanRecord> getAllRecords(long userId) {
+		Cursor c = null;
+		List<WorkplanRecord> list = new ArrayList<WorkplanRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_WORKPLAN_CREATEDBY + " = " + userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_WORKPLAN_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CRMNO));
+					String startDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_FROMDATE));
+					String endDate = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_TODATE));
+					// int status = c
+					// .getInt(c.getColumnIndex(KEY_WORKPLAN_STATUS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_MODIFIEDTIME));
+					long user = c.getLong(c
+							.getColumnIndex(KEY_WORKPLAN_CREATEDBY));
+
+					// list.add(new WorkplanRecord(id, no, startDate, endDate,
+					// status, createdTime, modifiedTime, user));
+					list.add(new WorkplanRecord(id, no, crmNo, startDate,
+							endDate, createdTime, modifiedTime, user));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	public List<WorkplanRecord> getAllRecords(long userId, String workPlan,
 			String date) {
 		Cursor c = null;
@@ -145,9 +185,10 @@ public class WorkplanTable {
 				+ userId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
-			if (c.moveToFirst()) {
+			if ((c != null) && c.moveToFirst()) {
 				do {
-					String no = c.getString(c.getColumnIndex(KEY_WORKPLAN_NO));
+					String no = c.getString(c
+							.getColumnIndex(KEY_WORKPLAN_CRMNO));
 					list.add(no);
 				} while (c.moveToNext());
 			}
@@ -249,6 +290,7 @@ public class WorkplanTable {
 
 		return result;
 	}
+	
 
 	public WorkplanRecord getById(long ID) {
 		WorkplanRecord record = null;

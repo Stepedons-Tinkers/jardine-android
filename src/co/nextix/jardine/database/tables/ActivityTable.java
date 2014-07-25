@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
 
 public class ActivityTable {
 	// ===========================================================
@@ -21,57 +20,36 @@ public class ActivityTable {
 	private final String KEY_ACTIVITY_ROWID = "_id";
 	private final String KEY_ACTIVITY_NO = "no";
 	private final String KEY_ACTIVITY_CRMNO = "crm_no";
-	private final String KEY_ACTIVITY_SMRUSERID = "smr_user_id";
 	private final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
 	private final String KEY_ACTIVITY_CHECKIN = "check_in";
 	private final String KEY_ACTIVITY_CHECKOUT = "check_out";
+	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
+	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
 	private final String KEY_ACTIVITY_LONGITUDE = "longitude";
 	private final String KEY_ACTIVITY_LATITUDE = "latitude";
-	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
 	private final String KEY_ACTIVITY_CREATEDTIME = "created_time";
 	private final String KEY_ACTIVITY_MODIFIEDTIME = "modified_time";
 	private final String KEY_ACTIVITY_REASONREMARKS = "reason_remarks";
-	private final String KEY_ACTIVITY_WORKWITH = "work_with";
+	private final String KEY_ACTIVITY_SMR = "smr";
 	private final String KEY_ACTIVITY_ADMINWORKDETAILS = "admin_work_details";
 	private final String KEY_ACTIVITY_CUSTOMER = "customer";
 	private final String KEY_ACTIVITY_AREA = "area";
 	private final String KEY_ACTIVITY_PROVINCE = "province";
 	private final String KEY_ACTIVITY_CITY = "city";
 	private final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
-	private final String KEY_ACTIVITY_OBJECTIVEOFACTIVITY = "objective_of_activity";
+	private final String KEY_ACTIVITY_OBJECTIVES = "objectives";
 	private final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
 	private final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
 	private final String KEY_ACTIVITY_NOTES = "notes";
 	private final String KEY_ACTIVITY_HIGHLIGHTS = "highlights";
 	private final String KEY_ACTIVITY_NEXTSTEPS = "next_steps";
 	private final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
-	private final String KEY_ACTIVITY_CONTACTPERSON = "contact_person";
-	private final String KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK = "jdi_product_stock_check";
-	private final String KEY_ACTIVITY_PRODUCTSUPPLIER = "product_supplier";
-	private final String KEY_ACTIVITY_JDIMERCHCHECK = "jdi_merchandising_check";
-	private final String KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK = "jdi_competitor_product_stock_check";
-	private final String KEY_ACTIVITY_MARKETINGINTEL = "marketing_intel";
-	private final String KEY_ACTIVITY_PROJECTVISITDETAILS = "project_visit_details";
-	private final String KEY_ACTIVITY_PROJECTREQUIREMENTS = "project_requirements";
-	private final String KEY_ACTIVITY_TRAININGS = "trainings";
-	private final String KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS = "identify_product_focus";
-	private final String KEY_ACTIVITY_FULLBRANDACTIVATION = "full_brand_activation";
-	private final String KEY_ACTIVITY_PHOTOSATTACHMENT = "activity_photos_and_attachments";
-
-	// private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
-	// private final String KEY_ACTIVITY_SOURCE = "source";
-	// private final String KEY_ACTIVITY_ISSUES = "issues_identified";
-	// private final String KEY_ACTIVITY_FEEDBACK = "feedback_from_customer";
-	// private final String KEY_ACTIVITY_ONGOINGCAMPAIGNS = "ongoing_campaigns";
-	// private final String KEY_ACTIVITY_LASTDELIVERY = "last_delivery";
-	// private final String KEY_ACTIVITY_PROMOSTUBS = "promo_stubs_details";
-	// private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
-	// private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
-	// private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
-	// private final String KEY_ACTIVITY_DATE = "date";
-	// private final String KEY_ACTIVITY_TIME = "time";
-	// private final String KEY_ACTIVITY_VENUE = "venue";
-	// private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
+	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
+	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
+	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
+	private final String KEY_ACTIVITY_VENUE = "venue";
+	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
+	private final String KEY_ACTIVITY_ENDUSERACTIVITYTYPES = "end_user_activity_types";
 
 	// ===========================================================
 	// Private fields
@@ -115,29 +93,28 @@ public class ActivityTable {
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CRMNO));
-					String smrUserId = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 					String checkIn = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 					String checkOut = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
 					long createdBy = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+					double longitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-					String reasonRemarks = c.getString(c
+					String reasonsRemarks = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-					String workWith = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-					String adminWorkDetails = c.getString(c
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -147,8 +124,8 @@ public class ActivityTable {
 					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 					long workplanEntry = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 					int firstTimeVisit = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 					int plannedVisit = c.getInt(c
@@ -161,46 +138,28 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 					String followUpCommitmentDate = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-					long contactPerson = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-					long jdiProductStockCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-					long productSupplier = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-					long jdiMerchandisingCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-					long jdiCompetitorProductStockCheck = c
-							.getLong(c
-									.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-					long marketingIntel = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-					String projectVisitDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-					String projectRequirements = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-					String training = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-					String identifyProductFocus = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-					String fullBrandActivation = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-					String activityPhotosAttachment = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
-
-					list.add(new ActivityRecord(id, no, crmNo, smrUserId,
-							activityType, checkIn, checkOut, longitude,
-							latitude, createdBy, createdTime, modifiedTime,
-							reasonRemarks, workWith, adminWorkDetails,
-							customer, area, province, city, workplanEntry,
-							objectives, firstTimeVisit, plannedVisit, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							contactPerson, jdiProductStockCheck,
-							productSupplier, jdiMerchandisingCheck,
-							jdiCompetitorProductStockCheck, marketingIntel,
-							projectVisitDetails, projectRequirements, training,
-							identifyProductFocus, fullBrandActivation,
-							activityPhotosAttachment));
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -224,29 +183,28 @@ public class ActivityTable {
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CRMNO));
-					String smrUserId = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 					String checkIn = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 					String checkOut = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
 					long createdBy = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+					double longitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-					String reasonRemarks = c.getString(c
+					String reasonsRemarks = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-					String workWith = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-					String adminWorkDetails = c.getString(c
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -256,8 +214,8 @@ public class ActivityTable {
 					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 					long workplanEntry = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 					int firstTimeVisit = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 					int plannedVisit = c.getInt(c
@@ -270,46 +228,28 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 					String followUpCommitmentDate = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-					long contactPerson = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-					long jdiProductStockCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-					long productSupplier = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-					long jdiMerchandisingCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-					long jdiCompetitorProductStockCheck = c
-							.getLong(c
-									.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-					long marketingIntel = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-					String projectVisitDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-					String projectRequirements = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-					String training = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-					String identifyProductFocus = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-					String fullBrandActivation = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-					String activityPhotosAttachment = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
-
-					list.add(new ActivityRecord(id, no, crmNo, smrUserId,
-							activityType, checkIn, checkOut, longitude,
-							latitude, createdBy, createdTime, modifiedTime,
-							reasonRemarks, workWith, adminWorkDetails,
-							customer, area, province, city, workplanEntry,
-							objectives, firstTimeVisit, plannedVisit, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							contactPerson, jdiProductStockCheck,
-							productSupplier, jdiMerchandisingCheck,
-							jdiCompetitorProductStockCheck, marketingIntel,
-							projectVisitDetails, projectRequirements, training,
-							identifyProductFocus, fullBrandActivation,
-							activityPhotosAttachment));
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -338,29 +278,28 @@ public class ActivityTable {
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CRMNO));
-					String smrUserId = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 					String checkIn = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 					String checkOut = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
-					double latitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					double longitude = c.getDouble(c
-							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
 					long createdBy = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+					double longitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-					String reasonRemarks = c.getString(c
+					String reasonsRemarks = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-					String workWith = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-					String adminWorkDetails = c.getString(c
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -370,8 +309,8 @@ public class ActivityTable {
 					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 					long workplanEntry = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					String objectives = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 					int firstTimeVisit = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 					int plannedVisit = c.getInt(c
@@ -384,46 +323,28 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 					String followUpCommitmentDate = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-					long contactPerson = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-					long jdiProductStockCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-					long productSupplier = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-					long jdiMerchandisingCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-					long jdiCompetitorProductStockCheck = c
-							.getLong(c
-									.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-					long marketingIntel = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-					String projectVisitDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-					String projectRequirements = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-					String training = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-					String identifyProductFocus = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-					String fullBrandActivation = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-					String activityPhotosAttachment = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
-
-					list.add(new ActivityRecord(id, no, crmNo, smrUserId,
-							activityType, checkIn, checkOut, longitude,
-							latitude, createdBy, createdTime, modifiedTime,
-							reasonRemarks, workWith, adminWorkDetails,
-							customer, area, province, city, workplanEntry,
-							objectives, firstTimeVisit, plannedVisit, notes,
-							highlights, nextSteps, followUpCommitmentDate,
-							contactPerson, jdiProductStockCheck,
-							productSupplier, jdiMerchandisingCheck,
-							jdiCompetitorProductStockCheck, marketingIntel,
-							projectVisitDetails, projectRequirements, training,
-							identifyProductFocus, fullBrandActivation,
-							activityPhotosAttachment));
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -549,29 +470,28 @@ public class ActivityTable {
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
 				String crmNo = c
 						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
-				String smrUserId = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 				long activityType = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 				String checkIn = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 				String checkOut = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
-				double latitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-				double longitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
 				long createdBy = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+				double longitude = c.getDouble(c
+						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				double latitude = c.getDouble(c
+						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-				String reasonRemarks = c.getString(c
+				String reasonsRemarks = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-				String workWith = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-				String adminWorkDetails = c.getString(c
+				long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+				String adminDetails = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 				long customer = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -581,8 +501,8 @@ public class ActivityTable {
 				long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 				long workplanEntry = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-				String objectives = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+				String objective = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 				int firstTimeVisit = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 				int plannedVisit = c.getInt(c
@@ -595,45 +515,27 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 				String followUpCommitmentDate = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+				String projectName = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+				String projectStage = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String projectCategory = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+				String venue = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				int numberOfAttendees = c.getInt(c
+						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String endUserActivityTypes = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-				long contactPerson = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-				long jdiProductStockCheck = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-				long productSupplier = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-				long jdiMerchandisingCheck = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-				long jdiCompetitorProductStockCheck = c
-						.getLong(c
-								.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-				long marketingIntel = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-				String projectVisitDetails = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-				String projectRequirements = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-				String training = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-				String identifyProductFocus = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-				String fullBrandActivation = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-				String activityPhotosAttachment = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
-
-				record = new ActivityRecord(id, no, crmNo, smrUserId,
-						activityType, checkIn, checkOut, longitude, latitude,
-						createdBy, createdTime, modifiedTime, reasonRemarks,
-						workWith, adminWorkDetails, customer, area, province,
-						city, workplanEntry, objectives, firstTimeVisit,
-						plannedVisit, notes, highlights, nextSteps,
-						followUpCommitmentDate, contactPerson,
-						jdiProductStockCheck, productSupplier,
-						jdiMerchandisingCheck, jdiCompetitorProductStockCheck,
-						marketingIntel, projectVisitDetails,
-						projectRequirements, training, identifyProductFocus,
-						fullBrandActivation, activityPhotosAttachment);
+				record = new ActivityRecord(id, no, crmNo, activityType,
+						checkIn, checkOut, businessUnit, createdBy, longitude,
+						latitude, createdTime, modifiedTime, reasonsRemarks,
+						smr, adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 			}
 		} finally {
 			if (c != null) {
@@ -677,29 +579,28 @@ public class ActivityTable {
 				String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
 				String crmNo = c
 						.getString(c.getColumnIndex(KEY_ACTIVITY_CRMNO));
-				String smrUserId = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 				long activityType = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 				String checkIn = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 				String checkOut = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
-				double latitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-				double longitude = c.getDouble(c
-						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				long businessUnit = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
 				long createdBy = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+				double longitude = c.getDouble(c
+						.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+				double latitude = c.getDouble(c
+						.getColumnIndex(KEY_ACTIVITY_LATITUDE));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 				String modifiedTime = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-				String reasonRemarks = c.getString(c
+				String reasonsRemarks = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-				String workWith = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-				String adminWorkDetails = c.getString(c
+				long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+				String adminDetails = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 				long customer = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -709,8 +610,8 @@ public class ActivityTable {
 				long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 				long workplanEntry = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-				String objectives = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+				String objective = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 				int firstTimeVisit = c.getInt(c
 						.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 				int plannedVisit = c.getInt(c
@@ -723,45 +624,27 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 				String followUpCommitmentDate = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+				String projectName = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+				String projectStage = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+				String projectCategory = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+				String venue = c
+						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
+				int numberOfAttendees = c.getInt(c
+						.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+				String endUserActivityTypes = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-				long contactPerson = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-				long jdiProductStockCheck = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-				long productSupplier = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-				long jdiMerchandisingCheck = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-				long jdiCompetitorProductStockCheck = c
-						.getLong(c
-								.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-				long marketingIntel = c.getLong(c
-						.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-				String projectVisitDetails = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-				String projectRequirements = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-				String training = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-				String identifyProductFocus = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-				String fullBrandActivation = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-				String activityPhotosAttachment = c.getString(c
-						.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
-
-				record = new ActivityRecord(id, no, crmNo, smrUserId,
-						activityType, checkIn, checkOut, longitude, latitude,
-						createdBy, createdTime, modifiedTime, reasonRemarks,
-						workWith, adminWorkDetails, customer, area, province,
-						city, workplanEntry, objectives, firstTimeVisit,
-						plannedVisit, notes, highlights, nextSteps,
-						followUpCommitmentDate, contactPerson,
-						jdiProductStockCheck, productSupplier,
-						jdiMerchandisingCheck, jdiCompetitorProductStockCheck,
-						marketingIntel, projectVisitDetails,
-						projectRequirements, training, identifyProductFocus,
-						fullBrandActivation, activityPhotosAttachment);
+				record = new ActivityRecord(id, no, crmNo, activityType,
+						checkIn, checkOut, businessUnit, createdBy, longitude,
+						latitude, createdTime, modifiedTime, reasonsRemarks,
+						smr, adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 			}
 		} finally {
 			if (c != null) {
@@ -772,76 +655,57 @@ public class ActivityTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, String smrUserId,
-			long activityType, String checkIn, String checkOut,
-			double longitude, double latitude, long createdBy,
-			String createdTime, String modifiedTime, String reasonRemarks,
-			String workWith, String adminWorkDetails, long customer, long area,
-			long province, long city, long workplanEntry,
-			String objectiveOfActivity, int firstTimeVisit, int plannedVisit,
-			String notes, String highlights, String nextSteps,
-			String followUpCommitmentDate, long contactPerson,
-			long jdiProductStockCheck, long productSupplier,
-			long jdiMerchandising, long jdiCompetitorProductStockCheck,
-			long marketingIntel, String projectVisitDetails,
-			String projectRequirements, String trainings,
-			String identifyProductFocus, String fullBrandActivation,
-			String activityPhotosAttachment) {
+	public long insert(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, String projectStage, String projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
 		// ActivityCollection collection = getRecords();
 
-		ContentValues initialValues = new ContentValues();
+		ContentValues args = new ContentValues();
 
-		initialValues.put(KEY_ACTIVITY_NO, no);
-		initialValues.put(KEY_ACTIVITY_CRMNO, crmNo);
-		initialValues.put(KEY_ACTIVITY_SMRUSERID, smrUserId);
-		initialValues.put(KEY_ACTIVITY_ACTIVITYTYPE, activityType);
-		initialValues.put(KEY_ACTIVITY_CHECKIN, checkIn);
-		initialValues.put(KEY_ACTIVITY_CHECKOUT, checkOut);
-		initialValues.put(KEY_ACTIVITY_LONGITUDE, longitude);
-		initialValues.put(KEY_ACTIVITY_LATITUDE, latitude);
-		initialValues.put(KEY_ACTIVITY_CREATEDBY, createdBy);
-		initialValues.put(KEY_ACTIVITY_CREATEDTIME, createdTime);
-		initialValues.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
-		initialValues.put(KEY_ACTIVITY_REASONREMARKS, reasonRemarks);
-		initialValues.put(KEY_ACTIVITY_WORKWITH, workWith);
-		initialValues.put(KEY_ACTIVITY_ADMINWORKDETAILS, adminWorkDetails);
-		initialValues.put(KEY_ACTIVITY_CUSTOMER, customer);
-		initialValues.put(KEY_ACTIVITY_AREA, area);
-		initialValues.put(KEY_ACTIVITY_PROVINCE, province);
-		initialValues.put(KEY_ACTIVITY_CITY, city);
-		initialValues.put(KEY_ACTIVITY_WORKPLANENTRY, workplanEntry);
-		initialValues
-				.put(KEY_ACTIVITY_OBJECTIVEOFACTIVITY, objectiveOfActivity);
-		initialValues.put(KEY_ACTIVITY_FIRSTTIMEVISIT, firstTimeVisit);
-		initialValues.put(KEY_ACTIVITY_PLANNEDVISIT, plannedVisit);
-		initialValues.put(KEY_ACTIVITY_NOTES, notes);
-		initialValues.put(KEY_ACTIVITY_HIGHLIGHTS, highlights);
-		initialValues.put(KEY_ACTIVITY_NEXTSTEPS, nextSteps);
-		initialValues.put(KEY_ACTIVITY_FOLLOWUP, followUpCommitmentDate);
-		initialValues.put(KEY_ACTIVITY_CONTACTPERSON, contactPerson);
-		initialValues.put(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK,
-				jdiProductStockCheck);
-		initialValues.put(KEY_ACTIVITY_PRODUCTSUPPLIER, productSupplier);
-		initialValues.put(KEY_ACTIVITY_JDIMERCHCHECK, jdiMerchandising);
-		initialValues.put(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK,
-				jdiCompetitorProductStockCheck);
-		initialValues.put(KEY_ACTIVITY_MARKETINGINTEL, marketingIntel);
-		initialValues
-				.put(KEY_ACTIVITY_PROJECTVISITDETAILS, projectVisitDetails);
-		initialValues
-				.put(KEY_ACTIVITY_PROJECTREQUIREMENTS, projectRequirements);
-		initialValues.put(KEY_ACTIVITY_TRAININGS, trainings);
-		initialValues.put(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS,
-				identifyProductFocus);
-		initialValues
-				.put(KEY_ACTIVITY_FULLBRANDACTIVATION, fullBrandActivation);
-		initialValues.put(KEY_ACTIVITY_PHOTOSATTACHMENT,
-				activityPhotosAttachment);
+		args.put(KEY_ACTIVITY_NO, no);
+		args.put(KEY_ACTIVITY_CRMNO, crmNo);
+		args.put(KEY_ACTIVITY_ACTIVITYTYPE, activityType);
+		args.put(KEY_ACTIVITY_CHECKIN, checkIn);
+		args.put(KEY_ACTIVITY_CHECKOUT, checkOut);
+		args.put(KEY_ACTIVITY_BUSINESSUNIT, businessUnit);
+		args.put(KEY_ACTIVITY_CREATEDBY, createdBy);
+		args.put(KEY_ACTIVITY_LONGITUDE, longitude);
+		args.put(KEY_ACTIVITY_LATITUDE, latitude);
+		args.put(KEY_ACTIVITY_CREATEDTIME, createdTime);
+		args.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_ACTIVITY_REASONREMARKS, reasonsRemarks);
+		args.put(KEY_ACTIVITY_SMR, smr);
+		args.put(KEY_ACTIVITY_ADMINWORKDETAILS, adminDetails);
+		args.put(KEY_ACTIVITY_CUSTOMER, customer);
+		args.put(KEY_ACTIVITY_AREA, area);
+		args.put(KEY_ACTIVITY_PROVINCE, province);
+		args.put(KEY_ACTIVITY_CITY, city);
+		args.put(KEY_ACTIVITY_WORKPLANENTRY, workplanEntry);
+		args.put(KEY_ACTIVITY_OBJECTIVES, objective);
+		args.put(KEY_ACTIVITY_FIRSTTIMEVISIT, firstTimeVisit);
+		args.put(KEY_ACTIVITY_PLANNEDVISIT, plannedVisit);
+		args.put(KEY_ACTIVITY_NOTES, notes);
+		args.put(KEY_ACTIVITY_HIGHLIGHTS, highlights);
+		args.put(KEY_ACTIVITY_NEXTSTEPS, nextSteps);
+		args.put(KEY_ACTIVITY_FOLLOWUP, followUpCommitmentDate);
+		args.put(KEY_ACTIVITY_PROJECTNAME, projectName);
+		args.put(KEY_ACTIVITY_PROJECTSTAGE, projectStage);
+		args.put(KEY_ACTIVITY_PROJECTCATEGORY, projectCategory);
+		args.put(KEY_ACTIVITY_VENUE, venue);
+		args.put(KEY_ACTIVITY_NOOFATTENDEES, numberOfAttendees);
+		args.put(KEY_ACTIVITY_ENDUSERACTIVITYTYPES, endUserActivityTypes);
 
-		long ids = mDb.insert(mDatabaseTable, null, initialValues);
+		long ids = mDb.insert(mDatabaseTable, null, args);
 		if (ids >= 0) {
 			// collection.add(ids, no, workplan, startTime, endTime, longitude,
 			// latitude, objectives, notes, highlights, nextSteps,
@@ -885,61 +749,49 @@ public class ActivityTable {
 		return rowsDeleted;
 	}
 
-	public boolean update(long id, String no, String crmNo, String smrUserId,
-			long activityType, String checkIn, String checkOut,
-			double longitude, double latitude, long createdBy,
-			String createdTime, String modifiedTime, String reasonRemarks,
-			String workWith, String adminWorkDetails, long customer, long area,
-			long province, long city, long workplanEntry,
-			String objectiveOfActivity, int firstTimeVisit, int plannedVisit,
-			String notes, String highlights, String nextSteps,
-			String followUpCommitmentDate, long contactPerson,
-			long jdiProductStockCheck, long productSupplier,
-			long jdiMerchandising, long jdiCompetitorProductStockCheck,
-			long marketingIntel, String projectVisitDetails,
-			String projectRequirements, String trainings,
-			String identifyProductFocus, String fullBrandActivation,
-			String activityPhotosAttachment) {
+	public boolean update(long id, String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, String projectStage, String projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
 		args.put(KEY_ACTIVITY_CRMNO, crmNo);
-		args.put(KEY_ACTIVITY_SMRUSERID, smrUserId);
 		args.put(KEY_ACTIVITY_ACTIVITYTYPE, activityType);
 		args.put(KEY_ACTIVITY_CHECKIN, checkIn);
 		args.put(KEY_ACTIVITY_CHECKOUT, checkOut);
+		args.put(KEY_ACTIVITY_BUSINESSUNIT, businessUnit);
+		args.put(KEY_ACTIVITY_CREATEDBY, createdBy);
 		args.put(KEY_ACTIVITY_LONGITUDE, longitude);
 		args.put(KEY_ACTIVITY_LATITUDE, latitude);
-		args.put(KEY_ACTIVITY_CREATEDBY, createdBy);
 		args.put(KEY_ACTIVITY_CREATEDTIME, createdTime);
 		args.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
-		args.put(KEY_ACTIVITY_REASONREMARKS, reasonRemarks);
-		args.put(KEY_ACTIVITY_WORKWITH, workWith);
-		args.put(KEY_ACTIVITY_ADMINWORKDETAILS, adminWorkDetails);
+		args.put(KEY_ACTIVITY_REASONREMARKS, reasonsRemarks);
+		args.put(KEY_ACTIVITY_SMR, smr);
+		args.put(KEY_ACTIVITY_ADMINWORKDETAILS, adminDetails);
 		args.put(KEY_ACTIVITY_CUSTOMER, customer);
 		args.put(KEY_ACTIVITY_AREA, area);
 		args.put(KEY_ACTIVITY_PROVINCE, province);
 		args.put(KEY_ACTIVITY_CITY, city);
 		args.put(KEY_ACTIVITY_WORKPLANENTRY, workplanEntry);
-		args.put(KEY_ACTIVITY_OBJECTIVEOFACTIVITY, objectiveOfActivity);
+		args.put(KEY_ACTIVITY_OBJECTIVES, objective);
 		args.put(KEY_ACTIVITY_FIRSTTIMEVISIT, firstTimeVisit);
 		args.put(KEY_ACTIVITY_PLANNEDVISIT, plannedVisit);
 		args.put(KEY_ACTIVITY_NOTES, notes);
 		args.put(KEY_ACTIVITY_HIGHLIGHTS, highlights);
 		args.put(KEY_ACTIVITY_NEXTSTEPS, nextSteps);
 		args.put(KEY_ACTIVITY_FOLLOWUP, followUpCommitmentDate);
-		args.put(KEY_ACTIVITY_CONTACTPERSON, contactPerson);
-		args.put(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK, jdiProductStockCheck);
-		args.put(KEY_ACTIVITY_PRODUCTSUPPLIER, productSupplier);
-		args.put(KEY_ACTIVITY_JDIMERCHCHECK, jdiMerchandising);
-		args.put(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK,
-				jdiCompetitorProductStockCheck);
-		args.put(KEY_ACTIVITY_MARKETINGINTEL, marketingIntel);
-		args.put(KEY_ACTIVITY_PROJECTVISITDETAILS, projectVisitDetails);
-		args.put(KEY_ACTIVITY_PROJECTREQUIREMENTS, projectRequirements);
-		args.put(KEY_ACTIVITY_TRAININGS, trainings);
-		args.put(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS, identifyProductFocus);
-		args.put(KEY_ACTIVITY_FULLBRANDACTIVATION, fullBrandActivation);
-		args.put(KEY_ACTIVITY_PHOTOSATTACHMENT, activityPhotosAttachment);
+		args.put(KEY_ACTIVITY_PROJECTNAME, projectName);
+		args.put(KEY_ACTIVITY_PROJECTSTAGE, projectStage);
+		args.put(KEY_ACTIVITY_PROJECTCATEGORY, projectCategory);
+		args.put(KEY_ACTIVITY_VENUE, venue);
+		args.put(KEY_ACTIVITY_NOOFATTENDEES, numberOfAttendees);
+		args.put(KEY_ACTIVITY_ENDUSERACTIVITYTYPES, endUserActivityTypes);
 
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
@@ -966,17 +818,14 @@ public class ActivityTable {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public List<ActivityRecord> getAllRecordsByDate(String hint) {
 		Cursor c = null;
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
 		String MY_QUERY = "";
 
-
-			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_ACTIVITY_CHECKIN + " LIKE " + "'%" + hint + "%'";
-
-		
+		MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_CHECKIN + " LIKE " + "'%" + hint + "%'";
 
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -984,32 +833,30 @@ public class ActivityTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CRMNO));
-					String smrUserId = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 					String checkIn = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 					String checkOut = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
 					double longitude = c.getDouble(c
 							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
 					double latitude = c.getDouble(c
 							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					long createdBy = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-					String reasonRemarks = c.getString(c
+					String reasonsRemarks = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-					String workWith = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-					String adminWorkDetails = c.getString(c
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -1019,8 +866,8 @@ public class ActivityTable {
 					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 					long workplanEntry = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					String objectiveOfActivity = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 					int firstTimeVisit = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 					int plannedVisit = c.getInt(c
@@ -1033,46 +880,28 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 					String followUpCommitmentDate = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-					long contactPerson = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-					long jdiProductStockCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-					long productSupplier = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-					long jdiMerchandising = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-					long jdiCompetitorProductStockCheck = c
-							.getLong(c
-									.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-					long marketingIntel = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-					String projectVisitDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-					String projectRequirements = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-					String trainings = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-					String identifyProductFocus = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-					String fullBrandActivation = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-					String activityPhotosAttachment = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-					list.add(new ActivityRecord(id, no, crmNo, smrUserId,
-							activityType, checkIn, checkOut, longitude,
-							latitude, createdBy, createdTime, modifiedTime,
-							reasonRemarks, workWith, adminWorkDetails,
-							customer, area, province, city, workplanEntry,
-							objectiveOfActivity, firstTimeVisit, plannedVisit,
-							notes, highlights, nextSteps,
-							followUpCommitmentDate, contactPerson,
-							jdiProductStockCheck, productSupplier,
-							jdiMerchandising, jdiCompetitorProductStockCheck,
-							marketingIntel, projectVisitDetails,
-							projectRequirements, trainings,
-							identifyProductFocus, fullBrandActivation,
-							activityPhotosAttachment));
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
 					// list.add(new CustomerRecord(id, no, crmNo, customerName,
 					// chainName, landline, fax, customerSize,
 					// streetAddress, customerType, businessUnit, area,
@@ -1119,32 +948,30 @@ public class ActivityTable {
 				do {
 					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
 					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
-
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CRMNO));
-					String smrUserId = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_SMRUSERID));
 					long activityType = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
 					String checkIn = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
 					String checkOut = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
 					double longitude = c.getDouble(c
 							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
 					double latitude = c.getDouble(c
 							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
-					long createdBy = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
 					String modifiedTime = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
-					String reasonRemarks = c.getString(c
+					String reasonsRemarks = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
-					String workWith = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_WORKWITH));
-					String adminWorkDetails = c.getString(c
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
 					long customer = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
@@ -1154,8 +981,8 @@ public class ActivityTable {
 					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
 					long workplanEntry = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
-					String objectiveOfActivity = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_OBJECTIVEOFACTIVITY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
 					int firstTimeVisit = c.getInt(c
 							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
 					int plannedVisit = c.getInt(c
@@ -1168,46 +995,28 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
 					String followUpCommitmentDate = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
-					long contactPerson = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_CONTACTPERSON));
-					long jdiProductStockCheck = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIPRODUCTSTOCKCHECK));
-					long productSupplier = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PRODUCTSUPPLIER));
-					long jdiMerchandising = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_JDIMERCHCHECK));
-					long jdiCompetitorProductStockCheck = c
-							.getLong(c
-									.getColumnIndex(KEY_ACTIVITY_JDICOMPETITORPRODSTOCKCHECK));
-					long marketingIntel = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_MARKETINGINTEL));
-					String projectVisitDetails = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTVISITDETAILS));
-					String projectRequirements = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECTREQUIREMENTS));
-					String trainings = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_TRAININGS));
-					String identifyProductFocus = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_IDENTIFYPRODUCTFOCUS));
-					String fullBrandActivation = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_FULLBRANDACTIVATION));
-					String activityPhotosAttachment = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PHOTOSATTACHMENT));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					String projectStage = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					String projectCategory = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
 
-					list.add(new ActivityRecord(id, no, crmNo, smrUserId,
-							activityType, checkIn, checkOut, longitude,
-							latitude, createdBy, createdTime, modifiedTime,
-							reasonRemarks, workWith, adminWorkDetails,
-							customer, area, province, city, workplanEntry,
-							objectiveOfActivity, firstTimeVisit, plannedVisit,
-							notes, highlights, nextSteps,
-							followUpCommitmentDate, contactPerson,
-							jdiProductStockCheck, productSupplier,
-							jdiMerchandising, jdiCompetitorProductStockCheck,
-							marketingIntel, projectVisitDetails,
-							projectRequirements, trainings,
-							identifyProductFocus, fullBrandActivation,
-							activityPhotosAttachment));
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
 					// list.add(new CustomerRecord(id, no, crmNo, customerName,
 					// chainName, landline, fax, customerSize,
 					// streetAddress, customerType, businessUnit, area,

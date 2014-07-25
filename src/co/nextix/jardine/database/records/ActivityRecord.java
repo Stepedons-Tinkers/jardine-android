@@ -11,13 +11,14 @@ public class ActivityRecord {
 	private long id;
 	private String no;
 	private String crm_no;
-	private String smr_user_id;
 	private long activity_type; // activity type table
 	private String check_in;
 	private String check_out;
+	private long business_unit; // business unit table
+	private long created_by; // User Table
+
 	private double longitude;
 	private double latitude;
-	private long created_by; // User Table
 	private String created_time;
 	private String modified_time;
 
@@ -25,18 +26,18 @@ public class ActivityRecord {
 	private String reason_remarks;
 
 	// with CoSMRSs
-	private String work_with;
+	private long smr; // smr table
 
 	// Admin work details
 	private String admin_work_details;
 
-	// Activity details and notes
+	// Activity details and Notes
 	private long customer; // customer table
 	private long area; // area table
 	private long province; // province table
 	private long city; // city table
 	private long workplan_entry; // workplan entry table
-	private String objective_of_activity;
+	private String objective;
 	private int first_time_visit;
 	private int planned_visit;
 	private String notes;
@@ -44,42 +45,17 @@ public class ActivityRecord {
 	private String next_steps;
 	private String follow_up_commitment_date;
 
-	// customer contact person
-	private long contact_person; // customer contact table
+	// Project visit
+	private String project_name;
+	private String project_stage;
+	private String project_category;
 
-	// jdi product stock check
-	private long jdi_product_stock_check; // jdi product stock check table
+	// Trainings
+	private String venue;
+	private int number_of_attendees;
 
-	// product supplier
-	private long product_supplier; // product supplier table
-
-	// jdi merchandising check
-	private long jdi_merchandising_check; // jdi merchandising check table
-
-	// jdi competitor product stock check
-	private long jdi_competitor_product_stock_check; // jdi competitor product
-														// stock check table
-
-	// marketing intel
-	private long marketing_intel; // marketing intel table
-
-	// project visit details
-	private String project_visit_details; // project visit details table
-
-	// project requirements
-	private String project_requirements; // project requirements table
-
-	// trainings
-	private String trainings;
-
-	// identify product focus
-	private String identify_product_focus;
-
-	// full brand activation
-	private String full_brand_activation;
-
-	// activity photos and attachments
-	private String activity_photos_and_attachments;
+	// Full brand activitation
+	private String end_user_activity_types;
 
 	// ===========================================================
 	// Public constructors
@@ -88,61 +64,50 @@ public class ActivityRecord {
 	public ActivityRecord() {
 	}
 
-	public ActivityRecord(long id, String no, String crmNo, String smrUserId,
-			long activityType, String checkIn, String checkOut,
-			double longitude, double latitude, long createdBy,
-			String createdTime, String modifiedTime, String reasonRemarks,
-			String workWith, String adminWorkDetails, long customer, long area,
-			long province, long city, long workplanEntry,
-			String objectiveOfActivity, int firstTimeVisit, int plannedVisit,
-			String notes, String highlights, String nextSteps,
-			String followUpCommitmentDate, long contactPerson,
-			long jdiProductStockCheck, long productSupplier,
-			long jdiMerchandising, long jdiCompetitorProductStockCheck,
-			long marketingIntel, String projectVisitDetails,
-			String projectRequirements, String trainings,
-			String identifyProductFocus, String fullBrandActivation,
-			String activityPhotosAttachment) {
+	public ActivityRecord(long id, String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, String projectStage, String projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		this.id = id;
 		this.no = no;
 		this.crm_no = crmNo;
-		this.smr_user_id = smrUserId;
 		this.activity_type = activityType;
 		this.check_in = checkIn;
 		this.check_out = checkOut;
+		this.business_unit = businessUnit;
+		this.created_by = createdBy;
 		this.longitude = longitude;
 		this.latitude = latitude;
-		this.created_by = createdBy;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
-		this.reason_remarks = reasonRemarks;
-		this.work_with = workWith;
-		this.admin_work_details = adminWorkDetails;
+		this.reason_remarks = reasonsRemarks;
+		this.smr = smr;
+		this.admin_work_details = adminDetails;
 		this.customer = customer;
 		this.area = area;
 		this.province = province;
 		this.city = city;
 		this.workplan_entry = workplanEntry;
-		this.objective_of_activity = objectiveOfActivity;
+		this.objective = objective;
 		this.first_time_visit = firstTimeVisit;
 		this.planned_visit = plannedVisit;
 		this.notes = notes;
 		this.highlights = highlights;
 		this.next_steps = nextSteps;
 		this.follow_up_commitment_date = followUpCommitmentDate;
-		this.contact_person = contactPerson;
-		this.jdi_product_stock_check = jdiProductStockCheck;
-		this.product_supplier = productSupplier;
-		this.jdi_merchandising_check = jdiMerchandising;
-		this.jdi_competitor_product_stock_check = jdiCompetitorProductStockCheck;
-		this.marketing_intel = marketingIntel;
-		this.project_visit_details = projectVisitDetails;
-		this.project_requirements = projectRequirements;
-		this.trainings = trainings;
-		this.identify_product_focus = identifyProductFocus;
-		this.full_brand_activation = fullBrandActivation;
-		this.activity_photos_and_attachments = activityPhotosAttachment;
+		this.project_name = projectName;
+		this.project_stage = projectStage;
+		this.project_category = projectCategory;
+		this.venue = venue;
+		this.number_of_attendees = numberOfAttendees;
+		this.end_user_activity_types = endUserActivityTypes;
 	}
 
 	// ===========================================================
@@ -169,14 +134,6 @@ public class ActivityRecord {
 		return this.crm_no;
 	}
 
-	public void setSmrUserId(String smrUserId) {
-		this.smr_user_id = smrUserId;
-	}
-
-	public String getSmrUserId() {
-		return this.smr_user_id;
-	}
-
 	public void setActivityType(long activityType) {
 		this.activity_type = activityType;
 	}
@@ -201,6 +158,22 @@ public class ActivityRecord {
 		return this.check_out;
 	}
 
+	public long getBusinessUnit() {
+		return business_unit;
+	}
+
+	public void setBusinessUnit(long businessUnit) {
+		this.business_unit = businessUnit;
+	}
+
+	public void setCreatedBy(long createdBy) {
+		this.created_by = createdBy;
+	}
+
+	public long getCreatedBy() {
+		return this.created_by;
+	}
+
 	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
@@ -215,14 +188,6 @@ public class ActivityRecord {
 
 	public double getLatitude() {
 		return this.latitude;
-	}
-
-	public void setCreatedBy(long createdBy) {
-		this.created_by = createdBy;
-	}
-
-	public long getCreatedBy() {
-		return this.created_by;
 	}
 
 	public void setCreatedTime(String createdTime) {
@@ -249,12 +214,12 @@ public class ActivityRecord {
 		return this.reason_remarks;
 	}
 
-	public void setWorkWith(String workWith) {
-		this.work_with = workWith;
+	public void setSmr(long smr) {
+		this.smr = smr;
 	}
 
-	public String getWorkWith() {
-		return this.work_with;
+	public long getSmr() {
+		return this.smr;
 	}
 
 	public void setAdminWorkDetails(String adminWorkDetails) {
@@ -305,12 +270,12 @@ public class ActivityRecord {
 		return this.workplan_entry;
 	}
 
-	public void setObjectiveOfActivity(String objectiveOfActivity) {
-		this.objective_of_activity = objectiveOfActivity;
+	public void setObjective(String objective) {
+		this.objective = objective;
 	}
 
-	public String getObjectiveOfActivity() {
-		return this.objective_of_activity;
+	public String getObjective() {
+		return this.objective;
 	}
 
 	public void setFirstTimeVisit(int firstTimeVisit) {
@@ -361,102 +326,51 @@ public class ActivityRecord {
 		return this.follow_up_commitment_date;
 	}
 
-	public void setContactPerson(long contactPerson) {
-		this.contact_person = contactPerson;
+	public void setProjectName(String projectName) {
+		this.project_name = projectName;
 	}
 
-	public long getContactPerson() {
-		return this.contact_person;
+	public String getProjectName() {
+		return project_name;
 	}
 
-	public void setJdiProductStockCheck(long jdiProductStockCheck) {
-		this.jdi_product_stock_check = jdiProductStockCheck;
+	public void setProjectStage(String projectStage) {
+		this.project_stage = projectStage;
 	}
 
-	public long getJdiProductStockCheck() {
-		return this.jdi_product_stock_check;
+	public String getProjectStage() {
+		return this.project_stage;
 	}
 
-	public void setProductSupplier(long productSupplier) {
-		this.product_supplier = productSupplier;
+	public void setProjectCategory(String projectCategory) {
+		this.project_category = projectCategory;
 	}
 
-	public long getProductSupplier() {
-		return this.product_supplier;
+	public String getProjectCategory() {
+		return project_category;
 	}
 
-	public void setJdiMerchandisingCheck(long jdiMerchandisingCheck) {
-		this.jdi_merchandising_check = jdiMerchandisingCheck;
+	public void setVenue(String venue) {
+		this.venue = venue;
 	}
 
-	public long getJdiMerchandisingCheck() {
-		return this.jdi_merchandising_check;
+	public String getVenue() {
+		return venue;
 	}
 
-	public void setJdiCompetitorProductStockCheck(
-			long jdiCompetitorProductStockCheck) {
-		this.jdi_competitor_product_stock_check = jdiCompetitorProductStockCheck;
+	public void setNumberOfAttendees(int numberOfAttendees) {
+		this.number_of_attendees = numberOfAttendees;
 	}
 
-	public long getJdiCompetitorProductStockCheck() {
-		return this.jdi_competitor_product_stock_check;
+	public int getNumberOfAttendees() {
+		return number_of_attendees;
 	}
 
-	public void setMarketingIntel(long marketingIntel) {
-		this.marketing_intel = marketingIntel;
+	public void setEndUserActivityTypes(String endUserActivityTypes) {
+		this.end_user_activity_types = endUserActivityTypes;
 	}
 
-	public long getMarketingIntel() {
-		return this.marketing_intel;
+	public String getEndUserActivityTypes() {
+		return end_user_activity_types;
 	}
-
-	public void setProjectVisitDetails(String projectVisitDetails) {
-		this.project_visit_details = projectVisitDetails;
-	}
-
-	public String getProjectVisitDetails() {
-		return this.project_visit_details;
-	}
-
-	public void setProjectRequirements(String projectRequirements) {
-		this.project_requirements = projectRequirements;
-	}
-
-	public String getProjectRequirements() {
-		return this.project_requirements;
-	}
-
-	public void setTrainings(String trainings) {
-		this.trainings = trainings;
-	}
-
-	public String getTrainings() {
-		return this.trainings;
-	}
-
-	public void setIdentifyProductFocus(String identifyProductFocus) {
-		this.identify_product_focus = identifyProductFocus;
-	}
-
-	public String getIdentifyProductFocus() {
-		return this.identify_product_focus;
-	}
-
-	public void setFullBrandActivation(String fullBrandActivation) {
-		this.full_brand_activation = fullBrandActivation;
-	}
-
-	public String getFullBrandActivation() {
-		return this.full_brand_activation;
-	}
-
-	public void setActivityPhotosAndAttachments(
-			String activityPhotosAndAttachments) {
-		this.activity_photos_and_attachments = activityPhotosAndAttachments;
-	}
-
-	public String getActivityPhotosAndAttachments() {
-		return this.activity_photos_and_attachments;
-	}
-
 }

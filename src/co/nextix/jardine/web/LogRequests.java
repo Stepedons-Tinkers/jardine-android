@@ -36,7 +36,7 @@ public class LogRequests {
 	// final String TAG = "Webservice_Log";
 	final String TAG = "Webservice";
 
-	public LoginModel login(String username, String password) {
+	public LoginModel login(String username, String password, String area) {
 		LoginModel model = null;
 		String charset = "UTF-8";
 		URL url;
@@ -46,7 +46,7 @@ public class LogRequests {
 
 			url = new URL(urlString);
 			Log.d(TAG, urlString);
-			Log.d(TAG, "username: " + username + " password: " + password);
+			Log.d(TAG, "username: " + username + " password: " + password + " area: " + area);
 			JardineApp.httpConnection = (HttpURLConnection) url
 					.openConnection();
 			JardineApp.httpConnection.setRequestProperty("Connection",
@@ -61,6 +61,7 @@ public class LogRequests {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("username", username));
 			params.add(new BasicNameValuePair("password", password));
+			params.add(new BasicNameValuePair("area", area));
 			params.add(new BasicNameValuePair("operation", "login"));
 
 			// sending

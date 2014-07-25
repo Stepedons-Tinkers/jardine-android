@@ -41,6 +41,7 @@ public class Modules {
 	public static String jdiprodstock_status = "z_jps_stockstatus";
 	public static String jdimerchcheck_status = "z_jmc_status";
 	public static String projrequirement_type = "z_pr_prtype";
+	public static String end_user_activity_types = "z_ac_enduseractype";
 
 	public static String[] picklists = new String[] { smrtimecard_entry,
 			customer_size, customer_type, customercontact_position,

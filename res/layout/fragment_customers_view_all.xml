@@ -14,7 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/llCustomersLL0"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:background="@drawable/xml_tablelayout_bg"
@@ -78,30 +77,6 @@
             android:text="Add Customer"
             android:textColor="@android:color/white"
             android:textSize="16sp" />
-
-        <LinearLayout
-            android:id="@+id/llCustomersLL0"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/flCustomersFL1"
-            android:background="#ffffff"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp" >
-
-            <SearchView
-                android:id="@+id/svCustomers"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-            </SearchView>
-            <Spinner
-                android:id="@+id/spiCollateralsEventProtolSpinnerSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:drawable/btn_dropdown"
-                android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
-                android:spinnerMode="dropdown" />
-        </LinearLayout>
     </RelativeLayout>
 
 </ScrollView>

@@ -33,6 +33,7 @@ import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
+import co.nextix.jardine.database.records.SMRRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
@@ -77,7 +78,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		// List to be populated in spinner adapter
 		List<PicklistRecord> areaList = JardineApp.DB.getArea().getAllRecords();
 		List<PicklistRecord> sourceList = JardineApp.DB.getArea().getAllRecords();
-		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(JardineApp.DB.getUser().getCurrentUser().getId());
+		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(Long.parseLong(
+				StoreAccount.restore(getActivity()).getString(Account.ROWID)));
 
 		// Karon clear na
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
@@ -224,45 +226,25 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					 * pref.getString("no_attendees", null) != null
 					 */) {
 
-						long smr = (long) 0.0004;// Long.parseLong(pref.getString("smr",
-													// null));
-						String issuesIdentified = pref.getString("issues_identified", null);
-						String feedBackFromCustomer = pref.getString("feedback_from_customer", null);
-						String ongoingCampaigns = pref.getString("ongoing_campaigns", null);
-						String lastDelivery = pref.getString("last_delivery", null);
-						String promoStubsDetails = pref.getString("promo_stubs_details", null);
-						String projectName = pref.getString("project_name", null);
-						String projectCategory = pref.getString("project_category", null);
-						String projectStage = pref.getString("project_stage", null);
-						String date = pref.getString("date", null);
-						String time = pref.getString("time", null);
-						String venue = pref.getString("venue", null);
-						String noOfAttendees = pref.getString("no_attendees", null);
-
-						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(), "smrUserId", Long
-								.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), "checkIn", "checkOut",
-								123.894882, 10.310235, Long.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)),
-								startTime.concat(df.format(calendar.getTime())), endTime.concat(df.format(calendar.getTime())),
-								((EditText) rootView.findViewById(R.id.reason_remarks)).getText().toString(), "workWith",
-								((EditText) rootView.findViewById(R.id.details_admin_works)).getText().toString(), Long
-										.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), Long
-										.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), Long
-										.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), Long
-										.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), Long
-										.parseLong(StoreAccount.restore(JardineApp.context).getString(Account.ROWID)), ((EditText) rootView
+						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(),
+								((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId(),
+								"checkIn", "checkOut", businessUnit.getId(), Long.parseLong(StoreAccount.restore(JardineApp.context)
+										.getString(Account.ROWID)), 123.894882, 10.310235, startTime.concat(df.format(calendar.getTime())),
+								endTime.concat(df.format(calendar.getTime())), ((EditText) rootView.findViewById(R.id.reason_remarks))
+										.getText().toString(), ((SMRRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem())
+										.getId(), "adminDetails", ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer))
+										.getSelectedItem()).getId(), ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area))
+										.getSelectedItem()).getId(), ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province))
+										.getSelectedItem()).getId(), ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town))
+										.getSelectedItem()).getId(), ((WorkplanEntryRecord) ((Spinner) rootView
+										.findViewById(R.id.workplan_entry)).getSelectedItem()).getId(), ((EditText) rootView
 										.findViewById(R.id.objective)).getText().toString(), ((CheckBox) rootView
 										.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0, ((CheckBox) rootView
 										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, ((EditText) rootView
 										.findViewById(R.id.notes)).getText().toString(),
 								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount
-										.restore(JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), "projectVisitDetails", "projectRequirements",
-								"trainings", "identifyProductFocus", "fullBrandActivation", "activityPhotosAttachment").execute();
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), "projectName", "projectStage",
+								"projectCategory", "venue", 0, "endUserActivityTypes").execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
@@ -292,23 +274,24 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		// String to be populated
 		private String no = null;
 		private String crmNo = null;
-		private String smrUserid = null;
 
 		private long activityType = 0000;
 
 		private String checkIn = null;
 		private String checkOut = null;
 
+		private long businessUnit = 0000;
+		private long createdBy = 000;
+
 		private double longitude = 0.00;
 		private double latitude = 0.00;
 
-		private long createdBy = 0000;
-
 		private String createdTime = null;
 		private String modifiedTime = null;
-		private String reasonRemarks = null;
-		private String workWith = null;
-		private String adminWorkDetails = null;
+		private String reasonsRemarks = null;
+
+		private long smr = 0000;
+		private String adminDetails = null;
 
 		private long customer = 0000;
 		private long area = 0000;
@@ -316,7 +299,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		private long city = 0000;
 		private long workplanEntry = 0000;
 
-		private String objectiveOfActivity = null;
+		private String objective = null;
 
 		private int firstTimeVisit = 0;
 		private int plannedVisit = 0;
@@ -325,82 +308,55 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		private String highlights = null;
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
-
-		private long contactPerson = 0000;
-		private long jdiProductStockCheck = 0000;
-		private long productSupplier = 0000;
-		private long jdiMerchandising = 0000;
-		private long jdiCompetitorProductStockCheck = 0000;
-		private long marketingIntel = 0000;
-
-		private String projectVisitDetails = null;
-		private String projectRequirments = null;
-		private String trainings = null;
-		private String identifyProductFocus = null;
-		private String fullBrandActivation = null;
-		private String activityPhotosAttachment = null;
-
-		private String issuesIdentified = null;
-		private String feedBackFromCustomer = null;
-		private String ongoingCampaigns = null;
-		private String lastDelivery = null;
-		private String promoStubsDetails = null;
 		private String projectName = null;
-		private String projectCategory = null;
 		private String projectStage = null;
-		private String date = null;
-		private String time = null;
+		private String projectCategory = null;
 		private String venue = null;
-		private String noOfAttendees = null;
+
+		private int numberOfAttendees = 0;
+		private String endUserActivityTypes = null;
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, String smrUserId, long activityType, String checkIn, String checkOut, double longitude,
-				double latitude, long createdBy, String createdTime, String modifiedTime, String reasonRemarks, String workWith,
-				String adminWorkDetails, long customer, long area, long province, long city, long workplanEntry,
-				String objectiveOfActivity, int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps,
-				String followUpCommitmentDate, long contactPerson, long jdiProductStockCheck, long productSupplier, long jdiMerchandising,
-				long jdiCompetitorProductStockCheck, long marketingIntel, String projectVisitDetails, String projectRequirements,
-				String trainings, String identifyProductFocus, String fullBrandActivation, String activityPhotosAttachment) {
+		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
+				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
+				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
-			this.smrUserid = smrUserId;
 			this.activityType = activityType;
 			this.checkIn = checkIn;
 			this.checkOut = checkOut;
+			this.businessUnit = businessUnit;
+			this.createdBy = createdBy;
 			this.longitude = longitude;
 			this.latitude = latitude;
-			this.createdBy = createdBy;
 			this.createdTime = createdTime;
 			this.modifiedTime = modifiedTime;
-			this.reasonRemarks = reasonRemarks;
-			this.workWith = workWith;
-			this.adminWorkDetails = adminWorkDetails;
+			this.reasonsRemarks = reasonsRemarks;
+			this.smr = smr;
+			this.adminDetails = adminDetails;
 			this.customer = customer;
 			this.area = area;
 			this.province = province;
 			this.city = city;
 			this.workplanEntry = workplanEntry;
-			this.objectiveOfActivity = objectiveOfActivity;
+			this.objective = objective;
 			this.firstTimeVisit = firstTimeVisit;
 			this.plannedVisit = plannedVisit;
 			this.notes = notes;
 			this.highlights = highlights;
 			this.nextSteps = nextSteps;
 			this.followUpCommitmentDate = followUpCommitmentDate;
-			this.contactPerson = contactPerson;
-			this.jdiProductStockCheck = jdiProductStockCheck;
-			this.productSupplier = productSupplier;
-			this.jdiMerchandising = jdiMerchandising;
-			this.jdiCompetitorProductStockCheck = jdiCompetitorProductStockCheck;
-			this.marketingIntel = marketingIntel;
-			this.projectVisitDetails = projectVisitDetails;
-			this.projectRequirments = projectRequirements;
-			this.trainings = trainings;
-			this.identifyProductFocus = identifyProductFocus;
-			this.fullBrandActivation = fullBrandActivation;
-			this.activityPhotosAttachment = activityPhotosAttachment;
+			this.projectName = projectName;
+			this.projectStage = projectStage;
+			this.projectCategory = projectCategory;
+			this.venue = venue;
+			this.numberOfAttendees = numberOfAttendees;
+			this.endUserActivityTypes = endUserActivityTypes;
 		}
 
 		@Override
@@ -408,18 +364,21 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
+			this.widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
 
 			this.widthAnimation.start();
 		}
@@ -429,14 +388,18 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.smrUserid, this.activityType, this.checkIn, this.checkOut, this.longitude,
-						this.latitude, this.createdBy, this.createdTime, this.modifiedTime, this.reasonRemarks, this.workWith,
-						this.adminWorkDetails, this.customer, this.area, this.province, this.city, this.workplanEntry,
-						this.objectiveOfActivity, this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps,
-						this.followUpCommitmentDate, this.contactPerson, this.jdiProductStockCheck, this.productSupplier,
-						this.jdiMerchandising, this.jdiCompetitorProductStockCheck, this.marketingIntel, this.projectVisitDetails,
-						this.projectRequirments, this.trainings, this.identifyProductFocus, this.fullBrandActivation,
-						this.activityPhotosAttachment);
+				saveActivity(this.no, this.crmNo, this.activityType,
+						this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude,
+						this.createdTime, this.modifiedTime,
+						this.reasonsRemarks, this.smr, this.adminDetails,
+						this.customer, this.area, this.province, this.city,
+						this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes,
+						this.highlights, this.nextSteps,
+						this.followUpCommitmentDate, this.projectName,
+						this.projectStage, this.projectCategory, this.venue,
+						this.numberOfAttendees, this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -460,43 +423,59 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	protected DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
 			AddActivityGeneralInformationFragment.this.year = selectedYear;
 			AddActivityGeneralInformationFragment.this.month = selectedMonth;
 			AddActivityGeneralInformationFragment.this.day = selectedDay;
-			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
-					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
-					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year
+					+ "-"
+					+ AddActivityGeneralInformationFragment.this
+							.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
+					+ "-"
+					+ AddActivityGeneralInformationFragment.this
+							.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 			if (flag == 0) {
-				((TextView) rootView.findViewById(R.id.start_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.start_time))
+						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else if (flag == 4) {
-				((TextView) rootView.findViewById(R.id.end_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.end_time))
+						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
-				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
+				((TextView) rootView
+						.findViewById(R.id.follow_up_commitment_date))
 						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			}
 		}
 	};
 
 	protected String FormatDateAndDay(int digit) {
-		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit)
+				: String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
 	}
 
-	protected void saveActivity(String no, String crmNo, String smrUserId, long activityType, String checkIn, String checkOut,
-			double longitude, double latitude, long createdBy, String createdTime, String modifiedTime, String reasonRemarks,
-			String workWith, String adminWorkDetails, long customer, long area, long province, long city, long workplanEntry,
-			String objectiveOfActivity, int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps,
-			String followUpCommitmentDate, long contactPerson, long jdiProductStockCheck, long productSupplier, long jdiMerchandising,
-			long jdiCompetitorProductStockCheck, long marketingIntel, String projectVisitDetails, String projectRequirements,
-			String trainings, String identifyProductFocus, String fullBrandActivation, String activityPhotosAttachment) {
+	protected void saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, String projectStage, String projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, smrUserId, activityType, checkIn, checkOut, longitude, latitude, createdBy,
-				createdTime, modifiedTime, reasonRemarks, workWith, adminWorkDetails, customer, area, province, city, workplanEntry,
-				objectiveOfActivity, firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, contactPerson,
-				jdiProductStockCheck, productSupplier, jdiMerchandising, jdiCompetitorProductStockCheck, marketingIntel,
-				projectVisitDetails, projectRequirements, trainings, identifyProductFocus, fullBrandActivation, activityPhotosAttachment);
+		JardineApp.DB.getActivity()
+				.insert(no, crmNo, activityType, checkIn, checkOut,
+						businessUnit, createdBy, longitude, latitude,
+						createdTime, modifiedTime, reasonsRemarks, smr,
+						adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 	}
 }
