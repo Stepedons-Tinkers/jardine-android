@@ -140,4 +140,9 @@ public class CalendarRecord {
 	public long getAssignedUser() {
 		return this.smownerid;
 	}
+	
+	@Override
+	public String toString() {
+		return this.subject;
+	}
 }

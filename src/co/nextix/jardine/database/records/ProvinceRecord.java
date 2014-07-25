@@ -52,7 +52,6 @@ public class ProvinceRecord {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.name;
 	}
 

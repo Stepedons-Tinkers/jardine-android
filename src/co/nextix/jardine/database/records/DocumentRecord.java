@@ -161,4 +161,9 @@ public class DocumentRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+	
+	@Override
+	public String toString() {
+		return this.file_name;
+	}
 }

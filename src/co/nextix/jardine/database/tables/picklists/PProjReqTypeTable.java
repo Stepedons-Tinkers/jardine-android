@@ -242,10 +242,9 @@ public class PProjReqTypeTable {
 		}
 	}
 
-	public boolean update(long id, String no, long category, int isActive,
-			long user) {
+	public boolean update(long id, String name) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_PROJECT_REQUIREMENT_TYPE_NAME, no);
+		args.put(KEY_PROJECT_REQUIREMENT_TYPE_NAME, name);
 		if (mDb.update(mDatabaseTable, args, KEY_PROJECT_REQUIREMENT_TYPE_ROWID
 				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);

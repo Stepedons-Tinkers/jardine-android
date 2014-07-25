@@ -55,6 +55,7 @@ public class WorkPlanFragmentDetails extends Fragment implements
 		tab2 = getResources().getString(R.string.workplan_activities);
 		tabHost.setOnTabChangedListener(this);
 		setupTabHost();
+		tabHost.setVisibility(View.GONE);
 	}
 
 	private void setupTabHost() {
@@ -73,6 +74,19 @@ public class WorkPlanFragmentDetails extends Fragment implements
 		}
 
 		tabHost.setCurrentTab(0);
+
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		getTargetFragment().setMenuVisibility(false);
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		getTargetFragment().setMenuVisibility(true);
 
 	}
 
