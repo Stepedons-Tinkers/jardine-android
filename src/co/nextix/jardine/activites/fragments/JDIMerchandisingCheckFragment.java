@@ -24,6 +24,7 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
+import co.nextix.jardine.activites.fragments.detailedact.JDIProductStockCheckInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIMerchandisingStockFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
@@ -250,7 +251,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //
 //		editor.commit(); 
 
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+		android.support.v4.app.Fragment fragment = new JDIProductStockCheckInfoFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
