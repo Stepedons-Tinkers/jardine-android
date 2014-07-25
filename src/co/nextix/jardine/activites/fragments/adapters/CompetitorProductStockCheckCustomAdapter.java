@@ -131,7 +131,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 			holder.competitor_product.setText(String.valueOf(this.tempValues.getCompetitorProduct()));
 			holder.stock_status.setText(String.valueOf(this.tempValues.getStockStatus()));
 			holder.loaded_on_shelves.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
-//			holder.assigned_to.setText(String.valueOf(this.tempValues.getAssignedTo));
+			holder.assigned_to.setText(String.valueOf(this.tempValues.getCreatedBy()));
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);

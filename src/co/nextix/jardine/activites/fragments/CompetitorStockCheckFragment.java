@@ -49,7 +49,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		final View myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check, container, false);
+		myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check, container, false);
 		setListData();
 		
 		// ONCLICK sa mga buttons sa fragment
