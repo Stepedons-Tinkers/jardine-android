@@ -131,7 +131,7 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/assigned_to_jdi"
+                            android:text="@string/created_by"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </LinearLayout>
