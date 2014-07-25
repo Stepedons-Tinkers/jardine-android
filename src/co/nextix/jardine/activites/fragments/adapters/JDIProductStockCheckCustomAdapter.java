@@ -9,13 +9,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.HorizontalScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
@@ -71,7 +68,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 //		public LinearLayout 
 		public TextView crm_no_txt;
 		public TextView activity_txt;
-		public TextView product_txt;
+		public TextView product_brand_txt;
 		public TextView stock_status_txt;
 		public TextView loaded_on_shelves_txt;
 		public TextView created_by_txt;
@@ -97,7 +94,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			holder = new ViewHolder();
 			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_txt = (TextView) vi.findViewById(R.id.column_three);
+			holder.product_brand_txt = (TextView) vi.findViewById(R.id.column_three);
 			holder.stock_status_txt = (TextView) vi.findViewById(R.id.column_four);
 			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.column_five);
 			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_six);
@@ -123,19 +120,19 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
 			holder.activity_txt.setText(String.valueOf(this.tempValues.getActivity()));
-//			holder.product_txt.setText(String.valueOf(this.tempValues.getProduct()));
+			holder.product_brand_txt.setText(String.valueOf(this.tempValues.getProductBrand()));
 			holder.stock_status_txt.setText(String.valueOf(this.tempValues.getStockStatus()));
-//			holder.quantity_txt.setText(String.valueOf(this.tempValues.getQuantity()));
 			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
-//			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getUser()));
+			holder.created_by_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.activity_txt.setText(null);
-				holder.product_txt.setText(null);
+				holder.product_brand_txt.setText(null);
 				holder.stock_status_txt.setText(null);
 				holder.loaded_on_shelves_txt.setText(null);
+				holder.created_by_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}
 
