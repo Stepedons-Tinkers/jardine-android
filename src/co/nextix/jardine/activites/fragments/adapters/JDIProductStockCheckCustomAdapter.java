@@ -91,7 +91,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_eight_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
@@ -99,8 +99,8 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
 			holder.product_txt = (TextView) vi.findViewById(R.id.column_three);
 			holder.stock_status_txt = (TextView) vi.findViewById(R.id.column_four);
-			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.column_six);
-			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_seven);
+			holder.loaded_on_shelves_txt = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_six);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 

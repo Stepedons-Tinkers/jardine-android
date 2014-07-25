@@ -95,7 +95,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_five_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
@@ -132,6 +132,10 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.activity_type_txt.setText(null);
+				holder.product_txt.setText(null);
+				holder.status_txt.setText(null);
+				holder.assigned_to_txt.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -143,18 +147,18 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
-
-					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putLong("activity_id", tempValues.getId());
-					editor.commit(); // commit changes
-
-					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+//					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
+//
+//					// Saving acquired activity details
+//					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//					Editor editor = pref.edit();
+//					editor.putLong("activity_id", tempValues.getId());
+//					editor.commit(); // commit changes
+//
+//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+//					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
+//					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+//							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 				}
 			});
 

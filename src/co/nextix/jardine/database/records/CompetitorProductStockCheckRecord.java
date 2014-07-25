@@ -31,6 +31,9 @@ public class CompetitorProductStockCheckRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public CompetitorProductStockCheckRecord(){
+	}
 
 	public CompetitorProductStockCheckRecord(long id, String no, String crmNo,
 			long activity, long competitorProduct, long stockStatus,

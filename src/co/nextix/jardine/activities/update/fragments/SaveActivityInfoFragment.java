@@ -32,6 +32,7 @@ import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
+import co.nextix.jardine.database.records.SMRRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
@@ -140,23 +141,32 @@ public class SaveActivityInfoFragment extends Fragment {
 		});
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setSelection((int) this.activityRecord.getArea() - 1);
-//		((Spinner) this.rootView.findViewById(R.id.source)).setSelection((int) this.activityRecord.getSource() - 1);
-//		((Spinner) this.rootView.findViewById(R.id.workplan)).setSelection((int) this.activityRecord.getWorkplan() - 1);
+		// ((Spinner)
+		// this.rootView.findViewById(R.id.source)).setSelection((int)
+		// this.activityRecord.getSource() - 1);
+		// ((Spinner)
+		// this.rootView.findViewById(R.id.workplan)).setSelection((int)
+		// this.activityRecord.getWorkplan() - 1);
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection((int) this.activityRecord.getActivityType() - 1);
 		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setSelection((int) this.activityRecord.getWorkplanEntry() - 1);
 		((Spinner) this.rootView.findViewById(R.id.customer)).setSelection((int) this.activityRecord.getCustomer() - 1);
 		((Spinner) this.rootView.findViewById(R.id.province)).setSelection((int) this.activityRecord.getProvince() - 1);
 
 		((TextView) this.rootView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
-//		((TextView) this.rootView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
-//		((TextView) this.rootView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
+		
+		// ((TextView)
+		// this.rootView.findViewById(R.id.start_time)).setText(this.activityRecord.getStartTime());
+		// ((TextView)
+		// this.rootView.findViewById(R.id.end_time)).setText(this.activityRecord.getEndTime());
+		
 		((TextView) this.rootView.findViewById(R.id.latitude)).setText(String.valueOf(this.activityRecord.getLatitude()));
 		((TextView) this.rootView.findViewById(R.id.longitude)).setText(String.valueOf(this.activityRecord.getLongitude()));
 		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setText(this.activityRecord.getFollowUpCommitmentDate());
 
 		((EditText) this.rootView.findViewById(R.id.reason_remarks)).setText("getRemarks()");
 		((EditText) this.rootView.findViewById(R.id.details_admin_works)).setText("getDetailedWorks()");
-//		((EditText) this.rootView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
+		// ((EditText)
+		// this.rootView.findViewById(R.id.objective)).setText(this.activityRecord.getObjectives());
 		((EditText) this.rootView.findViewById(R.id.notes)).setText(this.activityRecord.getNotes());
 		((EditText) this.rootView.findViewById(R.id.competitors_activities)).setText("getCompetitorActivities()");
 		((EditText) this.rootView.findViewById(R.id.highlights)).setText(this.activityRecord.getHighlights());
@@ -165,6 +175,7 @@ public class SaveActivityInfoFragment extends Fragment {
 
 		((CheckBox) this.rootView.findViewById(R.id.first_time_visit_checkbox))
 				.setChecked(this.activityRecord.getFirstTimeVisit() == 1 ? true : false);
+		
 		((CheckBox) this.rootView.findViewById(R.id.planned_visit_checkbox)).setChecked(this.activityRecord.getPlannedVisit() == 1 ? true
 				: false);
 
@@ -187,14 +198,12 @@ public class SaveActivityInfoFragment extends Fragment {
 					long area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
 					long province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
 					long cityTown = ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()).getId();
-					long source = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.source)).getSelectedItem()).getId();
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (workplan != null && !workplan.isEmpty() && startTime != null && !startTime.isEmpty() && endTime != null
 							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
-							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty() && source != 0
-							&& pref != null
+							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty() && pref != null
 					/*
 					 * && pref.getString("smr", null) != null &&
 					 * pref.getString("issues_identified", null) != null &&
@@ -226,20 +235,25 @@ public class SaveActivityInfoFragment extends Fragment {
 						String venue = pref.getString("venue", null);
 						String noOfAttendees = pref.getString("no_attendees", null);
 
-						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(), Long.parseLong(workplan),
-								startTime.concat(df.format(calendar.getTime())), endTime.concat(df.format(calendar.getTime())), 123.894882,
-								10.310235, ((EditText) rootView.findViewById(R.id.objective)).getText().toString(), notes,
-								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), Long.parseLong(StoreAccount
-										.restore(JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), Long.parseLong(StoreAccount.restore(
-										JardineApp.context).getString(Account.ROWID)), ((CheckBox) rootView
+						new UpdateTask(userId, "0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(),
+								((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId(),
+								"checkIn", "checkOut", businessUnit.getId(), Long.parseLong(StoreAccount.restore(JardineApp.context)
+										.getString(Account.ROWID)), 123.894882, 10.310235, startTime.concat(df.format(calendar.getTime())),
+								endTime.concat(df.format(calendar.getTime())), ((EditText) rootView.findViewById(R.id.reason_remarks))
+										.getText().toString(), ((SMRRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem())
+										.getId(), "adminDetails", ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer))
+										.getSelectedItem()).getId(), ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area))
+										.getSelectedItem()).getId(), ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province))
+										.getSelectedItem()).getId(), ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town))
+										.getSelectedItem()).getId(), ((WorkplanEntryRecord) ((Spinner) rootView
+										.findViewById(R.id.workplan_entry)).getSelectedItem()).getId(), ((EditText) rootView
+										.findViewById(R.id.objective)).getText().toString(), ((CheckBox) rootView
 										.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0, ((CheckBox) rootView
-										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, calendar.getTime().toString(),
-								calendar.getTime().toString(), Long.parseLong(StoreAccount.restore(JardineApp.context).getString(
-										Account.ROWID)), smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-								promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees,
-								businessUnit.getId(), area, province, cityTown, source).execute();
+										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, ((EditText) rootView
+										.findViewById(R.id.notes)).getText().toString(),
+								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), "projectName", "projectStage",
+								"projectCategory", "venue", 0, "endUserActivityTypes").execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
@@ -254,94 +268,98 @@ public class SaveActivityInfoFragment extends Fragment {
 		return rootView;
 	}
 
-	protected class InsertTask extends AsyncTask<Void, Void, Boolean> {
+	protected class UpdateTask extends AsyncTask<Void, Void, Boolean> {
 
 		private ValueAnimator widthAnimation = null;
 
 		// String to be populated
+		private long id = 0000;
 		private String no = null;
 		private String crmNo = null;
-		private String highlights = null;
-		private String followUpCommitmentDate = null;
-		private String startTime = null;
-		private String endTime = null;
-		private String objective = null;
-		private String notes = null;
-		private String nextSteps = null;
+
+		private long activityType = 0000;
+
+		private String checkIn = null; 
+		private String checkOut = null;
+
+		private long businessUnit = 0000;
+		private long createdBy = 000;
+
+		private double longitude = 0.00;
+		private double latitude = 0.00;
+
 		private String createdTime = null;
 		private String modifiedTime = null;
+		private String reasonsRemarks = null;
+
+		private long smr = 0000;
+		private String adminDetails = null;
+
+		private long customer = 0000;
+		private long area = 0000;
+		private long province = 0000;
+		private long city = 0000;
+		private long workplanEntry = 0000;
+
+		private String objective = null;
 
 		private int firstTimeVisit = 0;
 		private int plannedVisit = 0;
-		private double longitude = 0000;
-		private double latitude = 0000;
-		private long activityType = 0000;
-		private long workplan = 0000;
-		private long workplanEntry = 0000;
-		private long customer = 0000;
-		private long user = 0000;
-		private long smr = 0000;
-		private long businessUnit = 0000;
-		private long area = 0000;
-		private long province = 0000;
-		private long cityTown = 0000;
-		private long source = 0000;
 
-		private String issuesIdentified = null;
-		private String feedBackFromCustomer = null;
-		private String ongoingCampaigns = null;
-		private String lastDelivery = null;
-		private String promoStubsDetails = null;
+		private String notes = null;
+		private String highlights = null;
+		private String nextSteps = null;
+		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectCategory = null;
 		private String projectStage = null;
-		private String date = null;
-		private String time = null;
+		private String projectCategory = null;
 		private String venue = null;
-		private String noOfAttendees = null;
+
+		private int numberOfAttendees = 0;
+		private String endUserActivityTypes = null;
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, long workplan, String startTime, String endTime, double longitude, double latitude,
-				String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate, long activityType,
-				long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime, String modifiedTime,
-				long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns, String lastDelivery,
-				String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date, String time,
-				String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
+		private UpdateTask(long id, String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
+				long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks,
+				long smr, String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String endUserActivityTypes) {
 
+			this.id = id;
 			this.no = no;
 			this.crmNo = crmNo;
-			this.workplan = workplan;
-			this.startTime = startTime;
-			this.endTime = endTime;
+			this.activityType = activityType;
+			this.checkIn = checkIn;
+			this.checkOut = checkOut;
+			this.businessUnit = businessUnit;
+			this.createdBy = createdBy;
 			this.longitude = longitude;
 			this.latitude = latitude;
-			this.objective = objectives;
+			this.createdTime = createdTime;
+			this.modifiedTime = modifiedTime;
+			this.reasonsRemarks = reasonsRemarks;
+			this.smr = smr;
+			this.adminDetails = adminDetails;
+			this.customer = customer;
+			this.area = area;
+			this.province = province;
+			this.city = city;
+			this.workplanEntry = workplanEntry;
+			this.objective = objective;
+			this.firstTimeVisit = firstTimeVisit;
+			this.plannedVisit = plannedVisit;
 			this.notes = notes;
 			this.highlights = highlights;
 			this.nextSteps = nextSteps;
 			this.followUpCommitmentDate = followUpCommitmentDate;
-			this.activityType = activityType;
-			this.workplanEntry = workplanEntry;
-			this.customer = customer;
-			this.firstTimeVisit = firstTimeVisit;
-			this.plannedVisit = plannedVisit;
-			this.createdTime = createdTime;
-			this.modifiedTime = modifiedTime;
-			this.user = user;
-			this.promoStubsDetails = promoStubsDetails;
 			this.projectName = projectName;
-			this.projectCategory = projectCategory;
 			this.projectStage = projectStage;
-			this.date = date;
-			this.time = time;
+			this.projectCategory = projectCategory;
 			this.venue = venue;
-			this.noOfAttendees = noOfAttendees;
-			this.businessUnit = businessUnit;
-			this.area = area;
-			this.province = province;
-			this.cityTown = cityTown;
-			this.source = source;
+			this.numberOfAttendees = numberOfAttendees;
+			this.endUserActivityTypes = endUserActivityTypes;
 		}
 
 		@Override
@@ -370,12 +388,12 @@ public class SaveActivityInfoFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.workplan, this.startTime, this.endTime, this.longitude, this.latitude,
-						this.objective, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate, this.activityType,
-						this.workplanEntry, this.customer, this.firstTimeVisit, this.plannedVisit, this.createdTime, this.modifiedTime,
-						this.user, this.smr, this.issuesIdentified, this.feedBackFromCustomer, this.ongoingCampaigns, this.lastDelivery,
-						this.promoStubsDetails, this.projectName, this.projectCategory, this.projectStage, this.date, this.time,
-						this.venue, this.noOfAttendees, this.businessUnit, this.area, this.province, this.cityTown, this.source);
+				saveActivity(this.id, this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
+						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
+						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
+						this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -396,18 +414,17 @@ public class SaveActivityInfoFragment extends Fragment {
 		}
 	}
 
-	protected void saveActivity(String no, String crmNo, long workplan, String startTime, String endTime, double longitude,
-			double latitude, String objectives, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			long activityType, long workplanEntry, long customer, int firstTimeVisit, int plannedVisit, String createdTime,
-			String modifiedTime, long user, long smr, String issuesIdentified, String feedBackFromCustomer, String ongoingCampaigns,
-			String lastDelivery, String promoStubsDetails, String projectName, String projectCategory, String projectStage, String date,
-			String time, String venue, String noOfAttendees, long businessUnit, long area, long province, long cityTown, long source) {
+	protected void saveActivity(long id, String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
+			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+			String endUserActivityTypes) {
 
 		// Insert to the database
-//		JardineApp.DB.getActivity().update(this.userId, no, crmNo, workplan, startTime, endTime, longitude, latitude, objectives, notes,
-//				highlights, nextSteps, followUpCommitmentDate, activityType, workplanEntry, customer, firstTimeVisit, plannedVisit,
-//				createdTime, modifiedTime, user, smr, issuesIdentified, feedBackFromCustomer, ongoingCampaigns, lastDelivery,
-//				promoStubsDetails, projectName, projectCategory, projectStage, date, time, venue, noOfAttendees, businessUnit, area,
-//				province, cityTown, source);
+		JardineApp.DB.getActivity().update(this.userId, no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude,
+				latitude, createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry,
+				objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
+				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
 	}
 }

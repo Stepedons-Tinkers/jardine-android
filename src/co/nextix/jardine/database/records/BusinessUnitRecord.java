@@ -119,7 +119,6 @@ public class BusinessUnitRecord {
 
 	@Override
 	public String toString() {
-		// TODO Auto-generated method stub
 		return this.business_unit_name;
 	}
 

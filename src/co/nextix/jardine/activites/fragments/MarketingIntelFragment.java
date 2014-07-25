@@ -15,10 +15,20 @@ import co.nextix.jardine.activities.add.fragments.AddMarketingIntelFragment;
 
 public class MarketingIntelFragment extends Fragment {
 
+	private Bundle bundle;
+	private int frag_layout_id;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View myFragmentView = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
 		((Button) myFragmentView.findViewById(R.id.add_marketing_intel)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -34,7 +44,7 @@ public class MarketingIntelFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
+				transaction.replace(frag_layout_id, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction
