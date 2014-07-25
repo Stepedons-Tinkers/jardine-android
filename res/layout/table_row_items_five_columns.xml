@@ -5,11 +5,12 @@
     android:layout_height="?android:attr/listPreferredItemHeightLarge"
     android:background="#000000" >
 
-    <LinearLayout
+	<LinearLayout
         android:id="@+id/table_row_clickable"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="7" >
+        android:layout_weight="5"
+        android:layout_marginRight="2dp" >
 
         <TextView
             android:id="@+id/column_one"
@@ -114,60 +115,20 @@
             android:singleLine="true"
             android:soundEffectsEnabled="true"
             android:text="@string/sample"
-            android:textColor="#000000" />
+            android:textColor="#000000"/>
 
-        <TextView
-            android:id="@+id/column_six"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:background="#dcdcdc"
-            android:clickable="false"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:padding="14dip"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:soundEffectsEnabled="true"
-            android:text="@string/sample"
-            android:textColor="#000000" />
 
-        <TextView
-            android:id="@+id/column_seven"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginLeft="2dp"
-            android:layout_marginRight="2dp"
-            android:layout_weight="1"
-            android:background="#dcdcdc"
-            android:clickable="false"
-            android:ellipsize="end"
-            android:focusable="true"
-            android:focusableInTouchMode="true"
-            android:gravity="center"
-            android:padding="14dip"
-            android:scrollHorizontally="true"
-            android:singleLine="true"
-            android:soundEffectsEnabled="true"
-            android:text="@string/sample"
-            android:textColor="#000000" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/column_eight"
+        android:id="@+id/column_six"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_marginLeft="2dp"
         android:layout_marginRight="4dp"
         android:layout_weight="1"
         android:gravity="center_vertical|center_horizontal"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <TextView
             android:id="@+id/action_edit_txt"

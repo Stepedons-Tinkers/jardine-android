@@ -91,7 +91,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_seven_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
