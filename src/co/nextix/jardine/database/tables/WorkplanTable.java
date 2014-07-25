@@ -185,7 +185,7 @@ public class WorkplanTable {
 				+ userId;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
-			if (c.moveToFirst()) {
+			if ((c != null) && c.moveToFirst()) {
 				do {
 					String no = c.getString(c
 							.getColumnIndex(KEY_WORKPLAN_CRMNO));
