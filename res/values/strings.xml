@@ -90,8 +90,8 @@
     <string name="workplan_add_activity">Add Activity</string>
     <string name="workplan_start_time">Start Time</string>
     <string name="workplan_end_time">End Time</string>
-    <string name="workplan_from">From:</string>
-    <string name="workplan_to">To:</string>
+    <string name="workplan_from">FROM</string>
+    <string name="workplan_to">TO</string>
 
     <!-- Workplan View -->
     <string name="workplan_title">Workplan</string>
@@ -244,8 +244,8 @@
     <string name="edit_jdi_product_stock_check_detail">Edit JDI Product Stock Check</string>
     <string name="other_remarks_jdi_product_stock_check_detail">Other Remarks</string>
     <string name="create">Create</string>
-	<string name="created_by">Created By</string>
-    
+    <string name="created_by">Created By</string>
+
     <!-- JDI Merchandising Check -->
     <string name="crm_no_jdi_merchandising">CRM No</string>
     <string name="activity_jdi_merchandising">Activity</string>

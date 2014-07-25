@@ -144,4 +144,21 @@ public class MyDateUtils {
 
 		return flag;
 	}
+
+	@SuppressLint("SimpleDateFormat")
+	public static String convertDateStringToDash(String MonthDayYear) {
+		String convertedDate = "";
+		SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+		Date date;
+		try {
+			date = formatter.parse(MonthDayYear);
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+			convertedDate = df.format(date);
+
+		} catch (Exception e) {
+
+		}
+
+		return convertedDate;
+	}
 }

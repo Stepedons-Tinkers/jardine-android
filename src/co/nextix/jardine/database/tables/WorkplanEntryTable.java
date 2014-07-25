@@ -179,6 +179,111 @@ public class WorkplanEntryTable {
 		return list;
 	}
 
+	public List<WorkplanEntryRecord> getRecordsByWorkplanIdDate(long wId,
+			String dateFrom, String dateTo, String phrase, int position) {
+		Cursor c = null;
+
+		List<WorkplanEntryRecord> list = new ArrayList<WorkplanEntryRecord>();
+		String MY_QUERY = null;
+
+		// SELECT * FROM Workplan_Entry WHERE date >= DATE('2014-07-08') AND
+		// date <= DATE('2014-07-10') AND workplan = 0
+		if (wId == 0) {
+			return list;
+		} else if (dateFrom.contentEquals("") && dateTo.contentEquals("")
+				&& phrase.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId;
+		} else if (dateFrom.contentEquals("") && !dateTo.contentEquals("")
+				&& phrase.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+					+ KEY_WORKPLANENTRY_DATE + " <= DATE('" + dateTo + "')";
+		} else if (!dateFrom.contentEquals("") && dateTo.contentEquals("")
+				&& phrase.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+					+ KEY_WORKPLANENTRY_DATE + " >= DATE('" + dateFrom + "')";
+		} else if (!dateFrom.contentEquals("") && !dateTo.contentEquals("")
+				&& phrase.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+					+ KEY_WORKPLANENTRY_DATE + " >= DATE('" + dateFrom
+					+ "') AND " + KEY_WORKPLANENTRY_DATE + " <= DATE('"
+					+ dateTo + "')";
+		} else if (dateFrom.contentEquals("") && dateTo.contentEquals("")
+				&& !phrase.contentEquals("")) {
+
+			// SELECT Workplan_Entry.* FROM Workplan_Entry INNER JOIN
+			// Activity_Type ON Workplan_Entry.activity_type = Activity_Type._id
+			// WHERE Workplan_Entry.workplan = 5 AND Activity_Type.name LIKE
+			// '%retail%'
+			switch (position) {
+			case 0:
+				MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+						+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase + "%'";
+				break;
+			case 1:
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM" + mDatabaseTable + " INNER JOIN ";
+				break;
+			}
+
+		}
+
+		Log.d("Tugs", MY_QUERY);
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CRMNO));
+					String date = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_DATE));
+					long status = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_STATUS));
+					long area = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_AREA));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_PROVINCE));
+					long city = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CITY));
+					long activityType = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYTYPE));
+					String remarks = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_REMARKS));
+					int activityQuantity = c
+							.getInt(c
+									.getColumnIndex(KEY_WORKPLANENTRY_ACTIVITYQUANTITY));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_BUSINESSUNIT));
+					long workplan = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_WORKPLAN));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_WORKPLANENTRY_MODIFIEDTIME));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_WORKPLANENTRY_CREATEDBY));
+
+					list.add(new WorkplanEntryRecord(id, no, crmNo, date,
+							status, area, province, city, activityType,
+							remarks, workplan, activityQuantity, businessUnit,
+							createdTime, modifiedTime, createdBy));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
