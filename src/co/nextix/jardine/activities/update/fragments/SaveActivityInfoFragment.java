@@ -279,7 +279,7 @@ public class SaveActivityInfoFragment extends Fragment {
 
 		private long activityType = 0000;
 
-		private String checkIn = null;
+		private String checkIn = null; 
 		private String checkOut = null;
 
 		private long businessUnit = 0000;

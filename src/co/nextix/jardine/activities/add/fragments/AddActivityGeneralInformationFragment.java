@@ -35,6 +35,7 @@ import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
 import co.nextix.jardine.database.records.SMRRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.security.StoreAccount;
@@ -78,7 +79,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		// List to be populated in spinner adapter
 		List<PicklistRecord> areaList = JardineApp.DB.getArea().getAllRecords();
 		List<PicklistRecord> sourceList = JardineApp.DB.getArea().getAllRecords();
-		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(JardineApp.DB.getUser().getCurrentUser().getId());
+		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(
+				Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)));
 
 		// Karon clear na
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
