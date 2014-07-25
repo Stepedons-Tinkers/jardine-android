@@ -106,6 +106,28 @@ public class SalesProtocolTable {
 		return list;
 	}
 
+	public List<String> getNos() {
+		Cursor c = null;
+		List<String> list = new ArrayList<String>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					String no = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_NO));
+
+					list.add(no);
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
