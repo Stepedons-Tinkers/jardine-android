@@ -12,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.HorizontalScrollView;
 import co.nextix.jardine.R;
 import co.nextix.jardine.SuperAwesomeCardFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityDIYorSupermarketFragment;
