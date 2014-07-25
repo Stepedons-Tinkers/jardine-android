@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activites.fragments.detailedact;
 
 import android.graphics.LightingColorFilter;
 import android.graphics.drawable.Drawable;
@@ -10,6 +10,8 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.MoreActivityInformationFragment;
+import co.nextix.jardine.activites.fragments.StaticActivityInfoFragment;
 
 public class JDIMechandisingCheckInfoFragment extends Fragment {
 
