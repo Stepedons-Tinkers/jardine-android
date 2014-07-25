@@ -46,42 +46,42 @@ public class ActivityModel {
 	// record_id: 423
 	// record_module: "XActivity"
 
-//	"createdtime": "2014-06-25 18:32:17",
-//    "modifiedtime": "2014-06-25 18:32:17",
-//    "smownerid": "18",
-//    "z_ac_activitytype": "393",
-//    "z_ac_businessunit": "402",
-//    "z_ac_crmno": "ACT000008",
-//    "z_ac_customer": "405",
-//    "z_ac_details": "",
-//    "z_ac_endtime": "2014-06-25 18:25:51",
-//    "z_ac_enduseractype": "",
-//    "z_ac_firsttimevisit": "0",
-//    "z_ac_followupcomdate": "2014-06-25",
-//    "z_ac_highlights": "",
-//    "z_ac_latitude": "0.000000000000",
-//    "z_ac_longitude": "0.000000000000",
-//    "z_ac_nextsteps": "test",
-//    "z_ac_noofattenees": "0",
-//    "z_ac_notes": "test",
-//    "z_ac_objective": "test",
-//    "z_ac_othersacttypermrk": "",
-//    "z_ac_plannedvisit": "0",
-//	z_ac_competitoract
-//    "z_ac_projectcategory": "- Select -",
-//    "z_ac_projectname": "",
-//    "z_ac_projectstage": "- Select -",
-//    "z_ac_reasonremarks": "",
-//    "z_ac_smr": "410",
-//    "z_ac_source": "Web",
-//    "z_ac_starttime": "2014-06-25 18:25:51",
-//    "z_ac_venue": "",
-//    "z_ac_workplanentry": "",
-//    "z_area": "CENTRAL LUZON AREA",
-//    "z_city": "BAGAC",
-//    "z_province": "BATAAN",
-//    "xactivityid": "493",
-//    "deleted": "0"
+	// "createdtime": "2014-06-25 18:32:17",
+	// "modifiedtime": "2014-06-25 18:32:17",
+	// "smownerid": "18",
+	// "z_ac_activitytype": "393",
+	// "z_ac_businessunit": "402",
+	// "z_ac_crmno": "ACT000008",
+	// "z_ac_customer": "405",
+	// "z_ac_details": "",
+	// "z_ac_endtime": "2014-06-25 18:25:51",
+	// "z_ac_enduseractype": "",
+	// "z_ac_firsttimevisit": "0",
+	// "z_ac_followupcomdate": "2014-06-25",
+	// "z_ac_highlights": "",
+	// "z_ac_latitude": "0.000000000000",
+	// "z_ac_longitude": "0.000000000000",
+	// "z_ac_nextsteps": "test",
+	// "z_ac_noofattenees": "0",
+	// "z_ac_notes": "test",
+	// "z_ac_objective": "test",
+	// "z_ac_othersacttypermrk": "",
+	// "z_ac_plannedvisit": "0",
+	// z_ac_competitoract
+	// "z_ac_projectcategory": "- Select -",
+	// "z_ac_projectname": "",
+	// "z_ac_projectstage": "- Select -",
+	// "z_ac_reasonremarks": "",
+	// "z_ac_smr": "410",
+	// "z_ac_source": "Web",
+	// "z_ac_starttime": "2014-06-25 18:25:51",
+	// "z_ac_venue": "",
+	// "z_ac_workplanentry": "",
+	// "z_area": "CENTRAL LUZON AREA",
+	// "z_city": "BAGAC",
+	// "z_province": "BATAAN",
+	// "xactivityid": "493",
+	// "deleted": "0"
 
 	@SerializedName("z_ac_businessunit")
 	private String businessunit;
@@ -103,6 +103,12 @@ public class ActivityModel {
 
 	@SerializedName("z_ac_longitude")
 	private String longitude;
+
+	@SerializedName("z_ac_reasonremarks")
+	private String reasons_remarks;
+
+	@SerializedName("z_ac_details")
+	private String admin_work_details;
 
 	@SerializedName("z_ac_objective")
 	private String objective;
@@ -161,20 +167,23 @@ public class ActivityModel {
 	@SerializedName("z_ac_projectcategory")
 	private String projectcategory;
 
-	@SerializedName("z_ac_date")
-	private String date;
+	@SerializedName("z_ac_enduseractype")
+	private String end_user_activity_type;
 
-	@SerializedName("z_ac_time")
-	private String time;
+	// @SerializedName("z_ac_date")
+	// private String date;
+	//
+	// @SerializedName("z_ac_time")
+	// private String time;
 
 	@SerializedName("z_ac_venue")
 	private String venue;
 
-	@SerializedName("z_ac_noofattenees")
-	private String noofattenees;
+	@SerializedName("z_ac_noofattendees")
+	private String noofattendees;
 
-	@SerializedName("z_ac_source")
-	private String source;
+	// @SerializedName("z_ac_source")
+	// private String source;
 
 	@SerializedName("z_area")
 	private String area;
@@ -185,14 +194,14 @@ public class ActivityModel {
 	@SerializedName("z_city")
 	private String city;
 
-	@SerializedName("z_ac_othersacttypermrk")
-	private String othersacttypermrk;
-
-	@SerializedName("z_ac_attendees")
-	private String attendees;
-
-	@SerializedName("z_ac_attendancesheet")
-	private String attendancesheet;
+	// @SerializedName("z_ac_othersacttypermrk")
+	// private String othersacttypermrk;
+	//
+	// @SerializedName("z_ac_attendees")
+	// private String attendees;
+	//
+	// @SerializedName("z_ac_attendancesheet")
+	// private String attendancesheet;
 
 	@SerializedName("xactivityid")
 	private String record_id;
@@ -409,21 +418,21 @@ public class ActivityModel {
 		this.projectcategory = projectCategory;
 	}
 
-	public String getDate() {
-		return this.date;
-	}
-
-	public void setDate(String date) {
-		this.date = date;
-	}
-
-	public String getTime() {
-		return this.time;
-	}
-
-	public void setTime(String time) {
-		this.time = time;
-	}
+	// public String getDate() {
+	// return this.date;
+	// }
+	//
+	// public void setDate(String date) {
+	// this.date = date;
+	// }
+	//
+	// public String getTime() {
+	// return this.time;
+	// }
+	//
+	// public void setTime(String time) {
+	// this.time = time;
+	// }
 
 	public String getVenue() {
 		return this.venue;
@@ -433,21 +442,21 @@ public class ActivityModel {
 		this.venue = venue;
 	}
 
-	public String getNoofattenees() {
-		return this.noofattenees;
+	public String getNoOfAttendees() {
+		return this.noofattendees;
 	}
 
-	public void setNoofattenees(String noofattenees) {
-		this.noofattenees = noofattenees;
+	public void setNoOfAttendees(String noofattendees) {
+		this.noofattendees = noofattendees;
 	}
 
-	public String getSource() {
-		return this.source;
-	}
-
-	public void setSource(String source) {
-		this.source = source;
-	}
+	// public String getSource() {
+	// return this.source;
+	// }
+	//
+	// public void setSource(String source) {
+	// this.source = source;
+	// }
 
 	public String getArea() {
 		return this.area;
@@ -473,29 +482,29 @@ public class ActivityModel {
 		this.city = city;
 	}
 
-	public String getOthersActTypeRmrk() {
-		return this.othersacttypermrk;
-	}
-
-	public void setOthersActTypeRmrk(String othersActTypeRmrk) {
-		this.othersacttypermrk = othersActTypeRmrk;
-	}
-
-	public String getAttendees() {
-		return this.attendees;
-	}
-
-	public void setAttendees(String attendees) {
-		this.attendees = attendees;
-	}
-
-	public String getAttendanceSheet() {
-		return this.attendancesheet;
-	}
-
-	public void setAttendanceSheet(String attendanceSheet) {
-		this.attendancesheet = attendanceSheet;
-	}
+	// public String getOthersActTypeRmrk() {
+	// return this.othersacttypermrk;
+	// }
+	//
+	// public void setOthersActTypeRmrk(String othersActTypeRmrk) {
+	// this.othersacttypermrk = othersActTypeRmrk;
+	// }
+	//
+	// public String getAttendees() {
+	// return this.attendees;
+	// }
+	//
+	// public void setAttendees(String attendees) {
+	// this.attendees = attendees;
+	// }
+	//
+	// public String getAttendanceSheet() {
+	// return this.attendancesheet;
+	// }
+	//
+	// public void setAttendanceSheet(String attendanceSheet) {
+	// this.attendancesheet = attendanceSheet;
+	// }
 
 	public String getRecordId() {
 		return this.record_id;
@@ -543,5 +552,29 @@ public class ActivityModel {
 
 	public void setBusinessunit(String businessunit) {
 		this.businessunit = businessunit;
+	}
+
+	public String getReasonsRemarks() {
+		return reasons_remarks;
+	}
+
+	public void setReasonsRemarks(String reasonsRemarks) {
+		this.reasons_remarks = reasonsRemarks;
+	}
+
+	public String getAdminWorkDetails() {
+		return admin_work_details;
+	}
+
+	public void setAdminWorkDetails(String adminWorkDetails) {
+		this.admin_work_details = adminWorkDetails;
+	}
+
+	public String getEndUserActivityType() {
+		return end_user_activity_type;
+	}
+
+	public void setEndUserActivityType(String endUserActivityType) {
+		this.end_user_activity_type = endUserActivityType;
 	}
 }

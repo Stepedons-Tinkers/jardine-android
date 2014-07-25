@@ -337,6 +337,26 @@ public class UserTable {
 		return user;
 	}
 
+	public long getIdByNo(String no) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_USER_ROWID + " FROM "
+				+ mDatabaseTable + " WHERE " + KEY_USER_NO + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(no) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c.getColumnIndex(KEY_USER_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insertUser(String no, String username, String password,
 			String email, String lastname, String middlename, String firstname,
 			int loggedin, int status, String lastSync, String area,
