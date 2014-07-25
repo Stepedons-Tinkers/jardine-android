@@ -6,30 +6,49 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white" >
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
-        <TextView
-            android:id="@+id/tvWorkPlanGenInfo"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:id="@+id/rlWorkplanDummy1"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:background="@color/collaterals_general_info"
-            android:padding="10dp"
-            android:text="@string/collaterals_ep_general_information"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp" >
+
+            <TextView
+                android:id="@+id/tvWorkPlanGenInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/collaterals_general_info"
+                android:padding="7dp"
+                android:text="@string/collaterals_ep_general_information"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_xxlarge" />
+
+            <Button
+                android:id="@+id/bWorkPlanActAddActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:background="@color/orange"
+                android:padding="10dp"
+                android:text="@string/workplan_add_activity"
+                android:textSize="@dimen/text_xxlarge" />
+        </RelativeLayout>
 
         <TableLayout
             android:id="@+id/tlColatteralsEventProtocols2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/tvWorkPlanGenInfo"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_below="@+id/rlWorkplanDummy1"
+            android:layout_marginBottom="7dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
             android:background="@drawable/xml_tablelayout_bg"
             android:divider="@color/black"
             android:orientation="horizontal"
@@ -49,11 +68,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/collaterals_ep_crm_no"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -67,10 +87,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -82,11 +103,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
-                    android:text="@string/workplan_info_customer"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -100,10 +121,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -119,11 +141,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_date"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -137,10 +160,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -152,11 +176,12 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_status"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -170,10 +195,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -189,11 +215,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_area"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -207,10 +234,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -222,11 +250,12 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_province"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -240,10 +269,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -260,11 +290,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_citytown"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -278,10 +309,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -293,11 +325,12 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_otherremarks"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -311,10 +344,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -331,11 +365,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_acttype"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -349,10 +384,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -364,11 +400,12 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_workplan"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -382,10 +419,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -402,11 +440,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_createdtime"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -420,10 +459,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -435,11 +475,12 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_modifiedtime"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -453,10 +494,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -473,11 +515,12 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:text="@string/workplan_info_assignedto"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -491,10 +534,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -506,10 +550,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -523,10 +568,11 @@
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                    android:padding="10dp"
+                    android:gravity="top"
+                    android:maxLines="7"
+                    android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
         </TableLayout>
     </RelativeLayout>
