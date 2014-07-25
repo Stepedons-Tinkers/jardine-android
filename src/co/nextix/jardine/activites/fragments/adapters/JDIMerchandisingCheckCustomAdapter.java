@@ -78,7 +78,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		public TextView activity_type_txt;
 		public TextView product_txt;
 		public TextView status_txt;
-		public TextView assigned_to_txt;
+		public TextView created_by;
 		public TextView edit_txt;
 		public TextView delete_txt;
 
@@ -104,7 +104,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
 			holder.product_txt       = (TextView) vi.findViewById(R.id.column_three);
 			holder.status_txt        = (TextView) vi.findViewById(R.id.column_four);
-			holder.assigned_to_txt   = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
 			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
 
@@ -129,13 +129,13 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivity()));
 			holder.product_txt.setText(String.valueOf(this.tempValues.getProductBrand()));
 			holder.status_txt.setText(String.valueOf(this.tempValues.getStatus()));
-			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
 				holder.product_txt.setText(null);
 				holder.status_txt.setText(null);
-				holder.assigned_to_txt.setText(null);
+				holder.created_by.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
