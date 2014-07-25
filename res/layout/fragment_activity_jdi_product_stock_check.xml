@@ -43,18 +43,21 @@
                     android:background="#000000"
                     android:orientation="horizontal" >
 
-                    <HorizontalScrollView
+                    <LinearLayout
+                        android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
                         android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
+                        android:layout_weight="5" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -62,21 +65,16 @@
                             android:text="@string/crm_no_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
 
                         <TextView
                             android:id="@+id/customer"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -86,21 +84,14 @@
                             android:textColor="#000"
                             android:textSize="14sp" />
 
-                        <requestFocus />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -108,21 +99,16 @@
                             android:text="@string/product_brand_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
 
                         <TextView
                             android:id="@+id/activity_type"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -132,21 +118,14 @@
                             android:textColor="#000"
                             android:textSize="14sp" />
 
-                        <requestFocus />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
-
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -154,20 +133,15 @@
                             android:text="@string/loaded_on_shelves_jdi"
                             android:textColor="#000"
                             android:textSize="14sp" />
-                    </HorizontalScrollView>
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dp"
                             android:scrollHorizontally="true"
@@ -175,9 +149,9 @@
                             android:text="@string/created_by"
                             android:textColor="#000"
                             android:textSize="14sp" />
-                    </HorizontalScrollView>
 
-                    <HorizontalScrollView
+                        <!--
+                         <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
@@ -197,6 +171,8 @@
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
+                        -->
+                    </LinearLayout>
                 </TableRow>
 
                 <ListView

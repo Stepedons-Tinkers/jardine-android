@@ -135,7 +135,7 @@
                             android:textSize="14sp" />
                     </LinearLayout>
 
-                    <TextView
+<!--                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="4dp"
@@ -148,7 +148,7 @@
                         android:singleLine="true"
                         android:text="@string/action_jdi"
                         android:textColor="#000"
-                        android:textSize="14sp" />
+                        android:textSize="14sp" /> -->
                 </TableRow>
 
                 <ListView
