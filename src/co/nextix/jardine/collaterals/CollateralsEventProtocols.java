@@ -245,7 +245,6 @@ public class CollateralsEventProtocols extends Fragment implements
 					int position, long id) {
 				EventProtocolRecord epr = (EventProtocolRecord) parent
 						.getAdapter().getItem(position);
-				CollateralsConstants.FROM_WHERE = 1;
 				if (epr.getNo() != null) {
 
 					CollateralsDetails frag = CollateralsDetails.newInstance(

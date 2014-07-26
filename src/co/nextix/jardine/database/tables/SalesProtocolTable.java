@@ -8,6 +8,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.SalesProtocolRecord;
 
@@ -76,7 +78,117 @@ public class SalesProtocolTable {
 					long businessUnit = c.getLong(c
 							.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
 					String description = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_TAGS));
+					long protocolType = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_PROTOCOLTYPE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_SALESPROTOCOL_ISACTIVE));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CREATEDBY));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_MODIFIEDTIME));
+
+					list.add(new SalesProtocolRecord(id, no, crmNo,
+							businessUnit, description, lastUpdate, tags,
+							protocolType, isActive, createdBy, createdTime,
+							modifiedTime));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<SalesProtocolRecord> getAllRecordsByUserId(long userId) {
+		Cursor c = null;
+		List<SalesProtocolRecord> list = new ArrayList<SalesProtocolRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_SALESPROTOCOL_CREATEDBY + " = " + userId;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CRMNO));
+					long businessUnit = c.getLong(c
 							.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
+					String description = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_DESCRIPTION));
+					String lastUpdate = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_LASTUPDATE));
+					String tags = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_TAGS));
+					long protocolType = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_PROTOCOLTYPE));
+					int isActive = c.getInt(c
+							.getColumnIndex(KEY_SALESPROTOCOL_ISACTIVE));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CREATEDBY));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_MODIFIEDTIME));
+
+					list.add(new SalesProtocolRecord(id, no, crmNo,
+							businessUnit, description, lastUpdate, tags,
+							protocolType, isActive, createdBy, createdTime,
+							modifiedTime));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<SalesProtocolRecord> getAllRecordsBySearch(long userId,
+			String searchPhrase, int position) {
+		Cursor c = null;
+		List<SalesProtocolRecord> list = new ArrayList<SalesProtocolRecord>();
+		String MY_QUERY = "";
+
+		switch (position) {
+		case 0:
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_SALESPROTOCOL_CREATEDBY + " = " + userId;
+			break;
+		case 1:
+			break;
+		case 2:
+			break;
+		}
+
+		Log.d(JardineApp.TAG, MY_QUERY);
+
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_CRMNO));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
+					String description = c.getString(c
+							.getColumnIndex(KEY_SALESPROTOCOL_DESCRIPTION));
 					String lastUpdate = c.getString(c
 							.getColumnIndex(KEY_SALESPROTOCOL_LASTUPDATE));
 					String tags = c.getString(c
@@ -235,7 +347,7 @@ public class SalesProtocolTable {
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
 				String description = c.getString(c
-						.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
+						.getColumnIndex(KEY_SALESPROTOCOL_DESCRIPTION));
 				String lastUpdate = c.getString(c
 						.getColumnIndex(KEY_SALESPROTOCOL_LASTUPDATE));
 				String tags = c.getString(c
@@ -300,7 +412,7 @@ public class SalesProtocolTable {
 				long businessUnit = c.getLong(c
 						.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
 				String description = c.getString(c
-						.getColumnIndex(KEY_SALESPROTOCOL_BUSINESSUNIT));
+						.getColumnIndex(KEY_SALESPROTOCOL_DESCRIPTION));
 				String lastUpdate = c.getString(c
 						.getColumnIndex(KEY_SALESPROTOCOL_LASTUPDATE));
 				String tags = c.getString(c

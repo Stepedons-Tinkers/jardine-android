@@ -47,6 +47,10 @@ public class SalesProtocolRecord {
 	// Public methods
 	// ===========================================================
 
+	public SalesProtocolRecord() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public long getId() {
 		return this.id;
 	}
