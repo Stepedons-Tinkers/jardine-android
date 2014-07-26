@@ -175,7 +175,10 @@ public class SalesProtocolTable {
 					+ KEY_SALESPROTOCOL_DESCRIPTION + " LIKE '%" + searchPhrase
 					+ "%'";
 			break;
-		case 2:
+		case 2:  MY_QUERY = "SELECT "+ mDatabaseTable + ".*" + " FROM " + mDatabaseTable + " INNER JOIN " 
+			+ DatabaseAdapter.SALES_PROTOCOL_TYPE_TABLE + " ON " + mDatabaseTable + "." + KEY_SALESPROTOCOL_PROTOCOLTYPE
+			+ " = " + DatabaseAdapter.SALES_PROTOCOL_TYPE_TABLE + "." + DatabaseAdapter.KEY_SALESPROTOCOL_ROWID
+			+ " AND " +  DatabaseAdapter.SALES_PROTOCOL_TYPE_TABLE  + ".";
 			break;
 		}
 

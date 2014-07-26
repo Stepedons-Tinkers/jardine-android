@@ -1,5 +1,6 @@
 package co.nextix.jardine.workplan;
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -10,10 +11,12 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class WorkPlanFragmentGeneralInfo extends Fragment {
 	private View view;
@@ -21,6 +24,7 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 			customer, status, province, otherRemarks, workplan, modifiedTime;
 
 	private Button btnActivity;
+	private AddActivityFragment fragment;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,20 +57,13 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		modifiedTime = (TextView) view
 				.findViewById(R.id.tvWorkPlanInfoModifiedTime);
 
-		btnActivity.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				// CALL Activity too add workplan entry
-			}
-		});
-
 		WorkplanEntryRecord record = JardineApp.DB.getWorkplanEntry().getById(
 				WorkPlanConstants.WORKPLAN_ID);
 		record.setNo("0001");
 
 		int i = 0;
 		crmNo.setText(record.getNo());
-		date.setText(record.getDate());
+		date.setText(MyDateUtils.convertDate(record.getDate()));
 
 		String strArea = JardineApp.DB.getArea().getNameById(record.getArea());
 		area.setText(strArea);
@@ -79,7 +76,8 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 				record.getActivityType());
 		actType.setText(strAct);
 
-		createdTime.setText(record.getCreatedTime());
+		createdTime
+				.setText(MyDateUtils.convertDateTime(record.getCreatedTime()));
 
 		UserRecord userRecord = JardineApp.DB.getUser().getById(
 				record.getCreatedBy());
@@ -103,6 +101,26 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		String sWorkplan = JardineApp.DB.getWorkplan().getNoById(
 				record.getWorkplan());
 		workplan.setText(sWorkplan);
-		modifiedTime.setText(record.getModifiedTime());
+		modifiedTime.setText(MyDateUtils.convertDateTime(record
+				.getModifiedTime()));
+
+		Bundle b = new Bundle();
+		b.putLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID, record.getId());
+
+		fragment = new AddActivityFragment();
+		fragment.setArguments(b);
+
+		btnActivity.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				getActivity()
+						.getSupportFragmentManager()
+						.beginTransaction()
+						.setTransition(
+								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.add(R.id.frame_container, fragment, JardineApp.TAG)
+						.addToBackStack(JardineApp.TAG).commit();
+			}
+		});
 	}
 }
