@@ -15,13 +15,14 @@ import co.nextix.jardine.collaterals.CollateralsEventFiles;
 import co.nextix.jardine.collaterals.CollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
 import co.nextix.jardine.collaterals.CollateralsMarketingMaterials;
+import co.nextix.jardine.collaterals.CollateralsSalesProtocols;
 import co.nextix.jardine.view.group.utils.TabFactory;
 
 public class CollateralsMenuBarFragment extends Fragment implements
 		OnTabChangeListener {
 	private View view;
 	private TabHost tabHost;
-	private String tab1, tab2;
+	private String tab1, tab2, tab3;
 
 	public CollateralsMenuBarFragment() {
 	}
@@ -32,8 +33,7 @@ public class CollateralsMenuBarFragment extends Fragment implements
 
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		view = inflater
-				.inflate(R.layout.collaterals, container, false);
+		view = inflater.inflate(R.layout.collaterals, container, false);
 		initLayout();
 		return view;
 	}
@@ -44,6 +44,7 @@ public class CollateralsMenuBarFragment extends Fragment implements
 		tab1 = getResources().getString(R.string.collaterals_event_protocols);
 		tab2 = getResources().getString(
 				R.string.collaterals_marketing_materials);
+		tab3 = getResources().getString(R.string.collaterals_sales_protocol);
 		tabHost.setOnTabChangedListener(this);
 		setupTabHost();
 	}
@@ -53,6 +54,8 @@ public class CollateralsMenuBarFragment extends Fragment implements
 		tabHost.addTab(tabHost.newTabSpec(tab1).setIndicator(tab1)
 				.setContent(new TabFactory()));
 		tabHost.addTab(tabHost.newTabSpec(tab2).setIndicator(tab2)
+				.setContent(new TabFactory()));
+		tabHost.addTab(tabHost.newTabSpec(tab3).setIndicator(tab3)
 				.setContent(new TabFactory()));
 
 		for (int i = 0; i < tabHost.getTabWidget().getChildCount(); i++) {
@@ -73,12 +76,16 @@ public class CollateralsMenuBarFragment extends Fragment implements
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			CollateralsConstants.FROM_WHERE = 1;
+			CollateralsConstants.FROM_WHERE = 0;
 			fragment = new CollateralsEventProtocols();
 			break;
 		case 1:
-			CollateralsConstants.FROM_WHERE = 0;
+			CollateralsConstants.FROM_WHERE = 1;
 			fragment = new CollateralsMarketingMaterials();
+			break;
+		case 2:
+			CollateralsConstants.FROM_WHERE = 2;
+			fragment = new CollateralsSalesProtocols();
 			break;
 		}
 

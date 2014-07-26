@@ -18,6 +18,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.HorizontalScrollView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -72,12 +73,13 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
+		public LinearLayout clickable_area;
 		public TextView crm_no_txt;
 		public TextView workplan_txt;
 		public TextView activity_type_txt;
 		public TextView start_time_txt;
 		public TextView end_time_txt;
-		public TextView assigned_to_txt;
+		public TextView created_by;
 		public TextView action_txt;
 		public TextView edit_txt;
 		public TextView delete_txt;
@@ -94,16 +96,17 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_item, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.crm_no_txt = (TextView) vi.findViewById(R.id.crm_no_txt);
-			holder.workplan_txt = (TextView) vi.findViewById(R.id.workplan_txt);
-			holder.activity_type_txt = (TextView) vi.findViewById(R.id.activity_type_txt);
-			holder.start_time_txt = (TextView) vi.findViewById(R.id.start_time_txt);
-			holder.end_time_txt = (TextView) vi.findViewById(R.id.end_time_txt);
-			holder.assigned_to_txt = (TextView) vi.findViewById(R.id.assigned_to_txt);
+			holder.clickable_area = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
+			holder.workplan_txt = (TextView) vi.findViewById(R.id.column_two);
+			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_three);
+			holder.start_time_txt = (TextView) vi.findViewById(R.id.column_four);
+			holder.end_time_txt = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by = (TextView) vi.findViewById(R.id.column_six);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
@@ -129,7 +132,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivityType()));
 			holder.start_time_txt.setText(this.tempValues.getCheckIn());
 			holder.end_time_txt.setText(this.tempValues.getCheckOut());
-			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
@@ -142,7 +145,7 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 				holder.workplan_txt.setText(null);
 				holder.activity_type_txt.setText(null);
-				holder.assigned_to_txt.setText(null);
+				holder.created_by.setText(null);
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
@@ -174,94 +177,95 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 					showDeleteDialog(position, listView);
 				}
 			});
-
-			// Events
-			((HorizontalScrollView) vi.findViewById(R.id.crm_no_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.crm_no_txt).setClickable(true);
-						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.workplan_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.workplan_txt).setClickable(true);
-						v.findViewById(R.id.workplan_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.activity_type_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.activity_type_txt).setClickable(true);
-						v.findViewById(R.id.activity_type_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.start_time_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.start_time_txt).setClickable(true);
-						v.findViewById(R.id.start_time_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.end_time_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.end_time_txt).setClickable(true);
-						v.findViewById(R.id.end_time_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-					return false;
-				}
-			});
-
-			((HorizontalScrollView) vi.findViewById(R.id.assigned_to_hsv)).setOnTouchListener(new OnTouchListener() {
-
-				@Override
-				public boolean onTouch(View v, MotionEvent event) {
-					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-
-						v.findViewById(R.id.assigned_to_txt).setClickable(true);
-						v.findViewById(R.id.assigned_to_txt).setOnClickListener(new OnItemClickListener(pos));
-					}
-
-					return false;
-				}
-			});
+			
+			holder.clickable_area.setOnClickListener(new OnItemClickListener(position));
+//			// Events
+//			((HorizontalScrollView) vi.findViewById(R.id.crm_no_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.crm_no_txt).setClickable(true);
+//						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//
+//					return false;
+//				}
+//			});
+//
+//			((HorizontalScrollView) vi.findViewById(R.id.workplan_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.workplan_txt).setClickable(true);
+//						v.findViewById(R.id.workplan_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//					return false;
+//				}
+//			});
+//
+//			((HorizontalScrollView) vi.findViewById(R.id.activity_type_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.activity_type_txt).setClickable(true);
+//						v.findViewById(R.id.activity_type_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//					return false;
+//				}
+//			});
+//
+//			((HorizontalScrollView) vi.findViewById(R.id.start_time_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.start_time_txt).setClickable(true);
+//						v.findViewById(R.id.start_time_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//
+//					return false;
+//				}
+//			});
+//
+//			((HorizontalScrollView) vi.findViewById(R.id.end_time_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.end_time_txt).setClickable(true);
+//						v.findViewById(R.id.end_time_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//					return false;
+//				}
+//			});
+//
+//			((HorizontalScrollView) vi.findViewById(R.id.assigned_to_hsv)).setOnTouchListener(new OnTouchListener() {
+//
+//				@Override
+//				public boolean onTouch(View v, MotionEvent event) {
+//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
+//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
+//
+//						v.findViewById(R.id.assigned_to_txt).setClickable(true);
+//						v.findViewById(R.id.assigned_to_txt).setOnClickListener(new OnItemClickListener(pos));
+//					}
+//
+//					return false;
+//				}
+//			});
 		}
 
 		return vi;

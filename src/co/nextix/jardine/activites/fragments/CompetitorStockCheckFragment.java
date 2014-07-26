@@ -40,6 +40,8 @@ public class CompetitorStockCheckFragment extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 
+	private Bundle bundle;
+	private int frag_layout_id;
 	
 	public CompetitorStockCheckFragment() {
 		this.itemSearch = new ArrayList<CompetitorProductStockCheckRecord>();
@@ -51,6 +53,12 @@ public class CompetitorStockCheckFragment extends Fragment {
 
 		myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check, container, false);
 		setListData();
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 		
 		// ONCLICK sa mga buttons sa fragment
 		((Button) myFragmentView.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
@@ -68,7 +76,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(R.id.activity_fragment, newFragment);
+				transaction.replace(frag_layout_id, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction

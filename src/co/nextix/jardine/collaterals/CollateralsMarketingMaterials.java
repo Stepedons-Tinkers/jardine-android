@@ -223,7 +223,6 @@ public class CollateralsMarketingMaterials extends Fragment implements
 					int position, long id) {
 				MarketingMaterialsRecord epr = (MarketingMaterialsRecord) parent
 						.getAdapter().getItem(position);
-				CollateralsConstants.FROM_WHERE = 2;
 				if (epr.getNo() != null) {
 
 					CollateralsDetails frag = CollateralsDetails.newInstance(

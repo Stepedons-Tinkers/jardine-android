@@ -148,4 +148,9 @@ public class SMRRecord {
 	public long getCreatedBy() {
 		return this.created_by;
 	}
+	
+	@Override
+	public String toString() {
+		return this.crm_no;
+	}
 }

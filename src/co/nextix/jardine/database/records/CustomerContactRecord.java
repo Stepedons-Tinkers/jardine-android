@@ -175,5 +175,10 @@ public class CustomerContactRecord {
 	public long getCreatedBy() {
 		return this.created_by;
 	}
+	
+	@Override
+	public String toString() {
+		return this.first_name + " " + last_name;
+	}
 
 }

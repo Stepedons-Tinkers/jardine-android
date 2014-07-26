@@ -78,7 +78,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		public TextView activity_type_txt;
 		public TextView product_txt;
 		public TextView status_txt;
-		public TextView assigned_to_txt;
+		public TextView created_by;
 		public TextView edit_txt;
 		public TextView delete_txt;
 
@@ -95,7 +95,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_five_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
@@ -104,7 +104,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
 			holder.product_txt       = (TextView) vi.findViewById(R.id.column_three);
 			holder.status_txt        = (TextView) vi.findViewById(R.id.column_four);
-			holder.assigned_to_txt   = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
 			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
 
@@ -129,9 +129,13 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivity()));
 			holder.product_txt.setText(String.valueOf(this.tempValues.getProductBrand()));
 			holder.status_txt.setText(String.valueOf(this.tempValues.getStatus()));
-			holder.assigned_to_txt.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.activity_type_txt.setText(null);
+				holder.product_txt.setText(null);
+				holder.status_txt.setText(null);
+				holder.created_by.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
@@ -143,18 +147,18 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
-
-					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putLong("activity_id", tempValues.getId());
-					editor.commit(); // commit changes
-
-					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+//					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
+//
+//					// Saving acquired activity details
+//					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//					Editor editor = pref.edit();
+//					editor.putLong("activity_id", tempValues.getId());
+//					editor.commit(); // commit changes
+//
+//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+//					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
+//					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+//							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 				}
 			});
 

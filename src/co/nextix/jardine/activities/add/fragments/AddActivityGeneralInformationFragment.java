@@ -1,6 +1,7 @@
 package co.nextix.jardine.activities.add.fragments;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
@@ -19,7 +20,6 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -29,14 +29,6 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
-import co.nextix.jardine.database.records.CityTownRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.ProvinceRecord;
-import co.nextix.jardine.database.records.SMRRecord;
-import co.nextix.jardine.database.records.WorkplanEntryRecord;
-import co.nextix.jardine.database.tables.picklists.PCityTownTable;
-import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -44,14 +36,7 @@ import com.dd.CircularProgressButton;
 
 public class AddActivityGeneralInformationFragment extends Fragment {
 	private View rootView = null;
-	private ArrayAdapter<String> workplanAdapter = null;
-	private ArrayAdapter<PicklistRecord> areaAdapter = null;
-	private ArrayAdapter<CustomerRecord> customerAdapter = null;
-	private ArrayAdapter<ProvinceRecord> provinceAdapter = null;
-	private ArrayAdapter<CityTownRecord> cityTownAdapter = null;
-	private ArrayAdapter<PicklistRecord> sourceAdapter = null;
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
-	private ArrayAdapter<WorkplanEntryRecord> workplanEntryRecordAdapter = null;
 	private CircularProgressButton saveBtn = null;
 
 	private Calendar calendar = null;
@@ -62,28 +47,27 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int year = 0;
 	private int flag;
 
-	public AddActivityGeneralInformationFragment() {
+	private Fragment fragment = null;
+
+	private AddActivityFragment addActFrag;
+
+	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
 		this.month = this.calendar.get(Calendar.MONTH);
 		this.year = this.calendar.get(Calendar.YEAR);
 		this.flag = 0;
+		this.fragment = frag;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 
-		// List to be populated in spinner adapter
-		List<PicklistRecord> areaList = JardineApp.DB.getArea().getAllRecords();
-		List<PicklistRecord> sourceList = JardineApp.DB.getArea().getAllRecords();
-		List<String> workplanList = JardineApp.DB.getWorkplan().getAllWorkplan(JardineApp.DB.getUser().getCurrentUser().getId());
+		addActFrag = (AddActivityFragment) fragment;
 
-		// Karon clear na
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
-		List<WorkplanEntryRecord> workplanEntryList = JardineApp.DB.getWorkplanEntry().getAllRecords();
-		List<CustomerRecord> customerList = JardineApp.DB.getCustomer().getAllRecords();
 
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
@@ -91,60 +75,64 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		// ArrayAdapter for spinners
-		this.areaAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, areaList);
-		this.sourceAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, sourceList);
-		this.workplanAdapter = new ArrayAdapter<String>(JardineApp.context, R.layout.add_activity_textview, workplanList);
 		this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
 				activityTypeList);
-		this.workplanEntryRecordAdapter = new ArrayAdapter<WorkplanEntryRecord>(JardineApp.context, R.layout.add_activity_textview,
-				workplanEntryList);
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
 
 		// Setting to text field auto populate data
 		((EditText) this.rootView.findViewById(R.id.business_unit)).setText(activity != null ? activity.toString() : "");
-		((EditText) this.rootView.findViewById(R.id.assigned_to)).setText(assignedToLname + "," + assignedToFname);
+		((EditText) this.rootView.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 
-		((Spinner) this.rootView.findViewById(R.id.area)).setAdapter(this.areaAdapter);
-		((Spinner) this.rootView.findViewById(R.id.source)).setAdapter(this.sourceAdapter);
-		((Spinner) this.rootView.findViewById(R.id.workplan)).setAdapter(workplanAdapter);
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setAdapter(activityTypeAdapter);
-		((Spinner) this.rootView.findViewById(R.id.workplan_entry)).setAdapter(workplanEntryRecordAdapter);
-		((Spinner) this.rootView.findViewById(R.id.customer)).setAdapter(customerAdapter);
-
-		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
+		((Spinner) this.rootView.findViewById(R.id.activity_type)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				PProvinceTable provinceTable = JardineApp.DB.getProvince();
-				provinceAdapter = new ArrayAdapter<ProvinceRecord>(JardineApp.context, R.layout.add_activity_textview, provinceTable
-						.getRecordsByAreaId(id + 1));
-				((Spinner) AddActivityGeneralInformationFragment.this.rootView.findViewById(R.id.province)).setAdapter(provinceAdapter);
+				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 
+				ArrayList<Integer> indexes = new ArrayList<Integer>();
+
+				switch (activityTypeName) {
+				case "Travel":
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					break;
+
+				case "Waiting":
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					break;
+
+				}
 			}
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				Toast.makeText(getActivity().getApplicationContext(), "Must be filled!", Toast.LENGTH_SHORT).show();
+				// TODO Auto-generated method stub
+
 			}
 		});
 
-		((Spinner) this.rootView.findViewById(R.id.province)).setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				PCityTownTable cityTable = JardineApp.DB.getCityTown();
-				cityTownAdapter = new ArrayAdapter<CityTownRecord>(JardineApp.context, R.layout.add_activity_textview, cityTable
-						.getRecordsByProvinceId(id + 1));
-				((Spinner) AddActivityGeneralInformationFragment.this.rootView.findViewById(R.id.city_town)).setAdapter(cityTownAdapter);
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				Toast.makeText(getActivity().getApplicationContext(), "Must be filled!", Toast.LENGTH_SHORT).show();
-			}
-		});
-
-		((TextView) this.rootView.findViewById(R.id.start_time)).setOnClickListener(new OnClickListener() {
+		((TextView) this.rootView.findViewById(R.id.check_in)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -156,7 +144,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
-		((TextView) this.rootView.findViewById(R.id.end_time)).setOnClickListener(new OnClickListener() {
+		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -168,87 +156,66 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
-		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				flag = 7;
-
-				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
-						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
-						AddActivityGeneralInformationFragment.this.day);
-				pickDialog.show();
-
-			}
-		});
-
 		saveBtn = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
 		saveBtn.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
-					String workplan = String.valueOf(((Spinner) rootView.findViewById(R.id.workplan)).getSelectedItem());
-					String startTime = ((TextView) rootView.findViewById(R.id.start_time)).getText().toString();
-					String endTime = ((TextView) rootView.findViewById(R.id.end_time)).getText().toString();
-					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
-					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
-					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
+					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
+					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
 					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
+					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
 
-					// long businessUnit = Long.parseLong(((EditText)
-					// rootView.findViewById(R.id.business_unit)).getText().toString());
 					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
 							JardineApp.DB.getUser().getCurrentUser().getId());
 
-					// long source = Long.parseLong(String.valueOf(((Spinner)
-					// rootView.findViewById(R.id.source)).getSelectedItem()));
-
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (workplan != null && !workplan.isEmpty() && startTime != null && !startTime.isEmpty() && endTime != null
-							&& !endTime.isEmpty() && objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty()
-							&& nextSteps != null && !nextSteps.isEmpty() && activityType != null && !activityType.isEmpty()
-							&& businessUnit != null && pref != null
-					/*
-					 * && pref.getString("smr", null) != null &&
-					 * pref.getString("issues_identified", null) != null &&
-					 * pref.getString("feedback_from_customer", null) != null &&
-					 * pref.getString("ongoing_campaigns", null) != null &&
-					 * pref.getString("last_delivery", null) != null &&
-					 * pref.getString("promo_stubs_details", null) != null &&
-					 * pref.getString("project_name", null) != null &&
-					 * pref.getString("project_stage", null) != null &&
-					 * pref.getString("project_category", null) != null &&
-					 * pref.getString("date", null) != null &&
-					 * pref.getString("time", null) != null &&
-					 * pref.getString("venue", null) != null &&
-					 * pref.getString("no_attendees", null) != null
-					 */) {
+
+					if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty() && checkout != null
+							&& !checkout.isEmpty() && pref.getString("reasons_remarks", null) != null
+							&& pref.getString("smr", null) != null && pref.getString("details_admin_works", null) != null
+							&& pref.getString("objective", null) != null && pref.getString("notes", null) != null
+							&& pref.getString("highlights", null) != null && pref.getString("next_steps", null) != null
+							&& pref.getString("project_name", null) != null && pref.getString("project_stage", null) != null
+							&& pref.getString("project_category", null) != null && pref.getString("venue", null) != null
+							&& pref.getString("no_attendees", null) != null && pref.getString("end_user_activity_types", null) != null
+							&& pref != null) {
+
+						String reasonsRemarks = pref.getString("reasons_remarks", null);
+						long smr = pref.getLong("smr", 0);
+						String adminDetails = pref.getString("details_admin_works", null);
+						long customer = pref.getLong("customer", 0);
+						long area = pref.getLong("area", 0);
+						long province = pref.getLong("province", 0);
+						long city = pref.getLong("city", 0);
+						long workplanEntry = pref.getLong("workplanEntry", 0);
+						String objective = pref.getString("objective", null);
+						int firstTimeVisit = pref.getInt("first_time_visit", 0);
+						int plannedVisit = pref.getInt("plannedVisit", 0);
+						String notes = pref.getString("notes", null);
+						String highlights = pref.getString("highlights", null);
+						String nextSteps = pref.getString("next_steps", null);
+						String followUpCommittmentDate = pref.getString("follow_up_commitment_date", null);
+						String projectName = pref.getString("projectName", null);
+						String projectStage = pref.getString("project_stage", null);
+						String projectCategory = pref.getString("project_category", null);
+						String venue = pref.getString("venue", null);
+						int numberOfAttendees = pref.getInt("numberOfAttendees", 0);
+						String endUserActivityTypes = pref.getString("end_user_activity_types", null);
 
 						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(),
 								((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId(),
-								"checkIn", "checkOut", businessUnit.getId(), Long.parseLong(StoreAccount.restore(JardineApp.context)
-										.getString(Account.ROWID)), 123.894882, 10.310235, startTime.concat(df.format(calendar.getTime())),
-								endTime.concat(df.format(calendar.getTime())), ((EditText) rootView.findViewById(R.id.reason_remarks))
-										.getText().toString(), ((SMRRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem())
-										.getId(), "adminDetails", ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer))
-										.getSelectedItem()).getId(), ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area))
-										.getSelectedItem()).getId(), ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province))
-										.getSelectedItem()).getId(), ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town))
-										.getSelectedItem()).getId(), ((WorkplanEntryRecord) ((Spinner) rootView
-										.findViewById(R.id.workplan_entry)).getSelectedItem()).getId(), ((EditText) rootView
-										.findViewById(R.id.objective)).getText().toString(), ((CheckBox) rootView
-										.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0, ((CheckBox) rootView
-										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, ((EditText) rootView
-										.findViewById(R.id.notes)).getText().toString(),
-								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), "projectName", "projectStage",
-								"projectCategory", "venue", 0, "endUserActivityTypes").execute();
+								checkin.concat(df.format(calendar.getTime())), checkout.concat(df.format(calendar.getTime())), businessUnit
+										.getId(), createdBy, 123.894882, 10.310235, checkin.concat(df.format(calendar.getTime())), checkout
+										.concat(df.format(calendar.getTime())), reasonsRemarks, smr, adminDetails, customer, area,
+								province, city, workplanEntry, objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps,
+								followUpCommittmentDate, projectName, projectStage, projectCategory, venue, numberOfAttendees,
+								endUserActivityTypes).execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
 					}
-
 				} else {
 					saveBtn.setProgress(0);
 				}
@@ -422,9 +389,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 			if (flag == 0) {
-				((TextView) rootView.findViewById(R.id.start_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.check_in)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else if (flag == 4) {
-				((TextView) rootView.findViewById(R.id.end_time)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.check_out)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
 				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
 						.setText(AddActivityGeneralInformationFragment.this.formattedDate);

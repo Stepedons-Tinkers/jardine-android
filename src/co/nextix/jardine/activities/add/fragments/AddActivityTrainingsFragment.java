@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.R;
@@ -27,12 +26,8 @@ public class AddActivityTrainingsFragment extends Fragment {
 				if (actionId == EditorInfo.IME_ACTION_DONE) {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					Editor editor = pref.edit();
-					editor.putString("date", ((EditText) rootView.findViewById(R.id.date)).getText().toString());
-					editor.putString("time", String.valueOf(((Spinner) rootView.findViewById(R.id.time)).getSelectedItem()));
 					editor.putString("venue", v.getText().toString());
 					editor.putString("no_attendees", ((EditText) rootView.findViewById(R.id.number_of_attendees)).getText().toString());
-					editor.putString("attendance_sheet", ((EditText) rootView.findViewById(R.id.attendance_sheet)).getText().toString());
-					editor.putString("name_of_attendees", ((EditText) rootView.findViewById(R.id.name_of_attendees)).getText().toString());
 					editor.commit(); // commit changes
 				}
 

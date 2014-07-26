@@ -1,0 +1,364 @@
+package co.nextix.jardine.collaterals;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import co.nextix.jardine.DashBoardActivity;
+import co.nextix.jardine.JardineApp;
+import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.SalesProtocolRecord;
+import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.database.tables.SalesProtocolTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
+import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.SearchView;
+import android.widget.Spinner;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnQueryTextListener;
+
+public class CollateralsSalesProtocols extends Fragment implements
+		OnClickListener {
+
+	private View view;
+	private ListView list;
+	private int rowSize = 8;
+	private int totalPage = 0;
+	private int currentPage = 0;
+
+	private List<SalesProtocolRecord> realRecord;
+	private List<SalesProtocolRecord> tempRecord;
+	private List<SalesProtocolRecord> searchRecord;
+
+	private ImageButton arrowLeft, arrowRight;
+	private TextView txtPage;
+	private View header;
+	private TextView txtCol1, txtCol2, txtCol3, txtCol4;
+	private TableRow trow;
+	private SearchView searchView;
+	private List<String> strSearcher;
+	private Spinner spinner;
+	private boolean searchMode = false;
+	private long userId;
+	private ArrayAdapter<String> sAdapter;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+
+		this.setHasOptionsMenu(true);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+
+		view = inflater.inflate(R.layout.collaterals_event_protocols, null);
+		header = inflater
+				.inflate(R.layout.collaterals_event_protocol_row, null);
+		initLayout();
+		return view;
+	}
+
+	private void initLayout() {
+
+		getActivity().invalidateOptionsMenu();
+		// searchView = (SearchView) view.findViewById(R.id.svEventProtocols);
+
+		// Header Data
+		trow = (TableRow) header
+				.findViewById(R.id.trCollateralsEventerProtocolRow);
+		txtCol1 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolCrmNo);
+		txtCol2 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolDescription);
+		txtCol3 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolEventType);
+		txtCol4 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
+
+		trow.setGravity(Gravity.CENTER);
+		txtCol1.setGravity(Gravity.CENTER);
+		txtCol2.setGravity(Gravity.CENTER);
+		txtCol3.setGravity(Gravity.CENTER);
+		txtCol4.setGravity(Gravity.CENTER);
+
+		txtCol1.setTypeface(null, Typeface.BOLD);
+		txtCol2.setTypeface(null, Typeface.BOLD);
+		txtCol3.setTypeface(null, Typeface.BOLD);
+		txtCol4.setTypeface(null, Typeface.BOLD);
+
+		txtCol1.setText(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		txtCol2.setText(getResources().getString(
+				R.string.collaterals_ep_description));
+		txtCol3.setText(getResources().getString(
+				R.string.collaterals_sp_protocol_type));
+		txtCol4.setText(getResources().getString(
+				R.string.collaterals_ep_is_active));
+		trow.setBackgroundResource(R.color.tab_pressed);
+		header.setClickable(false);
+		header.setFocusable(false);
+		header.setFocusableInTouchMode(false);
+		header.setOnClickListener(null);
+
+		list = (ListView) view
+				.findViewById(R.id.lvCollateralsEventProtocolsList);
+
+		list.addHeaderView(header);
+
+		txtPage = (TextView) view
+				.findViewById(R.id.tvCollateralssEventProtocolPage);
+
+		arrowLeft = (ImageButton) view
+				.findViewById(R.id.ibColatteralsEventProtocolLeft);
+		arrowRight = (ImageButton) view
+				.findViewById(R.id.ibColatteralsEventProtocolRight);
+
+		arrowLeft.setOnClickListener(this);
+		arrowRight.setOnClickListener(this);
+
+		SalesProtocolTable table = JardineApp.DB.getSalesProtocol();
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		userId = Long.parseLong(id);
+
+		realRecord = new ArrayList<SalesProtocolRecord>();
+		tempRecord = new ArrayList<SalesProtocolRecord>();
+		try {
+			realRecord.addAll(table.getAllRecordsByUserId(userId));
+		} catch (Exception e) {
+		}
+
+		if (realRecord.size() > 0) {
+			int remainder = realRecord.size() % rowSize;
+			if (remainder > 0) {
+				for (int i = 0; i < rowSize - remainder; i++) {
+					SalesProtocolRecord rec = new SalesProtocolRecord();
+					realRecord.add(rec);
+				}
+			}
+			totalPage = realRecord.size() / rowSize;
+			addItem(currentPage);
+		} else {
+			AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
+					getActivity(), R.layout.collaterals_event_protocol_row,
+					realRecord);
+
+			list.setAdapter(adapter);
+		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
+	}
+
+	private void addItemFromSearch(int count) {
+
+		if (searchRecord.size() > 0) {
+			int remainder = searchRecord.size() % rowSize;
+			if (remainder > 0) {
+				for (int i = 0; i < rowSize - remainder; i++) {
+					SalesProtocolRecord rec = new SalesProtocolRecord();
+					searchRecord.add(rec);
+				}
+			}
+			totalPage = realRecord.size() / rowSize;
+
+		}
+
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		txtPage.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, searchRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
+	}
+
+	private void addItem(int count) {
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		txtPage.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, realRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
+	}
+
+	private void setView() {
+
+		AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
+				getActivity(), R.layout.collaterals_event_protocol_row,
+				tempRecord);
+		list.setAdapter(adapter);
+		list.setOnItemClickListener(new OnItemClickListener() {
+
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				EventProtocolRecord epr = (EventProtocolRecord) parent
+						.getAdapter().getItem(position);
+				if (epr.getNo() != null) {
+
+					CollateralsDetails frag = CollateralsDetails.newInstance(
+							epr.getId(), epr.getNo());
+					frag.setTargetFragment(CollateralsSalesProtocols.this, 15);
+
+					DashBoardActivity act = (DashBoardActivity) getActivity();
+					act.getSupportFragmentManager().beginTransaction()
+							.add(R.id.frame_container, frag, JardineApp.TAG)
+							.addToBackStack(JardineApp.TAG).commit();
+
+				}
+
+			}
+		});
+		ListViewUtility.setListViewHeightBasedOnChildren(list);
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+		case R.id.ibColatteralsEventProtocolLeft:
+			if (currentPage > 0) {
+				currentPage--;
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
+			}
+			break;
+		case R.id.ibColatteralsEventProtocolRight:
+			if (currentPage < totalPage - 1) {
+				currentPage++;
+				if (searchMode)
+					addItemFromSearch(currentPage);
+				else
+					addItem(currentPage);
+			}
+			break;
+		}
+
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+		super.onCreateOptionsMenu(menu, inflater);
+
+		inflater.inflate(R.menu.collaterals_menu, menu);
+
+		searchView = (SearchView) menu.findItem(R.id.itemCollateralSearch)
+				.getActionView();
+		spinner = (Spinner) menu.findItem(R.id.itemCollateralSpinner)
+				.getActionView();
+
+		strSearcher = new ArrayList<String>();
+
+		strSearcher.add(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_ep_description));
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_sp_protocol_type));
+
+		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
+				R.layout.workplan_spinner_row, strSearcher);
+		spinner.setAdapter(cus);
+
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+				AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
+						getActivity(), R.layout.collaterals_event_protocol_row,
+						tempRecord);
+				list.setAdapter(adapter);
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+					searchRecord = JardineApp.DB.getSalesProtocol()
+							.getAllRecordsBySearch(userId, arg0,
+									spinner.getSelectedItemPosition());
+
+					Log.d("Tugs", spinner.getSelectedItemPosition() + "");
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
+
+	}
+
+}
