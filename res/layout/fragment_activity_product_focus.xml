@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_centerInParent="true"
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:orientation="vertical" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="5dp"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" >
+
+            <!-- Row 1 with single column -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#000000"
+                android:orientation="horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/crm_no_products"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:id="@+id/customer"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:state_selected="true"
+                        android:text="@string/product_number"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+
+                    <requestFocus
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/product_brand"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:id="@+id/activity_type"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:state_selected="true"
+                        android:text="@string/product_desc"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+
+                    <requestFocus />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="2dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:id="@+id/assigned_to"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:state_selected="true"
+                        android:text="@string/assigned_to_products"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+
+                    <requestFocus />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="2dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0"
+                    android:visibility="gone" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/action_products"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="singleChoice"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="true"
+                android:focusableInTouchMode="true"
+                android:listSelector="@drawable/list_selector"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+            <View
+                android:id="@+id/view_stub"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/black" />
+        </TableLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="7dp" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center" >
+
+                <ImageButton
+                    android:id="@+id/imageButton1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/status_count_text"
+                    android:layout_alignTop="@+id/status_count_text"
+                    android:layout_toLeftOf="@+id/status_count_text"
+                    android:onClick="prev"
+                    android:src="@drawable/prev" />
+
+                <TextView
+                    android:id="@+id/status_count_text"
+                    android:layout_width="74dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="1 of 1"
+                    android:textColor="#000000"
+                    android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="24dp"
+                    android:onClick="next"
+                    android:src="@drawable/next" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/select_products"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="14dp"
+                android:text="@string/select_products" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>
