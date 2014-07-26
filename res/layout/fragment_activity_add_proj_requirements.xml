@@ -438,7 +438,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_proj_requirement"
+                        android:text="@string/created_by_proj_requirement"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>

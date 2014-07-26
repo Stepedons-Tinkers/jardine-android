@@ -29,9 +29,6 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class MarketingIntelFragment extends Fragment {
 
-	
-	
-	
 	private MarketingIntelCustomAdapter adapter = null;
 	private ArrayList<MarketingIntelRecord> realRecord = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
