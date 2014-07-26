@@ -23,8 +23,8 @@ public class AddActivityFragment extends Fragment {
 
 	private View rootView = null;
 
-	private PagerSlidingTabStrip tabs;
-	private ViewPager pager;
+	protected PagerSlidingTabStrip tabs;
+	protected ViewPager pager;
 	private MyPagerAdapter adapter;
 
 	private int firstPos;
@@ -32,19 +32,17 @@ public class AddActivityFragment extends Fragment {
 	private FragmentTransaction ft;
 
 	private FrameLayout fl;
-	
+
 	private Bundle bundle;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		rootView = inflater.inflate(R.layout.add_activity_fragment, container,
-				false);
+		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
 
 		ft = getFragmentManager().beginTransaction();
 		fl = (FrameLayout) rootView.findViewById(R.id.layoutForAddingFrag);
-		
+
 		bundle = new Bundle();
 		bundle.putInt("layoutID", fl.getId());
 
@@ -54,16 +52,14 @@ public class AddActivityFragment extends Fragment {
 
 		pager.setAdapter(adapter);
 
-		final int pageMargin = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
-						.getDisplayMetrics());
+		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 		pager.setPageMargin(pageMargin);
 		pager.setCurrentItem(0);
 
 		tabs.setViewPager(pager, true);
-		
-		if(tabs.getId() == 2){
-			Log.e("tabID","2");
+
+		if (tabs.getId() == 2) {
+			Log.e("tabID", "2");
 		}
 
 		tabs.setOnPageChangeListener(new OnPageChangeListener() {
@@ -72,54 +68,111 @@ public class AddActivityFragment extends Fragment {
 			public void onPageSelected(int position) {
 				firstPos = position;
 
-				ft.setCustomAnimations(R.anim.slide_in_left,
-						R.anim.slide_out_left);
+				ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
 				if (position == 0) {
-					
-					AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment();
+
+					AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment(
+							AddActivityFragment.this);
 					addActGenInfoFrag.setArguments(bundle);
-					
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
 					ft.commit();
-				}else if(position == 1){
-					
-					AddActivityWithCoSMRsFragment addActWCoSmrFrag = new AddActivityWithCoSMRsFragment();
+				} else if (position == 1) {
+
+					AddActivityTravelWaitingFragment addActWCoSmrFrag = new AddActivityTravelWaitingFragment();
 					addActWCoSmrFrag.setArguments(bundle);
-					
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActWCoSmrFrag);
 					ft.commit();
-				}else if(position == 2){
-					
-					AddActivityDIYorSupermarketFragment addActDiyOrSupFrag = new AddActivityDIYorSupermarketFragment();
+				} else if (position == 2) {
+
+					AddActivityWithCoSMRsFragment addActDiyOrSupFrag = new AddActivityWithCoSMRsFragment();
 					addActDiyOrSupFrag.setArguments(bundle);
-					
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActDiyOrSupFrag);
 					ft.commit();
-				}else if(position == 3){
-					
-					AddActivityRetailVisitFragment addActRetVisFrag = new AddActivityRetailVisitFragment();
+				} else if (position == 3) {
+
+					AddActivityAdminWorksFragment addActRetVisFrag = new AddActivityAdminWorksFragment();
 					addActRetVisFrag.setArguments(bundle);
-					
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActRetVisFrag);
 					ft.commit();
-				}else if(position == 4){
-					
-					AddActivityProjectVisitFragment addActProjVisFrag = new AddActivityProjectVisitFragment();
+				} else if (position == 4) {
+
+					AddActivityDetailsAndNotesFragment addActProjVisFrag = new AddActivityDetailsAndNotesFragment();
 					addActProjVisFrag.setArguments(bundle);
-					
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActProjVisFrag);
 					ft.commit();
-				}else if(position == 5){
-					
+				} else if (position == 5) {
+
+					AddActivityCustomerContactFragment addActTrainFrag = new AddActivityCustomerContactFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} // ---------------------------
+				else if (position == 6) { // ---- in process "Cerio part"
+
+					AddJDIProductStockFragment addActTrainFrag = new AddJDIProductStockFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 7) {
+
+					AddActivityProductSupplierFragment addActTrainFrag = new AddActivityProductSupplierFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 8) {
+
+					AddMarketingIntelFragment addActTrainFrag = new AddMarketingIntelFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 9) {
+
+					AddActivityProjectVisitFragment addActTrainFrag = new AddActivityProjectVisitFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 10) {
+
+					AddProjectRequirementsFragment addActTrainFrag = new AddProjectRequirementsFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 11) {
+
 					AddActivityTrainingsFragment addActTrainFrag = new AddActivityTrainingsFragment();
 					addActTrainFrag.setArguments(bundle);
-					
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 12) {
+
+					AddActivityFullBrandActivationFragment addActTrainFrag = new AddActivityFullBrandActivationFragment();
+					addActTrainFrag.setArguments(bundle);
+
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
 					ft.commit();
@@ -138,8 +191,8 @@ public class AddActivityFragment extends Fragment {
 
 			}
 		});
-		
-		AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment();
+
+		AddActivityGeneralInformationFragment addActGenInfoFrag = new AddActivityGeneralInformationFragment(AddActivityFragment.this);
 		addActGenInfoFrag.setArguments(bundle);
 
 		ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
@@ -157,12 +210,12 @@ public class AddActivityFragment extends Fragment {
 	protected void setClickable(View findViewById) {
 		findViewById.setClickable(true);
 	}
-	
+
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
-		private final String[] TITLES = { "General Information", "With CoSMRs",
-				"DIY or Supermarket", "Retail Visit", "Project Visit",
-				"Trainings" };
+		private final String[] TITLES = { "General Information", "Travel or Waiting", "With CoSMRs", "Admin Works",
+				"Activity Details and Notes", "Customer Contact Person", "JDI Product Stock Check", "Product Supplier", "Marketing Intel",
+				"Project Visit", "Project Requirements", "Trainings", "Full Brand Activation" };
 
 		public MyPagerAdapter(FragmentManager fm) {
 			super(fm);
