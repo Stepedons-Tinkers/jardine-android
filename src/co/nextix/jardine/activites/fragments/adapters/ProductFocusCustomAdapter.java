@@ -25,6 +25,10 @@ import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.ProductFocusFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.ProductFocusRecord;
+import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class ProductFocusCustomAdapter extends BaseAdapter {
@@ -127,10 +131,33 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 			
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.product_no.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.product_brand.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.product_description.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.created_by.setText(String.valueOf(this.tempValues.getActivity()));
+//			holder.product_no.setText(String.valueOf(this.tempValues.getActivity()));
+//			holder.product_description.setText(String.valueOf(this.tempValues.getActivity()));
+			ProductTable product = JardineApp.DB.getProduct();
+			if(product != null){
+				ProductRecord rec = product.getById(this.tempValues.getActivity());
+				holder.product_brand.setText("");
+				holder.product_no.setText("");
+				holder.product_description.setText("");
+				if(rec != null){
+					holder.product_brand.setText(rec.toString());
+					holder.product_no.setText(rec.getProductNumber());
+					holder.product_description.setText(rec.getProductDescription());
+				}
+				
+				
+			}
+			
+			
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getActivity());
+				holder.created_by.setText("");
+				if(rec != null){
+					holder.created_by.setText(rec.toString());
+				}
+			}
+			
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.product_no.setText(null);
 				holder.created_by.setText(null);
