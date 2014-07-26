@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIProductStockCheckCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
+import co.nextix.jardine.activites.fragments.detail.JDIProductStockCheckDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -38,7 +41,6 @@ public class JDIProductStockFragment extends Fragment {
 	private int currentPage = 0;
 	
 	private Bundle bundle;
-	
 	private int frag_layout_id;
 
 	@Override
@@ -203,6 +205,12 @@ public class JDIProductStockFragment extends Fragment {
 		// CustomerDetailsFragment.newInstance(ar.getId()), JardineApp.TAG)
 		// .addToBackStack(JardineApp.TAG).commit();
 		// }
+		
+		Fragment fragment = new JDIProductStockCheckDetailFragment();
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
 
 	}
 

@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,15 +21,14 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.CompetitorProductStockCheckCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.CompetitorProductStockCheckDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class CompetitorStockCheckFragment extends Fragment {
-	
-	
-	
+
 	private CompetitorProductStockCheckCustomAdapter adapter = null;
 	private ArrayList<CompetitorProductStockCheckRecord> realRecord = null;
 	private ArrayList<CompetitorProductStockCheckRecord> tempRecord = null;
@@ -209,10 +209,11 @@ public class CompetitorStockCheckFragment extends Fragment {
 //
 //		editor.commit(); 
 
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+		Fragment fragment = new CompetitorProductStockCheckDetailFragment();
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
 	}
 	
 	public void isListHasNoData() {

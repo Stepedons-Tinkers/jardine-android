@@ -4,8 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
@@ -25,11 +23,9 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
-import co.nextix.jardine.activites.fragments.detailedact.JDIProductStockCheckInfoFragment;
+import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIMerchandisingStockFragment;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
-import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
@@ -260,8 +256,8 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 //
 //		editor.commit(); 
-
-		Fragment fragment = new JDIProductStockCheckInfoFragment();
+							
+		Fragment fragment = new JDIMerchandisingCheckDetailFragment();
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)

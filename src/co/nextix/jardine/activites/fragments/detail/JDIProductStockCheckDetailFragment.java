@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments.detailedact;
+package co.nextix.jardine.activites.fragments.detail;
 
 import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
@@ -19,15 +19,25 @@ import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 
-public class JDIMechandisingCheckInfoFragment extends Fragment {
+public class JDIProductStockCheckDetailFragment extends Fragment {
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+	
+	private Bundle bundle;
+	private int frag_layout_id;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
-		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_jdi_merchandising_check, container, false);
+		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_jdi_product_stock_check, container, false);
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
 		
@@ -59,75 +69,31 @@ public class JDIMechandisingCheckInfoFragment extends Fragment {
 		
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
-		((TextView) myFragmentView.findViewById(R.id.customer)).setText(this.activityRecord.getCheckIn());
+		((TextView) myFragmentView.findViewById(R.id.activity)).setText(this.activityRecord.getCheckIn());
 		((TextView) myFragmentView.findViewById(R.id.product)).setText(this.activityRecord.getCheckOut());
 		((TextView) myFragmentView.findViewById(R.id.status_stock)).setText(String.valueOf(this.activityRecord.getLatitude()));
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(String.valueOf(this.activityRecord.getLongitude()));
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.activityRecord.getNotes());
+		((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText(String.valueOf(this.activityRecord.getLongitude()));
+		((TextView) myFragmentView.findViewById(R.id.supplier)).setText(this.activityRecord.getNotes());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText("getCompetitorActivities()");
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText("getCompetitorActivities()");
 		((TextView) myFragmentView.findViewById(R.id.created_by)).setText("getCompetitorActivities()");
+		((TextView) myFragmentView.findViewById(R.id.other_remarks)).setText("getCompetitorActivities()");
 		
-
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-//				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
-//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
-//				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-//
-//				// Add a fucking fragment
-//				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-//				fragmentTransaction.commit();
+				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
+				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
+				// Add a fucking fragment
+				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
+				fragmentTransaction.replace(frag_layout_id, myFragment);
+				fragmentTransaction.commit();
 			}
 		});
-		// Add a fucking fragment
-//		StaticActivityInfoFragment myFragmentAddActivity = new StaticActivityInfoFragment();
-//		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
-//		fragmentTransaction.commit();
-//
-//		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
-//				new LightingColorFilter(0x0033FF, 0x0066FF));
-//
-//		this.clearColorFilter(this.myFragmentView.findViewById(R.id.more_info_button));
-//
-//		((Button) this.myFragmentView.findViewById(R.id.more_info_button)).setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				((Button) v.findViewById(R.id.more_info_button)).getBackground()
-//						.setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
-//
-//				JDIMechandisingCheckInfoFragment.this.clearColorFilter(JDIMechandisingCheckInfoFragment.this.myFragmentView.findViewById(R.id.activity_info_button));
-//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
-//
-//				// Add a fucking fragment
-//				MoreActivityInformationFragment myFragment = new MoreActivityInformationFragment();
-//				fragmentTransaction.replace(R.id.second_header_tab, myFragment);
-//				fragmentTransaction.commit();
-//			}
-//		});
-//
-//		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				((Button) v.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
-//						new LightingColorFilter(0x0033FF, 0x0066FF));
-//
-//				JDIMechandisingCheckInfoFragment.this.clearColorFilter(JDIMechandisingCheckInfoFragment.this.myFragmentView.findViewById(R.id.more_info_button));
-//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
-//
-//				// Add a fucking fragment
-//				StaticActivityInfoFragment myFragment = new StaticActivityInfoFragment();
-//				fragmentTransaction.replace(R.id.second_header_tab, myFragment);
-//				fragmentTransaction.commit();
-//			}
-//		});
-
 
 		return myFragmentView;
 	}
