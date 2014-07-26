@@ -4,6 +4,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.SalesProtocolRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
@@ -71,11 +72,11 @@ public class CollateralsSPGeneralInformation extends Fragment {
 		lastUpdate.setText(MyDateUtils.convertDate(record.getLastUpdate()));
 		tags.setText(record.getTags());
 
-		BusinessUnitRecord bu = JardineApp.DB.getBusinessUnit().getById(
-				record.getBusinessUnit());
+		PicklistRecord rec = JardineApp.DB.getSalesProtocolType().getById(
+				record.getProtocolType());
 
-		if (bu != null)
-			eventType.setText(bu.getBusinessUnitName());
+		if (rec != null)
+			eventType.setText(rec.getName());
 
 		isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
 		createdTime
