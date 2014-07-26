@@ -168,9 +168,6 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 					holder.created_by.setText(rec.toString());
 				}
 			}
-			
-		
-			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
