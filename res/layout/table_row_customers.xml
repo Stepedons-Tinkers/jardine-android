@@ -23,9 +23,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -41,9 +41,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -59,9 +59,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -77,9 +77,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -95,9 +95,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
 
         <View
             android:layout_width="2dp"
@@ -113,9 +113,9 @@
             android:ellipsize="end"
             android:gravity="center"
             android:maxLines="1"
-            android:paddingLeft="2dp"
+            android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="21sp" />
+            android:textSize="@dimen/text_xxlarge" />
     </TableRow>
 
 </LinearLayout>
