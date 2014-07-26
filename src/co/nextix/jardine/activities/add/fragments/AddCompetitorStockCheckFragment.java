@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import co.nextix.jardine.R;
 
 public class AddCompetitorStockCheckFragment extends Fragment {
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
