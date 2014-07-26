@@ -20,9 +20,14 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
-import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class ProjectRequirementsCustomAdapter extends BaseAdapter {
@@ -102,12 +107,13 @@ public class ProjectRequirementsCustomAdapter extends BaseAdapter {
 			holder.clickable_item_container = (LinearLayout) vi
 					.findViewById(R.id.table_row_clickable);
 			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
-			holder.activity_txt = (TextView) vi
-					.findViewById(R.id.column_two);
+			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
 			holder.project_requirement_type_txt = (TextView) vi
 					.findViewById(R.id.column_three);
-			holder.date_needed_txt = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_five);
+			holder.date_needed_txt = (TextView) vi
+					.findViewById(R.id.column_four);
+			holder.created_by_txt = (TextView) vi
+					.findViewById(R.id.column_five);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -123,18 +129,43 @@ public class ProjectRequirementsCustomAdapter extends BaseAdapter {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (ProjectRequirementRecord) this.data.get(position);
+			this.tempValues = (ProjectRequirementRecord) this.data
+					.get(position);
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.activity_txt.setText(String.valueOf(this.tempValues
-					.getActivity()));
-			holder.project_requirement_type_txt.setText(String.valueOf(this.tempValues
-					.getProjectRequirementType()));
-			holder.date_needed_txt
-					.setText(String.valueOf(this.tempValues.getDateNeeded()));
-			holder.created_by_txt.setText(String.valueOf(this.tempValues
-					.getCreatedBy()));
+
+			ActivityTable act = JardineApp.DB.getActivity();
+			if (act != null) {
+				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_txt.setText("");
+				if (rec != null) {
+					holder.activity_txt.setText(rec.toString());
+				}
+			}
+
+			PProjReqTypeTable requirement = JardineApp.DB.getProjectRequirementType();
+			if (requirement != null) {
+				PicklistRecord rec = requirement
+						.getById((int) this.tempValues.getProjectRequirementType());
+				holder.project_requirement_type_txt.setText("");
+				if (rec != null) {
+					holder.project_requirement_type_txt.setText(rec.toString());
+				}
+			}
+
+			holder.date_needed_txt.setText(String.valueOf(this.tempValues
+					.getDateNeeded()));
+			
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues
+						.getCreatedBy());
+				holder.created_by_txt.setText("");
+				if(rec != null){
+					holder.created_by_txt.setText(rec.toString());
+				}
+			}
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_txt.setText(null);
 				holder.created_by_txt.setText(null);
@@ -149,43 +180,45 @@ public class ProjectRequirementsCustomAdapter extends BaseAdapter {
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
-//			holder.edit_txt.setOnClickListener(new OnClickListener() {
-//
-//				@Override
-//				public void onClick(View v) {
-//					Toast.makeText(activity.getApplicationContext(),
-//							"Edit here", Toast.LENGTH_SHORT).show();
-//					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data
-//							.get(position);
-//
-//					// Saving acquired activity details
-//					SharedPreferences pref = activity.getApplicationContext()
-//							.getSharedPreferences("ActivityInfo", 0);
-//					Editor editor = pref.edit();
-//					editor.putLong("activity_id", tempValues.getId());
-//					editor.commit(); // commit changes
-//
-//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-//					android.support.v4.app.FragmentManager fragmentManager = activity
-//							.getSupportFragmentManager();
-//					fragmentManager
-//							.beginTransaction()
-//							.setCustomAnimations(R.anim.slide_in_left,
-//									R.anim.slide_out_left)
-//							.replace(R.id.frame_container, fragment)
-//							.addToBackStack(null).commit();
-//				}
-//			});
-//
-//			holder.delete_txt.setOnClickListener(new OnClickListener() {
-//
-//				@Override
-//				public void onClick(View v) {
-//					Toast.makeText(activity.getApplicationContext(),
-//							"Delete here", Toast.LENGTH_SHORT).show();
-//					showDeleteDialog(position, listView);
-//				}
-//			});
+			// holder.edit_txt.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// Toast.makeText(activity.getApplicationContext(),
+			// "Edit here", Toast.LENGTH_SHORT).show();
+			// CompetitorProductStockCheckRecord tempValues =
+			// (CompetitorProductStockCheckRecord) data
+			// .get(position);
+			//
+			// // Saving acquired activity details
+			// SharedPreferences pref = activity.getApplicationContext()
+			// .getSharedPreferences("ActivityInfo", 0);
+			// Editor editor = pref.edit();
+			// editor.putLong("activity_id", tempValues.getId());
+			// editor.commit(); // commit changes
+			//
+			// android.support.v4.app.Fragment fragment = new
+			// ActivityInfoFragment();
+			// android.support.v4.app.FragmentManager fragmentManager = activity
+			// .getSupportFragmentManager();
+			// fragmentManager
+			// .beginTransaction()
+			// .setCustomAnimations(R.anim.slide_in_left,
+			// R.anim.slide_out_left)
+			// .replace(R.id.frame_container, fragment)
+			// .addToBackStack(null).commit();
+			// }
+			// });
+			//
+			// holder.delete_txt.setOnClickListener(new OnClickListener() {
+			//
+			// @Override
+			// public void onClick(View v) {
+			// Toast.makeText(activity.getApplicationContext(),
+			// "Delete here", Toast.LENGTH_SHORT).show();
+			// showDeleteDialog(position, listView);
+			// }
+			// });
 
 		}
 
