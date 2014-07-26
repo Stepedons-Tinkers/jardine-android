@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
@@ -65,7 +66,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
 		
-//		public LinearLayout 
+		public LinearLayout table_row_clickable;
 		public TextView crm_no_txt;
 		public TextView activity_txt;
 		public TextView product_brand_txt;
@@ -92,6 +93,7 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
+			holder.table_row_clickable = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
 			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
 			holder.product_brand_txt = (TextView) vi.findViewById(R.id.column_three);
@@ -134,6 +136,8 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 				holder.loaded_on_shelves_txt.setText(null);
 				holder.created_by_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+			}else{
+				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/

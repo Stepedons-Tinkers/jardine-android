@@ -49,6 +49,7 @@
                     android:layout_toLeftOf="@+id/btnWithText1"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:visibility="invisible"
                     app:textComplete="@string/complete_cancel"
                     app:textError="@string/error"
                     app:textIdle="@string/cancel" />
@@ -61,9 +62,9 @@
                     android:layout_margin="4dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    app:textComplete="@string/complete"
+                    app:textComplete="@string/next"
                     app:textError="@string/error"
-                    app:textIdle="@string/save" />
+                    app:textIdle="@string/done" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -112,7 +113,7 @@
                         android:focusable="false"
                         android:maxHeight="120dp"
                         android:padding="14dip"
-                        android:text="auto generated"
+                        android:hint="auto generated"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -181,7 +182,7 @@
                             android:maxLines="2"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
-                            android:text="date-time picker"
+                            android:hint="date-time picker"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -218,7 +219,7 @@
                             android:maxLines="2"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
-                            android:text="date-time picker"
+                            android:hint="date-time picker"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -308,6 +309,45 @@
                 </TableRow>
             </LinearLayout>
         </TableLayout>
+
+       <!--  <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp" >
+
+            <Button
+                android:id="@+id/previous"
+                android:layout_width="196dp"
+                android:layout_height="64dp"
+                android:layout_margin="4dp"
+                android:layout_toLeftOf="@+id/next"
+                android:text="@string/previous"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/next"
+                android:layout_width="15dp"
+                android:layout_height="64dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="100dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/next_button"
+                android:text="@string/next"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/next_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/next"
+                android:text="@string/next"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+        </RelativeLayout> -->
     </LinearLayout>
 
 </ScrollView>

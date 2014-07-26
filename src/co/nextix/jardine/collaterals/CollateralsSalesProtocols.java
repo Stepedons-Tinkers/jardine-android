@@ -229,7 +229,7 @@ public class CollateralsSalesProtocols extends Fragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				EventProtocolRecord epr = (EventProtocolRecord) parent
+				SalesProtocolRecord epr = (SalesProtocolRecord) parent
 						.getAdapter().getItem(position);
 				if (epr.getNo() != null) {
 

@@ -29,9 +29,6 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class MarketingIntelFragment extends Fragment {
 
-	
-	
-	
 	private MarketingIntelCustomAdapter adapter = null;
 	private ArrayList<MarketingIntelRecord> realRecord = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
@@ -97,8 +94,8 @@ public class MarketingIntelFragment extends Fragment {
 					currentPage--;
 					addItem(currentPage);
 				}
-		 Toast.makeText(getActivity(), "<==== ni sud here",
-		 Toast.LENGTH_SHORT).show();
+//		 Toast.makeText(getActivity(), "<==== ni sud here",
+//		 Toast.LENGTH_SHORT).show();
 		 }
 		 });
 		
@@ -108,12 +105,12 @@ public class MarketingIntelFragment extends Fragment {
 		
 		 @Override
 		 public void onClick(View v) {
-				if (currentPage < 0) {
+				if (currentPage <  totalPage - 1) {
 					currentPage++;
 					addItem(currentPage);
 				}
-		 Toast.makeText(getActivity(), "ni sud here ====>",
-		 Toast.LENGTH_SHORT).show();
+//		 Toast.makeText(getActivity(), "ni sud here ====>",
+//		 Toast.LENGTH_SHORT).show();
 		 }
 		 });
 

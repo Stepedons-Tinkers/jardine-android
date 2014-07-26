@@ -6,11 +6,14 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +37,7 @@ import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
+@SuppressLint("ValidFragment")
 public class AddActivityGeneralInformationFragment extends Fragment {
 	private View rootView = null;
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
@@ -51,6 +55,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private AddActivityFragment addActFrag;
 
+	private Fragment fragmentForTransition;
+	private AddActivityWithCoSMRsFragment addActWithCoSmrFragment;
+
+	private FragmentTransaction ft;
+
+	private Bundle bundle;
+	private int frag_layout_id;
+
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
@@ -64,6 +76,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
+
+		bundle = getArguments();
+
+		if (bundle != null) {
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 
 		addActFrag = (AddActivityFragment) fragment;
 
@@ -108,6 +126,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					fragmentForTransition = new AddActivityTravelWaitingFragment();
 
 				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) {
 					indexes.add(1);
@@ -126,6 +145,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					addActWithCoSmrFragment = new AddActivityWithCoSMRsFragment();
 
 				} else if (activityTypeName.equals("Admin Work")) {
 					indexes.add(1);
@@ -199,7 +219,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-						
+
 				} else if (activityTypeName.equals("Full Brand Activation")) {
 					indexes.add(1);
 					indexes.add(2);
@@ -214,10 +234,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					
-				} else if(activityTypeName.equals("- Select -")){
-					
-				}else {
+
+				} else if (activityTypeName.equals("- Select -")) {
+
+				} else {
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -268,66 +288,55 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		saveBtn = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
 		saveBtn.setOnClickListener(new View.OnClickListener() {
+
 			@Override
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
-					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
-					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
-					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
-					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(1500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
-							JardineApp.DB.getUser().getCurrentUser().getId());
+							String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
+							String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
+							String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
+							long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
 
-					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+							BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
+									JardineApp.DB.getUser().getCurrentUser().getId());
 
-					if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty() && checkout != null
-							&& !checkout.isEmpty() && pref.getString("reasons_remarks", null) != null
-							&& pref.getString("smr", null) != null && pref.getString("details_admin_works", null) != null
-							&& pref.getString("objective", null) != null && pref.getString("notes", null) != null
-							&& pref.getString("highlights", null) != null && pref.getString("next_steps", null) != null
-							&& pref.getString("project_name", null) != null && pref.getString("project_stage", null) != null
-							&& pref.getString("project_category", null) != null && pref.getString("venue", null) != null
-							&& pref.getString("no_attendees", null) != null && pref.getString("end_user_activity_types", null) != null
-							&& pref != null) {
+							/** Checking of required fields **/
+							SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+							if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty()
+									&& checkout != null && !checkout.isEmpty()) {
 
-						String reasonsRemarks = pref.getString("reasons_remarks", null);
-						long smr = pref.getLong("smr", 0);
-						String adminDetails = pref.getString("details_admin_works", null);
-						long customer = pref.getLong("customer", 0);
-						long area = pref.getLong("area", 0);
-						long province = pref.getLong("province", 0);
-						long city = pref.getLong("city", 0);
-						long workplanEntry = pref.getLong("workplanEntry", 0);
-						String objective = pref.getString("objective", null);
-						int firstTimeVisit = pref.getInt("first_time_visit", 0);
-						int plannedVisit = pref.getInt("plannedVisit", 0);
-						String notes = pref.getString("notes", null);
-						String highlights = pref.getString("highlights", null);
-						String nextSteps = pref.getString("next_steps", null);
-						String followUpCommittmentDate = pref.getString("follow_up_commitment_date", null);
-						String projectName = pref.getString("projectName", null);
-						String projectStage = pref.getString("project_stage", null);
-						String projectCategory = pref.getString("project_category", null);
-						String venue = pref.getString("venue", null);
-						int numberOfAttendees = pref.getInt("numberOfAttendees", 0);
-						String endUserActivityTypes = pref.getString("end_user_activity_types", null);
+								Editor editor = pref.edit();
+								editor.putString("check_in", checkin);
+								editor.putString("checkout", checkout);
+								editor.putString("activity_type", activityType);
+								editor.putLong("createdBy", createdBy);
+								editor.putLong("business_unit", businessUnit.getId());
+								editor.commit(); // commit changes
 
-						new InsertTask("0", ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString(),
-								((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId(),
-								checkin.concat(df.format(calendar.getTime())), checkout.concat(df.format(calendar.getTime())), businessUnit
-										.getId(), createdBy, 123.894882, 10.310235, checkin.concat(df.format(calendar.getTime())), checkout
-										.concat(df.format(calendar.getTime())), reasonsRemarks, smr, adminDetails, customer, area,
-								province, city, workplanEntry, objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps,
-								followUpCommittmentDate, projectName, projectStage, projectCategory, venue, numberOfAttendees,
-								endUserActivityTypes).execute();
+							} else {
+								Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+							}
 
-					} else {
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
-					}
+						}
+					});
+
+					widthAnimation.start();
+
 				} else {
-					saveBtn.setProgress(0);
+					
+					addActFrag.pager.setCurrentItem(1);
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(frag_layout_id, fragmentForTransition);
+					ft.commit();
 				}
 			}
 		});
@@ -337,6 +346,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				getActivity().getSupportFragmentManager().popBackStackImmediate();
+
 			}
 		});
 
