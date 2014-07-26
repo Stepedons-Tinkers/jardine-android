@@ -36,6 +36,9 @@ public class ProjectRequirementRecord {
 	// Public constructors
 	// ===========================================================
 
+	public ProjectRequirementRecord() {
+	}
+	
 	public ProjectRequirementRecord(long id, String no, String crmNo,
 			long activity, long projectRequirementType, String dateNeeded,
 			String squareMeters, String productsBrand, String otherDetails,
