@@ -91,8 +91,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
 
-				switch (activityTypeName) {
-				case "Travel":
+				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
 					indexes.add(2);
 					indexes.add(3);
 					indexes.add(4);
@@ -104,11 +103,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(10);
 					indexes.add(11);
 					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					break;
 
-				case "Waiting":
-					indexes.add(2);
+				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) {
+					indexes.add(1);
 					indexes.add(3);
 					indexes.add(4);
 					indexes.add(5);
@@ -119,9 +121,117 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(10);
 					indexes.add(11);
 					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					break;
 
+				} else if (activityTypeName.equals("Admin Work")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+
+				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
+						|| activityTypeName.equals("Retail Visits (Merienda)")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+
+				} else if (activityTypeName.equals("KI Visits - On-site")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+
+				} else if (activityTypeName.contains("Major Training")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(14);
+					indexes.add(15);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+
+				} else if (activityTypeName.contains("End User Activity")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(15);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+						
+				} else if (activityTypeName.equals("Full Brand Activation")) {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					
+				} else if(activityTypeName.equals("- Select -")){
+					
+				}else {
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 				}
 			}
 
