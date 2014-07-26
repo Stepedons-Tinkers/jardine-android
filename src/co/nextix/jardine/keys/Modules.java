@@ -45,11 +45,11 @@ public class Modules {
 	public static String end_user_activity_types = "z_ac_enduseractype";
 	public static String salesprotocol_type = "z_sp_protocoltype";
 
-	public static String[] picklists = new String[] { smrtimecard_entry,
-			customer_size, customer_type, customercontact_position,
-			eventprotocol_eventtype, activitytype_category,
-			workplanentry_status, activity_projectstage,
+	public static String[] picklists = new String[] { customer_size,
+			customer_type, customercontact_position, eventprotocol_eventtype,
+			activitytype_category, workplanentry_status, activity_projectstage,
 			activity_projectcategory, jdiprodstock_status,
-			jdimerchcheck_status, projrequirement_type };
+			jdimerchcheck_status, projrequirement_type,
+			end_user_activity_types, salesprotocol_type };
 
 }
