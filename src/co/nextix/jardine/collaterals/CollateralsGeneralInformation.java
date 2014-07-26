@@ -6,6 +6,7 @@ import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.utils.MyDateUtils;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -65,7 +66,7 @@ public class CollateralsGeneralInformation extends Fragment {
 
 		crmNo.setText(record.getCrm());
 		desc.setText(record.getDescription());
-		lastUpdate.setText(record.getLastUpdate());
+		lastUpdate.setText(MyDateUtils.convertDate(record.getLastUpdate()));
 		tags.setText(record.getTags());
 
 		PicklistRecord rec = JardineApp.DB.getEventProtocolType().getById(
@@ -73,12 +74,13 @@ public class CollateralsGeneralInformation extends Fragment {
 		eventType.setText(rec.getName());
 
 		isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
-		createdTime.setText(record.getCreatedTime());
-		modifiedTime.setText(record.getModifiedTime());
+		createdTime
+				.setText(MyDateUtils.convertDateTime(record.getCreatedTime()));
+		modifiedTime.setText(MyDateUtils.convertDateTime(record
+				.getModifiedTime()));
 		assigned.setText(userRecord.getFirstNameName() + " "
 				+ userRecord.getLastname());
-		
-		
+
 	}
 
 }

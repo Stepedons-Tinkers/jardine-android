@@ -136,6 +136,8 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+			}else{
+				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
 			
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
@@ -168,7 +170,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				}
 			});
 			
-			holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
+			
 			
 		}
 

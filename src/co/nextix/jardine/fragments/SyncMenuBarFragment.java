@@ -31,6 +31,7 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.database.records.EntityRelationshipRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.FileRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
@@ -53,11 +54,13 @@ import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.DocumentTable;
+import co.nextix.jardine.database.tables.EntityRelationshipTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.MarketingMaterialsTable;
+import co.nextix.jardine.database.tables.ProductFocusTable;
 import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.ProjectRequirementTable;
@@ -84,6 +87,7 @@ import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
 import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
+import co.nextix.jardine.database.tables.picklists.PactEndUserActTypeTable;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
@@ -105,6 +109,7 @@ import co.nextix.jardine.web.models.CustomerContactModel;
 import co.nextix.jardine.web.models.CustomerModel;
 import co.nextix.jardine.web.models.DocuRelModel;
 import co.nextix.jardine.web.models.DocumentModel;
+import co.nextix.jardine.web.models.EntityRelationshipModel;
 import co.nextix.jardine.web.models.EventProtocolModel;
 import co.nextix.jardine.web.models.JDImerchandisingCheckModel;
 import co.nextix.jardine.web.models.JDIproductStockCheckModel;
@@ -936,6 +941,20 @@ public class SyncMenuBarFragment extends Fragment {
 					} else if (module.equals(Modules.projrequirement_type)) {
 						PProjReqTypeTable table = JardineApp.DB
 								.getProjectRequirementType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insert(p);
+						}
+					} else if (module.equals(Modules.salesprotocol_type)) {
+						PSalesProtocolTypeTable table = JardineApp.DB
+								.getSalesProtocolType();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insert(p);
+						}
+					} else if (module.equals(Modules.end_user_activity_types)) {
+						PactEndUserActTypeTable table = JardineApp.DB
+								.getActEndUserActivityType();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
 								table.insert(p);
@@ -2246,8 +2265,8 @@ public class SyncMenuBarFragment extends Fragment {
 									.getCity());
 							long activityType = activityTypeTable
 									.getIdByNo(model.getActivityType());
-							long workplan = workplanTable.getByWebId(
-									model.getWorkplan()).getId();
+							long workplan = workplanTable.getIdByNo(model
+									.getWorkplan());
 							long businessUnit = businessUnitTable
 									.getIdByNo(model.getBusinessUnit());
 							int quantity = Tools.parseIntWithDefault(
@@ -2319,7 +2338,7 @@ public class SyncMenuBarFragment extends Fragment {
 			SMRTable smrTable = JardineApp.DB.getSMR();
 			WorkplanEntryTable workplanEntryTable = JardineApp.DB
 					.getWorkplanEntry();
-			WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
+			// WorkplanTable workplanTable = JardineApp.DB.getWorkplan();
 			ActivityTypeTable activityTypeTable = JardineApp.DB
 					.getActivityType();
 			BusinessUnitTable businessUnitTable = JardineApp.DB
@@ -2327,19 +2346,22 @@ public class SyncMenuBarFragment extends Fragment {
 			PAreaTable areaTable = JardineApp.DB.getArea();
 			PProvinceTable provTable = JardineApp.DB.getProvince();
 			PCityTownTable cityTable = JardineApp.DB.getCityTown();
-			UserTable userTable = JardineApp.DB.getUser();
+			// UserTable userTable = JardineApp.DB.getUser();
 
-			// added
-			CustomerContactTable customerContactTable = JardineApp.DB
-					.getCustomerContact();
-			JDIproductStockCheckTable jdiproductStockCheckTable = JardineApp.DB
-					.getJDIproductStockCheck();
-			JDImerchandisingCheckTable jdiMerchandisingCheckTable = JardineApp.DB
-					.getJDImerchandisingCheck();
-			CompetitorProductStockCheckTable competitorProductStockCheckTable = JardineApp.DB
-					.getCompetitorProductStockCheck();
-			MarketingIntelTable marketingIntelTable = JardineApp.DB
-					.getMarketingIntel();
+			// // added
+			// CustomerContactTable customerContactTable = JardineApp.DB
+			// .getCustomerContact();
+			// JDIproductStockCheckTable jdiproductStockCheckTable =
+			// JardineApp.DB
+			// .getJDIproductStockCheck();
+			// JDImerchandisingCheckTable jdiMerchandisingCheckTable =
+			// JardineApp.DB
+			// .getJDImerchandisingCheck();
+			// CompetitorProductStockCheckTable competitorProductStockCheckTable
+			// = JardineApp.DB
+			// .getCompetitorProductStockCheck();
+			// MarketingIntelTable marketingIntelTable = JardineApp.DB
+			// .getMarketingIntel();
 
 			SyncRequests request = new SyncRequests();
 			ActResult result = request.Activity(MyDateUtils.getOneYearAgo());
@@ -3332,6 +3354,94 @@ public class SyncMenuBarFragment extends Fragment {
 								model.getModifiedTime(),
 								record.getModifiedTime()) < 0) {
 							sendUpdate.add(record);
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncEntityRelationshipTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncEntityRelationshipTask extends
+			AsyncTask<Void, Void, Boolean> {
+
+		// List<EntityRelationshipRecord> sendUpdate = new
+		// ArrayList<EntityRelationshipRecord>();
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("EntityRelationship");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			EntityRelationshipTable table = JardineApp.DB
+					.getEntityRelationship();
+			ProductFocusTable productFocusTable = JardineApp.DB
+					.getProductFocus();
+			ActivityTable activityTable = JardineApp.DB.getActivity();
+			ProductTable productTable = JardineApp.DB.getProduct();
+			List<String> activities = activityTable.getNos();
+
+			if (activities != null) {
+				for (String id : activities) {
+					SyncRequests request = new SyncRequests();
+					List<EntityRelationshipModel> result = request
+							.EntityRelationships(id, Modules.Product);
+					if (result != null) {
+						for (EntityRelationshipModel model : result) {
+							// RetrieveRequests retrieve = new
+							// RetrieveRequests();
+							// DocumentModel data = retrieve.Document(model
+							// .getNotesid());
+							if (model != null) {
+								// for (DocumentModel mod : data) {
+								Log.w(TAG, "EntityRelationship: ProductFocus");
+								if (!table.isExisting(model.getCrmId(),
+										model.getRelationCrmId())) {
+									long rowid = table.insert(model.getCrmId(),
+											model.getModule(),
+											model.getRelationCrmId(),
+											model.getRelationModule());
+									Log.w(TAG,
+											"EntityRelationship: ProductFocus ** Added ** "
+													+ rowid);
+									if (rowid > 0) {
+										long activity = activityTable
+												.getIdByNo(id);
+										long product = productTable
+												.getIdByNo(model
+														.getRelationCrmId());
+
+										long pfId = productFocusTable.insert(
+												product, activity);
+										Log.i(TAG, "ProductFocus ** Added ** "
+												+ pfId);
+									}
+
+								}
+								// }
+							}
 						}
 					}
 				}

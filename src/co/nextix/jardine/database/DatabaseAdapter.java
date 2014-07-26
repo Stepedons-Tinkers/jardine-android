@@ -14,6 +14,7 @@ import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.DocumentTable;
+import co.nextix.jardine.database.tables.EntityRelationshipTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -56,7 +57,7 @@ public class DatabaseAdapter {
 
 	private static DatabaseAdapter sInstance;
 
-	private static final String DATABASE_NAME = "jardine_database";
+	public static final String DATABASE_NAME = "jardine_database";
 	private static final int DATABASE_VERSION = 1;
 
 	// User
@@ -433,6 +434,13 @@ public class DatabaseAdapter {
 	public static final String KEY_SALESPROTOCOL_CREATEDTIME = "created_time";
 	public static final String KEY_SALESPROTOCOL_MODIFIEDTIME = "modified_time";
 
+	// Entity Relationship
+	public static final String KEY_ENTITYRELATIONSHIP_ROWID = "_id";
+	public static final String KEY_ENTITYRELATIONSHIP_CRMNO = "crm_no";
+	public static final String KEY_ENTITYRELATIONSHIP_MODULENAME = "module_name";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDNO = "related_no";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME = "related_module_name";
+
 	// Picklists
 	public static final String KEY_PICKLISTS_ROWID = "_id";
 	public static final String KEY_PICKLISTS_NAME = "name";
@@ -529,6 +537,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text)";
 
 	// ===========================================================
 	// Public static field
@@ -560,6 +569,7 @@ public class DatabaseAdapter {
 	public static final String PRODUCT_FOCUS_TABLE = "Product_Focus";
 	public static final String PRODUCT_SUPPLIER_TABLE = "Product_Supplier";
 	public static final String SALES_PROTOCOL_TABLE = "Sales_Protocol";
+	public static final String ENTITY_RELATIONSHIP_TABLE = "Entity_Relationship";
 
 	// Picklists
 	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
@@ -619,6 +629,7 @@ public class DatabaseAdapter {
 	private ProductFocusTable mProductFocus;
 	private ProductSupplierTable mProductSupplier;
 	private SalesProtocolTable mSalesProtocol;
+	private EntityRelationshipTable mEntityRelationship;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -1010,6 +1021,14 @@ public class DatabaseAdapter {
 			mSalesProtocol = new SalesProtocolTable(mDb, SALES_PROTOCOL_TABLE);
 		}
 		return mSalesProtocol;
+	}
+
+	public EntityRelationshipTable getEntityRelationship() {
+		if (mEntityRelationship == null) {
+			mEntityRelationship = new EntityRelationshipTable(mDb,
+					ENTITY_RELATIONSHIP_TABLE);
+		}
+		return mEntityRelationship;
 	}
 
 	// Location
@@ -1441,7 +1460,12 @@ public class DatabaseAdapter {
 					KEY_BUSINESSUNIT_ROWID, KEY_SALESPROTOCOL_PROTOCOLTYPE,
 					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_SALESPROTOCOL_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
-
+			String entityRelationship = String.format(
+					TABLE_CREATE_ENTITYRELATIONSHIP, ENTITY_RELATIONSHIP_TABLE,
+					KEY_ENTITYRELATIONSHIP_ROWID, KEY_ENTITYRELATIONSHIP_CRMNO,
+					KEY_ENTITYRELATIONSHIP_MODULENAME,
+					KEY_ENTITYRELATIONSHIP_RELATEDNO,
+					KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME);
 			db.execSQL(user);
 			db.execSQL(TABLE_CREATE_ACTIVITY);
 			db.execSQL(activityType);
@@ -1468,6 +1492,7 @@ public class DatabaseAdapter {
 			db.execSQL(productFocus);
 			db.execSQL(productSupplier);
 			db.execSQL(salesProtocol);
+			db.execSQL(entityRelationship);
 
 			// Picklists
 

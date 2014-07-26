@@ -32,7 +32,7 @@
                 android:maxLines="2"
                 android:padding="14dip"
                 android:scrollHorizontally="true"
-                android:text="@string/travel_or_waiting"
+                android:text="@string/full_brand_activation"
                 android:textColor="#fff"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -49,7 +49,6 @@
                     android:layout_toLeftOf="@+id/btnWithText1"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:visibility="invisible"
                     app:textComplete="@string/complete_cancel"
                     app:textError="@string/error"
                     app:textIdle="@string/cancel" />
@@ -62,9 +61,9 @@
                     android:layout_margin="4dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    app:textComplete="@string/next"
+                    app:textComplete="@string/complete"
                     app:textError="@string/error"
-                    app:textIdle="@string/done" />
+                    app:textIdle="@string/save" />
             </RelativeLayout>
         </LinearLayout>
 
@@ -91,46 +90,71 @@
                     android:layout_marginBottom="2dp"
                     android:orientation="horizontal" >
 
-                    <TableRow
-                        android:layout_width="match_parent"
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:maxLines="2"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:state_selected="true"
+                        android:text="@string/identify_product_focus"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/identify_product_focus"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:scrollHorizontally="true" />
+
+                    <requestFocus />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal" >
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="2dp"
-                        android:gravity="center_horizontal" >
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginTop="-7dp"
-                            android:layout_weight="0.3"
-                            android:gravity="center_vertical"
-                            android:maxLines="2"
-                            android:paddingLeft="14dp"
-                            android:scrollHorizontally="true"
-                            android:text="@string/reason_remarks"
-                            android:textColor="#000000"
-                            android:textSize="14sp"
-                            android:textStyle="bold" />
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
 
-                        <EditText
-                            android:id="@+id/reason_remarks"
-                            android:layout_width="0dp"
-                            android:layout_height="50dp"
-                            android:layout_marginBottom="7dp"
-                            android:layout_marginEnd="15dp"
-                            android:layout_marginTop="7dp"
-                            android:layout_weight="0.3"
-                            android:background="@drawable/edittext_border"
-                            android:gravity="center_vertical"
-                            android:hint="related Customer record"
-                            android:maxHeight="80dp"
-                            android:maxLines="2"
-                            android:minHeight="50dp"
-                            android:padding="2dp"
-                            android:scrollHorizontally="true"
-                            android:textColor="#000000"
-                            android:textSize="14sp" />
-                    </TableRow>
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="4dp"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_horizontal" >
                 </TableRow>
             </LinearLayout>
         </TableLayout>

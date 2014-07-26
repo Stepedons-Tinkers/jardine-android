@@ -11,12 +11,11 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/activity_info"
+            android:id="@+id/back_button"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="-8dp"
             android:layout_weight="1"
-            android:onClick="activityInfo"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/back_to_activity"
@@ -110,7 +109,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:layout_width="0dp"
@@ -130,7 +129,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/crm_no"
@@ -150,7 +149,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/customer"
@@ -177,10 +176,10 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/customer"
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -212,13 +211,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -232,13 +231,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/competitor_product"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -251,13 +250,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -272,13 +271,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/stock_status"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -301,13 +300,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -321,13 +320,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/loaded_on_shelves"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -340,13 +339,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -361,13 +360,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView05"
+                        android:id="@+id/created_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -388,16 +387,15 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -410,15 +408,14 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/modified_time"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -431,18 +428,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_competitor_product"
+                        android:text="@string/created_by"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -452,18 +449,105 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView05"
+                        android:id="@+id/created_by"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+            
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#ffffff" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/other_remarks_jdi_product_stock_check_detail"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#ffffff" >
+
+                    <TextView
+                        android:id="@+id/other_remarks"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#ffffff" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#ffffff" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#ffffff"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>

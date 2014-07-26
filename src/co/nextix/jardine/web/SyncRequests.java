@@ -21,6 +21,7 @@ import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.CalendarModel;
 import co.nextix.jardine.web.models.DocuRelModel;
 import co.nextix.jardine.web.models.DocumentModel;
+import co.nextix.jardine.web.models.EntityRelationshipModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.sync.SactRequester;
 import co.nextix.jardine.web.requesters.sync.SactRequester.ActResult;
@@ -1273,6 +1274,59 @@ public class SyncRequests {
 				DefaultRequester<List<DocuRelModel>> requester = gson.fromJson(
 						getReader(), typeOfT);
 				result = (List<DocuRelModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public List<EntityRelationshipModel> EntityRelationships(String crmNo,
+			String relatedModule) {
+
+		List<EntityRelationshipModel> result = null;
+
+		String q = "\"select * from vtiger_crmentityrel where crmid=" + crmNo
+				+ " AND relmodule='" + relatedModule + "'\"";
+		String query = "";
+		try {
+			query = URLEncoder.encode(q, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.Document + "&sessionName=" + JardineApp.SESSION_NAME
+				+ "&query=" + query + "&operation=" + "querypicklist";
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<List<EntityRelationshipModel>>>() {
+				}.getType();
+				DefaultRequester<List<EntityRelationshipModel>> requester = gson
+						.fromJson(getReader(), typeOfT);
+				result = (List<EntityRelationshipModel>) requester.getResult();
 
 			} else {
 				// getResponse();

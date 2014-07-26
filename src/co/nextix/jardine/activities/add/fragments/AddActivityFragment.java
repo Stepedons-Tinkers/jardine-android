@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import co.nextix.jardine.R;
 import co.nextix.jardine.SuperAwesomeCardFragment;
+import co.nextix.jardine.activities.select.fragments.SelectProductFragment;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -79,6 +80,7 @@ public class AddActivityFragment extends Fragment {
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
 					ft.commit();
+					
 				} else if (position == 1) {
 
 					AddActivityTravelWaitingFragment addActWCoSmrFrag = new AddActivityTravelWaitingFragment();
@@ -138,15 +140,16 @@ public class AddActivityFragment extends Fragment {
 					ft.commit();
 				} else if (position == 8) {
 
-					AddMarketingIntelFragment addActTrainFrag = new AddMarketingIntelFragment();
+					AddJDIMerchandisingStockFragment addActTrainFrag = new AddJDIMerchandisingStockFragment();
 					addActTrainFrag.setArguments(bundle);
 
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
 					ft.commit();
-				} else if (position == 9) {
+				} else if (position == 9) { // -- JDI Competitor Product Stock
+											// Check
 
-					AddActivityProjectVisitFragment addActTrainFrag = new AddActivityProjectVisitFragment();
+					AddJDIMerchandisingStockFragment addActTrainFrag = new AddJDIMerchandisingStockFragment();
 					addActTrainFrag.setArguments(bundle);
 
 					ft = getFragmentManager().beginTransaction();
@@ -154,7 +157,7 @@ public class AddActivityFragment extends Fragment {
 					ft.commit();
 				} else if (position == 10) {
 
-					AddProjectRequirementsFragment addActTrainFrag = new AddProjectRequirementsFragment();
+					AddMarketingIntelFragment addActTrainFrag = new AddMarketingIntelFragment();
 					addActTrainFrag.setArguments(bundle);
 
 					ft = getFragmentManager().beginTransaction();
@@ -162,7 +165,7 @@ public class AddActivityFragment extends Fragment {
 					ft.commit();
 				} else if (position == 11) {
 
-					AddActivityTrainingsFragment addActTrainFrag = new AddActivityTrainingsFragment();
+					AddActivityProjectVisitFragment addActTrainFrag = new AddActivityProjectVisitFragment();
 					addActTrainFrag.setArguments(bundle);
 
 					ft = getFragmentManager().beginTransaction();
@@ -170,6 +173,38 @@ public class AddActivityFragment extends Fragment {
 					ft.commit();
 				} else if (position == 12) {
 
+					AddProjectRequirementsFragment addActTrainFrag = new AddProjectRequirementsFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 13) {
+
+					AddActivityTrainingsFragment addActTrainFrag = new AddActivityTrainingsFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 14) {
+
+					SelectProductFragment addActTrainFrag = new SelectProductFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 15) {
+
+					AddActivityFullBrandActivationFragment addActTrainFrag = new AddActivityFullBrandActivationFragment();
+					addActTrainFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, addActTrainFrag);
+					ft.commit();
+				} else if (position == 16){  // cerio - Activity Photos and Attachments
+					
 					AddActivityFullBrandActivationFragment addActTrainFrag = new AddActivityFullBrandActivationFragment();
 					addActTrainFrag.setArguments(bundle);
 
@@ -214,8 +249,9 @@ public class AddActivityFragment extends Fragment {
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
 		private final String[] TITLES = { "General Information", "Travel or Waiting", "With CoSMRs", "Admin Works",
-				"Activity Details and Notes", "Customer Contact Person", "JDI Product Stock Check", "Product Supplier", "Marketing Intel",
-				"Project Visit", "Project Requirements", "Trainings", "Full Brand Activation" };
+				"Activity Details and Notes", "Customer Contact Person", "JDI Product Stock Check", "Product Supplier",
+				"JDI Merchandising Check", "JDI Competitor Product Stock Check", "Marketing Intel", "Project Visit",
+				"Project Requirements", "Trainings", "Identify Product Focus", "Full Brand Activation", "Activity Photos and Attachments" };
 
 		public MyPagerAdapter(FragmentManager fm) {
 			super(fm);
