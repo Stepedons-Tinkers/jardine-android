@@ -461,6 +461,7 @@ public class DashBoardActivity extends FragmentActivity {
 		protected Boolean doInBackground(Void... arg0) {
 
 			StoreAccount.clear(DashBoardActivity.this);
+			JardineApp.DB.close();
 			deleteDatabase();
 			// JardineApp.DB.close();
 			JardineApp.SESSION_NAME = null;

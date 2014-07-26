@@ -11,8 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -23,8 +23,14 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class MarketingIntelCustomAdapter extends BaseAdapter {
@@ -126,10 +132,38 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.competitor_product.setText(String.valueOf(this.tempValues.getCompetitorProduct()));
+
+			ActivityTable act = JardineApp.DB.getActivity();
+			if(act != null){
+				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_type_txt.setText("");
+				if(rec != null){
+					holder.activity_type_txt.setText(rec.toString());
+				}
+			}
+			
+			CompetitorProductTable product = JardineApp.DB.getCompetitorProduct();
+			if(product != null){
+				CompetitorProductRecord rec = product.getById(this.tempValues.getCompetitorProduct());
+				holder.competitor_product.setText("");
+				if(rec != null){
+					holder.competitor_product.setText(rec.toString());		
+				}
+			}
+			
 			holder.details.setText(String.valueOf(this.tempValues.getDetails()));
-			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");	
+				if(rec != null){
+					holder.created_by.setText(rec.toString());	
+				}
+				
+			}
+			
+			
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
 				holder.created_by.setText(null);

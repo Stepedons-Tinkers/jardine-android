@@ -1,6 +1,7 @@
 package co.nextix.jardine.database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -586,7 +587,8 @@ public class DatabaseAdapter {
 	public static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
 	public static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
 	public static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
-	public static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
+	// public static final String SMR_TIMECARD_ENTRY_TABLE =
+	// "SMR_TimeCard_Entry";
 	public static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
 	public static final String ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE = "Enduser_Activity_Type";
 	public static final String SALES_PROTOCOL_TYPE_TABLE = "Sales_Protocol_Type";
@@ -595,6 +597,26 @@ public class DatabaseAdapter {
 	public static final String AREA_TABLE = "Area";
 	public static final String CITYTOWN_TABLE = "City_Town";
 	public static final String PROVINCE_TABLE = "Province";
+
+	private final String LIST_TABLES[] = { USER_TABLE, ACTIVITY_TABLE,
+			ACTIVITY_TYPE_TABLE, BUSINESS_UNIT_TABLE, COMPETITOR_PRODUCT_TABLE,
+			COMPETITOR_PRODUCT_STOCK_CHECK_TABLE, CUSTOMER_CONTACT_TABLE,
+			CUSTOMER_TABLE, EVENT_PROTOCOL_TABLE,
+			JDI_PRODUCT_STOCK_CHECK_TABLE, MARKETING_INTEL_TABLE,
+			PRODUCT_TABLE, PROJECT_REQUIREMENTS_TABLE, SMR_TABLE,
+			WORKPLAN_ENTRY_TABLE, WORKPLAN_TABLE, MARKETING_MATERIALS_TABLE,
+			JDI_MERCHANDISING_CHECK_TABLE, DOCUMENT_TABLE, CALENDAR_TABLE,
+			PRODUCT_FOCUS_TABLE, PRODUCT_SUPPLIER_TABLE, SALES_PROTOCOL_TABLE,
+			ENTITY_RELATIONSHIP_TABLE, ACTIVITY_PROJECT_CATEGORY_TABLE,
+			ACTIVITY_PROJECT_STAGE_TABLE, ACTIVITYTYPE_CATEGORY_TABLE,
+			COMPETITOR_PRODUCT_STOCKSTATUS_TABLE,
+			CUSTOMERCONTACT_POSITION_TABLE, CUSTOMER_SIZE_TABLE,
+			CUSTOMER_TYPE_TABLE, CUSTOMER_RECORD_STATUS_TABLE,
+			EVENT_TYPE_TABLE, JDI_MERCHANDISING_CHECK_STATUS_TABLE,
+			JDI_PRODUCT_STOCK_STATUS_TABLE, PROJECT_REQUIREMENTS_TYPE_TABLE,
+			WORKPLAN_ENTRY_STATUS_TABLE, ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE,
+			SALES_PROTOCOL_TYPE_TABLE, AREA_TABLE, CITYTOWN_TABLE,
+			PROVINCE_TABLE };
 
 	// ===========================================================
 	// Private fields
@@ -678,6 +700,10 @@ public class DatabaseAdapter {
 		return sInstance;
 	}
 
+	public DatabaseHelper getHelper() {
+		return mDbHelper;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
@@ -695,6 +721,17 @@ public class DatabaseAdapter {
 		}
 		if (mDb != null && mDb.isOpen()) {
 			mDb.close();
+		}
+	}
+	
+	public void clearDatabase() {
+		for (String s : LIST_TABLES) {
+			String MY_QUERY = "DELETE FROM " + s;
+			try {
+				mDb.execSQL(MY_QUERY);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -969,13 +1006,13 @@ public class DatabaseAdapter {
 		return mProjectRequirementType;
 	}
 
-	public PSMRentryTypeTable getSMRentryType() {
-		if (mSMRentryType == null) {
-			mSMRentryType = new PSMRentryTypeTable(mDb,
-					SMR_TIMECARD_ENTRY_TABLE);
-		}
-		return mSMRentryType;
-	}
+	// public PSMRentryTypeTable getSMRentryType() {
+	// if (mSMRentryType == null) {
+	// mSMRentryType = new PSMRentryTypeTable(mDb,
+	// SMR_TIMECARD_ENTRY_TABLE);
+	// }
+	// return mSMRentryType;
+	// }
 
 	public PWorkEntryStatusTable getWorkplanEntryStatus() {
 		if (mWorkplanEntryStatus == null) {
@@ -1059,6 +1096,7 @@ public class DatabaseAdapter {
 	// ===========================================================
 
 	private final class DatabaseHelper extends SQLiteOpenHelper {
+
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -1537,9 +1575,9 @@ public class DatabaseAdapter {
 			String projectRequirementsType = String.format(
 					TABLE_CREATE_PICKLISTS, PROJECT_REQUIREMENTS_TYPE_TABLE,
 					KEY_PICKLISTS_ROWID, KEY_PICKLISTS_NAME);
-			String smrTimecardEntry = String.format(TABLE_CREATE_PICKLISTS,
-					SMR_TIMECARD_ENTRY_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_PICKLISTS_NAME);
+			// String smrTimecardEntry = String.format(TABLE_CREATE_PICKLISTS,
+			// SMR_TIMECARD_ENTRY_TABLE, KEY_PICKLISTS_ROWID,
+			// KEY_PICKLISTS_NAME);
 			String workplanentryStatus = String.format(TABLE_CREATE_PICKLISTS,
 					WORKPLAN_ENTRY_STATUS_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PICKLISTS_NAME);
@@ -1563,7 +1601,7 @@ public class DatabaseAdapter {
 			db.execSQL(jdiMerchandisingCheckStatus);
 			db.execSQL(jdiProductStockStatus);
 			db.execSQL(projectRequirementsType);
-			db.execSQL(smrTimecardEntry);
+			// db.execSQL(smrTimecardEntry);
 			db.execSQL(workplanentryStatus);
 			db.execSQL(salesProtocolType);
 			db.execSQL(actEndUserActivityType);

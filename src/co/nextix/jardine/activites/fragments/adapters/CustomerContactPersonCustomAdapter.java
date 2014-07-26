@@ -25,6 +25,11 @@ import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.CustomerContactPersonFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.CustomerContactTable;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class CustomerContactPersonCustomAdapter extends BaseAdapter {
@@ -130,9 +135,28 @@ public class CustomerContactPersonCustomAdapter extends BaseAdapter {
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
 			holder.first_name.setText(String.valueOf(this.tempValues.getFirstName()));
 			holder.last_name.setText(String.valueOf(this.tempValues.getLastName()));
-			holder.position.setText(String.valueOf(this.tempValues.getPosition()));
+			
 			holder.mobile_no.setText(String.valueOf(this.tempValues.getMobileNo()));
-			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			
+			 PCustConPositionTable customer = JardineApp.DB.getCustomerContactPosition();
+			if(customer != null){
+				PicklistRecord rec = customer.getById(this.tempValues.getPosition());
+				holder.position.setText("");
+				if(rec != null){
+					holder.position.setText(rec.toString());
+				}
+			}
+
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");
+				if(rec != null){
+					holder.created_by.setText(rec.toString());
+				}
+			}
+			
+			
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.first_name.setText(null);				
 				holder.last_name.setText(null);
