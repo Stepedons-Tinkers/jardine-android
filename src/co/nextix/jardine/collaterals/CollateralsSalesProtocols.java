@@ -3,6 +3,16 @@ package co.nextix.jardine.collaterals;
 import java.util.ArrayList;
 import java.util.List;
 
+import co.nextix.jardine.DashBoardActivity;
+import co.nextix.jardine.JardineApp;
+import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.EventProtocolRecord;
+import co.nextix.jardine.database.records.SalesProtocolRecord;
+import co.nextix.jardine.database.tables.EventProtocolTable;
+import co.nextix.jardine.database.tables.SalesProtocolTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -13,11 +23,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -28,17 +37,8 @@ import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
-import co.nextix.jardine.DashBoardActivity;
-import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.EventProtocolRecord;
-import co.nextix.jardine.database.records.MarketingMaterialsRecord;
-import co.nextix.jardine.database.tables.MarketingMaterialsTable;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class CollateralsMarketingMaterials extends Fragment implements
+public class CollateralsSalesProtocols extends Fragment implements
 		OnClickListener {
 
 	private View view;
@@ -47,21 +47,21 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-	private List<MarketingMaterialsRecord> realRecord;
-	private List<MarketingMaterialsRecord> tempRecord;
-	private List<MarketingMaterialsRecord> searchRecord;
+	private List<SalesProtocolRecord> realRecord;
+	private List<SalesProtocolRecord> tempRecord;
+	private List<SalesProtocolRecord> searchRecord;
 
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
 	private View header;
-	private TextView txtCrm, txtDesc, txtIsActive;
+	private TextView txtCol1, txtCol2, txtCol3, txtCol4;
 	private TableRow trow;
 	private SearchView searchView;
-
 	private List<String> strSearcher;
 	private Spinner spinner;
 	private boolean searchMode = false;
 	private long userId;
+	private ArrayAdapter<String> sAdapter;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -75,98 +75,106 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
-		strSearcher = new ArrayList<String>();
-		view = inflater.inflate(R.layout.collaterals_marketing_materials, null);
-		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
-				null);
+		view = inflater.inflate(R.layout.collaterals_event_protocols, null);
+		header = inflater
+				.inflate(R.layout.collaterals_event_protocol_row, null);
 		initLayout();
 		return view;
 	}
 
 	private void initLayout() {
 
-		// Header Data
-		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
-		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
-		txtDesc = (TextView) header
-				.findViewById(R.id.tvCollateralsMMDescription);
-		txtIsActive = (TextView) header
-				.findViewById(R.id.tvCollateralsMMIsActive);
+		getActivity().invalidateOptionsMenu();
+		// searchView = (SearchView) view.findViewById(R.id.svEventProtocols);
 
-		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
-		txtDesc.setText(getResources().getString(
-				R.string.collaterals_ep_description));
-		txtIsActive.setText(getResources().getString(
-				R.string.collaterals_ep_tags));
-		trow.setBackgroundResource(R.color.tab_pressed);
+		// Header Data
+		trow = (TableRow) header
+				.findViewById(R.id.trCollateralsEventerProtocolRow);
+		txtCol1 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolCrmNo);
+		txtCol2 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolDescription);
+		txtCol3 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolEventType);
+		txtCol4 = (TextView) header
+				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
 
 		trow.setGravity(Gravity.CENTER);
-		txtCrm.setTypeface(null, Typeface.BOLD);
-		txtDesc.setTypeface(null, Typeface.BOLD);
-		txtIsActive.setTypeface(null, Typeface.BOLD);
+		txtCol1.setGravity(Gravity.CENTER);
+		txtCol2.setGravity(Gravity.CENTER);
+		txtCol3.setGravity(Gravity.CENTER);
+		txtCol4.setGravity(Gravity.CENTER);
 
-		txtCrm.setGravity(Gravity.CENTER);
-		txtDesc.setGravity(Gravity.CENTER);
-		txtIsActive.setGravity(Gravity.CENTER);
+		txtCol1.setTypeface(null, Typeface.BOLD);
+		txtCol2.setTypeface(null, Typeface.BOLD);
+		txtCol3.setTypeface(null, Typeface.BOLD);
+		txtCol4.setTypeface(null, Typeface.BOLD);
 
+		txtCol1.setText(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		txtCol2.setText(getResources().getString(
+				R.string.collaterals_ep_description));
+		txtCol3.setText(getResources().getString(
+				R.string.collaterals_sp_protocol_type));
+		txtCol4.setText(getResources().getString(
+				R.string.collaterals_ep_is_active));
+		trow.setBackgroundResource(R.color.tab_pressed);
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
-		//
 
 		list = (ListView) view
-				.findViewById(R.id.lvCollateralsMarketingMaterialsList);
+				.findViewById(R.id.lvCollateralsEventProtocolsList);
 
 		list.addHeaderView(header);
 
 		txtPage = (TextView) view
-				.findViewById(R.id.tvColatteralsMarketingMaterialsPage);
+				.findViewById(R.id.tvCollateralssEventProtocolPage);
+
 		arrowLeft = (ImageButton) view
-				.findViewById(R.id.ibColatteralsMarketingMaterialsLeft);
+				.findViewById(R.id.ibColatteralsEventProtocolLeft);
 		arrowRight = (ImageButton) view
-				.findViewById(R.id.ibColatteralsMarketingMaterialsRight);
+				.findViewById(R.id.ibColatteralsEventProtocolRight);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
 
-		MarketingMaterialsTable table = JardineApp.DB.getMarketingMaterials();
-
-		realRecord = new ArrayList<MarketingMaterialsRecord>();
-		tempRecord = new ArrayList<MarketingMaterialsRecord>();
-
+		SalesProtocolTable table = JardineApp.DB.getSalesProtocol();
 		String id = StoreAccount.restore(getActivity())
 				.getString(Account.ROWID);
 		userId = Long.parseLong(id);
-		realRecord.addAll(table.getAllRecordsByUser(userId));
 
-		// for (int i = 1; i <= 89; i++) {
-		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
-		// rec.setNo("EVP00" + i);
-		// rec.setDescription("Description " + i);
-		// rec.setTags("TAGS00" + i);
-		//
-		// realRecord.add(rec);
-		// }
+		realRecord = new ArrayList<SalesProtocolRecord>();
+		tempRecord = new ArrayList<SalesProtocolRecord>();
+		try {
+			realRecord.addAll(table.getAllRecordsByUserId(userId));
+		} catch (Exception e) {
+		}
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+					SalesProtocolRecord rec = new SalesProtocolRecord();
 					realRecord.add(rec);
 				}
 			}
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
-
 		} else {
-			AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
+			AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
 					getActivity(), R.layout.collaterals_event_protocol_row,
 					realRecord);
 
 			list.setAdapter(adapter);
 		}
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+
 	}
 
 	private void addItemFromSearch(int count) {
@@ -175,7 +183,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			int remainder = searchRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					MarketingMaterialsRecord rec = new MarketingMaterialsRecord();
+					SalesProtocolRecord rec = new SalesProtocolRecord();
 					searchRecord.add(rec);
 				}
 			}
@@ -212,8 +220,8 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 	private void setView() {
 
-		AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
-				getActivity(), R.layout.collaterals_marketing_materials_row,
+		AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
+				getActivity(), R.layout.collaterals_event_protocol_row,
 				tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -221,19 +229,19 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				MarketingMaterialsRecord epr = (MarketingMaterialsRecord) parent
+				EventProtocolRecord epr = (EventProtocolRecord) parent
 						.getAdapter().getItem(position);
 				if (epr.getNo() != null) {
 
 					CollateralsDetails frag = CollateralsDetails.newInstance(
 							epr.getId(), epr.getNo());
-					frag.setTargetFragment(CollateralsMarketingMaterials.this,
-							15);
+					frag.setTargetFragment(CollateralsSalesProtocols.this, 15);
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager().beginTransaction()
-							.add(R.id.frame_container, frag)
+							.add(R.id.frame_container, frag, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
+
 				}
 
 			}
@@ -245,19 +253,17 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.ibColatteralsMarketingMaterialsLeft:
+		case R.id.ibColatteralsEventProtocolLeft:
 			if (currentPage > 0) {
 				currentPage--;
-				currentPage++;
 				if (searchMode)
 					addItemFromSearch(currentPage);
 				else
 					addItem(currentPage);
 			}
 			break;
-		case R.id.ibColatteralsMarketingMaterialsRight:
+		case R.id.ibColatteralsEventProtocolRight:
 			if (currentPage < totalPage - 1) {
-				currentPage++;
 				currentPage++;
 				if (searchMode)
 					addItemFromSearch(currentPage);
@@ -287,9 +293,8 @@ public class CollateralsMarketingMaterials extends Fragment implements
 				.getString(R.string.collaterals_ep_crm_no));
 		strSearcher.add(getResources().getString(
 				R.string.collaterals_ep_description));
-		strSearcher.add(getResources().getString(R.string.collaterals_ep_tags));
-		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
-				R.layout.workplan_spinner_row, strSearcher);
+		strSearcher.add(getResources().getString(
+				R.string.collaterals_sp_protocol_type));
 
 		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
 				R.layout.workplan_spinner_row, strSearcher);
@@ -312,9 +317,8 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			@Override
 			public void onClick(View v) {
 				tempRecord.clear();
-				AdapterCollateralsMarketingMaterials adapter = new AdapterCollateralsMarketingMaterials(
-						getActivity(),
-						R.layout.collaterals_marketing_materials_row,
+				AdapterCollateralsSalesProtocols adapter = new AdapterCollateralsSalesProtocols(
+						getActivity(), R.layout.collaterals_event_protocol_row,
 						tempRecord);
 				list.setAdapter(adapter);
 				searchView.clearFocus();
@@ -333,10 +337,11 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
-					searchRecord = JardineApp.DB.getMarketingMaterials()
+					searchRecord = JardineApp.DB.getSalesProtocol()
 							.getAllRecordsBySearch(userId, arg0,
 									spinner.getSelectedItemPosition());
 
+					Log.d("Tugs", spinner.getSelectedItemPosition() + "");
 					if (searchRecord.size() > 0)
 						addItemFromSearch(currentPage);
 					else
@@ -353,5 +358,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			}
 
 		});
+
 	}
+
 }
