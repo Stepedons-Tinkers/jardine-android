@@ -80,6 +80,7 @@ public class AddActivityFragment extends Fragment {
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
 					ft.commit();
+					
 				} else if (position == 1) {
 
 					AddActivityTravelWaitingFragment addActWCoSmrFrag = new AddActivityTravelWaitingFragment();

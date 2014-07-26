@@ -158,6 +158,8 @@
     <string name="city_town">City/Town</string>
     <string name="end_user_activity_types">End-User Activity Types</string>
     <string name="no_data">Error 404: Search not found </string>
+    <string name="next">NEXT</string>
+    <string name="previous">PREVIOUS</string>
 
     <!-- Contact Person -->
     <string name="contact_person_crm_no">CRM No</string>
@@ -232,6 +234,7 @@
     <string name="error">Error saving</string>
     <string name="complete">Saved!</string>
     <string name="cancel">Cancel</string>
+    <string name="done">Done</string>
     <string name="complete_cancel">Canceled!</string>
     <string name="add_activity">Add Activity</string>
 
