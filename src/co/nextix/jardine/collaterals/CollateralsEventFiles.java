@@ -16,10 +16,12 @@ import android.support.v4.app.Fragment;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -202,8 +204,28 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 			}
 		});
+
+		list.setOnItemLongClickListener(longClick);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
+
+	private OnItemLongClickListener longClick = new OnItemLongClickListener() {
+
+		@Override
+		public boolean onItemLongClick(AdapterView<?> parent, View view,
+				int position, long id) {
+			DocumentRecord epr = (DocumentRecord) parent.getAdapter().getItem(
+					position);
+
+			if (epr.getNo() != null) {
+
+				Intent intent = new Intent(Intent.ACTION_VIEW);
+				getActivity().startActivity(intent);
+				
+			}
+			return true;
+		}
+	};
 
 	@Override
 	public void onClick(View v) {

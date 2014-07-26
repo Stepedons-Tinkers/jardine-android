@@ -195,7 +195,7 @@
     <string name="collaterals_ep_event_type">Event Type</string>
     <string name="collaterals_ep_is_active">Is Active</string>
     <string name="collaterals_ep_last_update">Last Update</string>
-    <string name="collaterals_ep_assigned_to">Assigned To</string>
+    <string name="collaterals_ep_assigned_to">Created By</string>
     <string name="collaterals_ep_created_time">Created Time</string>
     <string name="collaterals_ep_tags">Tags</string>
     <string name="collaterals_ep_general_information">General Information</string>

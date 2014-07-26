@@ -12,6 +12,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class AdapterCollateralsFiles extends ArrayAdapter<DocumentRecord> {
 
@@ -67,7 +68,8 @@ public class AdapterCollateralsFiles extends ArrayAdapter<DocumentRecord> {
 
 		holder.col1.setText(holder.record.getTitle());
 		holder.col2.setText(holder.record.getFileName());
-		holder.col3.setText(holder.record.getModifiedTime());
+		holder.col3.setText(MyDateUtils.convertDateTime(holder.record
+				.getModifiedTime()));
 
 		return view;
 	}
