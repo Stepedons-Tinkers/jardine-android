@@ -9,7 +9,9 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white" >
+        android:background="@color/white"
+        android:paddingBottom="10dp"
+        android:paddingTop="10dp" >
 
         <TextView
             android:id="@+id/tvColatteralsMMProtocolsDetailGeneralInformation"
@@ -216,6 +218,7 @@
                     android:background="@color/black" />
 
                 <TextView
+                    android:id="@+id/tvCollateralsIsActive"
                     android:layout_width="match_parent"
                     android:layout_column="2"
                     android:maxLines="2"

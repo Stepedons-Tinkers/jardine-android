@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
+import android.media.MediaPlayer.OnErrorListener;
 import android.media.MediaPlayer.OnPreparedListener;
 import android.os.Bundle;
 import android.view.View;
@@ -34,6 +35,11 @@ public class CollateralsFileViewer extends Activity {
 
 		setContentView(R.layout.collaterals_file_view);
 		initLayout();
+	}
+
+	@Override
+	public void onBackPressed() {
+		finish();
 	}
 
 	private void initLayout() {
@@ -73,6 +79,18 @@ public class CollateralsFileViewer extends Activity {
 
 					control.show();
 					video.setVideoPath(theFile.getAbsolutePath());
+
+					video.setOnErrorListener(new OnErrorListener() {
+
+						@Override
+						public boolean onError(MediaPlayer mp, int what,
+								int extra) {
+
+							finish();
+							return true;
+						}
+					});
+
 					video.setMediaController(control);
 
 					video.setOnPreparedListener(new OnPreparedListener() {

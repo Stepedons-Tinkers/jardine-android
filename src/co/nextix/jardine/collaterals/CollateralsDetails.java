@@ -105,7 +105,7 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 				fragment = CollateralsMMGeneralInformation
 						.newInstance(CollateralsConstants.ROW_ID);
 			} else if (CollateralsConstants.FROM_WHERE == 2) {
-				fragment = CollateralsMMGeneralInformation
+				fragment = CollateralsSPGeneralInformation
 						.newInstance(CollateralsConstants.ROW_ID);
 			}
 			break;

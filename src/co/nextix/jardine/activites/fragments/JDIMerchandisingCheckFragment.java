@@ -4,12 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,10 +23,9 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIMerchandisingStockFragment;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
-import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
@@ -258,11 +256,12 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 //
 //		editor.commit(); 
-
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+							
+		Fragment fragment = new JDIMerchandisingCheckDetailFragment();
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
 	}
 
 	//TODO Protected before but was changed to public due to some issues
