@@ -61,7 +61,7 @@ public class SMRTable {
 	// Private methods
 	// ===========================================================
 
-	private List<SMRRecord> getAllRecords() {
+	public List<SMRRecord> getAllRecords() {
 		Cursor c = null;
 		List<SMRRecord> list = new ArrayList<SMRRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;

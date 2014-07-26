@@ -6,9 +6,11 @@ import java.util.List;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteException;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -42,7 +44,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		OnClickListener {
 	private View view;
 	private ListView list;
-	private int rowSize = 6;
+	private int rowSize = 10;
 	private int totalPage = 0;
 	private int currentPage = 0;
 
@@ -73,7 +75,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		this.setHasOptionsMenu(true);
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -99,6 +101,21 @@ public class ViewAllCustomersFragment extends Fragment implements
 		txtArea = (TextView) header.findViewById(R.id.tvArea);
 		txtProvince = (TextView) header.findViewById(R.id.tvProvince);
 		txtCityOrTown = (TextView) header.findViewById(R.id.tvCityOrTown);
+
+		tablerow.setGravity(Gravity.CENTER);
+		txtCrm.setGravity(Gravity.CENTER);
+		txtCustomerName.setGravity(Gravity.CENTER);
+		txtBusinessUnit.setGravity(Gravity.CENTER);
+		txtArea.setGravity(Gravity.CENTER);
+		txtProvince.setGravity(Gravity.CENTER);
+		txtCityOrTown.setGravity(Gravity.CENTER);
+
+		txtCrm.setTypeface(null, Typeface.BOLD);
+		txtCustomerName.setTypeface(null, Typeface.BOLD);
+		txtBusinessUnit.setTypeface(null, Typeface.BOLD);
+		txtArea.setTypeface(null, Typeface.BOLD);
+		txtProvince.setTypeface(null, Typeface.BOLD);
+		txtCityOrTown.setTypeface(null, Typeface.BOLD);
 
 		txtCrm.setText(getResources().getString(R.string.customer_crm_no));
 		txtCustomerName.setText(getResources()
@@ -262,7 +279,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 			break;
 		}
 	}
-	
+
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 
@@ -278,16 +295,16 @@ public class ViewAllCustomersFragment extends Fragment implements
 		strSearcher = new ArrayList<String>();
 
 		strSearcher.add(getResources()
-			    .getString(R.string.collaterals_ep_crm_no));
-			  strSearcher.add(getResources().getString(R.string.customer));
-			  strSearcher.add(getResources().getString(
-			    R.string.customer_business_unit));
-			  strSearcher.add(getResources().getString(R.string.customer_area));
-			  strSearcher.add(getResources().getString(
-			    R.string.customer_header_province));
-			  strSearcher.add(getResources()
-			    .getString(R.string.customer_city_or_town));
-			  
+				.getString(R.string.collaterals_ep_crm_no));
+		strSearcher.add(getResources().getString(R.string.customer));
+		strSearcher.add(getResources().getString(
+				R.string.customer_business_unit));
+		strSearcher.add(getResources().getString(R.string.customer_area));
+		strSearcher.add(getResources().getString(
+				R.string.customer_header_province));
+		strSearcher.add(getResources()
+				.getString(R.string.customer_city_or_town));
+
 		ArrayAdapter<String> sAdapter = new ArrayAdapter<String>(getActivity(),
 				R.layout.workplan_spinner_row, strSearcher);
 
@@ -342,7 +359,6 @@ public class ViewAllCustomersFragment extends Fragment implements
 								Toast.LENGTH_SHORT).show();
 
 				} catch (SQLiteException e) {
-					
 
 					Log.e("Tugs", e.toString());
 				}

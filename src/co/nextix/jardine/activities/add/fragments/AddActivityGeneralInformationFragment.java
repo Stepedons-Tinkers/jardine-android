@@ -56,7 +56,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private AddActivityFragment addActFrag;
 
 	private Fragment fragmentForTransition;
-	private AddActivityWithCoSMRsFragment addActWithCoSmrFragment;
 
 	private FragmentTransaction ft;
 
@@ -145,7 +144,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					addActWithCoSmrFragment = new AddActivityWithCoSMRsFragment();
+					fragmentForTransition = new AddActivityWithCoSMRsFragment();
 
 				} else if (activityTypeName.equals("Admin Work")) {
 					indexes.add(1);
@@ -292,47 +291,63 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
-					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
-							Integer value = (Integer) animation.getAnimatedValue();
-							saveBtn.setProgress(value);
 
-							String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
-							String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
-							String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
-							long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
+					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
+					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
+					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
+					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
 
-							BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
-									JardineApp.DB.getUser().getCurrentUser().getId());
+					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
+							JardineApp.DB.getUser().getCurrentUser().getId());
 
-							/** Checking of required fields **/
-							SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-							if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty()
-									&& checkout != null && !checkout.isEmpty()) {
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty() && checkout != null
+							&& !checkout.isEmpty()) {
 
-								Editor editor = pref.edit();
-								editor.putString("check_in", checkin);
-								editor.putString("checkout", checkout);
-								editor.putString("activity_type", activityType);
-								editor.putLong("createdBy", createdBy);
-								editor.putLong("business_unit", businessUnit.getId());
-								editor.commit(); // commit changes
-
-							} else {
-								Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+						widthAnimation.setDuration(1500);
+						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+							@Override
+							public void onAnimationUpdate(ValueAnimator animation) {
+								Integer value = (Integer) animation.getAnimatedValue();
+								saveBtn.setProgress(value);
 							}
+						});
 
-						}
-					});
+						widthAnimation.start();
 
-					widthAnimation.start();
+						Editor editor = pref.edit();
+						editor.putString("check_in", checkin);
+						editor.putString("checkout", checkout);
+						editor.putString("activity_type", activityType);
+						editor.putLong("createdBy", createdBy);
+						editor.putLong("business_unit", businessUnit.getId());
+						editor.commit(); // commit changes
+
+					} else {
+
+//						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 99);
+//						widthAnimation.setDuration(1500);
+//						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+//						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//							@Override
+//							public void onAnimationUpdate(ValueAnimator animation) {
+//								Integer value = (Integer) animation.getAnimatedValue();
+//								saveBtn.setProgress(value);
+//								if (value == 99) {
+//									saveBtn.setProgress(-1);
+//								}
+//							}
+//						});
+//
+//						widthAnimation.start();
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+					}
 
 				} else {
-					
+
 					addActFrag.pager.setCurrentItem(1);
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

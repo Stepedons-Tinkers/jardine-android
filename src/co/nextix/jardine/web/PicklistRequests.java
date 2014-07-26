@@ -24,7 +24,6 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
 import co.nextix.jardine.web.models.PicklistDependencyModel;
-import co.nextix.jardine.web.models.PicklistModel;
 import co.nextix.jardine.web.models.picklist.PactivityEndUserActivityTypes;
 import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
 import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
@@ -36,6 +35,7 @@ import co.nextix.jardine.web.models.picklist.PeventprotocolTypeModel;
 import co.nextix.jardine.web.models.picklist.PjdimerchcheckStatusModel;
 import co.nextix.jardine.web.models.picklist.PjdiproductstockStatusModel;
 import co.nextix.jardine.web.models.picklist.PprojectrequirementTypeModel;
+import co.nextix.jardine.web.models.picklist.PsalesProtocolTypeModel;
 import co.nextix.jardine.web.models.picklist.PsmrTimecardEntryModel;
 import co.nextix.jardine.web.models.picklist.PworkplanentryStatusModel;
 import co.nextix.jardine.web.requesters.PicklistRequester;
@@ -342,6 +342,32 @@ public class PicklistRequests {
 					if (list != null) {
 						result = new ArrayList<String>();
 						for (PprojectrequirementTypeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.end_user_activity_types)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PactivityEndUserActivityTypes>>>() {
+					}.getType();
+					PicklistRequester<List<PactivityEndUserActivityTypes>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PactivityEndUserActivityTypes> list = (List<PactivityEndUserActivityTypes>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PactivityEndUserActivityTypes model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.salesprotocol_type)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PsalesProtocolTypeModel>>>() {
+					}.getType();
+					PicklistRequester<List<PsalesProtocolTypeModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PsalesProtocolTypeModel> list = (List<PsalesProtocolTypeModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PsalesProtocolTypeModel model : list) {
 							result.add(model.getValue());
 						}
 					}

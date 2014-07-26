@@ -316,7 +316,7 @@
     <string name="activity_proj_requirements">Activity</string>
     <string name="project_requirement_type">Project Requirement Type</string>
     <string name="date_needed">Date Needed</string>
-    <string name="assigned_to_proj_requirement">Assigned To</string>
+    <string name="created_by_proj_requirement">Created By</string>
     <string name="action_proj_requirement">Action</string>
     <string name="add_proj_requirement">Add Project Requirement</string>
     <string name="all_caps_add_proj_requirement">ADD PROJECT REQUIREMENT</string>

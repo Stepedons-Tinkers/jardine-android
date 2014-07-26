@@ -27,49 +27,66 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			@Override
 			public void onClick(final View v) {
 				if (((CircularProgressButton) v).getProgress() == 0) {
-					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+					String reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
 
-							String reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (reasons != null && !reasons.isEmpty()) {
 
-							/** Checking of required fields **/
-							SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-							if (reasons != null && !reasons.isEmpty()) {
+						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+						widthAnimation.setDuration(1500);
+						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+							@Override
+							public void onAnimationUpdate(ValueAnimator animation) {
 
-								Editor editor = pref.edit();
-								editor.putString("reasons_remarks", reasons);
-								editor.commit(); // commit changes
-
-							} else {
-								Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+								Integer value = (Integer) animation.getAnimatedValue();
+								((CircularProgressButton) v).setProgress(value);
 							}
-						}
-					});
+						});
 
-					widthAnimation.start();
+						widthAnimation.start();
 
-					Handler handler = new Handler();
-					handler.postDelayed(new Runnable() {
+						Editor editor = pref.edit();
+						editor.putString("reasons_remarks", reasons);
+						editor.commit(); // commit changes
 
-						@Override
-						public void run() {
-							getFragmentManager().popBackStackImmediate();
-						}
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
 
-					}, 2500);
+							@Override
+							public void run() {
+								getFragmentManager().popBackStackImmediate();
+							}
+
+						}, 2700);
+
+					} else {
+//						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 99);
+//						widthAnimation.setDuration(1500);
+//						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+//						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+//							@Override
+//							public void onAnimationUpdate(ValueAnimator animation) {
+//								Integer value = (Integer) animation.getAnimatedValue();
+//								((CircularProgressButton) v).setProgress(value);
+//								if (value == 99) {
+//									((CircularProgressButton) v).setProgress(-1);
+//								}
+//							}
+//						});
+//
+//						widthAnimation.start();
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+					}
 
 				} else {
 					// Code here
 				}
 			}
 		});
+
 		return view;
 	}
 }

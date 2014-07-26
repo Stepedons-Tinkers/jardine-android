@@ -91,13 +91,13 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 1) {
 
-					// Travel or Waiting
-					TravelOrWaitingFragment travelORwaitingFrag = new TravelOrWaitingFragment();
-					travelORwaitingFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
-					ft.commit();
+					// Travel or Waiting TODO
+//					TravelOrWaitingFragment travelORwaitingFrag = new TravelOrWaitingFragment();
+//					travelORwaitingFrag.setArguments(bundle);
+//
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
+//					ft.commit();
 				} else if (position == 2) {
 					
 					// WithCoSMRs
@@ -109,23 +109,23 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 3) {
 					
-					// Admin Works
-					AdminWorksFragment adminWorksFrag = new AdminWorksFragment();
-					adminWorksFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
-					ft.commit();
+					// Admin Works TODO
+//					AdminWorksFragment adminWorksFrag = new AdminWorksFragment();
+//					adminWorksFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
+//					ft.commit();
 				} else if (position == 4) {
 					
 					
-					// Activity Details and Notes
-					ActivityDetailsAndNotesFragment detailsANDnotesFrag = new ActivityDetailsAndNotesFragment();
-					detailsANDnotesFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
-					ft.commit();
+					// Activity Details and Notes TODO
+//					ActivityDetailsAndNotesFragment detailsANDnotesFrag = new ActivityDetailsAndNotesFragment();
+//					detailsANDnotesFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
+//					ft.commit();
 				} else if (position == 5) {
 					
 					// Customer Contact Person
@@ -146,13 +146,13 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 7) {
 					
-					// Product Supplier
-					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
-					productSupplierFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
-					ft.commit();
+					// Product Supplier TODO
+//					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
+//					productSupplierFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
+//					ft.commit();
 				} else if (position == 8) {
 					
 					// JDI Merchandising Check
@@ -220,22 +220,22 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 15){
 					
-					// Full Brand Activation
-					FullBrandActivationFragment fullBrandActivationFrag = new FullBrandActivationFragment();
-					fullBrandActivationFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, fullBrandActivationFrag);
-					ft.commit();
+					// Full Brand Activation TODO
+//					FullBrandActivationFragment fullBrandActivationFrag = new FullBrandActivationFragment();
+//					fullBrandActivationFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, fullBrandActivationFrag);
+//					ft.commit();
 				} else if (position == 16){
 					
-					// Activity Photos and Attachments
-					ActivityPhotosAndAttachments activityPhotosAndAttachments = new ActivityPhotosAndAttachments();
-					activityPhotosAndAttachments.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, activityPhotosAndAttachments);
-					ft.commit();
+					// Activity Photos and Attachments TODO
+//					ActivityPhotosAndAttachments activityPhotosAndAttachments = new ActivityPhotosAndAttachments();
+//					activityPhotosAndAttachments.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, activityPhotosAndAttachments);
+//					ft.commit();
 				}
 
 			}

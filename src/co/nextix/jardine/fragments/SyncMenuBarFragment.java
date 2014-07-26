@@ -31,7 +31,6 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
-import co.nextix.jardine.database.records.EntityRelationshipRecord;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.FileRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
@@ -863,14 +862,15 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 				picklist = request.picklists(module);
 				if (picklist != null) {
-					if (module.equals(Modules.smrtimecard_entry)) {
-						PSMRentryTypeTable table = JardineApp.DB
-								.getSMRentryType();
-						for (String p : picklist) {
-							if (!table.isExisting(p))
-								table.insert(p);
-						}
-					} else if (module.equals(Modules.customer_size)) {
+//					if (module.equals(Modules.smrtimecard_entry)) {
+//						PSMRentryTypeTable table = JardineApp.DB
+//								.getSMRentryType();
+//						for (String p : picklist) {
+//							if (!table.isExisting(p))
+//								table.insert(p);
+//						}
+//					} else 
+						if (module.equals(Modules.customer_size)) {
 						PCustSizeTable table = JardineApp.DB.getCustomerSize();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
@@ -3747,12 +3747,30 @@ public class SyncMenuBarFragment extends Fragment {
 					.updateLastsync(USER_ID, MyDateUtils.getCurrentTimeStamp());
 			dialog.dismiss();
 			if (result) {
-				// new CreateCompetitorProductTask().execute();
+				finishAlert();
 			} else {
 				Toast.makeText(getActivity(), "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
+	}
+
+	private void finishAlert() {
+
+		AlertDialog.Builder builderSingle = new AlertDialog.Builder(
+				getActivity());
+		builderSingle.setMessage("Syncing Complete!");
+		builderSingle.setPositiveButton("OK",
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+						dialog.dismiss();
+					}
+				});
+		builderSingle.show();
+
 	}
 
 	private class LoginTask extends AsyncTask<Void, Void, Boolean> {
