@@ -9,7 +9,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +22,15 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
@@ -39,7 +46,9 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public CompetitorProductStockCheckCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public CompetitorProductStockCheckCustomAdapter(Context a,
+			FragmentActivity act, ListView listView, ArrayList<?> d,
+			Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -49,7 +58,8 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
-		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
 
@@ -71,7 +81,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView activity_type_txt;
@@ -85,7 +95,8 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 	}
 
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
-	public View getView(final int position, final View convertView, ViewGroup parent) {
+	public View getView(final int position, final View convertView,
+			ViewGroup parent) {
 
 		this.vi = convertView;
 		final int pos = position;
@@ -95,19 +106,25 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_six_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_six_columns,
+					null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
-			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.competitor_product       = (TextView) vi.findViewById(R.id.column_three);
-			holder.stock_status        = (TextView) vi.findViewById(R.id.column_four);
-			holder.loaded_on_shelves   = (TextView) vi.findViewById(R.id.column_five);
-			holder.assigned_to   = (TextView) vi.findViewById(R.id.column_six);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.clickable_item_container = (LinearLayout) vi
+					.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
+			holder.activity_type_txt = (TextView) vi
+					.findViewById(R.id.column_two);
+			holder.competitor_product = (TextView) vi
+					.findViewById(R.id.column_three);
+			holder.stock_status = (TextView) vi.findViewById(R.id.column_four);
+			holder.loaded_on_shelves = (TextView) vi
+					.findViewById(R.id.column_five);
+			holder.assigned_to = (TextView) vi.findViewById(R.id.column_six);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi
+					.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -123,41 +140,97 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (CompetitorProductStockCheckRecord) this.data.get(position);
+			this.tempValues = (CompetitorProductStockCheckRecord) this.data
+					.get(position);
 
+			/************ Get Table Credentials for column names ***********/
+			
+			
+			
 			/************ Set Model values in Holder elements ***********/
+			
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.competitor_product.setText(String.valueOf(this.tempValues.getCompetitorProduct()));
-			holder.stock_status.setText(String.valueOf(this.tempValues.getStockStatus()));
-			holder.loaded_on_shelves.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
-			holder.assigned_to.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			ActivityTable act = JardineApp.DB.getActivity();
+			if(act != null){
+				ActivityRecord rec =  act.getById(this.tempValues.getActivity());
+				 holder.activity_type_txt.setText("");
+				if(rec != null){
+					 holder.activity_type_txt.setText(rec.toString());
+				}
+				
+			}
+			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
+			if(comp != null){
+				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
+				holder.competitor_product
+				.setText("");
+				if(product != null){
+					holder.competitor_product
+					.setText(product.toString());
+				}
+			}
+			 PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
+			if(comp_status != null){
+				PicklistRecord rec = comp_status.getById((int)this.tempValues.getStockStatus());
+				holder.stock_status.setText("");
+				if(rec != null){
+					holder.stock_status.setText(String.valueOf(
+							this.tempValues.getStockStatus()).toString());
+				}
+			}
+			
+			holder.loaded_on_shelves.setText(String.valueOf(
+					this.tempValues.getLoadedOnShelves()).toString());
+		
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.assigned_to.setText("");
+				if(rec != null){
+					holder.assigned_to.setText(rec.toString());
+				}
+			}
+			
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.crm_no_txt.setText(null);
+				holder.activity_type_txt.setText(null);
+				holder.competitor_product.setText(null);
+				holder.stock_status.setText(null);
+				holder.loaded_on_shelves.setText(null);
+				holder.assigned_to.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}else{
 				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(position);
+					Toast.makeText(activity.getApplicationContext(),
+							"Edit here", Toast.LENGTH_SHORT).show();
+					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data
+							.get(position);
 
 					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					SharedPreferences pref = activity.getApplicationContext()
+							.getSharedPreferences("ActivityInfo", 0);
 					Editor editor = pref.edit();
 					editor.putLong("activity_id", tempValues.getId());
 					editor.commit(); // commit changes
 
 					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					android.support.v4.app.FragmentManager fragmentManager = activity
+							.getSupportFragmentManager();
+					fragmentManager
+							.beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left,
+									R.anim.slide_out_left)
+							.replace(R.id.frame_container, fragment)
+							.addToBackStack(null).commit();
 				}
 			});
 
@@ -165,19 +238,19 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity.getApplicationContext(),
+							"Delete here", Toast.LENGTH_SHORT).show();
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
-			
+
+			holder.clickable_item_container
+					.setOnClickListener(new OnItemClickListener(pos));
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {
@@ -202,7 +275,8 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(mPosition);
+				CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data
+						.get(mPosition);
 				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
 
 					activity.runOnUiThread(new Runnable() {
@@ -212,9 +286,11 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 						}
 					});
 
-					Toast.makeText(activity, "Successfully deleted activity", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Successfully deleted activity",
+							Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Failed to delete!",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});

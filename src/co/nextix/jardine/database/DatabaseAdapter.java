@@ -1,6 +1,7 @@
 package co.nextix.jardine.database;
 
 import android.content.Context;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -14,6 +15,7 @@ import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.DocumentTable;
+import co.nextix.jardine.database.tables.EntityRelationshipTable;
 import co.nextix.jardine.database.tables.EventProtocolTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
@@ -56,7 +58,7 @@ public class DatabaseAdapter {
 
 	private static DatabaseAdapter sInstance;
 
-	private static final String DATABASE_NAME = "jardine_database";
+	public static final String DATABASE_NAME = "jardine_database";
 	private static final int DATABASE_VERSION = 1;
 
 	// User
@@ -433,6 +435,13 @@ public class DatabaseAdapter {
 	public static final String KEY_SALESPROTOCOL_CREATEDTIME = "created_time";
 	public static final String KEY_SALESPROTOCOL_MODIFIEDTIME = "modified_time";
 
+	// Entity Relationship
+	public static final String KEY_ENTITYRELATIONSHIP_ROWID = "_id";
+	public static final String KEY_ENTITYRELATIONSHIP_CRMNO = "crm_no";
+	public static final String KEY_ENTITYRELATIONSHIP_MODULENAME = "module_name";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDNO = "related_no";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME = "related_module_name";
+
 	// Picklists
 	public static final String KEY_PICKLISTS_ROWID = "_id";
 	public static final String KEY_PICKLISTS_NAME = "name";
@@ -529,6 +538,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text)";
 
 	// ===========================================================
 	// Public static field
@@ -560,6 +570,7 @@ public class DatabaseAdapter {
 	public static final String PRODUCT_FOCUS_TABLE = "Product_Focus";
 	public static final String PRODUCT_SUPPLIER_TABLE = "Product_Supplier";
 	public static final String SALES_PROTOCOL_TABLE = "Sales_Protocol";
+	public static final String ENTITY_RELATIONSHIP_TABLE = "Entity_Relationship";
 
 	// Picklists
 	public static final String ACTIVITY_PROJECT_CATEGORY_TABLE = "Activity_Project_Category";
@@ -576,7 +587,8 @@ public class DatabaseAdapter {
 	public static final String JDI_MERCHANDISING_CHECK_STATUS_TABLE = "JDI_Merchandising_Check_Status";
 	public static final String JDI_PRODUCT_STOCK_STATUS_TABLE = "JDI_Product_Stock_Status";
 	public static final String PROJECT_REQUIREMENTS_TYPE_TABLE = "Project_Requirements_Type";
-	public static final String SMR_TIMECARD_ENTRY_TABLE = "SMR_TimeCard_Entry";
+	// public static final String SMR_TIMECARD_ENTRY_TABLE =
+	// "SMR_TimeCard_Entry";
 	public static final String WORKPLAN_ENTRY_STATUS_TABLE = "Workplan_Entry_Status";
 	public static final String ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE = "Enduser_Activity_Type";
 	public static final String SALES_PROTOCOL_TYPE_TABLE = "Sales_Protocol_Type";
@@ -585,6 +597,26 @@ public class DatabaseAdapter {
 	public static final String AREA_TABLE = "Area";
 	public static final String CITYTOWN_TABLE = "City_Town";
 	public static final String PROVINCE_TABLE = "Province";
+
+	private final String LIST_TABLES[] = { USER_TABLE, ACTIVITY_TABLE,
+			ACTIVITY_TYPE_TABLE, BUSINESS_UNIT_TABLE, COMPETITOR_PRODUCT_TABLE,
+			COMPETITOR_PRODUCT_STOCK_CHECK_TABLE, CUSTOMER_CONTACT_TABLE,
+			CUSTOMER_TABLE, EVENT_PROTOCOL_TABLE,
+			JDI_PRODUCT_STOCK_CHECK_TABLE, MARKETING_INTEL_TABLE,
+			PRODUCT_TABLE, PROJECT_REQUIREMENTS_TABLE, SMR_TABLE,
+			WORKPLAN_ENTRY_TABLE, WORKPLAN_TABLE, MARKETING_MATERIALS_TABLE,
+			JDI_MERCHANDISING_CHECK_TABLE, DOCUMENT_TABLE, CALENDAR_TABLE,
+			PRODUCT_FOCUS_TABLE, PRODUCT_SUPPLIER_TABLE, SALES_PROTOCOL_TABLE,
+			ENTITY_RELATIONSHIP_TABLE, ACTIVITY_PROJECT_CATEGORY_TABLE,
+			ACTIVITY_PROJECT_STAGE_TABLE, ACTIVITYTYPE_CATEGORY_TABLE,
+			COMPETITOR_PRODUCT_STOCKSTATUS_TABLE,
+			CUSTOMERCONTACT_POSITION_TABLE, CUSTOMER_SIZE_TABLE,
+			CUSTOMER_TYPE_TABLE, CUSTOMER_RECORD_STATUS_TABLE,
+			EVENT_TYPE_TABLE, JDI_MERCHANDISING_CHECK_STATUS_TABLE,
+			JDI_PRODUCT_STOCK_STATUS_TABLE, PROJECT_REQUIREMENTS_TYPE_TABLE,
+			WORKPLAN_ENTRY_STATUS_TABLE, ACTIVITY_ENDUSER_ACTIVITYTYPE_TABLE,
+			SALES_PROTOCOL_TYPE_TABLE, AREA_TABLE, CITYTOWN_TABLE,
+			PROVINCE_TABLE };
 
 	// ===========================================================
 	// Private fields
@@ -619,6 +651,7 @@ public class DatabaseAdapter {
 	private ProductFocusTable mProductFocus;
 	private ProductSupplierTable mProductSupplier;
 	private SalesProtocolTable mSalesProtocol;
+	private EntityRelationshipTable mEntityRelationship;
 
 	// Picklists
 	private PActProjCategoryTable mActivityProjectCategory;
@@ -667,6 +700,10 @@ public class DatabaseAdapter {
 		return sInstance;
 	}
 
+	public DatabaseHelper getHelper() {
+		return mDbHelper;
+	}
+
 	// ===========================================================
 	// Public methods
 	// ===========================================================
@@ -684,6 +721,17 @@ public class DatabaseAdapter {
 		}
 		if (mDb != null && mDb.isOpen()) {
 			mDb.close();
+		}
+	}
+	
+	public void clearDatabase() {
+		for (String s : LIST_TABLES) {
+			String MY_QUERY = "DELETE FROM " + s;
+			try {
+				mDb.execSQL(MY_QUERY);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -958,13 +1006,13 @@ public class DatabaseAdapter {
 		return mProjectRequirementType;
 	}
 
-	public PSMRentryTypeTable getSMRentryType() {
-		if (mSMRentryType == null) {
-			mSMRentryType = new PSMRentryTypeTable(mDb,
-					SMR_TIMECARD_ENTRY_TABLE);
-		}
-		return mSMRentryType;
-	}
+	// public PSMRentryTypeTable getSMRentryType() {
+	// if (mSMRentryType == null) {
+	// mSMRentryType = new PSMRentryTypeTable(mDb,
+	// SMR_TIMECARD_ENTRY_TABLE);
+	// }
+	// return mSMRentryType;
+	// }
 
 	public PWorkEntryStatusTable getWorkplanEntryStatus() {
 		if (mWorkplanEntryStatus == null) {
@@ -1012,6 +1060,14 @@ public class DatabaseAdapter {
 		return mSalesProtocol;
 	}
 
+	public EntityRelationshipTable getEntityRelationship() {
+		if (mEntityRelationship == null) {
+			mEntityRelationship = new EntityRelationshipTable(mDb,
+					ENTITY_RELATIONSHIP_TABLE);
+		}
+		return mEntityRelationship;
+	}
+
 	// Location
 
 	public PAreaTable getArea() {
@@ -1040,6 +1096,7 @@ public class DatabaseAdapter {
 	// ===========================================================
 
 	private final class DatabaseHelper extends SQLiteOpenHelper {
+
 		DatabaseHelper(Context context) {
 			super(context, DATABASE_NAME, null, DATABASE_VERSION);
 		}
@@ -1441,7 +1498,12 @@ public class DatabaseAdapter {
 					KEY_BUSINESSUNIT_ROWID, KEY_SALESPROTOCOL_PROTOCOLTYPE,
 					SALES_PROTOCOL_TYPE_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_SALESPROTOCOL_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
-
+			String entityRelationship = String.format(
+					TABLE_CREATE_ENTITYRELATIONSHIP, ENTITY_RELATIONSHIP_TABLE,
+					KEY_ENTITYRELATIONSHIP_ROWID, KEY_ENTITYRELATIONSHIP_CRMNO,
+					KEY_ENTITYRELATIONSHIP_MODULENAME,
+					KEY_ENTITYRELATIONSHIP_RELATEDNO,
+					KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME);
 			db.execSQL(user);
 			db.execSQL(TABLE_CREATE_ACTIVITY);
 			db.execSQL(activityType);
@@ -1468,6 +1530,7 @@ public class DatabaseAdapter {
 			db.execSQL(productFocus);
 			db.execSQL(productSupplier);
 			db.execSQL(salesProtocol);
+			db.execSQL(entityRelationship);
 
 			// Picklists
 
@@ -1512,9 +1575,9 @@ public class DatabaseAdapter {
 			String projectRequirementsType = String.format(
 					TABLE_CREATE_PICKLISTS, PROJECT_REQUIREMENTS_TYPE_TABLE,
 					KEY_PICKLISTS_ROWID, KEY_PICKLISTS_NAME);
-			String smrTimecardEntry = String.format(TABLE_CREATE_PICKLISTS,
-					SMR_TIMECARD_ENTRY_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_PICKLISTS_NAME);
+			// String smrTimecardEntry = String.format(TABLE_CREATE_PICKLISTS,
+			// SMR_TIMECARD_ENTRY_TABLE, KEY_PICKLISTS_ROWID,
+			// KEY_PICKLISTS_NAME);
 			String workplanentryStatus = String.format(TABLE_CREATE_PICKLISTS,
 					WORKPLAN_ENTRY_STATUS_TABLE, KEY_PICKLISTS_ROWID,
 					KEY_PICKLISTS_NAME);
@@ -1538,7 +1601,7 @@ public class DatabaseAdapter {
 			db.execSQL(jdiMerchandisingCheckStatus);
 			db.execSQL(jdiProductStockStatus);
 			db.execSQL(projectRequirementsType);
-			db.execSQL(smrTimecardEntry);
+			// db.execSQL(smrTimecardEntry);
 			db.execSQL(workplanentryStatus);
 			db.execSQL(salesProtocolType);
 			db.execSQL(actEndUserActivityType);

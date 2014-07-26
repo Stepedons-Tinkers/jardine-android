@@ -185,7 +185,7 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 13) {
 					
-					ProductsFragment proFrag = new ProductsFragment();
+					ProductFocusFragment proFrag = new ProductFocusFragment();
 					proFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();

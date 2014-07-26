@@ -18,21 +18,21 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
+import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
-import co.nextix.jardine.database.records.MarketingIntelRecord;
-import co.nextix.jardine.database.tables.MarketingIntelTable;
+import co.nextix.jardine.database.records.ProductFocusRecord;
+import co.nextix.jardine.database.tables.ProductFocusTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class MarketingIntelFragment extends Fragment {
+public class ProductFocusFragment extends Fragment {
 
-	private MarketingIntelCustomAdapter adapter = null;
-	private ArrayList<MarketingIntelRecord> realRecord = null;
-	private ArrayList<MarketingIntelRecord> tempRecord = null;
-	private ArrayList<MarketingIntelRecord> itemSearch = null;
+
+	private ProductFocusCustomAdapter adapter = null;
+	private ArrayList<ProductFocusRecord> realRecord = null;
+	private ArrayList<ProductFocusRecord> tempRecord = null;
+	private ArrayList<ProductFocusRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View myFragmentView = null;
 	private ListView list = null;
@@ -43,15 +43,15 @@ public class MarketingIntelFragment extends Fragment {
 	private Bundle bundle;
 	private int frag_layout_id;
 	
-	public MarketingIntelFragment() {
-		this.itemSearch = new ArrayList<MarketingIntelRecord>();
+	public ProductFocusFragment() {
+		this.itemSearch = new ArrayList<ProductFocusRecord>();
 	}
 	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		myFragmentView = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		myFragmentView = inflater.inflate(R.layout.fragment_activity_product_focus, container, false);
 		setListData();
 		
 		bundle = getArguments();
@@ -61,7 +61,7 @@ public class MarketingIntelFragment extends Fragment {
 		}
 		
 		// ONCLICK sa mga buttons sa fragment
-		((Button) myFragmentView.findViewById(R.id.add_marketing_intel)).setOnClickListener(new OnClickListener() {
+		((Button) myFragmentView.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -119,11 +119,11 @@ public class MarketingIntelFragment extends Fragment {
 	
 	
 	public void setListData() {
-		this.realRecord = new ArrayList<MarketingIntelRecord>();
-		this.tempRecord = new ArrayList<MarketingIntelRecord>();
+		this.realRecord = new ArrayList<ProductFocusRecord>();
+		this.tempRecord = new ArrayList<ProductFocusRecord>();
 
-		MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
-		List<MarketingIntelRecord> records = table.getAllRecords();
+		ProductFocusTable table = JardineApp.DB.getProductFocus();
+		List<ProductFocusRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
@@ -132,7 +132,7 @@ public class MarketingIntelFragment extends Fragment {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					MarketingIntelRecord rec = new MarketingIntelRecord();
+					ProductFocusRecord rec = new ProductFocusRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -144,7 +144,7 @@ public class MarketingIntelFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+//			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
 		}
 	}
 	
@@ -167,7 +167,7 @@ public class MarketingIntelFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new MarketingIntelCustomAdapter(CustomListView,getActivity(),list,this.tempRecord,this);
+		this.adapter = new ProductFocusCustomAdapter(CustomListView,getActivity(),list,this.tempRecord,this);
 //		this.adapter = new MarketingIntelCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -184,7 +184,7 @@ public class MarketingIntelFragment extends Fragment {
 	
 	
 	public void onItemClick(int mPosition) {
-		MarketingIntelRecord tempValues = (MarketingIntelRecord) this.tempRecord.get(mPosition);
+		ProductFocusRecord tempValues = (ProductFocusRecord) this.tempRecord.get(mPosition);
 
 //		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 //		Editor editor = pref.edit();
@@ -239,5 +239,4 @@ public class MarketingIntelFragment extends Fragment {
 	public void refreshListView() {
 		this.setListData();
 	}
-	
 }

@@ -25,6 +25,13 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
@@ -126,9 +133,43 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivity()));
-			holder.product_txt.setText(String.valueOf(this.tempValues.getProductBrand()));
-			holder.status_txt.setText(String.valueOf(this.tempValues.getStatus()));
+			ActivityTable act = JardineApp.DB.getActivity();
+			if(act != null){
+				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_type_txt.setText("");
+				if(rec != null){
+					holder.activity_type_txt.setText(rec.toString());
+				}
+			}
+			
+			ProductTable product = JardineApp.DB.getProduct();
+			if(product != null){
+				ProductRecord rec = product.getById(this.tempValues.getProductBrand());
+				holder.product_txt.setText("");
+				if(rec != null){
+					holder.product_txt.setText(rec.toString());
+				}
+			}
+			
+			PJDIprodStatusTable status = JardineApp.DB.getJDIproductStatus();
+			if(status != null){
+				PicklistRecord pick =  status.getById((int)this.tempValues.getStatus());
+				holder.status_txt.setText("");
+				if(pick != null){
+					holder.status_txt.setText(pick.toString());
+				}
+			}
+			
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");
+				if(rec != null){
+					holder.created_by.setText(rec.toString());
+				}
+			}
+			
+		
 			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
