@@ -80,16 +80,7 @@ public class CollateralsFileViewer extends Activity {
 					control.show();
 					video.setVideoPath(theFile.getAbsolutePath());
 
-					video.setOnErrorListener(new OnErrorListener() {
-
-						@Override
-						public boolean onError(MediaPlayer mp, int what,
-								int extra) {
-
-							finish();
-							return true;
-						}
-					});
+					
 
 					video.setMediaController(control);
 
