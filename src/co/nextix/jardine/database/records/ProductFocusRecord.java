@@ -21,7 +21,7 @@ public class ProductFocusRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-	public ProductFocusRecord(){}
+
 	public ProductFocusRecord(long id, long product, long activity) {
 
 		this.id = id;

@@ -61,7 +61,7 @@ public class ProductTable {
 	// Private methods
 	// ===========================================================
 
-	private List<ProductRecord> getAllRecords() {
+	public List<ProductRecord> getAllRecords() {
 		Cursor c = null;
 		List<ProductRecord> list = new ArrayList<ProductRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
