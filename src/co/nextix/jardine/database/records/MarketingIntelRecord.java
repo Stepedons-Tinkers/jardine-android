@@ -32,7 +32,9 @@ public class MarketingIntelRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-
+	public MarketingIntelRecord(){
+		
+	}
 	public MarketingIntelRecord(long id, String no, String crmNo,
 			long activity, long competitor_product, String details,
 			String createdTime, String modifiedTime, long created_by) {
