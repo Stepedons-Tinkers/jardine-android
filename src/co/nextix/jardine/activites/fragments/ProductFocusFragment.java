@@ -23,16 +23,18 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.ProductFocusRecord;
+import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.tables.ProductFocusTable;
+import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class ProductFocusFragment extends Fragment {
 
 
 	private ProductFocusCustomAdapter adapter = null;
-	private ArrayList<ProductFocusRecord> realRecord = null;
-	private ArrayList<ProductFocusRecord> tempRecord = null;
-	private ArrayList<ProductFocusRecord> itemSearch = null;
+	private ArrayList<ProductRecord> realRecord = null;
+	private ArrayList<ProductRecord> tempRecord = null;
+	private ArrayList<ProductRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View myFragmentView = null;
 	private ListView list = null;
@@ -44,7 +46,7 @@ public class ProductFocusFragment extends Fragment {
 	private int frag_layout_id;
 	
 	public ProductFocusFragment() {
-		this.itemSearch = new ArrayList<ProductFocusRecord>();
+		this.itemSearch = new ArrayList<ProductRecord>();
 	}
 	
 	
@@ -119,11 +121,11 @@ public class ProductFocusFragment extends Fragment {
 	
 	
 	public void setListData() {
-		this.realRecord = new ArrayList<ProductFocusRecord>();
-		this.tempRecord = new ArrayList<ProductFocusRecord>();
+		this.realRecord = new ArrayList<ProductRecord>();
+		this.tempRecord = new ArrayList<ProductRecord>();
 
-		ProductFocusTable table = JardineApp.DB.getProductFocus();
-		List<ProductFocusRecord> records = table.getAllRecords();
+		ProductTable table = JardineApp.DB.getProduct();
+		List<ProductRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
@@ -132,7 +134,7 @@ public class ProductFocusFragment extends Fragment {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					ProductFocusRecord rec = new ProductFocusRecord();
+					ProductRecord rec = new ProductRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -184,7 +186,7 @@ public class ProductFocusFragment extends Fragment {
 	
 	
 	public void onItemClick(int mPosition) {
-		ProductFocusRecord tempValues = (ProductFocusRecord) this.tempRecord.get(mPosition);
+		ProductRecord tempValues = (ProductRecord) this.tempRecord.get(mPosition);
 
 //		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 //		Editor editor = pref.edit();
