@@ -6,6 +6,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -36,6 +37,7 @@ import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
+@SuppressLint("ValidFragment")
 public class AddActivityGeneralInformationFragment extends Fragment {
 	private View rootView = null;
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
