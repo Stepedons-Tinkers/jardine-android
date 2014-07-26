@@ -39,7 +39,7 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private ProductFocusRecord tempValues = null;
+	private ProductRecord tempValues = null;
 	private View vi = null;
 	private ListView listView = null;
 
@@ -127,43 +127,31 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (ProductFocusRecord) this.data.get(position);
+			this.tempValues = (ProductRecord) this.data.get(position);
 			
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(String.valueOf(this.tempValues.getActivity()));
-//			holder.product_no.setText(String.valueOf(this.tempValues.getActivity()));
-//			holder.product_description.setText(String.valueOf(this.tempValues.getActivity()));
-			ProductTable product = JardineApp.DB.getProduct();
-			if(product != null){
-				ProductRecord rec = product.getById(this.tempValues.getActivity());
-				holder.product_brand.setText("");
-				holder.product_no.setText("");
-				holder.product_description.setText("");
-				if(rec != null){
-					holder.product_brand.setText(rec.toString());
-					holder.product_no.setText(rec.getProductNumber());
-					holder.product_description.setText(rec.getProductDescription());
-				}
-				
-				
-			}
-			
-			
+			holder.crm_no_txt.setText(String.valueOf(this.tempValues.getCrm()));
+			holder.product_no.setText(String.valueOf(this.tempValues.getProductNumber()));
+			holder.product_description.setText(String.valueOf(this.tempValues.getProductDescription()));
+			holder.product_brand.setText(String.valueOf(this.tempValues.getProductBrand()));
+			holder.is_active.setText(String.valueOf(this.tempValues.getIsActive()));
+
 			UserTable user = JardineApp.DB.getUser();
 			if(user != null){
-				UserRecord rec = user.getById(this.tempValues.getActivity());
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
 				holder.created_by.setText("");
 				if(rec != null){
 					holder.created_by.setText(rec.toString());
 				}
 			}
 			
-			if (holder.crm_no_txt.getText().toString().equals("")) {
-				holder.product_no.setText(null);
-				holder.created_by.setText(null);
-				holder.product_brand.setText(null);
-				holder.crm_no_txt.setText(null);
-				holder.product_description.setText(null);
+			if (holder.crm_no_txt.getText().toString().equals("")||holder.crm_no_txt.getText().toString()==null||holder.crm_no_txt.getText().toString().equals("null")) {
+				holder.product_no.setText("");
+				holder.created_by.setText("");
+				holder.product_brand.setText("");
+				holder.crm_no_txt.setText("");
+				holder.product_description.setText("");
+				holder.is_active.setText("");
 //				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}else
 			{

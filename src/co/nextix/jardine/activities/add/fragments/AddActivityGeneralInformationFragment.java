@@ -12,6 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
@@ -34,6 +35,7 @@ import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.dd.CircularProgressButton;
 
@@ -51,6 +53,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int year = 0;
 	private int flag;
 
+	private boolean trapping = false;
+
 	private Fragment fragment = null;
 
 	private AddActivityFragment addActFrag;
@@ -61,6 +65,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+	
+	public static long WORKPLAN_ENTRY_ID = 0;
 
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
@@ -73,9 +79,17 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	}
 
 	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onCreate(savedInstanceState);
+		
+	}
+
+	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 
+		AddActivityGeneralInformationFragment.WORKPLAN_ENTRY_ID = getArguments().getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
 		bundle = getArguments();
 
 		if (bundle != null) {
@@ -292,6 +306,24 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			public void onClick(View v) {
 				if (saveBtn.getProgress() == 0) {
 
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(1500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation.getAnimatedValue();
+							saveBtn.setProgress(value);
+
+							if (!trapping) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					String crmno = ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString();
 					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
 					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
 					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
@@ -305,20 +337,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty() && checkout != null
 							&& !checkout.isEmpty()) {
 
-						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-						widthAnimation.setDuration(1500);
-						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-							@Override
-							public void onAnimationUpdate(ValueAnimator animation) {
-								Integer value = (Integer) animation.getAnimatedValue();
-								saveBtn.setProgress(value);
-							}
-						});
-
-						widthAnimation.start();
-
+						trapping = true;
 						Editor editor = pref.edit();
+						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
 						editor.putString("checkout", checkout);
 						editor.putString("activity_type", activityType);
@@ -328,26 +349,23 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					} else {
 
-//						ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 99);
-//						widthAnimation.setDuration(1500);
-//						widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-//						widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//							@Override
-//							public void onAnimationUpdate(ValueAnimator animation) {
-//								Integer value = (Integer) animation.getAnimatedValue();
-//								saveBtn.setProgress(value);
-//								if (value == 99) {
-//									saveBtn.setProgress(-1);
-//								}
-//							}
-//						});
-//
-//						widthAnimation.start();
+						trapping = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								saveBtn.setProgress(0);
+
+							}
+						}, 1500);
 					}
 
 				} else {
 
+					saveBtn.setProgress(0);
 					addActFrag.pager.setCurrentItem(1);
 					ft = getFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

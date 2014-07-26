@@ -35,7 +35,7 @@ public class ProductRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
-
+	public ProductRecord(){}
 	public ProductRecord(long id, String no, String crmNo,
 			String productNumber, String productBrand,
 			String productDescription, String packSize, long businessUnit,

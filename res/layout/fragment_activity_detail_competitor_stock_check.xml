@@ -18,7 +18,7 @@
             android:layout_weight="1"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
-            android:text="@string/back_to_activity"
+            android:text="Back"
             android:textSize="14sp" />
 
         <Button
