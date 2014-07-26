@@ -197,10 +197,9 @@ public class PActProjStageTable {
 		}
 	}
 
-	public boolean update(long id, String no, long category, int isActive,
-			long user) {
+	public boolean update(long id, String name) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_ACTIVITY_PROJECT_STAGE_NAME, no);
+		args.put(KEY_ACTIVITY_PROJECT_STAGE_NAME, name);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_PROJECT_STAGE_ROWID
 				+ "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);

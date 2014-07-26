@@ -1,56 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <com.astuetz.PagerSlidingTabStrip
+        android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:orientation="horizontal" >
+        android:layout_height="48dp" >
+    </com.astuetz.PagerSlidingTabStrip>
 
-        <Button
-            android:id="@+id/activity_info_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="-4dp"
-            android:layout_marginTop="-8dp"
-            android:layout_weight="1.15"
-            android:onClick="activityInfo"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/activity_information"
-            android:textSize="18sp" />
-
-        <Button
-            android:id="@+id/more_info_button"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="-4dp"
-            android:layout_marginTop="-8dp"
-            android:layout_weight="1.15"
-            android:onClick="activityInfo"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/more_information"
-            android:textSize="18sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/second_header_tab"
+    <co.nextix.jardine.NonSwipeableViewPager
+        android:id="@+id/pager"
         android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:layout_marginTop="-4dp"
-        android:orientation="horizontal" >
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/activity_fragment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" />
+        android:layout_height="wrap_content" >
+    </co.nextix.jardine.NonSwipeableViewPager>
+    
+    <FrameLayout 
+	    android:id="@+id/layoutForAddingFrag"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_below="@+id/tabs">	    
+	</FrameLayout>
 
     <!-- <include layout="@layout/fragment_start_activity" /> -->
 
-</LinearLayout>
+</RelativeLayout>

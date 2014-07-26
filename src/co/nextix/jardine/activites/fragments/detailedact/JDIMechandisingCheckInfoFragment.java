@@ -71,17 +71,63 @@ public class JDIMechandisingCheckInfoFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
-				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.commit();
+//				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+//				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.commit();
 			}
 		});
+		// Add a fucking fragment
+//		StaticActivityInfoFragment myFragmentAddActivity = new StaticActivityInfoFragment();
+//		fragmentTransaction.replace(R.id.second_header_tab, myFragmentAddActivity);
+//		fragmentTransaction.commit();
+//
+//		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
+//				new LightingColorFilter(0x0033FF, 0x0066FF));
+//
+//		this.clearColorFilter(this.myFragmentView.findViewById(R.id.more_info_button));
+//
+//		((Button) this.myFragmentView.findViewById(R.id.more_info_button)).setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				((Button) v.findViewById(R.id.more_info_button)).getBackground()
+//						.setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+//
+//				JDIMechandisingCheckInfoFragment.this.clearColorFilter(JDIMechandisingCheckInfoFragment.this.myFragmentView.findViewById(R.id.activity_info_button));
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+//
+//				// Add a fucking fragment
+//				MoreActivityInformationFragment myFragment = new MoreActivityInformationFragment();
+//				fragmentTransaction.replace(R.id.second_header_tab, myFragment);
+//				fragmentTransaction.commit();
+//			}
+//		});
+//
+//		((Button) this.myFragmentView.findViewById(R.id.activity_info_button)).setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				((Button) v.findViewById(R.id.activity_info_button)).getBackground().setColorFilter(
+//						new LightingColorFilter(0x0033FF, 0x0066FF));
+//
+//				JDIMechandisingCheckInfoFragment.this.clearColorFilter(JDIMechandisingCheckInfoFragment.this.myFragmentView.findViewById(R.id.more_info_button));
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
+//
+//				// Add a fucking fragment
+//				StaticActivityInfoFragment myFragment = new StaticActivityInfoFragment();
+//				fragmentTransaction.replace(R.id.second_header_tab, myFragment);
+//				fragmentTransaction.commit();
+//			}
+//		});
+
 
 		return myFragmentView;
 	}

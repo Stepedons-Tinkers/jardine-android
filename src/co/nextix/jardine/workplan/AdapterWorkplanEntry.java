@@ -14,6 +14,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 
@@ -30,10 +31,9 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 
 	private static class ViewHolder {
 		public WorkplanEntryRecord record;
-		public TextView txtCrmNo;
-		public TextView txtDescription;
-		public TextView txtEventType;
-		public TextView txtIsActive;
+		public TextView txtCol1;
+		public TextView txtCol2;
+		public TextView txtCol3;
 		public TableRow row;
 	}
 
@@ -47,16 +47,13 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 			view = inflater.inflate(this.layout, parent, false);
 			holder = new ViewHolder();
 
-			holder.row = (TableRow) view
-					.findViewById(R.id.trCollateralsEventerProtocolRow);
-			holder.txtCrmNo = (TextView) view
-					.findViewById(R.id.tvCollateralsEventerProtocolCrmNo);
-			holder.txtDescription = (TextView) view
-					.findViewById(R.id.tvCollateralsEventerProtocolDescription);
-			holder.txtEventType = (TextView) view
-					.findViewById(R.id.tvCollateralsEventerProtocolEventType);
-			holder.txtIsActive = (TextView) view
-					.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
+			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRow);
+			holder.txtCol1 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCrmNo);
+			holder.txtCol2 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMDescription);
+			holder.txtCol3 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMIsActive);
 
 			view.setTag(holder);
 		} else {
@@ -71,23 +68,23 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 					.setBackgroundResource(R.color.collaterals_tablerow_color1);
 		}
 
-		holder.txtCrmNo.setText(holder.record.getNo());
+		holder.txtCol1.setText(holder.record.getCrm());
 
 		if (holder.record.getNo() != null) {
-//			String cus = JardineApp.DB.getCustomer().getNoById(
-//					holder.record.getCustomer());
-//			holder.txtDescription.setText(cus);
+			// String cus = JardineApp.DB.getCustomer().getNoById(
+			// holder.record.getCustomer());
+			// holder.txtDescription.setText(cus);
 
-			holder.txtEventType.setText(holder.record.getDate());
+			holder.txtCol2.setText(MyDateUtils.convertDate(holder.record
+					.getDate()));
 
 			ActivityTypeRecord pik = JardineApp.DB.getActivityType().getById(
 					holder.record.getActivityType());
-			holder.txtIsActive.setText(pik.getNo());
+			holder.txtCol3.setText(pik.getName());
 
 		} else {
-			holder.txtDescription.setText("");
-			holder.txtEventType.setText("");
-			holder.txtIsActive.setText("");
+			holder.txtCol2.setText("");
+			holder.txtCol3.setText("");
 		}
 
 		return view;

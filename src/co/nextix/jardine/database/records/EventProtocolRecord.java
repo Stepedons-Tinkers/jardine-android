@@ -141,4 +141,9 @@ public class EventProtocolRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+	
+	@Override
+	public String toString() {
+		return this.description;
+	}
 }

@@ -23,11 +23,21 @@ public class JDIProductStockCheckInfoFragment extends Fragment {
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+	
+	private Bundle bundle;
+	private int frag_layout_id;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_jdi_product_stock_check, container, false);
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
 		
@@ -80,7 +90,7 @@ public class JDIProductStockCheckInfoFragment extends Fragment {
 
 				// Add a fucking fragment
 				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+				fragmentTransaction.replace(frag_layout_id, myFragment);
 				fragmentTransaction.commit();
 			}
 		});

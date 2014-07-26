@@ -161,4 +161,8 @@ public class JDIproductStockCheckRecord {
 		return this.created_by;
 	}
 
+	@Override
+	public String toString() {
+		return this.crm_no;
+	}
 }

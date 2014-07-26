@@ -8,9 +8,13 @@ import java.util.List;
 
 import android.app.DatePickerDialog;
 import android.content.pm.ActivityInfo;
+import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -21,6 +25,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.SearchView.OnCloseListener;
+import android.widget.SearchView.OnQueryTextListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -43,6 +49,7 @@ import co.nextix.jardine.database.tables.WorkplanEntryTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
@@ -55,13 +62,15 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private int rowSize = 6;
 	private int totalPage = 0;
 	private int currentPage = 0;
+	private boolean searchMode = true;
+	private String searchPhrase = "";
 
 	static final int DATE_DIALOG_ID = 999;
 
 	private ImageButton arrowLeft, arrowRight, btnCalendar;
 	private TextView txtPage;
 	private View header;
-	private TextView txtCrm, txtCust, txtDate, txtIsActType;
+	private TextView txtCol1, txtCol2, txtCol3;
 	private TableRow trow;
 	private TextView txtFrom, txtTo;
 	private Spinner spinner, searchSpinner;
@@ -70,6 +79,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 	private List<WorkplanEntryRecord> realRecord;
 	private List<WorkplanEntryRecord> tempRecord;
+	private List<WorkplanEntryRecord> searchRecord;
 
 	public static EditText editMonth;
 
@@ -80,7 +90,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private WorkplanCustomerAdapter adap;
 
 	public int day, month, year;
-
+	private long userId;
 	private List<WorkplanRecord> workplans = new ArrayList<WorkplanRecord>();
 	// private ArrayAdapter<String> adap;
 
@@ -95,7 +105,11 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
+		String id = StoreAccount.restore(getActivity())
+				.getString(Account.ROWID);
+		userId = Long.parseLong(id);
 		this.setHasOptionsMenu(true);
+
 	}
 
 	@Override
@@ -120,8 +134,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		formattedDate = (month + 1) + "/" + day + "/" + year;
 
 		view = inflater.inflate(R.layout.workplan, container, false);
-		header = inflater
-				.inflate(R.layout.collaterals_event_protocol_row, null);
+		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
+				null);
 
 		initLayout();
 		return view;
@@ -131,32 +145,25 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		// Header Data
 		getActivity().invalidateOptionsMenu();
-		trow = (TableRow) header
-				.findViewById(R.id.trCollateralsEventerProtocolRow);
-		txtCrm = (TextView) header
-				.findViewById(R.id.tvCollateralsEventerProtocolCrmNo);
-		txtCust = (TextView) header
-				.findViewById(R.id.tvCollateralsEventerProtocolDescription);
-		txtDate = (TextView) header
-				.findViewById(R.id.tvCollateralsEventerProtocolEventType);
-		txtIsActType = (TextView) header
-				.findViewById(R.id.tvCollateralsEventerProtocolIsActive);
+		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
+		txtCol1 = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
+		txtCol2 = (TextView) header
+				.findViewById(R.id.tvCollateralsMMDescription);
+		txtCol3 = (TextView) header.findViewById(R.id.tvCollateralsMMIsActive);
 
 		trow.setGravity(Gravity.CENTER);
-		txtCrm.setGravity(Gravity.CENTER);
-		txtCust.setGravity(Gravity.CENTER);
-		txtCust.setGravity(Gravity.CENTER);
-		txtIsActType.setGravity(Gravity.CENTER);
+		txtCol1.setGravity(Gravity.CENTER);
+		txtCol2.setGravity(Gravity.CENTER);
+		txtCol3.setGravity(Gravity.CENTER);
 
-		txtCrm.setTypeface(null, Typeface.BOLD);
-		txtCust.setTypeface(null, Typeface.BOLD);
-		txtDate.setTypeface(null, Typeface.BOLD);
-		txtIsActType.setTypeface(null, Typeface.BOLD);
+		txtCol1.setTypeface(null, Typeface.BOLD);
+		txtCol2.setTypeface(null, Typeface.BOLD);
+		txtCol3.setTypeface(null, Typeface.BOLD);
 
-		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
-		txtCust.setText(getResources().getString(R.string.workplan_customer));
-		txtDate.setText(getResources().getString(R.string.workplan_date));
-		txtIsActType.setText(getResources().getString(
+		txtCol1.setText(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		txtCol2.setText(getResources().getString(R.string.workplan_date));
+		txtCol3.setText(getResources().getString(
 				R.string.workplan_activity_type));
 
 		trow.setBackgroundResource(R.color.tab_pressed);
@@ -203,10 +210,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		table = JardineApp.DB.getWorkplan();
 		entry = JardineApp.DB.getWorkplanEntry();
 
-		String id = StoreAccount.restore(getActivity())
-				.getString(Account.ROWID);
-		long userId = Long.parseLong(id);
-
 		try {
 			workplans.addAll(table.getAllRecords(userId));
 		} catch (Exception e) {
@@ -226,7 +229,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 				WorkplanRecord str = (WorkplanRecord) parent.getAdapter()
 						.getItem(position);
-				setupWorkplanEntry(str.getId());
+				setupWorkplanEntry();
 			}
 
 			@Override
@@ -236,13 +239,71 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			}
 		});
 
+		txtFrom.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				setupWorkplanEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		txtTo.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				setupWorkplanEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
 	}
 
-	private void setupWorkplanEntry(long workplanId) {
+	private void setupWorkplanEntry() {
+
+		String dateFrom = txtFrom.getText().toString();
+		String dateTo = txtTo.getText().toString();
+		long wId = ((WorkplanRecord) searchSpinner.getSelectedItem()).getId();
+
+		dateFrom = MyDateUtils.convertDateStringToDash(dateFrom);
+		dateTo = MyDateUtils.convertDateStringToDash(dateTo);
+
+		Log.d("Tugs", dateFrom);
+		Log.d("Tugs", dateTo);
+		Log.d("Tugs", wId + "");
 
 		realRecord.clear();
 		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-				.getRecordsByWorkplanId(workplanId));
+				.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
+						searchPhrase, spinner.getSelectedItemPosition()));
 
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
@@ -253,8 +314,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		} else {
 			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
-					getActivity(), R.layout.collaterals_event_protocol_row,
-					realRecord);
+					getActivity(),
+					R.layout.collaterals_marketing_materials_row, realRecord);
 			list.setAdapter(adapter);
 		}
 
@@ -264,6 +325,21 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			addItem(currentPage);
 		}
 
+	}
+
+	private void addItemFromSearch(int count) {
+
+		tempRecord.clear();
+		count = count * rowSize;
+		int temp = currentPage + 1;
+		txtPage.setText(temp + " of " + totalPage);
+
+		for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, searchRecord.get(count));
+			count = count + 1;
+		}
+
+		setView();
 	}
 
 	private void addItem(int count) {
@@ -283,7 +359,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private void setView() {
 
 		AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(getActivity(),
-				R.layout.collaterals_event_protocol_row, tempRecord);
+				R.layout.collaterals_marketing_materials_row, tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -295,12 +371,14 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 				if (epr.getNo() != null) {
 
+					WorkPlanFragmentDetails frag = WorkPlanFragmentDetails
+							.newInstance(epr.getId());
+
+					frag.setTargetFragment(WorkplanMenuBarFragment.this, 15);
+
 					DashBoardActivity act = (DashBoardActivity) getActivity();
-					act.getSupportFragmentManager()
-							.beginTransaction()
-							.add(R.id.frame_container,
-									WorkPlanFragmentDetails.newInstance(epr
-											.getId()), JardineApp.TAG)
+					act.getSupportFragmentManager().beginTransaction()
+							.add(R.id.frame_container, frag, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 
@@ -345,10 +423,10 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			break;
 
 		case R.id.tvWorkPlanFromCalendar:
-			txtFrom.setText("");
+			txtFrom.setText(null);
 			break;
 		case R.id.tvWorkPlanToCalendar:
-			txtTo.setText("");
+			txtTo.setText(null);
 			break;
 		}
 
@@ -402,13 +480,70 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		strSearcher.add(getResources()
 				.getString(R.string.collaterals_ep_crm_no));
-		strSearcher.add(getResources().getString(R.string.workplan_customer));
 		strSearcher.add(getResources().getString(
 				R.string.workplan_activity_type));
 
 		CustomSpinnerAdapter cus = new CustomSpinnerAdapter(getActivity(),
 				R.layout.workplan_spinner_row, strSearcher);
 		spinner.setAdapter(cus);
-	}
 
+		searchView.setOnCloseListener(new OnCloseListener() {
+
+			@Override
+			public boolean onClose() {
+				searchView.clearFocus();
+				currentPage = 0;
+				addItem(currentPage);
+				searchView.onActionViewCollapsed();
+				searchMode = false;
+				return true;
+			}
+		});
+		searchView.setOnSearchClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				tempRecord.clear();
+
+				searchView.clearFocus();
+				searchMode = true;
+			}
+		});
+		searchView.setOnQueryTextListener(new OnQueryTextListener() {
+
+			@Override
+			public boolean onQueryTextChange(String arg0) {
+
+				return false;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				currentPage = 0;
+				try {
+
+					searchRecord = new ArrayList<WorkplanEntryRecord>();
+					for (int i = 0; i < realRecord.size(); i++) {
+
+					}
+
+					Log.d("Tugs", spinner.getSelectedItemPosition() + "");
+					if (searchRecord.size() > 0)
+						addItemFromSearch(currentPage);
+					else
+						Toast.makeText(getActivity(), "No records found!",
+								Toast.LENGTH_SHORT).show();
+
+				} catch (SQLiteException e) {
+
+					Log.e("Tugs", e.toString());
+				}
+
+				searchView.clearFocus();
+				return true;
+			}
+
+		});
+
+	}
 }

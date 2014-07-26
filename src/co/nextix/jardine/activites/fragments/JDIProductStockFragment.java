@@ -36,6 +36,10 @@ public class JDIProductStockFragment extends Fragment {
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
+	
+	private Bundle bundle;
+	
+	private int frag_layout_id;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -45,6 +49,13 @@ public class JDIProductStockFragment extends Fragment {
 				R.layout.fragment_activity_jdi_product_stock_check, container,
 				false);
 		this.setListData();
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
 		Log.e("jdi"," size");
 		((Button) myFragmentView
 				.findViewById(R.id.add_btn_jdi_product_stock_check))
@@ -69,7 +80,7 @@ public class JDIProductStockFragment extends Fragment {
 						// fragment,
 						// and add the transaction to the back stack
 						transaction
-								.replace(R.id.activity_fragment, newFragment);
+								.replace(frag_layout_id, newFragment);
 						transaction.addToBackStack(null);
 
 						// Commit the transaction

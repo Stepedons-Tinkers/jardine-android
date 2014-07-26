@@ -6,6 +6,7 @@ import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.utils.MyDateUtils;
 import android.support.v4.app.Fragment;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,6 +35,9 @@ public class ProfileInformationFragment extends Fragment {
 		txtAreas = (TextView) view.findViewById(R.id.profileinfo_txt_area);
 		txtLastSync = (TextView) view
 				.findViewById(R.id.profileinfo_txt_lastsync);
+
+		txtUsername.setTypeface(Typeface.createFromAsset(getActivity()
+				.getAssets(), "fonts/Roboto-Light.ttf"));
 
 		populate();
 

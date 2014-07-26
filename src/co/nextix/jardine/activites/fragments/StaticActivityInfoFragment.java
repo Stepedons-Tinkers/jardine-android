@@ -28,9 +28,9 @@ public class StaticActivityInfoFragment extends Fragment {
 		android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 
 		// Add a fucking fragment
-		EditActivityInfoFragment myFragment = new EditActivityInfoFragment();
-		fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-		fragmentTransaction.commit();
+//		EditActivityInfoFragment myFragment = new EditActivityInfoFragment();
+//		fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//		fragmentTransaction.commit();
 
 		((Button) this.rootView.findViewById(R.id.general_info_button)).getBackground().setColorFilter(
 				new LightingColorFilter(0x0033FF, 0x0066FF));
@@ -54,15 +54,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				EditActivityInfoFragment myFragment = new EditActivityInfoFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				EditActivityInfoFragment myFragment = new EditActivityInfoFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 
@@ -79,15 +79,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityWithCoSMRsFragment myFragment = new AddActivityWithCoSMRsFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				AddActivityWithCoSMRsFragment myFragment = new AddActivityWithCoSMRsFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 
@@ -104,15 +104,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityDIYorSupermarketFragment myFragment = new AddActivityDIYorSupermarketFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				AddActivityDIYorSupermarketFragment myFragment = new AddActivityDIYorSupermarketFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 
@@ -129,15 +129,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityRetailVisitFragment myFragment = new AddActivityRetailVisitFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				AddActivityRetailVisitFragment myFragment = new AddActivityRetailVisitFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 
@@ -154,15 +154,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.trainings_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityProjectVisitFragment myFragment = new AddActivityProjectVisitFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				AddActivityProjectVisitFragment myFragment = new AddActivityProjectVisitFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 
@@ -179,15 +179,15 @@ public class StaticActivityInfoFragment extends Fragment {
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.project_visit_button));
 				StaticActivityInfoFragment.this.clearColorFilter(rootView.findViewById(R.id.general_info_button));
 
-				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
-				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Add a fucking fragment
-				AddActivityTrainingsFragment myFragment = new AddActivityTrainingsFragment();
-				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
-				fragmentTransaction.addToBackStack(null);
-				fragmentTransaction.commit();
+//				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
+//				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction()
+//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+//
+//				// Add a fucking fragment
+//				AddActivityTrainingsFragment myFragment = new AddActivityTrainingsFragment();
+//				fragmentTransaction.replace(R.id.activity_fragment, myFragment);
+//				fragmentTransaction.addToBackStack(null);
+//				fragmentTransaction.commit();
 			}
 		});
 

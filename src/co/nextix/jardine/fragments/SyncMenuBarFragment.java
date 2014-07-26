@@ -1903,12 +1903,12 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((position > 0) && (customer > 0))
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getFirstname(), model.getLastname(),
-								position, model.getMobileno(),
-								model.getBirthday(), model.getEmail(),
-								customer,
-								Integer.parseInt(model.getIsActive()),
-								model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+								position, model.getMobileno(), model
+										.getBirthday(), model.getEmail(),
+								customer, Tools.parseIntWithDefault(
+										model.getIsActive(), 0), model
+										.getCreatedTime(), model
+										.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
@@ -1924,12 +1924,19 @@ public class SyncMenuBarFragment extends Fragment {
 										model.getCustomer()).getId();
 
 							// if ((position > 0) && (customer > 0))
-							table.update(id, model.getRecordId(),
-									model.getCrmNo(), model.getFirstname(),
-									model.getLastname(), position,
-									model.getMobileno(), model.getBirthday(),
-									model.getEmail(), customer,
-									Integer.parseInt(model.getIsActive()),
+							table.update(
+									id,
+									model.getRecordId(),
+									model.getCrmNo(),
+									model.getFirstname(),
+									model.getLastname(),
+									position,
+									model.getMobileno(),
+									model.getBirthday(),
+									model.getEmail(),
+									customer,
+									Tools.parseIntWithDefault(
+											model.getIsActive(), 0),
 									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);

@@ -57,11 +57,11 @@
     <!-- Profile Info View -->
     <string name="profile_info_userinformation">User Information</string>
     <string name="profile_info_username">Username</string>
-    <string name="profile_info_firstname">First Name</string>
-    <string name="profile_info_lastname">Last Name</string>
-    <string name="profile_info_area">Area(s) assigned</string>
+    <string name="profile_info_firstname">First Name:</string>
+    <string name="profile_info_lastname">Last Name:</string>
+    <string name="profile_info_area">Area(s) assigned:</string>
     <string name="profile_info_syncinformation">Syncing Information</string>
-    <string name="profile_info_lastsync">Last sync</string>
+    <string name="profile_info_lastsync">Last sync:</string>
 
     <!-- Profile Notif View -->
     <string name="profile_notif_date">Date</string>
@@ -90,8 +90,8 @@
     <string name="workplan_add_activity">Add Activity</string>
     <string name="workplan_start_time">Start Time</string>
     <string name="workplan_end_time">End Time</string>
-    <string name="workplan_from">From:</string>
-    <string name="workplan_to">To:</string>
+    <string name="workplan_from">FROM</string>
+    <string name="workplan_to">TO</string>
 
     <!-- Workplan View -->
     <string name="workplan_title">Workplan</string>
@@ -117,8 +117,17 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
+    <string name="travel_or_waiting">Travel or Waiting</string>
+    <string name="admin_works">Admin Works</string>
+    <string name="activity_details">Activity Details and Notes</string>
+    <string name="product_supplier">Product Supplier</string>
+    <string name="identify_product_focus">Identify Product Focus</string>
+    <string name="full_brand_activation">Full Brand Activation</string>
+    <string name="activity_photos_attachments">Activity Photos Attachments</string>
     <string name="crm_no">CRM No</string>
     <string name="start_time">Start Time</string>
+    <string name="check_in">Check-in</string>
+    <string name="check_out">Check-out</string>
     <string name="latitude">Latitude</string>
     <string name="objective">Objective</string>
     <string name="highlights">Highlights</string>
@@ -244,8 +253,8 @@
     <string name="edit_jdi_product_stock_check_detail">Edit JDI Product Stock Check</string>
     <string name="other_remarks_jdi_product_stock_check_detail">Other Remarks</string>
     <string name="create">Create</string>
-	<string name="created_by">Created By</string>
-    
+    <string name="created_by">Created By</string>
+
     <!-- JDI Merchandising Check -->
     <string name="crm_no_jdi_merchandising">CRM No</string>
     <string name="activity_jdi_merchandising">Activity</string>
