@@ -98,12 +98,16 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 		Fragment fragment = new CollateralsEventProtocols();
 		switch (tabHost.getCurrentTab()) {
 		case 0:
-			if (CollateralsConstants.FROM_WHERE == 1)
+			if (CollateralsConstants.FROM_WHERE == 0) {
 				fragment = CollateralsGeneralInformation
 						.newInstance(CollateralsConstants.ROW_ID);
-			else
+			} else if (CollateralsConstants.FROM_WHERE == 1) {
 				fragment = CollateralsMMGeneralInformation
 						.newInstance(CollateralsConstants.ROW_ID);
+			} else if (CollateralsConstants.FROM_WHERE == 2) {
+				fragment = CollateralsMMGeneralInformation
+						.newInstance(CollateralsConstants.ROW_ID);
+			}
 			break;
 		case 1:
 			fragment = CollateralsEventFiles

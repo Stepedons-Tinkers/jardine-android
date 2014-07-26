@@ -62,7 +62,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private int rowSize = 6;
 	private int totalPage = 0;
 	private int currentPage = 0;
-	private boolean searchMode = true;
 	private String searchPhrase = "";
 
 	static final int DATE_DIALOG_ID = 999;
@@ -227,8 +226,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			public void onItemSelected(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				WorkplanRecord str = (WorkplanRecord) parent.getAdapter()
-						.getItem(position);
 				setupWorkplanEntry();
 			}
 
@@ -299,6 +296,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		Log.d("Tugs", dateFrom);
 		Log.d("Tugs", dateTo);
 		Log.d("Tugs", wId + "");
+		Log.d("Tugs", searchPhrase + "");
 
 		realRecord.clear();
 		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
@@ -495,7 +493,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				currentPage = 0;
 				addItem(currentPage);
 				searchView.onActionViewCollapsed();
-				searchMode = false;
+				searchPhrase = "";
+				setupWorkplanEntry();
+				
 				return true;
 			}
 		});
@@ -506,7 +506,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				tempRecord.clear();
 
 				searchView.clearFocus();
-				searchMode = true;
 			}
 		});
 		searchView.setOnQueryTextListener(new OnQueryTextListener() {
@@ -522,17 +521,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				currentPage = 0;
 				try {
 
-					searchRecord = new ArrayList<WorkplanEntryRecord>();
-					for (int i = 0; i < realRecord.size(); i++) {
-
-					}
-
-					Log.d("Tugs", spinner.getSelectedItemPosition() + "");
-					if (searchRecord.size() > 0)
-						addItemFromSearch(currentPage);
-					else
-						Toast.makeText(getActivity(), "No records found!",
-								Toast.LENGTH_SHORT).show();
+					searchPhrase = arg0;
+					setupWorkplanEntry();
 
 				} catch (SQLiteException e) {
 

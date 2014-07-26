@@ -4,7 +4,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -18,6 +20,8 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 	private TextView crmNo, date, area, city, actType, createdTime, assignedTo,
 			customer, status, province, otherRemarks, workplan, modifiedTime;
 
+	private Button btnActivity;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -28,6 +32,9 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 	}
 
 	private void initLayout() {
+
+		btnActivity = (Button) view.findViewById(R.id.bWorkPlanActAddActivity);
+
 		crmNo = (TextView) view.findViewById(R.id.tvWorkPlanInfoCrmNo);
 		date = (TextView) view.findViewById(R.id.tvCustomerInfoAddress);
 		area = (TextView) view.findViewById(R.id.tvCustomerInfoLandline);
@@ -45,6 +52,13 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		workplan = (TextView) view.findViewById(R.id.tvWorkPlanInfoWorkPlan);
 		modifiedTime = (TextView) view
 				.findViewById(R.id.tvWorkPlanInfoModifiedTime);
+
+		btnActivity.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				// CALL Activity too add workplan entry
+			}
+		});
 
 		WorkplanEntryRecord record = JardineApp.DB.getWorkplanEntry().getById(
 				WorkPlanConstants.WORKPLAN_ID);
@@ -72,9 +86,9 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		assignedTo.setText(userRecord.getFirstNameName() + " "
 				+ userRecord.getLastname());
 
-//		String sCustomer = JardineApp.DB.getCustomer().getNoById(
-//				record.getCustomer());
-//		customer.setText(sCustomer);
+		// String sCustomer = JardineApp.DB.getCustomer().getNoById(
+		// record.getCustomer());
+		// customer.setText(sCustomer);
 
 		PicklistRecord pic = JardineApp.DB.getWorkplanEntryStatus().getById(
 				record.getStatus());

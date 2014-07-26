@@ -222,12 +222,117 @@ public class WorkplanEntryTable {
 			case 0:
 				MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 						+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
-						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase + "%'";
+						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase + "%' ";
 				break;
 			case 1:
-				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM" + mDatabaseTable + " INNER JOIN "
-				+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON " + mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
-				+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + ".";
+
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM "
+						+ mDatabaseTable + " INNER JOIN "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
+						+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_ROWID + " WHERE "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_WORKPLAN
+						+ " = " + wId + " AND "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_NAME + " LIKE '%"
+						+ phrase + "%'";
+				break;
+			}
+		} else if (!dateFrom.contentEquals("") && dateTo.contentEquals("")
+				&& !phrase.contentEquals("")) {
+
+			// SELECT Workplan_Entry.* FROM Workplan_Entry INNER JOIN
+			// Activity_Type ON Workplan_Entry.activity_type = Activity_Type._id
+			// WHERE Workplan_Entry.workplan = 5 AND Activity_Type.name LIKE
+			// '%retail%'
+			switch (position) {
+			case 0:
+				MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+						+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase
+						+ "%' AND " + KEY_WORKPLANENTRY_DATE + " >= DATE('"
+						+ dateFrom + "')";
+				break;
+			case 1:
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM "
+						+ mDatabaseTable + " INNER JOIN "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
+						+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_ROWID + " WHERE "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_WORKPLAN
+						+ " = " + wId + " AND "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_NAME + " LIKE '%"
+						+ phrase + "%' AND " + mDatabaseTable + "."
+						+ KEY_WORKPLANENTRY_DATE + " >= DATE('" + dateFrom
+						+ "')";
+				break;
+			}
+
+		} else if (dateFrom.contentEquals("") && !dateTo.contentEquals("")
+				&& !phrase.contentEquals("")) {
+
+			// SELECT Workplan_Entry.* FROM Workplan_Entry INNER JOIN
+			// Activity_Type ON Workplan_Entry.activity_type = Activity_Type._id
+			// WHERE Workplan_Entry.workplan = 5 AND Activity_Type.name LIKE
+			// '%retail%'
+			switch (position) {
+			case 0:
+				MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+						+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase
+						+ "%' AND " + KEY_WORKPLANENTRY_DATE + " <= DATE('"
+						+ dateTo + "')";
+				break;
+			case 1:
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM "
+						+ mDatabaseTable + " INNER JOIN "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
+						+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_ROWID + " WHERE "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_WORKPLAN
+						+ " = " + wId + " AND "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_NAME + " LIKE '%"
+						+ phrase + "%' AND " + mDatabaseTable + "."
+						+ KEY_WORKPLANENTRY_DATE + " <= DATE('" + dateTo + "')";
+				break;
+			}
+
+		} else if (!dateFrom.contentEquals("") && !dateTo.contentEquals("")
+				&& !phrase.contentEquals("")) {
+
+			// SELECT Workplan_Entry.* FROM Workplan_Entry INNER JOIN
+			// Activity_Type ON Workplan_Entry.activity_type = Activity_Type._id
+			// WHERE Workplan_Entry.workplan = 5 AND Activity_Type.name LIKE
+			// '%retail%'
+			switch (position) {
+			case 0:
+				MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+						+ KEY_WORKPLANENTRY_WORKPLAN + " = " + wId + " AND "
+						+ KEY_WORKPLANENTRY_CRMNO + " LIKE '%" + phrase
+						+ "%' AND " + KEY_WORKPLANENTRY_DATE + " >= DATE('"
+						+ dateFrom + "') AND " + KEY_WORKPLANENTRY_DATE
+						+ " <= DATE('" + dateTo + "')";
+				break;
+			case 1:
+				MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM "
+						+ mDatabaseTable + " INNER JOIN "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + " ON "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_ACTIVITYTYPE
+						+ " = " + DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_ROWID + " WHERE "
+						+ mDatabaseTable + "." + KEY_WORKPLANENTRY_WORKPLAN
+						+ " = " + wId + " AND "
+						+ DatabaseAdapter.ACTIVITY_TYPE_TABLE + "."
+						+ DatabaseAdapter.KEY_ACTIVITYTYPE_NAME + " LIKE '%"
+						+ phrase + "%' AND " + mDatabaseTable + "."
+						+ KEY_WORKPLANENTRY_DATE + " >= DATE('" + dateFrom
+						+ "') AND " + mDatabaseTable + "."
+						+ KEY_WORKPLANENTRY_DATE + " <= DATE('" + dateTo + "')";
 				break;
 			}
 
