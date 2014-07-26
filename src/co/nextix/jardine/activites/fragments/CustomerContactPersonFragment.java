@@ -154,11 +154,11 @@ public class CustomerContactPersonFragment extends Fragment {
 		int temp = currentPage + 1;
 		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize &&realRecord.size()>count; j++) {
+		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
-		Toast.makeText(getActivity(), count+" "+realRecord.size()+" ", Toast.LENGTH_LONG).show();
+//		Toast.makeText(getActivity(), count+" "+realRecord.size()+" ", Toast.LENGTH_LONG).show();
 		this.setView();
 	}
 
