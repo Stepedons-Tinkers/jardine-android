@@ -192,6 +192,12 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 			}
 			
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.crm_no_txt.setText(null);
+				holder.activity_type_txt.setText(null);
+				holder.competitor_product.setText(null);
+				holder.stock_status.setText(null);
+				holder.loaded_on_shelves.setText(null);
+				holder.assigned_to.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
