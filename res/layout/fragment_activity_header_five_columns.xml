@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableRow xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/table_row_item"
+    android:layout_width="fill_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge"
+    android:background="@android:color/black" >
+
+    <LinearLayout
+        android:id="@+id/table_row_clickable"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_weight="5" >
+
+        <TextView
+            android:id="@+id/column_one"
+            style="@style/ActivityHeaderTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="column one" />
+
+        <TextView
+            android:id="@+id/column_two"
+            style="@style/ActivityHeaderTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="column_two" />
+
+        <TextView
+            android:id="@+id/column_three"
+            style="@style/ActivityHeaderTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="column_three" />
+
+        <TextView
+            android:id="@+id/column_four"
+            style="@style/ActivityHeaderTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="column_four" />
+
+        <TextView
+            android:id="@+id/column_five"
+            style="@style/ActivityHeaderTab"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:scrollHorizontally="true"
+            android:singleLine="true"
+            android:text="column_five" />
+
+    </LinearLayout>
+
+</TableRow>
