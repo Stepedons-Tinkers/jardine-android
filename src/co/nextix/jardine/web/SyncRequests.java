@@ -52,8 +52,12 @@ import co.nextix.jardine.web.requesters.sync.SmarmatRequester;
 import co.nextix.jardine.web.requesters.sync.SmarmatRequester.MarketMatResult;
 import co.nextix.jardine.web.requesters.sync.SproductRequester;
 import co.nextix.jardine.web.requesters.sync.SproductRequester.ProdResult;
+import co.nextix.jardine.web.requesters.sync.SproductSupplierRequester;
+import co.nextix.jardine.web.requesters.sync.SproductSupplierRequester.ProductSupplierResult;
 import co.nextix.jardine.web.requesters.sync.SprojreqRequester;
 import co.nextix.jardine.web.requesters.sync.SprojreqRequester.ProjReqResult;
+import co.nextix.jardine.web.requesters.sync.SsalesProtocolRequester;
+import co.nextix.jardine.web.requesters.sync.SsalesProtocolRequester.SalesProtocolResult;
 import co.nextix.jardine.web.requesters.sync.SsmrRequester;
 import co.nextix.jardine.web.requesters.sync.SsmrRequester.SmrResult;
 import co.nextix.jardine.web.requesters.sync.SsmrentryRequester;
@@ -1115,6 +1119,108 @@ public class SyncRequests {
 				ScalendarRequester requester = gson.fromJson(getReader(),
 						typeOfT);
 				result = (CalendarResult) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public ProductSupplierResult ProductSuppliers(String lastSync) {
+
+		ProductSupplierResult result = null;
+
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.ProductSupplier + "&sessionName="
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
+				+ "&operation=" + operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<SproductSupplierRequester>() {
+				}.getType();
+				SproductSupplierRequester requester = gson.fromJson(
+						getReader(), typeOfT);
+				result = (ProductSupplierResult) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return result;
+	}
+
+	public SalesProtocolResult SalesProtocol(String lastSync) {
+
+		SalesProtocolResult result = null;
+
+		String time = "";
+		try {
+			time = URLEncoder.encode(lastSync, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+
+		String urlString = JardineApp.WEB_URL + "?elementType="
+				+ Modules.SalesProtocols + "&sessionName="
+				+ JardineApp.SESSION_NAME + "&modifiedTime=" + time
+				+ "&operation=" + operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<SsalesProtocolRequester>() {
+				}.getType();
+				SsalesProtocolRequester requester = gson.fromJson(getReader(),
+						typeOfT);
+				result = (SalesProtocolResult) requester.getResult();
 
 			} else {
 				// getResponse();

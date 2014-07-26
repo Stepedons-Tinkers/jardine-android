@@ -46,14 +46,15 @@
                     <LinearLayout
                         android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="5" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="4dp"
+                            android:layout_marginLeft="2dp"
                             android:layout_marginRight="2dp"
                             android:layout_marginTop="4dp"
                             android:layout_weight="1"
@@ -130,7 +131,7 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/assigned_to_jdi"
+                            android:text="@string/created_by"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </LinearLayout>
