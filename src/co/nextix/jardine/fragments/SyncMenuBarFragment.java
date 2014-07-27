@@ -886,6 +886,13 @@ public class SyncMenuBarFragment extends Fragment {
 							if (!table.isExisting(p))
 								table.insert(p);
 						}
+					} else if (module.equals(Modules.customer_record_status)) {
+						PCustRecordStatusTable table = JardineApp.DB
+								.getCustomerRecordStatus();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insert(p);
+						}
 					} else if (module.equals(Modules.eventprotocol_eventtype)) {
 						PEventTypeTable table = JardineApp.DB
 								.getEventProtocolType();

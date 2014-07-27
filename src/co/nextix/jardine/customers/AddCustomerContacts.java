@@ -79,7 +79,7 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
 
-		formattedDate = year + "-" + (month + 1) + "-" + day;
+		formattedDate = year + "-" + (checkDigit(month) + 1) + "-" + checkDigit(day);
 
 		cancel = (Button) findViewById(R.id.bCustomerContactAddCancel);
 		save = (Button) findViewById(R.id.bCustomerContactAddCreate);
@@ -157,12 +157,17 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 			// txtActualDate.setText(new StringBuilder().append(month + 1)
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
-			formattedDate = year + "-" + (month + 1) + "-" + day;
+			formattedDate = year + "-" + (checkDigit(month) + 1) + "-" + checkDigit(day);
 			field6a.setText(formattedDate);
 
 		}
 
 	};
+	
+	public String checkDigit(int number)
+    {
+        return number<=9?"0"+number:String.valueOf(number);
+    }
 
 	private class InsertTask extends AsyncTask<Void, Void, Boolean> {
 

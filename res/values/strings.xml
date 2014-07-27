@@ -283,7 +283,7 @@
     <string name="competitor_product">Competitor Product</string>
     <string name="stock_status_competitor_product">Stock Status</string>
     <string name="loaded_on_shelves_competitor_product">Loaded On Shelves</string>
-    <string name="assigned_to_competitor_product">Assigned To</string>
+    <string name="assigned_to_competitor_product">Created By</string>
     <string name="action_competitor_product_stock_check">Action</string>
     <string name="add_competitor_product_stock_check">Add Competitor Product Stock Check</string>
     <string name="all_caps_add_competitor_product_stock_check">ADD COMPETITOR PRODUCT STOCK CHECK</string>
@@ -324,7 +324,7 @@
     <!-- Project Requirements Detail -->
     <string name="project_requirement_details">PROJECT REQUIREMENT DETAILS</string>
     <string name="square_meters_proj_requirements">Square Meters</string>
-    <string name="products_used_proj_requirements">Products Used</string>
+    <string name="product_brand_proj_requirements">Product Brand</string>
     <string name="other_details_proj_requirements">Other Details</string>
     <string name="created_time_proj_requirements">Created Time</string>
     <string name="modified_time_proj_requirements">Modified Time</string>
