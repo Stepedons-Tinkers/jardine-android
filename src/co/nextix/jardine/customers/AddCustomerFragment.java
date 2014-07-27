@@ -162,18 +162,6 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 
 		Calendar c = Calendar.getInstance();
 
-		JardineApp.DB.getCustomer().insert("", "", field2.getText().toString(),
-				field4.getText().toString(), field5.getText().toString(),
-				field12.getText().toString(),
-				((PicklistRecord) field6.getSelectedItem()).getId(),
-				field3.getText().toString(),
-				((PicklistRecord) field7.getSelectedItem()).getId(),
-				((BusinessUnitRecord) field8.getSelectedItem()).getId(),
-				((PicklistRecord) field9.getSelectedItem()).getId(),
-				((ProvinceRecord) field10.getSelectedItem()).getId(),
-				((CityTownRecord) field11.getSelectedItem()).getId(), 1,
-				c.getTime().toString(), c.getTime().toString(), userId);
-		
 		String no = "";
 		String crmNo = "";
 		String customerName = field2.getText().toString();
@@ -182,19 +170,25 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		String landline = field5.getText().toString();
 		long customerSize = ((PicklistRecord) field6.getSelectedItem()).getId();
 		long customerType = ((PicklistRecord) field7.getSelectedItem()).getId();
-		long  businessUnit = ((BusinessUnitRecord) field8.getSelectedItem()).getId();
+		long businessUnit = ((BusinessUnitRecord) field8.getSelectedItem())
+				.getId();
 		long area = ((PicklistRecord) field9.getSelectedItem()).getId();
 		long province = ((ProvinceRecord) field10.getSelectedItem()).getId();
 		long cityTown = ((CityTownRecord) field11.getSelectedItem()).getId();
 		String fax = field12.getText().toString();
 		long created_by = userId;
-		long customerRecordStatus = ((PicklistRecord) field14.getSelectedItem()).getId();
+		long customerRecordStatus = ((PicklistRecord) field14.getSelectedItem())
+				.getId();
 		int isActive = 1;
-		
+
 		String createdTime = "";
 		String modifiedTime = "";
-		
-		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName, landline, fax, customerSize, streetAddress, customerRecordStatus, customerType, businessUnit, area, province, cityTown, isActive, createdTime, modifiedTime, created_by);
+
+		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName,
+				landline, fax, customerSize, streetAddress,
+				customerRecordStatus, customerType, businessUnit, area,
+				province, cityTown, isActive, createdTime, modifiedTime,
+				created_by);
 	}
 
 	@Override
