@@ -36,6 +36,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -145,13 +146,13 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
-		
-		if(fromOther){
+
+		if (fromOther) {
 			saveORdone = (CircularProgressButton) view
 					.findViewById(R.id.btnWithText1);
 			saveORdone.setVisibility(View.VISIBLE);
 			saveORdone.setOnClickListener(this);
-			
+
 			cancel.setVisibility(View.GONE);
 			save.setVisibility(View.GONE);
 		}
@@ -361,7 +362,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 					});
 
 			widthAnimation.start();
-			
+
 			String firstName = field2.getText().toString();
 			String lastName = field3.getText().toString();
 			long position = ((PicklistRecord) field4.getSelectedItem()).getId();
@@ -372,20 +373,23 @@ public class AddCustomerContactsFragment extends Fragment implements
 			/** Checking of required fields **/
 			SharedPreferences pref = getActivity().getApplicationContext()
 					.getSharedPreferences("ActivityInfo", 0);
-			
-			if (firstName != null && !firstName.isEmpty()
-					&& lastName != null && !lastName.isEmpty()
-					&& position != 0
-					&& mobileNo != null && !mobileNo.isEmpty()
-					&& birthday != null && !birthday.isEmpty()
-					&& emailAddress != null && !emailAddress.isEmpty()) {
 
-				if(AddActivityFragment.ACTIVITY_TYPE == 41){
+			if (firstName != null && !firstName.isEmpty() && lastName != null
+					&& !lastName.isEmpty() && position != 0 && mobileNo != null
+					&& !mobileNo.isEmpty() && birthday != null
+					&& !birthday.isEmpty() && emailAddress != null
+					&& !emailAddress.isEmpty()) {
+
+				if (AddActivityFragment.ACTIVITY_TYPE == 41) {
 					fragmentForTransition = new AddActivityFullBrandActivationFragment();
-				}else{
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 4){
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if(AddActivityFragment.ACTIVITY_TYPE == 100){
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else {
 					fragmentForTransition = new AddJDIProductStockFragment();
 				}
-				
+
 				fragmentForTransition.setArguments(bundle);
 
 				flag = true;

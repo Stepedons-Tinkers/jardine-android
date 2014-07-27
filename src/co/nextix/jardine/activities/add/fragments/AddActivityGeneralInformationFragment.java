@@ -188,7 +188,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 4;
 
-				} else if (activityTypeName.equals("KI Visits - On-site")) { // no layout
+				} else if (activityTypeName.equals("KI Visits - On-site")) {
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -202,7 +202,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityKiVisits();
 
-				} else if (activityTypeName.contains("Major Training")) { // no layout
+				} else if (activityTypeName.contains("Major Training")) {
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -218,7 +218,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityMajorTraining();
 
-				} else if (activityTypeName.contains("End User Activity")) { // no layout
+				} else if (activityTypeName.contains("End User Activity")) {
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -266,7 +266,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityAdminWorksFragment();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 100;
 				}
 			}
 
