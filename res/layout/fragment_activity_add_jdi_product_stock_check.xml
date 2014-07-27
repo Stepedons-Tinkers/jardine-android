@@ -1,42 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="54dp"
-        android:background="#fff"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/back_to_jdi_product_stock_check"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginTop="-8dp"
-            android:layout_weight="1"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/back_to_activity"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/jdi_stock_check"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="-9dp"
-            android:layout_marginTop="-8dp"
-            android:layout_weight="3.74"
-            android:clickable="false"
-            android:focusable="false"
-            android:inputType="text|textCapCharacters"
-            android:paddingLeft="4dp"
-            android:paddingRight="4dp"
-            android:text="@string/all_caps_add_jdi_product_stock_check"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-    </LinearLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -82,27 +49,33 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" >
 
-                    <Button
-                        android:id="@+id/cancel"
-                        android:layout_width="154dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_toLeftOf="@+id/edit_activity"
-                        android:onClick="onCancelCreate"
-                        android:text="@string/cancel" />
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText2"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_margin="4dp"
+                        android:layout_toLeftOf="@+id/btnWithText1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:textComplete="@string/complete_cancel"
+                        app:textError="@string/error"
+                        app:textIdle="@string/cancel" />
 
-                    <Button
-                        android:id="@+id/create_jdi_product_stock_check"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText1"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="right"
-                        android:onClick="createJDIProductStockCheck"
-                        android:text="@string/create" />
+                        android:layout_margin="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:textComplete="@string/complete"
+                        app:textError="@string/error"
+                        app:textIdle="@string/done" />
                 </RelativeLayout>
             </TableRow>
 
@@ -285,7 +258,7 @@
                     android:background="#dcdcdc" >
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/stock_status"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
@@ -309,45 +282,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView04"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#cac9c9"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/jdi_quantity"
-                        android:textColor="#000000"
-                        android:textStyle="bold" />
-                </HorizontalScrollView>
-
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="#cac9c9" >
-
-                    <EditText
-                        android:id="@+id/objective"
-                        android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:background="#cac9c9"
-                        android:ems="10"
-                        android:hint="di importante"
-                        android:inputType="textMultiLine|textImeMultiLine|number"
-                        android:maxLines="100"
-                        android:scrollHorizontally="true"
-                        android:textColor="#000000" />
-                </HorizontalScrollView>
-
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="#cac9c9" >
-
-                    <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
@@ -364,7 +298,6 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
                     android:background="#cac9c9" >
 
@@ -375,21 +308,12 @@
                         android:background="#cac9c9"
                         android:scrollHorizontally="true" />
                 </HorizontalScrollView>
-            </TableRow>
-
-            <TableRow
-                android:id="@+id/tableRow1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#0000b6"
-                android:orientation="horizontal" >
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#cac9c9" >
 
                     <TextView
                         android:id="@+id/TextView04"
@@ -408,11 +332,12 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/customer_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"
@@ -421,6 +346,54 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="related Supplier record"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:orientation="horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/created_by"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/created_by"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="logged-in user"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
 
@@ -440,7 +413,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_jdi"
+                        android:text="@string/other_type_remarks"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -453,12 +426,12 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/spinner1"
-                        android:layout_width="0dp"
+                    <EditText
+                        android:id="@+id/other_type_remarks"
+                        android:layout_width="match_parent"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+                        android:hint="remarks" />
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>
