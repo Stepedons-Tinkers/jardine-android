@@ -57,10 +57,12 @@ public class PActProjCategoryTable {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
 				do {
-					long id = c.getLong(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_ROWID));
-					String name = c.getString(c
-							.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_NAME));
+					long id = c
+							.getLong(c
+									.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_ROWID));
+					String name = c
+							.getString(c
+									.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_NAME));
 
 					list.add(new PicklistRecord(id, name));
 				} while (c.moveToNext());
@@ -108,8 +110,9 @@ public class PActProjCategoryTable {
 		// Arrays.toString()
 		ids = ids.replace("[", "").replace("]", "");
 
-		int rowsDeleted = mDb.delete(mDatabaseTable,
-				KEY_ACTIVITY_PROJECT_CATEGORY_ROWID + " IN (" + ids + ")", null);
+		int rowsDeleted = mDb
+				.delete(mDatabaseTable, KEY_ACTIVITY_PROJECT_CATEGORY_ROWID
+						+ " IN (" + ids + ")", null);
 
 		// if (rowsDeleted > 0) {
 		//
@@ -170,6 +173,28 @@ public class PActProjCategoryTable {
 		return record;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_PROJECT_CATEGORY_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_PROJECT_CATEGORY_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 
@@ -188,8 +213,8 @@ public class PActProjCategoryTable {
 	}
 
 	public boolean delete(long rowId) {
-		if (mDb.delete(mDatabaseTable, KEY_ACTIVITY_PROJECT_CATEGORY_ROWID + "="
-				+ rowId, null) > 0) {
+		if (mDb.delete(mDatabaseTable, KEY_ACTIVITY_PROJECT_CATEGORY_ROWID
+				+ "=" + rowId, null) > 0) {
 			// getRecords().deleteById(rowId);
 			return true;
 		} else {
@@ -200,8 +225,8 @@ public class PActProjCategoryTable {
 	public boolean update(long id, String name) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_PROJECT_CATEGORY_NAME, name);
-		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_PROJECT_CATEGORY_ROWID
-				+ "=" + id, null) > 0) {
+		if (mDb.update(mDatabaseTable, args,
+				KEY_ACTIVITY_PROJECT_CATEGORY_ROWID + "=" + id, null) > 0) {
 			// getRecords().update(id, no, category, isActive, user);
 			return true;
 		} else {

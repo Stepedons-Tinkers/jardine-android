@@ -1,5 +1,18 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_DESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_LASTUPDATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_PROTOCOLTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SALESPROTOCOL_TAGS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -14,22 +27,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.SalesProtocolRecord;
 
 public class SalesProtocolTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_SALESPROTOCOL_ROWID = "_id";
-	private final String KEY_SALESPROTOCOL_NO = "no";
-	private final String KEY_SALESPROTOCOL_CRMNO = "crm_no";
-	private final String KEY_SALESPROTOCOL_BUSINESSUNIT = "business_unit";
-	private final String KEY_SALESPROTOCOL_DESCRIPTION = "description";
-	private final String KEY_SALESPROTOCOL_LASTUPDATE = "last_update";
-	private final String KEY_SALESPROTOCOL_TAGS = "tags";
-	private final String KEY_SALESPROTOCOL_PROTOCOLTYPE = "protocol_type";
-	private final String KEY_SALESPROTOCOL_ISACTIVE = "is_active";
-	private final String KEY_SALESPROTOCOL_CREATEDBY = "created_by";
-	private final String KEY_SALESPROTOCOL_CREATEDTIME = "created_time";
-	private final String KEY_SALESPROTOCOL_MODIFIEDTIME = "modified_time";
 
 	// ===========================================================
 	// Private fields
@@ -50,6 +47,7 @@ public class SalesProtocolTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

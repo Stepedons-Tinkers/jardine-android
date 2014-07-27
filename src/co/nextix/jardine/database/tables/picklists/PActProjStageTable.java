@@ -170,6 +170,28 @@ public class PActProjStageTable {
 		return record;
 	}
 
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_PROJECT_STAGE_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_PROJECT_STAGE_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getLong(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECT_STAGE_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 

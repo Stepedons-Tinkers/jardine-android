@@ -152,6 +152,9 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 					Toast.makeText(getActivity(),
 							"Successfully delete customer", Toast.LENGTH_LONG)
 							.show();
+					CustomerContactList frag = (CustomerContactList) getTargetFragment();
+					frag.initLayout();
+					getActivity().onBackPressed();
 				} else {
 					Toast.makeText(getActivity(), "Failed to delete!",
 							Toast.LENGTH_LONG).show();
