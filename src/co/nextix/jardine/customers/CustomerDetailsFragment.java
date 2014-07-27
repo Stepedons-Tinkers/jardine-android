@@ -88,12 +88,24 @@ public class CustomerDetailsFragment extends Fragment implements
 			fragment = CustomerGeneralInformation.newInstance(customerId);
 			break;
 		case 1:
-			fragment = CustomerContactList
-					.newInstance(customerId);
+			fragment = CustomerContactList.newInstance(customerId);
 			break;
 		}
 
 		getChildFragmentManager().beginTransaction()
 				.replace(R.id.flCollateraslTabData, fragment).commit();
 	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		getTargetFragment().setMenuVisibility(true);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		getTargetFragment().setMenuVisibility(false);
+	}
+
 }

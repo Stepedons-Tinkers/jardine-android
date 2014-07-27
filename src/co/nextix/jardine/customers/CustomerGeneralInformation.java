@@ -44,7 +44,7 @@ public class CustomerGeneralInformation extends Fragment {
 		customerId = getArguments().getLong(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 
-		view = inflater.inflate(R.layout.customer_details, null);
+		view = inflater.inflate(R.layout.customer_geninfo, null);
 		initLayout();
 		return view;
 	}

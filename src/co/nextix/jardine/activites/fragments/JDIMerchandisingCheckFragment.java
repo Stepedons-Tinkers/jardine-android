@@ -258,6 +258,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //		editor.commit(); 
 							
 		Fragment fragment = new JDIMerchandisingCheckDetailFragment();
+		bundle.putInt("merchandising_id", (int)tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
