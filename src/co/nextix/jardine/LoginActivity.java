@@ -29,6 +29,7 @@ public class LoginActivity extends Activity {
 	EditText editUsername, editPassword;
 	Spinner spinnArea;
 	int areaChoice = 0;
+	
 	// CENTRAL LUZON AREA
 	// NORTHEAST LUZON AREA
 	// NORTHWEST LUZON AREA
