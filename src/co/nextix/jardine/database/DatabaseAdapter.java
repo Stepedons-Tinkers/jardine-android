@@ -490,8 +490,8 @@ public class DatabaseAdapter {
 			+ " text, " + KEY_ACTIVITY_HIGHLIGHTS + " text, "
 			+ KEY_ACTIVITY_NEXTSTEPS + " text, " + KEY_ACTIVITY_FOLLOWUP
 			+ " text, " + KEY_ACTIVITY_PROJECTNAME + " text, "
-			+ KEY_ACTIVITY_PROJECTSTAGE + " text, "
-			+ KEY_ACTIVITY_PROJECTCATEGORY + " text, " + KEY_ACTIVITY_VENUE
+			+ KEY_ACTIVITY_PROJECTSTAGE + " real, "
+			+ KEY_ACTIVITY_PROJECTCATEGORY + " real, " + KEY_ACTIVITY_VENUE
 			+ " text, " + KEY_ACTIVITY_NOOFATTENDEES + " integer, "
 			+ KEY_ACTIVITY_ENDUSERACTIVITYTYPES + " text, foreign key("
 			+ KEY_ACTIVITY_ACTIVITYTYPE + ") references " + ACTIVITY_TYPE_TABLE

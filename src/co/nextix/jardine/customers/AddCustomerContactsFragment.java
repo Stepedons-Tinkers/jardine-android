@@ -14,8 +14,10 @@ import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,7 +36,8 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AddCustomerContactsFragment extends Fragment implements OnClickListener {
+public class AddCustomerContactsFragment extends Fragment implements
+		OnClickListener {
 
 	private View view;
 	private long customerId;
@@ -60,23 +63,44 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String id = StoreAccount.restore(JardineApp.context).getString(Account.ROWID);
-		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
+		String id = StoreAccount.restore(JardineApp.context).getString(
+				Account.ROWID);
+		userName = StoreAccount.restore(JardineApp.context).getString(
+				Account.USERNAME);
 		userId = Long.parseLong(id);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.customer_contact_add_new, container, false);
+		view = inflater.inflate(R.layout.customer_contact_add_new, container,
+				false);
 
 		initLayout();
 		return view;
 	}
 
+	private boolean checker() {
+		boolean flag = false;
+
+		if (!field2.getText().toString().contentEquals("")
+				&& !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0
+				&& !field5.getText().toString().contentEquals("")) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+
+		return flag;
+	}
+
 	private void initLayout() {
-		customerId = getArguments().getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		customerName = getArguments().getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
+		customerId = getArguments().getLong(
+				CustomerConstants.KEY_CUSTOMER_LONG_ID);
+		customerName = getArguments().getString(
+				CustomerConstants.KEY_CUSTOMER_USERNAME);
 		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
@@ -85,7 +109,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
 
-		formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
+		formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
+				+ checkDigit(day);
 
 		cancel = (Button) view.findViewById(R.id.bCustomerContactAddCancel);
 		save = (Button) view.findViewById(R.id.bCustomerContactAddCreate);
@@ -105,7 +130,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field5 = (EditText) view.findViewById(R.id.etCustomerContactAddField5);
 
 		field6a = (TextView) view.findViewById(R.id.tvCustomerContactAddField6);
-		field6b = (ImageButton) view.findViewById(R.id.ibCustomerContactAddField6);
+		field6b = (ImageButton) view
+				.findViewById(R.id.ibCustomerContactAddField6);
 
 		field7 = (EditText) view.findViewById(R.id.etCustomerContactAddField7);
 
@@ -113,11 +139,13 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		field9 = (TextView) view.findViewById(R.id.tvCustomerContactAddField9);
 		// List to be populated in spinner adapter
-		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition().getAllRecords();
-		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.customer_spinner_row, posi);
+		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
+				.getAllRecords();
+		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(
+				JardineApp.context, R.layout.customer_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
-		field6a.setText(formattedDate);
+		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
 		UserTable u = DatabaseAdapter.getInstance().getUser();
@@ -137,10 +165,30 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 			getActivity().onBackPressed();
 			break;
 		case R.id.bCustomerContactAddCreate:
-			new InsertTask().execute();
+			if (checker()) {
+				new InsertTask().execute();
+			} else {
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
+
 			break;
 		case R.id.ibCustomerContactAddField6:
-			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener, year,
+			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListener, year,
 					month, day);
 			pickDialog.show();
 			break;
@@ -150,7 +198,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
 
 			year = selectedYear;
 			month = selectedMonth;
@@ -160,8 +209,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 			// txtActualDate.setText(new StringBuilder().append(month + 1)
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
-			formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
-			field6a.setText(formattedDate);
+
+			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
+					+ checkDigit(day);
+			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
 
@@ -216,9 +267,12 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		Calendar c = Calendar.getInstance();
 
-		JardineApp.DB.getCustomerContact().insert("", "", field2.getText().toString(), field3.getText().toString(),
-				((PicklistRecord) field4.getSelectedItem()).getId(), field5.getText().toString(), field6a.getText().toString(),
-				field7.getText().toString(), customerId, 1, c.getTime().toString(), c.getTime().toString(), userId);
+		JardineApp.DB.getCustomerContact().insert("", "",
+				field2.getText().toString(), field3.getText().toString(),
+				((PicklistRecord) field4.getSelectedItem()).getId(),
+				field5.getText().toString(), field6a.getText().toString(),
+				field7.getText().toString(), customerId, 1,
+				c.getTime().toString(), c.getTime().toString(), userId);
 
 		String no = "";
 		String crmNo = "";
@@ -226,7 +280,7 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		String lastName = field3.getText().toString();
 		long position = ((PicklistRecord) field4.getSelectedItem()).getId();
 		String mobileNo = field5.getText().toString();
-		String birthday = field6a.getText().toString();
+		String birthday = formattedDate;
 		String emailAddress = field7.getText().toString();
 		long customer = customerId;
 		int isActive = 1;
@@ -235,7 +289,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
 		long user = userId;
 
-		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName, lastName, position, mobileNo, birthday, emailAddress, customer,
+		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName,
+				lastName, position, mobileNo, birthday, emailAddress, customer,
 				isActive, createdTime, modifiedTime, user);
 	}
 
