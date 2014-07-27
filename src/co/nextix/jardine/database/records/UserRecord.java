@@ -162,6 +162,6 @@ public class UserRecord {
 	@Override
 	public String toString() {
 		// TODO Auto-generated method stub
-		return username;
+		return first_name + " " + last_name ;
 	}
 }
