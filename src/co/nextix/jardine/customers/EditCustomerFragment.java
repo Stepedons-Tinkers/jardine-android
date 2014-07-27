@@ -300,7 +300,7 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 				.getId();
 		int isActive = 1;
 
-		String daysUnchanged = 0 + "";
+		int daysUnchanged = 0;
 
 		String createdTime = record.getCreatedTime();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
