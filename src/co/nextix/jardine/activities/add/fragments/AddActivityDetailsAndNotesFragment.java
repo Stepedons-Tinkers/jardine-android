@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,12 +27,33 @@ import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import com.dd.CircularProgressButton;
 
 public class AddActivityDetailsAndNotesFragment extends Fragment {
+	
+	private FragmentTransaction ft;
+	
+	private Fragment fragmentForTransition;
+	
 	private boolean trapping = false;
+	
+	private Bundle bundle;
+	
+	private int frag_layout_id;
+	
+	private Fragment fragment = null;
+
+	private AddActivityFragment addActFrag;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.add_activity_activity_details_and_notes, container, false);
 
+		bundle = getArguments();
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
+		addActFrag = (AddActivityFragment) fragment;
+		addActFrag.pager.setCurrentItem(4);
+		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -75,6 +97,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					if (objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty() && highlights != null
 							&& !highlights.isEmpty() && nextSteps != null && !nextSteps.isEmpty()) {
 
+						fragmentForTransition = new AddActivityCustomerContactFragment();
+						fragmentForTransition.setArguments(bundle);
+						
 						trapping = true;
 						Editor editor = pref.edit();
 						editor.putLong("customer", customer);
@@ -111,6 +136,13 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 				} else {
 
 					((CircularProgressButton) v).setProgress(0);
+					
+					if(AddActivityGeneralInformationFragment.ActivityType == 1){
+						ft = getActivity().getSupportFragmentManager().beginTransaction();
+						ft.replace(frag_layout_id, fragmentForTransition);
+						ft.addToBackStack(null);
+						ft.commit();
+					}
 					/*addActFrag.pager.setCurrentItem(tabID);
 
 					ft = getActivity().getSupportFragmentManager().beginTransaction();

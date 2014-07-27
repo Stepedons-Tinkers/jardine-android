@@ -67,6 +67,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int frag_layout_id;
 	private int tabID;
 	
+	public static int ActivityType = 0;
+	
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
@@ -186,7 +188,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityRetailVisitFragment();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
+					fragmentForTransition.setArguments(bundle);
 					tabID = 4;
 
 				} else if (activityTypeName.equals("KI Visits - On-site")) {
@@ -373,7 +376,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				} else {
 
 					saveBtn.setProgress(0);
-					addActFrag.pager.setCurrentItem(tabID);
 					
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
