@@ -1,27 +1,24 @@
 package co.nextix.jardine.activities.add.fragments;
 
 import android.animation.ValueAnimator;
-import android.app.DatePickerDialog;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.dd.CircularProgressButton;
 
@@ -33,6 +30,21 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
+		
+//		view.setFocusableInTouchMode(true);
+//        view.requestFocus();
+//        view.setOnKeyListener(new View.OnKeyListener() {
+//
+//			@Override
+//			public boolean onKey(View v, int keyCode, KeyEvent event) {
+//
+//				if (keyCode == KeyEvent.KEYCODE_BACK) {
+//					getActivity().getSupportFragmentManager().popBackStack("travel", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//                }
+//				
+//				return false;
+//			}
+//        });
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
