@@ -157,9 +157,14 @@ public class DashBoardActivity extends FragmentActivity {
 
 		this.mDrawerLayout.setDrawerListener(mDrawerToggle);
 
+		Intent i = new Intent();
+		boolean justLogged = i.getBooleanExtra("JUSTLOGGED", false);
 		if (savedInstanceState == null) {
 			// on first time display view for first nav item
-			displayView(0);
+			if (justLogged)
+				displayView(2);
+			else
+				displayView(0);
 		}
 
 	}
@@ -461,8 +466,8 @@ public class DashBoardActivity extends FragmentActivity {
 		protected Boolean doInBackground(Void... arg0) {
 
 			StoreAccount.clear(DashBoardActivity.this);
-			JardineApp.DB.close();
-			deleteDatabase();
+			DatabaseAdapter.getInstance().clearDatabase();
+			// deleteDatabase();
 			// JardineApp.DB.close();
 			JardineApp.SESSION_NAME = null;
 			return true;
