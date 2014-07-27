@@ -1,8 +1,5 @@
 package co.nextix.jardine.activites.fragments.detail;
 
-import android.content.SharedPreferences;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,10 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.backup.MoreActivityInformationFragment;
-import co.nextix.jardine.activites.fragments.backup.StaticActivityInfoFragment;
-import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
-import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -27,11 +20,10 @@ import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
-import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 
 public class JDIMerchandisingCheckDetailFragment extends Fragment {
 
-	private int merchandising_id;
+	private long merchandising_id;
 	private Bundle bundle;
 	private JDImerchandisingCheckRecord record;
 
@@ -41,7 +33,7 @@ public class JDIMerchandisingCheckDetailFragment extends Fragment {
 		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_jdi_merchandising_check, container, false);
 		bundle = getArguments();
 		if(bundle != null){
-			merchandising_id = bundle.getInt("merchandising_id", 0);
+			merchandising_id = bundle.getLong("merchandising_id", 0);
 		}
 		
 		JDImerchandisingCheckTable merchandising = JardineApp.DB.getJDImerchandisingCheck();
