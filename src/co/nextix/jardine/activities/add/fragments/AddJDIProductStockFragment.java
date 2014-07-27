@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,12 +23,24 @@ import com.dd.CircularProgressButton;
 
 public class AddJDIProductStockFragment extends Fragment {
 
+	private FragmentTransaction ft;
+	private Fragment fragmentForTransition;
 	private boolean flag = false;
+	
+	private Bundle bundle;
+	
+	private int frag_layout_id = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -62,6 +75,10 @@ public class AddJDIProductStockFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 					if (otherTypeRemarks != null && !otherTypeRemarks.isEmpty()) {
+						
+						fragmentForTransition = new AddActivityProductSupplierFragment();
+						fragmentForTransition.setArguments(bundle);
+						
 						Editor editor = pref.edit();
 						editor.putString("other_type_remarks", otherTypeRemarks);
 						editor.putLong("stock_status", stockStatus);
@@ -82,8 +99,12 @@ public class AddJDIProductStockFragment extends Fragment {
 						}, 1500);
 					}
 				} else {
-
 					((CircularProgressButton) v).setProgress(0);
+					
+					ft = getActivity().getSupportFragmentManager().beginTransaction();
+					ft.replace(frag_layout_id, fragmentForTransition);
+					ft.addToBackStack(null);
+					ft.commit();
 				}
 			}
 		});

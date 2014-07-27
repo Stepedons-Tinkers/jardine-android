@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.R;
+import co.nextix.jardine.customers.AddCustomerContactsFragment;
 import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -42,6 +43,10 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 	private AddActivityFragment addActFrag;
 
+	public AddActivityDetailsAndNotesFragment(Fragment frag) {
+		this.fragment = frag;
+	}
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.add_activity_activity_details_and_notes, container, false);
@@ -52,7 +57,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		}
 		
 		addActFrag = (AddActivityFragment) fragment;
-		addActFrag.pager.setCurrentItem(4);
+//		addActFrag.pager.setCurrentItem(4);
 		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -77,13 +82,13 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long customer = ((CustomerRecord) ((Spinner) view.findViewById(R.id.customer)).getSelectedItem()).getId();
-					long area = ((PicklistRecord) ((Spinner) view.findViewById(R.id.area)).getSelectedItem()).getId();
-					long province = ((ProvinceRecord) ((Spinner) view.findViewById(R.id.province)).getSelectedItem()).getId();
-					long cityTown = ((CityTownRecord) ((Spinner) view.findViewById(R.id.city_town)).getSelectedItem()).getId();
+//					long customer = ((CustomerRecord) ((Spinner) view.findViewById(R.id.customer)).getSelectedItem()).getId();
+//					long area = ((PicklistRecord) ((Spinner) view.findViewById(R.id.area)).getSelectedItem()).getId();
+//					long province = ((ProvinceRecord) ((Spinner) view.findViewById(R.id.province)).getSelectedItem()).getId();
+//					long cityTown = ((CityTownRecord) ((Spinner) view.findViewById(R.id.city_town)).getSelectedItem()).getId();
 					String objective = ((EditText) view.findViewById(R.id.objective)).getText().toString();
-					long workplanEntry = ((WorkplanEntryRecord) ((Spinner) view.findViewById(R.id.workplan_entry)).getSelectedItem())
-							.getId();
+//					long workplanEntry = ((WorkplanEntryRecord) ((Spinner) view.findViewById(R.id.workplan_entry)).getSelectedItem())
+//							.getId();
 					int firstTimeVisit = ((CheckBox) view.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0;
 					int plannedTimeVisit = ((CheckBox) view.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0;
 
@@ -97,16 +102,16 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					if (objective != null && !objective.isEmpty() && notes != null && !notes.isEmpty() && highlights != null
 							&& !highlights.isEmpty() && nextSteps != null && !nextSteps.isEmpty()) {
 
-						fragmentForTransition = new AddActivityCustomerContactFragment();
+						fragmentForTransition = new AddCustomerContactsFragment();
 						fragmentForTransition.setArguments(bundle);
 						
 						trapping = true;
 						Editor editor = pref.edit();
-						editor.putLong("customer", customer);
-						editor.putLong("area", area);
-						editor.putLong("province", province);
-						editor.putLong("city_town", cityTown);
-						editor.putLong("workplan_entry", workplanEntry);
+//						editor.putLong("customer", customer);
+//						editor.putLong("area", area);
+//						editor.putLong("province", province);
+//						editor.putLong("city_town", cityTown);
+//						editor.putLong("workplan_entry", workplanEntry);
 						editor.putInt("first_time_visit", firstTimeVisit);
 						editor.putInt("planned_time_visit", plannedTimeVisit);
 						editor.putString("objective", objective);
@@ -137,18 +142,13 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 					((CircularProgressButton) v).setProgress(0);
 					
-					if(AddActivityGeneralInformationFragment.ActivityType == 1){
+					if(AddActivityGeneralInformationFragment.ActivityType == 4){
+						AddActivityGeneralInformationFragment.ActivityType = 5;
 						ft = getActivity().getSupportFragmentManager().beginTransaction();
 						ft.replace(frag_layout_id, fragmentForTransition);
 						ft.addToBackStack(null);
 						ft.commit();
 					}
-					/*addActFrag.pager.setCurrentItem(tabID);
-
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
-					ft.commit();*/
 				}
 			}
 		});

@@ -6,9 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,28 +21,25 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import com.dd.CircularProgressButton;
 
 public class AddActivityTravelWaitingFragment extends Fragment {
+	
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
+	
+	private Fragment fragment = null;
+
+	private AddActivityFragment addActFrag;
+
+	public AddActivityTravelWaitingFragment(Fragment frag) {
+		this.fragment = frag;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
 		
-//		view.setFocusableInTouchMode(true);
-//        view.requestFocus();
-//        view.setOnKeyListener(new View.OnKeyListener() {
-//
-//			@Override
-//			public boolean onKey(View v, int keyCode, KeyEvent event) {
-//
-//				if (keyCode == KeyEvent.KEYCODE_BACK) {
-//					getActivity().getSupportFragmentManager().popBackStack("travel", FragmentManager.POP_BACK_STACK_INCLUSIVE);
-//                }
-//				
-//				return false;
-//			}
-//        });
+		addActFrag = (AddActivityFragment) fragment;
+//		addActFrag.pager.setCurrentItem(1);
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {

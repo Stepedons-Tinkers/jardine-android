@@ -65,7 +65,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private Bundle bundle;
 	
 	private int frag_layout_id;
-	private int tabID;
 	
 	public static int ActivityType = 0;
 	
@@ -117,7 +116,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
 				AddActivityFragment.ACTIVITY_TYPE = ((ActivityTypeRecord)((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId();
 				
-				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
+				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) { //done
 					indexes.add(2);
 					indexes.add(3);
 					indexes.add(4);
@@ -134,10 +133,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityTravelWaitingFragment();
-					tabID = 1;
+					fragmentForTransition = new AddActivityTravelWaitingFragment(fragment);
+					ActivityType = 1;
 
-				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) {
+				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { //done
 					indexes.add(1);
 					indexes.add(3);
 					indexes.add(4);
@@ -155,9 +154,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityWithCoSMRsFragment();
-					tabID = 2;
 
-				} else if (activityTypeName.equals("Admin Work")) {
+				} else if (activityTypeName.equals("Admin Work")) { //done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(4);
@@ -175,10 +173,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityAdminWorksFragment();
-					tabID = 3;
 
 				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
-						|| activityTypeName.equals("Retail Visits (Merienda)")) {
+						|| activityTypeName.equals("Retail Visits (Merienda)")) { //done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -188,11 +185,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
 					fragmentForTransition.setArguments(bundle);
-					tabID = 4;
+					ActivityType = 4;
 
-				} else if (activityTypeName.equals("KI Visits - On-site")) {
+				} else if (activityTypeName.equals("KI Visits - On-site")) { // no layout
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -205,9 +202,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityKiVisits();
-					tabID = 4;
 
-				} else if (activityTypeName.contains("Major Training")) {
+				} else if (activityTypeName.contains("Major Training")) { // no layout
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -222,9 +218,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityMajorTraining();
-					tabID = 4;
 
-				} else if (activityTypeName.contains("End User Activity")) {
+				} else if (activityTypeName.contains("End User Activity")) { // no layout
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -239,9 +234,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityEndUser();
-					tabID = 4;
 
-				} else if (activityTypeName.equals("Full Brand Activation")) {
+				} else if (activityTypeName.equals("Full Brand Activation")) { //done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -256,7 +250,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityFullBrandActivationFragment();
-					tabID = 4;
+					ActivityType = 41;
 
 				} else {
 					indexes.add(1);
@@ -274,7 +268,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityAdminWorksFragment();
-					tabID = 4;
 				}
 			}
 
@@ -377,7 +370,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					saveBtn.setProgress(0);
 					
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
+					ft = fragment.getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
 					ft.addToBackStack(null);
 					ft.commit();
