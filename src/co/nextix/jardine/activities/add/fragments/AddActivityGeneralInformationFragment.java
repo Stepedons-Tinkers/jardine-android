@@ -63,7 +63,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private FragmentTransaction ft;
 
 	private Bundle bundle;
-	
+
 	private int frag_layout_id;
 	
 	public static int ActivityType = 0;
@@ -89,7 +89,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		}
 
 		addActFrag = (AddActivityFragment) fragment;
-		
+
 		addActFrag.pager.setCurrentItem(0);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
@@ -114,9 +114,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
-				AddActivityFragment.ACTIVITY_TYPE = ((ActivityTypeRecord)((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId();
-				
-				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) { //done
+
+				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
 					indexes.add(2);
 					indexes.add(3);
 					indexes.add(4);
@@ -278,6 +277,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
+		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -367,10 +367,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
-
-					saveBtn.setProgress(0);
-					
-					ft = fragment.getActivity().getSupportFragmentManager().beginTransaction();
+					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
 					ft.addToBackStack(null);
 					ft.commit();
@@ -432,8 +429,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectStage = null;
-		private String projectCategory = null;
+		private long projectStage = 0;
+		private long projectCategory = 0;
 		private String venue = null;
 
 		private int numberOfAttendees = 0;
@@ -445,7 +442,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 				String endUserActivityTypes) {
 
 			this.no = no;
@@ -561,11 +558,19 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		return String.valueOf(formattedStringDigit);
 	}
 
+	protected String displayCheckIn() {
+		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+		
+		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
+	}
+
 	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 			String endUserActivityTypes) {
 
 		// Insert to the database

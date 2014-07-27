@@ -76,17 +76,17 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <EditText
+                <TextView
                     android:id="@+id/project_name"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
-                    android:inputType="textMultiLine|textImeMultiLine"
-                    android:maxLines="100"
+                    android:gravity="center"
                     android:hint="text field"
+                    android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
 
@@ -112,21 +112,20 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <HorizontalScrollView
+                <TextView
+                    android:id="@+id/project_stage"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
-
-                    <Spinner
-                        android:id="@+id/project_stage"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
-                </HorizontalScrollView>
+                    android:background="#dcdcdc"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="text field"
+                    android:maxLines="100"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
             </TableRow>
 
             <TableRow
@@ -156,21 +155,20 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <HorizontalScrollView
+                <TextView
+                    android:id="@+id/project_category"
                     android:layout_width="0dp"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
-
-                    <Spinner
-                        android:id="@+id/project_category"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
-                </HorizontalScrollView>
+                    android:background="#dcdcdc"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:hint="text field"
+                    android:maxLines="100"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
             </TableRow>
         </TableLayout>
     </ScrollView>

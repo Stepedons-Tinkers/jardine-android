@@ -2,7 +2,6 @@ package co.nextix.jardine.database.tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -11,27 +10,22 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
-public class JDIproductStockCheckTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY;
 
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ROWID = "_id";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_NO = "no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CRMNO = "crm_no";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY = "activity";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND = "product_brand";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS = "stockstatus";
-	// private final String KEY_JDIPRODUCTSTOCKCHECK_QUANTITY = "quantity";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loadedonshelves";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER = "supplier";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
+public class JDIproductStockCheckTable {
 
 	// ===========================================================
 	// Private fields
@@ -52,6 +46,7 @@ public class JDIproductStockCheckTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

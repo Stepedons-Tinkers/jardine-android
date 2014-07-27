@@ -252,8 +252,8 @@ public class SaveActivityInfoFragment extends Fragment {
 										.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0, ((EditText) rootView
 										.findViewById(R.id.notes)).getText().toString(),
 								((EditText) rootView.findViewById(R.id.highlights)).getText().toString(), nextSteps, ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), "projectName", "projectStage",
-								"projectCategory", "venue", 0, "endUserActivityTypes").execute();
+										.findViewById(R.id.follow_up_commitment_date)).getText().toString(), "projectName", 0,
+								0, "venue", 0, "endUserActivityTypes").execute();
 
 					} else {
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
@@ -311,8 +311,8 @@ public class SaveActivityInfoFragment extends Fragment {
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectStage = null;
-		private String projectCategory = null;
+		private long projectStage = 0;
+		private long projectCategory = 0;
 		private String venue = null;
 
 		private int numberOfAttendees = 0;
@@ -324,7 +324,7 @@ public class SaveActivityInfoFragment extends Fragment {
 				long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks,
 				long smr, String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 				String endUserActivityTypes) {
 
 			this.id = id;
@@ -418,7 +418,7 @@ public class SaveActivityInfoFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 			String endUserActivityTypes) {
 
 		// Insert to the database

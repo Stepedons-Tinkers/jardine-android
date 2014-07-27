@@ -211,15 +211,16 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 				if (epr.getNo() != null) {
 
+					CustomerContactPersonGeneralInformation fragment = CustomerContactPersonGeneralInformation
+							.newInstance(customerId, epr.getId());
+					fragment.setTargetFragment(CustomerContactList.this, 15);
+
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.setTransition(
 									FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-							.add(R.id.frame_container,
-									CustomerContactPersonGeneralInformation
-											.newInstance(customerId),
-									JardineApp.TAG)
+							.add(R.id.frame_container, fragment, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 

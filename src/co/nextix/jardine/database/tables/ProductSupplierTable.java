@@ -11,21 +11,18 @@ import android.database.sqlite.SQLiteDatabase;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 
-public class ProductSupplierTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_SUPPLIER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_OTHERREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_MODIFIEDTIME;
 
-	private final String KEY_PRODUCTSUPPLIER_ROWID = "_id";
-	private final String KEY_PRODUCTSUPPLIER_NO = "no";
-	private final String KEY_PRODUCTSUPPLIER_CRMNO = "crm_no";
-	private final String KEY_PRODUCTSUPPLIER_PRODUCTBRAND = "product_brand";
-	private final String KEY_PRODUCTSUPPLIER_SUPPLIER = "supplier";
-	private final String KEY_PRODUCTSUPPLIER_OTHERREMARKS = "others_remarks";
-	private final String KEY_PRODUCTSUPPLIER_ACTIVITY = "activity";
-	private final String KEY_PRODUCTSUPPLIER_CREATEDBY = "created_by";
-	private final String KEY_PRODUCTSUPPLIER_CREATEDTIME = "created_time";
-	private final String KEY_PRODUCTSUPPLIER_MODIFIEDTIME = "modified_time";
+public class ProductSupplierTable {
 
 	// ===========================================================
 	// Private fields
@@ -46,6 +43,7 @@ public class ProductSupplierTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
@@ -336,10 +334,9 @@ public class ProductSupplierTable {
 		}
 	}
 
-	public boolean update(long id, String no, String crmNo,
-			long productBrand, long supplier, String othersRemarks,
-			long activity, long createdBy, String createdTime,
-			String modifiedTime) {
+	public boolean update(long id, String no, String crmNo, long productBrand,
+			long supplier, String othersRemarks, long activity, long createdBy,
+			String createdTime, String modifiedTime) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PRODUCTSUPPLIER_NO, no);
 		args.put(KEY_PRODUCTSUPPLIER_CRMNO, crmNo);

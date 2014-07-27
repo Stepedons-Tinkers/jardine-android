@@ -1,5 +1,14 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_FROMDATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLAN_TODATE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,19 +22,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.WorkplanRecord;
 
 public class WorkplanTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_WORKPLAN_ROWID = "_id";
-	private final String KEY_WORKPLAN_NO = "no";
-	private final String KEY_WORKPLAN_CRMNO = "crm_no";
-	private final String KEY_WORKPLAN_FROMDATE = "from_date";
-	private final String KEY_WORKPLAN_TODATE = "to_date";
-	// private final String KEY_WORKPLAN_STATUS = "status"; removed
-	private final String KEY_WORKPLAN_CREATEDTIME = "created_time";
-	private final String KEY_WORKPLAN_MODIFIEDTIME = "modified_time";
-	private final String KEY_WORKPLAN_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -46,6 +42,7 @@ public class WorkplanTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
@@ -57,7 +54,7 @@ public class WorkplanTable {
 	// Private methods
 	// ===========================================================
 
-	private List<WorkplanRecord> getAllRecords() {
+	public List<WorkplanRecord> getAllRecords() {
 		Cursor c = null;
 		List<WorkplanRecord> list = new ArrayList<WorkplanRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
@@ -290,7 +287,6 @@ public class WorkplanTable {
 
 		return result;
 	}
-	
 
 	public WorkplanRecord getById(long ID) {
 		WorkplanRecord record = null;

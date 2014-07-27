@@ -77,14 +77,14 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 								null), pref.getString("check_out", null), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
 								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
 								pref.getString("check_out", null), reasons, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "",
-								0, 0, "", "", "", "", "", "", "", "", 0, "").execute();
+								0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								getFragmentManager().popBackStackImmediate();
+								getActivity().getSupportFragmentManager().popBackStackImmediate();
 							}
 
 						}, 2700);
@@ -157,8 +157,8 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectStage = null;
-		private String projectCategory = null;
+		private long projectStage = 0;
+		private long projectCategory = 0;
 		private String venue = null;
 
 		private int numberOfAttendees = 0;
@@ -170,7 +170,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 				String endUserActivityTypes) {
 
 			this.no = no;
@@ -268,7 +268,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 			String endUserActivityTypes) {
 
 		// Insert to the database

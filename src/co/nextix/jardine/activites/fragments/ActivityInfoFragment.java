@@ -146,7 +146,7 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 7) {
 					
-					// Product Supplier TODO
+					// Product Supplier 
 					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
 					productSupplierFrag.setArguments(bundle);
 					
@@ -229,13 +229,13 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 16){
 					
-					// Activity Photos and Attachments TODO
-//					ActivityPhotosAndAttachments activityPhotosAndAttachments = new ActivityPhotosAndAttachments();
-//					activityPhotosAndAttachments.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, activityPhotosAndAttachments);
-//					ft.commit();
+					// Activity Photos and Attachments
+					PhotosAndAttachmentsFragment activityPhotosAndAttachments = new PhotosAndAttachmentsFragment();
+					activityPhotosAndAttachments.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, activityPhotosAndAttachments);
+					ft.commit();
 				}
 
 			}

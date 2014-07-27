@@ -5,24 +5,11 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import com.dd.CircularProgressButton;
-
-import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.R;
-import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
-import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
-import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.tables.UserTable;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.utils.MyDateUtils;
 import android.animation.ValueAnimator;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
@@ -34,18 +21,31 @@ import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
+import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
+import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
+import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
+
+import com.dd.CircularProgressButton;
 
 public class AddCustomerContactsFragment extends Fragment implements
 		OnClickListener {
@@ -108,6 +108,21 @@ public class AddCustomerContactsFragment extends Fragment implements
 		return view;
 	}
 
+	private boolean checker() {
+		boolean flag = false;
+
+		if (!field2.getText().toString().contentEquals("")
+				&& !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0
+				&& !field5.getText().toString().contentEquals("")) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+
+		return flag;
+	}
+
 	private void initLayout() {
 
 		customerId = getArguments().getLong(
@@ -168,7 +183,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 				JardineApp.context, R.layout.customer_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
-		field6a.setText(formattedDate);
+		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
 		UserTable u = DatabaseAdapter.getInstance().getUser();
@@ -188,7 +203,26 @@ public class AddCustomerContactsFragment extends Fragment implements
 			getActivity().onBackPressed();
 			break;
 		case R.id.bCustomerContactAddCreate:
-			new InsertTask().execute();
+			if (checker()) {
+				new InsertTask().execute();
+			} else {
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
+
 			break;
 		case R.id.ibCustomerContactAddField6:
 			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
@@ -216,9 +250,10 @@ public class AddCustomerContactsFragment extends Fragment implements
 			// txtActualDate.setText(new StringBuilder().append(month + 1)
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
+
 			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
 					+ checkDigit(day);
-			field6a.setText(formattedDate);
+			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
 
@@ -273,12 +308,12 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		Calendar c = Calendar.getInstance();
 
-		// JardineApp.DB.getCustomerContact().insert("", "",
-		// field2.getText().toString(), field3.getText().toString(),
-		// ((PicklistRecord) field4.getSelectedItem()).getId(),
-		// field5.getText().toString(), field6a.getText().toString(),
-		// field7.getText().toString(), customerId, 1,
-		// c.getTime().toString(), c.getTime().toString(), userId);
+		JardineApp.DB.getCustomerContact().insert("", "",
+				field2.getText().toString(), field3.getText().toString(),
+				((PicklistRecord) field4.getSelectedItem()).getId(),
+				field5.getText().toString(), field6a.getText().toString(),
+				field7.getText().toString(), customerId, 1,
+				c.getTime().toString(), c.getTime().toString(), userId);
 
 		String no = "";
 		String crmNo = "";
@@ -286,7 +321,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		String lastName = field3.getText().toString();
 		long position = ((PicklistRecord) field4.getSelectedItem()).getId();
 		String mobileNo = field5.getText().toString();
-		String birthday = field6a.getText().toString();
+		String birthday = formattedDate;
 		String emailAddress = field7.getText().toString();
 		long customer = customerId;
 		int isActive = 1;

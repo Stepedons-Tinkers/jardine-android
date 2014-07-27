@@ -325,12 +325,6 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
-
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
 					searchRecord = JardineApp.DB.getMarketingMaterials()
@@ -347,6 +341,12 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 					Log.e("Tugs", e.toString());
 				}
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
+				
 
 				searchView.clearFocus();
 				return true;

@@ -19,21 +19,20 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
-import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
+import co.nextix.jardine.activites.fragments.PhotosAndAttachmentsFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
-import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
-import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClickListener {
+public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements OnClickListener {
 
 	/*********** Declare Used Variables *********/
 	private Context context;
@@ -41,11 +40,11 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private ProductSupplierRecord tempValues = null;
+	private DocumentRecord tempValues = null;
 	private View vi = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public ProductSupplierCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
+	public PhotosAndAttachmentsCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -78,10 +77,10 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 	public static class ViewHolder {
 		
 		public LinearLayout table_row_clickable;
-		public TextView crm_no_txt;
-		public TextView activity_txt;
-		public TextView product_brand_txt;
-		public TextView supplier;
+		public TextView document_no;
+		public TextView title;
+		public TextView file_name;
+		public TextView modified_time;
 		public TextView created_by_txt;
 		public TextView action_txt;
 		public TextView edit_txt;
@@ -94,7 +93,7 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		ProductSupplierFragment sct = (ProductSupplierFragment) frag;
+		PhotosAndAttachmentsFragment sct = (PhotosAndAttachmentsFragment) frag;
 
 		if (convertView == null) {
 
@@ -104,10 +103,10 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
 			holder.table_row_clickable = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
-			holder.activity_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_brand_txt = (TextView) vi.findViewById(R.id.column_three);
-			holder.supplier = (TextView) vi.findViewById(R.id.column_four);
+			holder.document_no = (TextView) vi.findViewById(R.id.column_one);
+			holder.title = (TextView) vi.findViewById(R.id.column_two);
+			holder.file_name = (TextView) vi.findViewById(R.id.column_three);
+			holder.modified_time = (TextView) vi.findViewById(R.id.column_four);
 			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_five);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
 			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
@@ -126,59 +125,30 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (ProductSupplierRecord) this.data.get(position);
+			this.tempValues = (DocumentRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(this.tempValues.getCrm());
+			holder.document_no.setText(this.tempValues.getCrmNo());
+			
+			
+			
 
-			if (holder.crm_no_txt.getText().toString().equals("")) {
+			if (holder.document_no.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
-				holder.activity_txt.setText(null);
-				holder.product_brand_txt.setText(null);
-				holder.supplier.setText(null);
+				
+				holder.title.setText(null);
+				holder.file_name.setText(null);
+				holder.modified_time.setText(null);
 				holder.created_by_txt.setText(null);
+				
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}else{
-				
-				ActivityTable act = JardineApp.DB.getActivity();
-				if(act != null){
-					ActivityRecord rec = act.getById(this.tempValues.getActivity());
-					holder.activity_txt.setText("");
-					if(rec != null){
-						holder.activity_txt.setText(rec.toString());	
-					}
-				}
-				
-				ProductTable product = JardineApp.DB.getProduct();
-				if(product != null){
-					holder.product_brand_txt.setText("");
-					ProductRecord rec = product.getById(this.tempValues.getProductBrand());
-					if(rec != null){
-						holder.product_brand_txt.setText(rec.toString());
-					}
-				}
-				
-				ProductSupplierTable supplier = JardineApp.DB.getProductSupplier();
-				if(supplier != null){
-					ProductSupplierRecord rec = supplier.getById(this.tempValues.getSupplier());
-					holder.supplier.setText("");
-					if(rec != null){
-						holder.supplier.setText(rec.toString());
-					}
-				}
-				
-				UserTable user = JardineApp.DB.getUser();
-				if(user != null){
-					UserRecord rec = user.getById(this.tempValues.getCreatedBy());
-					holder.created_by_txt.setText("");
-					if(rec != null){
-						holder.created_by_txt.setText(rec.toString());
-					}
-				}
-				
-				
-				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));				
+				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));
+				holder.title.setText(this.tempValues.getTitle());
+				holder.file_name.setText(this.tempValues.getFileName());
+				holder.modified_time.setText(this.tempValues.getModifiedTime());
+				holder.created_by_txt.setText("" + this.tempValues.getUser());
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
@@ -240,7 +210,7 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 
 		@Override
 		public void onClick(View arg0) {
-			ProductSupplierFragment sct = (ProductSupplierFragment) frag;
+			PhotosAndAttachmentsFragment sct = (PhotosAndAttachmentsFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
