@@ -1,8 +1,19 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_BUSINESS_UNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_CREATED_BY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_FIRSTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_LASTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_SMR_ROWID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,22 +25,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.SMRRecord;
 
 public class SMRTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_SMR_ROWID = "_id";
-	private final String KEY_SMR_NO = "no";
-	private final String KEY_SMR_CRMNO = "crm_no";
-	private final String KEY_SMR_FIRSTNAME = "firstname";
-	private final String KEY_SMR_LASTNAME = "lastname";
-	// private final String KEY_SMR_REGION = "region";
-	private final String KEY_SMR_AREA = "area";
-	private final String KEY_SMR_ISACTIVE = "is_active";
-	private final String KEY_SMR_BUSINESS_UNIT = "business_unit";
-	private final String KEY_SMR_CREATEDTIME = "created_time";
-	private final String KEY_SMR_MODIFIEDTIME = "modified_time";
-	private final String KEY_SMR_CREATED_BY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -50,6 +45,7 @@ public class SMRTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

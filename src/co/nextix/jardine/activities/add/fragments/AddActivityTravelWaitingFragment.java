@@ -89,7 +89,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 							@Override
 							public void run() {
-								getFragmentManager().popBackStackImmediate();
+								getActivity().getSupportFragmentManager().popBackStackImmediate();
 							}
 
 						}, 2700);

@@ -1,8 +1,20 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_BRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_DESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_NUMBER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_PACKSIZE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCT_ROWID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,22 +26,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ProductRecord;
 
 public class ProductTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_PRODUCT_ROWID = "_id";
-	private final String KEY_PRODUCT_NO = "no";
-	private final String KEY_PRODUCT_CRMNO = "crm_no";
-	private final String KEY_PRODUCT_NUMBER = "product_number";
-	private final String KEY_PRODUCT_BRAND = "product_brand";
-	private final String KEY_PRODUCT_DESCRIPTION = "product_description";
-	private final String KEY_PRODUCT_PACKSIZE = "pack_size";
-	private final String KEY_PRODUCT_BUSINESSUNIT = "business_unit";
-	private final String KEY_PRODUCT_ISACTIVE = "is_active";
-	private final String KEY_PRODUCT_CREATEDTIME = "created_time";
-	private final String KEY_PRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_PRODUCT_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -50,6 +46,7 @@ public class ProductTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
