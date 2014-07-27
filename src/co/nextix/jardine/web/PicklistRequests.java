@@ -28,6 +28,7 @@ import co.nextix.jardine.web.models.picklist.PactivityEndUserActivityTypes;
 import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
 import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
 import co.nextix.jardine.web.models.picklist.PactivitytypeCategoryModel;
+import co.nextix.jardine.web.models.picklist.PcompetitorProductStockStatusModel;
 import co.nextix.jardine.web.models.picklist.PcustomerRecordStatusModel;
 import co.nextix.jardine.web.models.picklist.PcustomerSizeModel;
 import co.nextix.jardine.web.models.picklist.PcustomerTypeModel;
@@ -349,6 +350,19 @@ public class PicklistRequests {
 					if (list != null) {
 						result = new ArrayList<String>();
 						for (PjdimerchcheckStatusModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.competitorproductstock_status)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PcompetitorProductStockStatusModel>>>() {
+					}.getType();
+					PicklistRequester<List<PcompetitorProductStockStatusModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PcompetitorProductStockStatusModel> list = (List<PcompetitorProductStockStatusModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PcompetitorProductStockStatusModel model : list) {
 							result.add(model.getValue());
 						}
 					}

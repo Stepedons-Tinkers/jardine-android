@@ -143,6 +143,7 @@ public class DatabaseAdapter {
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loaded_on_shelves";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
@@ -203,6 +204,7 @@ public class DatabaseAdapter {
 	public static final String KEY_CUSTOMER_PROVINCE = "province";
 	public static final String KEY_CUSTOMER_CITYTOWN = "city_town";
 	public static final String KEY_CUSTOMER_ISACTIVE = "is_active";
+	public static final String KEY_CUSTOMER_DAYSUNCHANGED = "days_unchanged";
 	public static final String KEY_CUSTOMER_CREATEDTIME = "created_time";
 	public static final String KEY_CUSTOMER_MODIFIEDTIME = "modified_time";
 	public static final String KEY_CUSTOMER_CREATED_BY = "created_by";
@@ -512,11 +514,11 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text,%s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	// private String TABLE_CREATE_COMPETITOR =
 	// "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CUSTOMER_CONTACT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_CUSTOMER = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s real,%s real, %s real,%s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_CUSTOMER = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s real,%s real, %s real,%s real, %s integer, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s),foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_EVENT_PROTOCOL = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s real, %s real, %s real, %s integer, %s real, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_INTEL = "create table %s (%s integer primary key autoincrement, %s text , %s text , %s real, %s real, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
@@ -536,7 +538,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text)";
 
@@ -667,7 +669,7 @@ public class DatabaseAdapter {
 	private PJDImerchCheckStatusTable mJDImerchCheckStatus;
 	private PJDIprodStatusTable mJDIproductStatus;
 	private PProjReqTypeTable mProjectRequirementType;
-	private PSMRentryTypeTable mSMRentryType;
+	// private PSMRentryTypeTable mSMRentryType;
 	private PWorkEntryStatusTable mWorkplanEntryStatus;
 	private PactEndUserActTypeTable mActivityEndUserActType;
 	private PSalesProtocolTypeTable mSalesProtocolTypeTable;
@@ -723,15 +725,18 @@ public class DatabaseAdapter {
 			mDb.close();
 		}
 	}
-	
+
 	public void clearDatabase() {
-		for (String s : LIST_TABLES) {
-			String MY_QUERY = "DELETE FROM " + s;
-			try {
+		try {
+			for (String s : LIST_TABLES) {
+				String MY_QUERY = "DELETE FROM " + s;
 				mDb.execSQL(MY_QUERY);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+
+			mDb.execSQL("VACUUM");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -1241,6 +1246,7 @@ public class DatabaseAdapter {
 					KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES,
+					KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY,
@@ -1277,18 +1283,18 @@ public class DatabaseAdapter {
 					KEY_CUSTOMER_TYPE, KEY_CUSTOMER_BUSINESSUNIT,
 					KEY_CUSTOMER_AREA, KEY_CUSTOMER_PROVINCE,
 					KEY_CUSTOMER_CITYTOWN, KEY_CUSTOMER_ISACTIVE,
-					KEY_CUSTOMER_CREATEDTIME, KEY_CUSTOMER_MODIFIEDTIME,
-					KEY_CUSTOMER_CREATED_BY, KEY_CUSTOMER_SIZE,
-					CUSTOMER_SIZE_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_CUSTOMER_RECORDSTATUS, CUSTOMER_TYPE_TABLE,
-					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_TYPE,
+					KEY_CUSTOMER_DAYSUNCHANGED, KEY_CUSTOMER_CREATEDTIME,
+					KEY_CUSTOMER_MODIFIEDTIME, KEY_CUSTOMER_CREATED_BY,
+					KEY_CUSTOMER_SIZE, CUSTOMER_SIZE_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_RECORDSTATUS,
 					CUSTOMER_TYPE_TABLE, KEY_PICKLISTS_ROWID,
-					KEY_CUSTOMER_BUSINESSUNIT, BUSINESS_UNIT_TABLE,
-					KEY_BUSINESSUNIT_ROWID, KEY_CUSTOMER_AREA, AREA_TABLE,
-					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_PROVINCE, PROVINCE_TABLE,
-					KEY_PROVINCE_ROWID, KEY_CUSTOMER_CITYTOWN, CITYTOWN_TABLE,
-					KEY_CITYTOWN_ROWID, KEY_CUSTOMER_CREATED_BY, USER_TABLE,
-					KEY_USER_ROWID);
+					KEY_CUSTOMER_TYPE, CUSTOMER_TYPE_TABLE,
+					KEY_PICKLISTS_ROWID, KEY_CUSTOMER_BUSINESSUNIT,
+					BUSINESS_UNIT_TABLE, KEY_BUSINESSUNIT_ROWID,
+					KEY_CUSTOMER_AREA, AREA_TABLE, KEY_PICKLISTS_ROWID,
+					KEY_CUSTOMER_PROVINCE, PROVINCE_TABLE, KEY_PROVINCE_ROWID,
+					KEY_CUSTOMER_CITYTOWN, CITYTOWN_TABLE, KEY_CITYTOWN_ROWID,
+					KEY_CUSTOMER_CREATED_BY, USER_TABLE, KEY_USER_ROWID);
 			String eventProtocol = String.format(TABLE_CREATE_EVENT_PROTOCOL,
 					EVENT_PROTOCOL_TABLE, KEY_EVENTPROTOCOL_ROWID,
 					KEY_EVENTPROTOCOL_NO, KEY_EVENTPROTOCOL_CRMNO,

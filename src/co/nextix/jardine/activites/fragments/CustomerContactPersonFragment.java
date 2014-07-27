@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,10 +19,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.CustomerContactPersonCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.CustomerContactPersonDetailFragment;
+
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.tables.CustomerContactTable;
@@ -218,10 +220,13 @@ public class CustomerContactPersonFragment extends Fragment {
 //
 //		editor.commit(); 
 
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+		Fragment fragment = new CustomerContactPersonDetailFragment();
+		bundle.putLong("customer_id", tempValues.getId());
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+
 	}
 	
 	public void isListHasNoData() {

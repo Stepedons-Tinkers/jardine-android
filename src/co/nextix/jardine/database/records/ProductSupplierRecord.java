@@ -10,7 +10,7 @@ public class ProductSupplierRecord {
 	private long id;
 	private String no;
 	private String crm_no;
-	private String product_brand;
+	private long product_brand; // Product Table
 	private long supplier; // Customer table
 	private String others_remarks;
 	private long activity; // Activity table
@@ -23,7 +23,7 @@ public class ProductSupplierRecord {
 	// ===========================================================
 
 	public ProductSupplierRecord(long id, String no, String crmNo,
-			String productBrand, long supplier, String othersRemarks,
+			long productBrand, long supplier, String othersRemarks,
 			long activity, long createdBy, String createdTime,
 			String modifiedTime) {
 
@@ -63,11 +63,11 @@ public class ProductSupplierRecord {
 		return this.crm_no;
 	}
 
-	public void setProductBrand(String productBrand) {
+	public void setProductBrand(long productBrand) {
 		this.product_brand = productBrand;
 	}
 
-	public String getProductBrand() {
+	public long getProductBrand() {
 		return product_brand;
 	}
 
@@ -121,6 +121,6 @@ public class ProductSupplierRecord {
 
 	@Override
 	public String toString() {
-		return this.product_brand;
+		return this.crm_no;
 	}
 }

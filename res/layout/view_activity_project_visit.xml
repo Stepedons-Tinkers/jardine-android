@@ -44,6 +44,7 @@
                     android:text="Project Visit"
                     android:textColor="#fff"
                     android:textSize="14dp"
+                    android:visibility="gone"
                     android:textStyle="bold" />
             </TableRow>
 

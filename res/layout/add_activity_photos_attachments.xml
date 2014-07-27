@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" >
+
+            <!-- Row 1 with 1 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="@string/general_info"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText2"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_margin="4dp"
+                        android:layout_toLeftOf="@+id/btnWithText1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:textComplete="@string/complete_cancel"
+                        app:textError="@string/error"
+                        app:textIdle="@string/cancel" />
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText1"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:textComplete="@string/complete"
+                        app:textError="@string/error"
+                        app:textIdle="@string/done" />
+                </RelativeLayout>
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:orientation="horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/document_no"
+                        android:textColor="#000"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:id="@+id/document_no"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:hint="auto-generated"
+                        android:textColor="#000"
+                        android:textSize="14dp" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:state_selected="true"
+                        android:text="@string/title"
+                        android:textColor="#000"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+
+                    <requestFocus
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#b0b0b0" >
+
+                    <EditText
+                        android:id="@+id/title"
+                        android:layout_width="0dp"
+                        android:layout_height="45dp"
+                        android:background="#b0b0b0"
+                        android:ems="10"
+                        android:hint="text area"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
+
+                    <requestFocus
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:orientation="horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/filename"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/filename"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:hint="Choose file"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView05"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/created_by"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/created_by"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:hint="logged-in user"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>
