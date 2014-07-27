@@ -160,7 +160,6 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				}
 				
 			}
-			
 			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
 			if(comp != null){
 				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
@@ -172,13 +171,12 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				}
 			}
 			
-			 PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
+			PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
 			if(comp_status != null){
 				PicklistRecord rec = comp_status.getById((int)this.tempValues.getStockStatus());
 				holder.stock_status.setText("");
 				if(rec != null){
-					holder.stock_status.setText(String.valueOf(
-							this.tempValues.getStockStatus()).toString());
+					holder.stock_status.setText(rec.toString());
 				}
 			}
 			

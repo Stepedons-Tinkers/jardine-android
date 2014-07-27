@@ -19,7 +19,7 @@ public class AddActivityTrainingsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.add_activity_trainings, container, false);
-		((EditText) rootView.findViewById(R.id.venue)).setOnEditorActionListener(new OnEditorActionListener() {
+		((TextView) rootView.findViewById(R.id.venue)).setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {

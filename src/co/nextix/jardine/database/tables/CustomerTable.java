@@ -102,7 +102,7 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String daysUnchanged = c.getString(c
+					int daysUnchanged = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
@@ -221,7 +221,7 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String daysUnchanged = c.getString(c
+					int daysUnchanged = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
@@ -294,7 +294,7 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-					String daysUnchanged = c.getString(c
+					int daysUnchanged = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
@@ -463,7 +463,7 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 				int isActive = c
 						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-				String daysUnchanged = c.getString(c
+				int daysUnchanged = c.getInt(c
 						.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
@@ -549,7 +549,7 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 				int isActive = c
 						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
-				String daysUnchanged = c.getString(c
+				int daysUnchanged = c.getInt(c
 						.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
@@ -582,7 +582,7 @@ public class CustomerTable {
 			String chainName, String landline, String fax, long customerSize,
 			String streetAddress, long customerRecordStatus, long customerType,
 			long businessUnit, long area, long province, long cityTown,
-			int isActive, String daysUnchanged, String createdTime,
+			int isActive, int daysUnchanged, String createdTime,
 			String modifiedTime, long created_by) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -637,7 +637,7 @@ public class CustomerTable {
 			String customerName, String chainName, String landline, String fax,
 			long customerSize, String streetAddress, long customerRecordStatus,
 			long customerType, long businessUnit, long area, long province,
-			long cityTown, int isActive, String daysUnchanged,
+			long cityTown, int isActive, int daysUnchanged,
 			String createdTime, String modifiedTime, long created_by) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
