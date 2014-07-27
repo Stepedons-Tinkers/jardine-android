@@ -38,7 +38,12 @@ public class ActivityBrandActivationFragment extends Fragment {
 				pref.getLong("activity_id", 0000));
 		
 		((TextView) rootView.findViewById(R.id.end_user_activity_type))
-		.setText(this.activityRecord.getEndUserActivityTypes());
+		.setText("");
+		if(activityRecord != null){
+			((TextView) rootView.findViewById(R.id.end_user_activity_type))
+			.setText(this.activityRecord.getEndUserActivityTypes());	
+		}
+		
 
 		return rootView;
 	}
