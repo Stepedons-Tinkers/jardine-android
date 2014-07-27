@@ -1840,13 +1840,25 @@ public class SyncMenuBarFragment extends Fragment {
 						// > 0)
 						// && (businessUnit > 0) && (province > 0)
 						// && (cityTown > 0)&& (customerRecordStatus > 0))
-						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getName(), model.getChainname(),
-								model.getLandline(), model.getFax(),
-								customerSize, model.getStreetadd(),
-								customerRecordStatus, customerType,
-								businessUnit, area, province, cityTown,
-								isActive, model.getCreatedTime(),
+						table.insert(
+								model.getRecordId(),
+								model.getCrmNo(),
+								model.getName(),
+								model.getChainname(),
+								model.getLandline(),
+								model.getFax(),
+								customerSize,
+								model.getStreetadd(),
+								customerRecordStatus,
+								customerType,
+								businessUnit,
+								area,
+								province,
+								cityTown,
+								isActive,
+								Tools.parseIntWithDefault(
+										model.getDaysUnchanged(), 0),
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1876,13 +1888,26 @@ public class SyncMenuBarFragment extends Fragment {
 							// > 0)
 							// && (businessUnit > 0) && (province > 0)
 							// && (cityTown > 0)&& (customerRecordStatus > 0))
-							table.update(id, model.getRecordId(),
-									model.getCrmNo(), model.getName(),
-									model.getChainname(), model.getLandline(),
-									model.getFax(), customerSize,
-									model.getStreetadd(), customerRecordStatus,
-									customerType, businessUnit, area, province,
-									cityTown, isActive, model.getCreatedTime(),
+							table.update(
+									id,
+									model.getRecordId(),
+									model.getCrmNo(),
+									model.getName(),
+									model.getChainname(),
+									model.getLandline(),
+									model.getFax(),
+									customerSize,
+									model.getStreetadd(),
+									customerRecordStatus,
+									customerType,
+									businessUnit,
+									area,
+									province,
+									cityTown,
+									isActive,
+									Tools.parseIntWithDefault(
+											model.getDaysUnchanged(), 0),
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(

@@ -15,6 +15,7 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import co.nextix.jardine.workplan.AdapterWorkplanActivity;
 import co.nextix.jardine.workplan.WorkPlanConstants;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -76,7 +77,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 		return view;
 	}
 
-	private void initLayout() {
+	public void initLayout() {
 
 		// Header Data
 
@@ -156,15 +157,27 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 			@Override
 			public void onClick(View v) {
-				Intent intent = new Intent(JardineApp.context,
-						AddCustomerContacts.class);
+				// Intent intent = new Intent(JardineApp.context,
+				// AddCustomerContacts.class);
 				Bundle bundle = new Bundle();
 				bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID,
 						customerId);
 				bundle.putString(CustomerConstants.KEY_CUSTOMER_USERNAME,
 						customerName);
-				intent.putExtras(bundle);
-				startActivity(intent);
+				// intent.putExtras(bundle);
+				// startActivity(intent);
+
+				AddCustomerContactsFragment addFragment = new AddCustomerContactsFragment();
+				addFragment.setArguments(bundle);
+				addFragment.setTargetFragment(CustomerContactList.this, 15);
+
+				getActivity()
+						.getSupportFragmentManager()
+						.beginTransaction()
+						.setTransition(
+								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.add(R.id.frame_container, addFragment)
+						.addToBackStack(JardineApp.TAG).commit();
 			}
 		});
 	}
@@ -201,6 +214,8 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 					DashBoardActivity act = (DashBoardActivity) getActivity();
 					act.getSupportFragmentManager()
 							.beginTransaction()
+							.setTransition(
+									FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 							.add(R.id.frame_container,
 									CustomerContactPersonGeneralInformation
 											.newInstance(customerId),

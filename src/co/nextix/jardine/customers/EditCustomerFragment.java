@@ -8,6 +8,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.database.records.CityTownRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProvinceRecord;
 import co.nextix.jardine.database.records.UserRecord;
@@ -24,27 +25,23 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemSelectedListener;
 
-public class AddCustomerFragment extends Fragment implements OnClickListener {
+public class EditCustomerFragment extends Fragment implements OnClickListener {
 
 	private View view;
-	private long userId;
-	private String userName;
-
 	private Button save, cancel;
+
 	private TextView field1;
 	private EditText field2, field3, field4, field5;
 	private Spinner field6, field7;
@@ -52,36 +49,35 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 	private EditText field12;
 	private TextView field13;
 	private Spinner field14;
-	private int spinnerLayout;
 
-	public static AddCustomerFragment newInstance() {
-		AddCustomerFragment fragment = new AddCustomerFragment();
-		return fragment;
-	}
+	private long userId;
+	private String userName;
+
+	private CustomerRecord record;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		String id = StoreAccount.restore(JardineApp.context).getString(
 				Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
-
 		userId = Long.parseLong(id);
+		record = CustomerConstants.CUSTOMER_RECORD;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-
 		view = inflater.inflate(R.layout.customer_add_new, container, false);
-
 		initLayout();
 		return view;
 	}
 
 	private void initLayout() {
+
+		record = CustomerConstants.CUSTOMER_RECORD;
+
 		cancel = (Button) view.findViewById(R.id.bCustomerAddCancel);
 		save = (Button) view.findViewById(R.id.bCustomerAddCreate);
 
@@ -89,6 +85,8 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		save.setOnClickListener(this);
 
 		cancel.setBackgroundColor(Color.RED);
+
+		save.setText("Update");
 
 		field1 = (TextView) view.findViewById(R.id.tvCustomerAddField1);
 
@@ -139,7 +137,16 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 						JardineApp.context, R.layout.customer_spinner_row,
 						province);
 				field10.setAdapter(adapter10);
+				for (int i = 0; i < province.size(); i++) {
 
+					if (province.get(i).getId() == record.getProvince()) {
+						field10.setSelection(i);
+
+						break;
+					}
+				}
+
+				//
 			}
 
 			@Override
@@ -162,6 +169,15 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 						JardineApp.context, R.layout.customer_spinner_row,
 						pCityTown);
 				field11.setAdapter(adapter11);
+
+				for (int i = 0; i < pCityTown.size(); i++) {
+
+					if (pCityTown.get(i).getId() == record.getCityTown()) {
+						field11.setSelection(i);
+
+						break;
+					}
+				}
 
 			}
 
@@ -195,7 +211,29 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		field8.setAdapter(adapter8);
 		field14.setAdapter(adapter14);
 
-		field9.setSelection(0);
+		field13.setText(userName);
+
+		field2.setText(record.getCustomerName());
+		field3.setText(record.getStreetAddress());
+		field4.setText(record.getChainName());
+		field5.setText(record.getLandline());
+
+		field6.setSelection((int) record.getCustomerSize() - 1);
+		field7.setSelection((int) record.getCustomerType() - 1);
+		field14.setSelection((int) record.getCustomerRecordStatus() - 1);
+
+		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
+				record.getBusinessUnit());
+		int bPosition;
+		if (business == null) {
+			bPosition = 0;
+		} else {
+			bPosition = adapter8.getPosition(business);
+		}
+
+		field8.setSelection(bPosition);
+		field9.setSelection((int) record.getArea() - 1);
+		field12.setText(record.getFax());
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
@@ -229,10 +267,22 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 
 	public void insert() {
 
-		Calendar c = Calendar.getInstance();
+		// JardineApp.DB.getCustomer().update(record.getId(), record.getNo(),
+		// record.getCrm(), field2.getText().toString(),
+		// field4.getText().toString(), field5.getText().toString(),
+		// field12.getText().toString(),
+		// ((PicklistRecord) field6.getSelectedItem()).getId(),
+		// field3.getText().toString(),
+		// ((PicklistRecord) field7.getSelectedItem()).getId(),
+		// ((BusinessUnitRecord) field8.getSelectedItem()).getId(),
+		// ((PicklistRecord) field9.getSelectedItem()).getId(),
+		// ((ProvinceRecord) field10.getSelectedItem()).getId(),
+		// ((CityTownRecord) field11.getSelectedItem()).getId(), 1,
+		// record.getCreatedTime(), c.getTime().toString(), userId);
 
-		String no = "";
-		String crmNo = "";
+		long id = record.getId();
+		String no = record.getNo();
+		String crmNo = record.getCrm();
 		String customerName = field2.getText().toString();
 		String streetAddress = field3.getText().toString();
 		String chainName = field4.getText().toString();
@@ -245,17 +295,18 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		long province = ((ProvinceRecord) field10.getSelectedItem()).getId();
 		long cityTown = ((CityTownRecord) field11.getSelectedItem()).getId();
 		String fax = field12.getText().toString();
-		long created_by = userId;
+		long created_by = record.getCreatedBy();
 		long customerRecordStatus = ((PicklistRecord) field14.getSelectedItem())
 				.getId();
 		int isActive = 1;
+
 		int daysUnchanged = 0;
 
-		String createdTime = MyDateUtils.getCurrentTimeStamp();
+		String createdTime = record.getCreatedTime();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
 
-		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName,
-				landline, fax, customerSize, streetAddress,
+		JardineApp.DB.getCustomer().update(id, no, crmNo, customerName,
+				chainName, landline, fax, customerSize, streetAddress,
 				customerRecordStatus, customerType, businessUnit, area,
 				province, cityTown, isActive, daysUnchanged, createdTime,
 				modifiedTime, created_by);
@@ -323,10 +374,10 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				showMsg("Successfully added Customer");
+				showMsg("Successfully Updated Customer");
 				getActivity().onBackPressed();
 			} else {
-				showMsg("Something went wrong, failed to add customer");
+				showMsg("Something went wrong, failed to update customer");
 			}
 		}
 
@@ -334,19 +385,19 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 
 	private void showMsg(String txt) {
 		Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
-	}
-
-	@Override
-	public void onPrepareOptionsMenu(Menu menu) {
-		// TODO Auto-generated method stub
-		super.onPrepareOptionsMenu(menu);
 
 	}
 
 	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		super.onCreateOptionsMenu(menu, inflater);
-		inflater.inflate(R.menu.empty_menu, menu);
+	public void onDestroy() {
+		super.onDestroy();
+
+		CustomerGeneralInformation fragment = (CustomerGeneralInformation) getTargetFragment();
+		fragment.initLayout();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+	}
 }

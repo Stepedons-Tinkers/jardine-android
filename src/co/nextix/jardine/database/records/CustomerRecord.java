@@ -40,6 +40,7 @@ public class CustomerRecord {
 	private long province;
 	private long city_town;
 	private int is_active;
+	private int days_unchanged;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
@@ -58,7 +59,7 @@ public class CustomerRecord {
 			String customerName, String chainName, String landline, String fax,
 			long customerSize, String streetAddress, long customerRecordStatus,
 			long customerType, long businessUnit, long area, long province,
-			long cityTown, int isActive, String createdTime,
+			long cityTown, int isActive, int daysUnchanged, String createdTime,
 			String modifiedTime, long user) {
 
 		this.id = id;
@@ -77,6 +78,7 @@ public class CustomerRecord {
 		this.province = province;
 		this.city_town = cityTown;
 		this.is_active = isActive;
+		this.days_unchanged = daysUnchanged;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.created_by = user;
@@ -208,6 +210,14 @@ public class CustomerRecord {
 
 	public int getIsActive() {
 		return this.is_active;
+	}
+	
+	public void setDaysUnchanged(int daysUnchanged) {
+		this.days_unchanged = daysUnchanged;
+	}
+	
+	public int getDaysUnchanged() {
+		return days_unchanged;
 	}
 
 	public void setModifiedTime(String modifiedTime) {

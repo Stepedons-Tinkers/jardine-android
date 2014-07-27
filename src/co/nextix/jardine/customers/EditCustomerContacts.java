@@ -44,7 +44,7 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 	private TextView field6a;
 	private ImageButton field6b;
 	private EditText field7;
-	private TextView field8, field9, field10;
+	private TextView field8, field9;
 
 	private Button save, cancel;
 	private int day, month, year;
@@ -108,7 +108,6 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 		field8 = (TextView) findViewById(R.id.tvCustomerContactAddField8);
 
 		field9 = (TextView) findViewById(R.id.tvCustomerContactAddField9);
-		field10 = (TextView) findViewById(R.id.tvCustomerContactAddField10);
 		// List to be populated in spinner adapter
 		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
 				.getAllRecords();
@@ -123,7 +122,7 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 		if (u != null) {
 			UserRecord user = u.getCurrentUser();
 			if (user != null) {
-				field10.setText(user.getFirstNameName() + " " + user.getLastname());
+				field9.setText(user.getFirstNameName() + " " + user.getLastname());
 			}
 		}
 

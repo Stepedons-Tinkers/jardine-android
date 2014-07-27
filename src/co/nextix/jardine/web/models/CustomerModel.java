@@ -66,6 +66,9 @@ public class CustomerModel {
 
 	@SerializedName("z_cu_customerrecstat")
 	private String customerrecstat;
+	
+	@SerializedName("customers_days_unchanged")
+	private String days_unchanged;
 
 	@SerializedName("xcustomersid")
 	private String record_id;
@@ -192,6 +195,14 @@ public class CustomerModel {
 
 	public void setCustomerRecStat(String customerrecstat) {
 		this.customerrecstat = customerrecstat;
+	}
+	
+	public String getDaysUnchanged() {
+		return days_unchanged;
+	}
+	
+	public void setDaysUnchanged(String daysUnchanged) {
+		this.days_unchanged = daysUnchanged;
 	}
 
 	public String getRecordId() {

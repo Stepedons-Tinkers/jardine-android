@@ -247,6 +247,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 					act.getSupportFragmentManager()
 							.beginTransaction()
+							.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 							.add(R.id.frame_container, fragment, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
