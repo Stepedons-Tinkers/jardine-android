@@ -50,7 +50,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
-	private int flag;
+	private int flag = 0;
 
 	private boolean trapping = false;
 
@@ -74,7 +74,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
 		this.month = this.calendar.get(Calendar.MONTH);
 		this.year = this.calendar.get(Calendar.YEAR);
-		this.flag = 0;
 		this.fragment = frag;
 	}
 
@@ -280,17 +279,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		});
 
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
-		((TextView) this.rootView.findViewById(R.id.check_in)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				flag = 0;
-				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
-						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
-						AddActivityGeneralInformationFragment.this.day);
-				pickDialog.show();
-			}
-		});
+		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
+		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
 
 		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
 
@@ -544,9 +534,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
 					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
-			if (flag == 0) {
-				((TextView) rootView.findViewById(R.id.check_in)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
-			} else if (flag == 4) {
+			if (flag == 4) {
 				((TextView) rootView.findViewById(R.id.check_out)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
 				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
@@ -564,7 +552,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
 				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
 				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
-		
+
 		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
 	}
 
@@ -572,8 +560,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-			String endUserActivityTypes) {
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
 		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,

@@ -5,7 +5,6 @@ import java.util.List;
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.hardware.Camera.Area;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -61,12 +60,15 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer()
 				.getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
-		List<ProvinceRecord> province = JardineApp.DB.getProvince()
-				.getAllRecords();
-		List<CityTownRecord> cityTown = JardineApp.DB.getCityTown()
-				.getAllRecords();
-		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB
-				.getWorkplanEntry().getAllRecords();
+		List<ProvinceRecord> province = JardineApp.DB.getProvince().getAllRecords();
+		List<CityTownRecord> cityTown = JardineApp.DB.getCityTown().getAllRecords();
+		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB.getWorkplanEntry().getAllRecords();
+		
+		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, customer);
+		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
+		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, province);
+		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, cityTown);
+		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, workplanEntry);
 
 		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity()
 				.getApplicationContext(), R.layout.add_activity_textview,

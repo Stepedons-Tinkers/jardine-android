@@ -12,12 +12,14 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
@@ -83,10 +85,10 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 		
 		((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText(String.valueOf(this.record.getLoadedOnShelves()));
 		
-		ProductSupplierTable supplier = JardineApp.DB.getProductSupplier();
+		CustomerTable supplier = JardineApp.DB.getCustomer();
 		if(supplier != null){
 			((TextView) myFragmentView.findViewById(R.id.supplier)).setText("");
-			ProductSupplierRecord supplierRecord = supplier.getById(this.record.getSupplier());
+			CustomerRecord supplierRecord = supplier.getById(this.record.getSupplier());
 			if(supplierRecord != null){
 				((TextView) myFragmentView.findViewById(R.id.supplier)).setText(supplierRecord.toString());
 			}
