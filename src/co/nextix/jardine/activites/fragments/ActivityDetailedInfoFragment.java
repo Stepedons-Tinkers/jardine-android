@@ -13,6 +13,12 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.ActivityTypeTable;
+import co.nextix.jardine.database.tables.CustomerTable;
 
 public class ActivityDetailedInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
@@ -21,6 +27,7 @@ public class ActivityDetailedInfoFragment extends Fragment {
 	private int frag_layout_id;
 	private Bundle bundle;
 
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
@@ -34,17 +41,67 @@ public class ActivityDetailedInfoFragment extends Fragment {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
 		
-		((TextView) myFragmentView.findViewById(R.id.notes)).setText(this.activityRecord.getNotes());
-		((TextView) myFragmentView.findViewById(R.id.highlights)).setText(this.activityRecord.getHighlights());
-		((TextView) myFragmentView.findViewById(R.id.nextSteps)).setText(this.activityRecord.getNextSteps());
-		((TextView) myFragmentView.findViewById(R.id.follow_up_commitment_date)).setText(String.valueOf(this.activityRecord
-				.getFollowUpCommitmentDate()));
-		((TextView) myFragmentView.findViewById(R.id.workplan_entry)).setText(String.valueOf(this.activityRecord.getWorkplanEntry()));
-		((TextView) myFragmentView.findViewById(R.id.customer)).setText(String.valueOf(this.activityRecord.getCustomer()));
-		((TextView) myFragmentView.findViewById(R.id.area)).setText(String.valueOf(this.activityRecord.getArea()));
-		((TextView) myFragmentView.findViewById(R.id.province)).setText(String.valueOf(this.activityRecord.getProvince()));
-		((TextView) myFragmentView.findViewById(R.id.first_time_visit)).setText(String.valueOf(this.activityRecord.getFirstTimeVisit()));
-		((TextView) myFragmentView.findViewById(R.id.planned_visit)).setText(String.valueOf(this.activityRecord.getPlannedVisit()));
+		
+		TextView notes = (TextView)myFragmentView.findViewById(R.id.notes);
+		TextView highlights = (TextView)myFragmentView.findViewById(R.id.highlights);
+		TextView nextsteps = (TextView)myFragmentView.findViewById(R.id.nextSteps);
+		TextView commitment_date = (TextView)myFragmentView.findViewById(R.id.follow_up_commitment_date);
+		TextView workplan_entry = (TextView)myFragmentView.findViewById(R.id.workplan_entry);
+		TextView customer = (TextView)myFragmentView.findViewById(R.id.customer);
+		TextView area = (TextView)myFragmentView.findViewById(R.id.area);
+		TextView province = (TextView)myFragmentView.findViewById(R.id.province);
+		TextView first_time_visit = (TextView) myFragmentView.findViewById(R.id.first_time_visit);
+		TextView planned_visit = (TextView) myFragmentView.findViewById(R.id.planned_visit);
+		
+		
+		notes.setText(this.activityRecord.getNotes());
+		highlights.setText(this.activityRecord.getHighlights());
+		nextsteps.setText(this.activityRecord.getNextSteps());
+		commitment_date.setText(String.valueOf(this.activityRecord.getFollowUpCommitmentDate()));
+		first_time_visit.setText(String.valueOf(this.activityRecord.getFirstTimeVisit()));
+		planned_visit.setText(String.valueOf(this.activityRecord.getPlannedVisit()));
+
+		
+		
+		ActivityTypeTable type =  JardineApp.DB.getActivityType();
+		if(type != null){
+			ActivityTypeRecord record = type.getById(this.activityRecord.getActivityType());
+			customer.setText(String.valueOf(""));
+			if(record != null){
+				workplan_entry.setText(String.valueOf(this.activityRecord.getWorkplanEntry()));
+			}
+			
+		}
+		
+		ActivityTypeTable type1 =  JardineApp.DB.getActivityType();
+		if(type != null){
+			ActivityTypeRecord record = type.getById(this.activityRecord.getActivityType());
+			customer.setText(String.valueOf(""));
+			if(record != null){
+				customer.setText(String.valueOf(this.activityRecord.getCustomer()));
+			}
+			
+		}
+		
+		ActivityTypeTable type2 =  JardineApp.DB.getActivityType();
+		if(type != null){
+			ActivityTypeRecord record = type.getById(this.activityRecord.getActivityType());
+			area.setText(String.valueOf(""));
+			if(record != null){
+				area.setText(String.valueOf(this.activityRecord.getArea()));
+			}
+			
+		}
+		province.setText(String.valueOf(this.activityRecord.getProvince()));
+		ActivityTypeTable type3 =  JardineApp.DB.getActivityType();
+		if(type != null){
+			ActivityTypeRecord record = type.getById(this.activityRecord.getActivityType());
+			((TextView) myFragmentView.findViewById(R.id.activity_type)).setText("");
+			if(record != null){
+				((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(record.toString());
+			}
+			
+		}
 
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
 
