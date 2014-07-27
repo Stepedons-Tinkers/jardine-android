@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:overScrollMode="never"
+    android:scrollbars="none" >
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="10dp"
         android:background="@color/white"
         android:gravity="center"
         android:orientation="vertical" >
@@ -79,8 +82,7 @@
         <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
             android:background="@drawable/xml_tablelayout_bg"
             android:padding="5dp" >
 
@@ -96,7 +98,7 @@
                     android:padding="10dp"
                     android:text="@string/customer_crm_no"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <TextView
@@ -109,9 +111,10 @@
                     android:hint="AUTO GENERATED"
                     android:maxLines="1"
                     android:padding="7dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:text="AUTO GENERATED"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
             </TableRow>
 
             <TableRow
@@ -126,7 +129,7 @@
                     android:padding="10dp"
                     android:text="@string/firstname_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <EditText
@@ -140,7 +143,7 @@
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -155,7 +158,7 @@
                     android:padding="10dp"
                     android:text="@string/lastname_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <EditText
@@ -169,7 +172,7 @@
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -184,7 +187,7 @@
                     android:padding="10dp"
                     android:text="@string/position_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <Spinner
@@ -209,7 +212,7 @@
                     android:padding="10dp"
                     android:text="@string/mobile_no_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <EditText
@@ -223,7 +226,7 @@
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -238,7 +241,7 @@
                     android:padding="10dp"
                     android:text="@string/birthday_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -257,7 +260,7 @@
                         android:padding="10dp"
                         android:text="12/25/2013"
                         android:textColor="@color/black"
-                        android:textSize="21sp"
+                        android:textSize="@dimen/text_xxlarge"
                         android:textStyle="bold" />
 
                     <ImageButton
@@ -282,7 +285,7 @@
                     android:padding="10dp"
                     android:text="@string/contact_person_email"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <EditText
@@ -296,7 +299,7 @@
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -311,7 +314,7 @@
                     android:padding="10dp"
                     android:text="@string/workplan_customer"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <TextView
@@ -320,41 +323,14 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
+                    android:gravity="center"
                     android:hint="@string/customer_contact_person"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
-            </TableRow>
-
-            <TableRow
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="start"
-                    android:padding="10dp"
-                    android:text="@string/customer_days_unchange"
-                    android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvCustomerContactAddField9"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:background="@drawable/xml_edittext_bg"
-                    android:enabled="false"
-                    android:maxLines="1"
-                    android:padding="7dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
             </TableRow>
 
             <TableRow
@@ -369,22 +345,23 @@
                     android:padding="10dp"
                     android:text="@string/assigned_to_contact_person"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tvCustomerContactAddField10"
+                    android:id="@+id/tvCustomerContactAddField9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
                     android:enabled="false"
+                    android:gravity="center"
                     android:hint="@string/customer_hint"
                     android:maxLines="1"
                     android:padding="7dp"
-                    android:text=""
-                    android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

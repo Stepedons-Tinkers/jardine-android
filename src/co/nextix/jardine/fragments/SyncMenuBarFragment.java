@@ -41,7 +41,6 @@ import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
 import co.nextix.jardine.database.records.SMRRecord;
-import co.nextix.jardine.database.records.SalesProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
@@ -160,6 +159,7 @@ public class SyncMenuBarFragment extends Fragment {
 	public SyncMenuBarFragment() {
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
@@ -1846,7 +1846,8 @@ public class SyncMenuBarFragment extends Fragment {
 								customerSize, model.getStreetadd(),
 								customerRecordStatus, customerType,
 								businessUnit, area, province, cityTown,
-								isActive, model.getCreatedTime(),
+								isActive, model.getDaysUnchanged(),
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1882,7 +1883,9 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getFax(), customerSize,
 									model.getStreetadd(), customerRecordStatus,
 									customerType, businessUnit, area, province,
-									cityTown, isActive, model.getCreatedTime(),
+									cityTown, isActive,
+									model.getDaysUnchanged(),
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(
@@ -3064,6 +3067,7 @@ public class SyncMenuBarFragment extends Fragment {
 			ProductSupplierTable table = JardineApp.DB.getProductSupplier();
 			CustomerTable customerTable = JardineApp.DB.getCustomer();
 			ActivityTable activityTable = JardineApp.DB.getActivity();
+			ProductTable productTable = JardineApp.DB.getProduct();
 
 			SyncRequests request = new SyncRequests();
 			ProductSupplierResult result = request.ProductSuppliers(LAST_SYNC);
@@ -3075,12 +3079,14 @@ public class SyncMenuBarFragment extends Fragment {
 								.getSupplier());
 						long activity = activityTable.getIdByNo(model
 								.getActivity());
+						long product = productTable.getIdByNo(model
+								.getProductbrand());
 
-						// if((supplier > 0) && (activity > 0))
+						// if((supplier > 0) && (activity > 0) && (product > 0))
 						table.insert(model.getRecordId(), model.getCrmNo(),
-								model.getProductbrand(), supplier,
-								model.getOthersRemarks(), activity, USER_ID,
-								model.getCreatedTime(), model.getModifiedTime());
+								product, supplier, model.getOthersRemarks(),
+								activity, USER_ID, model.getCreatedTime(),
+								model.getModifiedTime());
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
@@ -3092,12 +3098,15 @@ public class SyncMenuBarFragment extends Fragment {
 									.getSupplier());
 							long activity = activityTable.getIdByNo(model
 									.getActivity());
+							long product = productTable.getIdByNo(model
+									.getProductbrand());
 
-							// if((supplier > 0) && (activity > 0))
+							// if((supplier > 0) && (activity > 0) && (product >
+							// 0))
 							table.update(id, model.getRecordId(),
-									model.getCrmNo(), model.getProductbrand(),
-									supplier, model.getOthersRemarks(),
-									activity, USER_ID, model.getCreatedTime(),
+									model.getCrmNo(), product, supplier,
+									model.getOthersRemarks(), activity,
+									USER_ID, model.getCreatedTime(),
 									model.getModifiedTime());
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(

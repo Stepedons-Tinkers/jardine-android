@@ -66,63 +66,7 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 		initLayout();
 	}
 
-	private void initLayout() {
-		customerId = this.getIntent().getExtras()
-				.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		customerName = this.getIntent().getExtras()
-				.getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
-		final Calendar c = Calendar.getInstance();
-		df = new SimpleDateFormat("MM/dd/yyyy");
-		today = new Date();
-
-		day = c.get(Calendar.DAY_OF_MONTH);
-		month = c.get(Calendar.MONTH);
-		year = c.get(Calendar.YEAR);
-
-		formattedDate = year + "-" + (checkDigit(month) + 1) + "-" + checkDigit(day);
-
-		cancel = (Button) findViewById(R.id.bCustomerContactAddCancel);
-		save = (Button) findViewById(R.id.bCustomerContactAddCreate);
-
-		cancel.setOnClickListener(this);
-		save.setOnClickListener(this);
-
-		field1 = (TextView) findViewById(R.id.tvCustomerContactAddField1);
-
-		field2 = (EditText) findViewById(R.id.etCustomerContactAddField2);
-		field3 = (EditText) findViewById(R.id.etCustomerContactAddField3);
-
-		field4 = (Spinner) findViewById(R.id.spiCustomerContactAddField4);
-
-		field5 = (EditText) findViewById(R.id.etCustomerContactAddField5);
-
-		field6a = (TextView) findViewById(R.id.tvCustomerContactAddField6);
-		field6b = (ImageButton) findViewById(R.id.ibCustomerContactAddField6);
-
-		field7 = (EditText) findViewById(R.id.etCustomerContactAddField7);
-
-		field8 = (TextView) findViewById(R.id.tvCustomerContactAddField8);
-
-		field9 = (TextView) findViewById(R.id.tvCustomerContactAddField9);
-		field10 = (TextView) findViewById(R.id.tvCustomerContactAddField10);
-		// List to be populated in spinner adapter
-		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
-				.getAllRecords();
-		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(
-				this, R.layout.workplan_spinner_row, posi);
-
-		field4.setAdapter(adapter4);
-		field6a.setText(formattedDate);
-		field6b.setOnClickListener(this);
-		field8.setText(CustomerConstants.CUSTOMER_NAME);
-		UserTable u = DatabaseAdapter.getInstance().getUser();
-		if (u != null) {
-			UserRecord user = u.getCurrentUser();
-			if (user != null) {
-				field10.setText(user.getFirstNameName() + user.getLastname());
-			}
-		}
-	}
+	private void initLayout() {}
 
 	@Override
 	public void onClick(View v) {
@@ -135,9 +79,9 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 			new InsertTask().execute();
 			break;
 		case R.id.ibCustomerContactAddField6:
-			DatePickerDialog pickDialog = new DatePickerDialog(this,
-					android.R.style.Theme_Holo_Panel, datePickerListener, year,
-					month, day);
+			DatePickerDialog pickDialog = new DatePickerDialog(
+					JardineApp.context, android.R.style.Theme_Holo_Panel,
+					datePickerListener, year, month, day);
 			pickDialog.show();
 			break;
 		}
@@ -157,17 +101,17 @@ public class AddCustomerContacts extends Activity implements OnClickListener {
 			// txtActualDate.setText(new StringBuilder().append(month + 1)
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
-			formattedDate = year + "-" + (checkDigit(month) + 1) + "-" + checkDigit(day);
+			formattedDate = year + "-" + (checkDigit(month) + 1) + "-"
+					+ checkDigit(day);
 			field6a.setText(formattedDate);
 
 		}
 
 	};
-	
-	public String checkDigit(int number)
-    {
-        return number<=9?"0"+number:String.valueOf(number);
-    }
+
+	public String checkDigit(int number) {
+		return number <= 9 ? "0" + number : String.valueOf(number);
+	}
 
 	private class InsertTask extends AsyncTask<Void, Void, Boolean> {
 

@@ -157,6 +157,7 @@
     <string name="area">Area</string>
     <string name="province">Province</string>
     <string name="city_town">City/Town</string>
+    <string name="other_type_remarks">Other - Type Remarks</string>
     <string name="end_user_activity_types">End-User Activity Types</string>
     <string name="no_data">Error 404: Search not found </string>
     <string name="next">NEXT</string>
@@ -372,7 +373,7 @@
     <string name="customer_contact_hint_lname">last name</string>
     <string name="customer_contact_hint_mobile">mobile no.</string>
     <string name="customer_contact_hint_email">email address</string>
-    <string name="customer_days_unchange">Days Unchange</string>
+    <string name="customer_days_unchange">Days Unchanged</string>
     <string name="customer_record_status">Customer Record Status</string>
 
     <!-- Customer Contact Person -->
@@ -408,5 +409,9 @@
     <string name="action_products">Action</string>
     <string name="select_products">Select Product</string>
     <string name="all_caps_select_products">SELECT PRODUCT</string>
+    
+    <!-- Attachment and Photos -->
+    <string name="document_no">Document No</string>
+    <string name="attachment_photo_title">Title</string>
 
 </resources>

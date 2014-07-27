@@ -221,7 +221,7 @@ public class CustomerContactPersonFragment extends Fragment {
 //		editor.commit(); 
 
 		Fragment fragment = new CustomerContactPersonDetailFragment();
-
+		bundle.putLong("customer_id", tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)

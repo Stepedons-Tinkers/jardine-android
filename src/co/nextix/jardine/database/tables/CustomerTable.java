@@ -12,30 +12,28 @@ import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
 
-public class CustomerTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CHAINNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_LANDLINE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_FAX;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_SIZE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_STREETADDRESS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_RECORDSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_TYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_PROVINCE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CITYTOWN;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_DAYSUNCHANGED;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATED_BY;
 
-	private final String KEY_CUSTOMER_ROWID = "_id";
-	private final String KEY_CUSTOMER_NO = "no";
-	private final String KEY_CUSTOMER_CRMNO = "crm_no";
-	private final String KEY_CUSTOMER_NAME = "customer_name";
-	private final String KEY_CUSTOMER_CHAINNAME = "chain_name";
-	private final String KEY_CUSTOMER_LANDLINE = "landline";
-	private final String KEY_CUSTOMER_FAX = "fax";
-	private final String KEY_CUSTOMER_SIZE = "customer_size";
-	private final String KEY_CUSTOMER_STREETADDRESS = "street_address";
-	private final String KEY_CUSTOMER_RECORDSTATUS = "customer_record_status";
-	private final String KEY_CUSTOMER_TYPE = "customer_type";
-	private final String KEY_CUSTOMER_BUSINESSUNIT = "business_unit";
-	private final String KEY_CUSTOMER_AREA = "area";
-	private final String KEY_CUSTOMER_PROVINCE = "province";
-	private final String KEY_CUSTOMER_CITYTOWN = "city_town";
-	private final String KEY_CUSTOMER_ISACTIVE = "is_active";
-	private final String KEY_CUSTOMER_CREATEDTIME = "created_time";
-	private final String KEY_CUSTOMER_MODIFIEDTIME = "modified_time";
-	private final String KEY_CUSTOMER_CREATED_BY = "created_by";
+public class CustomerTable {
 
 	// ===========================================================
 	// Private fields
@@ -104,6 +102,8 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String daysUnchanged = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -115,7 +115,8 @@ public class CustomerTable {
 							chainName, landline, fax, customerSize,
 							streetAddress, customerRecordStatus, customerType,
 							businessUnit, area, province, cityTown, isActive,
-							createdTime, modifiedTime, created_by));
+							daysUnchanged, createdTime, modifiedTime,
+							created_by));
 					// list.add(new CustomerRecord(id, no, crmNo, customerName,
 					// chainName, landline, fax, customerSize,
 					// streetAddress, customerType, businessUnit, area,
@@ -220,6 +221,8 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String daysUnchanged = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -231,7 +234,8 @@ public class CustomerTable {
 							chainName, landline, fax, customerSize,
 							streetAddress, customerRecordStatus, customerType,
 							businessUnit, area, province, cityTown, isActive,
-							createdTime, modifiedTime, created_by));
+							daysUnchanged, createdTime, modifiedTime,
+							created_by));
 					// list.add(new CustomerRecord(id, no, crmNo, customerName,
 					// chainName, landline, fax, customerSize,
 					// streetAddress, customerType, businessUnit, area,
@@ -290,6 +294,8 @@ public class CustomerTable {
 							.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 					int isActive = c.getInt(c
 							.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+					String daysUnchanged = c.getString(c
+							.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 					String createdTime = c.getString(c
 							.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
 					String modifiedTime = c.getString(c
@@ -301,7 +307,8 @@ public class CustomerTable {
 							chainName, landline, fax, customerSize,
 							streetAddress, customerRecordStatus, customerType,
 							businessUnit, area, province, cityTown, isActive,
-							createdTime, modifiedTime, created_by));
+							daysUnchanged, createdTime, modifiedTime,
+							created_by));
 					// list.add(new CustomerRecord(id, no, crmNo, customerName,
 					// chainName, landline, fax, customerSize,
 					// streetAddress, customerType, businessUnit, area,
@@ -456,6 +463,8 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 				int isActive = c
 						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+				String daysUnchanged = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
 				String modifiedTime = c.getString(c
@@ -466,8 +475,8 @@ public class CustomerTable {
 				record = new CustomerRecord(id, no, crmNo, customerName,
 						chainName, landline, fax, customerSize, streetAddress,
 						customerRecordStatus, customerType, businessUnit, area,
-						province, cityTown, isActive, createdTime,
-						modifiedTime, created_by);
+						province, cityTown, isActive, daysUnchanged,
+						createdTime, modifiedTime, created_by);
 
 				// record = new CustomerRecord(id, no, crmNo, customerName,
 				// chainName, landline, fax, customerSize, streetAddress,
@@ -540,6 +549,8 @@ public class CustomerTable {
 						.getColumnIndex(KEY_CUSTOMER_CITYTOWN));
 				int isActive = c
 						.getInt(c.getColumnIndex(KEY_CUSTOMER_ISACTIVE));
+				String daysUnchanged = c.getString(c
+						.getColumnIndex(KEY_CUSTOMER_DAYSUNCHANGED));
 				String createdTime = c.getString(c
 						.getColumnIndex(KEY_CUSTOMER_CREATEDTIME));
 				String modifiedTime = c.getString(c
@@ -550,8 +561,8 @@ public class CustomerTable {
 				record = new CustomerRecord(id, no, crmNo, customerName,
 						chainName, landline, fax, customerSize, streetAddress,
 						customerRecordStatus, customerType, businessUnit, area,
-						province, cityTown, isActive, createdTime,
-						modifiedTime, created_by);
+						province, cityTown, isActive, daysUnchanged,
+						createdTime, modifiedTime, created_by);
 
 				// record = new CustomerRecord(id, no, crmNo, customerName,
 				// chainName, landline, fax, customerSize, streetAddress,
@@ -571,8 +582,8 @@ public class CustomerTable {
 			String chainName, String landline, String fax, long customerSize,
 			String streetAddress, long customerRecordStatus, long customerType,
 			long businessUnit, long area, long province, long cityTown,
-			int isActive, String createdTime, String modifiedTime,
-			long created_by) {
+			int isActive, String daysUnchanged, String createdTime,
+			String modifiedTime, long created_by) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -595,6 +606,7 @@ public class CustomerTable {
 		initialValues.put(KEY_CUSTOMER_PROVINCE, province);
 		initialValues.put(KEY_CUSTOMER_CITYTOWN, cityTown);
 		initialValues.put(KEY_CUSTOMER_ISACTIVE, isActive);
+		initialValues.put(KEY_CUSTOMER_DAYSUNCHANGED, daysUnchanged);
 		initialValues.put(KEY_CUSTOMER_CREATEDTIME, createdTime);
 		initialValues.put(KEY_CUSTOMER_MODIFIEDTIME, modifiedTime);
 		initialValues.put(KEY_CUSTOMER_CREATED_BY, created_by);
@@ -625,8 +637,8 @@ public class CustomerTable {
 			String customerName, String chainName, String landline, String fax,
 			long customerSize, String streetAddress, long customerRecordStatus,
 			long customerType, long businessUnit, long area, long province,
-			long cityTown, int isActive, String createdTime,
-			String modifiedTime, long created_by) {
+			long cityTown, int isActive, String daysUnchanged,
+			String createdTime, String modifiedTime, long created_by) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
 		args.put(KEY_CUSTOMER_CRMNO, crmNo);
@@ -643,6 +655,7 @@ public class CustomerTable {
 		args.put(KEY_CUSTOMER_PROVINCE, province);
 		args.put(KEY_CUSTOMER_CITYTOWN, cityTown);
 		args.put(KEY_CUSTOMER_ISACTIVE, isActive);
+		args.put(KEY_CUSTOMER_DAYSUNCHANGED, daysUnchanged);
 		args.put(KEY_CUSTOMER_CREATEDTIME, createdTime);
 		args.put(KEY_CUSTOMER_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_CUSTOMER_CREATED_BY, created_by);

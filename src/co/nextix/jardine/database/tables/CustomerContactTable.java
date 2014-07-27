@@ -2,7 +2,6 @@ package co.nextix.jardine.database.tables;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -12,27 +11,22 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerContactRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_FIRSTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_LASTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_POSITION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MOBILENO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_BIRTHDAY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_EMAIL;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CUSTOMER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDBY;
 
 public class CustomerContactTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_CUSTOMERCONTACT_ROWID = "_id";
-	private final String KEY_CUSTOMERCONTACT_NO = "no";
-	private final String KEY_CUSTOMERCONTACT_CRMNO = "crm_no";
-	private final String KEY_CUSTOMERCONTACT_FIRSTNAME = "first_name";
-	private final String KEY_CUSTOMERCONTACT_LASTNAME = "last_name";
-	private final String KEY_CUSTOMERCONTACT_POSITION = "position";
-	private final String KEY_CUSTOMERCONTACT_MOBILENO = "mobile_no";
-	private final String KEY_CUSTOMERCONTACT_BIRTHDAY = "birthday";
-	private final String KEY_CUSTOMERCONTACT_EMAIL = "email_address";
-	private final String KEY_CUSTOMERCONTACT_CUSTOMER = "customer";
-	private final String KEY_CUSTOMERCONTACT_ISACTIVE = "is_active";
-	private final String KEY_CUSTOMERCONTACT_CREATEDTIME = "created_time";
-	private final String KEY_CUSTOMERCONTACT_MODIFIEDTIME = "modified_time";
-	private final String KEY_CUSTOMERCONTACT_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -53,6 +47,7 @@ public class CustomerContactTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
