@@ -117,6 +117,7 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
+    <string name="details"     >      Details      </string>
     <string name="travel_or_waiting">Travel or Waiting</string>
     <string name="admin_works">Admin Works</string>
     <string name="activity_details">Activity Details and Notes</string>
