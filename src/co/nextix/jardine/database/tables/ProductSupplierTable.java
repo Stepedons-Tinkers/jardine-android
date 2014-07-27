@@ -71,7 +71,7 @@ public class ProductSupplierTable {
 							.getColumnIndex(KEY_PRODUCTSUPPLIER_NO));
 					String crmNo = c.getString(c
 							.getColumnIndex(KEY_PRODUCTSUPPLIER_CRMNO));
-					String productBrand = c.getString(c
+					long productBrand = c.getLong(c
 							.getColumnIndex(KEY_PRODUCTSUPPLIER_PRODUCTBRAND));
 					long supplier = c.getLong(c
 							.getColumnIndex(KEY_PRODUCTSUPPLIER_SUPPLIER));
@@ -205,7 +205,7 @@ public class ProductSupplierTable {
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_NO));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_CRMNO));
-				String productBrand = c.getString(c
+				long productBrand = c.getLong(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_PRODUCTBRAND));
 				long supplier = c.getLong(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_SUPPLIER));
@@ -268,7 +268,7 @@ public class ProductSupplierTable {
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_NO));
 				String crmNo = c.getString(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_CRMNO));
-				String productBrand = c.getString(c
+				long productBrand = c.getLong(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_PRODUCTBRAND));
 				long supplier = c.getLong(c
 						.getColumnIndex(KEY_PRODUCTSUPPLIER_SUPPLIER));
@@ -296,7 +296,7 @@ public class ProductSupplierTable {
 		return record;
 	}
 
-	public long insert(String no, String crmNo, String productBrand,
+	public long insert(String no, String crmNo, long productBrand,
 			long supplier, String othersRemarks, long activity, long createdBy,
 			String createdTime, String modifiedTime) {
 		// if (name == null) {
@@ -337,7 +337,7 @@ public class ProductSupplierTable {
 	}
 
 	public boolean update(long id, String no, String crmNo,
-			String productBrand, long supplier, String othersRemarks,
+			long productBrand, long supplier, String othersRemarks,
 			long activity, long createdBy, String createdTime,
 			String modifiedTime) {
 		ContentValues args = new ContentValues();

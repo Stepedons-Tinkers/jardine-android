@@ -117,6 +117,7 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
+    <string name="details"     >      Details      </string>
     <string name="travel_or_waiting">Travel or Waiting</string>
     <string name="admin_works">Admin Works</string>
     <string name="activity_details">Activity Details and Notes</string>
@@ -298,7 +299,7 @@
     <!-- Marketing Intel -->
     <string name="crm_no_marketing_intel">CRM No</string>
     <string name="activity_marketing_intel">Activity</string>
-    <string name="competitor_marketing_intel">Competitor</string>
+    <string name="competitor_marketing_intel">Competitor Product</string>
     <string name="details_marketing_intel">Details</string>
     <string name="remarks_marketing_intel">Remarks</string>
     <string name="assigned_to_marketing_intel">Assigned To</string>

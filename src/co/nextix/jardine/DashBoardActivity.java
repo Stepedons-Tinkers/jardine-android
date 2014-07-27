@@ -157,10 +157,17 @@ public class DashBoardActivity extends FragmentActivity {
 
 		this.mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		if (savedInstanceState == null) {
-			// on first time display view for first nav item
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		boolean justLogged = extras.getBoolean("JUSTLOGGED", false);
+		Log.w(JardineApp.TAG, "DashboardActivity: justLoggedIn: " + justLogged);
+		// if (savedInstanceState == null) {
+		// // on first time display view for first nav item
+		if (justLogged)
+			displayView(2);
+		else
 			displayView(0);
-		}
+		// }
 
 	}
 
@@ -461,8 +468,8 @@ public class DashBoardActivity extends FragmentActivity {
 		protected Boolean doInBackground(Void... arg0) {
 
 			StoreAccount.clear(DashBoardActivity.this);
-			JardineApp.DB.close();
-			deleteDatabase();
+			DatabaseAdapter.getInstance().clearDatabase();
+			// deleteDatabase();
 			// JardineApp.DB.close();
 			JardineApp.SESSION_NAME = null;
 			return true;

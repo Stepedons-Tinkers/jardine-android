@@ -41,6 +41,7 @@ public class Modules {
 	public static String activity_projectcategory = "z_ac_projectcategory";
 	public static String jdiprodstock_status = "z_jps_stockstatus";
 	public static String jdimerchcheck_status = "z_jmc_status";
+	public static String competitorproductstock_status = "z_cps_stockstatus";
 	public static String projrequirement_type = "z_pr_prtype";
 	public static String end_user_activity_types = "z_ac_enduseractype";
 	public static String salesprotocol_type = "z_sp_protocoltype";
@@ -51,6 +52,7 @@ public class Modules {
 			workplanentry_status, activity_projectstage,
 			activity_projectcategory, jdiprodstock_status,
 			jdimerchcheck_status, projrequirement_type,
-			end_user_activity_types, salesprotocol_type };
+			competitorproductstock_status, end_user_activity_types,
+			salesprotocol_type };
 
 }

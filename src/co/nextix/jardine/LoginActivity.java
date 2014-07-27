@@ -1,7 +1,5 @@
 package co.nextix.jardine;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -11,9 +9,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -26,7 +22,6 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.utils.NetworkUtils;
 import co.nextix.jardine.web.LogRequests;
-import co.nextix.jardine.web.models.WorkplanModel;
 import co.nextix.jardine.web.requesters.LoginModel;
 
 public class LoginActivity extends Activity {
@@ -88,14 +83,17 @@ public class LoginActivity extends Activity {
 			}
 
 		});
-		
+
 		editUsername.setText("test_smr1");
 		editPassword.setText("1212");
-		
+
 		if (StoreAccount.exists(getApplicationContext())) {
+			Intent i = new Intent(getApplicationContext(),
+					DashBoardActivity.class);
+			i.putExtra("JUSTLOGGED", false);
+			Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: false");
 			finish();
-			startActivity(new Intent(getApplicationContext(),
-					DashBoardActivity.class));
+			startActivity(i);
 			overridePendingTransition(R.anim.slide_in_left,
 					R.anim.slide_out_left);
 		}
@@ -152,9 +150,12 @@ public class LoginActivity extends Activity {
 						UserTable table = JardineApp.DB.getUser();
 						table.updateLoggedArea(rowID, choices[areaChoice]);
 
+						Intent i =new Intent(getApplicationContext(),
+								DashBoardActivity.class);
+						i.putExtra("JUSTLOGGED", true);
+						Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: true");
 						finish();
-						startActivity(new Intent(getApplicationContext(),
-								DashBoardActivity.class));
+						startActivity(i);
 						overridePendingTransition(R.anim.slide_in_left,
 								R.anim.slide_out_left);
 
@@ -176,9 +177,8 @@ public class LoginActivity extends Activity {
 
 	private class LoginTask extends AsyncTask<Void, Void, Boolean> {
 		ProgressDialog dialog;
-		List<WorkplanModel> models;
 		long rowid = 0;
-		String[] choiceList;
+//		String[] choiceList;
 
 		@Override
 		protected void onPreExecute() {
@@ -199,6 +199,8 @@ public class LoginActivity extends Activity {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
 					JardineApp.SESSION_NAME = model.getSessionName();
+					
+					
 					UserTable userTable = JardineApp.DB.getUser();
 
 					String areas = model.getDetails().getArea()
@@ -211,32 +213,25 @@ public class LoginActivity extends Activity {
 										.getDetails().getEmail(), model
 										.getDetails().getLastName(), "", model
 										.getDetails().getFirstName(), 1, 1, "",
-								areas, MyDateUtils.getCurrentTimeStamp());
+								areas, SELECTED_AREA, MyDateUtils
+										.getCurrentTimeStamp());
 					} else {
-						// rowid = Long.parseLong(StoreAccount.restore(
-						// getApplicationContext()).getString(
-						// Account.ROWID));
 						rowid = userTable.getByWebId(model.getUserId()).getId();
 						userTable.updateLogStatus(rowid, 1);
-						userTable
-								.updateUser(rowid, model.getUserId(), model
-										.getDetails().getUserName(),
-										editPassword.getText().toString(),
-										model.getDetails().getEmail(), model
-												.getDetails().getLastName(),
-										"", model.getDetails().getFirstName(),
-										areas, 1);
+						userTable.updateUser(rowid, model.getUserId(), model
+								.getDetails().getUserName(), editPassword
+								.getText().toString(), model.getDetails()
+								.getEmail(), model.getDetails().getLastName(),
+								"", model.getDetails().getFirstName(), areas,
+								SELECTED_AREA, 1);
 					}
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()
 							.toString(), model.getUserId(), String
 							.valueOf(rowid), model.getSessionName(),
 							SELECTED_AREA);
-					// RetrieveRequests retrieve = new RetrieveRequests();
-					// models = retrieve.Workplan(new String[] { "422", "432"
-					// });
 
-					choiceList = areas.split("\\s*,\\s*");
+//					choiceList = areas.split("\\s*,\\s*");
 
 					return true;
 				} else {
@@ -253,9 +248,12 @@ public class LoginActivity extends Activity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
+				Intent i = new Intent(getApplicationContext(),
+						DashBoardActivity.class);
+				i.putExtra("JUSTLOGGED", true);
+				Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: true");
 				finish();
-				startActivity(new Intent(getApplicationContext(),
-						DashBoardActivity.class));
+				startActivity(i);
 				overridePendingTransition(R.anim.slide_in_left,
 						R.anim.slide_out_left);
 
@@ -268,7 +266,7 @@ public class LoginActivity extends Activity {
 				// Toast.LENGTH_LONG).show();
 
 			} else {
-				Toast.makeText(getApplicationContext(), "Invalid credentials",
+				Toast.makeText(getApplicationContext(), "Connection Timeout",
 						Toast.LENGTH_SHORT).show();
 			}
 		}

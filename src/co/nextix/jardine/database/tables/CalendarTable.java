@@ -152,24 +152,29 @@ public class CalendarTable {
 	// Public methods
 	// ===========================================================
 
-	// public boolean isExisting(String webID) {
-	// boolean exists = false;
-	// String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-	// + KEY_CALENDAR_NO + "='" + webID + "'";
-	// Cursor c = null;
-	// try {
-	// c = mDb.rawQuery(MY_QUERY, null);
-	//
-	// if ((c != null) && c.moveToFirst()) {
-	// exists = true;
-	// }
-	// } finally {
-	// if (c != null) {
-	// c.close();
-	// }
-	// }
-	// return exists;
-	// }
+	public boolean isExisting(long activity, String activityType, String subject,
+			String dateStart, String dueDate) {
+		boolean exists = false;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_CALENDAR_ACTIVITY + "=" + activity + " AND "
+				+ KEY_CALENDAR_ACTIVITYTYPE + "='" + activityType + "' AND "
+				+ KEY_CALENDAR_SUBJECT + "='" + subject + "' AND "
+				+ KEY_CALENDAR_DATESTART + "='" + dateStart + "' AND "
+				+ KEY_CALENDAR_DUEDATE + "='" + dueDate + "'";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				exists = true;
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return exists;
+	}
 
 	public int deleteById(long[] rowIds) {
 

@@ -21,17 +21,21 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIProductStockCheckCustomAdapter;
+import co.nextix.jardine.activites.fragments.adapters.ProductSupplierCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.activites.fragments.detail.JDIProductStockCheckDetailFragment;
+import co.nextix.jardine.activites.fragments.detail.ProductSupplierDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
+import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
+import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class JDIProductStockFragment extends Fragment {
-	private ArrayList<JDIproductStockCheckRecord> realRecord = null;
-	private ArrayList<JDIproductStockCheckRecord> tempRecord = null;
-	private JDIProductStockCheckCustomAdapter adapter = null;
+public class ProductSupplierFragment extends Fragment {
+	private ArrayList<ProductSupplierRecord> realRecord = null;
+	private ArrayList<ProductSupplierRecord> tempRecord = null;
+	private ProductSupplierCustomAdapter adapter = null;
 
 	private Context CustomListView = null;
 	private View myFragmentView = null;
@@ -48,7 +52,7 @@ public class JDIProductStockFragment extends Fragment {
 			Bundle savedInstanceState) {
 
 		this.myFragmentView = inflater.inflate(
-				R.layout.fragment_activity_jdi_product_stock_check, container,
+				R.layout.fragment_activity_product_supplier, container,
 				false);
 		this.setListData();
 		
@@ -123,12 +127,12 @@ public class JDIProductStockFragment extends Fragment {
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
-		this.realRecord = new ArrayList<JDIproductStockCheckRecord>();
-		this.tempRecord = new ArrayList<JDIproductStockCheckRecord>();
+		this.realRecord = new ArrayList<ProductSupplierRecord>();
+		this.tempRecord = new ArrayList<ProductSupplierRecord>();
 
-		JDIproductStockCheckTable table = JardineApp.DB
-				.getJDIproductStockCheck();
-		List<JDIproductStockCheckRecord> records = table.getAllRecords();
+		ProductSupplierTable table = JardineApp.DB
+				.getProductSupplier();
+		List<ProductSupplierRecord> records = table.getAllRecords();
 		this.realRecord.addAll(records);
 
 		Log.d("Jardine",
@@ -176,7 +180,7 @@ public class JDIProductStockFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new JDIProductStockCheckCustomAdapter(
+		this.adapter = new ProductSupplierCustomAdapter(
 				this.CustomListView, getActivity(), this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
@@ -184,7 +188,7 @@ public class JDIProductStockFragment extends Fragment {
 
 	// Event item listener
 	public void onItemClick(int mPosition) {
-		JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) this.tempRecord
+		ProductSupplierRecord tempValues = (ProductSupplierRecord) this.tempRecord
 				.get(mPosition);
 
 		// JDIproductStockCheckRecord ar = (JDIproductStockCheckRecord)
@@ -199,7 +203,7 @@ public class JDIProductStockFragment extends Fragment {
 		// .addToBackStack(JardineApp.TAG).commit();
 		// }
 		
-		Fragment fragment = new JDIProductStockCheckDetailFragment();
+		Fragment fragment = new ProductSupplierDetailFragment();
 		bundle.putLong("product_id", tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();

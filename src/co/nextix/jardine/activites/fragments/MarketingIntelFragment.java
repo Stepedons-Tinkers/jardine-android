@@ -7,6 +7,7 @@ import android.content.Context;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
+import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
@@ -217,12 +220,19 @@ public class MarketingIntelFragment extends Fragment {
 //						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 //
 //		editor.commit(); 
-
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+				
+		Fragment fragment = new MarketingIntelDetailFragment();
+		bundle.putLong("marketing_intel_id", tempValues.getId());
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+			.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+//		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+//		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+//				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 	}
+	
 	
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);

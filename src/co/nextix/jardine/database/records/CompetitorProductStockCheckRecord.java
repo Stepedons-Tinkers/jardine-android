@@ -24,6 +24,7 @@ public class CompetitorProductStockCheckRecord {
 	private long competitor_product; // product brand // competitorproduct table
 	private long stock_status;
 	private int loaded_on_shelves;
+	private String other_remarks;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
@@ -37,7 +38,7 @@ public class CompetitorProductStockCheckRecord {
 
 	public CompetitorProductStockCheckRecord(long id, String no, String crmNo,
 			long activity, long competitorProduct, long stockStatus,
-			int loadedOnShelves, String createdTime, String modifiedTime,
+			int loadedOnShelves, String otherRemarks, String createdTime, String modifiedTime,
 			long created_by) {
 
 		this.id = id;
@@ -47,6 +48,7 @@ public class CompetitorProductStockCheckRecord {
 		this.competitor_product = competitorProduct;
 		this.stock_status = stockStatus;
 		this.loaded_on_shelves = loadedOnShelves;
+		this.other_remarks = otherRemarks;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.created_by = created_by;
@@ -106,6 +108,14 @@ public class CompetitorProductStockCheckRecord {
 
 	public int getLoadedOnShelves() {
 		return this.loaded_on_shelves;
+	}
+	
+	public void setOtherRemarks(String otherRemarks) {
+		this.other_remarks = otherRemarks;
+	}
+	
+	public String getOtherRemarks() {
+		return other_remarks;
 	}
 
 	public void setCreatedTime(String createdTime) {

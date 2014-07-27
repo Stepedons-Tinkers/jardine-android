@@ -7,16 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import co.nextix.jardine.R;
 
-public class ActivityProductSupplierFragment extends Fragment {
-	private static volatile ActivityProductSupplierFragment instance = null;
+public class ActivityTrainingsFragment extends Fragment {
+	private static volatile ActivityTrainingsFragment instance = null;
 	private boolean flag = false;
 
-	public static ActivityProductSupplierFragment getInstance() {
+	public static ActivityTrainingsFragment getInstance() {
 		if (instance == null) {
-			synchronized (ActivityProductSupplierFragment.class) {
+			synchronized (ActivityTrainingsFragment.class) {
 				// Double check
 				if (instance == null) {
-					instance = new ActivityProductSupplierFragment();
+					instance = new ActivityTrainingsFragment();
 				}
 			}
 		}
@@ -25,7 +25,7 @@ public class ActivityProductSupplierFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View rootView = inflater.inflate(R.layout.view_activity_with_co_smrs, container, false);
+		final View rootView = inflater.inflate(R.layout.view_activity_trainings, container, false);
 
 
 		return rootView;

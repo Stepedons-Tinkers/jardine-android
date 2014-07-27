@@ -94,7 +94,7 @@
                         android:layout_alignParentRight="true"
                         android:layout_gravity="right"
                         android:onClick="editActivity"
-                        android:text="@string/edit_marketing_intel" />
+                        android:text="Edit Identify Product Focus" />
                 </RelativeLayout>
             </TableRow>
 
@@ -155,7 +155,6 @@
                     android:background="#FFFFFF" >
 
                     <TextView
-                        android:id="@+id/customer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -163,7 +162,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:text="@string/activity_competitor_stock_check"
+                        android:text="Product Number"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -182,7 +181,7 @@
                     android:background="#FFFFFF" >
 
                     <TextView
-                        android:id="@+id/activity"
+                        android:id="@+id/product_number"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -225,7 +224,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/competitor_marketing_intel"
+                        android:text="Product Brand"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -237,7 +236,7 @@
                     android:background="#FFFFFF" >
 
                     <TextView
-                        android:id="@+id/competitor_product"
+                        android:id="@+id/product_brand"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
@@ -264,7 +263,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/details_marketing_intel"
+                        android:text="Product Description"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -277,7 +276,7 @@
                     android:background="#FFFFFF" >
 
                     <TextView
-                        android:id="@+id/details"
+                        android:id="@+id/product_description"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
@@ -314,7 +313,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/created_time_marketing_intel"
+                        android:text="Is Active"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -326,7 +325,7 @@
                     android:background="#FFFFFF" >
 
                     <TextView
-                        android:id="@+id/created_time"
+                        android:id="@+id/is_active"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#FFFFFF"
@@ -378,8 +377,7 @@
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
-
-            <!-- Row 10 with 2 columns -->
+			  <!-- Row 4 with 2 columns -->
 
             <TableRow
                 android:layout_width="match_parent"
@@ -390,8 +388,46 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#FFFFFF" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/created_time_marketing_intel"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:background="#FFFFFF" >
+
+                    <TextView
+                        android:id="@+id/created_time"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#FFFFFF"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="decimal"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+				  <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="0.3"
                     android:background="#FFFFFF" >
 
@@ -413,6 +449,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
                     android:background="#FFFFFF" >
 
@@ -428,49 +465,9 @@
                         android:text="alphanumeric"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
-
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:background="#FFFFFF" >
-
-                    <TextView
-                        android:id="@+id/TextView05"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/assigned_to_competitor_product"
-                        android:textColor="#000000"
-                        android:textStyle="bold"
-                        android:visibility="invisible" />
-                </HorizontalScrollView>
-
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#FFFFFF" >
-
-                    <TextView
-                        android:id="@+id/TextView05"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:background="#FFFFFF"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="alphanumeric"
-                        android:textColor="#000000"
-                        android:visibility="invisible" />
-                </HorizontalScrollView>
+        
             </TableRow>
+
         </TableLayout>
     </ScrollView>
 

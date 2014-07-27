@@ -45,7 +45,8 @@
                     android:text="Admin Works"
                     android:textColor="#fff"
                     android:textSize="14dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </TableRow>
 
             <!-- Row 2 with 2 columns -->

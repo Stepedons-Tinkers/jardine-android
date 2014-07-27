@@ -83,7 +83,7 @@ public class ActivityInfoFragment extends Fragment {
 
 					
 					// General Information
-					EditActivityInfoFragment editActInfoFrag = new EditActivityInfoFragment();
+					ActivityGeneralInfoFragment editActInfoFrag = new ActivityGeneralInfoFragment();
 					editActInfoFrag.setArguments(bundle);
 
 					ft = getFragmentManager().beginTransaction();
@@ -91,13 +91,13 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 1) {
 
-					// Travel or Waiting TODO
-//					TravelOrWaitingFragment travelORwaitingFrag = new TravelOrWaitingFragment();
-//					travelORwaitingFrag.setArguments(bundle);
-//
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
-//					ft.commit();
+					// Travel or Waiting
+					ActivityTravelOrWaitingFragment travelORwaitingFrag = new ActivityTravelOrWaitingFragment();
+					travelORwaitingFrag.setArguments(bundle);
+
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
+					ft.commit();
 				} else if (position == 2) {
 					
 					// WithCoSMRs
@@ -109,23 +109,23 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 3) {
 					
-					// Admin Works TODO
-//					AdminWorksFragment adminWorksFrag = new AdminWorksFragment();
-//					adminWorksFrag.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
-//					ft.commit();
+					// Admin Works
+					ActivityAdminWorksFragment adminWorksFrag = new ActivityAdminWorksFragment();
+					adminWorksFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
+					ft.commit();
 				} else if (position == 4) {
 					
 					
-					// Activity Details and Notes TODO
-//					ActivityDetailsAndNotesFragment detailsANDnotesFrag = new ActivityDetailsAndNotesFragment();
-//					detailsANDnotesFrag.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
-//					ft.commit();
+					// Activity Details and Notes
+					ActivityDetailedInfoFragment detailsANDnotesFrag = new ActivityDetailedInfoFragment();
+					detailsANDnotesFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
+					ft.commit();
 				} else if (position == 5) {
 					
 					// Customer Contact Person
@@ -147,12 +147,12 @@ public class ActivityInfoFragment extends Fragment {
 				} else if (position == 7) {
 					
 					// Product Supplier TODO
-//					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
-//					productSupplierFrag.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
-//					ft.commit();
+					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
+					productSupplierFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
+					ft.commit();
 				} else if (position == 8) {
 					
 					// JDI Merchandising Check
@@ -185,7 +185,7 @@ public class ActivityInfoFragment extends Fragment {
 					
 					
 					// Project Visit
-					AddActivityProjectVisitFragment  projectVisitFrag = new AddActivityProjectVisitFragment ();
+					ActivityProjectVisitFragment  projectVisitFrag = new ActivityProjectVisitFragment();
 					projectVisitFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
@@ -203,7 +203,7 @@ public class ActivityInfoFragment extends Fragment {
 				} else if (position == 13) {
 					
 					// Trainings
-					AddActivityTrainingsFragment  trainingsFrag = new AddActivityTrainingsFragment ();
+					ActivityTrainingsFragment  trainingsFrag = new ActivityTrainingsFragment();
 					trainingsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
@@ -220,13 +220,13 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 15){
 					
-					// Full Brand Activation TODO
-//					FullBrandActivationFragment fullBrandActivationFrag = new FullBrandActivationFragment();
-//					fullBrandActivationFrag.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, fullBrandActivationFrag);
-//					ft.commit();
+					// Full Brand Activation
+					ActivityBrandActivationFragment fullBrandActivationFrag = new ActivityBrandActivationFragment();
+					fullBrandActivationFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, fullBrandActivationFrag);
+					ft.commit();
 				} else if (position == 16){
 					
 					// Activity Photos and Attachments TODO
@@ -242,18 +242,16 @@ public class ActivityInfoFragment extends Fragment {
 
 			@Override
 			public void onPageScrolled(int arg0, float arg1, int arg2) {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onPageScrollStateChanged(int arg0) {
-				// TODO Auto-generated method stub
 
 			}
 		});
 
-		EditActivityInfoFragment editActInfoFrag = new EditActivityInfoFragment();
+		ActivityGeneralInfoFragment editActInfoFrag = new ActivityGeneralInfoFragment();
 		editActInfoFrag.setArguments(bundle);
 
 		ft.replace(R.id.layoutForAddingFrag, editActInfoFrag);
