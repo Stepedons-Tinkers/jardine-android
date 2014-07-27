@@ -65,8 +65,8 @@ public class AddActivityAdminWorksFragment extends Fragment {
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
 								null), pref.getString("check_out", null), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
 								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
-								pref.getString("check_out", null), adminWorks, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "",
-								0, 0, "", "", "", "", "", "", "", "", 0, "").execute();
+								pref.getString("check_out", null), adminWorks, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID,
+								"", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -147,8 +147,8 @@ public class AddActivityAdminWorksFragment extends Fragment {
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectStage = null;
-		private String projectCategory = null;
+		private long projectStage = 0;
+		private long projectCategory = 0;
 		private String venue = null;
 
 		private int numberOfAttendees = 0;
@@ -160,7 +160,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 				String endUserActivityTypes) {
 
 			this.no = no;
@@ -258,8 +258,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
-			String endUserActivityTypes) {
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
 		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
