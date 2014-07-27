@@ -4,8 +4,10 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,7 +51,7 @@ public class CustomerGeneralInformation extends Fragment {
 		return view;
 	}
 
-	private void initLayout() {
+	public void initLayout() {
 		crmNo = (TextView) view.findViewById(R.id.tvCustomerCrmNoInfo);
 		customerName = (TextView) view.findViewById(R.id.tvCustomerNameInfo);
 		businessUnit = (TextView) view
@@ -117,6 +119,13 @@ public class CustomerGeneralInformation extends Fragment {
 			isActive.setText("No");
 		}
 
+		if (!record.getCrm().contentEquals("")) {
+			delete.setEnabled(false);
+			delete.setOnClickListener(null);
+			delete.setClickable(false);
+			delete.setBackgroundColor(Color.DKGRAY);
+		}
+
 	}
 
 	private View.OnClickListener click = new View.OnClickListener() {
@@ -129,8 +138,20 @@ public class CustomerGeneralInformation extends Fragment {
 				break;
 			case R.id.btnEditCustomer:
 				CustomerConstants.CUSTOMER_RECORD = record;
-				Intent intent = new Intent(getActivity(), EditCustomer.class);
-				getActivity().startActivity(intent);
+				// Intent intent = new Intent(getActivity(),
+				// EditCustomer.class);
+				// getActivity().startActivity(intent);
+
+				EditCustomerFragment fragment = new EditCustomerFragment();
+				fragment.setTargetFragment(CustomerGeneralInformation.this, 15);
+
+				getActivity()
+						.getSupportFragmentManager()
+						.beginTransaction()
+						.setTransition(
+								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.add(R.id.frame_container, fragment, JardineApp.TAG)
+						.addToBackStack(JardineApp.TAG).commit();
 				break;
 			}
 
@@ -147,8 +168,18 @@ public class CustomerGeneralInformation extends Fragment {
 			public void onClick(DialogInterface dialog, int which) {
 				if (JardineApp.DB.getCustomer().delete(customerId)) {
 					Toast.makeText(getActivity(),
-							"Successfully delete customer", Toast.LENGTH_LONG)
+							"Successfully deleted customer", Toast.LENGTH_LONG)
 							.show();
+
+					getActivity()
+							.getSupportFragmentManager()
+							.beginTransaction()
+							.setTransition(
+									FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+							.replace(R.id.frame_container,
+									new ViewAllCustomersFragment(),
+									"customers-name").commit();
+
 				} else {
 					Toast.makeText(getActivity(), "Failed to delete!",
 							Toast.LENGTH_LONG).show();
