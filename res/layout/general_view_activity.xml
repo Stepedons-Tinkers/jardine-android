@@ -23,7 +23,8 @@
             android:text="@string/general_info"
             android:textColor="#fff"
             android:textSize="12sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -35,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
-                android:text="@string/edit_activity" />
+                android:text="@string/edit_activity"
+                android:visibility="gone" />
         </RelativeLayout>
     </TableRow>
 

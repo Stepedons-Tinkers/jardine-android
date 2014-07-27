@@ -147,12 +147,12 @@ public class ActivityInfoFragment extends Fragment {
 				} else if (position == 7) {
 					
 					// Product Supplier TODO
-//					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
-//					productSupplierFrag.setArguments(bundle);
-//					
-//					ft = getFragmentManager().beginTransaction();
-//					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
-//					ft.commit();
+					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
+					productSupplierFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
+					ft.commit();
 				} else if (position == 8) {
 					
 					// JDI Merchandising Check
@@ -185,7 +185,7 @@ public class ActivityInfoFragment extends Fragment {
 					
 					
 					// Project Visit
-					AddActivityProjectVisitFragment  projectVisitFrag = new AddActivityProjectVisitFragment ();
+					ActivityProjectVisitFragment  projectVisitFrag = new ActivityProjectVisitFragment();
 					projectVisitFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
@@ -203,7 +203,7 @@ public class ActivityInfoFragment extends Fragment {
 				} else if (position == 13) {
 					
 					// Trainings
-					AddActivityTrainingsFragment  trainingsFrag = new AddActivityTrainingsFragment ();
+					ActivityTrainingsFragment  trainingsFrag = new ActivityTrainingsFragment();
 					trainingsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();

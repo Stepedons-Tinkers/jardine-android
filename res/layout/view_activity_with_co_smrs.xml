@@ -58,7 +58,7 @@
                         android:layout_margin="4dp"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:visibility="invisible"
+                        android:visibility="gone"
                         app:textComplete="@string/complete_cancel"
                         app:textError="@string/error"
                         app:textIdle="@string/cancel" />
