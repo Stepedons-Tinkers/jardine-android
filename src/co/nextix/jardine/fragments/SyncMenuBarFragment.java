@@ -1846,7 +1846,8 @@ public class SyncMenuBarFragment extends Fragment {
 								customerSize, model.getStreetadd(),
 								customerRecordStatus, customerType,
 								businessUnit, area, province, cityTown,
-								isActive, model.getCreatedTime(),
+								isActive, model.getDaysUnchanged(),
+								model.getCreatedTime(),
 								model.getModifiedTime(), USER_ID);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -1882,7 +1883,9 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getFax(), customerSize,
 									model.getStreetadd(), customerRecordStatus,
 									customerType, businessUnit, area, province,
-									cityTown, isActive, model.getCreatedTime(),
+									cityTown, isActive,
+									model.getDaysUnchanged(),
+									model.getCreatedTime(),
 									model.getModifiedTime(), USER_ID);
 							Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(

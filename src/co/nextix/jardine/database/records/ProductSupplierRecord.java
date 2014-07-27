@@ -10,7 +10,7 @@ public class ProductSupplierRecord {
 	private long id;
 	private String no;
 	private String crm_no;
-	private long product_brand;
+	private long product_brand; // Product Table
 	private long supplier; // Customer table
 	private String others_remarks;
 	private long activity; // Activity table

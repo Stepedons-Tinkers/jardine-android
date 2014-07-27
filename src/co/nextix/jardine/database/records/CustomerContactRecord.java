@@ -31,7 +31,6 @@ public class CustomerContactRecord {
 	private String email_address;
 	private long customer;
 	private int is_active;
-	private String days_unchanged;
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
