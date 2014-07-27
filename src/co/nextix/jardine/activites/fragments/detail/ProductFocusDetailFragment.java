@@ -1,8 +1,5 @@
 package co.nextix.jardine.activites.fragments.detail;
 
-import android.content.SharedPreferences;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,32 +10,47 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.backup.MoreActivityInformationFragment;
-import co.nextix.jardine.activites.fragments.backup.StaticActivityInfoFragment;
-import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
-import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
-import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.database.tables.UserTable;
 
 public class ProductFocusDetailFragment extends Fragment {
 
-	private ActivityRecord activityRecord = null;
-	private SharedPreferences pref = null;
+	private long product_id;
+	private Bundle bundle;
+	private ProductRecord record;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		
 		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_product_focus, container, false);
-		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
+		
+		bundle = getArguments();
+		if(bundle != null){
+			product_id = bundle.getLong("product_id", 0);
+		}
+		
+		ProductTable product = JardineApp.DB.getProduct();
+		 record = product.getById(product_id);
+		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.record.getCrm());
+
+		
 	
-		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
-		((TextView) myFragmentView.findViewById(R.id.product_number)).setText("Product Number");
-		((TextView) myFragmentView.findViewById(R.id.product_brand)).setText("Product Brand");
-		((TextView) myFragmentView.findViewById(R.id.product_description)).setText("Product Description");
-		((TextView) myFragmentView.findViewById(R.id.is_active)).setText("is Active");
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText("KARON as in Now");
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText("Kahapon");
-		((TextView) myFragmentView.findViewById(R.id.created_by)).setText("getCompetitorActivities()");
+		((TextView) myFragmentView.findViewById(R.id.product_number)).setText(this.record.getProductNumber());
+		((TextView) myFragmentView.findViewById(R.id.product_brand)).setText(this.record.getProductBrand());
+		((TextView) myFragmentView.findViewById(R.id.product_description)).setText(this.record.getProductDescription());
+		((TextView) myFragmentView.findViewById(R.id.is_active)).setText(String.valueOf(this.record.getIsActive()));
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		UserTable user = JardineApp.DB.getUser();
+		if(user != null){
+			((TextView) myFragmentView.findViewById(R.id.created_by)).setText("");
+			UserRecord userRecord = user.getById(this.record.getCreatedBy());
+			if(userRecord != null){
+				((TextView) myFragmentView.findViewById(R.id.created_by)).setText(userRecord.toString());
+			}
+		}
 		
 		((Button) myFragmentView.findViewById(R.id.back_button)).setOnClickListener(new OnClickListener() {
 			

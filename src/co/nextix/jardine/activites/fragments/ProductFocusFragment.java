@@ -228,6 +228,7 @@ public class ProductFocusFragment extends Fragment {
 //		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 //				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 		Fragment fragment = new ProductFocusDetailFragment();
+		bundle.putLong("product_id", tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
