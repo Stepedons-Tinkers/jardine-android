@@ -37,6 +37,7 @@ public class EntityRelationshipTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

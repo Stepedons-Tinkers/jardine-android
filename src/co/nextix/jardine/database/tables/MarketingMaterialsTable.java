@@ -1,5 +1,18 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_DESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_ISNEW;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_LASTUPDATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGMATERIALS_TAGS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -13,22 +26,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 
 public class MarketingMaterialsTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_MARKETINGMATERIALS_ROWID = "_id";
-	private final String KEY_MARKETINGMATERIALS_NO = "no";
-	private final String KEY_MARKETINGMATERIALS_CRMNO = "crm_no";
-	private final String KEY_MARKETINGMATERIALS_DESCRIPTION = "description";
-	private final String KEY_MARKETINGMATERIALS_LASTUPDATE = "last_update";
-	private final String KEY_MARKETINGMATERIALS_TAGS = "tags";
-	private final String KEY_MARKETINGMATERIALS_BUSINESSUNIT = "business_unit";
-	private final String KEY_MARKETINGMATERIALS_ISNEW = "is_new";
-	private final String KEY_MARKETINGMATERIALS_ISACTIVE = "is_active";
-	private final String KEY_MARKETINGMATERIALS_CREATEDTIME = "created_time";
-	private final String KEY_MARKETINGMATERIALS_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGMATERIALS_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -49,6 +46,7 @@ public class MarketingMaterialsTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

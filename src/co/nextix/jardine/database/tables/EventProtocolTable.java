@@ -1,8 +1,19 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_DESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_EVENTTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_LASTUPDATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_TAGS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_EVENTPROTOCOL_USER;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,22 +25,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.EventProtocolRecord;
 
 public class EventProtocolTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_EVENTPROTOCOL_ROWID = "_id";
-	private final String KEY_EVENTPROTOCOL_NO = "no";
-	private final String KEY_EVENTPROTOCOL_DESCRIPTION = "description";
-	private final String KEY_EVENTPROTOCOL_LASTUPDATE = "last_update";
-	private final String KEY_EVENTPROTOCOL_TAGS = "tags";
-	private final String KEY_EVENTPROTOCOL_EVENTTYPE = "event_type";
-	private final String KEY_EVENTPROTOCOL_ISACTIVE = "is_active";
-	private final String KEY_EVENTPROTOCOL_CREATEDTIME = "created_time";
-	private final String KEY_EVENTPROTOCOL_MODIFIEDTIME = "modified_time";
-	private final String KEY_EVENTPROTOCOL_USER = "user";
-
-	private final String KEY_EVENTPROTOCOL_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -50,6 +45,7 @@ public class EventProtocolTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

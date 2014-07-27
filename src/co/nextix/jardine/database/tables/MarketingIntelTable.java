@@ -1,8 +1,17 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_COMPETITORPRODUCT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_DETAILS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_ROWID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -11,25 +20,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 
 public class MarketingIntelTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_MARKETINGINTEL_ROWID = "_id";
-	private final String KEY_MARKETINGINTEL_NO = "no";
-	private final String KEY_MARKETINGINTEL_CRMNO = "crm_no";
-	private final String KEY_MARKETINGINTEL_ACTIVITY = "activity";
-	// private final String KEY_MARKETINGINTEL_COMPETITOR = "competitor";
-	private final String KEY_MARKETINGINTEL_COMPETITORPRODUCT = "competitor_product";
-	private final String KEY_MARKETINGINTEL_DETAILS = "details";
-	// private final String KEY_MARKETINGINTEL_REMARKS = "remarks";
-	private final String KEY_MARKETINGINTEL_CREATEDTIME = "created_time";
-	private final String KEY_MARKETINGINTEL_MODIFIEDTIME = "modified_time";
-	private final String KEY_MARKETINGINTEL_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -50,6 +43,7 @@ public class MarketingIntelTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

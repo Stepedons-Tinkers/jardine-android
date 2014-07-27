@@ -13,27 +13,28 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.UserRecord;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_USERNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_PASSWORD;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_EMAILADDRESS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_LASTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_MIDDLENAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_FIRSTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_LOGGEDIN;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_STATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_LASTSYNC;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_LOGGEDAREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_USER_CREATEDTIME;
+
 public class UserTable {
 
 	// ===========================================================
 	// Private static fields
 	// ===========================================================
+	@SuppressWarnings("unused")
 	private static final String TAG = UserTable.class.getSimpleName();
-
-	private final String KEY_USER_ROWID = "_id";
-	private final String KEY_USER_NO = "no";
-	private final String KEY_USER_USERNAME = "username";
-	private final String KEY_USER_PASSWORD = "password";
-	private final String KEY_USER_EMAILADDRESS = "email_address";
-	private final String KEY_USER_LASTNAME = "last_name";
-	private final String KEY_USER_MIDDLENAME = "middle_name";
-	private final String KEY_USER_FIRSTNAME = "first_name";
-	private final String KEY_USER_LOGGEDIN = "logged_in";
-	private final String KEY_USER_STATUS = "status";
-	private final String KEY_USER_LASTSYNC = "last_sync";
-	private final String KEY_USER_AREA = "area";
-	private final String KEY_USER_LOGGEDAREA = "logged_area";
-	private final String KEY_USER_CREATEDTIME = "created_time";
 
 	// ===========================================================
 	// Private fields
@@ -54,6 +55,7 @@ public class UserTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

@@ -45,7 +45,6 @@ import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
-import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
 import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
 import co.nextix.jardine.database.tables.picklists.PactEndUserActTypeTable;
