@@ -179,7 +179,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 					searchRecord.add(rec);
 				}
 			}
-			totalPage = realRecord.size() / rowSize;
+			totalPage = searchRecord.size() / rowSize;
 
 		}
 
@@ -301,6 +301,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 			public boolean onClose() {
 				searchView.clearFocus();
 				currentPage = 0;
+				totalPage = realRecord.size() / rowSize;
 				addItem(currentPage);
 				searchView.onActionViewCollapsed();
 				searchMode = false;
@@ -325,6 +326,12 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
+				
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
 					searchRecord = JardineApp.DB.getMarketingMaterials()
@@ -341,12 +348,6 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 					Log.e("Tugs", e.toString());
 				}
-				return true;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
-				
 
 				searchView.clearFocus();
 				return true;
