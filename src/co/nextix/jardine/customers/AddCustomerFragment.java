@@ -249,6 +249,7 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		long customerRecordStatus = ((PicklistRecord) field14.getSelectedItem())
 				.getId();
 		int isActive = 1;
+		String daysUnchanged = 0 + "";
 
 		String createdTime = MyDateUtils.getCurrentTimeStamp();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
@@ -256,7 +257,7 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName,
 				landline, fax, customerSize, streetAddress,
 				customerRecordStatus, customerType, businessUnit, area,
-				province, cityTown, isActive, createdTime, modifiedTime,
+				province, cityTown, isActive, daysUnchanged,createdTime, modifiedTime,
 				created_by);
 	}
 
