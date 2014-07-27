@@ -82,7 +82,6 @@ public class CreateRequests {
 		try {
 
 			UserTable userTable = DB.getUser();
-			// CompetitorTable compTable = DB.getCompetitor();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -90,9 +89,6 @@ public class CreateRequests {
 				// get user id from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				// String competitor = compTable.getNoById(records.get(x)
-				// .getCompetitor());
-				// requestObject.put("z_cmp_comp", competitor);
 				requestObject.put("z_cmp_prbrnd", records.get(x)
 						.getProductBrand());
 				requestObject.put("z_cmp_prdesc", records.get(x)

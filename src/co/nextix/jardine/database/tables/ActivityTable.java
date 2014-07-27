@@ -137,9 +137,9 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 					String projectName = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectStage = c.getString(c
+					long projectStage = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String projectCategory = c.getString(c
+					long projectCategory = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String venue = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -227,9 +227,9 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 					String projectName = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectStage = c.getString(c
+					long projectStage = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String projectCategory = c.getString(c
+					long projectCategory = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String venue = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -322,9 +322,9 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 					String projectName = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectStage = c.getString(c
+					long projectStage = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String projectCategory = c.getString(c
+					long projectCategory = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String venue = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -535,9 +535,9 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 				String projectName = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-				String projectStage = c.getString(c
+				long projectStage = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-				String projectCategory = c.getString(c
+				long projectCategory = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 				String venue = c
 						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -644,9 +644,9 @@ public class ActivityTable {
 						.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 				String projectName = c.getString(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-				String projectStage = c.getString(c
+				long projectStage = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-				String projectCategory = c.getString(c
+				long projectCategory = c.getLong(c
 						.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 				String venue = c
 						.getString(c.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -681,7 +681,7 @@ public class ActivityTable {
 			long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes,
 			String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory,
+			String projectName, long projectStage, long projectCategory,
 			String venue, int numberOfAttendees, String endUserActivityTypes) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
@@ -775,7 +775,7 @@ public class ActivityTable {
 			long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes,
 			String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory,
+			String projectName, long projectStage, long projectCategory,
 			String venue, int numberOfAttendees, String endUserActivityTypes) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
@@ -900,9 +900,9 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 					String projectName = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectStage = c.getString(c
+					long projectStage = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String projectCategory = c.getString(c
+					long projectCategory = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String venue = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
@@ -1015,9 +1015,9 @@ public class ActivityTable {
 							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
 					String projectName = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
-					String projectStage = c.getString(c
+					long projectStage = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
-					String projectCategory = c.getString(c
+					long projectCategory = c.getLong(c
 							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
 					String venue = c.getString(c
 							.getColumnIndex(KEY_ACTIVITY_VENUE));
