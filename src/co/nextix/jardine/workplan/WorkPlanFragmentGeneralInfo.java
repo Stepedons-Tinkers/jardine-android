@@ -9,6 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
@@ -57,8 +58,8 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 		modifiedTime = (TextView) view
 				.findViewById(R.id.tvWorkPlanInfoModifiedTime);
 
-		WorkplanEntryRecord record = JardineApp.DB.getWorkplanEntry().getById(
-				WorkPlanConstants.WORKPLAN_ID);
+		final WorkplanEntryRecord record = JardineApp.DB.getWorkplanEntry()
+				.getById(WorkPlanConstants.WORKPLAN_ID);
 		record.setNo("0001");
 
 		int i = 0;
@@ -106,6 +107,8 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 
 		Bundle b = new Bundle();
 		b.putLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID, record.getId());
+		b.putLong(WorkPlanConstants.WORKPLAN_ACTIVITY_TYPE_ID,
+				record.getActivityType());
 
 		fragment = new AddActivityFragment();
 		fragment.setArguments(b);
@@ -120,6 +123,7 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.add(R.id.frame_container, fragment, JardineApp.TAG)
 						.addToBackStack(JardineApp.TAG).commit();
+
 			}
 		});
 	}

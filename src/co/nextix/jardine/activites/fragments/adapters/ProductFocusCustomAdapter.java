@@ -24,10 +24,8 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.ProductFocusFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
-import co.nextix.jardine.database.records.ProductFocusRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
@@ -135,31 +133,15 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 			holder.product_description.setText(String.valueOf(this.tempValues.getProductDescription()));
 			holder.product_brand.setText(String.valueOf(this.tempValues.getProductBrand()));
 			holder.is_active.setText(String.valueOf(this.tempValues.getIsActive()));
-			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
-//			ProductTable product = JardineApp.DB.getProduct();
-//			if(product != null){
-//				ProductRecord rec = product.getById(this.tempValues.getActivity());
-//				holder.product_brand.setText("");
-//				holder.product_no.setText("");
-//				holder.product_description.setText("");
-//				if(rec != null){
-//					holder.product_brand.setText(rec.toString());
-//					holder.product_no.setText(rec.getProductNumber());
-//					holder.product_description.setText(rec.getProductDescription());
-//				}
-//				
-//				
-//			}
-//			
-//			
-//			UserTable user = JardineApp.DB.getUser();
-//			if(user != null){
-//				UserRecord rec = user.getById(this.tempValues.getActivity());
-//				holder.created_by.setText("");
-//				if(rec != null){
-//					holder.created_by.setText(rec.toString());
-//				}
-//			}
+
+			UserTable user = JardineApp.DB.getUser();
+			if(user != null){
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");
+				if(rec != null){
+					holder.created_by.setText(rec.toString());
+				}
+			}
 			
 			if (holder.crm_no_txt.getText().toString().equals("")||holder.crm_no_txt.getText().toString()==null||holder.crm_no_txt.getText().toString().equals("null")) {
 				holder.product_no.setText("");
@@ -223,7 +205,7 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+			ProductFocusFragment sct = (ProductFocusFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}

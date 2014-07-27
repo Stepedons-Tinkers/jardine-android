@@ -158,4 +158,10 @@ public class UserRecord {
 	public String getCreatedTime() {
 		return this.created_time;
 	}
+	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return username;
+	}
 }

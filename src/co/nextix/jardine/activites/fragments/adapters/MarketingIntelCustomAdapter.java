@@ -225,7 +225,7 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+			MarketingIntelFragment sct = (MarketingIntelFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
