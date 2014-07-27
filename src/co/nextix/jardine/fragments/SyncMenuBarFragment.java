@@ -83,7 +83,6 @@ import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
-import co.nextix.jardine.database.tables.picklists.PSMRentryTypeTable;
 import co.nextix.jardine.database.tables.picklists.PSalesProtocolTypeTable;
 import co.nextix.jardine.database.tables.picklists.PWorkEntryStatusTable;
 import co.nextix.jardine.database.tables.picklists.PactEndUserActTypeTable;
@@ -157,8 +156,6 @@ public class SyncMenuBarFragment extends Fragment {
 	protected PowerManager.WakeLock mWakeLock;
 	boolean isCancelled = false;
 	boolean isConnected = true;
-
-	private final Context CONTEXT = getActivity();
 
 	public SyncMenuBarFragment() {
 	}
@@ -862,15 +859,15 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 				picklist = request.picklists(module);
 				if (picklist != null) {
-//					if (module.equals(Modules.smrtimecard_entry)) {
-//						PSMRentryTypeTable table = JardineApp.DB
-//								.getSMRentryType();
-//						for (String p : picklist) {
-//							if (!table.isExisting(p))
-//								table.insert(p);
-//						}
-//					} else 
-						if (module.equals(Modules.customer_size)) {
+					// if (module.equals(Modules.smrtimecard_entry)) {
+					// PSMRentryTypeTable table = JardineApp.DB
+					// .getSMRentryType();
+					// for (String p : picklist) {
+					// if (!table.isExisting(p))
+					// table.insert(p);
+					// }
+					// } else
+					if (module.equals(Modules.customer_size)) {
 						PCustSizeTable table = JardineApp.DB.getCustomerSize();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
@@ -885,6 +882,13 @@ public class SyncMenuBarFragment extends Fragment {
 					} else if (module.equals(Modules.customercontact_position)) {
 						PCustConPositionTable table = JardineApp.DB
 								.getCustomerContactPosition();
+						for (String p : picklist) {
+							if (!table.isExisting(p))
+								table.insert(p);
+						}
+					} else if (module.equals(Modules.customer_record_status)) {
+						PCustRecordStatusTable table = JardineApp.DB
+								.getCustomerRecordStatus();
 						for (String p : picklist) {
 							if (!table.isExisting(p))
 								table.insert(p);
@@ -2046,8 +2050,6 @@ public class SyncMenuBarFragment extends Fragment {
 								model.getIsActive(), 0);
 
 						// if ((type > 0) && (category > 0))
-						// Toast.makeText(CONTEXT, model.getActivitytype(),
-						// Toast.LENGTH_SHORT).show();
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								model.getActivitytype(), category, isActive,
 								model.getCreatedTime(),
@@ -2058,9 +2060,6 @@ public class SyncMenuBarFragment extends Fragment {
 						ActivityTypeRecord record = table.getById(id);
 						if (MyDateUtils.isTimeAfter(model.getModifiedTime(),
 								record.getModifiedTime()) > 0) {
-
-							// Toast.makeText(CONTEXT, model.getActivitytype(),
-							// Toast.LENGTH_SHORT).show();
 
 							// long type = acttypeTypeTable.getIdByName(model
 							// .getActivitytype());
@@ -3137,61 +3136,6 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
-				new SyncCalendarTask().execute();
-			} else {
-				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
-						Toast.LENGTH_SHORT).show();
-			}
-		}
-	}
-
-	private class SyncCalendarTask extends AsyncTask<Void, Void, Boolean> {
-
-		@Override
-		protected void onPreExecute() {
-			// dialog = new ProgressDialog(getActivity());
-			dialog.setTitle("Syncing");
-			dialog.setMessage("Notifications");
-			dialog.setCancelable(false);
-			dialog.setCanceledOnTouchOutside(false);
-			dialog.show();
-			super.onPreExecute();
-		}
-
-		@Override
-		protected Boolean doInBackground(Void... arg0) {
-
-			CalendarTable table = JardineApp.DB.getCalendar();
-			// ActivityTable actTable = JardineApp.DB.getActivity();
-
-			SyncRequests request = new SyncRequests();
-			CalendarResult result = request.Calendar(LAST_SYNC);
-			List<CalendarModel> models = result.getUpdated();
-			if (result != null) {
-				for (CalendarModel model : models) {
-					// if (!table.isExisting(model.)) {
-					Log.w(TAG, "Calendar: actid ** " + model.getActivityId());
-					long rowid = table.insert(model.getActivityType(),
-							model.getDateStart(), model.getDueDate(),
-							model.getDescription(), model.getSubject(),
-							model.getTimeStart(), model.getTimeEnd(), 0,
-							model.getCreatedTime(), model.getModifiedTime(),
-							USER_ID);
-					Log.w(TAG, "Calendar ** Added ** " + rowid);
-					// }else{
-					//
-					// }
-				}
-			}
-
-			return true;
-		}
-
-		@Override
-		protected void onPostExecute(Boolean result) {
-
-			if (result) {
 				new SyncProductSupplierTask().execute();
 			} else {
 				dialog.dismiss();
@@ -3205,6 +3149,8 @@ public class SyncMenuBarFragment extends Fragment {
 			AsyncTask<Void, Void, Boolean> {
 
 		List<ProductSupplierRecord> sendUpdate = new ArrayList<ProductSupplierRecord>();
+		List<ProductSupplierModel> updated = new ArrayList<ProductSupplierModel>();
+		List<String> deleted = new ArrayList<String>();
 
 		@Override
 		protected void onPreExecute() {
@@ -3226,9 +3172,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			ProductSupplierResult result = request.ProductSuppliers(LAST_SYNC);
-			List<ProductSupplierModel> models = result.getUpdated();
+			updated = result.getUpdated();
 			if (result != null) {
-				for (ProductSupplierModel model : models) {
+				for (ProductSupplierModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 						long supplier = customerTable.getIdByNo(model
 								.getSupplier());
@@ -3266,6 +3212,12 @@ public class SyncMenuBarFragment extends Fragment {
 				}
 			}
 
+			if (deleted.size() > 0) {
+				int num = table.deleteByCrmNo(deleted
+						.toArray(new String[deleted.size()]));
+				Log.d(TAG, num + " records deleted");
+			}
+
 			return true;
 		}
 
@@ -3285,6 +3237,8 @@ public class SyncMenuBarFragment extends Fragment {
 	private class SyncSalesProtocolTask extends AsyncTask<Void, Void, Boolean> {
 
 		List<SalesProtocolRecord> sendUpdate = new ArrayList<SalesProtocolRecord>();
+		List<SalesProtocolModel> updated = new ArrayList<SalesProtocolModel>();
+		List<String> deleted = new ArrayList<String>();
 
 		@Override
 		protected void onPreExecute() {
@@ -3308,9 +3262,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			SyncRequests request = new SyncRequests();
 			SalesProtocolResult result = request.SalesProtocol(LAST_SYNC);
-			List<SalesProtocolModel> models = result.getUpdated();
+			updated = result.getUpdated();
 			if (result != null) {
-				for (SalesProtocolModel model : models) {
+				for (SalesProtocolModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
 						long businessUnit = businessUnitTable.getIdByNo(model
 								.getBusinessUnit());
@@ -3356,6 +3310,67 @@ public class SyncMenuBarFragment extends Fragment {
 							sendUpdate.add(record);
 						}
 					}
+				}
+			}
+
+			if (deleted.size() > 0) {
+				int num = table.deleteByCrmNo(deleted
+						.toArray(new String[deleted.size()]));
+				Log.d(TAG, num + " records deleted");
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new SyncCalendarTask().execute();
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
+	private class SyncCalendarTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Syncing");
+			dialog.setMessage("Notifications");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			CalendarTable table = JardineApp.DB.getCalendar();
+			// ActivityTable actTable = JardineApp.DB.getActivity();
+
+			SyncRequests request = new SyncRequests();
+			CalendarResult result = request.Calendar(LAST_SYNC);
+			List<CalendarModel> models = result.getUpdated();
+			if (result != null) {
+				for (CalendarModel model : models) {
+					// if (!table.isExisting(model.)) {
+					Log.w(TAG, "Calendar: actid ** " + model.getActivityId());
+					long rowid = table.insert(model.getActivityType(),
+							model.getDateStart(), model.getDueDate(),
+							model.getDescription(), model.getSubject(),
+							model.getTimeStart(), model.getTimeEnd(), 0,
+							model.getCreatedTime(), model.getModifiedTime(),
+							USER_ID);
+					Log.w(TAG, "Calendar ** Added ** " + rowid);
+					// }else{
+					//
+					// }
 				}
 			}
 

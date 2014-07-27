@@ -65,8 +65,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
-	
-	public static long WORKPLAN_ENTRY_ID = 0;
 
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
@@ -79,17 +77,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
-		super.onCreate(savedInstanceState);
-		
-	}
-
-	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 
-		AddActivityGeneralInformationFragment.WORKPLAN_ENTRY_ID = getArguments().getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
 		bundle = getArguments();
 
 		if (bundle != null) {
@@ -326,7 +316,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					String crmno = ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString();
 					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
 					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
-					String activityType = String.valueOf(((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem());
+					long activityType = ((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem())
+							.getId();
 					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
 
 					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
@@ -334,15 +325,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (activityType != null && !activityType.isEmpty() && checkin != null && !checkin.isEmpty() && checkout != null
-							&& !checkout.isEmpty()) {
+					if (activityType != 0 && checkin != null && !checkin.isEmpty() && checkout != null && !checkout.isEmpty()) {
 
 						trapping = true;
 						Editor editor = pref.edit();
 						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
 						editor.putString("checkout", checkout);
-						editor.putString("activity_type", activityType);
+						editor.putLong("activity_type", activityType);
 						editor.putLong("createdBy", createdBy);
 						editor.putLong("business_unit", businessUnit.getId());
 						editor.commit(); // commit changes

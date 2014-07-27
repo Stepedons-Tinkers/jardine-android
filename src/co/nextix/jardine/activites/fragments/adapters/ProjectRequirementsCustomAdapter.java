@@ -235,7 +235,7 @@ public class ProjectRequirementsCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+			ProjectRequirementsFragment sct = (ProjectRequirementsFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}

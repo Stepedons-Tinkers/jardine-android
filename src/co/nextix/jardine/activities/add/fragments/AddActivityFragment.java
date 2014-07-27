@@ -14,9 +14,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.SuperAwesomeCardFragment;
 import co.nextix.jardine.activities.select.fragments.SelectProductFragment;
+import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -35,11 +37,21 @@ public class AddActivityFragment extends Fragment {
 	private FrameLayout fl;
 
 	private Bundle bundle;
+	private Bundle b;
+	
+	public static long WORKPLAN_ENTRY_ID = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
+		
+		b = getArguments();
+		
+		if(b != null){
+			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
+			Log.e(JardineApp.TAG, "" + WORKPLAN_ENTRY_ID);
+		}
 
 		ft = getFragmentManager().beginTransaction();
 		fl = (FrameLayout) rootView.findViewById(R.id.layoutForAddingFrag);
