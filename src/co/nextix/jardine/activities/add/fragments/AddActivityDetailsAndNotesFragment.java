@@ -5,7 +5,6 @@ import java.util.List;
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.hardware.Camera.Area;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;

@@ -50,6 +50,7 @@ public class AddActivityEndUser extends Fragment {
 					widthAnimation.setDuration(1500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						
 						@Override
 						public void onAnimationUpdate(ValueAnimator animation) {
 							Integer value = (Integer) animation.getAnimatedValue();
