@@ -143,6 +143,7 @@ public class DatabaseAdapter {
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT = "competitor_product";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS = "stock_status";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES = "loaded_on_shelves";
+	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS = "other_remarks";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME = "created_time";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME = "modified_time";
 	public static final String KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY = "created_by";
@@ -512,7 +513,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_ACTIVITY_TYPE = "create table %s (%s integer primary key autoincrement, %s text,%s text,%s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_BUSINESS_UNIT = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_COMPETITOR_PRODUCT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s real, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_COMPETITOR_PRODUCT_STOCK_CHECK = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s real, %s integer, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	// private String TABLE_CREATE_COMPETITOR =
 	// "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CUSTOMER_CONTACT = "create table %s (%s integer primary key autoincrement, %s text,%s text, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
@@ -667,7 +668,7 @@ public class DatabaseAdapter {
 	private PJDImerchCheckStatusTable mJDImerchCheckStatus;
 	private PJDIprodStatusTable mJDIproductStatus;
 	private PProjReqTypeTable mProjectRequirementType;
-	private PSMRentryTypeTable mSMRentryType;
+	// private PSMRentryTypeTable mSMRentryType;
 	private PWorkEntryStatusTable mWorkplanEntryStatus;
 	private PactEndUserActTypeTable mActivityEndUserActType;
 	private PSalesProtocolTypeTable mSalesProtocolTypeTable;
@@ -723,15 +724,18 @@ public class DatabaseAdapter {
 			mDb.close();
 		}
 	}
-	
+
 	public void clearDatabase() {
-		for (String s : LIST_TABLES) {
-			String MY_QUERY = "DELETE FROM " + s;
-			try {
+		try {
+			for (String s : LIST_TABLES) {
+				String MY_QUERY = "DELETE FROM " + s;
 				mDb.execSQL(MY_QUERY);
-			} catch (SQLException e) {
-				e.printStackTrace();
 			}
+
+			mDb.execSQL("VACUUM");
+
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -1241,6 +1245,7 @@ public class DatabaseAdapter {
 					KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES,
+					KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME,
 					KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY,

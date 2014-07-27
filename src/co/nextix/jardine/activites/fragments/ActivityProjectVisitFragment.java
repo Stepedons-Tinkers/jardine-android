@@ -7,16 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import co.nextix.jardine.R;
 
-public class ActivityDetailsAndNotesFragment extends Fragment {
-	private static volatile ActivityDetailsAndNotesFragment instance = null;
+public class ActivityProjectVisitFragment extends Fragment {
+	private static volatile ActivityProjectVisitFragment instance = null;
 	private boolean flag = false;
 
-	public static ActivityDetailsAndNotesFragment getInstance() {
+	public static ActivityProjectVisitFragment getInstance() {
 		if (instance == null) {
-			synchronized (ActivityDetailsAndNotesFragment.class) {
+			synchronized (ActivityProjectVisitFragment.class) {
 				// Double check
 				if (instance == null) {
-					instance = new ActivityDetailsAndNotesFragment();
+					instance = new ActivityProjectVisitFragment();
 				}
 			}
 		}
@@ -25,7 +25,7 @@ public class ActivityDetailsAndNotesFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View rootView = inflater.inflate(R.layout.view_activity_details_notes, container, false);
+		final View rootView = inflater.inflate(R.layout.view_activity_project_visit, container, false);
 
 
 		return rootView;

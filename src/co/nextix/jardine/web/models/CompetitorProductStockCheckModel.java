@@ -4,16 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class CompetitorProductStockCheckModel {
 
-	// CreatedTime: "2014-06-18 00:15:53"
-	// ModifiedTime: "2014-06-18 00:15:53"
-	// assigned_user_id: "18"
-	// z_cps_crmno: "CMPSTCKCH000002"
-	// z_cps_activity: "423"
-	// z_cps_competitorprod: "404"
-	// z_cps_stockstatus: "A - On Stock"
-	// z_cps_loadedonshelves: "0"
-	// record_id: 428
-	// record_module: "XCompProdStockCheck"
+//	"createdtime": "2014-06-26 08:45:59",
+//    "modifiedtime": "2014-06-30 11:28:09",
+//    "smownerid": "18",
+//    "z_cps_activity": "439",
+//    "z_cps_competitorprod": "404",
+//    "z_cps_crmno": "CMPSTCKCH000003",
+//    "z_cps_loadedonshelves": "0",
+//    "z_cps_othertyprmrks": "TEST",
+//    "z_cps_stockstatus": "- Select -",
+//    "xcompprodstockcheckid": "502",
+//    "deleted": "0"
 
 	@SerializedName("z_cps_crmno")
 	private String crm_no;
@@ -29,6 +30,9 @@ public class CompetitorProductStockCheckModel {
 
 	@SerializedName("z_cps_loadedonshelves")
 	private String loadedonshelves;
+	
+	@SerializedName("z_cps_othertyprmrks")
+	private String otherremarks;
 
 	@SerializedName("xcompprodstockcheckid")
 	private String record_id;
@@ -83,6 +87,14 @@ public class CompetitorProductStockCheckModel {
 
 	public void setLoadedonshelves(String loadedonshelves) {
 		this.loadedonshelves = loadedonshelves;
+	}
+	
+	public String getOtherRemarks() {
+		return otherremarks;
+	}
+	
+	public void setOtherRemarks(String otherremarks) {
+		this.otherremarks = otherremarks;
 	}
 
 	public String getRecordId() {

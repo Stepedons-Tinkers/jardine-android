@@ -103,11 +103,15 @@ public class EntityRelationshipTable {
 	// return exists;
 	// }
 
-	public boolean isExisting(String crmNo, String relCrmNo) {
+	public boolean isExisting(String crmNo, String module, String relCrmNo,
+			String relModule) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_ENTITYRELATIONSHIP_CRMNO + "='" + crmNo + "' AND "
-				+ KEY_ENTITYRELATIONSHIP_CRMNO + "='" + relCrmNo + "'";
+				+ KEY_ENTITYRELATIONSHIP_CRMNO + "='" + relCrmNo + "' AND "
+				+ KEY_ENTITYRELATIONSHIP_MODULENAME + "='" + module + "' AND "
+				+ KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME + "='" + relModule
+				+ "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

@@ -23,6 +23,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.CustomerContactPersonCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.CustomerContactPersonDetailFragment;
+
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.tables.CustomerContactTable;
@@ -225,6 +226,7 @@ public class CustomerContactPersonFragment extends Fragment {
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
 				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+
 	}
 	
 	public void isListHasNoData() {
