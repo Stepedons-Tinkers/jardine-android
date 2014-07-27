@@ -152,7 +152,6 @@
                     android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/customer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"

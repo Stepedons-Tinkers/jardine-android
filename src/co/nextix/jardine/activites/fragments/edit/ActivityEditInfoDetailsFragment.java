@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activites.fragments.edit;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
