@@ -184,11 +184,11 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 		String createdTime = "";
 		String modifiedTime = "";
 
-		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName,
-				landline, fax, customerSize, streetAddress,
-				customerRecordStatus, customerType, businessUnit, area,
-				province, cityTown, isActive, createdTime, modifiedTime,
-				created_by);
+//		JardineApp.DB.getCustomer().insert(no, crmNo, customerName, chainName,
+//				landline, fax, customerSize, streetAddress,
+//				customerRecordStatus, customerType, businessUnit, area,
+//				province, cityTown, isActive, createdTime, modifiedTime,
+//				created_by);
 	}
 
 	@Override
