@@ -49,6 +49,7 @@
                     android:layout_toLeftOf="@+id/btnWithText1"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:visibility="invisible"
                     app:textComplete="@string/complete_cancel"
                     app:textError="@string/error"
                     app:textIdle="@string/cancel" />
@@ -61,9 +62,9 @@
                     android:layout_margin="4dp"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    app:textComplete="@string/complete"
+                    app:textComplete="@string/next"
                     app:textError="@string/error"
-                    app:textIdle="@string/save" />
+                    app:textIdle="@string/done" />
             </RelativeLayout>
         </LinearLayout>
 
