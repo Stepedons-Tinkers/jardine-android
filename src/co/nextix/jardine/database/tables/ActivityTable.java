@@ -10,46 +10,42 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ACTIVITYTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKIN;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKOUT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LONGITUDE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LATITUDE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_REASONREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_SMR;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ADMINWORKDETAILS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CUSTOMER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROVINCE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_WORKPLANENTRY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_OBJECTIVES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FIRSTTIMEVISIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PLANNEDVISIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOTES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_HIGHLIGHTS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NEXTSTEPS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FOLLOWUP;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTSTAGE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTCATEGORY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_VENUE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOOFATTENDEES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ENDUSERACTIVITYTYPES;
 import co.nextix.jardine.database.records.ActivityRecord;
 
 public class ActivityTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_ACTIVITY_ROWID = "_id";
-	private final String KEY_ACTIVITY_NO = "no";
-	private final String KEY_ACTIVITY_CRMNO = "crm_no";
-	private final String KEY_ACTIVITY_ACTIVITYTYPE = "activity_type";
-	private final String KEY_ACTIVITY_CHECKIN = "check_in";
-	private final String KEY_ACTIVITY_CHECKOUT = "check_out";
-	private final String KEY_ACTIVITY_BUSINESSUNIT = "business_unit";
-	private final String KEY_ACTIVITY_CREATEDBY = "created_by";
-	private final String KEY_ACTIVITY_LONGITUDE = "longitude";
-	private final String KEY_ACTIVITY_LATITUDE = "latitude";
-	private final String KEY_ACTIVITY_CREATEDTIME = "created_time";
-	private final String KEY_ACTIVITY_MODIFIEDTIME = "modified_time";
-	private final String KEY_ACTIVITY_REASONREMARKS = "reason_remarks";
-	private final String KEY_ACTIVITY_SMR = "smr";
-	private final String KEY_ACTIVITY_ADMINWORKDETAILS = "admin_work_details";
-	private final String KEY_ACTIVITY_CUSTOMER = "customer";
-	private final String KEY_ACTIVITY_AREA = "area";
-	private final String KEY_ACTIVITY_PROVINCE = "province";
-	private final String KEY_ACTIVITY_CITY = "city";
-	private final String KEY_ACTIVITY_WORKPLANENTRY = "workplan_entry";
-	private final String KEY_ACTIVITY_OBJECTIVES = "objectives";
-	private final String KEY_ACTIVITY_FIRSTTIMEVISIT = "first_time_visit";
-	private final String KEY_ACTIVITY_PLANNEDVISIT = "planned_visit";
-	private final String KEY_ACTIVITY_NOTES = "notes";
-	private final String KEY_ACTIVITY_HIGHLIGHTS = "highlights";
-	private final String KEY_ACTIVITY_NEXTSTEPS = "next_steps";
-	private final String KEY_ACTIVITY_FOLLOWUP = "follow_up_commitment_date";
-	private final String KEY_ACTIVITY_PROJECTNAME = "project_name";
-	private final String KEY_ACTIVITY_PROJECTSTAGE = "project_stage";
-	private final String KEY_ACTIVITY_PROJECTCATEGORY = "project_category";
-	private final String KEY_ACTIVITY_VENUE = "venue";
-	private final String KEY_ACTIVITY_NOOFATTENDEES = "no_of_attendees";
-	private final String KEY_ACTIVITY_ENDUSERACTIVITYTYPES = "end_user_activity_types";
 
 	// ===========================================================
 	// Private fields
