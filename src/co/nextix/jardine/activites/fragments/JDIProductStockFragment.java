@@ -186,13 +186,6 @@ public class JDIProductStockFragment extends Fragment {
 	public void onItemClick(int mPosition) {
 		JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) this.tempRecord
 				.get(mPosition);
-		Toast.makeText(
-				getActivity(),
-				"CRM No." + tempValues.getCrm() + " \n Activity:"
-						+ String.valueOf(tempValues.getActivity())
-						+ " \n Product:"
-						+ String.valueOf(tempValues.getProductBrand()),
-				Toast.LENGTH_SHORT).show();
 
 		// JDIproductStockCheckRecord ar = (JDIproductStockCheckRecord)
 		// this.list.getAdapter().getItem(mPosition);
@@ -207,6 +200,7 @@ public class JDIProductStockFragment extends Fragment {
 		// }
 		
 		Fragment fragment = new JDIProductStockCheckDetailFragment();
+		bundle.putInt("product_id", (int)tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
