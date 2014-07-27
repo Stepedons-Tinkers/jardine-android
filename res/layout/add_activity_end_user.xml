@@ -1,8 +1,205 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
-    
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="none" >
 
-</LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="14dip"
+                android:scrollHorizontally="true"
+                android:text="@string/general_info"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.dd.CircularProgressButton
+                    android:id="@+id/btnWithText2"
+                    android:layout_width="196dp"
+                    android:layout_height="64dp"
+                    android:layout_margin="4dp"
+                    android:layout_toLeftOf="@+id/btnWithText1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="invisible"
+                    app:textComplete="@string/complete_cancel"
+                    app:textError="@string/error"
+                    app:textIdle="@string/cancel" />
+
+                <com.dd.CircularProgressButton
+                    android:id="@+id/btnWithText1"
+                    android:layout_width="196dp"
+                    android:layout_height="64dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:textComplete="@string/next"
+                    app:textError="@string/error"
+                    app:textIdle="@string/done" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#0000b6"
+            android:padding="4dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.3"
+                        android:maxLines="2"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:state_selected="true"
+                        android:text="@string/end_user_activity_types"
+                        android:textColor="#000000"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <Spinner
+                        android:id="@+id/end_user_activity_types"
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_weight="0.3"
+                        android:scrollHorizontally="true" />
+
+                    <requestFocus />
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/tableRow1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal" >
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:gravity="center_horizontal" >
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="4dp"
+                        android:layout_weight="0.3" >
+                    </HorizontalScrollView>
+                </TableRow>
+            </LinearLayout>
+        </TableLayout>
+
+        <!--
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="14dp" >
+
+            <Button
+                android:id="@+id/previous"
+                android:layout_width="196dp"
+                android:layout_height="64dp"
+                android:layout_margin="4dp"
+                android:layout_toLeftOf="@+id/next"
+                android:text="@string/previous"
+                android:textSize="18sp"
+                android:visibility="gone" />
+
+            <ImageButton
+                android:id="@+id/next"
+                android:layout_width="15dp"
+                android:layout_height="64dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="100dp"
+                android:background="@android:color/transparent"
+                android:src="@drawable/next_button"
+                android:text="@string/next"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+
+            <TextView
+                android:id="@+id/next_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_toLeftOf="@+id/next"
+                android:text="@string/next"
+                android:textSize="18sp"
+                android:visibility="invisible" />
+        </RelativeLayout>
+        -->
+    </LinearLayout>
+
+</ScrollView>
