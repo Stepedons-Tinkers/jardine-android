@@ -13,6 +13,7 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
@@ -73,9 +74,9 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 				record.getCity());
 		city.setText(strCity);
 
-		String strAct = JardineApp.DB.getActivityType().getNoById(
+		ActivityTypeRecord strAct = JardineApp.DB.getActivityType().getById(
 				record.getActivityType());
-		actType.setText(strAct);
+		actType.setText(strAct.getName());
 
 		createdTime
 				.setText(MyDateUtils.convertDateTime(record.getCreatedTime()));
@@ -99,9 +100,10 @@ public class WorkPlanFragmentGeneralInfo extends Fragment {
 
 		otherRemarks.setText(record.getRemarks());
 
-		String sWorkplan = JardineApp.DB.getWorkplan().getNoById(
+		WorkplanRecord sWorkplan = JardineApp.DB.getWorkplan().getById(
 				record.getWorkplan());
-		workplan.setText(sWorkplan);
+
+		workplan.setText(sWorkplan.getCrm());
 		modifiedTime.setText(MyDateUtils.convertDateTime(record
 				.getModifiedTime()));
 
