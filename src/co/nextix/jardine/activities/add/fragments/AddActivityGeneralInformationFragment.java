@@ -439,8 +439,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		private String nextSteps = null;
 		private String followUpCommitmentDate = null;
 		private String projectName = null;
-		private String projectStage = null;
-		private String projectCategory = null;
+		private long projectStage = 0;
+		private long projectCategory = 0;
 		private String venue = null;
 
 		private int numberOfAttendees = 0;
@@ -452,7 +452,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 				String endUserActivityTypes) {
 
 			this.no = no;
@@ -580,7 +580,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory, String venue, int numberOfAttendees,
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
 			String endUserActivityTypes) {
 
 		// Insert to the database
