@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.dd.CircularProgressButton;
@@ -26,18 +28,12 @@ import com.dd.CircularProgressButton;
 public class AddActivityTravelWaitingFragment extends Fragment {
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
-	private Bundle bundle = null;
-	private long workPlanEntryID = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
-		bundle = getArguments();
-		
-		workPlanEntryID = AddActivityGeneralInformationFragment.WORKPLAN_ENTRY_ID;
-		Log.d(JardineApp.TAG, workPlanEntryID + "");
-		
+
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
@@ -70,11 +66,12 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 					if (reasons != null && !reasons.isEmpty()) {
 						flag = true;
 
-//						new InsertTask("0", pref.getString("crm_no", null) , pref.getString("activity_type", null), pref.getString("check_in", null), 
-//								pref.getString("check_out", null), pref.getLong("business_unit", 0), pref.getLong("createdBy", 0), 
-//								 123.894882, 10.310235, pref.getString("check_in", null), pref.getString("check_out", null),
-//								 reasons, 0, "", 0, 0, 0, 0, 0 /*workplan entry*/, "", firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage, projectCategory, venue, numberOfAttendees, endUserActivityTypes)
-						
+						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
+								null), pref.getString("check_out", null), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
+								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
+								pref.getString("check_out", null), reasons, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "",
+								0, 0, "", "", "", "", "", "", "", "", 0, "").execute();
+
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
