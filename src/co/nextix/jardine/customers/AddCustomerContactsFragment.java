@@ -14,8 +14,10 @@ import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -79,6 +81,21 @@ public class AddCustomerContactsFragment extends Fragment implements
 		return view;
 	}
 
+	private boolean checker() {
+		boolean flag = false;
+
+		if (!field2.getText().toString().contentEquals("")
+				&& !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0
+				&& !field5.getText().toString().contentEquals("")) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+
+		return flag;
+	}
+
 	private void initLayout() {
 		customerId = getArguments().getLong(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
@@ -128,7 +145,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 				JardineApp.context, R.layout.customer_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
-		field6a.setText(formattedDate);
+		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
 		UserTable u = DatabaseAdapter.getInstance().getUser();
@@ -148,7 +165,26 @@ public class AddCustomerContactsFragment extends Fragment implements
 			getActivity().onBackPressed();
 			break;
 		case R.id.bCustomerContactAddCreate:
-			new InsertTask().execute();
+			if (checker()) {
+				new InsertTask().execute();
+			} else {
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
+
 			break;
 		case R.id.ibCustomerContactAddField6:
 			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
@@ -175,7 +211,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 			// .append(" "));
 			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
 					+ checkDigit(day);
-			field6a.setText(formattedDate);
+			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
 
@@ -243,7 +279,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		String lastName = field3.getText().toString();
 		long position = ((PicklistRecord) field4.getSelectedItem()).getId();
 		String mobileNo = field5.getText().toString();
-		String birthday = field6a.getText().toString();
+		String birthday = formattedDate;
 		String emailAddress = field7.getText().toString();
 		long customer = customerId;
 		int isActive = 1;
