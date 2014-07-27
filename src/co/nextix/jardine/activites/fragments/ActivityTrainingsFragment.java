@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
@@ -35,7 +36,21 @@ public class ActivityTrainingsFragment extends Fragment {
 				"ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(
 				pref.getLong("activity_id", 0000));
-
+		
+		((TextView) rootView.findViewById(R.id.venue))
+		.setText("");
+		
+		((TextView) rootView.findViewById(R.id.number_of_attendees))
+		.setText("");	
+		
+		if(this.activityRecord != null){
+			((TextView) rootView.findViewById(R.id.venue))
+			.setText(this.activityRecord.getVenue());
+			
+			((TextView) rootView.findViewById(R.id.number_of_attendees))
+			.setText(String.valueOf(this.activityRecord.getNumberOfAttendees()));	
+		}
+		
 		return rootView;
 	}
 }
