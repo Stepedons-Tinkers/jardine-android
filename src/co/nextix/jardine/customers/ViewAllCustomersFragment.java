@@ -247,7 +247,8 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 					act.getSupportFragmentManager()
 							.beginTransaction()
-							.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+							.setTransition(
+									FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 							.add(R.id.frame_container, fragment, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
@@ -355,11 +356,6 @@ public class ViewAllCustomersFragment extends Fragment implements
 			@Override
 			public boolean onQueryTextChange(String arg0) {
 
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
 					searchRecord = JardineApp.DB.getCustomer()
@@ -377,6 +373,11 @@ public class ViewAllCustomersFragment extends Fragment implements
 					Log.e("Tugs", e.toString());
 				}
 
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
 				searchView.clearFocus();
 				return true;
 			}
