@@ -1,5 +1,7 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.util.List;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -9,19 +11,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
-import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.PicklistRecord;
 
 public class AddActivityProjectVisitFragment extends Fragment {
+	private ArrayAdapter<PicklistRecord> projectStage = null;
+	private ArrayAdapter<PicklistRecord> projectCategory = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		List<PicklistRecord> projectStage = JardineApp.DB.getActivityProjectStage().getAllRecords();
+		List<PicklistRecord> projectCategory = JardineApp.DB.getActivityProjectCategory().getAllRecords();
+		
+		this.projectStage = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, projectStage);
+		this.projectCategory = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, projectCategory);
+		
 		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
 		((TextView) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -39,7 +48,10 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				return false;
 			}
 		});
-
+		
+		((Spinner) rootView.findViewById(R.id.project_stage)).setAdapter(this.projectStage);
+		((Spinner) rootView.findViewById(R.id.project_category)).setAdapter(this.projectCategory);
+		
 //		((Spinner) rootView.findViewById(R.id.project_stage)).setOnItemSelectedListener(new OnItemSelectedListener() {
 //
 //			@Override

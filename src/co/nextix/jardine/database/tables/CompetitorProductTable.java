@@ -1,8 +1,19 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_COMPETITOR;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_PRODUCTSIZE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_ROWID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,21 +25,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 
 public class CompetitorProductTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_COMPETITORPRODUCT_ROWID = "_id";
-	private final String KEY_COMPETITORPRODUCT_NO = "no";
-	private final String KEY_COMPETITORPRODUCT_CRMNO = "crm_no";
-	private final String KEY_COMPETITORPRODUCT_COMPETITOR = "competitor";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTBRAND = "product_brand";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION = "product_description";
-	private final String KEY_COMPETITORPRODUCT_PRODUCTSIZE = "product_size";
-	private final String KEY_COMPETITORPRODUCT_ISACTIVE = "is_active";
-	private final String KEY_COMPETITORPRODUCT_CREATEDTIME = "created_time";
-	private final String KEY_COMPETITORPRODUCT_MODIFIEDTIME = "modified_time";
-	private final String KEY_COMPETITORPRODUCT_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -49,6 +45,7 @@ public class CompetitorProductTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
@@ -367,7 +364,8 @@ public class CompetitorProductTable {
 
 	public long insert(String no, String crmNo, String competitor,
 			String productBrand, String productDescription, String productSize,
-			int isActive, String createdTime, String modifiedTime, long createdBy) {
+			int isActive, String createdTime, String modifiedTime,
+			long createdBy) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -411,7 +409,8 @@ public class CompetitorProductTable {
 
 	public boolean update(long id, String no, String crmNo, String competitor,
 			String productBrand, String productDescription, String productSize,
-			int isActive, String createdTime, String modifiedTime, long createdBy) {
+			int isActive, String createdTime, String modifiedTime,
+			long createdBy) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCT_NO, no);
 		args.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);

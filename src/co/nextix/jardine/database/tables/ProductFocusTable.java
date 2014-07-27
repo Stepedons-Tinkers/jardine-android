@@ -11,14 +11,11 @@ import android.database.sqlite.SQLiteDatabase;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ProductFocusRecord;
 
-public class ProductFocusTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTFOCUS_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTFOCUS_PRODUCT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTFOCUS_ACTIVITY;
 
-	private final String KEY_PRODUCTFOCUS_ROWID = "_id";
-	private final String KEY_PRODUCTFOCUS_PRODUCT = "product";
-	private final String KEY_PRODUCTFOCUS_ACTIVITY = "activity";
+public class ProductFocusTable {
 
 	// ===========================================================
 	// Private fields
@@ -39,6 +36,7 @@ public class ProductFocusTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

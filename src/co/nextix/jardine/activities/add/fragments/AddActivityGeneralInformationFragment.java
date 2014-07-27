@@ -63,10 +63,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private FragmentTransaction ft;
 
 	private Bundle bundle;
-	
+
 	private int frag_layout_id;
 	private int tabID;
-	
+
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
@@ -88,7 +88,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		}
 
 		addActFrag = (AddActivityFragment) fragment;
-		
+
 		addActFrag.pager.setCurrentItem(0);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
@@ -113,8 +113,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
-				AddActivityFragment.ACTIVITY_TYPE = ((ActivityTypeRecord)((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem()).getId();
-				
+				AddActivityFragment.ACTIVITY_TYPE = ((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type))
+						.getSelectedItem()).getId();
+
 				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
 					indexes.add(2);
 					indexes.add(3);
@@ -282,6 +283,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
+		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -374,7 +376,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					saveBtn.setProgress(0);
 					addActFrag.pager.setCurrentItem(tabID);
-					
+
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
 					ft.addToBackStack(null);
@@ -564,6 +566,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	protected String FormatDateAndDay(int digit) {
 		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
+	}
+
+	protected String displayCheckIn() {
+		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+		
+		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
 	}
 
 	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,

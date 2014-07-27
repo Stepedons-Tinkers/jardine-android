@@ -47,8 +47,8 @@ public class ActivityRecord {
 
 	// Project visit
 	private String project_name;
-	private String project_stage;
-	private String project_category;
+	private long project_stage;
+	private long project_category;
 
 	// Trainings
 	private String venue;
@@ -72,7 +72,7 @@ public class ActivityRecord {
 			long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes,
 			String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, String projectStage, String projectCategory,
+			String projectName, long projectStage, long projectCategory,
 			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		this.id = id;
@@ -334,19 +334,19 @@ public class ActivityRecord {
 		return project_name;
 	}
 
-	public void setProjectStage(String projectStage) {
+	public void setProjectStage(long projectStage) {
 		this.project_stage = projectStage;
 	}
 
-	public String getProjectStage() {
+	public long getProjectStage() {
 		return this.project_stage;
 	}
 
-	public void setProjectCategory(String projectCategory) {
+	public void setProjectCategory(long projectCategory) {
 		this.project_category = projectCategory;
 	}
 
-	public String getProjectCategory() {
+	public long getProjectCategory() {
 		return project_category;
 	}
 
