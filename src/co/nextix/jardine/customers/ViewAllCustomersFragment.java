@@ -190,7 +190,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 					searchRecord.add(rec);
 				}
 			}
-			totalPage = realRecord.size() / rowSize;
+			totalPage = searchRecord.size() / rowSize;
 
 		}
 
@@ -356,6 +356,13 @@ public class ViewAllCustomersFragment extends Fragment implements
 			@Override
 			public boolean onQueryTextChange(String arg0) {
 
+				
+
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
 					searchRecord = JardineApp.DB.getCustomer()
@@ -372,12 +379,6 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 					Log.e("Tugs", e.toString());
 				}
-
-				return true;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
 				searchView.clearFocus();
 				return true;
 			}
