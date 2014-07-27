@@ -150,14 +150,14 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 					}
 				}
 				
-//				ProductTable product = JardineApp.DB.getProduct();
-//				if(product != null){
-//					holder.product_brand_txt.setText("");
-//					ProductRecord rec = product.getById(this.tempValues.getProductBrand());
-//					if(rec != null){
-//						holder.product_brand_txt.setText(rec.toString());
-//					}
-//				}
+				ProductTable product = JardineApp.DB.getProduct();
+				if(product != null){
+					holder.product_brand_txt.setText("");
+					ProductRecord rec = product.getById(this.tempValues.getProductBrand());
+					if(rec != null){
+						holder.product_brand_txt.setText(rec.toString());
+					}
+				}
 				
 				ProductSupplierTable supplier = JardineApp.DB.getProductSupplier();
 				if(supplier != null){
