@@ -36,7 +36,7 @@ public class ActivityAdminWorksFragment extends Fragment {
 				"ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(
 				pref.getLong("activity_id", 0000));
-		((TextView) rootView.findViewById(R.id.smr))
+		((TextView) rootView.findViewById(R.id.admin_works))
 		.setText(this.activityRecord.getAdminWorkDetails());
 
 		return rootView;
