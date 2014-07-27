@@ -1,5 +1,7 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.util.List;
+
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -9,21 +11,28 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
-import android.widget.AdapterView;
-import android.widget.EditText;
+import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.TextView.OnEditorActionListener;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.PicklistRecord;
 
 public class AddActivityProjectVisitFragment extends Fragment {
+	private ArrayAdapter<PicklistRecord> projectStage = null;
+	private ArrayAdapter<PicklistRecord> projectCategory = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		List<PicklistRecord> projectStage = JardineApp.DB.getActivityProjectStage().getAllRecords();
+		List<PicklistRecord> projectCategory = JardineApp.DB.getActivityProjectCategory().getAllRecords();
+		
+		this.projectStage = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, projectStage);
+		this.projectCategory = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, projectCategory);
+		
 		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
-		((EditText) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
+		((TextView) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -39,46 +48,49 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				return false;
 			}
 		});
-
-		((Spinner) rootView.findViewById(R.id.project_stage)).setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-				Editor editor = pref.edit();
-				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
-				editor.putString("project_stage", String.valueOf(parent.getSelectedItem()));
-				editor.putString("project_category", String.valueOf(((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem()));
-				editor.commit(); // commit changes
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				if (parent.getSelectedItemPosition() == 0) {
-					Toast.makeText(getActivity(), "This field requires data", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
-
-		((Spinner) rootView.findViewById(R.id.project_category)).setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-				Editor editor = pref.edit();
-				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
-				editor.putString("project_category", String.valueOf(parent.getSelectedItem()));
-				editor.putString("project_stage", String.valueOf(((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()));
-				editor.commit(); // commit changes
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				if (parent.getSelectedItemPosition() == 0) {
-					Toast.makeText(getActivity(), "This field requires data", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+		
+		((Spinner) rootView.findViewById(R.id.project_stage)).setAdapter(this.projectStage);
+		((Spinner) rootView.findViewById(R.id.project_category)).setAdapter(this.projectCategory);
+		
+//		((Spinner) rootView.findViewById(R.id.project_stage)).setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//				Editor editor = pref.edit();
+//				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
+//				editor.putString("project_stage", String.valueOf(parent.getSelectedItem()));
+//				editor.putString("project_category", String.valueOf(((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem()));
+//				editor.commit(); // commit changes
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				if (parent.getSelectedItemPosition() == 0) {
+//					Toast.makeText(getActivity(), "This field requires data", Toast.LENGTH_SHORT).show();
+//				}
+//			}
+//		});
+//
+//		((Spinner) rootView.findViewById(R.id.project_category)).setOnItemSelectedListener(new OnItemSelectedListener() {
+//
+//			@Override
+//			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//				Editor editor = pref.edit();
+//				editor.putString("project_name", ((EditText) rootView.findViewById(R.id.project_name)).getText().toString());
+//				editor.putString("project_category", String.valueOf(parent.getSelectedItem()));
+//				editor.putString("project_stage", String.valueOf(((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()));
+//				editor.commit(); // commit changes
+//			}
+//
+//			@Override
+//			public void onNothingSelected(AdapterView<?> parent) {
+//				if (parent.getSelectedItemPosition() == 0) {
+//					Toast.makeText(getActivity(), "This field requires data", Toast.LENGTH_SHORT).show();
+//				}
+//			}
+//		});
 		
 		return rootView;
 	}

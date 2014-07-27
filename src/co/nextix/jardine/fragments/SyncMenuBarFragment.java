@@ -2370,6 +2370,10 @@ public class SyncMenuBarFragment extends Fragment {
 			PAreaTable areaTable = JardineApp.DB.getArea();
 			PProvinceTable provTable = JardineApp.DB.getProvince();
 			PCityTownTable cityTable = JardineApp.DB.getCityTown();
+			PActProjCategoryTable projectCategoryTable = JardineApp.DB
+					.getActivityProjectCategory();
+			PActProjStageTable projectStageTable = JardineApp.DB
+					.getActivityProjectStage();
 
 			SyncRequests request = new SyncRequests();
 			ActResult result = request.Activity(LAST_SYNC);
@@ -2393,10 +2397,16 @@ public class SyncMenuBarFragment extends Fragment {
 						long businesUnit = businessUnitTable.getIdByNo(model
 								.getBusinessunit());
 						long smr = smrTable.getIdByNo(model.getSmr());
+						long projectCategory = projectCategoryTable
+								.getIdByName(model.getProjectCategory());
+						long projectStage = projectStageTable.getIdByName(model
+								.getProjectStage());
 
 						// if ((workplanEntry > 0) && (customer > 0) && (smr >
-						// 0) && (area > 0) && (province > 0)&& (city > 0)&&
-						// (activityType > 0)&& (businesUnit > 0))
+						// 0)
+						// && (area > 0) && (province > 0) && (city > 0)
+						// && (activityType > 0) && (businesUnit > 0)
+						// && (projectCategory > 0) && (projectStage > 0))
 
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								activityType, model.getStartTime(), model
@@ -2417,12 +2427,11 @@ public class SyncMenuBarFragment extends Fragment {
 										.getNotes(), model.getHighlights(),
 								model.getNextsteps(), model
 										.getFollowupcomdate(), model
-										.getProjectName(), model
-										.getProjectStage(), model
-										.getProjectCategory(),
-								model.getVenue(), Tools.parseIntWithDefault(
-										model.getNoOfAttendees(), 0), model
-										.getEndUserActivityType());
+										.getProjectName(), projectStage,
+								projectCategory, model.getVenue(), Tools
+										.parseIntWithDefault(
+												model.getNoOfAttendees(), 0),
+								model.getEndUserActivityType());
 						Log.i(TAG, "add: " + model.getRecordId());
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
@@ -2444,11 +2453,16 @@ public class SyncMenuBarFragment extends Fragment {
 							long businesUnit = businessUnitTable
 									.getIdByNo(model.getBusinessunit());
 							long smr = smrTable.getIdByNo(model.getSmr());
+							long projectCategory = projectCategoryTable
+									.getIdByName(model.getProjectCategory());
+							long projectStage = projectStageTable
+									.getIdByName(model.getProjectStage());
 
 							// if ((workplanEntry > 0) && (customer > 0) && (smr
 							// >
 							// 0) && (area > 0) && (province > 0)&& (city > 0)&&
-							// (activityType > 0)&& (businesUnit > 0))
+							// (activityType > 0)&& (businesUnit > 0)&&
+							// (projectCategory > 0)&& (projectStage > 0))
 							table.update(
 									id,
 									model.getRecordId(),
@@ -2482,8 +2496,8 @@ public class SyncMenuBarFragment extends Fragment {
 									model.getNextsteps(),
 									model.getFollowupcomdate(),
 									model.getProjectName(),
-									model.getProjectStage(),
-									model.getProjectCategory(),
+									projectStage,
+									projectCategory,
 									model.getVenue(),
 									Tools.parseIntWithDefault(
 											model.getNoOfAttendees(), 0),

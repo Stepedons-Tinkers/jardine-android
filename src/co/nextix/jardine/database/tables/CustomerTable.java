@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
-
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NO;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CRMNO;
@@ -54,6 +53,7 @@ public class CustomerTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

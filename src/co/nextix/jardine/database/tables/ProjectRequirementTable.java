@@ -1,8 +1,20 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_DATENEEDED;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_OTHERDETAILS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_SQUAREMETERS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PROJECTREQUIREMENTS_TYPE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -11,28 +23,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
 
 public class ProjectRequirementTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_PROJECTREQUIREMENTS_ROWID = "_id";
-	private final String KEY_PROJECTREQUIREMENTS_NO = "no";
-	private final String KEY_PROJECTREQUIREMENTS_CRMNO = "crm_no";
-	private final String KEY_PROJECTREQUIREMENTS_ACTIVITY = "activity";
-	private final String KEY_PROJECTREQUIREMENTS_TYPE = "project_requirement_type";
-	private final String KEY_PROJECTREQUIREMENTS_DATENEEDED = "date_needed";
-	private final String KEY_PROJECTREQUIREMENTS_SQUAREMETERS = "square_meters";
-	// private final String KEY_PROJECTREQUIREMENTS_PRODUCTSUSED =
-	// "products_used";
-	private final String KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND = "products_brand";
-	private final String KEY_PROJECTREQUIREMENTS_OTHERDETAILS = "other_details";
-	private final String KEY_PROJECTREQUIREMENTS_CREATEDTIME = "created_time";
-	private final String KEY_PROJECTREQUIREMENTS_MODIFIEDTIME = "modified_time";
-	private final String KEY_PROJECTREQUIREMENTS_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -53,6 +46,7 @@ public class ProjectRequirementTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

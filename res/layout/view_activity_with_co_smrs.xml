@@ -95,7 +95,7 @@
                 </HorizontalScrollView>
 
                 <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/smr"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"

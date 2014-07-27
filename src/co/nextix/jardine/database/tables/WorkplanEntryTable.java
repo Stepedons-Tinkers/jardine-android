@@ -1,8 +1,24 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_ACTIVITYQUANTITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_ACTIVITYTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_CITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_DATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_PROVINCE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_REMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_STATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_WORKPLANENTRY_WORKPLAN;
+
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 
 import android.content.ContentValues;
@@ -14,27 +30,6 @@ import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 
 public class WorkplanEntryTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_WORKPLANENTRY_ROWID = "_id";
-	private final String KEY_WORKPLANENTRY_NO = "no";
-	private final String KEY_WORKPLANENTRY_CRMNO = "crm_no";
-	// private final String KEY_WORKPLANENTRY_CUSTOMER = "customer";
-	private final String KEY_WORKPLANENTRY_DATE = "date";
-	private final String KEY_WORKPLANENTRY_STATUS = "status";
-	private final String KEY_WORKPLANENTRY_AREA = "area";
-	private final String KEY_WORKPLANENTRY_PROVINCE = "province";
-	private final String KEY_WORKPLANENTRY_CITY = "city";
-	private final String KEY_WORKPLANENTRY_ACTIVITYTYPE = "activity_type";
-	private final String KEY_WORKPLANENTRY_REMARKS = "remarks";
-	private final String KEY_WORKPLANENTRY_WORKPLAN = "workplan";
-	private final String KEY_WORKPLANENTRY_ACTIVITYQUANTITY = "activity_quantity";
-	private final String KEY_WORKPLANENTRY_BUSINESSUNIT = "business_unit";
-	private final String KEY_WORKPLANENTRY_CREATEDTIME = "created_time";
-	private final String KEY_WORKPLANENTRY_MODIFIEDTIME = "modified_time";
-	private final String KEY_WORKPLANENTRY_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -55,6 +50,7 @@ public class WorkplanEntryTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

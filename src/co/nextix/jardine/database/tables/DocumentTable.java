@@ -12,27 +12,22 @@ import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.DocuInfoRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
-import co.nextix.jardine.database.records.ProjectRequirementRecord;
+
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_TITLE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODULENAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODULEID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILENAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILETYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILEPATH;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_USER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_CRMNO;
 
 public class DocumentTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_DOCUMENT_ROWID = "_id";
-	private final String KEY_DOCUMENT_NO = "no";
-	private final String KEY_DOCUMENT_TITLE = "title";
-	private final String KEY_DOCUMENT_MODULENAME = "module_name";
-	private final String KEY_DOCUMENT_MODULEID = "module_id";
-	private final String KEY_DOCUMENT_FILENAME = "file_name";
-	private final String KEY_DOCUMENT_FILETYPE = "file_type";
-	private final String KEY_DOCUMENT_FILEPATH = "file_path";
-	private final String KEY_DOCUMENT_ISACTIVE = "is_active";
-	private final String KEY_DOCUMENT_CREATEDTIME = "created_time";
-	private final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
-	private final String KEY_DOCUMENT_USER = "user";
-
-	private final String KEY_DOCUMENT_CRMNO = "crm_no";
 
 	// ===========================================================
 	// Private fields
@@ -53,6 +48,7 @@ public class DocumentTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();

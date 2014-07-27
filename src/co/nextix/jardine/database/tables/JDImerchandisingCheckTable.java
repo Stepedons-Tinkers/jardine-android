@@ -1,5 +1,15 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIMERCHANDISING_STATUS;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,23 +20,9 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 
 public class JDImerchandisingCheckTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_JDIMERCHANDISING_ROWID = "_id";
-	private final String KEY_JDIMERCHANDISING_NO = "no";
-	private final String KEY_JDIMERCHANDISING_CRMNO = "crm_no";
-	private final String KEY_JDIMERCHANDISING_ACTIVITY = "activity";
-	private final String KEY_JDIMERCHANDISING_PRODUCTBRAND = "product_brand";
-	private final String KEY_JDIMERCHANDISING_STATUS = "status";
-	private final String KEY_JDIMERCHANDISING_CREATEDTIME = "created_time";
-	private final String KEY_JDIMERCHANDISING_MODIFIEDTIME = "modified_time";
-	private final String KEY_JDIMERCHANDISING_CREATEDBY = "created_by";
 
 	// ===========================================================
 	// Private fields
@@ -46,6 +42,7 @@ public class JDImerchandisingCheckTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
