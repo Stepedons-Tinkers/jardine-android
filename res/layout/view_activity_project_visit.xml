@@ -77,7 +77,7 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <EditText
+                <TextView
                     android:id="@+id/project_name"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -90,8 +90,6 @@
                     android:hint="text field"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
-
-                <requestFocus />
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
@@ -121,12 +119,19 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/project_stage"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+                    <TextView
+                    android:id="@+id/project_stage"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc"
+                    android:ems="10"
+                    android:inputType="textMultiLine|textImeMultiLine"
+                    android:maxLines="100"
+                    android:hint="text field"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
 
@@ -165,12 +170,19 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/project_category"
-                        android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+
+				<TextView
+                    android:id="@+id/project_category"
+                    android:layout_width="wrap_content"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#dcdcdc"
+                    android:ems="10"
+                    android:inputType="textMultiLine|textImeMultiLine"
+                    android:maxLines="100"
+                    android:hint="text field"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>
