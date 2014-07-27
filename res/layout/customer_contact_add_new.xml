@@ -69,13 +69,13 @@
             <com.dd.CircularProgressButton
                 android:id="@+id/btnWithText1"
                 android:layout_width="196dp"
-                android:layout_height="64dp"
+                android:layout_height="45dp"
                 android:layout_alignParentRight="true"
                 android:layout_margin="4dp"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:visibility="gone"
-                app:textComplete="@string/complete"
+                app:textComplete="@string/next"
                 app:textError="@string/error"
                 app:textIdle="@string/done" />
         </RelativeLayout>
