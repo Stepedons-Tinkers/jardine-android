@@ -10,22 +10,18 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_NAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_CODE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_BUSINESSUNIT_CREATED_BY;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 
 public class BusinessUnitTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_BUSINESSUNIT_ROWID = "_id";
-	private final String KEY_BUSINESSUNIT_NO = "no";
-	private final String KEY_BUSINESSUNIT_CRMNO = "crm_no";
-	private final String KEY_BUSINESSUNIT_NAME = "business_unit_name";
-	private final String KEY_BUSINESSUNIT_CODE = "business_unit_code";
-	private final String KEY_BUSINESSUNIT_ISACTIVE = "is_active";
-	private final String KEY_BUSINESSUNIT_CREATEDTIME = "created_time";
-	private final String KEY_BUSINESSUNIT_MODIFIEDTIME = "modified_time";
-	private final String KEY_BUSINESSUNIT_CREATED_BY = "created_by";
 
 	// ===========================================================
 	// Private fields

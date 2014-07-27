@@ -9,25 +9,21 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import co.nextix.jardine.database.DatabaseAdapter;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_ACTIVITYTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_DATESTART;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_DUEDATE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_DESCRIPTION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_SUBJECT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_TIMESTART;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_TIMEEND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CALENDAR_USER;
 import co.nextix.jardine.database.records.CalendarRecord;
 
 public class CalendarTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_CALENDAR_ROWID = "_id";
-	private final String KEY_CALENDAR_ACTIVITYTYPE = "activitytype";
-	private final String KEY_CALENDAR_DATESTART = "date_start";
-	private final String KEY_CALENDAR_DUEDATE = "due_date";
-	private final String KEY_CALENDAR_DESCRIPTION = "description";
-	private final String KEY_CALENDAR_SUBJECT = "subject";
-	private final String KEY_CALENDAR_TIMESTART = "time_start";
-	private final String KEY_CALENDAR_TIMEEND = "time_end";
-	private final String KEY_CALENDAR_ACTIVITY = "activity";
-	private final String KEY_CALENDAR_CREATEDTIME = "created_time";
-	private final String KEY_CALENDAR_MODIFIEDTIME = "modified_time";
-	private final String KEY_CALENDAR_USER = "user";
 
 	// ===========================================================
 	// Private fields
@@ -152,8 +148,8 @@ public class CalendarTable {
 	// Public methods
 	// ===========================================================
 
-	public boolean isExisting(long activity, String activityType, String subject,
-			String dateStart, String dueDate) {
+	public boolean isExisting(long activity, String activityType,
+			String subject, String dateStart, String dueDate) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_CALENDAR_ACTIVITY + "=" + activity + " AND "
