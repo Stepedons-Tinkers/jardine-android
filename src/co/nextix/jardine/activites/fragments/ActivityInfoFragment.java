@@ -81,6 +81,8 @@ public class ActivityInfoFragment extends Fragment {
 
 				if (position == 0) {
 
+					
+					// General Information
 					EditActivityInfoFragment editActInfoFrag = new EditActivityInfoFragment();
 					editActInfoFrag.setArguments(bundle);
 
@@ -89,108 +91,151 @@ public class ActivityInfoFragment extends Fragment {
 					ft.commit();
 				} else if (position == 1) {
 
-					AddActivityWithCoSMRsFragment addActWCoSmrFrag = new AddActivityWithCoSMRsFragment();
-					addActWCoSmrFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, addActWCoSmrFrag);
-					ft.commit();
+					// Travel or Waiting TODO
+//					TravelOrWaitingFragment travelORwaitingFrag = new TravelOrWaitingFragment();
+//					travelORwaitingFrag.setArguments(bundle);
+//
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
+//					ft.commit();
 				} else if (position == 2) {
 					
-					AddActivityDIYorSupermarketFragment addActDiyOrSupFrag = new AddActivityDIYorSupermarketFragment();
-					addActDiyOrSupFrag.setArguments(bundle);
+					// WithCoSMRs
+					AddActivityWithCoSMRsFragment  withCoSMRsFrag = new AddActivityWithCoSMRsFragment ();
+					withCoSMRsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, addActDiyOrSupFrag);
+					ft.replace(R.id.layoutForAddingFrag, withCoSMRsFrag);
 					ft.commit();
 				} else if (position == 3) {
 					
-					AddActivityRetailVisitFragment addActRetVisFrag = new AddActivityRetailVisitFragment();
-					addActRetVisFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, addActRetVisFrag);
-					ft.commit();
+					// Admin Works TODO
+//					AdminWorksFragment adminWorksFrag = new AdminWorksFragment();
+//					adminWorksFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
+//					ft.commit();
 				} else if (position == 4) {
 					
-					AddActivityProjectVisitFragment addActProjVisFrag = new AddActivityProjectVisitFragment();
-					addActProjVisFrag.setArguments(bundle);
 					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, addActProjVisFrag);
-					ft.commit();
+					// Activity Details and Notes TODO
+//					ActivityDetailsAndNotesFragment detailsANDnotesFrag = new ActivityDetailsAndNotesFragment();
+//					detailsANDnotesFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
+//					ft.commit();
 				} else if (position == 5) {
 					
-					AddActivityTrainingsFragment addActTraiFrag = new AddActivityTrainingsFragment();
-					addActTraiFrag.setArguments(bundle);
+					// Customer Contact Person
+					CustomerContactPersonFragment customerContactPersonFrag = new CustomerContactPersonFragment();
+					customerContactPersonFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, addActTraiFrag);
+					ft.replace(R.id.layoutForAddingFrag, customerContactPersonFrag);
 					ft.commit();
 				} else if (position == 6) {
 					
-					JDIProductStockFragment jdiProStoFrag = new JDIProductStockFragment();
-					jdiProStoFrag.setArguments(bundle);
+					// JDI Product Stock Check
+					JDIProductStockFragment jdiProductStockFrag = new JDIProductStockFragment();
+					jdiProductStockFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, jdiProStoFrag);
+					ft.replace(R.id.layoutForAddingFrag, jdiProductStockFrag);
 					ft.commit();
 				} else if (position == 7) {
 					
-					JDIMerchandisingCheckFragment jdiMerCheFrag = new JDIMerchandisingCheckFragment();
-					jdiMerCheFrag.setArguments(bundle);
-					
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, jdiMerCheFrag);
-					ft.commit();
+					// Product Supplier TODO
+//					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
+//					productSupplierFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
+//					ft.commit();
 				} else if (position == 8) {
 					
-					CompetitorStockCheckFragment compStoCheFrag = new CompetitorStockCheckFragment();
-					compStoCheFrag.setArguments(bundle);
+					// JDI Merchandising Check
+					JDIMerchandisingCheckFragment jdiMerchandisingCheckFrag = new JDIMerchandisingCheckFragment();
+					jdiMerchandisingCheckFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, compStoCheFrag);
+					ft.replace(R.id.layoutForAddingFrag, jdiMerchandisingCheckFrag);
 					ft.commit();
 				} else if (position == 9) {
 					
-					MarketingIntelFragment markIntFrag = new MarketingIntelFragment();
-					markIntFrag.setArguments(bundle);
+					// JDI Competitor Product Stock Check
+					CompetitorStockCheckFragment jdiCompetitorProductStockCheckFrag = new CompetitorStockCheckFragment();
+					jdiCompetitorProductStockCheckFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, markIntFrag);
+					ft.replace(R.id.layoutForAddingFrag, jdiCompetitorProductStockCheckFrag);
 					ft.commit();
 				} else if (position == 10) {
 					
-					ProjectRequirementsFragment projReqFrag = new ProjectRequirementsFragment();
-					projReqFrag.setArguments(bundle);
+					
+					// Marketing Intel
+					MarketingIntelFragment marketingIntelFrag = new MarketingIntelFragment();
+					marketingIntelFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, projReqFrag);
+					ft.replace(R.id.layoutForAddingFrag, marketingIntelFrag);
 					ft.commit();
 				} else if (position == 11) {
 					
-					DIYSupermarketPhotosFragment diySupPhoFrag = new DIYSupermarketPhotosFragment();
-					diySupPhoFrag.setArguments(bundle);
+					
+					// Project Visit
+					AddActivityProjectVisitFragment  projectVisitFrag = new AddActivityProjectVisitFragment ();
+					projectVisitFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, diySupPhoFrag);
+					ft.replace(R.id.layoutForAddingFrag, projectVisitFrag);
 					ft.commit();
 				} else if (position == 12) {
 					
-					CustomerContactPersonFragment custConPerFrag = new CustomerContactPersonFragment();
-					custConPerFrag.setArguments(bundle);
+					// Project Requirements
+					ProjectRequirementsFragment projectRequirementsFrag = new ProjectRequirementsFragment();
+					projectRequirementsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, custConPerFrag);
+					ft.replace(R.id.layoutForAddingFrag, projectRequirementsFrag);
 					ft.commit();
 				} else if (position == 13) {
 					
-					ProductFocusFragment proFrag = new ProductFocusFragment();
-					proFrag.setArguments(bundle);
+					// Trainings
+					AddActivityTrainingsFragment  trainingsFrag = new AddActivityTrainingsFragment ();
+					trainingsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, proFrag);
+					ft.replace(R.id.layoutForAddingFrag, trainingsFrag);
 					ft.commit();
+				} else if (position == 14){
+					
+					// Identify Product Focus
+					ProductFocusFragment identifyProductFocusFrag = new ProductFocusFragment();
+					identifyProductFocusFrag.setArguments(bundle);
+					
+					ft = getFragmentManager().beginTransaction();
+					ft.replace(R.id.layoutForAddingFrag, identifyProductFocusFrag);
+					ft.commit();
+				} else if (position == 15){
+					
+					// Full Brand Activation TODO
+//					FullBrandActivationFragment fullBrandActivationFrag = new FullBrandActivationFragment();
+//					fullBrandActivationFrag.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, fullBrandActivationFrag);
+//					ft.commit();
+				} else if (position == 16){
+					
+					// Activity Photos and Attachments TODO
+//					ActivityPhotosAndAttachments activityPhotosAndAttachments = new ActivityPhotosAndAttachments();
+//					activityPhotosAndAttachments.setArguments(bundle);
+//					
+//					ft = getFragmentManager().beginTransaction();
+//					ft.replace(R.id.layoutForAddingFrag, activityPhotosAndAttachments);
+//					ft.commit();
 				}
 
 			}
@@ -219,13 +264,10 @@ public class ActivityInfoFragment extends Fragment {
 
 	public class MyPagerAdapter extends FragmentPagerAdapter {
 
-		private final String[] TITLES = { "General Information", "With CoSMRs",
-				"DIY or Supermarket", "Retail Visit", "Project Visit",
-				"Trainings", "JDI Product Stock Check",
-				"JDI Merchandising Check", "Competitor Product Stock Check",
-				"Marketing Intel", "Project Requirements",
-				"DIY or Supermarket Photos", "Customer Contact Person",
-				"Products" };
+		private final String[] TITLES = { "General Information", "Travel or Waiting", "With CoSMRs", "Admin Works",
+				"Activity Details and Notes", "Customer Contact Person", "JDI Product Stock Check", "Product Supplier",
+				"JDI Merchandising Check", "JDI Competitor Product Stock Check", "Marketing Intel", "Project Visit",
+				"Project Requirements", "Trainings", "Identify Product Focus", "Full Brand Activation", "Activity Photos and Attachments" };
 
 		public MyPagerAdapter(FragmentManager fm) {
 			super(fm);

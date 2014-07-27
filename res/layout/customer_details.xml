@@ -77,13 +77,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                 
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
                     android:text="@string/collaterals_ep_crm_no"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -97,10 +97,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -112,12 +113,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:text="@string/customer_name"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -131,10 +132,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -150,13 +152,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
-                  
                     android:paddingLeft="2dp"
                     android:text="@string/customer_details_street_address"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -170,10 +172,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -185,12 +188,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                  
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:text="@string/customer_details_chain_name"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -204,10 +207,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -223,13 +227,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
-                 
                     android:paddingLeft="2dp"
                     android:text="@string/customer_details_landline"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -243,10 +247,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -258,12 +263,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-               
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:text="@string/customer_details_customer_size"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -277,10 +282,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -290,6 +296,7 @@
                 android:background="@color/collaterals_tablerow_color1"
                 android:clickable="false"
                 android:focusable="false"
+                android:gravity="top"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -297,12 +304,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
                     android:text="@string/customer_details_customer_type"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -316,10 +324,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -331,12 +340,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                 
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:text="@string/customer_business_unit"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -350,10 +359,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -370,13 +380,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
-                 
                     android:paddingLeft="2dp"
                     android:text="@string/customer_area"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -390,10 +400,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -405,12 +416,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
-                  
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:text="@string/customer_province"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -424,10 +435,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -444,13 +456,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
-                 
                     android:paddingLeft="2dp"
                     android:text="@string/customer_city_or_town"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -464,10 +476,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -479,12 +492,12 @@
                     android:layout_width="200dp"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
-                  
                     android:text="@string/customer_details_is_active"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -498,10 +511,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
 
             <TableRow
@@ -518,13 +532,13 @@
                     android:layout_column="0"
                     android:layout_weight="1"
                     android:ellipsize="end"
-                    android:maxLines="1"
-                 
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:paddingLeft="2dp"
                     android:text="@string/customer_details_fax"
                     android:textColor="@color/black"
-                    android:textSize="21sp"
+                    android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
                 <View
@@ -538,10 +552,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="1"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -553,10 +568,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
 
                 <View
                     android:layout_width="2dp"
@@ -568,10 +584,11 @@
                     android:layout_width="wrap_content"
                     android:layout_column="2"
                     android:layout_weight="1"
-                    android:maxLines="1"
+                    android:gravity="top"
+                    android:maxLines="7"
                     android:padding="7dp"
                     android:textColor="@color/black"
-                    android:textSize="21sp" />
+                    android:textSize="@dimen/text_xxlarge" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

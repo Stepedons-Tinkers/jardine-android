@@ -54,7 +54,7 @@ public class CompetitorProductStockCheckDetailFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
+//				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
 //				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
 //				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 //				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);

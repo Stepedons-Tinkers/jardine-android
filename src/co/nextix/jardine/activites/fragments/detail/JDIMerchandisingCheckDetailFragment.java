@@ -38,8 +38,14 @@ public class JDIMerchandisingCheckDetailFragment extends Fragment {
 		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(String.valueOf(this.activityRecord.getLongitude()));
 		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.activityRecord.getNotes());
 		((TextView) myFragmentView.findViewById(R.id.created_by)).setText("getCompetitorActivities()");
-		
-
+		((Button) myFragmentView.findViewById(R.id.back_button)).setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				getActivity().onBackPressed();
+				
+			}
+		});
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
 
 			@Override
