@@ -13,6 +13,12 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.database.records.BusinessUnitRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ActivityTypeTable;
+import co.nextix.jardine.database.tables.BusinessUnitTable;
+import co.nextix.jardine.database.tables.UserTable;
 
 public class ActivityGeneralInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
@@ -38,12 +44,34 @@ public class ActivityGeneralInfoFragment extends Fragment {
 		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getCheckIn());
 		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getCheckOut());
 
-		((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(String.valueOf(this.activityRecord.getActivityType()));
-
-//		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.activityRecord.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(String.valueOf(JardineApp.DB.getUser().getCurrentUser()
-				.getLastname()
-				+ ", " + JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
+	
+		ActivityTypeTable type =  JardineApp.DB.getActivityType();
+		if(type != null){
+			ActivityTypeRecord record = type.getById(this.activityRecord.getActivityType());
+			((TextView) myFragmentView.findViewById(R.id.activity_type)).setText("");
+			if(record != null){
+				((TextView) myFragmentView.findViewById(R.id.activity_type)).setText(record.toString());
+			}
+			
+		}
+		
+		BusinessUnitTable business = JardineApp.DB.getBusinessUnit();
+		if(business != null){
+			BusinessUnitRecord rec = business.getById(this.activityRecord.getBusinessUnit());
+			((TextView) myFragmentView.findViewById(R.id.business_unit)).setText("");
+			if(rec != null){
+				((TextView) myFragmentView.findViewById(R.id.business_unit)).setText(rec.toString());
+			}
+		}
+		
+		UserTable user = JardineApp.DB.getUser();
+		if(user != null){
+			UserRecord rec = user.getById(this.activityRecord.getCreatedBy());
+			((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText("");
+			if(rec != null){
+				((TextView) myFragmentView.findViewById(R.id.assigned_to)).setText(rec.toString());
+			}
+		}
 
 		((Button) myFragmentView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
 
