@@ -11,23 +11,18 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_NAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_CATEGORY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITYTYPE_USER;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 
 public class ActivityTypeTable {
-	// ===========================================================
-	// Private static fields
-	// ===========================================================
-
-	private final String KEY_ACTIVITYTYPE_ROWID = "_id";
-	private final String KEY_ACTIVITYTYPE_NO = "no";
-	private final String KEY_ACTIVITYTYPE_CRMNO = "crm_no";
-	// private final String KEY_ACTIVITYTYPE_TYPE = "activity_type";
-	private final String KEY_ACTIVITYTYPE_NAME = "name";
-	private final String KEY_ACTIVITYTYPE_CATEGORY = "activity_type_categorization";
-	private final String KEY_ACTIVITYTYPE_ISACTIVE = "is_active";
-	private final String KEY_ACTIVITYTYPE_CREATEDTIME = "created_time";
-	private final String KEY_ACTIVITYTYPE_MODIFIEDTIME = "modified_time";
-	private final String KEY_ACTIVITYTYPE_USER = "user";
 
 	// ===========================================================
 	// Private fields

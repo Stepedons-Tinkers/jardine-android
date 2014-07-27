@@ -83,7 +83,7 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
-		
+
 		cancel.setBackgroundColor(Color.RED);
 
 		save.setText("Update");
@@ -300,14 +300,16 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 				.getId();
 		int isActive = 1;
 
+		int daysUnchanged = 0;
+
 		String createdTime = record.getCreatedTime();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
 
 		JardineApp.DB.getCustomer().update(id, no, crmNo, customerName,
 				chainName, landline, fax, customerSize, streetAddress,
 				customerRecordStatus, customerType, businessUnit, area,
-				province, cityTown, isActive, createdTime, modifiedTime,
-				created_by);
+				province, cityTown, isActive, daysUnchanged, createdTime,
+				modifiedTime, created_by);
 	}
 
 	@Override
