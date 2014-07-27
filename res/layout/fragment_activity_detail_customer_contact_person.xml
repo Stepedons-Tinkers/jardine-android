@@ -8,7 +8,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="54dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:visibility="gone" >
 
         <Button
             android:id="@+id/activity_info"
@@ -83,8 +84,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
-                    android:layout_weight="1" 
-                    android:visibility="gone">
+                    android:layout_weight="1"
+                    android:visibility="gone" >
 
                     <Button
                         android:id="@+id/edit_activity"
@@ -111,7 +112,7 @@
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:layout_width="0dp"
@@ -131,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/crm_no"
@@ -151,7 +152,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/customer"
@@ -178,10 +179,10 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/customer"
+                        android:id="@+id/first_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -213,13 +214,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -233,13 +234,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/last_name"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -252,13 +253,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -273,13 +274,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/position"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -302,13 +303,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -322,13 +323,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView04"
+                        android:id="@+id/mobile_no"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -341,18 +342,19 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:layout_marginBottom="4dp"
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/birthday_contact_person"
+                        android:text="@string/assigned_to_competitor_product"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -362,18 +364,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
-                        android:id="@+id/TextView05"
+                        android:id="@+id/created_by"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="decimal"
+                        android:text="alphanumeric"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
@@ -383,20 +385,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
-                android:orientation="horizontal" >
+                android:orientation="horizontal"
+                android:visibility="gone" >
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -410,13 +413,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -429,13 +432,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -450,13 +453,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -470,20 +473,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
-                android:gravity="center_horizontal" >
+                android:gravity="center_horizontal" 
+                android:visibility="gone" >
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -497,13 +501,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -516,13 +520,13 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -537,13 +541,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#cac9c9" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#cac9c9"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -559,7 +563,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
-                android:gravity="center_horizontal" >
+                android:gravity="center_horizontal" 
+                android:visibility="gone" >
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
@@ -567,13 +572,13 @@
                     android:layout_marginBottom="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -588,13 +593,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -607,18 +612,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/assigned_to_competitor_product"
+                        android:text="@string/birthday_contact_person"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -628,18 +633,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
+                    android:background="#ffffff" >
 
                     <TextView
                         android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#ffffff"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="alphanumeric"
+                        android:text="decimal"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
