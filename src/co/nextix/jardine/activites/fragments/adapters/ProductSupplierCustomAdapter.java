@@ -27,6 +27,7 @@ import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
@@ -139,11 +140,45 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 				holder.created_by_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}else{
-				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));
-				holder.activity_txt.setText("" + this.tempValues.getActivity());
-				holder.product_brand_txt.setText(this.tempValues.getProductBrand());
-				holder.supplier.setText("" + this.tempValues.getSupplier());
-				holder.created_by_txt.setText("" + this.tempValues.getCreatedBy());
+				
+				ActivityTable act = JardineApp.DB.getActivity();
+				if(act != null){
+					ActivityRecord rec = act.getById(this.tempValues.getActivity());
+					holder.activity_txt.setText("");
+					if(rec != null){
+						holder.activity_txt.setText(rec.toString());	
+					}
+				}
+				
+//				ProductTable product = JardineApp.DB.getProduct();
+//				if(product != null){
+//					holder.product_brand_txt.setText("");
+//					ProductRecord rec = product.getById(this.tempValues.getProductBrand());
+//					if(rec != null){
+//						holder.product_brand_txt.setText(rec.toString());
+//					}
+//				}
+				
+				ProductSupplierTable supplier = JardineApp.DB.getProductSupplier();
+				if(supplier != null){
+					ProductSupplierRecord rec = supplier.getById(this.tempValues.getSupplier());
+					holder.supplier.setText("");
+					if(rec != null){
+						holder.supplier.setText(rec.toString());
+					}
+				}
+				
+				UserTable user = JardineApp.DB.getUser();
+				if(user != null){
+					UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+					holder.created_by_txt.setText("");
+					if(rec != null){
+						holder.created_by_txt.setText(rec.toString());
+					}
+				}
+				
+				
+				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));				
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/

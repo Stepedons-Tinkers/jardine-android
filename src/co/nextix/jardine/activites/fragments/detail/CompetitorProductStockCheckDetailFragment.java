@@ -91,7 +91,7 @@ public class CompetitorProductStockCheckDetailFragment extends Fragment {
 			}
 		}
 		
-//		((TextView) myFragmentView.findViewById(R.id.other_remarks)).setText(this.record.getOtherRemarks());
+		((TextView) myFragmentView.findViewById(R.id.other_remarks)).setText(this.record.getOtherRemarks());
 		((Button) myFragmentView.findViewById(R.id.back_button)).setOnClickListener(new OnClickListener() {
 			
 			@Override
