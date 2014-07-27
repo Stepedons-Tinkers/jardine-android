@@ -10,6 +10,9 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.tables.picklists.PActProjStageTable;
+import co.nextix.jardine.database.tables.picklists.PActtypeCategoryTable;
 
 public class ActivityProjectVisitFragment extends Fragment {
 	private static volatile ActivityProjectVisitFragment instance = null;
@@ -36,9 +39,34 @@ public class ActivityProjectVisitFragment extends Fragment {
 				"ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(
 				pref.getLong("activity_id", 0000));
-		
 		((TextView) rootView.findViewById(R.id.project_name))
-		.setText(this.activityRecord.getProjectName());
+		.setText("");
+		if(!activityRecord.getProjectName().isEmpty() || !activityRecord.getProjectName().equalsIgnoreCase("")){
+			((TextView) rootView.findViewById(R.id.project_name))
+			.setText(this.activityRecord.getProjectName());
+		}
+		
+		PActProjStageTable project_stage = JardineApp.DB.getActivityProjectStage();
+		if(project_stage != null){
+			PicklistRecord proStageRec = project_stage.getById((int)this.activityRecord.getProjectStage());
+			((TextView) rootView.findViewById(R.id.project_stage))
+			.setText("");
+			if(proStageRec != null){
+				((TextView) rootView.findViewById(R.id.project_stage))
+				.setText(proStageRec.toString());
+			}
+		}
+		
+		PActtypeCategoryTable project_category = JardineApp.DB.getActivitytypeCategory();
+		if(project_category != null){
+			PicklistRecord proCategoryRec = project_stage.getById((int)this.activityRecord.getProjectStage());
+			((TextView) rootView.findViewById(R.id.project_category))
+			.setText("");
+			if(proCategoryRec != null){
+				((TextView) rootView.findViewById(R.id.project_category))
+				.setText(proCategoryRec.toString());
+			}
+		}
 		
 		return rootView;
 	}

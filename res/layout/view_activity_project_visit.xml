@@ -44,7 +44,6 @@
                     android:text="Project Visit"
                     android:textColor="#fff"
                     android:textSize="14dp"
-                    android:visibility="gone"
                     android:textStyle="bold" />
             </TableRow>
 
@@ -80,16 +79,18 @@
                 <TextView
                     android:id="@+id/project_name"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
-                    android:inputType="textMultiLine|textImeMultiLine"
-                    android:maxLines="100"
+                    android:gravity="center"
                     android:hint="text field"
+                    android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
+
+                <requestFocus />
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
@@ -111,28 +112,20 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
-
-                    <TextView
+                <TextView
                     android:id="@+id/project_stage"
                     android:layout_width="0dp"
-                    android:layout_height="50dp"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="4dp"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
-                    android:inputType="textMultiLine|textImeMultiLine"
-                    android:maxLines="100"
+                    android:gravity="center"
                     android:hint="text field"
+                    android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
-                </HorizontalScrollView>
             </TableRow>
 
             <TableRow
@@ -162,28 +155,43 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#dcdcdc" >
-
-
-				<TextView
+                <TextView
                     android:id="@+id/project_category"
-                    android:layout_width="wrap_content"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="4dp"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
-                    android:inputType="textMultiLine|textImeMultiLine"
-                    android:maxLines="100"
+                    android:gravity="center"
                     android:hint="text field"
+                    android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
-                </HorizontalScrollView>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:maxLines="100"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc"
+                    android:layout_marginRight="4dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:maxLines="100"
+                    android:scrollHorizontally="true"
+                    android:textColor="#000000" />
             </TableRow>
         </TableLayout>
     </ScrollView>
