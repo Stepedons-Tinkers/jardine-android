@@ -46,9 +46,9 @@
                     <LinearLayout
                         android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="5" >
 
                         <TextView
@@ -225,7 +225,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="14dp"
-                    android:text="@string/add_jdi_merchandising_check" />
+                    android:text="@string/add_jdi_merchandising_check"
+                    android:visibility="gone" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

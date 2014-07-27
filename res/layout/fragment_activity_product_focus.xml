@@ -241,7 +241,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="14dp"
-                android:text="@string/select_products" />
+                android:text="@string/select_products" 
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 

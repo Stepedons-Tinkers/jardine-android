@@ -11,8 +11,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -27,7 +27,6 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
 
@@ -219,7 +218,7 @@ public class CustomerContactPersonCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+			CustomerContactPersonFragment sct = (CustomerContactPersonFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
