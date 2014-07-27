@@ -91,6 +91,7 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.utils.Tools;
 import co.nextix.jardine.web.CreateRequests;
+import co.nextix.jardine.web.CreateResult;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.RetrieveRequests;
@@ -191,6 +192,58 @@ public class SyncMenuBarFragment extends Fragment {
 		getFragmentManager().popBackStack("sync",
 				FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		super.onDestroy();
+	}
+
+	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Documents");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+			List<DocumentRecord> records = table.getUnsyncedRecords();
+
+			if (records != null) {
+				CreateRequests request = new CreateRequests();
+				for (DocumentRecord rec : records) {
+					CreateResult results = request.documents(rec);
+					if (results != null) {
+						List<WebCreateModel> webModels = results.getCreate();
+						for (WebCreateModel model : webModels) {
+							table.updateNo(model.getMobileId(),
+									String.valueOf(model.getCrmNo()));
+							// table.updateModifiedTime(model.getMobileId(),
+							// model.getModifiedTime());
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateCompetitorProductTask().execute();
+
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
 	}
 
 	private class CreateCompetitorProductTask extends
@@ -640,7 +693,7 @@ public class SyncMenuBarFragment extends Fragment {
 			//
 			// dialog.dismiss();
 			if (result) {
-				new CreateDocumentsTask().execute();
+				new CreateProductSupplierTask().execute();
 
 			} else {
 				dialog.dismiss();
@@ -650,13 +703,14 @@ public class SyncMenuBarFragment extends Fragment {
 		}
 	}
 
-	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+	private class CreateProductSupplierTask extends
+			AsyncTask<Void, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			// dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Create");
-			dialog.setMessage("Documents");
+			dialog.setMessage("ProductSupplier");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
@@ -666,19 +720,15 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 
-			DocumentTable table = JardineApp.DB.getDocument();
-			List<DocumentRecord> records = table.getUnsyncedRecords();
+			ProductSupplierTable table = JardineApp.DB.getProductSupplier();
 
-			if (records != null) {
-				CreateRequests request = new CreateRequests();
-				for (DocumentRecord rec : records) {
-					List<WebCreateModel> results = request.documents(rec);
-					if (results != null) {
-						for (WebCreateModel model : results) {
-							table.updateNo(model.getMobileId(),
-									String.valueOf(model.getCrmNo()));
-						}
-					}
+			CreateRequests request = new CreateRequests();
+			List<WebCreateModel> results = request.productSupplier(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				for (WebCreateModel model : results) {
+					table.updateNo(model.getMobileId(),
+							String.valueOf(model.getCrmNo()));
 				}
 			}
 
@@ -687,7 +737,6 @@ public class SyncMenuBarFragment extends Fragment {
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-
 			if (result) {
 				new PicklistDependencyTask().execute();
 
@@ -3877,7 +3926,8 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			if (result) {
 				// new PicklistDependencyTask().execute();
-				new CreateCompetitorProductTask().execute();
+				// new CreateCompetitorProductTask().execute();
+				new CreateDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
 				buildAlertMessage();
