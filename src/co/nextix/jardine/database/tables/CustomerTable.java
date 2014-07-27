@@ -9,6 +9,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ROWID;
@@ -147,24 +148,39 @@ public class CustomerTable {
 					+ KEY_CUSTOMER_NAME + " LIKE " + "'%" + hint + "%'";
 			break;
 		case 2:
+			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
+					+ " INNER JOIN " + DatabaseAdapter.BUSINESS_UNIT_TABLE
+					+ " ON " + mDatabaseTable + "." + KEY_CUSTOMER_BUSINESSUNIT
+					+ " = " + DatabaseAdapter.BUSINESS_UNIT_TABLE + "."
+					+ DatabaseAdapter.KEY_BUSINESSUNIT_ROWID + " WHERE "
+					+ DatabaseAdapter.BUSINESS_UNIT_TABLE + "."
+					+ DatabaseAdapter.KEY_BUSINESSUNIT_NAME + " LIKE '%" + hint
+					+ "%'";
 
 			break;
 		case 3:
 			// SELECT Customer.* FROM Customer inner join Area on Customer.area
 			// = Area._id Where Area.name LIKE 'north%'
 			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN Area ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_AREA + " = Area._id WHERE Area.name LIKE '"
-					+ hint + "%'";
+					+ " INNER JOIN " + DatabaseAdapter.AREA_TABLE + " ON "
+					+ mDatabaseTable + "." + KEY_CUSTOMER_AREA + " = "
+					+ DatabaseAdapter.AREA_TABLE + "."
+					+ DatabaseAdapter.KEY_PICKLISTS_ROWID + " WHERE "
+					+ DatabaseAdapter.AREA_TABLE + "."
+					+ DatabaseAdapter.KEY_PICKLISTS_NAME + " LIKE '%" + hint
+					+ "%'";
 			break;
 		case 4:
 			// SELECT Customer.* FROM Customer inner join Province on
 			// Customer.province = Province._id Where Province.name LIKE
 			// '%bata%'
 			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN Province ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_PROVINCE
-					+ " = Province._id WHERE Province.name LIKE '%" + hint
+					+ " INNER JOIN " + DatabaseAdapter.PROVINCE_TABLE + " ON "
+					+ mDatabaseTable + "." + KEY_CUSTOMER_PROVINCE + " = "
+					+ DatabaseAdapter.PROVINCE_TABLE + "."
+					+ DatabaseAdapter.KEY_PRODUCT_ROWID + " WHERE "
+					+ DatabaseAdapter.PROVINCE_TABLE + "."
+					+ DatabaseAdapter.KEY_PROVINCE_NAME + " LIKE '%" + hint
 					+ "%'";
 
 			break;
@@ -173,9 +189,12 @@ public class CustomerTable {
 			// Customer.city_town = City_Town._id Where City_Town.name LIKE
 			// '%veri%'
 			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
-					+ " INNER JOIN City_Town ON " + mDatabaseTable + "."
-					+ KEY_CUSTOMER_CITYTOWN
-					+ " = City_Town._id WHERE City_Town.name LIKE '%" + hint
+					+ " INNER JOIN " + DatabaseAdapter.CITYTOWN_TABLE + " ON "
+					+ mDatabaseTable + "." + KEY_CUSTOMER_CITYTOWN + " = "
+					+ DatabaseAdapter.CITYTOWN_TABLE + "."
+					+ DatabaseAdapter.KEY_CITYTOWN_ROWID + " WHERE "
+					+ DatabaseAdapter.CITYTOWN_TABLE + "."
+					+ DatabaseAdapter.KEY_CITYTOWN_NAME + " LIKE '%" + hint
 					+ "%'";
 
 			break;
@@ -187,6 +206,8 @@ public class CustomerTable {
 			break;
 
 		}
+
+		Log.d(JardineApp.TAG, MY_QUERY);
 
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -637,8 +658,8 @@ public class CustomerTable {
 			String customerName, String chainName, String landline, String fax,
 			long customerSize, String streetAddress, long customerRecordStatus,
 			long customerType, long businessUnit, long area, long province,
-			long cityTown, int isActive, int daysUnchanged,
-			String createdTime, String modifiedTime, long created_by) {
+			long cityTown, int isActive, int daysUnchanged, String createdTime,
+			String modifiedTime, long created_by) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
 		args.put(KEY_CUSTOMER_CRMNO, crmNo);
