@@ -259,6 +259,7 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 				customerRecordStatus, customerType, businessUnit, area,
 				province, cityTown, isActive, daysUnchanged, createdTime,
 				modifiedTime, created_by);
+
 	}
 
 	@Override
