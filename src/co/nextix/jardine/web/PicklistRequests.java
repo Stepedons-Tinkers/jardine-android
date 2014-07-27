@@ -28,6 +28,7 @@ import co.nextix.jardine.web.models.picklist.PactivityEndUserActivityTypes;
 import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
 import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
 import co.nextix.jardine.web.models.picklist.PactivitytypeCategoryModel;
+import co.nextix.jardine.web.models.picklist.PcustomerRecordStatusModel;
 import co.nextix.jardine.web.models.picklist.PcustomerSizeModel;
 import co.nextix.jardine.web.models.picklist.PcustomerTypeModel;
 import co.nextix.jardine.web.models.picklist.PcustomercontactPositionModel;
@@ -189,20 +190,26 @@ public class PicklistRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				if (module.equals(Modules.smrtimecard_entry)) {
-					Type typeOfT = new TypeToken<PicklistRequester<List<PsmrTimecardEntryModel>>>() {
-					}.getType();
-					PicklistRequester<List<PsmrTimecardEntryModel>> requester = gson
-							.fromJson(getReader(), typeOfT);
-					List<PsmrTimecardEntryModel> list = (List<PsmrTimecardEntryModel>) requester
-							.getResult();
-					if (list != null) {
-						result = new ArrayList<String>();
-						for (PsmrTimecardEntryModel model : list) {
-							result.add(model.getValue());
-						}
-					}
-				} else if (module.equals(Modules.customer_size)) {
+				// if (module.equals(Modules.smrtimecard_entry)) {
+				// Type typeOfT = new
+				// TypeToken<PicklistRequester<List<PsmrTimecardEntryModel>>>()
+				// {
+				// }.getType();
+				// PicklistRequester<List<PsmrTimecardEntryModel>> requester =
+				// gson
+				// .fromJson(getReader(), typeOfT);
+				// List<PsmrTimecardEntryModel> list =
+				// (List<PsmrTimecardEntryModel>) requester
+				// .getResult();
+				// if (list != null) {
+				// result = new ArrayList<String>();
+				// for (PsmrTimecardEntryModel model : list) {
+				// result.add(model.getValue());
+				// }
+				// }
+				// } else
+
+				if (module.equals(Modules.customer_size)) {
 					Type typeOfT = new TypeToken<PicklistRequester<List<PcustomerSizeModel>>>() {
 					}.getType();
 					PicklistRequester<List<PcustomerSizeModel>> requester = gson
@@ -225,6 +232,19 @@ public class PicklistRequests {
 					if (list != null) {
 						result = new ArrayList<String>();
 						for (PcustomerTypeModel model : list) {
+							result.add(model.getValue());
+						}
+					}
+				} else if (module.equals(Modules.customer_record_status)) {
+					Type typeOfT = new TypeToken<PicklistRequester<List<PcustomerRecordStatusModel>>>() {
+					}.getType();
+					PicklistRequester<List<PcustomerRecordStatusModel>> requester = gson
+							.fromJson(getReader(), typeOfT);
+					List<PcustomerRecordStatusModel> list = (List<PcustomerRecordStatusModel>) requester
+							.getResult();
+					if (list != null) {
+						result = new ArrayList<String>();
+						for (PcustomerRecordStatusModel model : list) {
 							result.add(model.getValue());
 						}
 					}

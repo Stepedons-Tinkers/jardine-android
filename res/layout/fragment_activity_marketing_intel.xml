@@ -222,7 +222,8 @@
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="14dp"
-                android:text="@string/add_marketing_intel" />
+                android:text="@string/add_marketing_intel"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 

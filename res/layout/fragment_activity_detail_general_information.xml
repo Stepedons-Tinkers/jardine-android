@@ -1,0 +1,721 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/start_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal" >
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" >
+
+            <include layout="@layout/detail_view_activity" />
+
+            <!-- Row 1 with 1 columns CoSMRs -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="With CoSMRs"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="SMR: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric; link to SMR "
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <!-- Row 1 with 1 columns DIY or Supermarket -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="DIY or Supermarket"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Issues Identified: "
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Feedback From Customer:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Ongoing Campaigns:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Retail Visit"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Last Delivery:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Promo Stubs Details:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+            <!-- Row 1 with 1 columns DIY or Supermarket -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="Project Visit"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Name:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Stage:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Category:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <!-- Row 1 with 1 columns DIY or Supermarket -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:background="#ffffff"
+                android:orientation="horizontal" >
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:background="#0000b6"
+                    android:gravity="center"
+                    android:padding="14dip"
+                    android:scrollHorizontally="true"
+                    android:singleLine="true"
+                    android:text="All Training Types"
+                    android:textColor="#fff"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <!-- Row 2 with 2 columns -->
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Name:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Stage:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center_horizontal" >
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="Project Category:"
+                        android:textColor="#000000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:id="@+id/TextView04"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="alphanumeric"
+                        android:textColor="#000000" />
+                </HorizontalScrollView>
+            </TableRow>
+        </TableLayout>
+    </ScrollView>
+
+</LinearLayout>

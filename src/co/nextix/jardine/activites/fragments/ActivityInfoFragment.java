@@ -101,7 +101,7 @@ public class ActivityInfoFragment extends Fragment {
 				} else if (position == 2) {
 					
 					// WithCoSMRs
-					AddActivityWithCoSMRsFragment  withCoSMRsFrag = new AddActivityWithCoSMRsFragment ();
+					ActivityWithCoSMRsFragment  withCoSMRsFrag = new ActivityWithCoSMRsFragment();
 					withCoSMRsFrag.setArguments(bundle);
 					
 					ft = getFragmentManager().beginTransaction();

@@ -28,7 +28,7 @@ public class Modules {
 	public static String SalesProtocols = "XSalesProtocols";
 	public static String ProductSupplier = "XProductSupplier";
 
-	public static String smrtimecard_entry = "z_stc_picklist";
+	// public static String smrtimecard_entry = "z_stc_picklist";
 	public static String customer_size = "z_cu_customersize";
 	public static String customer_type = "z_cu_customertype";
 	public static String customer_record_status = "z_cu_customerrecstat";
@@ -46,8 +46,9 @@ public class Modules {
 	public static String salesprotocol_type = "z_sp_protocoltype";
 
 	public static String[] picklists = new String[] { customer_size,
-			customer_type, customercontact_position, eventprotocol_eventtype,
-			activitytype_category, workplanentry_status, activity_projectstage,
+			customer_type, customer_record_status, customercontact_position,
+			eventprotocol_eventtype, activitytype_category,
+			workplanentry_status, activity_projectstage,
 			activity_projectcategory, jdiprodstock_status,
 			jdimerchcheck_status, projrequirement_type,
 			end_user_activity_types, salesprotocol_type };

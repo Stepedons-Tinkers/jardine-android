@@ -132,8 +132,8 @@
                     android:layout_marginRight="2dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
-                    android:background="#b0b0b0" 
-                    android:visibility="gone">
+                    android:background="#b0b0b0"
+                    android:visibility="gone" >
 
                     <TextView
                         android:id="@+id/assigned_to"
@@ -214,27 +214,27 @@
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </HorizontalScrollView>
-                
             </TableRow>
-             <ListView
-                    android:id="@+id/list"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:choiceMode="singleChoice"
-                    android:descendantFocusability="blocksDescendants"
-                    android:divider="@null"
-                    android:dividerHeight="0dp"
-                    android:drawSelectorOnTop="true"
-                    android:focusableInTouchMode="true"
-                    android:listSelector="@drawable/list_selector"
-                    android:overScrollMode="never"
-                    android:scrollbars="none" />
 
-                <View
-                    android:id="@+id/view_stub"
-                    android:layout_width="match_parent"
-                    android:layout_height="4dp"
-                    android:background="@color/black" />
+            <ListView
+                android:id="@+id/list"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:choiceMode="singleChoice"
+                android:descendantFocusability="blocksDescendants"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:drawSelectorOnTop="true"
+                android:focusableInTouchMode="true"
+                android:listSelector="@drawable/list_selector"
+                android:overScrollMode="never"
+                android:scrollbars="none" />
+
+            <View
+                android:id="@+id/view_stub"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:background="@color/black" />
         </TableLayout>
 
         <RelativeLayout
@@ -281,7 +281,8 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="14dp"
-                android:text="@string/add_customer_contact_person" />
+                android:text="@string/add_customer_contact_person"
+                android:visibility="gone" />
 
             <Button
                 android:id="@+id/select_customer_contact_person"
@@ -291,7 +292,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/add_customer_contact_person"
                 android:layout_marginRight="14dp"
-                android:text="@string/select_customer_contact_person" />
+                android:text="@string/select_customer_contact_person"
+                android:visibility="gone" />
         </RelativeLayout>
     </LinearLayout>
 
