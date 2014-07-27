@@ -495,7 +495,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				searchView.onActionViewCollapsed();
 				searchPhrase = "";
 				setupWorkplanEntry();
-				
+
 				return true;
 			}
 		});
@@ -513,11 +513,6 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			@Override
 			public boolean onQueryTextChange(String arg0) {
 
-				return false;
-			}
-
-			@Override
-			public boolean onQueryTextSubmit(String arg0) {
 				currentPage = 0;
 				try {
 
@@ -528,6 +523,11 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 					Log.e("Tugs", e.toString());
 				}
+				return true;
+			}
+
+			@Override
+			public boolean onQueryTextSubmit(String arg0) {
 
 				searchView.clearFocus();
 				return true;

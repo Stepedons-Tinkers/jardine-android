@@ -212,7 +212,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 				if (epr.getNo() != null) {
 
 					CustomerContactPersonGeneralInformation fragment = CustomerContactPersonGeneralInformation
-							.newInstance(customerId);
+							.newInstance(customerId, epr.getId());
 					fragment.setTargetFragment(CustomerContactList.this, 15);
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();
