@@ -51,7 +51,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
 		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, province);
 		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, cityTown);
-		this.workplanEntryAdapter = new ArrayAdapter<>(getActivity().getApplicationContext(), R.layout.add_activity_textview, workplanEntry);
+		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, workplanEntry);
 
 		final View view = inflater.inflate(R.layout.add_activity_activity_details_and_notes, container, false);
 		((Spinner) view.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
