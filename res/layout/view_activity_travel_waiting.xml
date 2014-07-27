@@ -89,7 +89,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="SMR: "
+                        android:text="Reason Remarks (Waiting, Travel): "
                         android:textColor="#FF0000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>

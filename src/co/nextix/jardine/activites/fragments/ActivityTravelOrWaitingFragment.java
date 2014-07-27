@@ -25,7 +25,7 @@ public class ActivityTravelOrWaitingFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		final View rootView = inflater.inflate(R.layout.view_activity_with_co_smrs, container, false);
+		final View rootView = inflater.inflate(R.layout.view_activity_travel_waiting, container, false);
 
 
 		return rootView;
