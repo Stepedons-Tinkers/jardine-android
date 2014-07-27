@@ -16,8 +16,10 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 import co.nextix.jardine.workplan.AdapterWorkplanActivity;
 import co.nextix.jardine.workplan.WorkPlanConstants;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +38,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 	private View view, header;
 	private ListView list;
-	private int rowSize = 6;
+	private int rowSize = 8;
 	private int totalPage = 0;
 	private int currentPage = 0;
 
@@ -47,7 +49,6 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	private TextView txtPage;
 	private TextView col1, col2, col3, col4, col5;
 	private TableRow trow;
-	private EditText search;
 	private Button bntAdd;
 	private long customerId = 0;
 	private String customerName;
@@ -69,7 +70,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 		customerName = getArguments().getString(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		view = inflater.inflate(R.layout.workplan_activities, container, false);
+		view = inflater.inflate(R.layout.customer_view_all, container, false);
 		header = inflater.inflate(R.layout.customer_contact_row, null, false);
 		initLayout();
 		return view;
@@ -81,23 +82,42 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 
 		trow = (TableRow) header.findViewById(R.id.trCustomerContactRow);
 		trow.setBackgroundResource(R.color.tab_pressed);
+
+		col1 = (TextView) header.findViewById(R.id.tvCustomerContactCol1);
+		col2 = (TextView) header.findViewById(R.id.tvCustomerContactCol2);
+		col3 = (TextView) header.findViewById(R.id.tvCustomerContactCol3);
+		col4 = (TextView) header.findViewById(R.id.tvCustomerContactCol4);
+		col5 = (TextView) header.findViewById(R.id.tvCustomerContactCol5);
+
+		trow.setGravity(Gravity.CENTER);
+		col2.setGravity(Gravity.CENTER);
+		col3.setGravity(Gravity.CENTER);
+		col4.setGravity(Gravity.CENTER);
+		col5.setGravity(Gravity.CENTER);
+
+		col1.setTypeface(null, Typeface.BOLD);
+		col2.setTypeface(null, Typeface.BOLD);
+		col3.setTypeface(null, Typeface.BOLD);
+		col4.setTypeface(null, Typeface.BOLD);
+		col5.setTypeface(null, Typeface.BOLD);
+
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);
 		header.setOnClickListener(null);
 		//
 
-		list = (ListView) view.findViewById(R.id.lvWorkPlanActList);
+		list = (ListView) view.findViewById(R.id.lvCustomers);
 
 		list.addHeaderView(header);
 
-		bntAdd = (Button) view.findViewById(R.id.bWorkPlanActAddActivity);
+		bntAdd = (Button) view.findViewById(R.id.btnAddCustomer);
 		bntAdd.setText(CustomerConstants.ADD_CUSTOMER_CONTACT);
 
-		txtPage = (TextView) view.findViewById(R.id.tvWorkPlanActPage);
+		txtPage = (TextView) view.findViewById(R.id.tvCustomersPage);
 
-		arrowLeft = (ImageButton) view.findViewById(R.id.ibWorkPlanActLeft);
-		arrowRight = (ImageButton) view.findViewById(R.id.ibWorkPlanActRight);
+		arrowLeft = (ImageButton) view.findViewById(R.id.ibCustomersLeft);
+		arrowRight = (ImageButton) view.findViewById(R.id.ibCustomersRight);
 
 		arrowLeft.setOnClickListener(this);
 		arrowRight.setOnClickListener(this);
@@ -119,6 +139,17 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 
+		} else {
+			AdapterCustomerContacts adapter = new AdapterCustomerContacts(
+					getActivity(), R.layout.customer_contact_row, realRecord);
+			for (int i = 0; i < rowSize; i++) {
+				CustomerContactRecord rec = new CustomerContactRecord();
+				realRecord.add(rec);
+			}
+
+			adapter.notifyDataSetChanged();
+
+			list.setAdapter(adapter);
 		}
 
 		bntAdd.setOnClickListener(new OnClickListener() {
@@ -171,7 +202,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 					act.getSupportFragmentManager()
 							.beginTransaction()
 							.add(R.id.frame_container,
-									CustomerContactPersonFragment
+									CustomerContactPersonGeneralInformation
 											.newInstance(customerId),
 									JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
@@ -186,13 +217,13 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.ibWorkPlanActLeft:
+		case R.id.ibCustomersLeft:
 			if (currentPage > 0) {
 				currentPage--;
 				addItem(currentPage);
 			}
 			break;
-		case R.id.ibWorkPlanActRight:
+		case R.id.ibCustomersRight:
 			if (currentPage < totalPage - 1) {
 				currentPage++;
 				addItem(currentPage);

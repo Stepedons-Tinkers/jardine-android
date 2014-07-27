@@ -3,6 +3,7 @@ package co.nextix.jardine.customers;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteException;
@@ -83,8 +84,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-		view = inflater.inflate(R.layout.fragment_customers_view_all,
-				container, false);
+		view = inflater.inflate(R.layout.customer_view_all, container, false);
 		header = inflater.inflate(R.layout.table_row_customers, null);
 
 		initLayout();
@@ -139,7 +139,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 
 		btnAddCustomer = (Button) view.findViewById(R.id.btnAddCustomer);
-		txtPage = (TextView) view.findViewById(R.id.ibCustomersPage);
+		txtPage = (TextView) view.findViewById(R.id.tvCustomersPage);
 
 		arrowLeft = (ImageButton) view.findViewById(R.id.ibCustomersLeft);
 		arrowRight = (ImageButton) view.findViewById(R.id.ibCustomersRight);
@@ -239,11 +239,15 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 					CustomerConstants.CUSTOMER_NAME = cr.getCustomerName();
 					DashBoardActivity act = (DashBoardActivity) getActivity();
+
+					CustomerDetailsFragment fragment = CustomerDetailsFragment
+							.newInstance(cr.getId());
+					fragment.setTargetFragment(ViewAllCustomersFragment.this,
+							15);
+
 					act.getSupportFragmentManager()
 							.beginTransaction()
-							.add(R.id.frame_container,
-									CustomerDetailsFragment.newInstance(cr
-											.getId()), JardineApp.TAG)
+							.add(R.id.frame_container, fragment, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}
 
@@ -274,8 +278,17 @@ public class ViewAllCustomersFragment extends Fragment implements
 			break;
 		case R.id.btnAddCustomer:
 			// add customer here
-			Intent intent = new Intent(JardineApp.context, AddCustomer.class);
-			startActivity(intent);
+			// Intent intent = new Intent(JardineApp.context,
+			// AddCustomer.class);
+			// startActivity(intent);
+
+			getActivity()
+					.getSupportFragmentManager()
+					.beginTransaction()
+					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+					.replace(R.id.frame_container, new AddCustomerFragment(),
+							JardineApp.TAG).addToBackStack(JardineApp.TAG)
+					.commit();
 			break;
 		}
 	}

@@ -241,7 +241,8 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="14dp"
-                    android:text="@string/add_competitor_product_stock_check" />
+                    android:text="@string/add_competitor_product_stock_check"
+                    android:visibility="gone" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
