@@ -34,9 +34,6 @@ public class ProductFocusDetailFragment extends Fragment {
 		ProductTable product = JardineApp.DB.getProduct();
 		 record = product.getById(product_id);
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.record.getCrm());
-
-		
-	
 		((TextView) myFragmentView.findViewById(R.id.product_number)).setText(this.record.getProductNumber());
 		((TextView) myFragmentView.findViewById(R.id.product_brand)).setText(this.record.getProductBrand());
 		((TextView) myFragmentView.findViewById(R.id.product_description)).setText(this.record.getProductDescription());
