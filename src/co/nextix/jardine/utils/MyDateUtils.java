@@ -1,20 +1,20 @@
 package co.nextix.jardine.utils;
 
-import android.annotation.SuppressLint;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Locale;
-import java.util.TimeZone;
+
+import android.annotation.SuppressLint;
 
 public class MyDateUtils {
+	
+	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentTimeStamp() {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 		// DateFormat outputFormat = sdf;
 		// String text = outputFormat.format(date);
 
@@ -31,26 +31,29 @@ public class MyDateUtils {
 		return text;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentDate() {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		String text = sdf.format(date);
 
 		return text;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public static String getCurrentTime() {
 		Date date = new Date(System.currentTimeMillis());
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
+//		sdf.setTimeZone(TimeZone.getTimeZone("UTC"));
 
 		String text = sdf.format(date);
 
 		return text;
 	}
 
+	@SuppressLint("SimpleDateFormat")
 	public static String getOneYearAgo() {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		Calendar cal = Calendar.getInstance();
@@ -59,7 +62,8 @@ public class MyDateUtils {
 
 		// return "2000-09-27 09:00:00";
 	}
-
+	
+	@SuppressLint("SimpleDateFormat")
 	public static int isTimeAfter(String webTime, String localTime) {
 
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
