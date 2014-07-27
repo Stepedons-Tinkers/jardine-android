@@ -48,9 +48,13 @@ public class ActivityTravelOrWaitingFragment extends Fragment {
 
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
-
 		
-		((TextView) rootView.findViewById(R.id.textView1)).setText(this.activityRecord.getReasonRemarks());
+		((TextView) rootView.findViewById(R.id.textView1)).setText("");
+		if(activityRecord != null){
+			((TextView) rootView.findViewById(R.id.textView1)).setText(this.activityRecord.getReasonRemarks());
+		}
+		
+		
 		
 
 //		((Button) rootView.findViewById(R.id.edit_activity)).setOnClickListener(new OnClickListener() {
