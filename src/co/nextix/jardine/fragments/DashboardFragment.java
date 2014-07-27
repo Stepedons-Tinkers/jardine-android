@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.text.format.DateUtils;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
@@ -56,38 +55,38 @@ public class DashboardFragment extends Fragment {
 				+ DateUtils.getMonthString(this.month, DateUtils.LENGTH_LONG)
 				+ " " + this.date + ", " + year);
 
-		Button checkIn = (Button) rootView.findViewById(R.id.checkin);
-		Button checkOut = (Button) rootView.findViewById(R.id.checkout);
-
-		checkIn.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-//				if (JardineApp.DB.getSMRTimeCard().insert("", "",
-//						MyDateUtils.getCurrentDate(),
-//						MyDateUtils.getCurrentTime(), 2,
-//						MyDateUtils.getCurrentTimeStamp(),
-//						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
-//					Toast.makeText(getActivity(), "Checked-in!",
-//							Toast.LENGTH_SHORT).show();
-			}
-
-		});
-
-		checkOut.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-//				if (JardineApp.DB.getSMRTimeCard().insert("", "",
-//						MyDateUtils.getCurrentDate(),
-//						MyDateUtils.getCurrentTime(), 3,
-//						MyDateUtils.getCurrentTimeStamp(),
-//						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
-//					Toast.makeText(getActivity(), "Checked-out!",
-//							Toast.LENGTH_SHORT).show();
-			}
-
-		});
+//		Button checkIn = (Button) rootView.findViewById(R.id.checkin);
+//		Button checkOut = (Button) rootView.findViewById(R.id.checkout);
+//
+//		checkIn.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+////				if (JardineApp.DB.getSMRTimeCard().insert("", "",
+////						MyDateUtils.getCurrentDate(),
+////						MyDateUtils.getCurrentTime(), 2,
+////						MyDateUtils.getCurrentTimeStamp(),
+////						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+////					Toast.makeText(getActivity(), "Checked-in!",
+////							Toast.LENGTH_SHORT).show();
+//			}
+//
+//		});
+//
+//		checkOut.setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+////				if (JardineApp.DB.getSMRTimeCard().insert("", "",
+////						MyDateUtils.getCurrentDate(),
+////						MyDateUtils.getCurrentTime(), 3,
+////						MyDateUtils.getCurrentTimeStamp(),
+////						MyDateUtils.getCurrentTimeStamp(), USER_ID) > 0)
+////					Toast.makeText(getActivity(), "Checked-out!",
+////							Toast.LENGTH_SHORT).show();
+//			}
+//
+//		});
 
 		this.startAnimationPopOut(rootView);
 		return rootView;

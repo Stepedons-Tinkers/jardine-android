@@ -91,6 +91,7 @@ public class LoginActivity extends Activity {
 			Intent i = new Intent(getApplicationContext(),
 					DashBoardActivity.class);
 			i.putExtra("JUSTLOGGED", false);
+			Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: false");
 			finish();
 			startActivity(i);
 			overridePendingTransition(R.anim.slide_in_left,
@@ -152,6 +153,7 @@ public class LoginActivity extends Activity {
 						Intent i =new Intent(getApplicationContext(),
 								DashBoardActivity.class);
 						i.putExtra("JUSTLOGGED", true);
+						Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: true");
 						finish();
 						startActivity(i);
 						overridePendingTransition(R.anim.slide_in_left,
@@ -249,6 +251,7 @@ public class LoginActivity extends Activity {
 				Intent i = new Intent(getApplicationContext(),
 						DashBoardActivity.class);
 				i.putExtra("JUSTLOGGED", true);
+				Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: true");
 				finish();
 				startActivity(i);
 				overridePendingTransition(R.anim.slide_in_left,

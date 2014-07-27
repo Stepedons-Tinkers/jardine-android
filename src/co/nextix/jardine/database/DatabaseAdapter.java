@@ -537,7 +537,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
 	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text)";
 

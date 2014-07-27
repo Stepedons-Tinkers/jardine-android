@@ -157,15 +157,17 @@ public class DashBoardActivity extends FragmentActivity {
 
 		this.mDrawerLayout.setDrawerListener(mDrawerToggle);
 
-		Intent i = new Intent();
-		boolean justLogged = i.getBooleanExtra("JUSTLOGGED", false);
-		if (savedInstanceState == null) {
-			// on first time display view for first nav item
-			if (justLogged)
-				displayView(2);
-			else
-				displayView(0);
-		}
+		Intent intent = getIntent();
+		Bundle extras = intent.getExtras();
+		boolean justLogged = extras.getBoolean("JUSTLOGGED", false);
+		Log.w(JardineApp.TAG, "DashboardActivity: justLoggedIn: " + justLogged);
+		// if (savedInstanceState == null) {
+		// // on first time display view for first nav item
+		if (justLogged)
+			displayView(2);
+		else
+			displayView(0);
+		// }
 
 	}
 
