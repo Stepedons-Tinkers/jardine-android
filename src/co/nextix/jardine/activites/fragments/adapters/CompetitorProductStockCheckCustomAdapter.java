@@ -28,6 +28,7 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
@@ -159,6 +160,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				}
 				
 			}
+			
 			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
 			if(comp != null){
 				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
@@ -169,6 +171,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 					.setText(product.toString());
 				}
 			}
+			
 			 PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
 			if(comp_status != null){
 				PicklistRecord rec = comp_status.getById((int)this.tempValues.getStockStatus());

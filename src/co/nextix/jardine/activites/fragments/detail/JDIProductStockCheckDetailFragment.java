@@ -1,8 +1,5 @@
 package co.nextix.jardine.activites.fragments.detail;
 
-import android.content.SharedPreferences;
-import android.graphics.LightingColorFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -13,9 +10,6 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.backup.MoreActivityInformationFragment;
-import co.nextix.jardine.activites.fragments.backup.StaticActivityInfoFragment;
-import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
@@ -37,7 +31,7 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 	
 	private Bundle bundle;
 	private int frag_layout_id;
-	private int product_id;
+	private long product_id;
 	JDIproductStockCheckRecord record;
 
 	@Override
@@ -49,7 +43,7 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 		
 		if(bundle != null){
 			frag_layout_id = bundle.getInt("layoutID");
-			product_id = bundle.getInt("product_id", 0);
+			product_id = bundle.getLong("product_id", 0);
 		}
 		
 //		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

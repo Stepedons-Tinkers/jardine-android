@@ -200,7 +200,7 @@ public class JDIProductStockFragment extends Fragment {
 		// }
 		
 		Fragment fragment = new JDIProductStockCheckDetailFragment();
-		bundle.putInt("product_id", (int)tempValues.getId());
+		bundle.putLong("product_id", tempValues.getId());
 		fragment.setArguments(bundle);
 		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
