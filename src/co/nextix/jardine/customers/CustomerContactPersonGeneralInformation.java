@@ -22,8 +22,9 @@ import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
 
-public class CustomerContactPersonFragment extends Fragment {
+public class CustomerContactPersonGeneralInformation extends Fragment {
 	private View view;
 
 	private TextView field1, field2, field3, field4, field5, field6, field7,
@@ -32,8 +33,9 @@ public class CustomerContactPersonFragment extends Fragment {
 	private Button edit, delete;
 	private CustomerContactRecord record;
 
-	public static CustomerContactPersonFragment newInstance(long custId) {
-		CustomerContactPersonFragment fragment = new CustomerContactPersonFragment();
+	public static CustomerContactPersonGeneralInformation newInstance(
+			long custId) {
+		CustomerContactPersonGeneralInformation fragment = new CustomerContactPersonGeneralInformation();
 		Bundle bundle = new Bundle();
 		bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID, custId);
 		fragment.setArguments(bundle);
@@ -49,8 +51,8 @@ public class CustomerContactPersonFragment extends Fragment {
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-		view = inflater.inflate(R.layout.contact_person_details, container,
-				false);
+		view = inflater.inflate(R.layout.customer_contact_person_geninfo,
+				container, false);
 		initLayout();
 		return view;
 	}
@@ -82,7 +84,7 @@ public class CustomerContactPersonFragment extends Fragment {
 		field2.setText(record.getFirstName());
 		field3.setText(record.getMobileNo());
 		field4.setText(record.getEmailAddress());
-		field5.setText(record.getCreatedTime());
+		field5.setText(MyDateUtils.convertDateTime(record.getCreatedTime()));
 
 		CustomerRecord cust = JardineApp.DB.getCustomer().getById(
 				record.getCustomer());
@@ -104,7 +106,7 @@ public class CustomerContactPersonFragment extends Fragment {
 		field8.setText(pos.getName());
 
 		field9.setText(record.getLastName());
-		field10.setText(record.getBirthday());
+		field10.setText(MyDateUtils.convertDate(record.getBirthday()));
 
 		if (record.getIsActive() == 1) {
 			field11.setText("Yes");
@@ -112,7 +114,7 @@ public class CustomerContactPersonFragment extends Fragment {
 			field11.setText("No");
 		}
 
-		field12.setText(record.getModifiedTime());
+		field12.setText(MyDateUtils.convertDateTime(record.getModifiedTime()));
 
 	}
 
