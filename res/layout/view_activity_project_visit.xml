@@ -85,7 +85,6 @@
                     android:background="#dcdcdc"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="text field"
                     android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
