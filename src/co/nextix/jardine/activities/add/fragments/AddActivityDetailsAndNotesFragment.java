@@ -68,7 +68,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer()
 				.getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
-
 		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB
 				.getWorkplanEntry().getAllRecords();
 
@@ -77,7 +76,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 				customer);
 		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity()
 				.getApplicationContext(), R.layout.add_activity_textview, area);
-
 		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(
 				getActivity().getApplicationContext(),
 				R.layout.add_activity_textview, workplanEntry);
@@ -85,7 +83,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		this.rootView = inflater.inflate(
 				R.layout.add_activity_activity_details_and_notes, container,
 				false);
-
 		((Spinner) this.rootView.findViewById(R.id.area))
 				.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -101,6 +98,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 						((Spinner) rootView.findViewById(R.id.province))
 								.setAdapter(provinceAdapter);
+
 					}
 
 					@Override
@@ -294,7 +292,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 								AddActivityFragment.pager.setCurrentItem(5);
-							} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+							} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // kivisits
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
 								AddActivityFragment.pager.setCurrentItem(5);
@@ -302,7 +300,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
 								AddActivityFragment.pager.setCurrentItem(5);
-							} else if(AddActivityGeneralInformationFragment.ActivityType == 100){ // others
+							} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
 								AddActivityFragment.pager.setCurrentItem(5);
 							}
 						}
