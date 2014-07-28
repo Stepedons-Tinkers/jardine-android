@@ -74,12 +74,12 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="End-User Activity Types "
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
                 <TextView
-                    android:id="@+id/end_user_activity_type"
+                    android:id="@+id/textView1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="0.3"

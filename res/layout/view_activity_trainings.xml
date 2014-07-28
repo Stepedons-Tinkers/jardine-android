@@ -75,11 +75,11 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/venue"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <TextView
+                <EditText
                     android:id="@+id/venue"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
@@ -87,10 +87,12 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
-                    android:gravity="center|left"
+                    android:inputType="textMultiLine|textImeMultiLine"
                     android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
+
+                <requestFocus android:layout_width="wrap_content" />
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
@@ -108,7 +110,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="@string/number_of_attendees"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -121,7 +123,7 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
+                    <EditText
                         android:id="@+id/number_of_attendees"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
@@ -132,6 +134,7 @@
                         android:maxLines="100"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
+
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>

@@ -1,11 +1,15 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +37,14 @@ public class AddActivityAdminWorksFragment extends Fragment {
 		this.saveBtn.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
 
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -63,20 +69,21 @@ public class AddActivityAdminWorksFragment extends Fragment {
 						flag = true;
 
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
-								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
-								pref.getString("check_out", null), adminWorks, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID,
-								"", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
+								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
+								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), adminWorks, 0,
+								"", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "")
+								.execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								getFragmentManager().popBackStackImmediate();
+								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 
-						}, 2700);
+						}, 1700);
 
 					} else {
 
@@ -89,7 +96,8 @@ public class AddActivityAdminWorksFragment extends Fragment {
 							@Override
 							public void run() {
 								saveBtn.setProgress(0);
-
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 						}, 1500);
 					}
@@ -98,7 +106,6 @@ public class AddActivityAdminWorksFragment extends Fragment {
 
 					((CircularProgressButton) v).setProgress(0);
 				}
-
 			}
 		});
 
@@ -249,9 +256,10 @@ public class AddActivityAdminWorksFragment extends Fragment {
 		}
 	}
 
-	protected String FormatDateAndDay(int digit) {
-		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
-		return String.valueOf(formattedStringDigit);
+	protected String displayCheckOut() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		return " " + df.format(calendar.getTime());
 	}
 
 	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
