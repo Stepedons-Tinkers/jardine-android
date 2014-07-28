@@ -4,21 +4,20 @@ import com.google.gson.annotations.SerializedName;
 
 public class CustomerContactModel {
 
-	// CreatedTime: "2014-06-14 15:41:57"
-	// ModifiedTime: "2014-06-17 16:00:02"
-	// assigned_user_id: "19"
-	// z_cuc_crmno: "CUSTC0000003"
-	// z_cuc_firstname: "CustomerContact1"
-	// z_cuc_lastname: "CustomerContactL1"
-	// z_cuc_position: "Owner"
-	// z_cuc_mobileno: "23456"
-	// z_cuc_birthday: "2014-06-14"
-	// z_cuc_email: ""
-	// z_cuc_customer: "405"
-	// z_cuc_isactive: "0"
-	// z_cuc_daysunchanged: "4"
-	// record_id: 406
-	// record_module: "XCCPerson"
+	// "createdtime": "2014-06-14 15:41:57",
+	// "modifiedtime": "2014-07-27 16:00:03",
+	// "smownerid": "1",
+	// "z_cuc_birthday": null,
+	// "z_cuc_crmno": "CUSTC0000003",
+	// "z_cuc_customer": "405",
+	// "z_cuc_email": "",
+	// "z_cuc_firstname": "Carl",
+	// "z_cuc_isactive": "0",
+	// "z_cuc_lastname": "Rocamora",
+	// "z_cuc_mobileno": "09235934676",
+	// "z_cuc_position": "Owner",
+	// "xccpersonid": "406",
+	// "deleted": "0"
 
 	@SerializedName("z_cuc_crmno")
 	private String crm_no;

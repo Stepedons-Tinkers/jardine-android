@@ -4,48 +4,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class ActivityModel {
 
-	// CreatedTime: "2014-06-17 16:13:55"
-	// ModifiedTime: "2014-06-17 16:13:55"
-	// assigned_user_id: "18"
-	// z_ac_crmno: "ACT000002"
-	// z_ac_workplan: "422"
-	// z_ac_starttime: "2014-06-17 16:08:48"
-	// z_ac_endtime: "2014-06-17 16:08:48"
-	// z_ac_latitude: "0.000000000000"
-	// z_ac_longitude: "0.000000000000"
-	// z_ac_objective: "sa"
-	// z_ac_notes: "sa"
-	// z_ac_highlights: ""
-	// z_ac_nextsteps: ""
-	// z_ac_followupcomdate: "2014-06-17"
-	// z_ac_activitytype: "351"
-	// z_ac_workplanentry: ""
-	// z_ac_customer: ""
-	// z_ac_firsttimevisit: "1"
-	// z_ac_plannedvisit: "1"
-	// z_ac_smr: ""
-	// z_ac_issuesidentified: ""
-	// z_ac_feedbackfromcu: ""
-	// z_ac_ongoingcampaigns: ""
-	// z_ac_lastdelivery: ""
-	// z_ac_promostubsdetails: ""
-	// z_ac_projectname: ""
-	// z_ac_projectstage: "- Select -"
-	// z_ac_projectcategory: "- Select -"
-	// z_ac_date: "2014-06-17"
-	// z_ac_time: ""
-	// z_ac_venue: ""
-	// z_ac_noofattenees: "0"
-	// z_ac_source: "Web"
-	// z_area: "NORTHERN NCR AREA"
-	// z_province: "BULACAN - 2"
-	// z_city: "ANGAT"
-	// z_ac_othersacttypermrk: ""
-	// z_ac_attendees: ""
-	// z_ac_attendancesheet: ""
-	// record_id: 423
-	// record_module: "XActivity"
-
 	// "createdtime": "2014-06-25 18:32:17",
 	// "modifiedtime": "2014-06-25 18:32:17",
 	// "smownerid": "18",
@@ -67,7 +25,6 @@ public class ActivityModel {
 	// "z_ac_objective": "test",
 	// "z_ac_othersacttypermrk": "",
 	// "z_ac_plannedvisit": "0",
-	// z_ac_competitoract
 	// "z_ac_projectcategory": "- Select -",
 	// "z_ac_projectname": "",
 	// "z_ac_projectstage": "- Select -",

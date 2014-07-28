@@ -35,7 +35,8 @@
                 android:layout_marginRight="4dp"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
                 android:gravity="top"
-                android:spinnerMode="dropdown" />
+                android:spinnerMode="dropdown"
+                android:visibility="gone" />
 
             <!-- android:background="@android:drawable/btn_dropdown" -->
 

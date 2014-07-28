@@ -9,6 +9,7 @@ import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,8 +44,11 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 	
+	private FragmentTransaction ft;
+	private Fragment fragmentForTransition;
+	private boolean flag = false;
+	private int frag_layout_id = 0;
 	private Bundle bundle;
-	private int frag_layout_id;
 	
 	public JDIMerchandisingCheckFragment() {
 		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
@@ -72,10 +76,10 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 			public void onClick(View v) {
 				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddJDIMerchandisingStockFragment();
+				Fragment newFragment = new AddJDIMerchandisingStockFragment();
 
 				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
 						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
 				// Replace whatever is in the fragment_container view with this

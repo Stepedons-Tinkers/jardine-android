@@ -156,9 +156,9 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 					}
 
 				} else {
-
-					// Code here
 					((CircularProgressButton) v).setProgress(0);
+					
+					// insert then pop all backstack
 				}
 			}
 		});

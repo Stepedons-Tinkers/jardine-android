@@ -28,7 +28,7 @@ public class AddActivityFragment extends Fragment {
 
 	protected PagerSlidingTabStrip tabs;
 	protected ViewPager pager;
-	private MyPagerAdapter adapter;
+	protected MyPagerAdapter adapter;
 
 	private int firstPos;
 
@@ -51,7 +51,6 @@ public class AddActivityFragment extends Fragment {
 		
 		if(b != null){
 			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
-			Log.e(JardineApp.TAG, "" + WORKPLAN_ENTRY_ID);
 		}
 
 		ft = getFragmentManager().beginTransaction();
@@ -59,6 +58,7 @@ public class AddActivityFragment extends Fragment {
 
 		bundle = new Bundle();
 		bundle.putInt("layoutID", fl.getId());
+		bundle.putInt("pagerID", R.id.pager);
 
 		tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
 		pager = (ViewPager) rootView.findViewById(R.id.pager);

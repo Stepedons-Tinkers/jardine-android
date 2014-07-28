@@ -3,17 +3,17 @@ package co.nextix.jardine.web.models;
 import com.google.gson.annotations.SerializedName;
 
 public class CompetitorProductModel {
-	// CreatedTime: "2014-06-14 14:49:14"
-	// ModifiedTime: "2014-06-14 14:49:27"
-	// assigned_user_id: "11"
-	// z_cmp_crmno: "CPR0000002"
-	// z_cmp_comp: "403"
-	// z_cmp_prbrnd: "Product Brand1"
-	// z_cmp_prdesc: "Product Desc1"
-	// z_cmp_prsize: "Product Size1"
-	// z_cmp_isactive: "1"
-	// record_id: 404
-	// record_module: "XCompetitorProd"
+	// "cf_1143": "fsdf",
+	// "createdtime": "2014-06-14 14:49:14",
+	// "modifiedtime": "2014-07-23 20:08:35",
+	// "smownerid": "11",
+	// "z_cmp_crmno": "CPR0000002",
+	// "z_cmp_isactive": "1",
+	// "z_cmp_prbrnd": "Product Brand1",
+	// "z_cmp_prdesc": "Product Desc1",
+	// "z_cmp_prsize": "Product Size1",
+	// "xcompetitorprodid": "404",
+	// "deleted": "0"
 
 	@SerializedName("z_cmp_crmno")
 	private String crm_no;

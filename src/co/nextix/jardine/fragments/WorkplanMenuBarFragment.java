@@ -512,12 +512,13 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
-
-				return false;
+				
+				return true;
 			}
 
 			@Override
 			public boolean onQueryTextSubmit(String arg0) {
+
 				currentPage = 0;
 				try {
 

@@ -39,9 +39,11 @@ public class ActivityProjectVisitFragment extends Fragment {
 				"ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(
 				pref.getLong("activity_id", 0000));
+		
+		
 		((TextView) rootView.findViewById(R.id.project_name))
 		.setText("");
-		if(!activityRecord.getProjectName().isEmpty() || !activityRecord.getProjectName().equalsIgnoreCase("")){
+		if(this.activityRecord != null){
 			((TextView) rootView.findViewById(R.id.project_name))
 			.setText(this.activityRecord.getProjectName());
 		}

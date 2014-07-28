@@ -27,7 +27,6 @@ public class ActivityBrandActivationFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.view_activity_brand_activation, container, false);
 
-
 		return rootView;
 	}
 }

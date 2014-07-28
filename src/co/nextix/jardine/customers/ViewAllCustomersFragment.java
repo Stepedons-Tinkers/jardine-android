@@ -190,7 +190,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 					searchRecord.add(rec);
 				}
 			}
-			totalPage = realRecord.size() / rowSize;
+			totalPage = searchRecord.size() / rowSize;
 
 		}
 
@@ -355,7 +355,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 			@Override
 			public boolean onQueryTextChange(String arg0) {
 
-				return false;
+				return true;
 			}
 
 			@Override
