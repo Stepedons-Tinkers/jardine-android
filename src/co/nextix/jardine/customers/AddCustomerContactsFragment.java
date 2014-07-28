@@ -5,28 +5,25 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.R;
-import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.tables.UserTable;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.utils.MyDateUtils;
+import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -35,6 +32,21 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.JardineApp;
+import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments;
+import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
+import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
+
+import com.dd.CircularProgressButton;
 
 public class AddCustomerContactsFragment extends Fragment implements
 		OnClickListener {
@@ -59,6 +71,15 @@ public class AddCustomerContactsFragment extends Fragment implements
 	public static SimpleDateFormat df = null;
 	public static String formattedDate = null;
 
+	private Bundle bundle;
+	private int frag_layout_id = 0;
+
+	private CircularProgressButton saveORdone;
+	private FragmentTransaction ft;
+	private Fragment fragmentForTransition;
+	private boolean flag = false;
+	private boolean fromOther = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -76,6 +97,13 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		view = inflater.inflate(R.layout.customer_contact_add_new, container,
 				false);
+
+		bundle = getArguments();
+
+		if (bundle != null) {
+			frag_layout_id = bundle.getInt("layoutID");
+			fromOther = true;
+		}
 
 		initLayout();
 		return view;
@@ -97,6 +125,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 	}
 
 	private void initLayout() {
+
 		customerId = getArguments().getLong(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
 		customerName = getArguments().getString(
@@ -117,6 +146,16 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
+
+		if (fromOther) {
+			saveORdone = (CircularProgressButton) view
+					.findViewById(R.id.btnWithText1);
+			saveORdone.setVisibility(View.VISIBLE);
+			saveORdone.setOnClickListener(this);
+
+			cancel.setVisibility(View.GONE);
+			save.setVisibility(View.GONE);
+		}
 
 		cancel.setBackgroundColor(Color.RED);
 
@@ -191,6 +230,9 @@ public class AddCustomerContactsFragment extends Fragment implements
 					android.R.style.Theme_Holo_Panel, datePickerListener, year,
 					month, day);
 			pickDialog.show();
+			break;
+		case R.id.btnWithText1:
+			saveData();
 			break;
 		}
 	}
@@ -298,4 +340,94 @@ public class AddCustomerContactsFragment extends Fragment implements
 		Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
 	}
 
+	private void saveData() {
+		if (saveORdone.getProgress() == 0) {
+
+			ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+			widthAnimation.setDuration(1500);
+			widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveORdone.setProgress(value);
+
+							if (!flag) {
+								saveORdone.setProgress(-1);
+							}
+						}
+					});
+
+			widthAnimation.start();
+
+			String firstName = field2.getText().toString();
+			String lastName = field3.getText().toString();
+			long position = ((PicklistRecord) field4.getSelectedItem()).getId();
+			String mobileNo = field5.getText().toString();
+			String birthday = field6a.getText().toString();
+			String emailAddress = field7.getText().toString();
+
+			/** Checking of required fields **/
+			SharedPreferences pref = getActivity().getApplicationContext()
+					.getSharedPreferences("ActivityInfo", 0);
+
+			if (firstName != null && !firstName.isEmpty() && lastName != null
+					&& !lastName.isEmpty() && position != 0 && mobileNo != null
+					&& !mobileNo.isEmpty() && birthday != null
+					&& !birthday.isEmpty() && emailAddress != null
+					&& !emailAddress.isEmpty()) {
+
+				if (AddActivityFragment.ACTIVITY_TYPE == 41) {
+					fragmentForTransition = new AddActivityFullBrandActivationFragment();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 4){
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if(AddActivityFragment.ACTIVITY_TYPE == 100){
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else {
+					fragmentForTransition = new AddJDIProductStockFragment();
+				}
+
+				fragmentForTransition.setArguments(bundle);
+
+				flag = true;
+				Editor editor = pref.edit();
+				editor.putLong("position", position);
+				editor.putString("first_name", firstName);
+				editor.putString("last_name", lastName);
+				editor.putString("mobile_number", mobileNo);
+				editor.putString("birthday", birthday);
+				editor.putString("email_address", emailAddress);
+				editor.commit(); // commit changes
+
+			} else {
+
+				flag = false;
+				Toast.makeText(getActivity(),
+						"Please fill up required (RED COLOR) fields",
+						Toast.LENGTH_LONG).show();
+
+				Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+
+					@Override
+					public void run() {
+						saveORdone.setProgress(0);
+
+					}
+				}, 1500);
+			}
+
+		} else {
+
+			saveORdone.setProgress(0);
+
+			ft = getActivity().getSupportFragmentManager().beginTransaction();
+			ft.replace(frag_layout_id, fragmentForTransition);
+			ft.addToBackStack("add_customer_fragment");
+			ft.commit();
+		}
+	}
 }

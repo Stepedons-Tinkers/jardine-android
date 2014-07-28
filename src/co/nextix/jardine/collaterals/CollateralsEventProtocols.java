@@ -351,6 +351,7 @@ public class CollateralsEventProtocols extends Fragment implements
 			@Override
 			public boolean onQueryTextSubmit(String arg0) {
 
+
 				currentPage = 0;
 				try {
 					searchRecord = JardineApp.DB.getEventProtocol()
@@ -368,6 +369,7 @@ public class CollateralsEventProtocols extends Fragment implements
 
 					Log.e("Tugs", e.toString());
 				}
+
 				searchView.clearFocus();
 				return true;
 			}

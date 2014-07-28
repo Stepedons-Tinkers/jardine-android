@@ -14,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.SuperAwesomeCardFragment;
-import co.nextix.jardine.activities.select.fragments.SelectProductFragment;
 import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -28,7 +26,7 @@ public class AddActivityFragment extends Fragment {
 
 	protected PagerSlidingTabStrip tabs;
 	protected ViewPager pager;
-	private MyPagerAdapter adapter;
+	protected MyPagerAdapter adapter;
 
 	private int firstPos;
 
@@ -38,7 +36,7 @@ public class AddActivityFragment extends Fragment {
 
 	private Bundle bundle;
 	private Bundle b;
-	
+
 	public static long WORKPLAN_ENTRY_ID = 0;
 	public static long ACTIVITY_TYPE = 0;
 
@@ -46,12 +44,11 @@ public class AddActivityFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
-		
+
 		b = getArguments();
-		
-		if(b != null){
+
+		if (b != null) {
 			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
-			Log.e(JardineApp.TAG, "" + WORKPLAN_ENTRY_ID);
 		}
 
 		ft = getFragmentManager().beginTransaction();
@@ -59,6 +56,7 @@ public class AddActivityFragment extends Fragment {
 
 		bundle = new Bundle();
 		bundle.putInt("layoutID", fl.getId());
+		bundle.putInt("pagerID", R.id.pager);
 
 		tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
 		pager = (ViewPager) rootView.findViewById(R.id.pager);
@@ -100,11 +98,12 @@ public class AddActivityFragment extends Fragment {
 		addActGenInfoFrag.setArguments(bundle);
 
 		ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
+		ft.addToBackStack("general_information");
 		ft.commit();
 
 		return rootView;
 	}
-
+	
 	protected void clearColorFilter(View view) {
 		Drawable d = view.getBackground();
 		view.invalidateDrawable(d);

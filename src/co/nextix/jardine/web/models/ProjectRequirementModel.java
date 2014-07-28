@@ -4,17 +4,17 @@ import com.google.gson.annotations.SerializedName;
 
 public class ProjectRequirementModel {
 
-	// "createdtime": "2014-06-18 00:06:34",
-	// "modifiedtime": "2014-06-18 00:06:34",
+	// "createdtime": "2014-06-26 10:45:14",
+	// "modifiedtime": "2014-06-27 15:47:59",
 	// "smownerid": "18",
-	// "z_pr_activity": "423",
-	// "z_pr_crmno": "PRQ0000002",
-	// "z_pr_dateneeded": "2014-06-18",
-	// "z_pr_otherdet": "d",
-	// "z_pr_prodused": "d",
-	// "z_pr_prtype": "Waterproofing",
-	// "z_pr_squaremtrs": "2",
-	// "xprojectrequirementid": "426",
+	// "z_pr_activity": "498",
+	// "z_pr_crmno": "PRQ0000005",
+	// "z_pr_dateneeded": "2014-07-25",
+	// "z_pr_otherdet": "",
+	// "z_pr_prodused": "SOILGUARD",
+	// "z_pr_prtype": "Soil Treatment",
+	// "z_pr_squaremtrs": "24",
+	// "xprojectrequirementid": "503",
 	// "deleted": "0"
 
 	@SerializedName("z_pr_crmno")

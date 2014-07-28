@@ -4,15 +4,15 @@ import com.google.gson.annotations.SerializedName;
 
 public class JDImerchandisingCheckModel {
 
-	// CreatedTime: "2014-06-18 00:22:21"
-	// ModifiedTime: "2014-06-18 00:22:21"
-	// assigned_user_id: "18"
-	// z_jmc_crmno: "JDIMC0000002"
-	// z_jmc_activity: "423"
-	// z_jmc_product: "409"
-	// z_jmc_status: "A - Newly Merchandised"
-	// record_id: 429
-	// record_module: "XJDIMerchCheck"
+	// "createdtime": "2014-06-26 08:41:50",
+	// "modifiedtime": "2014-06-26 08:43:02",
+	// "smownerid": "18",
+	// "z_jmc_activity": "439",
+	// "z_jmc_crmno": "JDIMC0000004",
+	// "z_jmc_product": "409",
+	// "z_jmc_status": "A - Newly Merchandised",
+	// "xjdimerchcheckid": "501",
+	// "deleted": "0"
 
 	@SerializedName("z_jmc_crmno")
 	private String crm_no;

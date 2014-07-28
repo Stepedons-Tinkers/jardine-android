@@ -38,6 +38,7 @@ public class PJDImerchCheckStatusTable {
 
 	}
 
+	@SuppressWarnings("unused")
 	private DatabaseAdapter getDBAdapter() {
 		if (mDBAdapter == null)
 			mDBAdapter = DatabaseAdapter.getInstance();
@@ -175,6 +176,52 @@ public class PJDImerchCheckStatusTable {
 		}
 
 		return record;
+	}
+
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c
+						.getString(c
+								.getColumnIndex(KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
+	public long getIdByName(String name) {
+		long result = 0;
+		String MY_QUERY = "SELECT " + KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_JDI_MERCHANDISING_CHECK_STATUS_NAME + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(name) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c
+						.getLong(c
+								.getColumnIndex(KEY_JDI_MERCHANDISING_CHECK_STATUS_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
 	}
 
 	public long insert(String no) {

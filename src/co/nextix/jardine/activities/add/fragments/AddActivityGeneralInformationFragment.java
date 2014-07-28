@@ -14,11 +14,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
@@ -50,7 +53,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
-	private int flag;
+	private int flag = 0;
 
 	private boolean trapping = false;
 
@@ -65,7 +68,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private Bundle bundle;
 
 	private int frag_layout_id;
-	private int tabID;
+
+	public static int ActivityType = 0;
 
 	public AddActivityGeneralInformationFragment(Fragment frag) {
 		this.calendar = Calendar.getInstance();
@@ -73,13 +77,20 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
 		this.month = this.calendar.get(Calendar.MONTH);
 		this.year = this.calendar.get(Calendar.YEAR);
-		this.flag = 0;
 		this.fragment = frag;
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
+
+		this.rootView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
 
 		bundle = getArguments();
 
@@ -113,8 +124,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
-				AddActivityFragment.ACTIVITY_TYPE = ((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type))
-						.getSelectedItem()).getId();
 
 				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
 					indexes.add(2);
@@ -133,10 +142,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityTravelWaitingFragment();
-					tabID = 1;
+					fragmentForTransition = new AddActivityTravelWaitingFragment(fragment);
+					ActivityType = 1;
 
-				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) {
+				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { // done
 					indexes.add(1);
 					indexes.add(3);
 					indexes.add(4);
@@ -154,9 +163,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityWithCoSMRsFragment();
-					tabID = 2;
 
-				} else if (activityTypeName.equals("Admin Work")) {
+				} else if (activityTypeName.equals("Admin Work")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(4);
@@ -174,10 +182,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityAdminWorksFragment();
-					tabID = 3;
 
 				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
-						|| activityTypeName.equals("Retail Visits (Merienda)")) {
+						|| activityTypeName.equals("Retail Visits (Merienda)")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -187,8 +194,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityRetailVisitFragment();
-					tabID = 4;
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 4;
 
 				} else if (activityTypeName.equals("KI Visits - On-site")) {
 					indexes.add(1);
@@ -203,7 +211,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityKiVisits();
-					tabID = 4;
 
 				} else if (activityTypeName.contains("Major Training")) {
 					indexes.add(1);
@@ -220,7 +227,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityMajorTraining();
-					tabID = 4;
 
 				} else if (activityTypeName.contains("End User Activity")) {
 					indexes.add(1);
@@ -237,9 +243,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityEndUser();
-					tabID = 4;
 
-				} else if (activityTypeName.equals("Full Brand Activation")) {
+				} else if (activityTypeName.equals("Full Brand Activation")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -254,7 +259,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityFullBrandActivationFragment();
-					tabID = 4;
+					ActivityType = 41;
 
 				} else {
 					indexes.add(1);
@@ -271,8 +276,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityAdminWorksFragment();
-					tabID = 4;
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 100;
 				}
 			}
 
@@ -284,17 +290,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		});
 
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
-		((TextView) this.rootView.findViewById(R.id.check_in)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				flag = 0;
-				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
-						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
-						AddActivityGeneralInformationFragment.this.day);
-				pickDialog.show();
-			}
-		});
+		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
+		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
 
 		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
 
@@ -312,11 +309,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
 				if (saveBtn.getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -350,11 +350,23 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						Editor editor = pref.edit();
 						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
-						editor.putString("checkout", checkout);
+						editor.putString("check_out", checkout);
 						editor.putLong("activity_type", activityType);
 						editor.putLong("createdBy", createdBy);
 						editor.putLong("business_unit", businessUnit.getId());
 						editor.commit(); // commit changes
+
+						// Set the button click to true
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+
+						}, 1500);
 
 					} else {
 
@@ -367,19 +379,17 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							@Override
 							public void run() {
 								saveBtn.setProgress(0);
-
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 						}, 1500);
 					}
 
 				} else {
 
-					saveBtn.setProgress(0);
-					addActFrag.pager.setCurrentItem(tabID);
-
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
+					ft.addToBackStack("general_information");
 					ft.commit();
 				}
 			}
@@ -389,7 +399,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				getActivity().getSupportFragmentManager().popBackStackImmediate();
+				getActivity().getSupportFragmentManager().popBackStackImmediate("general_information",
+						FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 			}
 		});
@@ -552,9 +563,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
 					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
-			if (flag == 0) {
-				((TextView) rootView.findViewById(R.id.check_in)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
-			} else if (flag == 4) {
+			if (flag == 4) {
 				((TextView) rootView.findViewById(R.id.check_out)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
 				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
@@ -572,7 +581,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
 				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
 				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
-		
+
 		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
 	}
 
@@ -580,8 +589,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-			String endUserActivityTypes) {
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
 		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,

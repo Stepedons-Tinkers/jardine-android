@@ -91,6 +91,7 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.utils.Tools;
 import co.nextix.jardine.web.CreateRequests;
+import co.nextix.jardine.web.CreateResult;
 import co.nextix.jardine.web.LogRequests;
 import co.nextix.jardine.web.PicklistRequests;
 import co.nextix.jardine.web.RetrieveRequests;
@@ -193,6 +194,60 @@ public class SyncMenuBarFragment extends Fragment {
 		super.onDestroy();
 	}
 
+	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+
+		@Override
+		protected void onPreExecute() {
+			// dialog = new ProgressDialog(getActivity());
+			dialog.setTitle("Create");
+			dialog.setMessage("Documents");
+			dialog.setCancelable(false);
+			dialog.setCanceledOnTouchOutside(false);
+			dialog.show();
+			super.onPreExecute();
+		}
+
+		@Override
+		protected Boolean doInBackground(Void... arg0) {
+
+			DocumentTable table = JardineApp.DB.getDocument();
+			List<DocumentRecord> records = table.getUnsyncedRecords();
+
+			if (records != null) {
+				CreateRequests request = new CreateRequests();
+				for (DocumentRecord rec : records) {
+					CreateResult results = request.documents(rec);
+					if (results != null) {
+						List<WebCreateModel> webModels = results.getCreate();
+						if (webModels != null) {
+							for (WebCreateModel model : webModels) {
+								table.updateNo(model.getMobileId(),
+										String.valueOf(model.getCrmNo()));
+								// table.updateModifiedTime(model.getMobileId(),
+								// model.getModifiedTime());
+							}
+						}
+					}
+				}
+			}
+
+			return true;
+		}
+
+		@Override
+		protected void onPostExecute(Boolean result) {
+
+			if (result) {
+				new CreateCompetitorProductTask().execute();
+
+			} else {
+				dialog.dismiss();
+				Toast.makeText(getActivity(), "Check Internet connection",
+						Toast.LENGTH_SHORT).show();
+			}
+		}
+	}
+
 	private class CreateCompetitorProductTask extends
 			AsyncTask<Void, Void, Boolean> {
 
@@ -213,12 +268,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CompetitorProductTable table = JardineApp.DB.getCompetitorProduct();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProduct(table
+			CreateResult results = request.competitorProduct(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
 
@@ -302,15 +360,16 @@ public class SyncMenuBarFragment extends Fragment {
 			CustomerTable table = JardineApp.DB.getCustomer();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customer(table
-					.getUnsyncedRecords());
+			CreateResult results = request.customer(table.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -347,12 +406,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CustomerContactTable table = JardineApp.DB.getCustomerContact();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customerContact(table
+			CreateResult results = request.customerContact(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
 
@@ -391,15 +453,16 @@ public class SyncMenuBarFragment extends Fragment {
 			ActivityTable table = JardineApp.DB.getActivity();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.activity(table
-					.getUnsyncedRecords());
+			CreateResult results = request.activity(table.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -437,15 +500,17 @@ public class SyncMenuBarFragment extends Fragment {
 					.getJDImerchandisingCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiMerchandising(table
+			CreateResult results = request.jdiMerchandising(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -483,15 +548,17 @@ public class SyncMenuBarFragment extends Fragment {
 					.getJDIproductStockCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiProductStock(table
+			CreateResult results = request.jdiProductStock(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -529,15 +596,17 @@ public class SyncMenuBarFragment extends Fragment {
 					.getCompetitorProductStockCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProductStock(table
+			CreateResult results = request.competitorProductStock(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -574,15 +643,17 @@ public class SyncMenuBarFragment extends Fragment {
 			MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.marketingIntel(table
+			CreateResult results = request.marketingIntel(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -620,15 +691,17 @@ public class SyncMenuBarFragment extends Fragment {
 					.getProjectRequirement();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.projectRequirements(table
+			CreateResult results = request.projectRequirements(table
 					.getUnsyncedRecords());
 			if (results != null) {
-				for (WebCreateModel model : results) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -640,7 +713,7 @@ public class SyncMenuBarFragment extends Fragment {
 			//
 			// dialog.dismiss();
 			if (result) {
-				new CreateDocumentsTask().execute();
+				new CreateProductSupplierTask().execute();
 
 			} else {
 				dialog.dismiss();
@@ -650,13 +723,14 @@ public class SyncMenuBarFragment extends Fragment {
 		}
 	}
 
-	private class CreateDocumentsTask extends AsyncTask<Void, Void, Boolean> {
+	private class CreateProductSupplierTask extends
+			AsyncTask<Void, Void, Boolean> {
 
 		@Override
 		protected void onPreExecute() {
 			// dialog = new ProgressDialog(getActivity());
 			dialog.setTitle("Create");
-			dialog.setMessage("Documents");
+			dialog.setMessage("ProductSupplier");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
 			dialog.show();
@@ -666,28 +740,25 @@ public class SyncMenuBarFragment extends Fragment {
 		@Override
 		protected Boolean doInBackground(Void... arg0) {
 
-			DocumentTable table = JardineApp.DB.getDocument();
-			List<DocumentRecord> records = table.getUnsyncedRecords();
+			ProductSupplierTable table = JardineApp.DB.getProductSupplier();
 
-			if (records != null) {
-				CreateRequests request = new CreateRequests();
-				for (DocumentRecord rec : records) {
-					List<WebCreateModel> results = request.documents(rec);
-					if (results != null) {
-						for (WebCreateModel model : results) {
-							table.updateNo(model.getMobileId(),
-									String.valueOf(model.getCrmNo()));
-						}
+			CreateRequests request = new CreateRequests();
+			CreateResult results = request.productSupplier(table
+					.getUnsyncedRecords());
+			if (results != null) {
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
 					}
 				}
 			}
-
 			return true;
 		}
 
 		@Override
 		protected void onPostExecute(Boolean result) {
-
 			if (result) {
 				new PicklistDependencyTask().execute();
 
@@ -3877,7 +3948,8 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			if (result) {
 				// new PicklistDependencyTask().execute();
-				new CreateCompetitorProductTask().execute();
+				// new CreateCompetitorProductTask().execute();
+				new CreateDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
 				buildAlertMessage();

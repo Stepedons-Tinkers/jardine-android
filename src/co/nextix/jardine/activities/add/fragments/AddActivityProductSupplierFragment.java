@@ -6,6 +6,7 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.ProductRecord;
@@ -23,12 +25,22 @@ import com.dd.CircularProgressButton;
 
 public class AddActivityProductSupplierFragment extends Fragment {
 
+	private FragmentTransaction ft;
+	private Fragment fragmentForTransition;
 	private boolean flag = false;
+	private int frag_layout_id = 0;
+	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.add_activity_product_supplier, container, false);
 
+		bundle = getArguments();
+		
+		if(bundle != null){
+			frag_layout_id = bundle.getInt("layoutID");
+		}
+		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -61,6 +73,9 @@ public class AddActivityProductSupplierFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					
+					fragmentForTransition = new AddJDIMerchandisingStockFragment();
+					fragmentForTransition.setArguments(bundle);
 
 					flag = true;
 					Editor editor = pref.edit();
@@ -81,10 +96,12 @@ public class AddActivityProductSupplierFragment extends Fragment {
 					}, 2700);
 
 				} else {
-
-					// Code here
 					((CircularProgressButton) v).setProgress(0);
-					//transition
+					
+					ft = getActivity().getSupportFragmentManager().beginTransaction();
+					ft.replace(frag_layout_id, fragmentForTransition);
+					ft.addToBackStack(null);
+					ft.commit();
 				}
 			}
 		});

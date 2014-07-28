@@ -91,6 +91,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 		col5 = (TextView) header.findViewById(R.id.tvCustomerContactCol5);
 
 		trow.setGravity(Gravity.CENTER);
+		col1.setGravity(Gravity.CENTER);
 		col2.setGravity(Gravity.CENTER);
 		col3.setGravity(Gravity.CENTER);
 		col4.setGravity(Gravity.CENTER);
@@ -212,7 +213,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 				if (epr.getNo() != null) {
 
 					CustomerContactPersonGeneralInformation fragment = CustomerContactPersonGeneralInformation
-							.newInstance(customerId, epr.getId());
+							.newInstance(customerId);
 					fragment.setTargetFragment(CustomerContactList.this, 15);
 
 					DashBoardActivity act = (DashBoardActivity) getActivity();

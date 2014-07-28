@@ -1,5 +1,16 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_OTHERREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_SUPPLIER;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,17 +21,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
-
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_PRODUCTBRAND;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_SUPPLIER;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_OTHERREMARKS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ACTIVITY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDBY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_CREATEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_MODIFIEDTIME;
 
 public class ProductSupplierTable {
 
@@ -94,6 +94,51 @@ public class ProductSupplierTable {
 				c.close();
 			}
 		}
+		return list;
+	}
+
+	public List<ProductSupplierRecord> getUnsyncedRecords() {
+		List<ProductSupplierRecord> list = new ArrayList<ProductSupplierRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PRODUCTSUPPLIER_NO + " ISNULL";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CRMNO));
+					long productBrand = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_PRODUCTBRAND));
+					long supplier = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_SUPPLIER));
+					String othersRemarks = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_OTHERREMARKS));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_ACTIVITY));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CREATEDBY));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_MODIFIEDTIME));
+
+					list.add(new ProductSupplierRecord(id, no, crmNo,
+							productBrand, supplier, othersRemarks, activity,
+							createdBy, createdTime, modifiedTime));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
 		return list;
 	}
 
@@ -328,6 +373,20 @@ public class ProductSupplierTable {
 		if (mDb.delete(mDatabaseTable, KEY_PRODUCTSUPPLIER_ROWID + "=" + rowId,
 				null) > 0) {
 			// getRecords().deleteById(rowId);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNo(long id, String no) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_PRODUCTSUPPLIER_NO, no);
+		if (mDb.update(mDatabaseTable, args, KEY_PRODUCTSUPPLIER_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, competitor, productBrand,
+			// productDescription, productSize, isActive, createdTime,
+			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;

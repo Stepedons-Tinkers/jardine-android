@@ -413,5 +413,8 @@
     <!-- Attachment and Photos -->
     <string name="document_no">Document No</string>
     <string name="attachment_photo_title">Title</string>
+    
+    <!-- Ki Visits -->
+    <string name="ki_visits">KI Visits</string>
 
 </resources>

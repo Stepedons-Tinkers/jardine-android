@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 public class CustomerModel {
 
 	// "createdtime": "2014-06-14 15:15:46",
-	// "customers_days_unchanged": "15",
+	// "customers_days_unchanged": "18",
 	// "modifiedtime": "2014-07-07 15:24:06",
 	// "smownerid": "1",
 	// "z_area": "NORTHEAST LUZON AREA",

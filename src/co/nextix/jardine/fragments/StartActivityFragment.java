@@ -13,11 +13,15 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -30,17 +34,20 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 
-public class StartActivityFragment extends Fragment {
+public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 	private StartActivityCustomAdapter adapter = null;
 	private ArrayList<ActivityRecord> realRecord = null;
@@ -51,7 +58,11 @@ public class StartActivityFragment extends Fragment {
 	private ListView list = null;
 	private Spinner addActivitySpinner = null;
 	private EditText editMonth = null;
-
+	private ImageButton imgFrom, imgTo;
+	private TextView txtFrom, txtTo;
+	private Date maxDate = null;
+	private Date minDate = null;	
+	
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	public String formattedDate = null;
@@ -78,12 +89,76 @@ public class StartActivityFragment extends Fragment {
 				.getStringArray(R.array.activity_spinner_items));
 
 		this.rootView = inflater.inflate(R.layout.fragment_activites, container, false);
+		this.rootView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
+
 		this.formattedDate = this.df.format(this.c.getTime());
 		this.editMonth = (EditText) this.rootView.findViewById(R.id.editMonth);
 		this.editMonth.setText(this.formattedDate);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.addActivitySpinner.setAdapter(sAdapter);
+		
+		txtFrom = (TextView) rootView.findViewById(R.id.tvActivitiesFromCalendar);
+		txtTo = (TextView) rootView.findViewById(R.id.tvActivitiesToCalendar);
+		
+		txtFrom.setOnClickListener(this);
+		txtTo.setOnClickListener(this);
+		
+		imgFrom = (ImageButton) rootView.findViewById(R.id.ibActivitiesFromCalendar);
+		imgTo = (ImageButton) rootView.findViewById(R.id.ibActivitiesToCalendar);
 
+		imgFrom.setOnClickListener(this);
+		imgTo.setOnClickListener(this);
+		txtFrom.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {				
+				setupActivityEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		txtTo.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {				
+				setupActivityEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 
@@ -103,13 +178,14 @@ public class StartActivityFragment extends Fragment {
 								&& searchItem.equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-//						} else if (parent.getSelectedItem().toString()
-//								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-//								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
-//
-//							itemSearch.add(records.get(i));
-						} 
-						else if (parent.getSelectedItem().toString()
+							// } else if (parent.getSelectedItem().toString()
+							// .equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+							// &&
+							// searchItem.equals(String.valueOf(records.get(i).getWorkplan())))
+							// {
+							//
+							// itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
 								.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& searchItem.equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -155,10 +231,13 @@ public class StartActivityFragment extends Fragment {
 								&& v.getText().toString().equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-//						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-//								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
-//
-//							itemSearch.add(records.get(i));
+							// } else if
+							// (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+							// &&
+							// v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan())))
+							// {
+							//
+							// itemSearch.add(records.get(i));
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -219,7 +298,7 @@ public class StartActivityFragment extends Fragment {
 				android.support.v4.app.Fragment fragment = new AddActivityFragment();
 				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+						.replace(R.id.frame_container, fragment, "general_info").addToBackStack("general_information").commit();
 			}
 		});
 
@@ -248,6 +327,43 @@ public class StartActivityFragment extends Fragment {
 		});
 
 		return this.rootView;
+	}
+	
+	private void setupActivityEntry() {
+
+		String dateFrom = txtFrom.getText().toString();
+		String dateTo = txtTo.getText().toString();
+
+		dateFrom = MyDateUtils.convertDateStringToDash(dateFrom);
+		dateTo = MyDateUtils.convertDateStringToDash(dateTo);
+
+		Log.d("Tugs", dateFrom);
+		Log.d("Tugs", dateTo);
+
+		realRecord.clear();
+		realRecord.addAll(JardineApp.DB.getActivity().getActivityRecordsByDate(dateFrom, dateTo));
+		int remainder = realRecord.size() % rowSize;
+//		if (remainder > 0) {
+			for (int i = 0; i < rowSize - remainder; i++) {
+				ActivityRecord rec = new ActivityRecord();
+				realRecord.add(rec);
+			}
+
+//		} else {
+//			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
+//					getActivity(),
+//					R.layout.collaterals_marketing_materials_row, realRecord);
+//			list.setAdapter(adapter);
+//		}
+
+		if (realRecord.size() > 0) {
+
+			totalPage = realRecord.size() / rowSize;
+			currentPage = 0;
+			addItem(currentPage);
+		}
+		
+
 	}
 
 	/****** Function to set data in ArrayList *************/
@@ -291,7 +407,6 @@ public class StartActivityFragment extends Fragment {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
-
 		this.setView();
 	}
 
@@ -308,69 +423,56 @@ public class StartActivityFragment extends Fragment {
 	// Event item listener
 	public void onItemClick(int mPosition) {
 		ActivityRecord tempValues = (ActivityRecord) this.tempRecord.get(mPosition);
-		// Toast.makeText(
-		// getActivity(),
-		// "CRM No." + tempValues.getCrm() + " \n Workplan:" +
-		// tempValues.getWorkplan() + " \n Activity Type:"
-		// + tempValues.getActivityType(), Toast.LENGTH_SHORT).show();
 
-		// ActivityRecord ar = (ActivityRecord)
-		// this.list.getAdapter().getItem(mPosition);
-		// if (ar.getNo() != null) {
-		//
-		// ActivitiesConstant.ACTIVITY_ID = ar.getId();
-		// DashBoardActivity act = (DashBoardActivity) getActivity();
-		// act.getSupportFragmentManager().beginTransaction()
-		// .add(R.id.frame_container,
-		// CustomerDetailsFragment.newInstance(ar.getId()), JardineApp.TAG)
-		// .addToBackStack(JardineApp.TAG).commit();
-		// }
+		if (tempValues.getCrm() != null) {
 
-		// Saving acquired activity details
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		Editor editor = pref.edit();
-		editor.putLong("activity_id", tempValues.getId());
-		editor.putString("crm_no", tempValues.getCrm());
-//		editor.putString("workplan", String.valueOf(tempValues.getWorkplan()));
-//		editor.putString("start_time", tempValues.getStartTime());
-//		editor.putString("end_time", tempValues.getEndTime());
-		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
-		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
-//		editor.putString("objective", tempValues.getObjectives());
-		editor.putString("notes", tempValues.getNotes());
-		editor.putString("competitor_activities", "getCompetitorActivities()");
-		editor.putString("highlights", tempValues.getHighlights());
-		editor.putString("nextSteps", tempValues.getNextSteps());
-		editor.putString("follow_up_commitment_date", tempValues.getFollowUpCommitmentDate());
-		editor.putString("activity_type", String.valueOf(tempValues.getActivityType()));
-		editor.putString("others", "getOthers()");
-		editor.putString("business_unit", "getBusinessUnit()");
-		editor.putString("workplan_entry", String.valueOf(tempValues.getWorkplanEntry()));
-		editor.putString("customer", String.valueOf(tempValues.getCustomer()));
-		editor.putString("area", "getArea()");
-		editor.putString("province", "getProvince");
-		editor.putString("city_town", "getCityTown()");
-		editor.putString("first_time_visit", String.valueOf(tempValues.getFirstTimeVisit()));
-		editor.putString("planned_visit", String.valueOf(tempValues.getPlannedVisit()));
-		editor.putString("reason_remarks", "getReasonRemarks()");
-		editor.putString("details_admin_works", "getDetailsAdminWorks()");
-		editor.putString("source", "getSource()");
-		editor.putString("created_time", tempValues.getCreatedTime());
-		editor.putString(
-				"assigned_to",
-				String.valueOf(JardineApp.DB.getUser().getCurrentUser().getLastname() + ", "
-						+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
+			// Saving acquired activity details
+			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+			Editor editor = pref.edit();
+			editor.putLong("activity_id", tempValues.getId());
+			editor.putString("crm_no", tempValues.getCrm());
+			// editor.putString("workplan",
+			// String.valueOf(tempValues.getWorkplan()));
+			// editor.putString("start_time", tempValues.getStartTime());
+			// editor.putString("end_time", tempValues.getEndTime());
+			editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
+			editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
+			// editor.putString("objective", tempValues.getObjectives());
+			editor.putString("notes", tempValues.getNotes());
+			editor.putString("competitor_activities", "getCompetitorActivities()");
+			editor.putString("highlights", tempValues.getHighlights());
+			editor.putString("nextSteps", tempValues.getNextSteps());
+			editor.putString("follow_up_commitment_date", tempValues.getFollowUpCommitmentDate());
+			editor.putString("activity_type", String.valueOf(tempValues.getActivityType()));
+			editor.putString("others", "getOthers()");
+			editor.putString("business_unit", "getBusinessUnit()");
+			editor.putString("workplan_entry", String.valueOf(tempValues.getWorkplanEntry()));
+			editor.putString("customer", String.valueOf(tempValues.getCustomer()));
+			editor.putString("area", "getArea()");
+			editor.putString("province", "getProvince");
+			editor.putString("city_town", "getCityTown()");
+			editor.putString("first_time_visit", String.valueOf(tempValues.getFirstTimeVisit()));
+			editor.putString("planned_visit", String.valueOf(tempValues.getPlannedVisit()));
+			editor.putString("reason_remarks", "getReasonRemarks()");
+			editor.putString("details_admin_works", "getDetailsAdminWorks()");
+			editor.putString("source", "getSource()");
+			editor.putString("created_time", tempValues.getCreatedTime());
+			editor.putString(
+					"assigned_to",
+					String.valueOf(JardineApp.DB.getUser().getCurrentUser().getLastname() + ", "
+							+ JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 
-		editor.commit(); // commit changes
+			editor.commit(); // commit changes
 
-		// final Bundle bundle = new Bundle();
-		// bundle.putString("crm_no", tempValues.getCrm());
-		// fragment.setArguments(bundle);
+			// final Bundle bundle = new Bundle();
+			// bundle.putString("crm_no", tempValues.getCrm());
+			// fragment.setArguments(bundle);
 
-		android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-		android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+			android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+			android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+			fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+					.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+		}
 	}
 
 	protected void isListHasNoData() {
@@ -413,4 +515,98 @@ public class StartActivityFragment extends Fragment {
 		String date = this.df.format(day);
 		return date;
 	}
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+
+		case R.id.ibActivitiesFromCalendar:
+			DatePickerDialog pickDialog1 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerFrom,
+					year, month, day);
+			if(maxDate !=null){				
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(maxDate);
+				Date date = calendar.getTime();
+				pickDialog1.getDatePicker().setMaxDate(date.getTime());
+			}
+			pickDialog1.show();
+
+			break;
+
+		case R.id.ibActivitiesToCalendar:
+			DatePickerDialog pickDialog2 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerTo,
+					year, month, day);
+			if(minDate !=null){
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(minDate);
+				Date date = calendar.getTime();
+				pickDialog2.getDatePicker().setMinDate(date.getTime());
+			}
+			pickDialog2.show();
+
+			break;
+
+		case R.id.tvActivitiesFromCalendar:
+			txtFrom.setText(null);
+			break;
+		case R.id.tvActivitiesToCalendar:
+			txtTo.setText(null);
+			break;
+		}
+//		if(v == imgFrom){
+//			
+//		}else if(v == imgTo){
+//			
+//		}else if(v == txtFrom){
+//			
+//		}else if(v == txtTo){
+//			
+//		} 
+//		
+
+	}
+	private DatePickerDialog.OnDateSetListener datePickerListenerFrom = new DatePickerDialog.OnDateSetListener() {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+			
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			minDate = lcalendar.getTime(); 
+			txtFrom.setText(formattedDate);
+
+		}
+
+	};
+
+	private DatePickerDialog.OnDateSetListener datePickerListenerTo = new DatePickerDialog.OnDateSetListener() {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			maxDate = lcalendar.getTime(); 
+			txtTo.setText(formattedDate);
+
+		}
+
+	};
+	
 }
