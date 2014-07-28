@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,7 +28,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 	
 	private Fragment fragment = null;
 
-	private AddActivityFragment addActFrag;
+	private AddActivityFragment addActFrag1;
 
 	public AddActivityTravelWaitingFragment(Fragment frag) {
 		this.fragment = frag;
@@ -38,8 +39,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
 		
-		addActFrag = (AddActivityFragment) fragment;
-//		addActFrag.pager.setCurrentItem(1);
+		addActFrag1 = (AddActivityFragment) fragment;
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -84,7 +84,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 							@Override
 							public void run() {
-								getActivity().getSupportFragmentManager().popBackStackImmediate();
+								getActivity().getSupportFragmentManager().popBackStack();
 							}
 
 						}, 2700);
@@ -100,7 +100,6 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 							@Override
 							public void run() {
 								((CircularProgressButton) v).setProgress(0);
-
 							}
 						}, 1500);
 					}

@@ -209,6 +209,8 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 									fragmentForTransition = new AddCustomerContactsFragment();
 								} else if (AddActivityFragment.ACTIVITY_TYPE == 102) { // end user
 									fragmentForTransition = new AddCustomerContactsFragment();
+								} else if (AddActivityFragment.ACTIVITY_TYPE == 41) { // full brand
+									fragmentForTransition = new AddCustomerContactsFragment();
 								}
 
 								trapping = true;

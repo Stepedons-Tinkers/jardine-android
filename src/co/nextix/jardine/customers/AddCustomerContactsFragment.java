@@ -393,6 +393,8 @@ public class AddCustomerContactsFragment extends Fragment implements
 					fragmentForTransition = new AddActivityPhotosAndAttachments();
 				} else if (AddActivityFragment.ACTIVITY_TYPE == 102) { // end user
 					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 41) { // full brand
+					fragmentForTransition = new AddActivityFullBrandActivationFragment();
 				}
 
 				flag = true;

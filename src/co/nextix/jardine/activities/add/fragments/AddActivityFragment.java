@@ -8,7 +8,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +30,6 @@ public class AddActivityFragment extends Fragment {
 	private int firstPos;
 
 	private FragmentTransaction ft;
-
 	private FrameLayout fl;
 
 	private Bundle bundle;
@@ -56,7 +54,6 @@ public class AddActivityFragment extends Fragment {
 
 		bundle = new Bundle();
 		bundle.putInt("layoutID", fl.getId());
-		bundle.putInt("pagerID", R.id.pager);
 
 		tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
 		pager = (ViewPager) rootView.findViewById(R.id.pager);
@@ -66,13 +63,8 @@ public class AddActivityFragment extends Fragment {
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 		pager.setPageMargin(pageMargin);
-		pager.setCurrentItem(0);
 
 		tabs.setViewPager(pager, true);
-
-		if (tabs.getId() == 2) {
-			Log.e("tabID", "2");
-		}
 
 		tabs.setOnPageChangeListener(new OnPageChangeListener() {
 

@@ -91,6 +91,9 @@ public class AddActivityFullBrandActivationFragment extends Fragment {
 									});
 
 							widthAnimation.start();
+							
+							fragmentForTransition = new AddActivityPhotosAndAttachments();
+							fragmentForTransition.setArguments(bundle);
 
 							/** Checking of required fields **/
 							SharedPreferences pref = getActivity()
@@ -112,7 +115,10 @@ public class AddActivityFullBrandActivationFragment extends Fragment {
 
 							((CircularProgressButton) v).setProgress(0);
 							
-							// insert then pop all back stack
+							ft = getActivity().getSupportFragmentManager().beginTransaction();
+							ft.replace(frag_layout_id, fragmentForTransition);
+							ft.addToBackStack(null);
+							ft.commit();
 						}
 					}
 				});
