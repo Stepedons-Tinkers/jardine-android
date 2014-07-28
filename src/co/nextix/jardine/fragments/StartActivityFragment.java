@@ -59,7 +59,8 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 	private EditText editMonth = null;
 	private ImageButton imgFrom, imgTo;
 	private TextView txtFrom, txtTo;
-	
+	private Date maxDate = null;
+	private Date minDate = null;	
 	
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
@@ -115,8 +116,8 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				setupWorkplanEntry();
+					int count) {				
+				setupActivityEntry();
 
 			}
 
@@ -138,8 +139,8 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 			@Override
 			public void onTextChanged(CharSequence s, int start, int before,
-					int count) {
-				setupWorkplanEntry();
+					int count) {				
+				setupActivityEntry();
 
 			}
 
@@ -315,45 +316,40 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 		return this.rootView;
 	}
 	
-	private void setupWorkplanEntry() {
-/*
+	private void setupActivityEntry() {
+
 		String dateFrom = txtFrom.getText().toString();
 		String dateTo = txtTo.getText().toString();
-		long wId = ((WorkplanRecord) searchSpinner.getSelectedItem()).getId();
 
 		dateFrom = MyDateUtils.convertDateStringToDash(dateFrom);
 		dateTo = MyDateUtils.convertDateStringToDash(dateTo);
 
 		Log.d("Tugs", dateFrom);
 		Log.d("Tugs", dateTo);
-		Log.d("Tugs", wId + "");
-		Log.d("Tugs", searchPhrase + "");
 
 		realRecord.clear();
-		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-				.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
-						searchPhrase, spinner.getSelectedItemPosition()));
-
+		realRecord.addAll(JardineApp.DB.getActivity().getActivityRecordsByDate(dateFrom, dateTo));
 		int remainder = realRecord.size() % rowSize;
-		if (remainder > 0) {
+//		if (remainder > 0) {
 			for (int i = 0; i < rowSize - remainder; i++) {
-				WorkplanEntryRecord rec = new WorkplanEntryRecord();
+				ActivityRecord rec = new ActivityRecord();
 				realRecord.add(rec);
 			}
 
-		} else {
-			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
-					getActivity(),
-					R.layout.collaterals_marketing_materials_row, realRecord);
-			list.setAdapter(adapter);
-		}
+//		} else {
+//			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
+//					getActivity(),
+//					R.layout.collaterals_marketing_materials_row, realRecord);
+//			list.setAdapter(adapter);
+//		}
 
 		if (realRecord.size() > 0) {
 
 			totalPage = realRecord.size() / rowSize;
+			currentPage = 0;
 			addItem(currentPage);
 		}
-		*/
+		
 
 	}
 
@@ -398,7 +394,6 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
-
 		this.setView();
 	}
 
@@ -529,6 +524,12 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 			DatePickerDialog pickDialog1 = new DatePickerDialog(getActivity(),
 					android.R.style.Theme_Holo_Panel, datePickerListenerFrom,
 					year, month, day);
+			if(maxDate !=null){				
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(maxDate);
+				Date date = calendar.getTime();
+				pickDialog1.getDatePicker().setMaxDate(date.getTime());
+			}
 			pickDialog1.show();
 
 			break;
@@ -537,21 +538,38 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 			DatePickerDialog pickDialog2 = new DatePickerDialog(getActivity(),
 					android.R.style.Theme_Holo_Panel, datePickerListenerTo,
 					year, month, day);
+			if(minDate !=null){
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(minDate);
+				Date date = calendar.getTime();
+				pickDialog2.getDatePicker().setMinDate(date.getTime());
+			}
 			pickDialog2.show();
 
 			break;
 
-		case R.id.tvWorkPlanFromCalendar:
+		case R.id.tvActivitiesFromCalendar:
 			txtFrom.setText(null);
 			break;
-		case R.id.tvWorkPlanToCalendar:
+		case R.id.tvActivitiesToCalendar:
 			txtTo.setText(null);
 			break;
 		}
+//		if(v == imgFrom){
+//			
+//		}else if(v == imgTo){
+//			
+//		}else if(v == txtFrom){
+//			
+//		}else if(v == txtTo){
+//			
+//		} 
+//		
 
 	}
 	private DatePickerDialog.OnDateSetListener datePickerListenerFrom = new DatePickerDialog.OnDateSetListener() {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
@@ -559,8 +577,11 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 			year = selectedYear;
 			month = selectedMonth;
 			day = selectedDay;
-
+			
 			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			minDate = lcalendar.getTime(); 
 			txtFrom.setText(formattedDate);
 
 		}
@@ -569,6 +590,7 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 	private DatePickerDialog.OnDateSetListener datePickerListenerTo = new DatePickerDialog.OnDateSetListener() {
 
+		@SuppressWarnings("deprecation")
 		@Override
 		public void onDateSet(DatePicker view, int selectedYear,
 				int selectedMonth, int selectedDay) {
@@ -578,6 +600,9 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 			day = selectedDay;
 
 			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			maxDate = lcalendar.getTime(); 
 			txtTo.setText(formattedDate);
 
 		}
