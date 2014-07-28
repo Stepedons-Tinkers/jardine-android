@@ -14,11 +14,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
@@ -61,6 +64,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+	
 	public static int ActivityType = 0;
 
 	public AddActivityGeneralInformationFragment(Fragment frag) {
@@ -75,6 +79,13 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
+		this.rootView.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
 		
 		bundle = getArguments();
 
@@ -128,7 +139,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					fragmentForTransition = new AddActivityTravelWaitingFragment(fragment);
 					ActivityType = 1;
 
-				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { //done
+				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { // done
 					indexes.add(1);
 					indexes.add(3);
 					indexes.add(4);
@@ -148,7 +159,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					fragmentForTransition = new AddActivityWithCoSMRsFragment();
 					ActivityType = 43;
 
-				} else if (activityTypeName.equals("Admin Work")) { //done
+				} else if (activityTypeName.equals("Admin Work")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(4);
@@ -169,7 +180,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					ActivityType = 47;
 
 				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
-						|| activityTypeName.equals("Retail Visits (Merienda)")) { //done
+						|| activityTypeName.equals("Retail Visits (Merienda)")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -235,7 +246,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 102;
 
-				} else if (activityTypeName.equals("Full Brand Activation")) { //done
+				} else if (activityTypeName.equals("Full Brand Activation")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -302,11 +313,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
 				if (saveBtn.getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -340,11 +354,23 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						Editor editor = pref.edit();
 						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
-						editor.putString("checkout", checkout);
+						editor.putString("check_out", checkout);
 						editor.putLong("activity_type", activityType);
 						editor.putLong("createdBy", createdBy);
 						editor.putLong("business_unit", businessUnit.getId());
 						editor.commit(); // commit changes
+
+						// Set the button click to true
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+
+						}, 1500);
 
 					} else {
 
@@ -357,7 +383,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							@Override
 							public void run() {
 								saveBtn.setProgress(0);
-
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 						}, 1500);
 					}
@@ -382,10 +409,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					} else if (ActivityType == 100){
 						addActFrag.pager.setCurrentItem(4);
 					}
-					
+
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
+					ft.addToBackStack("general_information");
 					ft.commit();
 				}
 			}
@@ -395,7 +422,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				getActivity().getSupportFragmentManager().popBackStackImmediate();
+				getActivity().getSupportFragmentManager().popBackStackImmediate("general_information",
+						FragmentManager.POP_BACK_STACK_INCLUSIVE);
 
 			}
 		});

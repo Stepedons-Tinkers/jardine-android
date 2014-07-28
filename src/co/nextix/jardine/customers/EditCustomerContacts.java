@@ -6,10 +6,8 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -119,13 +117,12 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 		field4.setAdapter(adapter4);
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
-
+		
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
 			UserRecord user = u.getCurrentUser();
 			if (user != null) {
-				field9.setText(user.getFirstNameName() + " "
-						+ user.getLastname());
+				field9.setText(user.getFirstNameName() + " " + user.getLastname());
 			}
 		}
 
@@ -146,9 +143,7 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.bCustomerContactAddCreate:
-
 			new InsertTask().execute();
-
 			break;
 		case R.id.ibCustomerContactAddField6:
 			DatePickerDialog pickDialog = new DatePickerDialog(this,

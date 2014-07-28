@@ -1,5 +1,39 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ACTIVITYTYPE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ADMINWORKDETAILS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKIN;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKOUT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CUSTOMER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ENDUSERACTIVITYTYPES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FIRSTTIMEVISIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FOLLOWUP;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_HIGHLIGHTS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LATITUDE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LONGITUDE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NEXTSTEPS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOOFATTENDEES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOTES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_OBJECTIVES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PLANNEDVISIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTCATEGORY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTSTAGE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROVINCE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_REASONREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_SMR;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_VENUE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_WORKPLANENTRY;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -10,39 +44,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ACTIVITYTYPE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKIN;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CHECKOUT;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_BUSINESSUNIT;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDBY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LONGITUDE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_LATITUDE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CREATEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_REASONREMARKS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_SMR;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ADMINWORKDETAILS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CUSTOMER;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_AREA;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROVINCE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_CITY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_WORKPLANENTRY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_OBJECTIVES;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FIRSTTIMEVISIT;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PLANNEDVISIT;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOTES;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_HIGHLIGHTS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NEXTSTEPS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_FOLLOWUP;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTNAME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTSTAGE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_PROJECTCATEGORY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_VENUE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_NOOFATTENDEES;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ENDUSERACTIVITYTYPES;
 import co.nextix.jardine.database.records.ActivityRecord;
 
 public class ActivityTable {
@@ -1049,6 +1050,114 @@ public class ActivityTable {
 		}
 		return list;
 	}
+	public List<ActivityRecord> getActivityRecordsByDate(String dateFrom, String dateTo) {
+		Cursor c = null;
+
+		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
+		String MY_QUERY = null;
+
+		// SELECT * FROM Workplan_Entry WHERE date >= DATE('2014-07-08') AND
+		// date <= DATE('2014-07-10') AND workplan = 0
+		if (dateFrom.contentEquals("") && dateTo.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		} else if (dateFrom.contentEquals("") && !dateTo.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_ACTIVITY_CHECKIN + " <= DATE('" + dateTo + "')";
+		} else if (!dateFrom.contentEquals("") && dateTo.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_ACTIVITY_CHECKIN + " >= DATE('" + dateFrom + "')";
+		} else if (!dateFrom.contentEquals("") && !dateTo.contentEquals("")) {
+			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+					+ KEY_ACTIVITY_CHECKIN + " >= DATE('" + dateFrom
+					+ "') AND " + KEY_ACTIVITY_CHECKIN + " <= DATE('"
+					+ dateTo + "')";		
+		}
+		Log.d("Tugs", MY_QUERY);
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c.getColumnIndex(KEY_ACTIVITY_ROWID));
+					String no = c.getString(c.getColumnIndex(KEY_ACTIVITY_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CRMNO));
+					long activityType = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_ACTIVITYTYPE));
+					String checkIn = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CHECKIN));
+					String checkOut = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CHECKOUT));
+					long businessUnit = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_BUSINESSUNIT));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_CREATEDBY));
+					double longitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LONGITUDE));
+					double latitude = c.getDouble(c
+							.getColumnIndex(KEY_ACTIVITY_LATITUDE));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_MODIFIEDTIME));
+					String reasonsRemarks = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_REASONREMARKS));
+					long smr = c.getLong(c.getColumnIndex(KEY_ACTIVITY_SMR));
+					String adminDetails = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ADMINWORKDETAILS));
+					long customer = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_CUSTOMER));
+					long area = c.getLong(c.getColumnIndex(KEY_ACTIVITY_AREA));
+					long province = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_PROVINCE));
+					long city = c.getLong(c.getColumnIndex(KEY_ACTIVITY_CITY));
+					long workplanEntry = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_WORKPLANENTRY));
+					String objective = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_OBJECTIVES));
+					int firstTimeVisit = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_FIRSTTIMEVISIT));
+					int plannedVisit = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_PLANNEDVISIT));
+					String notes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NOTES));
+					String highlights = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_HIGHLIGHTS));
+					String nextSteps = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_NEXTSTEPS));
+					String followUpCommitmentDate = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_FOLLOWUP));
+					String projectName = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTNAME));
+					long projectStage = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTSTAGE));
+					long projectCategory = c.getLong(c
+							.getColumnIndex(KEY_ACTIVITY_PROJECTCATEGORY));
+					String venue = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_VENUE));
+					int numberOfAttendees = c.getInt(c
+							.getColumnIndex(KEY_ACTIVITY_NOOFATTENDEES));
+					String endUserActivityTypes = c.getString(c
+							.getColumnIndex(KEY_ACTIVITY_ENDUSERACTIVITYTYPES));
+
+					list.add(new ActivityRecord(id, no, crmNo, activityType,
+							checkIn, checkOut, businessUnit, createdBy,
+							longitude, latitude, createdTime, modifiedTime,
+							reasonsRemarks, smr, adminDetails, customer, area,
+							province, city, workplanEntry, objective,
+							firstTimeVisit, plannedVisit, notes, highlights,
+							nextSteps, followUpCommitmentDate, projectName,
+							projectStage, projectCategory, venue,
+							numberOfAttendees, endUserActivityTypes));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+	
 
 	// ===========================================================
 	// Public Foreign Key Methods

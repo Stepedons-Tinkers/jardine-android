@@ -326,7 +326,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
-				
+		
 				return true;
 			}
 

@@ -432,7 +432,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 			ft = getActivity().getSupportFragmentManager().beginTransaction();
 			ft.replace(frag_layout_id, fragmentForTransition);
-			ft.addToBackStack(null);
+			ft.addToBackStack("add_customer_fragment");
 			ft.commit();
 		}
 	}

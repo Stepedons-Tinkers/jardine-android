@@ -49,7 +49,6 @@
                     android:layout_toLeftOf="@+id/btnWithText1"
                     android:textColor="@color/white"
                     android:textSize="18sp"
-                    android:visibility="invisible"
                     app:textComplete="@string/complete_cancel"
                     app:textError="@string/error"
                     app:textIdle="@string/cancel" />
@@ -111,9 +110,9 @@
                         android:layout_gravity="center_vertical"
                         android:layout_weight="0.3"
                         android:focusable="false"
+                        android:hint="auto generated"
                         android:maxHeight="120dp"
                         android:padding="14dip"
-                        android:hint="auto generated"
                         android:textColor="#000"
                         android:textSize="14sp" />
 
@@ -179,10 +178,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:hint="date-time picker"
                             android:maxLines="2"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
-                            android:hint="date-time picker"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -216,10 +215,10 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
+                            android:hint="date-time picker"
                             android:maxLines="2"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
-                            android:hint="date-time picker"
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </HorizontalScrollView>
@@ -310,7 +309,8 @@
             </LinearLayout>
         </TableLayout>
 
-       <!--  <RelativeLayout
+        <!--
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginRight="14dp" >
@@ -347,7 +347,8 @@
                 android:text="@string/next"
                 android:textSize="18sp"
                 android:visibility="invisible" />
-        </RelativeLayout> -->
+        </RelativeLayout>
+        -->
     </LinearLayout>
 
 </ScrollView>
