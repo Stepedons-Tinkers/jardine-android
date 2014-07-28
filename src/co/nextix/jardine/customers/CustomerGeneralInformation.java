@@ -73,7 +73,6 @@ public class CustomerGeneralInformation extends Fragment {
 		delete = (Button) view.findViewById(R.id.btnDeleteCustomer);
 
 		edit.setOnClickListener(click);
-		delete.setOnClickListener(click);
 
 		record = JardineApp.DB.getCustomer().getById(customerId);
 
@@ -124,6 +123,11 @@ public class CustomerGeneralInformation extends Fragment {
 			delete.setOnClickListener(null);
 			delete.setClickable(false);
 			delete.setBackgroundColor(Color.DKGRAY);
+		} else {
+			delete.setEnabled(true);
+			delete.setOnClickListener(click);
+			delete.setClickable(true);
+			delete.setBackgroundColor(Color.RED);
 		}
 
 	}

@@ -183,6 +183,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		imgFrom = (ImageButton) view.findViewById(R.id.ibWorkPlanFromCalendar);
 		imgTo = (ImageButton) view.findViewById(R.id.ibWorkPlanToCalendar);
+		
+		txtFrom.setText(formattedDate);
+		txtTo.setText(formattedDate);
 
 		txtFrom.setOnClickListener(this);
 		txtTo.setOnClickListener(this);
@@ -282,6 +285,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 			}
 		});
 
+		setupWorkplanEntry();
 	}
 
 	private void setupWorkplanEntry() {
