@@ -26,6 +26,14 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.ActivityTypeTable;
+import co.nextix.jardine.database.tables.SMRTable;
+import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.database.tables.WorkplanTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class StartActivityCustomAdapter extends BaseAdapter implements OnClickListener {
@@ -127,17 +135,54 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			this.tempValues = (ActivityRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.workplan_txt.setText(String.valueOf(this.tempValues.getWorkplanEntry()));
-			holder.activity_type_txt.setText(String.valueOf(this.tempValues.getActivityType()));
-			holder.start_time_txt.setText(this.tempValues.getCheckIn());
-			holder.end_time_txt.setText(this.tempValues.getCheckOut());
-			holder.created_by.setText(String.valueOf(this.tempValues.getCreatedBy()));
+			
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.workplan_txt.setText(null);
+				holder.activity_type_txt.setText(null);
+				holder.start_time_txt.setText(null);
+				holder.end_time_txt.setText(null);
+				holder.created_by.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+			}else{
+				holder.start_time_txt.setText(this.tempValues.getCheckIn());
+				holder.end_time_txt.setText(this.tempValues.getCheckOut());
+				holder.crm_no_txt.setText(this.tempValues.getCrm());
+
+				
+				WorkplanTable wor = JardineApp.DB.getWorkplan();
+				if(wor != null){
+					WorkplanRecord rec = wor.getById(this.tempValues
+							.getWorkplanEntry());
+					holder.workplan_txt.setText("");
+					if(rec != null){
+						holder.workplan_txt.setText(rec.toString());
+					}
+				}
+				
+				
+				ActivityTypeTable act = JardineApp.DB.getActivityType();
+				if(act != null){
+					ActivityTypeRecord rec = act.getById(this.tempValues
+							.getActivityType());
+					holder.activity_type_txt.setText("");
+					if(rec != null){
+						holder.activity_type_txt.setText(rec.toString());
+					}
+				}
+				
+				
+				UserTable user = JardineApp.DB.getUser();
+				if(user != null){
+					UserRecord rec = user.getById(this.tempValues
+							.getCreatedBy());
+					holder.created_by.setText("");
+					if(rec != null){
+						holder.created_by.setText(rec.toString());
+					}
+				}
 			}
 
 			if (holder.start_time_txt.getText().toString().equals(null) || holder.start_time_txt.getText().toString().equals("")
@@ -179,93 +224,6 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 			});
 			
 			holder.clickable_area.setOnClickListener(new OnItemClickListener(position));
-//			// Events
-//			((HorizontalScrollView) vi.findViewById(R.id.crm_no_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.crm_no_txt).setClickable(true);
-//						v.findViewById(R.id.crm_no_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//
-//					return false;
-//				}
-//			});
-//
-//			((HorizontalScrollView) vi.findViewById(R.id.workplan_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.workplan_txt).setClickable(true);
-//						v.findViewById(R.id.workplan_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//					return false;
-//				}
-//			});
-//
-//			((HorizontalScrollView) vi.findViewById(R.id.activity_type_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.activity_type_txt).setClickable(true);
-//						v.findViewById(R.id.activity_type_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//					return false;
-//				}
-//			});
-//
-//			((HorizontalScrollView) vi.findViewById(R.id.start_time_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.start_time_txt).setClickable(true);
-//						v.findViewById(R.id.start_time_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//
-//					return false;
-//				}
-//			});
-//
-//			((HorizontalScrollView) vi.findViewById(R.id.end_time_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.end_time_txt).setClickable(true);
-//						v.findViewById(R.id.end_time_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//					return false;
-//				}
-//			});
-//
-//			((HorizontalScrollView) vi.findViewById(R.id.assigned_to_hsv)).setOnTouchListener(new OnTouchListener() {
-//
-//				@Override
-//				public boolean onTouch(View v, MotionEvent event) {
-//					if ((event.getAction() == MotionEvent.ACTION_UP) || (event.getAction() == MotionEvent.ACTION_DOWN)
-//							|| (event.getAction() == MotionEvent.ACTION_MOVE) || (MotionEvent.ACTION_OUTSIDE == event.getAction())) {
-//
-//						v.findViewById(R.id.assigned_to_txt).setClickable(true);
-//						v.findViewById(R.id.assigned_to_txt).setOnClickListener(new OnItemClickListener(pos));
-//					}
-//
-//					return false;
-//				}
-//			});
 		}
 
 		return vi;

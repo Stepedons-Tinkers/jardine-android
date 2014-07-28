@@ -82,8 +82,10 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 				((TextView) myFragmentView.findViewById(R.id.status_stock)).setText(statusStock.toString());
 			}
 		}
-		
-		((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText(String.valueOf(this.record.getLoadedOnShelves()));
+		if(this.record.getLoadedOnShelves() == 0)
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("No");
+		else
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("Yes");
 		
 		CustomerTable supplier = JardineApp.DB.getCustomer();
 		if(supplier != null){

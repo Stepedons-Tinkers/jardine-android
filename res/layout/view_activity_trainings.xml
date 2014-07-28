@@ -46,8 +46,8 @@
                     android:text="@string/trainings_gen_info"
                     android:textColor="#fff"
                     android:textSize="14dp"
-                    android:visibility="gone"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </TableRow>
 
             <!-- Row 2 with 2 columns -->
@@ -84,6 +84,7 @@
                     android:layout_width="0dp"
                     android:layout_height="50dp"
                     android:layout_gravity="center|left"
+                    android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
                     android:gravity="center|left"
@@ -131,7 +132,6 @@
                         android:maxLines="100"
                         android:scrollHorizontally="true"
                         android:textColor="#000000" />
-
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>

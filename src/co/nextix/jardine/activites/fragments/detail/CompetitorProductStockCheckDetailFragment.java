@@ -77,8 +77,11 @@ public class CompetitorProductStockCheckDetailFragment extends Fragment {
 					((TextView) myFragmentView.findViewById(R.id.stock_status)).setText(statusRecord.toString());
 				}
 			}
+		if(this.record.getLoadedOnShelves() == 0)
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("No");
+		else
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("Yes");
 		
-		((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText(String.valueOf(this.record.getLoadedOnShelves()));
 		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
 		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
 		

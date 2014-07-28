@@ -37,13 +37,18 @@ public class ProductFocusDetailFragment extends Fragment {
 		((TextView) myFragmentView.findViewById(R.id.product_number)).setText(this.record.getProductNumber());
 		((TextView) myFragmentView.findViewById(R.id.product_brand)).setText(this.record.getProductBrand());
 		((TextView) myFragmentView.findViewById(R.id.product_description)).setText(this.record.getProductDescription());
-		((TextView) myFragmentView.findViewById(R.id.is_active)).setText(String.valueOf(this.record.getIsActive()));
+		
+		if(this.record.getIsActive() == 0)
+		((TextView) myFragmentView.findViewById(R.id.is_active)).setText("No");
+		else
+			((TextView) myFragmentView.findViewById(R.id.is_active)).setText("Yes");
+		
 		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
 		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){
 			((TextView) myFragmentView.findViewById(R.id.created_by)).setText("");
-			UserRecord userRecord = user.getById(this.record.getCreatedBy());
+				UserRecord userRecord = user.getById(this.record.getCreatedBy());
 			if(userRecord != null){
 				((TextView) myFragmentView.findViewById(R.id.created_by)).setText(userRecord.toString());
 			}

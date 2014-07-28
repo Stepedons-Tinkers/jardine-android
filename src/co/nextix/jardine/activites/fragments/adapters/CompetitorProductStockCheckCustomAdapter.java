@@ -180,8 +180,11 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 				}
 			}
 			
-			holder.loaded_on_shelves.setText(String.valueOf(
-					this.tempValues.getLoadedOnShelves()).toString());
+			if(this.tempValues.getLoadedOnShelves() == 0)
+				holder.loaded_on_shelves.setText("No");
+			else
+				holder.loaded_on_shelves.setText("Yes");
+			
 		
 			UserTable user = JardineApp.DB.getUser();
 			if(user != null){

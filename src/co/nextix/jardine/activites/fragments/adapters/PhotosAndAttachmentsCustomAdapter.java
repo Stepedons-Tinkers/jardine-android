@@ -148,7 +148,16 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 				holder.title.setText(this.tempValues.getTitle());
 				holder.file_name.setText(this.tempValues.getFileName());
 				holder.modified_time.setText(this.tempValues.getModifiedTime());
-				holder.created_by_txt.setText("" + this.tempValues.getUser());
+				
+				UserTable user = JardineApp.DB.getUser();
+				if(user != null){
+					UserRecord rec = user.getById(this.tempValues
+							.getUser());
+					holder.created_by_txt.setText("");
+					if(rec != null){
+						holder.created_by_txt.setText(rec.toString());
+					}
+				}
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
