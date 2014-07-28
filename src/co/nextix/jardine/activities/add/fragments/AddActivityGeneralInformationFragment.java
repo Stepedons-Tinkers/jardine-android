@@ -67,13 +67,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	
 	public static int ActivityType = 0;
 
-	public AddActivityGeneralInformationFragment(Fragment frag) {
+	public AddActivityGeneralInformationFragment() {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
 		this.month = this.calendar.get(Calendar.MONTH);
 		this.year = this.calendar.get(Calendar.YEAR);
-		this.fragment = frag;
 	}
 
 	@Override
@@ -94,7 +93,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		}
 
 		addActFrag = (AddActivityFragment) fragment;
-		addActFrag.pager.setCurrentItem(0);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 
@@ -135,8 +133,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityTravelWaitingFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityTravelWaitingFragment();
 					ActivityType = 1;
 
 				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { // done
@@ -155,7 +153,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					fragmentForTransition = new AddActivityWithCoSMRsFragment();
 					ActivityType = 43;
 
@@ -175,7 +173,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					fragmentForTransition = new AddActivityAdminWorksFragment();
 					ActivityType = 47;
 
@@ -189,8 +187,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 4;
 
@@ -205,8 +203,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 9;
 
@@ -223,8 +221,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 101;
 
@@ -241,8 +239,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(13);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 102;
 
@@ -259,8 +257,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(13);
 					indexes.add(14);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 41;
 
@@ -278,8 +276,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment();
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 100;
 					
@@ -390,30 +388,25 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
-					if(ActivityType == 1){
-						addActFrag.pager.setCurrentItem(1);
-					} else if (ActivityType == 43){
-						addActFrag.pager.setCurrentItem(2);
-					} else if (ActivityType == 47){
-						addActFrag.pager.setCurrentItem(3);
-					} else if (ActivityType == 4){
-						addActFrag.pager.setCurrentItem(4);
-					} else if (ActivityType == 9){
-						addActFrag.pager.setCurrentItem(4);
-					} else if (ActivityType == 101){
-						addActFrag.pager.setCurrentItem(4);
-					} else if (ActivityType == 102){
-						addActFrag.pager.setCurrentItem(4);
-					} else if (ActivityType == 41){
-						
-					} else if (ActivityType == 100){
-						addActFrag.pager.setCurrentItem(4);
+					if(ActivityType == 1){ // travel
+						AddActivityFragment.pager.setCurrentItem(1);
+					} else if (ActivityType == 43){ // coSMRs
+						AddActivityFragment.pager.setCurrentItem(2);
+					} else if (ActivityType == 47){ // admin works
+						AddActivityFragment.pager.setCurrentItem(3);
+					} else if (ActivityType == 4){ // retails
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 9){ // ki visits
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 101){ // major training
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 102){ // end user
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 41){ // full brand
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 100){ // others
+						AddActivityFragment.pager.setCurrentItem(4);
 					}
-
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack("general_information");
-					ft.commit();
 				}
 			}
 		});

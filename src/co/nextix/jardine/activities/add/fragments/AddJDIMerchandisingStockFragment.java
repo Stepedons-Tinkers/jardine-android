@@ -21,22 +21,12 @@ import com.dd.CircularProgressButton;
 
 public class AddJDIMerchandisingStockFragment extends Fragment {
 
-	private FragmentTransaction ft;
-	private Fragment fragmentForTransition;
 	private boolean flag = false;
-	private int frag_layout_id = 0;
-	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_merchandising_check, container, false);
-
-		bundle = getArguments();
-		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
 		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -68,10 +58,6 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
-					if(AddActivityFragment.ACTIVITY_TYPE == 4){
-						fragmentForTransition = new AddCompetitorStockCheckFragment();
-					}					
 					
 					flag = true;
 					Editor editor = pref.edit();
@@ -92,12 +78,9 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 				} else {
 					((CircularProgressButton) v).setProgress(0);
 					
-					fragmentForTransition.setArguments(bundle);
-					
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
-					ft.commit();
+					if(AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+						AddActivityFragment.pager.setCurrentItem(9);
+					}
 				}
 			}
 		});

@@ -24,22 +24,12 @@ import co.nextix.jardine.database.records.ProductRecord;
 import com.dd.CircularProgressButton;
 
 public class AddActivityProductSupplierFragment extends Fragment {
-
-	private FragmentTransaction ft;
-	private Fragment fragmentForTransition;
+	
 	private boolean flag = false;
-	private int frag_layout_id = 0;
-	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View view = inflater.inflate(R.layout.add_activity_product_supplier, container, false);
-
-		bundle = getArguments();
-		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
 		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -72,11 +62,7 @@ public class AddActivityProductSupplierFragment extends Fragment {
 					String otherRemarks = ((EditText) view.findViewById(R.id.other_remarks)).getText().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					
-					if(AddActivityFragment.ACTIVITY_TYPE == 4){
-						fragmentForTransition = new AddJDIMerchandisingStockFragment();
-					}					
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);		
 
 					flag = true;
 					Editor editor = pref.edit();
@@ -99,12 +85,9 @@ public class AddActivityProductSupplierFragment extends Fragment {
 				} else {
 					((CircularProgressButton) v).setProgress(0);
 					
-					fragmentForTransition.setArguments(bundle);
-					
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
-					ft.commit();
+					if(AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+						AddActivityFragment.pager.setCurrentItem(8);
+					}
 				}
 			}
 		});

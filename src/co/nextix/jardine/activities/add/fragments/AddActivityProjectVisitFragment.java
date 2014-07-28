@@ -2,26 +2,37 @@ package co.nextix.jardine.activities.add.fragments;
 
 import java.util.List;
 
+import com.dd.CircularProgressButton;
+
+import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
 
 public class AddActivityProjectVisitFragment extends Fragment {
+	
 	private ArrayAdapter<PicklistRecord> projectStage = null;
 	private ArrayAdapter<PicklistRecord> projectCategory = null;
+	
+	private boolean flag = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -91,6 +102,76 @@ public class AddActivityProjectVisitFragment extends Fragment {
 //				}
 //			}
 //		});
+		
+		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(1500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+					
+//					String details = ((EditText) rootView.findViewById(R.id.details)).getText().toString();
+
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+
+					if(true){
+						flag = true;
+						Editor editor = pref.edit();
+//						editor.putString("details", details );
+						editor.commit(); // commit changes
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								getFragmentManager().popBackStackImmediate();
+							}
+
+						}, 2700);
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+
+							}
+						}, 1500);
+					}
+
+				} else {
+					((CircularProgressButton) v).setProgress(0);
+					
+					if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+						AddActivityFragment.pager.setCurrentItem(12);
+					}
+				}
+			}
+		});
 		
 		return rootView;
 	}

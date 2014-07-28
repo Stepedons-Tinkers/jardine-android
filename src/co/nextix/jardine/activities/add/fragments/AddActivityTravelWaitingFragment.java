@@ -35,9 +35,9 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 	private AddActivityFragment addActFrag1;
 
-	public AddActivityTravelWaitingFragment(Fragment frag) {
-		this.fragment = frag;
-	}
+//	public AddActivityTravelWaitingFragment(Fragment frag) {
+//		this.fragment = frag;
+//	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -46,7 +46,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 		final View view = inflater.inflate(
 				R.layout.add_activity_travel_or_waiting, container, false);
 
-		addActFrag1 = (AddActivityFragment) fragment;
+//		addActFrag1 = (AddActivityFragment) fragment;
 
 		view.setOnTouchListener(new OnTouchListener() {
 
