@@ -57,16 +57,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 	private boolean trapping = false;
 
-	private Fragment fragment = null;
-
 	private AddActivityFragment addActFrag;
-
 	private Fragment fragmentForTransition;
-
+	private Fragment fragment = null;
 	private FragmentTransaction ft;
-
 	private Bundle bundle;
-
 	private int frag_layout_id;
 
 	public static int ActivityType = 0;
@@ -83,7 +78,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
-
 		this.rootView.setOnTouchListener(new OnTouchListener() {
 
 			@Override
@@ -93,13 +87,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		});
 
 		bundle = getArguments();
-
 		if (bundle != null) {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
 
 		addActFrag = (AddActivityFragment) fragment;
-
 		addActFrag.pager.setCurrentItem(0);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();

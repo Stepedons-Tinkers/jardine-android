@@ -1,6 +1,5 @@
 package co.nextix.jardine.activities.add.fragments;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -77,18 +76,14 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer().getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
-
 		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB.getWorkplanEntry().getAllRecords();
-
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				customer);
+		
+		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,customer);
 		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
-
 		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(),
 				R.layout.add_activity_textview, workplanEntry);
 
 		this.rootView = inflater.inflate(R.layout.add_activity_activity_details_and_notes, container, false);
-
 		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -177,9 +172,10 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					long area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
 					long province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
 					long cityTown = ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()).getId();
+					
 					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
-					long workplanEntry = ((WorkplanEntryRecord) ((Spinner) rootView.findViewById(R.id.workplan_entry)).getSelectedItem())
-							.getId();
+					
+					long workplanEntry = ((WorkplanEntryRecord) ((Spinner) rootView.findViewById(R.id.workplan_entry)).getSelectedItem()).getId();
 					int firstTimeVisit = ((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0;
 					int plannedTimeVisit = ((CheckBox) rootView.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0;
 
@@ -199,8 +195,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						} else if (AddActivityFragment.ACTIVITY_TYPE == 100) {
 							fragmentForTransition = new AddCustomerContactsFragment();
 						}
-
-						fragmentForTransition.setArguments(bundle);
+						
+						// NullPointerException 
+						//fragmentForTransition.setArguments(bundle);
 
 						trapping = true;
 						Editor editor = pref.edit();

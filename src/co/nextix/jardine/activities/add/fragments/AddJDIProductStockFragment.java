@@ -67,8 +67,7 @@ public class AddJDIProductStockFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long stockStatus = ((JDIproductStockCheckRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem())
-							.getId();
+					long stockStatus = ((JDIproductStockCheckRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem()).getId();
 					long loadedOnShelves = ((CheckBox) view.findViewById(R.id.loaded_on_shelves)).isChecked() ? 1 : 0;
 					String otherTypeRemarks = ((EditText) view.findViewById(R.id.other_type_remarks)).getText().toString();
 
