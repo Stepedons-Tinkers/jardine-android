@@ -12,7 +12,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
@@ -42,6 +44,14 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
 
+		view.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				return true;
+			}
+		});
+
 		addActFrag = (AddActivityFragment) fragment;
 		// addActFrag.pager.setCurrentItem(1);
 
@@ -52,7 +62,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			public void onClick(final View v) {
 				v.setClickable(false);
 				v.setEnabled(false);
-				
+
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
@@ -81,10 +91,10 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 						flag = true;
 
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
-								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
-								pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "", 0, 0, 0, 0,
-								AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
+								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
+								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "",
+								0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -265,11 +275,6 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 				this.flag = false;
 			}
 		}
-	}
-
-	protected String FormatDateAndDay(int digit) {
-		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
-		return String.valueOf(formattedStringDigit);
 	}
 
 	protected String displayCheckOut() {

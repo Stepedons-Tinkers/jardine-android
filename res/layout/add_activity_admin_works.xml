@@ -32,7 +32,7 @@
                 android:maxLines="2"
                 android:padding="14dip"
                 android:scrollHorizontally="true"
-                android:text="@string/travel_or_waiting"
+                android:text="@string/admin_works"
                 android:textColor="#fff"
                 android:textSize="14sp"
                 android:textStyle="bold" />
