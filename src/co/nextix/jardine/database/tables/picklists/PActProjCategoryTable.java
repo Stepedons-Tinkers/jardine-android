@@ -195,6 +195,28 @@ public class PActProjCategoryTable {
 		return result;
 	}
 
+	public String getNameById(long ID) {
+		String result = null;
+		String MY_QUERY = "SELECT " + KEY_ACTIVITY_PROJECT_CATEGORY_NAME
+				+ " FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ACTIVITY_PROJECT_CATEGORY_ROWID + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				result = c.getString(c
+						.getColumnIndex(KEY_ACTIVITY_PROJECT_CATEGORY_NAME));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return result;
+	}
+
 	public long insert(String no) {
 		// ActivityTypeCollection collection = getRecords();
 

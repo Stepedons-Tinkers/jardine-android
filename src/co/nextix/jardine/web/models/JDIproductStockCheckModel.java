@@ -100,11 +100,11 @@ public class JDIproductStockCheckModel {
 	public void setSupplier(String supplier) {
 		this.supplier = supplier;
 	}
-	
+
 	public String getOtherRemarks() {
 		return othertyprmrks;
 	}
-	
+
 	public void setOtherRemarks(String remarks) {
 		this.othertyprmrks = remarks;
 	}

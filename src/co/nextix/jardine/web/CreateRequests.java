@@ -50,16 +50,22 @@ import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.SMRTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
+import co.nextix.jardine.database.tables.picklists.PActProjCategoryTable;
+import co.nextix.jardine.database.tables.picklists.PActProjStageTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustConPositionTable;
+import co.nextix.jardine.database.tables.picklists.PCustRecordStatusTable;
 import co.nextix.jardine.database.tables.picklists.PCustSizeTable;
 import co.nextix.jardine.database.tables.picklists.PCustTypeTable;
+import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.keys.Modules;
+import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
+import co.nextix.jardine.web.models.picklist.PcustomerRecordStatusModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.WebCreateModel;
 
@@ -74,10 +80,9 @@ public class CreateRequests {
 	private final String charset = "UTF-8";
 	private final DatabaseAdapter DB = DatabaseAdapter.getInstance();
 
-	public List<WebCreateModel> competitorProduct(
-			List<CompetitorProductRecord> records) {
+	public CreateResult competitorProduct(List<CompetitorProductRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 		JSONObject requestList = new JSONObject();
 		try {
 
@@ -109,7 +114,8 @@ public class CreateRequests {
 		BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.CompetitorProduct);
 
 		try {
 
@@ -148,11 +154,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -254,22 +260,14 @@ public class CreateRequests {
 	// return model;
 	// }
 
-	public List<WebCreateModel> customer(List<CustomerRecord> records) {
+	public CreateResult customer(List<CustomerRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
 
-			// firstname z_cuc_firstname
-			// lastname z_cuc_lastname
-			// position(picklist) z_cuc_position
-			// mobileno size z_cuc_mobileno
-			// birthday z_cuc_birthday
-			// email z_cuc_email
-			// customer(table) z_cuc_customer
-			// isactive z_cuc_isactive
-			// assignedto assigned_user_id
+			// TODO computationFor daysUnchanged
 
 			UserTable userTable = DB.getUser();
 			PCustSizeTable cSizeTable = DB.getCustomerSize();
@@ -278,6 +276,8 @@ public class CreateRequests {
 			PAreaTable areaTable = DB.getArea();
 			PProvinceTable provinceTable = DB.getProvince();
 			PCityTownTable cityTable = DB.getCityTown();
+			PCustRecordStatusTable recordStatusTable = DB
+					.getCustomerRecordStatus();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -287,6 +287,9 @@ public class CreateRequests {
 				requestObject.put("assigned_user_id", id);
 				requestObject.put("z_cu_customername", records.get(x)
 						.getCustomerName());
+				String recStat = recordStatusTable.getNameById(records.get(x)
+						.getCustomerRecordStatus());
+				requestObject.put("z_cu_customerrecstat", recStat);
 				requestObject.put("z_cu_streetadd", records.get(x)
 						.getStreetAddress());
 				requestObject.put("z_cu_chainname", records.get(x)
@@ -357,11 +360,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -377,23 +380,12 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> customerContact(
-			List<CustomerContactRecord> records) {
+	public CreateResult customerContact(List<CustomerContactRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// firstname z_cuc_firstname
-			// lastname z_cuc_lastname
-			// position(picklist) z_cuc_position
-			// mobileno size z_cuc_mobileno
-			// birthday z_cuc_birthday
-			// email z_cuc_email
-			// customer(table) z_cuc_customer
-			// isactive z_cuc_isactive
-			// assignedto assigned_user_id
 
 			UserTable userTable = DB.getUser();
 			PCustConPositionTable ccPositiontable = DB
@@ -468,11 +460,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -488,49 +480,12 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> activity(List<ActivityRecord> records) {
+	public CreateResult activity(List<ActivityRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// "createdtime": "2014-06-25 18:32:17",
-			// "modifiedtime": "2014-06-25 18:32:17",
-			// "smownerid": "18",
-			// "z_ac_activitytype": "393",
-			// "z_ac_businessunit": "402",
-			// "z_ac_crmno": "ACT000008",
-			// "z_ac_customer": "405",
-			// "z_ac_details": "",
-			// "z_ac_endtime": "2014-06-25 18:25:51",
-			// "z_ac_enduseractype": "",
-			// "z_ac_firsttimevisit": "0",
-			// "z_ac_followupcomdate": "2014-06-25",
-			// "z_ac_highlights": "",
-			// "z_ac_latitude": "0.000000000000",
-			// "z_ac_longitude": "0.000000000000",
-			// "z_ac_nextsteps": "test",
-			// "z_ac_noofattenees": "0",
-			// "z_ac_notes": "test",
-			// "z_ac_objective": "test",
-			// "z_ac_othersacttypermrk": "",
-			// "z_ac_plannedvisit": "0",
-			// z_ac_competitoract
-			// "z_ac_projectcategory": "- Select -",
-			// "z_ac_projectname": "",
-			// "z_ac_projectstage": "- Select -",
-			// "z_ac_reasonremarks": "",
-			// "z_ac_smr": "410",
-			// "z_ac_source": "Web",
-			// "z_ac_starttime": "2014-06-25 18:25:51",
-			// "z_ac_venue": "",
-			// "z_ac_workplanentry": "",
-			// "z_area": "CENTRAL LUZON AREA",
-			// "z_city": "BAGAC",
-			// "z_province": "BATAAN",
-			// "xactivityid": "493",
-			// "deleted": "0"
 
 			UserTable userTable = DB.getUser();
 			BusinessUnitTable businessUnitTable = DB.getBusinessUnit();
@@ -541,6 +496,9 @@ public class CreateRequests {
 			PAreaTable areaTable = DB.getArea();
 			PCityTownTable cityTable = DB.getCityTown();
 			PProvinceTable provinceTable = DB.getProvince();
+			PActProjCategoryTable projCategoryTable = DB
+					.getActivityProjectCategory();
+			PActProjStageTable projStageTable = DB.getActivityProjectStage();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -582,7 +540,6 @@ public class CreateRequests {
 						.getLongitude());
 				requestObject.put("z_ac_nextsteps", records.get(x)
 						.getNextSteps());
-
 				requestObject.put("z_ac_noofattenees", records.get(x)
 						.getNumberOfAttendees());
 				requestObject.put("z_ac_notes", records.get(x).getNotes());
@@ -590,12 +547,16 @@ public class CreateRequests {
 						.getObjective());
 				requestObject.put("z_ac_othersacttypermrk", records.get(x)
 						.getReasonRemarks());
-				requestObject.put("z_ac_projectcategory", records.get(x)
-						.getProjectCategory());
+				// get project category from db
+				String projectCategory = projCategoryTable.getNameById(records
+						.get(x).getProjectCategory());
+				requestObject.put("z_ac_projectcategory", projectCategory);
 				requestObject.put("z_ac_projectname", records.get(x)
 						.getProjectName());
-				requestObject.put("z_ac_projectstage", records.get(x)
+				// get project stage from db
+				String projectStage = projStageTable.getNameById(records.get(x)
 						.getProjectStage());
+				requestObject.put("z_ac_projectstage", projectStage);
 				requestObject.put("z_ac_reasonremarks", records.get(x)
 						.getReasonRemarks());
 				// get smr from db
@@ -614,10 +575,6 @@ public class CreateRequests {
 				String province = provinceTable.getNameById(records.get(x)
 						.getProvince());
 				requestObject.put("z_province", province);
-
-				// get smr from db
-				// String smr = smrTable.getNoById(records.get(x).getSMR());
-				// requestObject.put("z_ac_smr", smr);
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -660,11 +617,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -680,22 +637,18 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> jdiMerchandising(
+	public CreateResult jdiMerchandising(
 			List<JDImerchandisingCheckRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
 
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
-
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
 			ProductTable productTable = DB.getProduct();
+			PJDImerchCheckStatusTable statusTable = DB.getJDImerchCheckStatus();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -711,8 +664,10 @@ public class CreateRequests {
 				String product = productTable.getNoById(records.get(x)
 						.getProductBrand());
 				requestObject.put("z_jmc_product", product);
-				// requestObject.put("z_jmc_status", records.get(x).getst);
-
+				// get status id from db
+				String status = statusTable.getNameById(records.get(x)
+						.getStatus());
+				requestObject.put("z_jmc_status", status);
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
 			}
@@ -755,11 +710,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -775,24 +730,18 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> jdiProductStock(
-			List<JDIproductStockCheckRecord> records) {
+	public CreateResult jdiProductStock(List<JDIproductStockCheckRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
 			ProductTable productTable = DB.getProduct();
 			PJDIprodStatusTable jStatusTable = DB.getJDIproductStatus();
-			// SupplierTable supplierTable = DB.getSupplier();
+			PCustTypeTable customerTypeTable = DB.getCustomerType();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -808,15 +757,18 @@ public class CreateRequests {
 				String product = productTable.getNoById(records.get(x)
 						.getProductBrand());
 				requestObject.put("z_jps_product", product);
+				// get status id from db
 				String status = jStatusTable.getNameById(records.get(x)
 						.getStockStatus());
 				requestObject.put("z_jps_stockstatus", status);
 				requestObject.put("z_jps_loadedonshelves", records.get(x)
 						.getLoadedOnShelves());
-				// String supplier = supplierTable.getNoById(records.get(x)
-				// .getSupplier());
-				// requestObject.put("z_jps_supplier", supplier);
-				// requestObject.put("quantity", records.get(x).getQuantity());
+				requestObject.put("z_jps_othertyprmrks", records.get(x)
+						.getOtherRemarks());
+				// get customertype id from db
+				String supplier = customerTypeTable.getNameById(records.get(x)
+						.getSupplier());
+				requestObject.put("z_jps_supplier", supplier);
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -860,11 +812,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -880,18 +832,13 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> competitorProductStock(
+	public CreateResult competitorProductStock(
 			List<CompetitorProductStockCheckRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
@@ -913,11 +860,14 @@ public class CreateRequests {
 				String product = productTable.getNoById(records.get(x)
 						.getCompetitorProduct());
 				requestObject.put("z_cps_competitorprod", product);
+				// get status id from db
 				String status = comptProdStatusTable.getNameById(records.get(x)
 						.getStockStatus());
 				requestObject.put("z_cps_stockstatus", status);
 				requestObject.put("z_cps_loadedonshelves", records.get(x)
 						.getLoadedOnShelves());
+				requestObject.put("z_cps_othertyprmrks", records.get(x)
+						.getOtherRemarks());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -961,11 +911,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -981,22 +931,16 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> marketingIntel(
-			List<MarketingIntelRecord> records) {
+	public CreateResult marketingIntel(List<MarketingIntelRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
 
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
-
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
-			// CompetitorTable compTable = DB.getCompetitor();
+			CompetitorProductTable compTable = DB.getCompetitorProduct();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -1008,10 +952,10 @@ public class CreateRequests {
 				String activity = activityTable.getNoById(records.get(x)
 						.getActivity());
 				requestObject.put("z_min_activity", activity);
-				// get product id from db
-				// String compt = compTable.getNoById(records.get(x)
-				// .getCompetitorProduct());
-				// requestObject.put("z_min_competitor", compt);
+				// get competitor product id from db
+				String compt = compTable.getNoById(records.get(x)
+						.getCompetitorProduct());
+				requestObject.put("z_min_competitorprod", compt);
 				requestObject.put("z_min_details", records.get(x).getDetails());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
@@ -1056,11 +1000,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -1076,18 +1020,13 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> projectRequirements(
+	public CreateResult projectRequirements(
 			List<ProjectRequirementRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// activity z_jmc_activity
-			// product z_jmc_product
-			// status z_jmc_status
-			// assignedto assigned_user_id
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
@@ -1111,7 +1050,6 @@ public class CreateRequests {
 						.getDateNeeded());
 				requestObject.put("z_pr_squaremtrs", records.get(x)
 						.getSquareMeters());
-				// requestObject.put("z_pr_prodused", records.get(x).getpro);
 				requestObject.put("z_pr_otherdet", records.get(x)
 						.getOtherDetails());
 
@@ -1157,11 +1095,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -1177,18 +1115,12 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> productSupplier(
-			List<ProductSupplierRecord> records) {
+	public CreateResult productSupplier(List<ProductSupplierRecord> records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
-
-			// z_ps_productbrand
-			// z_ps_supplier
-			// z_ps_othersremarks
-			// z_ps_activity
 
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
@@ -1255,11 +1187,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
@@ -1275,9 +1207,9 @@ public class CreateRequests {
 		return model;
 	}
 
-	public List<WebCreateModel> documents(DocumentRecord records) {
+	public CreateResult documents(DocumentRecord records) {
 
-		List<WebCreateModel> model = null;
+		CreateResult model = null;
 
 		JSONObject requestList = new JSONObject();
 		try {
@@ -1302,6 +1234,8 @@ public class CreateRequests {
 			requestObject.put("fileversion", "1");
 			requestObject.put("filestatus", "on");
 			requestObject.put("folderid", "1");
+			requestObject.put("filename", records.getFileName());
+			requestObject.put("filetype", records.getFileType());
 			requestObject.put("mobile_id", String.valueOf(records.getId()));
 			requestObject.put("forModule", records.getModuleName());
 			requestObject.put("forEntityId", records.getModuleId());
@@ -1315,11 +1249,13 @@ public class CreateRequests {
 		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.Document);
 
 		FileInputStream fileInputStream = null;
-		File file = new File(JardineApp.JARDINE_DIRECTORY + "/"
-				+ records.getModuleName() + "/" + records.getFileName());
+		File file = new File(records.getFilePath());
+		// File file = new File("/storage/emulated/0/DCIM/Camera/kitty.3gp");
+		// String fileName = "kitty.3gp";
 
 		try {
 			fileInputStream = new FileInputStream(file);
@@ -1399,9 +1335,19 @@ public class CreateRequests {
 			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
 					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
 			dos.writeBytes("Content-Disposition: form-data; name=\"file\";filename=\""
-					+ file.toString() + "\"" + JardineApp.REQUEST_LINEEND);
-			dos.writeBytes("Content-Type: image/jpeg"
-					+ JardineApp.REQUEST_LINEEND);
+					+ records.getFileName() + "\"" + JardineApp.REQUEST_LINEEND);
+			if (records.getFileType().contains(".jpeg"))
+				dos.writeBytes("Content-Type: image/jpeg"
+						+ JardineApp.REQUEST_LINEEND);
+			else if (records.getFileType().contains(".png"))
+				dos.writeBytes("Content-Type: image/png"
+						+ JardineApp.REQUEST_LINEEND);
+			else if (records.getFileType().contains(".3gp"))
+				dos.writeBytes("Content-Type: video/mp4"
+						+ JardineApp.REQUEST_LINEEND);
+			else if (records.getFileType().contains(".mp4"))
+				dos.writeBytes("Content-Type: video/mp4"
+						+ JardineApp.REQUEST_LINEEND);
 			dos.writeBytes(JardineApp.REQUEST_LINEEND);
 			Log.e(JardineApp.TAG, "Headers are written 1");
 			// create a buffer of maximum size
@@ -1441,11 +1387,11 @@ public class CreateRequests {
 			if (status == 200) {
 
 				Gson gson = new Gson();
-				Type typeOfT = new TypeToken<DefaultRequester<List<WebCreateModel>>>() {
+				Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
 				}.getType();
-				DefaultRequester<List<WebCreateModel>> requester = gson
-						.fromJson(getReader(), typeOfT);
-				model = (List<WebCreateModel>) requester.getResult();
+				DefaultRequester<CreateResult> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (CreateResult) requester.getResult();
 
 			} else {
 				// getResponse();
