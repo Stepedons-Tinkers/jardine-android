@@ -284,7 +284,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-
 		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
 
 			@Override
