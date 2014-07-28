@@ -31,24 +31,14 @@ public class AddActivityFullBrandActivationFragment extends Fragment {
 
 	private ArrayAdapter<ActivityTypeRecord> endUserActivityTypesAdapter = null;
 	private View view = null;
-
-	private FragmentTransaction ft;
-	private Fragment fragmentForTransition;
+	
 	private boolean flag = false;
-	private int frag_layout_id = 0;
-	private Bundle bundle;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		view = inflater.inflate(R.layout.add_activity_full_brand, container,
 				false);
-
-		bundle = getArguments();
-
-		if (bundle != null) {
-			frag_layout_id = bundle.getInt("layoutID");
-		}
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB
 				.getActivityType().getAllRecords();
@@ -112,7 +102,9 @@ public class AddActivityFullBrandActivationFragment extends Fragment {
 
 							((CircularProgressButton) v).setProgress(0);
 							
-							// insert then pop all back stack
+							if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+								AddActivityFragment.pager.setCurrentItem(16);
+							}
 						}
 					}
 				});

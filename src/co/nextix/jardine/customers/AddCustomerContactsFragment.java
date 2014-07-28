@@ -17,7 +17,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -34,10 +33,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityDetailsAndNotesFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments;
-import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
@@ -72,11 +70,8 @@ public class AddCustomerContactsFragment extends Fragment implements
 	public static String formattedDate = null;
 
 	private Bundle bundle;
-	private int frag_layout_id = 0;
 
 	private CircularProgressButton saveORdone;
-	private FragmentTransaction ft;
-	private Fragment fragmentForTransition;
 	private boolean flag = false;
 	private boolean fromOther = false;
 
@@ -100,11 +95,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		bundle = getArguments();
 
-		if (bundle != null) {
-			frag_layout_id = bundle.getInt("layoutID");
-			fromOther = true;
-		}
-
 		initLayout();
 		return view;
 	}
@@ -126,10 +116,13 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 	private void initLayout() {
 
-		customerId = getArguments().getLong(
-				CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		customerName = getArguments().getString(
-				CustomerConstants.KEY_CUSTOMER_USERNAME);
+		if(bundle != null){
+			customerId = bundle.getLong(
+					CustomerConstants.KEY_CUSTOMER_LONG_ID);
+			customerName = bundle.getString(
+					CustomerConstants.KEY_CUSTOMER_USERNAME);
+		}
+		
 		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
@@ -146,8 +139,10 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
+		
+		Log.e("major?", "" + AddActivityDetailsAndNotesFragment.fromOther);
 
-		if (fromOther) {
+		if (AddActivityDetailsAndNotesFragment.fromOther) {
 			saveORdone = (CircularProgressButton) view
 					.findViewById(R.id.btnWithText1);
 			saveORdone.setVisibility(View.VISIBLE);
@@ -380,18 +375,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 					&& !birthday.isEmpty() && emailAddress != null
 					&& !emailAddress.isEmpty()) {
 
-				if (AddActivityFragment.ACTIVITY_TYPE == 41) {
-					fragmentForTransition = new AddActivityFullBrandActivationFragment();
-				} else if (AddActivityFragment.ACTIVITY_TYPE == 4){
-					fragmentForTransition = new AddActivityPhotosAndAttachments();
-				} else if(AddActivityFragment.ACTIVITY_TYPE == 100){
-					fragmentForTransition = new AddActivityPhotosAndAttachments();
-				} else {
-					fragmentForTransition = new AddJDIProductStockFragment();
-				}
-
-				fragmentForTransition.setArguments(bundle);
-
 				flag = true;
 				Editor editor = pref.edit();
 				editor.putLong("position", position);
@@ -421,13 +404,21 @@ public class AddCustomerContactsFragment extends Fragment implements
 			}
 
 		} else {
-
 			saveORdone.setProgress(0);
-
-			ft = getActivity().getSupportFragmentManager().beginTransaction();
-			ft.replace(frag_layout_id, fragmentForTransition);
-			ft.addToBackStack("add_customer_fragment");
-			ft.commit();
+			
+			if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+				AddActivityFragment.pager.setCurrentItem(6);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+				AddActivityFragment.pager.setCurrentItem(10);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
+				AddActivityFragment.pager.setCurrentItem(16);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
+				AddActivityFragment.pager.setCurrentItem(16);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+				AddActivityFragment.pager.setCurrentItem(15);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
+				
+			}
 		}
 	}
 }

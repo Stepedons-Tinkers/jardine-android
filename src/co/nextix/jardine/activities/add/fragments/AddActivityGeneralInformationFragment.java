@@ -15,7 +15,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -56,23 +55,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int flag = 0;
 
 	private boolean trapping = false;
-
-	private AddActivityFragment addActFrag;
-	private Fragment fragmentForTransition;
-	private Fragment fragment = null;
-	private FragmentTransaction ft;
-	private Bundle bundle;
-	private int frag_layout_id;
-
+	
 	public static int ActivityType = 0;
 
-	public AddActivityGeneralInformationFragment(Fragment frag) {
+	public AddActivityGeneralInformationFragment() {
 		this.calendar = Calendar.getInstance();
 		this.df = new SimpleDateFormat("HH:mm:ss");
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
 		this.month = this.calendar.get(Calendar.MONTH);
 		this.year = this.calendar.get(Calendar.YEAR);
-		this.fragment = frag;
 	}
 
 	@Override
@@ -85,14 +76,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				return true;
 			}
 		});
-
-		bundle = getArguments();
-		if (bundle != null) {
-			frag_layout_id = bundle.getInt("layoutID");
-		}
-
-		addActFrag = (AddActivityFragment) fragment;
-		addActFrag.pager.setCurrentItem(0);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 
@@ -117,7 +100,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
 
-				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
+				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) { // done
 					indexes.add(2);
 					indexes.add(3);
 					indexes.add(4);
@@ -133,8 +116,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityTravelWaitingFragment(fragment);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 1;
 
 				} else if (activityTypeName.equals("Company Work-with Co-SMR/ Supervisor")) { // done
@@ -153,8 +135,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityWithCoSMRsFragment();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					ActivityType = 43;
 
 				} else if (activityTypeName.equals("Admin Work")) { // done
 					indexes.add(1);
@@ -172,8 +154,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					indexes.add(16);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityAdminWorksFragment();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					ActivityType = 47;
 
 				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
 						|| activityTypeName.equals("Retail Visits (Merienda)")) { // done
@@ -185,12 +167,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
-					fragmentForTransition.setArguments(bundle);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 4;
 
-				} else if (activityTypeName.equals("KI Visits - On-site")) {
+				} else if (activityTypeName.equals("KI Visits - On-site")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -201,10 +181,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityKiVisits();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					ActivityType = 9;
 
-				} else if (activityTypeName.contains("Major Training")) {
+				} else if (activityTypeName.contains("Major Training")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -217,10 +197,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityMajorTraining();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					ActivityType = 101;
 
-				} else if (activityTypeName.contains("End User Activity")) {
+				} else if (activityTypeName.contains("End User Activity")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -233,8 +213,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(13);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityEndUser();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
+					ActivityType = 102;
 
 				} else if (activityTypeName.equals("Full Brand Activation")) { // done
 					indexes.add(1);
@@ -249,8 +229,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(12);
 					indexes.add(13);
 					indexes.add(14);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityFullBrandActivationFragment();
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 41;
 
 				} else {
@@ -267,10 +246,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(14);
 					indexes.add(15);
-					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
-					fragmentForTransition.setArguments(bundle);
+					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 100;
+					
 				}
 			}
 
@@ -377,11 +355,25 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
-
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack("general_information");
-					ft.commit();
+					if(ActivityType == 1){ // travel
+						AddActivityFragment.pager.setCurrentItem(1);
+					} else if (ActivityType == 43){ // coSMRs
+						AddActivityFragment.pager.setCurrentItem(2);
+					} else if (ActivityType == 47){ // admin works
+						AddActivityFragment.pager.setCurrentItem(3);
+					} else if (ActivityType == 4){ // retails
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 9){ // ki visits
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 101){ // major training
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 102){ // end user
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 41){ // full brand
+						AddActivityFragment.pager.setCurrentItem(4);
+					} else if (ActivityType == 100){ // others
+						AddActivityFragment.pager.setCurrentItem(4);
+					}
 				}
 			}
 		});
@@ -450,12 +442,17 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
-				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-				String endUserActivityTypes) {
+		private InsertTask(String no, String crmNo, long activityType,
+				String checkIn, String checkOut, long businessUnit,
+				long createdBy, double longitude, double latitude,
+				String createdTime, String modifiedTime, String reasonsRemarks,
+				long smr, String adminDetails, long customer, long area,
+				long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes,
+				String highlights, String nextSteps,
+				String followUpCommitmentDate, String projectName,
+				long projectStage, long projectCategory, String venue,
+				int numberOfAttendees, String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -496,18 +493,21 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
+			this.widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
 
 			this.widthAnimation.start();
 		}
@@ -517,12 +517,18 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit, this.createdBy,
-						this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
-						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
-						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
-						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
-						this.endUserActivityTypes);
+				saveActivity(this.no, this.crmNo, this.activityType,
+						this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude,
+						this.createdTime, this.modifiedTime,
+						this.reasonsRemarks, this.smr, this.adminDetails,
+						this.customer, this.area, this.province, this.city,
+						this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes,
+						this.highlights, this.nextSteps,
+						this.followUpCommitmentDate, this.projectName,
+						this.projectStage, this.projectCategory, this.venue,
+						this.numberOfAttendees, this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -546,46 +552,68 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	protected DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
 			AddActivityGeneralInformationFragment.this.year = selectedYear;
 			AddActivityGeneralInformationFragment.this.month = selectedMonth;
 			AddActivityGeneralInformationFragment.this.day = selectedDay;
-			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
-					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
-					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year
+					+ "-"
+					+ AddActivityGeneralInformationFragment.this
+							.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
+					+ "-"
+					+ AddActivityGeneralInformationFragment.this
+							.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 			if (flag == 4) {
-				((TextView) rootView.findViewById(R.id.check_out)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.check_out))
+						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
-				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
+				((TextView) rootView
+						.findViewById(R.id.follow_up_commitment_date))
 						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			}
 		}
 	};
 
 	protected String FormatDateAndDay(int digit) {
-		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit)
+				: String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
 	}
 
 	protected String displayCheckIn() {
-		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
-				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
-				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year
+				+ "-"
+				+ AddActivityGeneralInformationFragment.this
+						.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
+				+ "-"
+				+ AddActivityGeneralInformationFragment.this
+						.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
 	}
 
-	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
-			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected void saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
-				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
-				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
-				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
+		JardineApp.DB.getActivity()
+				.insert(no, crmNo, activityType, checkIn, checkOut,
+						businessUnit, createdBy, longitude, latitude,
+						createdTime, modifiedTime, reasonsRemarks, smr,
+						adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 	}
 }
