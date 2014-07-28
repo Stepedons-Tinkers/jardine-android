@@ -266,10 +266,11 @@ public class SyncMenuBarFragment extends Fragment {
 			CompetitorProductTable table = JardineApp.DB.getCompetitorProduct();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProduct(table
+			CreateResult results = request.competitorProduct(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -355,10 +356,10 @@ public class SyncMenuBarFragment extends Fragment {
 			CustomerTable table = JardineApp.DB.getCustomer();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customer(table
-					.getUnsyncedRecords());
+			CreateResult results = request.customer(table.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -400,10 +401,11 @@ public class SyncMenuBarFragment extends Fragment {
 			CustomerContactTable table = JardineApp.DB.getCustomerContact();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.customerContact(table
+			CreateResult results = request.customerContact(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -444,10 +446,10 @@ public class SyncMenuBarFragment extends Fragment {
 			ActivityTable table = JardineApp.DB.getActivity();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.activity(table
-					.getUnsyncedRecords());
+			CreateResult results = request.activity(table.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -490,10 +492,11 @@ public class SyncMenuBarFragment extends Fragment {
 					.getJDImerchandisingCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiMerchandising(table
+			CreateResult results = request.jdiMerchandising(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -536,10 +539,11 @@ public class SyncMenuBarFragment extends Fragment {
 					.getJDIproductStockCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.jdiProductStock(table
+			CreateResult results = request.jdiProductStock(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -582,10 +586,11 @@ public class SyncMenuBarFragment extends Fragment {
 					.getCompetitorProductStockCheck();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.competitorProductStock(table
+			CreateResult results = request.competitorProductStock(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -627,10 +632,11 @@ public class SyncMenuBarFragment extends Fragment {
 			MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.marketingIntel(table
+			CreateResult results = request.marketingIntel(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -673,10 +679,11 @@ public class SyncMenuBarFragment extends Fragment {
 					.getProjectRequirement();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.projectRequirements(table
+			CreateResult results = request.projectRequirements(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
@@ -723,10 +730,11 @@ public class SyncMenuBarFragment extends Fragment {
 			ProductSupplierTable table = JardineApp.DB.getProductSupplier();
 
 			CreateRequests request = new CreateRequests();
-			List<WebCreateModel> results = request.productSupplier(table
+			CreateResult results = request.productSupplier(table
 					.getUnsyncedRecords());
+			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : results) {
+				for (WebCreateModel model : models) {
 					table.updateNo(model.getMobileId(),
 							String.valueOf(model.getCrmNo()));
 				}
