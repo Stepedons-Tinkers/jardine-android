@@ -219,11 +219,13 @@ public class SyncMenuBarFragment extends Fragment {
 					CreateResult results = request.documents(rec);
 					if (results != null) {
 						List<WebCreateModel> webModels = results.getCreate();
-						for (WebCreateModel model : webModels) {
-							table.updateNo(model.getMobileId(),
-									String.valueOf(model.getCrmNo()));
-							// table.updateModifiedTime(model.getMobileId(),
-							// model.getModifiedTime());
+						if (webModels != null) {
+							for (WebCreateModel model : webModels) {
+								table.updateNo(model.getMobileId(),
+										String.valueOf(model.getCrmNo()));
+								// table.updateModifiedTime(model.getMobileId(),
+								// model.getModifiedTime());
+							}
 						}
 					}
 				}
@@ -268,11 +270,13 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.competitorProduct(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
 
@@ -357,14 +361,15 @@ public class SyncMenuBarFragment extends Fragment {
 
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.customer(table.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -403,11 +408,13 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.customerContact(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
 
@@ -447,14 +454,15 @@ public class SyncMenuBarFragment extends Fragment {
 
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.activity(table.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -494,14 +502,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.jdiMerchandising(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -541,14 +550,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.jdiProductStock(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -588,14 +598,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.competitorProductStock(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -634,14 +645,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.marketingIntel(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -681,14 +693,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.projectRequirements(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
@@ -732,14 +745,15 @@ public class SyncMenuBarFragment extends Fragment {
 			CreateRequests request = new CreateRequests();
 			CreateResult results = request.productSupplier(table
 					.getUnsyncedRecords());
-			List<WebCreateModel> models = results.getCreate();
 			if (results != null) {
-				for (WebCreateModel model : models) {
-					table.updateNo(model.getMobileId(),
-							String.valueOf(model.getCrmNo()));
+				List<WebCreateModel> models = results.getCreate();
+				if (models != null) {
+					for (WebCreateModel model : models) {
+						table.updateNo(model.getMobileId(),
+								String.valueOf(model.getCrmNo()));
+					}
 				}
 			}
-
 			return true;
 		}
 
