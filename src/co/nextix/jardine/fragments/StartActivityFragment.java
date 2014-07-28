@@ -13,6 +13,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -38,10 +40,14 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 
-public class StartActivityFragment extends Fragment {
+public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 	private StartActivityCustomAdapter adapter = null;
 	private ArrayList<ActivityRecord> realRecord = null;
@@ -52,7 +58,11 @@ public class StartActivityFragment extends Fragment {
 	private ListView list = null;
 	private Spinner addActivitySpinner = null;
 	private EditText editMonth = null;
-
+	private ImageButton imgFrom, imgTo;
+	private TextView txtFrom, txtTo;
+	private Date maxDate = null;
+	private Date minDate = null;	
+	
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	public String formattedDate = null;
@@ -92,7 +102,63 @@ public class StartActivityFragment extends Fragment {
 		this.editMonth.setText(this.formattedDate);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.addActivitySpinner.setAdapter(sAdapter);
+		
+		txtFrom = (TextView) rootView.findViewById(R.id.tvActivitiesFromCalendar);
+		txtTo = (TextView) rootView.findViewById(R.id.tvActivitiesToCalendar);
+		
+		txtFrom.setOnClickListener(this);
+		txtTo.setOnClickListener(this);
+		
+		imgFrom = (ImageButton) rootView.findViewById(R.id.ibActivitiesFromCalendar);
+		imgTo = (ImageButton) rootView.findViewById(R.id.ibActivitiesToCalendar);
 
+		imgFrom.setOnClickListener(this);
+		imgTo.setOnClickListener(this);
+		txtFrom.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {				
+				setupActivityEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		txtTo.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {				
+				setupActivityEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 
@@ -262,6 +328,43 @@ public class StartActivityFragment extends Fragment {
 
 		return this.rootView;
 	}
+	
+	private void setupActivityEntry() {
+
+		String dateFrom = txtFrom.getText().toString();
+		String dateTo = txtTo.getText().toString();
+
+		dateFrom = MyDateUtils.convertDateStringToDash(dateFrom);
+		dateTo = MyDateUtils.convertDateStringToDash(dateTo);
+
+		Log.d("Tugs", dateFrom);
+		Log.d("Tugs", dateTo);
+
+		realRecord.clear();
+		realRecord.addAll(JardineApp.DB.getActivity().getActivityRecordsByDate(dateFrom, dateTo));
+		int remainder = realRecord.size() % rowSize;
+//		if (remainder > 0) {
+			for (int i = 0; i < rowSize - remainder; i++) {
+				ActivityRecord rec = new ActivityRecord();
+				realRecord.add(rec);
+			}
+
+//		} else {
+//			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
+//					getActivity(),
+//					R.layout.collaterals_marketing_materials_row, realRecord);
+//			list.setAdapter(adapter);
+//		}
+
+		if (realRecord.size() > 0) {
+
+			totalPage = realRecord.size() / rowSize;
+			currentPage = 0;
+			addItem(currentPage);
+		}
+		
+
+	}
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
@@ -304,7 +407,6 @@ public class StartActivityFragment extends Fragment {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
-
 		this.setView();
 	}
 
@@ -413,4 +515,98 @@ public class StartActivityFragment extends Fragment {
 		String date = this.df.format(day);
 		return date;
 	}
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+
+		case R.id.ibActivitiesFromCalendar:
+			DatePickerDialog pickDialog1 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerFrom,
+					year, month, day);
+			if(maxDate !=null){				
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(maxDate);
+				Date date = calendar.getTime();
+				pickDialog1.getDatePicker().setMaxDate(date.getTime());
+			}
+			pickDialog1.show();
+
+			break;
+
+		case R.id.ibActivitiesToCalendar:
+			DatePickerDialog pickDialog2 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerTo,
+					year, month, day);
+			if(minDate !=null){
+				Calendar calendar= Calendar.getInstance();
+				calendar.setTime(minDate);
+				Date date = calendar.getTime();
+				pickDialog2.getDatePicker().setMinDate(date.getTime());
+			}
+			pickDialog2.show();
+
+			break;
+
+		case R.id.tvActivitiesFromCalendar:
+			txtFrom.setText(null);
+			break;
+		case R.id.tvActivitiesToCalendar:
+			txtTo.setText(null);
+			break;
+		}
+//		if(v == imgFrom){
+//			
+//		}else if(v == imgTo){
+//			
+//		}else if(v == txtFrom){
+//			
+//		}else if(v == txtTo){
+//			
+//		} 
+//		
+
+	}
+	private DatePickerDialog.OnDateSetListener datePickerListenerFrom = new DatePickerDialog.OnDateSetListener() {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+			
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			minDate = lcalendar.getTime(); 
+			txtFrom.setText(formattedDate);
+
+		}
+
+	};
+
+	private DatePickerDialog.OnDateSetListener datePickerListenerTo = new DatePickerDialog.OnDateSetListener() {
+
+		@SuppressWarnings("deprecation")
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			Calendar lcalendar = Calendar.getInstance();
+			lcalendar.set(selectedYear, selectedMonth, selectedDay);
+			maxDate = lcalendar.getTime(); 
+			txtTo.setText(formattedDate);
+
+		}
+
+	};
+	
 }

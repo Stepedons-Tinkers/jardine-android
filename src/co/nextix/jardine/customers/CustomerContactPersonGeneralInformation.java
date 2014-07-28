@@ -1,11 +1,9 @@
 package co.nextix.jardine.customers;
 
 import android.app.AlertDialog;
-import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -31,16 +29,14 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 
 	private TextView field1, field2, field3, field4, field5, field6, field7,
 			field8, field9, field10, field11, field12;
-	private long customerId = 0, contactId = 0;;
+	private long customerId = 0;
 	private Button edit, delete;
 	private CustomerContactRecord record;
-	private String username;
 
 	public static CustomerContactPersonGeneralInformation newInstance(
-			long custId, long cotactId) {
+			long custId) {
 		CustomerContactPersonGeneralInformation fragment = new CustomerContactPersonGeneralInformation();
 		Bundle bundle = new Bundle();
-		bundle.putLong(CustomerConstants.KEY_CUSTOMER_CONTACT_LONG_ID, cotactId);
 		bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID, custId);
 		fragment.setArguments(bundle);
 		return fragment;
@@ -52,8 +48,6 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 
 		customerId = getArguments().getLong(
 				CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		contactId = getArguments().getLong(
-				CustomerConstants.KEY_CUSTOMER_CONTACT_LONG_ID);
 		getActivity().setRequestedOrientation(
 				ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
@@ -63,7 +57,7 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 		return view;
 	}
 
-	public void initLayout() {
+	private void initLayout() {
 
 		field1 = (TextView) view.findViewById(R.id.tvCustomerContactField1);
 		field2 = (TextView) view.findViewById(R.id.tvCustomerContactField2);
@@ -82,8 +76,9 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 		delete = (Button) view.findViewById(R.id.btnDeleteContactPerson);
 
 		edit.setOnClickListener(click);
+		delete.setOnClickListener(click);
 
-		record = JardineApp.DB.getCustomerContact().getById(contactId);
+		record = JardineApp.DB.getCustomerContact().getById(customerId);
 
 		field1.setText(record.getCrm());
 		field2.setText(record.getFirstName());
@@ -95,7 +90,7 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 				record.getCustomer());
 		field6.setText(cust.getCustomerName());
 
-		username = StoreAccount.restore(JardineApp.context).getString(
+		String username = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
@@ -121,16 +116,6 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 
 		field12.setText(MyDateUtils.convertDateTime(record.getModifiedTime()));
 
-		if (record.getCrm().contentEquals("")) {
-			delete.setOnClickListener(click);
-			delete.setBackgroundColor(Color.RED);
-		} else {
-
-			delete.setBackgroundColor(Color.DKGRAY);
-			delete.setClickable(false);
-			delete.setOnClickListener(null);
-			delete.setEnabled(false);
-		}
 	}
 
 	private View.OnClickListener click = new View.OnClickListener() {
@@ -144,28 +129,11 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 				break;
 			case R.id.btnEditContactPerson:
 				CustomerConstants.CUSTOMER_CONTACT_RECORD = record;
-				// Intent intent = new Intent(getActivity(),
-				// EditCustomerContacts.class);
-				// intent.putExtra(CustomerConstants.KEY_CUSTOMER_LONG_ID,
-				// customerId);
-				// getActivity().startActivity(intent);
-
-				EditCustomerContactsFragment editFragment = new EditCustomerContactsFragment();
-				Bundle bundle = new Bundle();
-				bundle.putLong(CustomerConstants.KEY_CUSTOMER_LONG_ID,
+				Intent intent = new Intent(getActivity(),
+						EditCustomerContacts.class);
+				intent.putExtra(CustomerConstants.KEY_CUSTOMER_LONG_ID,
 						customerId);
-				editFragment.setArguments(bundle);
-				editFragment.setTargetFragment(
-						CustomerContactPersonGeneralInformation.this, 15);
-
-				getActivity()
-						.getSupportFragmentManager()
-						.beginTransaction()
-						.setTransition(
-								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-						.add(R.id.frame_container, editFragment, JardineApp.TAG)
-						.addToBackStack(JardineApp.TAG).commit();
-
+				getActivity().startActivity(intent);
 				break;
 			}
 

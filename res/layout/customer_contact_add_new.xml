@@ -28,7 +28,7 @@
                 android:background="@color/collaterals_general_info"
                 android:padding="10dp"
                 android:text="@string/collaterals_ep_general_information"
-                android:textColor="@color/white" android:visibility="invisible"
+                android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <Button
