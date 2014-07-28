@@ -30,7 +30,6 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -103,13 +102,14 @@ public class StartActivityFragment extends Fragment {
 								&& searchItem.equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-//						} else if (parent.getSelectedItem().toString()
-//								.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-//								&& searchItem.equals(String.valueOf(records.get(i).getWorkplan()))) {
-//
-//							itemSearch.add(records.get(i));
-						} 
-						else if (parent.getSelectedItem().toString()
+							// } else if (parent.getSelectedItem().toString()
+							// .equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+							// &&
+							// searchItem.equals(String.valueOf(records.get(i).getWorkplan())))
+							// {
+							//
+							// itemSearch.add(records.get(i));
+						} else if (parent.getSelectedItem().toString()
 								.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& searchItem.equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -155,10 +155,13 @@ public class StartActivityFragment extends Fragment {
 								&& v.getText().toString().equals(records.get(i).getCrm())) {
 
 							itemSearch.add(records.get(i));
-//						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-//								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
-//
-//							itemSearch.add(records.get(i));
+							// } else if
+							// (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
+							// &&
+							// v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan())))
+							// {
+							//
+							// itemSearch.add(records.get(i));
 						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
 								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
 
@@ -219,7 +222,7 @@ public class StartActivityFragment extends Fragment {
 				android.support.v4.app.Fragment fragment = new AddActivityFragment();
 				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-						.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+						.replace(R.id.frame_container, fragment).addToBackStack("general_information").commit();
 			}
 		});
 
@@ -331,12 +334,13 @@ public class StartActivityFragment extends Fragment {
 		Editor editor = pref.edit();
 		editor.putLong("activity_id", tempValues.getId());
 		editor.putString("crm_no", tempValues.getCrm());
-//		editor.putString("workplan", String.valueOf(tempValues.getWorkplan()));
-//		editor.putString("start_time", tempValues.getStartTime());
-//		editor.putString("end_time", tempValues.getEndTime());
+		// editor.putString("workplan",
+		// String.valueOf(tempValues.getWorkplan()));
+		// editor.putString("start_time", tempValues.getStartTime());
+		// editor.putString("end_time", tempValues.getEndTime());
 		editor.putString("latitude", String.valueOf(tempValues.getLatitude()));
 		editor.putString("longitude", String.valueOf(tempValues.getLongitude()));
-//		editor.putString("objective", tempValues.getObjectives());
+		// editor.putString("objective", tempValues.getObjectives());
 		editor.putString("notes", tempValues.getNotes());
 		editor.putString("competitor_activities", "getCompetitorActivities()");
 		editor.putString("highlights", tempValues.getHighlights());

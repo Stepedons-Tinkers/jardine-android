@@ -1,11 +1,15 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +25,10 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import com.dd.CircularProgressButton;
 
 public class AddActivityTravelWaitingFragment extends Fragment {
-	
+
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
-	
+
 	private Fragment fragment = null;
 
 	private AddActivityFragment addActFrag;
@@ -37,19 +41,22 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
-		
+
 		addActFrag = (AddActivityFragment) fragment;
-//		addActFrag.pager.setCurrentItem(1);
+		// addActFrag.pager.setCurrentItem(1);
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+				
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -74,20 +81,21 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 						flag = true;
 
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
+								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long.parseLong(StoreAccount
 								.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref.getString("check_in", null),
-								pref.getString("check_out", null), reasons, 0, "", 0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "",
-								0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+								pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "", 0, 0, 0, 0,
+								AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								getActivity().getSupportFragmentManager().popBackStackImmediate();
+								getFragmentManager();
+								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 
-						}, 2700);
+						}, 1700);
 
 					} else {
 
@@ -100,13 +108,13 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 							@Override
 							public void run() {
 								((CircularProgressButton) v).setProgress(0);
-
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 						}, 1500);
 					}
 
 				} else {
-
 					((CircularProgressButton) v).setProgress(0);
 				}
 			}
@@ -264,12 +272,17 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 		return String.valueOf(formattedStringDigit);
 	}
 
+	protected String displayCheckOut() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		return " " + df.format(calendar.getTime());
+	}
+
 	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
 			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
 			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-			String endUserActivityTypes) {
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
 		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
