@@ -34,6 +34,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments;
@@ -380,17 +381,19 @@ public class AddCustomerContactsFragment extends Fragment implements
 					&& !birthday.isEmpty() && emailAddress != null
 					&& !emailAddress.isEmpty()) {
 
-				if (AddActivityFragment.ACTIVITY_TYPE == 41) {
+				if (AddActivityFragment.ACTIVITY_TYPE == 41) { // full brand
 					fragmentForTransition = new AddActivityFullBrandActivationFragment();
-				} else if (AddActivityFragment.ACTIVITY_TYPE == 4){
-					fragmentForTransition = new AddActivityPhotosAndAttachments();
-				} else if(AddActivityFragment.ACTIVITY_TYPE == 100){
-					fragmentForTransition = new AddActivityPhotosAndAttachments();
-				} else {
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 4) { // retails
 					fragmentForTransition = new AddJDIProductStockFragment();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 100) { // others
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 9) { // ki visits
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 101) { // major training
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
+				} else if (AddActivityFragment.ACTIVITY_TYPE == 102) { // end user
+					fragmentForTransition = new AddActivityPhotosAndAttachments();
 				}
-
-				fragmentForTransition.setArguments(bundle);
 
 				flag = true;
 				Editor editor = pref.edit();
@@ -421,8 +424,9 @@ public class AddCustomerContactsFragment extends Fragment implements
 			}
 
 		} else {
-
 			saveORdone.setProgress(0);
+			
+			fragmentForTransition.setArguments(bundle);
 
 			ft = getActivity().getSupportFragmentManager().beginTransaction();
 			ft.replace(frag_layout_id, fragmentForTransition);

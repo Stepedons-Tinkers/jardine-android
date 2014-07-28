@@ -76,8 +76,9 @@ public class AddJDIProductStockFragment extends Fragment {
 
 					if (otherTypeRemarks != null && !otherTypeRemarks.isEmpty()) {
 						
-						fragmentForTransition = new AddActivityProductSupplierFragment();
-						fragmentForTransition.setArguments(bundle);
+						if(AddActivityFragment.ACTIVITY_TYPE == 4){
+							fragmentForTransition = new AddActivityProductSupplierFragment();
+						}						
 						
 						Editor editor = pref.edit();
 						editor.putString("other_type_remarks", otherTypeRemarks);
@@ -100,6 +101,8 @@ public class AddJDIProductStockFragment extends Fragment {
 					}
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					
+					fragmentForTransition.setArguments(bundle);
 					
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

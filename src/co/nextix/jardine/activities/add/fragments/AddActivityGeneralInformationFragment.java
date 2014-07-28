@@ -114,7 +114,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				String activityTypeName = ((ActivityTypeRecord) parent.getSelectedItem()).getName();
 				ArrayList<Integer> indexes = new ArrayList<Integer>();
 
-				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) {
+				if (activityTypeName.equals("Travel") || activityTypeName.equals("Waiting")) { // done
 					indexes.add(2);
 					indexes.add(3);
 					indexes.add(4);
@@ -152,6 +152,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityWithCoSMRsFragment();
+					ActivityType = 43;
 
 				} else if (activityTypeName.equals("Admin Work")) { //done
 					indexes.add(1);
@@ -171,6 +172,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(16);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityAdminWorksFragment();
+					ActivityType = 47;
 
 				} else if (activityTypeName.equals("Retail Visits (Traditional Hardware)")
 						|| activityTypeName.equals("Retail Visits (Merienda)")) { //done
@@ -187,7 +189,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					fragmentForTransition.setArguments(bundle);
 					ActivityType = 4;
 
-				} else if (activityTypeName.equals("KI Visits - On-site")) {
+				} else if (activityTypeName.equals("KI Visits - On-site")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -199,9 +201,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityKiVisits();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 9;
 
-				} else if (activityTypeName.contains("Major Training")) {
+				} else if (activityTypeName.contains("Major Training")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -215,9 +219,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityMajorTraining();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 101;
 
-				} else if (activityTypeName.contains("End User Activity")) {
+				} else if (activityTypeName.contains("End User Activity")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -231,7 +237,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(13);
 					indexes.add(15);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
-					fragmentForTransition = new AddActivityEndUser();
+					fragmentForTransition = new AddActivityDetailsAndNotesFragment(fragment);
+					fragmentForTransition.setArguments(bundle);
+					ActivityType = 102;
 
 				} else if (activityTypeName.equals("Full Brand Activation")) { //done
 					indexes.add(1);
@@ -248,6 +256,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(14);
 					addActFrag.tabs.setViewPagerForDisable(addActFrag.pager, false, indexes);
 					fragmentForTransition = new AddActivityFullBrandActivationFragment();
+					fragmentForTransition.setArguments(bundle);
 					ActivityType = 41;
 
 				} else {

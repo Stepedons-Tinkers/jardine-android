@@ -60,15 +60,27 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer()
 				.getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
-		List<ProvinceRecord> province = JardineApp.DB.getProvince().getAllRecords();
-		List<CityTownRecord> cityTown = JardineApp.DB.getCityTown().getAllRecords();
-		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB.getWorkplanEntry().getAllRecords();
-		
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, customer);
-		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
-		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, province);
-		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, cityTown);
-		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, workplanEntry);
+		List<ProvinceRecord> province = JardineApp.DB.getProvince()
+				.getAllRecords();
+		List<CityTownRecord> cityTown = JardineApp.DB.getCityTown()
+				.getAllRecords();
+		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB
+				.getWorkplanEntry().getAllRecords();
+
+		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview,
+				customer);
+		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview, area);
+		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview,
+				province);
+		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview,
+				cityTown);
+		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(
+				getActivity().getApplicationContext(),
+				R.layout.add_activity_textview, workplanEntry);
 
 		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity()
 				.getApplicationContext(), R.layout.add_activity_textview,
@@ -99,7 +111,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 				.setAdapter(this.workplanEntryAdapter);
 
 		bundle = getArguments();
-		
+
 		if (bundle != null) {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
@@ -187,13 +199,17 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 									&& nextSteps != null
 									&& !nextSteps.isEmpty()) {
 
-								if (AddActivityFragment.ACTIVITY_TYPE == 4) {
+								if (AddActivityFragment.ACTIVITY_TYPE == 4) { // retails
 									fragmentForTransition = new AddCustomerContactsFragment();
-								} else if (AddActivityFragment.ACTIVITY_TYPE == 100) {
+								} else if (AddActivityFragment.ACTIVITY_TYPE == 100) { // others
+									fragmentForTransition = new AddCustomerContactsFragment();
+								} else if (AddActivityFragment.ACTIVITY_TYPE == 9) { // ki visits
+									fragmentForTransition = new AddCustomerContactsFragment();
+								} else if (AddActivityFragment.ACTIVITY_TYPE == 101) { // major traning
+									fragmentForTransition = new AddCustomerContactsFragment();
+								} else if (AddActivityFragment.ACTIVITY_TYPE == 102) { // end user
 									fragmentForTransition = new AddCustomerContactsFragment();
 								}
-
-								fragmentForTransition.setArguments(bundle);
 
 								trapping = true;
 								Editor editor = pref.edit();
@@ -236,18 +252,15 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 							}
 
 						} else {
-
 							((CircularProgressButton) v).setProgress(0);
 
-							if (AddActivityGeneralInformationFragment.ActivityType == 4) {
-								AddActivityGeneralInformationFragment.ActivityType = 5;
-								ft = getActivity().getSupportFragmentManager()
-										.beginTransaction();
-								ft.replace(frag_layout_id,
-										fragmentForTransition);
-								ft.addToBackStack(null);
-								ft.commit();
-							}
+							fragmentForTransition.setArguments(bundle);
+
+							ft = getActivity().getSupportFragmentManager()
+									.beginTransaction();
+							ft.replace(frag_layout_id, fragmentForTransition);
+							ft.addToBackStack(null);
+							ft.commit();
 						}
 					}
 				});

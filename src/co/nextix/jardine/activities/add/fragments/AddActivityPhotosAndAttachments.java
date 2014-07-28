@@ -189,8 +189,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 	private String getRealPathFromURI(Uri contentURI) {
 		String result;
 		Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
-		if (cursor == null) { // Source is Dropbox or other similar local file
-								// path
+		if (cursor == null) { 
 			result = contentURI.getPath();
 		} else {
 			cursor.moveToFirst();

@@ -14,10 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.SuperAwesomeCardFragment;
-import co.nextix.jardine.activities.select.fragments.SelectProductFragment;
 import co.nextix.jardine.workplan.WorkPlanConstants;
 
 import com.astuetz.PagerSlidingTabStrip;

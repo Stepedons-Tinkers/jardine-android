@@ -69,8 +69,9 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-					fragmentForTransition = new AddCompetitorStockCheckFragment();
-					fragmentForTransition.setArguments(bundle);
+					if(AddActivityFragment.ACTIVITY_TYPE == 4){
+						fragmentForTransition = new AddCompetitorStockCheckFragment();
+					}					
 					
 					flag = true;
 					Editor editor = pref.edit();
@@ -90,6 +91,8 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					
+					fragmentForTransition.setArguments(bundle);
 					
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

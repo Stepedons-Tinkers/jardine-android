@@ -74,8 +74,9 @@ public class AddActivityProductSupplierFragment extends Fragment {
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					
-					fragmentForTransition = new AddJDIMerchandisingStockFragment();
-					fragmentForTransition.setArguments(bundle);
+					if(AddActivityFragment.ACTIVITY_TYPE == 4){
+						fragmentForTransition = new AddJDIMerchandisingStockFragment();
+					}					
 
 					flag = true;
 					Editor editor = pref.edit();
@@ -97,6 +98,8 @@ public class AddActivityProductSupplierFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					
+					fragmentForTransition.setArguments(bundle);
 					
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

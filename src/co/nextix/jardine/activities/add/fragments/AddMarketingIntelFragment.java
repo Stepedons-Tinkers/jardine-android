@@ -96,7 +96,7 @@ public class AddMarketingIntelFragment extends Fragment {
 				} else {
 					((CircularProgressButton) v).setProgress(0);
 					
-					// insert then pop all backstack
+					// insert to db then pop all backstack
 				}
 			}
 		});
