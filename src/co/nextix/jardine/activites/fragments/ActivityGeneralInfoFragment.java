@@ -23,7 +23,7 @@ import co.nextix.jardine.database.tables.UserTable;
 public class ActivityGeneralInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
-	
+
 	private int frag_layout_id;
 	private Bundle bundle;
 
@@ -32,7 +32,7 @@ public class ActivityGeneralInfoFragment extends Fragment {
 		
 		View myFragmentView = inflater.inflate(R.layout.fragment_activity_detail_general_information, container, false);
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0000));
+		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
 		
 		bundle = getArguments();
 		
@@ -40,7 +40,7 @@ public class ActivityGeneralInfoFragment extends Fragment {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
 		
-		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm());
+		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm() != null ? this.activityRecord.getCrm() : "");
 		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getCheckIn());
 		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getCheckOut());
 

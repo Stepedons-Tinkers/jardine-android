@@ -38,7 +38,7 @@ public class AddActivityFragment extends Fragment {
 
 	private Bundle bundle;
 	private Bundle b;
-	
+
 	public static long WORKPLAN_ENTRY_ID = 0;
 	public static long ACTIVITY_TYPE = 0;
 
@@ -46,10 +46,10 @@ public class AddActivityFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
-		
+
 		b = getArguments();
-		
-		if(b != null){
+
+		if (b != null) {
 			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
 		}
 
@@ -100,6 +100,7 @@ public class AddActivityFragment extends Fragment {
 		addActGenInfoFrag.setArguments(bundle);
 
 		ft.replace(R.id.layoutForAddingFrag, addActGenInfoFrag);
+		ft.addToBackStack("general_information");
 		ft.commit();
 
 		return rootView;
