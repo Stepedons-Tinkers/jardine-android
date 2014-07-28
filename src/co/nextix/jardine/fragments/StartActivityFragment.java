@@ -13,6 +13,8 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -37,10 +39,14 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.WorkplanEntryRecord;
+import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 
-public class StartActivityFragment extends Fragment {
+public class StartActivityFragment extends Fragment  implements OnClickListener{
 
 	private StartActivityCustomAdapter adapter = null;
 	private ArrayList<ActivityRecord> realRecord = null;
@@ -51,7 +57,10 @@ public class StartActivityFragment extends Fragment {
 	private ListView list = null;
 	private Spinner addActivitySpinner = null;
 	private EditText editMonth = null;
-
+	private ImageButton imgFrom, imgTo;
+	private TextView txtFrom, txtTo;
+	
+	
 	private Calendar c = null;
 	private SimpleDateFormat df = null;
 	public String formattedDate = null;
@@ -83,7 +92,63 @@ public class StartActivityFragment extends Fragment {
 		this.editMonth.setText(this.formattedDate);
 		this.addActivitySpinner = (Spinner) this.rootView.findViewById(R.id.add_activity_spinner);
 		this.addActivitySpinner.setAdapter(sAdapter);
+		
+		txtFrom = (TextView) rootView.findViewById(R.id.tvActivitiesFromCalendar);
+		txtTo = (TextView) rootView.findViewById(R.id.tvActivitiesToCalendar);
+		
+		txtFrom.setOnClickListener(this);
+		txtTo.setOnClickListener(this);
+		
+		imgFrom = (ImageButton) rootView.findViewById(R.id.ibActivitiesFromCalendar);
+		imgTo = (ImageButton) rootView.findViewById(R.id.ibActivitiesToCalendar);
 
+		imgFrom.setOnClickListener(this);
+		imgTo.setOnClickListener(this);
+		txtFrom.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				setupWorkplanEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+
+		txtTo.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
+				setupWorkplanEntry();
+
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 
@@ -249,6 +314,48 @@ public class StartActivityFragment extends Fragment {
 
 		return this.rootView;
 	}
+	
+	private void setupWorkplanEntry() {
+/*
+		String dateFrom = txtFrom.getText().toString();
+		String dateTo = txtTo.getText().toString();
+		long wId = ((WorkplanRecord) searchSpinner.getSelectedItem()).getId();
+
+		dateFrom = MyDateUtils.convertDateStringToDash(dateFrom);
+		dateTo = MyDateUtils.convertDateStringToDash(dateTo);
+
+		Log.d("Tugs", dateFrom);
+		Log.d("Tugs", dateTo);
+		Log.d("Tugs", wId + "");
+		Log.d("Tugs", searchPhrase + "");
+
+		realRecord.clear();
+		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+				.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
+						searchPhrase, spinner.getSelectedItemPosition()));
+
+		int remainder = realRecord.size() % rowSize;
+		if (remainder > 0) {
+			for (int i = 0; i < rowSize - remainder; i++) {
+				WorkplanEntryRecord rec = new WorkplanEntryRecord();
+				realRecord.add(rec);
+			}
+
+		} else {
+			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
+					getActivity(),
+					R.layout.collaterals_marketing_materials_row, realRecord);
+			list.setAdapter(adapter);
+		}
+
+		if (realRecord.size() > 0) {
+
+			totalPage = realRecord.size() / rowSize;
+			addItem(currentPage);
+		}
+		*/
+
+	}
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
@@ -413,4 +520,68 @@ public class StartActivityFragment extends Fragment {
 		String date = this.df.format(day);
 		return date;
 	}
+	@Override
+	public void onClick(View v) {
+
+		switch (v.getId()) {
+
+		case R.id.ibActivitiesFromCalendar:
+			DatePickerDialog pickDialog1 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerFrom,
+					year, month, day);
+			pickDialog1.show();
+
+			break;
+
+		case R.id.ibActivitiesToCalendar:
+			DatePickerDialog pickDialog2 = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListenerTo,
+					year, month, day);
+			pickDialog2.show();
+
+			break;
+
+		case R.id.tvWorkPlanFromCalendar:
+			txtFrom.setText(null);
+			break;
+		case R.id.tvWorkPlanToCalendar:
+			txtTo.setText(null);
+			break;
+		}
+
+	}
+	private DatePickerDialog.OnDateSetListener datePickerListenerFrom = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			txtFrom.setText(formattedDate);
+
+		}
+
+	};
+
+	private DatePickerDialog.OnDateSetListener datePickerListenerTo = new DatePickerDialog.OnDateSetListener() {
+
+		@Override
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
+
+			year = selectedYear;
+			month = selectedMonth;
+			day = selectedDay;
+
+			formattedDate = (month + 1) + "/" + day + "/" + year;
+			txtTo.setText(formattedDate);
+
+		}
+
+	};
+	
 }

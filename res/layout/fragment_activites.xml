@@ -49,8 +49,86 @@
                 android:ems="10"
                 android:gravity="center"
                 android:inputType="textMultiLine"
-                android:visibility="invisible" />
+                android:visibility="gone" />
         </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/rlActivity1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="#ffffff"
+            android:layout_toRightOf="@+id/relativeLayout1"
+            android:baselineAligned="@+id/relativeLayout1"
+            android:orientation="horizontal"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" >
+
+            <LinearLayout
+                android:id="@+id/llWorkPlan1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end" >
+
+                <TextView
+                    android:id="@+id/tvActivitiesFromCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/xml_collaterals_search_bg"
+                    android:ems="7"
+                    android:gravity="center"
+                    android:hint="@string/workplan_from"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/ibActivitiesFromCalendar"
+                    android:layout_width="@dimen/calendar_button"
+                    android:layout_height="@dimen/calendar_button"
+                    android:background="@null"
+                    android:contentDescription="@string/desc_list_item_icon"
+                    android:src="@android:drawable/ic_menu_today" >
+                </ImageButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/llWorkPlan2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:layout_weight="1"
+                android:gravity="center_vertical|end" >
+
+                <TextView
+                    android:id="@+id/tvActivitiesToCalendar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="@drawable/xml_collaterals_search_bg"
+                    android:ems="7"
+                    android:gravity="center"
+                    android:hint="@string/workplan_to"
+                    android:maxLines="1"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <ImageButton
+                    android:id="@+id/ibActivitiesToCalendar"
+                    android:layout_width="@dimen/calendar_button"
+                    android:layout_height="@dimen/calendar_button"
+                    android:background="@null"
+                    android:contentDescription="@string/desc_list_item_icon"
+                    android:src="@android:drawable/ic_menu_today" >
+                </ImageButton>
+            </LinearLayout>
+        </LinearLayout>
 
         <ImageButton
             android:id="@+id/prev_button"
@@ -59,7 +137,8 @@
             android:layout_centerVertical="true"
             android:layout_marginTop="7dp"
             android:layout_toLeftOf="@+id/editMonth"
-            android:src="@android:drawable/ic_media_previous" />
+            android:src="@android:drawable/ic_media_previous"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/activity_schedule"
@@ -67,7 +146,8 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/next_button"
-            android:src="@android:drawable/ic_menu_my_calendar" />
+            android:src="@android:drawable/ic_menu_my_calendar"
+            android:visibility="gone" />
 
         <ImageButton
             android:id="@+id/next_button"
@@ -75,7 +155,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:src="@android:drawable/ic_media_next" />
+            android:src="@android:drawable/ic_media_next"
+            android:visibility="gone" />
 
         <EditText
             android:id="@+id/editMonth"
@@ -87,7 +168,8 @@
             android:ems="10"
             android:focusable="false"
             android:gravity="center"
-            android:inputType="textMultiLine" />
+            android:inputType="textMultiLine"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ScrollView
@@ -130,9 +212,9 @@
                     <LinearLayout
                         android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_height="wrap_content"
                         android:layout_weight="5" >
 
                         <TextView
