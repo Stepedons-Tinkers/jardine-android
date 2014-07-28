@@ -59,7 +59,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private Fragment fragment = null;
 	private AddActivityFragment addActFrag;
 	private Calendar calendar = null;
-	
+
 	private String formattedDate = null;
 	private int day = 0;
 	private int month = 0;
@@ -77,27 +77,13 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer().getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
-		List<ProvinceRecord> province = JardineApp.DB.getProvince().getAllRecords();
-		List<CityTownRecord> cityTown = JardineApp.DB.getCityTown().getAllRecords();
+
 		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB.getWorkplanEntry().getAllRecords();
 
 		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
 				customer);
 		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
-		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				province);
-		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				cityTown);
-		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(),
-				R.layout.add_activity_textview, workplanEntry);
 
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				customer);
-		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview, area);
-		this.provinceAdapter = new ArrayAdapter<ProvinceRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				province);
-		this.cityTownAdapter = new ArrayAdapter<CityTownRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
-				cityTown);
 		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(getActivity().getApplicationContext(),
 				R.layout.add_activity_textview, workplanEntry);
 
@@ -106,12 +92,12 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View rootView, int position, long id) {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				PProvinceTable provinceTable = JardineApp.DB.getProvince();
 				provinceAdapter = new ArrayAdapter<ProvinceRecord>(JardineApp.context, R.layout.add_activity_textview, provinceTable
 						.getRecordsByAreaId(id + 1));
-				((Spinner) rootView.findViewById(R.id.province)).setAdapter(provinceAdapter);
 
+				((Spinner) rootView.findViewById(R.id.province)).setAdapter(provinceAdapter);
 			}
 
 			@Override
@@ -123,10 +109,11 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		((Spinner) this.rootView.findViewById(R.id.province)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
-			public void onItemSelected(AdapterView<?> parent, View rootView, int position, long id) {
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 				PCityTownTable cityTable = JardineApp.DB.getCityTown();
 				cityTownAdapter = new ArrayAdapter<CityTownRecord>(JardineApp.context, R.layout.add_activity_textview, cityTable
 						.getRecordsByProvinceId(id + 1));
+
 				((Spinner) rootView.findViewById(R.id.city_town)).setAdapter(cityTownAdapter);
 			}
 
@@ -149,8 +136,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 		((Spinner) rootView.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
 		((Spinner) rootView.findViewById(R.id.area)).setAdapter(this.areaAdapter);
-		((Spinner) rootView.findViewById(R.id.province)).setAdapter(this.provinceAdapter);
-		((Spinner) rootView.findViewById(R.id.city_town)).setAdapter(this.cityTownAdapter);
 		((Spinner) rootView.findViewById(R.id.workplan_entry)).setAdapter(this.workplanEntryAdapter);
 
 		bundle = getArguments();
