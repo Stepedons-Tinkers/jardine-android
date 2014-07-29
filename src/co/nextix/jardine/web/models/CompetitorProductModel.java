@@ -18,7 +18,7 @@ public class CompetitorProductModel {
 	@SerializedName("z_cmp_crmno")
 	private String crm_no;
 
-	@SerializedName("z_cmp_comp")
+	@SerializedName("cf_1143")
 	private String competitor;
 
 	@SerializedName("z_cmp_prbrnd")

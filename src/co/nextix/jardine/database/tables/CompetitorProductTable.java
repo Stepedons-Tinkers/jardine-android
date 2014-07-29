@@ -433,14 +433,26 @@ public class CompetitorProductTable {
 		}
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean updateNo(long id, String no, String modifiedTime) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCT_NO, no);
+		args.put(KEY_COMPETITORPRODUCT_MODIFIEDTIME, modifiedTime);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, competitor, productBrand,
 			// productDescription, productSize, isActive, createdTime,
 			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNo(long id, String crmNo) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);
+		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
+				+ id, null) > 0) {
 			return true;
 		} else {
 			return false;
