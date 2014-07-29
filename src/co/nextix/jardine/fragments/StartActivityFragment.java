@@ -298,7 +298,7 @@ public class StartActivityFragment extends Fragment  implements OnClickListener{
 				android.support.v4.app.Fragment fragment = new AddActivityFragment();
 				android.support.v4.app.FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
 				fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-						.replace(R.id.frame_container, fragment, "general_info").addToBackStack("general_information").commit();
+						.replace(R.id.frame_container, fragment, "general_info").addToBackStack("activities").commit();
 			}
 		});
 

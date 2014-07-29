@@ -26,6 +26,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
@@ -61,11 +62,16 @@ public class DashBoardActivity extends FragmentActivity {
 	private static final String TAG = "DashBoardActivity";
 	private AlertDialog theDialog;
 	private CalendarPickerView dialogView;
+	
+	public static boolean fromAddActivities = false;
+	public static ArrayList<Integer> tabIndex;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
+		
+		tabIndex = new ArrayList<Integer>();
 
 		this.mTitle = mDrawerTitle = getTitle();
 
@@ -319,7 +325,22 @@ public class DashBoardActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
+		if (fromAddActivities){
+			Log.e("else if","else if");
+			int size = tabIndex.size();
+			Log.e("size",""+size);
+			
+			if(size == 1){
+				super.onBackPressed();
+			}else{
+				AddActivityFragment.pager.setCurrentItem(tabIndex.get(size-2));
+				tabIndex.remove(size-1);
+			}
+			
+		} else {
+			Log.e("else","else");
+			super.onBackPressed();
+		}
 
 		if (getSupportFragmentManager().findFragmentByTag("dashboard-name") instanceof DashboardFragment) {
 			mDrawerList.setItemChecked(0, true);

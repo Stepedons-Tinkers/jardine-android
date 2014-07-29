@@ -11,14 +11,17 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.security.StoreAccount;
@@ -30,15 +33,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
-
-	private Fragment fragment = null;
-
-	private AddActivityFragment addActFrag1;
-
-	// public AddActivityTravelWaitingFragment(Fragment frag) {
-	// this.fragment = frag;
-	// }
-
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
