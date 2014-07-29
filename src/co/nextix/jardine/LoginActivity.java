@@ -65,7 +65,7 @@ public class LoginActivity extends Activity {
 
 		spinnArea = (Spinner) findViewById(R.id.login_spinner_area);
 		spinnerAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_dropdown_item_1line, AREA_LIST);
+				R.layout.customer_spinner_row, AREA_LIST);
 		SELECTED_AREA = AREA_LIST[0];
 
 		spinnArea.setAdapter(spinnerAdapter);
