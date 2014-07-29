@@ -96,7 +96,11 @@ public class AddMarketingIntelFragment extends Fragment {
 				} else {
 					((CircularProgressButton) v).setProgress(0);
 					
-					// insert then pop all backstack
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retail
+						AddActivityFragment.pager.setCurrentItem(16);
+					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+						AddActivityFragment.pager.setCurrentItem(11);
+					}
 				}
 			}
 		});

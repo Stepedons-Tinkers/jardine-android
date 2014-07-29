@@ -67,8 +67,7 @@ public class AddJDIProductStockFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long stockStatus = ((JDIproductStockCheckRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem())
-							.getId();
+					long stockStatus = ((JDIproductStockCheckRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem()).getId();
 					long loadedOnShelves = ((CheckBox) view.findViewById(R.id.loaded_on_shelves)).isChecked() ? 1 : 0;
 					String otherTypeRemarks = ((EditText) view.findViewById(R.id.other_type_remarks)).getText().toString();
 
@@ -76,8 +75,9 @@ public class AddJDIProductStockFragment extends Fragment {
 
 					if (otherTypeRemarks != null && !otherTypeRemarks.isEmpty()) {
 						
-						fragmentForTransition = new AddActivityProductSupplierFragment();
-						fragmentForTransition.setArguments(bundle);
+						if(AddActivityFragment.ACTIVITY_TYPE == 4){
+							fragmentForTransition = new AddActivityProductSupplierFragment();
+						}						
 						
 						Editor editor = pref.edit();
 						editor.putString("other_type_remarks", otherTypeRemarks);
@@ -100,6 +100,8 @@ public class AddJDIProductStockFragment extends Fragment {
 					}
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					
+					fragmentForTransition.setArguments(bundle);
 					
 					ft = getActivity().getSupportFragmentManager().beginTransaction();
 					ft.replace(frag_layout_id, fragmentForTransition);

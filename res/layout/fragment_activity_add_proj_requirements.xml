@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
@@ -81,26 +82,33 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
+                    android:layout_height="match_parent"
                     android:layout_weight="1" >
 
-                    <Button
-                        android:id="@+id/edit_activity"
-                        android:layout_width="154dp"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="right"
-                        android:layout_toLeftOf="@+id/edit_activity"
-                        android:text="@string/cancel" />
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText2"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_margin="4dp"
+                        android:layout_toLeftOf="@+id/btnWithText1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:textComplete="@string/complete_cancel"
+                        app:textError="@string/error"
+                        app:textIdle="@string/cancel" />
 
-                    <Button
-                        android:id="@+id/edit_activity"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText1"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
                         android:layout_alignParentRight="true"
-                        android:layout_gravity="right"
-                        android:onClick="createJDIProductStockCheck"
-                        android:text="@string/create" />
+                        android:layout_margin="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:textComplete="@string/complete"
+                        app:textError="@string/error"
+                        app:textIdle="@string/done" />
                 </RelativeLayout>
             </TableRow>
 

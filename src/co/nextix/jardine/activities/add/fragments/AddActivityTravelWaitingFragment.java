@@ -33,16 +33,20 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 	private Fragment fragment = null;
 
-	private AddActivityFragment addActFrag;
+	private AddActivityFragment addActFrag1;
 
-	public AddActivityTravelWaitingFragment(Fragment frag) {
-		this.fragment = frag;
-	}
+//	public AddActivityTravelWaitingFragment(Fragment frag) {
+//		this.fragment = frag;
+//	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
+		final View view = inflater.inflate(
+				R.layout.add_activity_travel_or_waiting, container, false);
+
+//		addActFrag1 = (AddActivityFragment) fragment;
 
 		view.setOnTouchListener(new OnTouchListener() {
 
@@ -52,10 +56,8 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			}
 		});
 
-		addActFrag = (AddActivityFragment) fragment;
-		// addActFrag.pager.setCurrentItem(1);
-
-		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
+		this.saveBtn = (CircularProgressButton) view
+				.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -67,34 +69,54 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
+					widthAnimation
+							.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation
+							.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+								@Override
+								public void onAnimationUpdate(
+										ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+									Integer value = (Integer) animation
+											.getAnimatedValue();
+									((CircularProgressButton) v)
+											.setProgress(value);
 
-							if (!flag) {
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
+									if (!flag) {
+										((CircularProgressButton) v)
+												.setProgress(-1);
+									}
+								}
+							});
 
 					widthAnimation.start();
 
-					String reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
+					String reasons = ((EditText) view
+							.findViewById(R.id.reason_remarks)).getText()
+							.toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					SharedPreferences pref = getActivity()
+							.getApplicationContext().getSharedPreferences(
+									"ActivityInfo", 0);
 					if (reasons != null && !reasons.isEmpty()) {
 						flag = true;
 
-						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
-								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
-								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "",
-								0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+						new InsertTask("0", pref.getString("crm_no", null),
+								pref.getLong("activity_type", 0), pref
+										.getString("check_in", null), pref
+										.getString("check_out", null).concat(
+												displayCheckOut()), pref
+										.getLong("business_unit", 0), Long
+										.parseLong(StoreAccount.restore(
+												getActivity()).getString(
+												Account.ROWID)), 123.894882,
+								10.310235, pref.getString("check_in", null),
+								pref.getString("check_out", null).concat(
+										displayCheckOut()), reasons, 0, "", 0,
+								0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID,
+								"", 0, 0, "", "", "", "", "", 0, 0, "", 0, "")
+								.execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -102,7 +124,10 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 							@Override
 							public void run() {
 								getFragmentManager();
-								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								getFragmentManager()
+										.popBackStackImmediate(
+												"general_information",
+												FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 
 						}, 1700);
@@ -110,7 +135,9 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 					} else {
 
 						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(),
+								"Please fill up required (RED COLOR) fields",
+								Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -184,12 +211,17 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
-				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-				String endUserActivityTypes) {
+		private InsertTask(String no, String crmNo, long activityType,
+				String checkIn, String checkOut, long businessUnit,
+				long createdBy, double longitude, double latitude,
+				String createdTime, String modifiedTime, String reasonsRemarks,
+				long smr, String adminDetails, long customer, long area,
+				long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes,
+				String highlights, String nextSteps,
+				String followUpCommitmentDate, String projectName,
+				long projectStage, long projectCategory, String venue,
+				int numberOfAttendees, String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -230,18 +262,21 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
+			this.widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
 
 			this.widthAnimation.start();
 		}
@@ -251,12 +286,18 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit, this.createdBy,
-						this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
-						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
-						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
-						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
-						this.endUserActivityTypes);
+				saveActivity(this.no, this.crmNo, this.activityType,
+						this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude,
+						this.createdTime, this.modifiedTime,
+						this.reasonsRemarks, this.smr, this.adminDetails,
+						this.customer, this.area, this.province, this.city,
+						this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes,
+						this.highlights, this.nextSteps,
+						this.followUpCommitmentDate, this.projectName,
+						this.projectStage, this.projectCategory, this.venue,
+						this.numberOfAttendees, this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -283,16 +324,26 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 		return " " + df.format(calendar.getTime());
 	}
 
-	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
-			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected void saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
-				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
-				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
-				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
+		JardineApp.DB.getActivity()
+				.insert(no, crmNo, activityType, checkIn, checkOut,
+						businessUnit, createdBy, longitude, latitude,
+						createdTime, modifiedTime, reasonsRemarks, smr,
+						adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 	}
 }

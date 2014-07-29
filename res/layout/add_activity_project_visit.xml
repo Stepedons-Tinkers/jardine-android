@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/start_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,6 +46,37 @@
                     android:textColor="#fff"
                     android:textSize="14dp"
                     android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText2"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_margin="4dp"
+                        android:layout_toLeftOf="@+id/btnWithText1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:textComplete="@string/complete_cancel"
+                        app:textError="@string/error"
+                        app:textIdle="@string/cancel" />
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText1"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:textComplete="@string/complete"
+                        app:textError="@string/error"
+                        app:textIdle="@string/done" />
+                </RelativeLayout>
             </TableRow>
 
             <!-- Row 2 with 2 columns -->
@@ -112,20 +144,14 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <TextView
+                <Spinner
                     android:id="@+id/project_stage"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
+                    android:layout_height="50dp"
+                    android:background="#dcdcdc"
                     android:layout_marginTop="4dp"
                     android:layout_marginRight="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#dcdcdc"
-                    android:ems="10"
-                    android:gravity="center"
-                    android:hint="text field"
-                    android:maxLines="100"
-                    android:scrollHorizontally="true"
-                    android:textColor="#000000" />
+                    android:scrollHorizontally="true" />
             </TableRow>
 
             <TableRow
@@ -137,9 +163,10 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginLeft="4dp"
-                    android:layout_weight="0.3"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_weight="0.34"
                     android:background="#dcdcdc" >
 
                     <TextView
@@ -155,17 +182,44 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <TextView
+                <Spinner
                     android:id="@+id/project_category"
                     android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:background="#dcdcdc"
+                    android:layout_weight="0.36"
+                    android:layout_marginTop="4dp"
+                    android:scrollHorizontally="true" />
+
+                <HorizontalScrollView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:layout_weight="0.3"
+                    android:background="#dcdcdc" >
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="50dp"
+                        android:background="#dcdcdc"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:textColor="#FF0000"
+                        android:textStyle="bold" />
+                </HorizontalScrollView>
+
+                <TextView
+                    android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginBottom="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="text field"
                     android:maxLines="100"
                     android:scrollHorizontally="true"
                     android:textColor="#000000" />
