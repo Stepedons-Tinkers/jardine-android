@@ -28,6 +28,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -262,11 +263,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				flag = 4;
+				flag = 4;				
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
 						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
 						AddActivityGeneralInformationFragment.this.day);

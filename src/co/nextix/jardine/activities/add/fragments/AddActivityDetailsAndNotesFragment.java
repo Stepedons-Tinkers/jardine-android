@@ -22,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -111,8 +112,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 			}
 		});
 
-		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.ibFollowUpCommitmentCalendar)).setOnClickListener(new OnClickListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
