@@ -1,12 +1,13 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.util.List;
+
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,7 +15,9 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Spinner;
 import co.nextix.jardine.DashBoardActivity;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 
@@ -26,9 +29,12 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
+		List<CustomerRecord> customerList = JardineApp.DB.getCustomer().getAllRecords();
+		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_merchandising_check, container, false);
-		
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -59,7 +65,7 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					
+
 					flag = true;
 					Editor editor = pref.edit();
 					editor.putLong("product", product);
@@ -78,8 +84,8 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-					
-					if(AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 						DashBoardActivity.tabIndex.add(6, 9);
 						AddActivityFragment.pager.setCurrentItem(9);
 					}

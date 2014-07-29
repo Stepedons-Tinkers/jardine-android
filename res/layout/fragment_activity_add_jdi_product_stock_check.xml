@@ -44,7 +44,7 @@
                     android:singleLine="true"
                     android:text="@string/general_info"
                     android:textColor="#fff"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -73,7 +73,7 @@
                         android:layout_margin="4dp"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        app:textComplete="@string/complete"
+                        app:textComplete="@string/next"
                         app:textError="@string/error"
                         app:textIdle="@string/done" />
                 </RelativeLayout>
@@ -104,7 +104,7 @@
                         android:singleLine="true"
                         android:text="@string/crm_no_competitor_stock_check"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -125,7 +125,7 @@
                         android:singleLine="true"
                         android:text="incremental; auto-generated"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -146,7 +146,7 @@
                         android:state_selected="true"
                         android:text="@string/activity_competitor_stock_check"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <requestFocus
@@ -162,12 +162,17 @@
                     android:layout_weight="0.3"
                     android:background="#b0b0b0" >
 
-                    <Spinner
+                    <TextView
                         android:id="@+id/activity"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:background="#b0b0b0"
-                        android:scrollHorizontally="true" />
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="incremental; auto-generated"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -271,7 +276,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
@@ -291,7 +295,7 @@
                     android:background="#cac9c9" >
 
                     <CheckBox
-                        android:id="@+id/checkBox1"
+                        android:id="@+id/loaded_on_shelves"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#cac9c9"
@@ -305,7 +309,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
@@ -328,25 +331,12 @@
                     <Spinner
                         android:id="@+id/supplier"
                         android:layout_width="0dp"
-<<<<<<< HEAD
                         android:layout_height="45dp"
-                        android:background="#b0b0b0"
-                        android:scrollHorizontally="true" />
-=======
-                        android:layout_height="wrap_content"
-                        android:background="#cac9c9"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Supplier record"
-                        android:textColor="#000000" />
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
+                        android:background="#cac9c9" />
                 </HorizontalScrollView>
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
@@ -360,7 +350,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"
@@ -400,7 +389,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"

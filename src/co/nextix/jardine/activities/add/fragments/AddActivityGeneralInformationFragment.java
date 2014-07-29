@@ -282,7 +282,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (saveBtn.getProgress() == 0) {
-
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -334,7 +333,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 								v.setEnabled(true);
 							}
 
-						}, 1500);
+						}, 700);
 
 					} else {
 
@@ -354,6 +353,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+					
 					if(ActivityType == 1){ // travel
 						DashBoardActivity.tabIndex.add(1, 1);
 						AddActivityFragment.pager.setCurrentItem(1);

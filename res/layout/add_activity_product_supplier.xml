@@ -181,14 +181,18 @@
                             android:textStyle="bold" />
                     </HorizontalScrollView>
 
-                    <Spinner
+                    <TextView
                         android:id="@+id/activity"
                         android:layout_width="0dp"
-                        android:layout_height="50dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="4dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
                         android:layout_weight="0.3"
-                        android:scrollHorizontally="true" />
+                        android:focusable="false"
+                        android:maxHeight="120dp"
+                        android:padding="14dip"
+                        android:text="activity row id"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
 
                     <HorizontalScrollView
                         android:layout_width="0dp"
@@ -279,12 +283,12 @@
                         android:clickable="false"
                         android:focusable="false"
                         android:gravity="center"
+                        android:hint="text area"
                         android:maxHeight="80dp"
                         android:maxLines="2"
                         android:minHeight="50dp"
                         android:padding="4dp"
                         android:scrollHorizontally="true"
-                        android:hint="text area"
                         android:textColor="#000000"
                         android:textSize="14sp" />
                 </TableRow>
