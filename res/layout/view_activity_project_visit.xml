@@ -44,7 +44,8 @@
                     android:text="Project Visit"
                     android:textColor="#fff"
                     android:textSize="14dp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:visibility="gone" />
             </TableRow>
 
             <!-- Row 2 with 2 columns -->
@@ -72,7 +73,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Name:"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -107,7 +108,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Stage:"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -150,7 +151,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="Project Category:"
-                        android:textColor="#FF0000"
+                        android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 

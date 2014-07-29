@@ -1,5 +1,6 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -291,29 +292,33 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 							((CircularProgressButton) v).setProgress(0);
 
 							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-								AddActivityFragment.fromOther  = true;
+								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // kivisits
-								AddActivityFragment.fromOther  = true;
+								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
-							} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
-								AddActivityFragment.fromOther  = true;
+							} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
+																									// training
+								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
-							} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
-								AddActivityFragment.fromOther  = true;
+							} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end
+																									// user
+								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
-							} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
-								AddActivityFragment.fromOther  = true;
+							} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
+																									// brand
+								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
 								AddActivityFragment.fromOther = true;
 								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
+
 							}
 						}
 					}
@@ -341,5 +346,11 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit)
 				: String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
+	}
+
+	protected String displayFollowUpCommittmentDate() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		return " " + df.format(calendar.getTime());
 	}
 }

@@ -1,5 +1,6 @@
 package co.nextix.jardine.collaterals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -195,17 +198,55 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 						.getItem(position);
 
 				if (epr.getNo() != null) {
+					String[] imgT = CollateralsConstants.IMAGE_TYPE;
+					String[] vidT = CollateralsConstants.VIDEO_TYPE;
+					File theFile = new File(JardineApp.JARDINE_DIRECTORY + "/"
+							+ epr.getModuleName(), epr.getFileName());
+					if (theFile.exists()) {
 
-					Intent intent = new Intent(getActivity(),
-							CollateralsFileViewer.class);
-					CollateralsConstants.FileRecord = epr;
-					getActivity().startActivity(intent);
+						if (theFile.toString().endsWith(imgT[0])
+								|| theFile.toString().endsWith(imgT[1])
+								|| theFile.toString().endsWith(imgT[2])
+								|| theFile.toString().endsWith(imgT[3])
+								|| theFile.toString().endsWith(imgT[4])
+								|| theFile.toString().endsWith(vidT[0])
+								|| theFile.toString().endsWith(vidT[1])
+								|| theFile.toString().endsWith(vidT[2])
+								|| theFile.toString().endsWith(vidT[3])
+								|| theFile.toString().endsWith(vidT[4])) {
+							Intent intent = new Intent(getActivity(),
+									CollateralsFileViewer.class);
+							CollateralsConstants.FileRecord = epr;
+							getActivity().startActivity(intent);
+						} else {
+							Intent newIntent = new Intent(
+									android.content.Intent.ACTION_VIEW);
+
+							MimeTypeMap myMime = MimeTypeMap.getSingleton();
+
+							String mimeType = myMime
+									.getMimeTypeFromExtension(fileExt(
+											theFile.toString()).substring(1));
+							newIntent.setDataAndType(Uri.fromFile(theFile),
+									mimeType);
+							newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							try {
+								getActivity().startActivity(newIntent);
+							} catch (android.content.ActivityNotFoundException e) {
+								Toast.makeText(getActivity(),
+										"No handler for this type of file.",
+										Toast.LENGTH_SHORT).show();
+							}
+
+						}
+					}
+
 				}
 
 			}
 		});
 
-		list.setOnItemLongClickListener(longClick);
+		// list.setOnItemLongClickListener(longClick);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
@@ -217,15 +258,28 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 			DocumentRecord epr = (DocumentRecord) parent.getAdapter().getItem(
 					position);
 
-			if (epr.getNo() != null) {
-
-				Intent intent = new Intent(Intent.ACTION_VIEW);
-				getActivity().startActivity(intent);
-				
-			}
 			return true;
 		}
 	};
+
+	private String fileExt(String url) {
+		if (url.indexOf("?") > -1) {
+			url = url.substring(0, url.indexOf("?"));
+		}
+		if (url.lastIndexOf(".") == -1) {
+			return null;
+		} else {
+			String ext = url.substring(url.lastIndexOf("."));
+			if (ext.indexOf("%") > -1) {
+				ext = ext.substring(0, ext.indexOf("%"));
+			}
+			if (ext.indexOf("/") > -1) {
+				ext = ext.substring(0, ext.indexOf("/"));
+			}
+			return ext.toLowerCase();
+
+		}
+	}
 
 	@Override
 	public void onClick(View v) {

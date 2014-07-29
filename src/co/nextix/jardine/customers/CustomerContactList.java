@@ -171,6 +171,8 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 				AddCustomerContactsFragment addFragment = new AddCustomerContactsFragment();
 				addFragment.setArguments(bundle);
 				addFragment.setTargetFragment(CustomerContactList.this, 15);
+				
+				addFragment.setTargetFragment(CustomerContactList.this, 15);
 
 				getActivity()
 						.getSupportFragmentManager()
@@ -178,7 +180,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 						.setTransition(
 								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 						.add(R.id.frame_container, addFragment)
-						.addToBackStack(JardineApp.TAG).commit();
+						.addToBackStack(null).commit();
 			}
 		});
 	}

@@ -29,8 +29,8 @@
             android:background="@drawable/email_bg"
             android:ems="10"
             android:gravity="left"
-            android:hint="Email"
-            android:inputType="textPersonName"
+            android:hint="username"
+            android:inputType="text"
             android:paddingBottom="9dp"
             android:paddingLeft="14dp"
             android:paddingTop="9dp"
@@ -45,8 +45,8 @@
             android:background="@drawable/email_bg"
             android:ems="10"
             android:gravity="left"
-            android:hint="Password"
-            android:inputType="textPersonName"
+            android:hint="password"
+            android:inputType="textPassword"
             android:paddingBottom="5dp"
             android:paddingLeft="14dp"
             android:paddingTop="9dp"
@@ -56,26 +56,24 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal"
             android:paddingLeft="14dp"
             android:paddingRight="14dp"
             android:weightSum="5" >
 
             <TextView
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/email_bg"
                 android:gravity="center"
+                android:paddingRight="5dp"
                 android:text="Area"
-                android:textSize="24sp" />
+                android:textSize="@dimen/text_xxxxlarge" />
 
             <Spinner
                 android:id="@+id/login_spinner_area"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="4"
                 android:background="@android:drawable/btn_dropdown"
                 android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
                 android:spinnerMode="dropdown" >

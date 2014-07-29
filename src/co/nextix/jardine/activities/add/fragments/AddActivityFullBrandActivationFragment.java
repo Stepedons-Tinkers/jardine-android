@@ -2,115 +2,91 @@ package co.nextix.jardine.activities.add.fragments;
 
 import java.util.List;
 
-import com.dd.CircularProgressButton;
-
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.customers.AddCustomerContactsFragment;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.utils.MultiSpinner;
+import co.nextix.jardine.utils.MultiSpinner.MultiSpinnerListener;
 
-public class AddActivityFullBrandActivationFragment extends Fragment {
+import com.dd.CircularProgressButton;
 
-	private ArrayAdapter<ActivityTypeRecord> endUserActivityTypesAdapter = null;
+public class AddActivityFullBrandActivationFragment extends Fragment implements MultiSpinnerListener {
 	private View view = null;
-	
 	private boolean flag = false;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.add_activity_full_brand, container,
-				false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		List<ActivityTypeRecord> activityTypeList = JardineApp.DB
-				.getActivityType().getAllRecords();
+		this.view = inflater.inflate(R.layout.add_activity_full_brand, container, false);
+		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 
-		// ArrayAdapter for spinners
-		this.endUserActivityTypesAdapter = new ArrayAdapter<ActivityTypeRecord>(
-				JardineApp.context,
-				R.layout.add_activity_multi_select_listview, activityTypeList);
+		MultiSpinner multiSpinner = (MultiSpinner) this.view.findViewById(R.id.multi_spinner);
+		multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
 
-		((Spinner) view.findViewById(R.id.end_user_activity_types))
-				.setAdapter(this.endUserActivityTypesAdapter);
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
-		((CircularProgressButton) view.findViewById(R.id.btnWithText1))
-				.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				if (((CircularProgressButton) v).getProgress() == 0) {
 
-					@Override
-					public void onClick(final View v) {
-						if (((CircularProgressButton) v).getProgress() == 0) {
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(1500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
 
-							ValueAnimator widthAnimation = ValueAnimator.ofInt(
-									1, 100);
-							widthAnimation.setDuration(1500);
-							widthAnimation
-									.setInterpolator(new AccelerateDecelerateInterpolator());
-							widthAnimation
-									.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-										@Override
-										public void onAnimationUpdate(
-												ValueAnimator animation) {
-											Integer value = (Integer) animation
-													.getAnimatedValue();
-											((CircularProgressButton) v)
-													.setProgress(value);
-
-											if (!flag) {
-												((CircularProgressButton) v)
-														.setProgress(-1);
-											}
-										}
-									});
-
-							widthAnimation.start();
-
-							/** Checking of required fields **/
-							SharedPreferences pref = getActivity()
-									.getApplicationContext()
-									.getSharedPreferences("ActivityInfo", 0);
-
-							flag = true;
-
-							String endUserActvityTypes = ((Spinner) view
-									.findViewById(R.id.end_user_activity_types))
-									.getSelectedItem().toString();
-
-							Editor editor = pref.edit();
-							editor.putString("end_user_activity_types",
-									endUserActvityTypes);
-							editor.commit(); // commit changes
-
-						} else {
-
-							((CircularProgressButton) v).setProgress(0);
-							
-							if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
-								DashBoardActivity.tabIndex.add(4, 16);
-								AddActivityFragment.pager.setCurrentItem(16);
+							if (!flag) {
+								((CircularProgressButton) v).setProgress(-1);
 							}
 						}
-					}
-				});
+					});
 
-		return view;
+					widthAnimation.start();
+
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					flag = true;
+
+					String endUserActvityTypes = ((Spinner) view.findViewById(R.id.multi_spinner)).getSelectedItem().toString();
+					Toast.makeText(getActivity().getApplicationContext(), endUserActvityTypes, Toast.LENGTH_LONG).show();
+					
+					Editor editor = pref.edit();
+					editor.putString("end_user_activity_types", endUserActvityTypes);
+					editor.commit(); // commit changes
+
+				} else {
+
+					((CircularProgressButton) v).setProgress(0);
+					if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+						DashBoardActivity.tabIndex.add(4, 16);
+						AddActivityFragment.pager.setCurrentItem(16);
+					}
+				}
+			}
+		});
+
+		return this.view;
+	}
+
+	@Override
+	public void onItemsSelected(boolean[] selected) {
+		// Code here
 	}
 }

@@ -10,7 +10,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="255dp"
+        android:layout_height="match_parent"
         android:fillViewport="true"
         android:isScrollContainer="true"
         android:overScrollMode="always"
@@ -207,10 +207,6 @@
                         android:id="@+id/left_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/status_count_text"
-                        android:layout_alignTop="@+id/status_count_text"
-                        android:layout_toLeftOf="@+id/status_count_text"
-                        android:onClick="prev"
                         android:src="@drawable/prev" />
 
                     <TextView
@@ -230,7 +226,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="24dp"
-                        android:onClick="next"
                         android:src="@drawable/next" />
                 </LinearLayout>
 

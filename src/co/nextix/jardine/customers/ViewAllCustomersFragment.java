@@ -34,6 +34,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.collaterals.CustomSpinnerAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.CustomerTable;
@@ -94,6 +95,7 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 	private void initLayout() {
 
+		AddActivityFragment.fromOther = false;
 		// Header Data
 		tablerow = (TableRow) header.findViewById(R.id.trCustomersRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCustomerCRMNo);

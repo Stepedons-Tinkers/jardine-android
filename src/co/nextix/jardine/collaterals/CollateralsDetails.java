@@ -45,12 +45,15 @@ public class CollateralsDetails extends Fragment implements OnTabChangeListener 
 	private void initLayout() {
 
 		tabHost = (TabHost) view.findViewById(R.id.thCollaterals1);
-		if (CollateralsConstants.FROM_WHERE == 1) {
+		if (CollateralsConstants.FROM_WHERE == 0) {
 			tab1 = getResources().getString(
 					R.string.collaterals_event_protocols_detail);
-		} else {
+		} else if (CollateralsConstants.FROM_WHERE == 1) {
 			tab1 = getResources().getString(
 					R.string.collaterals_marketing_material_detail);
+		} else if (CollateralsConstants.FROM_WHERE == 2) {
+			tab1 = getResources()
+					.getString(R.string.collaterals_sales_protocol);
 		}
 
 		tab2 = getResources().getString(

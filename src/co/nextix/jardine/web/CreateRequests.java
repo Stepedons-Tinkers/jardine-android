@@ -64,10 +64,7 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.keys.Modules;
-import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
-import co.nextix.jardine.web.models.picklist.PcustomerRecordStatusModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
-import co.nextix.jardine.web.requesters.WebCreateModel;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -94,6 +91,7 @@ public class CreateRequests {
 				// get user id from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
+				requestObject.put("cf_1143", records.get(x).getCompetitor());
 				requestObject.put("z_cmp_prbrnd", records.get(x)
 						.getProductBrand());
 				requestObject.put("z_cmp_prdesc", records.get(x)
@@ -102,6 +100,7 @@ public class CreateRequests {
 						.getProductSize());
 				requestObject.put("z_cmp_isactive", records.get(x)
 						.getIsActive());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -111,42 +110,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
 		Log.d(TAG, urlString + " operation: " + operation + " module: "
 				+ Modules.CompetitorProduct);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// DataOutputStream dos = new DataOutputStream(
-			// JardineApp.httpConnection.getOutputStream());
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.CompetitorProduct));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
 			//
-			// dos.writeBytes(requestList.toString());
-			//
-			// dos.flush();
-			// dos.close();
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.CompetitorProduct));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			writeData(dos, requestList.toString(), Modules.CompetitorProduct);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -313,10 +310,11 @@ public class CreateRequests {
 				requestObject.put("z_province", prov);
 				String city = cityTable.getNameById(records.get(x)
 						.getCityTown());
-				requestObject.put("z_city ", city);
+				requestObject.put("z_city", city);
 				requestObject
 						.put("z_cu_isactive", records.get(x).getIsActive());
 				requestObject.put("z_cu_fax ", records.get(x).getFax());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -326,33 +324,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.Customers);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.CustomerContact));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.CustomerContact));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.Customers);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -417,6 +422,7 @@ public class CreateRequests {
 				requestObject.put("z_cuc_customer", customer);
 				requestObject.put("z_cuc_isactive", records.get(x)
 						.getIsActive());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -426,33 +432,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.CustomerContact);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.CustomerContact));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.CustomerContact));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.CustomerContact);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -523,8 +536,9 @@ public class CreateRequests {
 				requestObject
 						.put("z_ac_starttime", records.get(x).getCheckIn());
 				requestObject.put("z_ac_endtime", records.get(x).getCheckOut());
-				String endUserAct = records.get(x).getEndUserActivityTypes()
-						.replace(",", "|##|");
+				String endUserAct = records.get(x).getEndUserActivityTypes();
+				if (endUserAct != null)
+					endUserAct.replace(",", "|##|");
 				requestObject.put("z_ac_enduseractype", endUserAct);
 				requestObject.put("z_ac_firsttimevisit", records.get(x)
 						.getFirstTimeVisit());
@@ -575,6 +589,7 @@ public class CreateRequests {
 				String province = provinceTable.getNameById(records.get(x)
 						.getProvince());
 				requestObject.put("z_province", province);
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -584,32 +599,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.Activity);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType", Modules.Activity));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.Activity));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.Activity);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -668,41 +691,50 @@ public class CreateRequests {
 				String status = statusTable.getNameById(records.get(x)
 						.getStatus());
 				requestObject.put("z_jmc_status", status);
+				requestObject.put("mobile_id", records.get(x).getId());
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
+				
 			}
 
 		} catch (JSONException e1) {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.JDIMerchCheck);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.JDIMerchCheck));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.JDIMerchCheck));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.JDIMerchCheck);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -769,7 +801,8 @@ public class CreateRequests {
 				String supplier = customerTypeTable.getNameById(records.get(x)
 						.getSupplier());
 				requestObject.put("z_jps_supplier", supplier);
-
+				requestObject.put("mobile_id", records.get(x).getId());
+				
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
 			}
@@ -778,33 +811,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.JDIProductStockCheck);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.JDIProductStockCheck));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.JDIProductStockCheck));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.JDIProductStockCheck);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -868,6 +908,7 @@ public class CreateRequests {
 						.getLoadedOnShelves());
 				requestObject.put("z_cps_othertyprmrks", records.get(x)
 						.getOtherRemarks());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -877,33 +918,41 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.CompetitorProductStockCheck);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.CompetitorProductStockCheck));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.CompetitorProductStockCheck));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(),
+					Modules.CompetitorProductStockCheck);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -957,6 +1006,7 @@ public class CreateRequests {
 						.getCompetitorProduct());
 				requestObject.put("z_min_competitorprod", compt);
 				requestObject.put("z_min_details", records.get(x).getDetails());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -966,33 +1016,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.MarketingIntel);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.MarketingIntel));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.MarketingIntel));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.MarketingIntel);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -1052,6 +1109,7 @@ public class CreateRequests {
 						.getSquareMeters());
 				requestObject.put("z_pr_otherdet", records.get(x)
 						.getOtherDetails());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -1061,33 +1119,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.ProjectRequirement);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.ProjectRequirement));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.ProjectRequirement));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.ProjectRequirement);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -1144,6 +1209,7 @@ public class CreateRequests {
 				requestObject.put("z_ps_supplier", customer);
 				requestObject.put("z_ps_othersremarks", records.get(x)
 						.getOthersRemarks());
+				requestObject.put("mobile_id", records.get(x).getId());
 
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
@@ -1153,33 +1219,40 @@ public class CreateRequests {
 			e1.printStackTrace();
 		}
 
-		BufferedWriter writer;
+		// BufferedWriter writer;
 		URL url;
 		String urlString = JardineApp.WEB_URL;
-		Log.d(TAG, urlString);
+		Log.d(TAG, urlString + " operation: " + operation + " module: "
+				+ Modules.ProductSupplier);
+		Log.w(TAG, requestList.toString());
 
 		try {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
 
-			// appending
-			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("sessionName",
-					JardineApp.SESSION_NAME));
-			params.add(new BasicNameValuePair("operation", operation));
-			params.add(new BasicNameValuePair("elementType",
-					Modules.ProductSupplier));
-			params.add(new BasicNameValuePair("elements", requestList
-					.toString()));
+			// // appending
+			// List<NameValuePair> params = new ArrayList<NameValuePair>();
+			// params.add(new BasicNameValuePair("sessionName",
+			// JardineApp.SESSION_NAME));
+			// params.add(new BasicNameValuePair("operation", operation));
+			// params.add(new BasicNameValuePair("elementType",
+			// Modules.ProductSupplier));
+			// params.add(new BasicNameValuePair("elements", requestList
+			// .toString()));
+			//
+			// // sending
+			// OutputStream os = JardineApp.httpConnection.getOutputStream();
+			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
+			// writer.write(getQuery(params));
+			// writer.flush();
+			// writer.close();
+			// os.close();
 
-			// sending
-			OutputStream os = JardineApp.httpConnection.getOutputStream();
-			writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			writer.write(getQuery(params));
-			writer.flush();
-			writer.close();
-			os.close();
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			writeData(dos, requestList.toString(), Modules.ProductSupplier);
 
 			// status
 			int status = JardineApp.httpConnection.getResponseCode();
@@ -1251,6 +1324,7 @@ public class CreateRequests {
 		String urlString = JardineApp.WEB_URL;
 		Log.d(TAG, urlString + " operation: " + operation + " module: "
 				+ Modules.Document);
+		Log.w(TAG, requestList.toString());
 
 		FileInputStream fileInputStream = null;
 		File file = new File(records.getFilePath());
@@ -1262,23 +1336,6 @@ public class CreateRequests {
 
 			url = new URL(urlString);
 			getConnection(url, "POST");
-
-			// // appending
-			// List<NameValuePair> params = new ArrayList<NameValuePair>();
-			// params.add(new BasicNameValuePair("sessionName",
-			// JardineApp.SESSION_NAME));
-			// params.add(new BasicNameValuePair("operation", operation));
-			// params.add(new BasicNameValuePair("elementType", "Documents"));
-			// params.add(new BasicNameValuePair("elements", requestList
-			// .toString()));
-			//
-			// // sending
-			// OutputStream os = JardineApp.httpConnection.getOutputStream();
-			// writer = new BufferedWriter(new OutputStreamWriter(os, charset));
-			// writer.write(getQuery(params));
-			// writer.flush();
-			// writer.close();
-			// os.close();
 
 			DataOutputStream dos = new DataOutputStream(
 					JardineApp.httpConnection.getOutputStream());
@@ -1447,6 +1504,78 @@ public class CreateRequests {
 								.getCookieStore().getCookies()));
 			}
 		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	private void writeData(DataOutputStream dos, String requestParams,
+			String module) {
+
+		// **start
+		try {
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+
+			dos.writeBytes("Content-Disposition: form-data; name=\"sessionName\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.SESSION_NAME);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"operation\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(operation);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"elementType\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(module);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"elements\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(requestParams);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY
+					+ JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_LINEEND); // this
+			// is
+			// for
+			// end
+			// of
+			// output
+
+			// close streams
+			dos.flush();
+			dos.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

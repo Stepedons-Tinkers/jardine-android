@@ -132,7 +132,10 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 			holder.product_no.setText(String.valueOf(this.tempValues.getProductNumber()));
 			holder.product_description.setText(String.valueOf(this.tempValues.getProductDescription()));
 			holder.product_brand.setText(String.valueOf(this.tempValues.getProductBrand()));
-			holder.is_active.setText(String.valueOf(this.tempValues.getIsActive()));
+			if(this.tempValues.getIsActive() == 0)
+				holder.is_active.setText("No");
+			else
+				holder.is_active.setText("Yes");
 
 			UserTable user = JardineApp.DB.getUser();
 			if(user != null){

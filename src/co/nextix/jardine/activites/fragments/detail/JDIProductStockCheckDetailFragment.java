@@ -25,6 +25,7 @@ import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class JDIProductStockCheckDetailFragment extends Fragment {
 
@@ -82,8 +83,10 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 				((TextView) myFragmentView.findViewById(R.id.status_stock)).setText(statusStock.toString());
 			}
 		}
-		
-		((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText(String.valueOf(this.record.getLoadedOnShelves()));
+		if(this.record.getLoadedOnShelves() == 0)
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("No");
+		else
+			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("Yes");
 		
 		CustomerTable supplier = JardineApp.DB.getCustomer();
 		if(supplier != null){
@@ -94,8 +97,8 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 			}
 		}
 		
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 		
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){

@@ -156,7 +156,10 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 				}
 			}
 
-			holder.loaded_on_shelves_txt.setText(String.valueOf(this.tempValues.getLoadedOnShelves()));
+			if(this.tempValues.getLoadedOnShelves() == 0)
+				holder.loaded_on_shelves_txt.setText("No");
+			else
+				holder.loaded_on_shelves_txt.setText("Yes");
 		
 			UserTable user = JardineApp.DB.getUser();
 			if(user != null){
