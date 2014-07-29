@@ -20,11 +20,8 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
 import co.nextix.jardine.JardineApp;
-=======
 import co.nextix.jardine.DashBoardActivity;
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
@@ -37,12 +34,6 @@ import com.dd.CircularProgressButton;
 public class AddJDIProductStockFragment extends Fragment {
 
 	private boolean flag = false;
-<<<<<<< HEAD
-
-	private Bundle bundle;
-	private int frag_layout_id = 0;
-=======
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
 
 	private ArrayAdapter<ActivityRecord> activityAdapter = null;
 	private ArrayAdapter<ProductRecord> productAdapter = null;
@@ -60,14 +51,6 @@ public class AddJDIProductStockFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
-<<<<<<< HEAD
-		this.bundle = getArguments();
-
-		if (this.bundle != null) {
-			this.frag_layout_id = this.bundle.getInt("layoutID");
-		}
-=======
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
 
 		this.activityAdapter = new ArrayAdapter<ActivityRecord>(JardineApp.context, R.layout.add_activity_textview, activityList);
 		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
@@ -121,17 +104,8 @@ public class AddJDIProductStockFragment extends Fragment {
 					String otherTypeRemarks = ((EditText) view.findViewById(R.id.other_type_remarks)).getText().toString();
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-<<<<<<< HEAD
 					if (product != 0 && stockStatus != 0) {
-
-						if (AddActivityFragment.ACTIVITY_TYPE == 4) {
-							fragmentForTransition = new AddActivityProductSupplierFragment();
-						}
-
-=======
-					if (otherTypeRemarks != null && !otherTypeRemarks.isEmpty()) {
 						
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
 						Editor editor = pref.edit();
 						editor.putString("other_type_remarks", otherTypeRemarks);
 						editor.putLong("stock_status", stockStatus);
@@ -157,21 +131,11 @@ public class AddJDIProductStockFragment extends Fragment {
 					}
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-<<<<<<< HEAD
-
-					fragmentForTransition.setArguments(bundle);
-
-					ft = getActivity().getSupportFragmentManager().beginTransaction();
-					ft.replace(frag_layout_id, fragmentForTransition);
-					ft.addToBackStack(null);
-					ft.commit();
-=======
 					
 					if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
 						DashBoardActivity.tabIndex.add(4, 7);
 						AddActivityFragment.pager.setCurrentItem(7);
 					}
->>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
 				}
 			}
 		});
