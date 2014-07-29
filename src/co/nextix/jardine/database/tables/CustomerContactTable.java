@@ -1,5 +1,20 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_BIRTHDAY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CUSTOMER;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_EMAIL;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_FIRSTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_LASTNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MOBILENO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_POSITION;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ROWID;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,20 +26,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerContactRecord;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_FIRSTNAME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_LASTNAME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_POSITION;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MOBILENO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_BIRTHDAY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_EMAIL;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CUSTOMER;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ISACTIVE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CREATEDBY;
 
 public class CustomerContactTable {
 
@@ -220,14 +221,13 @@ public class CustomerContactTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMERCONTACT_NO, no);
+		args.put(KEY_CUSTOMERCONTACT_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_CUSTOMERCONTACT_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMERCONTACT_ROWID + "="
 				+ id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
 			return true;
 		} else {
 			return false;

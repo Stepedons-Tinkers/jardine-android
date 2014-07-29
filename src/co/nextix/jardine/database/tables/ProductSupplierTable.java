@@ -379,14 +379,13 @@ public class ProductSupplierTable {
 		}
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_PRODUCTSUPPLIER_NO, no);
+		args.put(KEY_PRODUCTSUPPLIER_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_PRODUCTSUPPLIER_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_PRODUCTSUPPLIER_ROWID + "="
 				+ id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;

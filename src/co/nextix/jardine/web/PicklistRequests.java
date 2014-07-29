@@ -24,6 +24,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.web.models.BusinessUnitModel;
 import co.nextix.jardine.web.models.PicklistDependencyModel;
+import co.nextix.jardine.web.models.UserModel;
 import co.nextix.jardine.web.models.picklist.PactivityEndUserActivityTypes;
 import co.nextix.jardine.web.models.picklist.PactivityProjectcategoryModel;
 import co.nextix.jardine.web.models.picklist.PactivityProjectstageModel;
@@ -608,6 +609,57 @@ public class PicklistRequests {
 				PicklistRequester<List<PicklistDependencyModel>> requester = gson
 						.fromJson(getReader(), typeOfT);
 				model = (List<PicklistDependencyModel>) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public List<UserModel> user() {
+
+		List<UserModel> model = null;
+
+		String query = "";
+		try {
+			query = URLEncoder
+					.encode("select id, user_name, first_name, last_name from vtiger_users",
+							"UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String urlString = JardineApp.WEB_URL + "?query=\"" + query
+				+ "\"&sessionName=" + JardineApp.SESSION_NAME + "&operation="
+				+ operation;
+
+		URL url;
+		try {
+
+			url = new URL(urlString);
+			Log.d(TAG, urlString);
+			getConnection(url, "GET");
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+			Log.w(TAG, "status: " + status);
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<PicklistRequester<List<UserModel>>>() {
+				}.getType();
+				PicklistRequester<List<UserModel>> requester = gson.fromJson(
+						getReader(), typeOfT);
+				model = (List<UserModel>) requester.getResult();
 
 			} else {
 				// getResponse();

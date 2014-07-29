@@ -11,6 +11,10 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTST
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ROWID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -178,14 +182,13 @@ public class CompetitorProductStockCheckTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;
