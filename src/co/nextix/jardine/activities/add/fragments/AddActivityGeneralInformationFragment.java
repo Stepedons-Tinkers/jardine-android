@@ -17,10 +17,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
@@ -72,10 +70,13 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
+		
 		DashBoardActivity.fromAddActivities = true;
 		
-		AddActivityFragment.AddActivityIndexes.add(0, 0);
-
+		if(DashBoardActivity.tabIndex.size() == 0){
+			DashBoardActivity.tabIndex.add(0, 0);
+		}
+		
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
 		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
@@ -353,22 +354,31 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 				} else {
 					if(ActivityType == 1){ // travel
+						DashBoardActivity.tabIndex.add(1, 1);
 						AddActivityFragment.pager.setCurrentItem(1);
 					} else if (ActivityType == 43){ // coSMRs
+						DashBoardActivity.tabIndex.add(1, 2);
 						AddActivityFragment.pager.setCurrentItem(2);
 					} else if (ActivityType == 47){ // admin works
+						DashBoardActivity.tabIndex.add(1, 3);
 						AddActivityFragment.pager.setCurrentItem(3);
 					} else if (ActivityType == 4){ // retails
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 9){ // ki visits
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 101){ // major training
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 102){ // end user
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 41){ // full brand
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 100){ // others
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					}
 				}

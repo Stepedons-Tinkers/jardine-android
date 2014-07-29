@@ -27,7 +27,6 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
@@ -65,11 +64,14 @@ public class DashBoardActivity extends FragmentActivity {
 	private CalendarPickerView dialogView;
 	
 	public static boolean fromAddActivities = false;
+	public static ArrayList<Integer> tabIndex;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
+		
+		tabIndex = new ArrayList<Integer>();
 
 		this.mTitle = mDrawerTitle = getTitle();
 
@@ -323,23 +325,17 @@ public class DashBoardActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		
-		int size = AddActivityFragment.AddActivityIndexes.size();
-		
-		if(fromAddActivities){
-			if(size != 1){
-				int previousSize = AddActivityFragment.AddActivityIndexes.size();
-				AddActivityFragment.AddActivityIndexes.remove(previousSize-1);
-				int currentSize = AddActivityFragment.AddActivityIndexes.size();
-				
-				Log.e("previousSize","" + previousSize);
-				Log.e("currentSize","" + currentSize);
-				
-//				AddActivityFragment.pager.setCurrentItem(index);
-			}else {
-				super.onBackPressed();
-			}
+		if (tabIndex.size() == 1) {
+			Log.e("if","if");
+			super.onBackPressed();
+		} else if (fromAddActivities){
+			Log.e("else if","else if");
+			int size = tabIndex.size();
+			Log.e("size",""+size);
+			AddActivityFragment.pager.setCurrentItem(tabIndex.get(size-2));
+			tabIndex.remove(size-1);
 		} else {
+			Log.e("else","else");
 			super.onBackPressed();
 		}
 

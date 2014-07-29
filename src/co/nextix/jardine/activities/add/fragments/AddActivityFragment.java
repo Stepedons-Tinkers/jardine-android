@@ -9,12 +9,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.TypedValue;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import co.nextix.jardine.R;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
@@ -29,32 +26,15 @@ public class AddActivityFragment extends Fragment {
 	public static ViewPager pager;
 	protected MyPagerAdapter adapter;
 
-	private Bundle bundle;
-	private Bundle b;
-
 	public static long WORKPLAN_ENTRY_ID = 0;
 	public static long ACTIVITY_TYPE = 0;
 	public static int tabPosition = -1;
-	public static ArrayList<Integer> AddActivityIndexes;
+	public static boolean fragmentStart = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
-		
-		AddActivityIndexes = new ArrayList<Integer>();
-
-//		b = getArguments();
-//
-//		if (b != null) {
-//			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
-//		}
-//
-//		ft = getFragmentManager().beginTransaction();
-//		fl = (FrameLayout) rootView.findViewById(R.id.layoutForAddingFrag);
-//
-//		bundle = new Bundle();
-//		bundle.putInt("layoutID", fl.getId());
 		
 		List<Fragment> fragments = getFragments();
 
@@ -69,7 +49,7 @@ public class AddActivityFragment extends Fragment {
 		pager.setPageMargin(pageMargin);
 
 		tabs.setViewPager(pager, false);
-
+		
 		return rootView;
 	}
 	
@@ -133,7 +113,12 @@ public class AddActivityFragment extends Fragment {
 /*14*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName())); // identify product focus
 /*15*/	flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(), AddActivityFullBrandActivationFragment.class.getName()));
 /*16*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName()));
-		AddActivityFragment.AddActivityIndexes.clear();
 		return flist;
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		fragmentStart = false;
 	}
 }

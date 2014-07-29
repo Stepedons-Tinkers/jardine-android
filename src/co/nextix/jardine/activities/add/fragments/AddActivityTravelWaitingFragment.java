@@ -21,6 +21,7 @@ import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.EditText;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.security.StoreAccount;
@@ -39,10 +40,6 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 		final View view = inflater.inflate(
 				R.layout.add_activity_travel_or_waiting, container, false);
-		
-		int size = AddActivityFragment.AddActivityIndexes.size();
-		Log.e("tr-size","" + size);
-		AddActivityFragment.AddActivityIndexes.add(size, 1);
 
 		this.saveBtn = (CircularProgressButton) view
 				.findViewById(R.id.btnWithText1);

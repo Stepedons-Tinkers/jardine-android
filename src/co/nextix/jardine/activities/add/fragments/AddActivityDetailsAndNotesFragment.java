@@ -24,6 +24,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CityTownRecord;
@@ -46,7 +47,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private ArrayAdapter<WorkplanEntryRecord> workplanEntryAdapter = null;
 
 	private boolean trapping = false;
-	public static boolean fromOther = true;
+	public static boolean fromOther = false;
 
 	private Calendar calendar = null;
 
@@ -291,16 +292,23 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 							((CircularProgressButton) v).setProgress(0);
 
 							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+								fromOther = true;
+								DashBoardActivity.tabIndex.add(1, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // kivisits
+								fromOther = true;
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
+								fromOther = true;
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
+								fromOther = true;
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+								fromOther = true;
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
+								fromOther = true;
 								AddActivityFragment.pager.setCurrentItem(5);
 							}
 						}
