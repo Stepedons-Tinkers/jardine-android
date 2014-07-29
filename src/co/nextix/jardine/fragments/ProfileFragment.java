@@ -10,6 +10,7 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 import android.widget.TabHost.TabContentFactory;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.profile.ProfileInformationFragment;
 import co.nextix.jardine.profile.ProfileNoticationsFragment;
@@ -37,6 +38,9 @@ public class ProfileFragment extends Fragment {
 				ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 		View rootView = inflater.inflate(R.layout.fragment_profile, container,
 				false);
+		
+		DashBoardActivity.tabIndex.clear();
+		DashBoardActivity.fromAddActivities = false;
 
 		tabHost = (TabHost) rootView.findViewById(android.R.id.tabhost);
 		tabHost.setup();

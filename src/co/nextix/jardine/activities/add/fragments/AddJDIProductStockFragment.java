@@ -16,6 +16,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 
@@ -86,6 +87,7 @@ public class AddJDIProductStockFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+						DashBoardActivity.tabIndex.add(4, 7);
 						AddActivityFragment.pager.setCurrentItem(7);
 					}
 				}

@@ -325,15 +325,18 @@ public class DashBoardActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (tabIndex.size() == 1) {
-			Log.e("if","if");
-			super.onBackPressed();
-		} else if (fromAddActivities){
+		if (fromAddActivities){
 			Log.e("else if","else if");
 			int size = tabIndex.size();
 			Log.e("size",""+size);
-			AddActivityFragment.pager.setCurrentItem(tabIndex.get(size-2));
-			tabIndex.remove(size-1);
+			
+			if(size == 1){
+				super.onBackPressed();
+			}else{
+				AddActivityFragment.pager.setCurrentItem(tabIndex.get(size-2));
+				tabIndex.remove(size-1);
+			}
+			
 		} else {
 			Log.e("else","else");
 			super.onBackPressed();
@@ -424,7 +427,7 @@ public class DashBoardActivity extends FragmentActivity {
 	public void startActivity(View view) {
 		android.support.v4.app.Fragment fragment = new StartActivityFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 		setTitle("Activities");
 	}
 

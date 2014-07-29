@@ -47,7 +47,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private ArrayAdapter<WorkplanEntryRecord> workplanEntryAdapter = null;
 
 	private boolean trapping = false;
-	public static boolean fromOther = false;
 
 	private Calendar calendar = null;
 
@@ -292,23 +291,28 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 							((CircularProgressButton) v).setProgress(0);
 
 							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-								fromOther = true;
-								DashBoardActivity.tabIndex.add(1, 5);
+								AddActivityFragment.fromOther  = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // kivisits
-								fromOther = true;
+								AddActivityFragment.fromOther  = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
-								fromOther = true;
+								AddActivityFragment.fromOther  = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
-								fromOther = true;
+								AddActivityFragment.fromOther  = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
-								fromOther = true;
+								AddActivityFragment.fromOther  = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
-								fromOther = true;
+								AddActivityFragment.fromOther = true;
+								DashBoardActivity.tabIndex.add(2, 5);
 								AddActivityFragment.pager.setCurrentItem(5);
 							}
 						}

@@ -2,6 +2,7 @@ package co.nextix.jardine.activities.add.fragments;
 
 import com.dd.CircularProgressButton;
 
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -97,8 +98,10 @@ public class AddMarketingIntelFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retail
+						DashBoardActivity.tabIndex.add(8, 16);
 						AddActivityFragment.pager.setCurrentItem(16);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+						DashBoardActivity.tabIndex.add(4, 11);
 						AddActivityFragment.pager.setCurrentItem(11);
 					}
 				}
