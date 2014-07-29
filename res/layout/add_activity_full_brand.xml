@@ -104,8 +104,8 @@
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
-                    <Spinner
-                        android:id="@+id/end_user_activity_types"
+                    <co.nextix.jardine.utils.MultiSpinner
+                        android:id="@+id/multi_spinner"
                         android:layout_width="0dp"
                         android:layout_height="50dp"
                         android:layout_marginRight="4dp"

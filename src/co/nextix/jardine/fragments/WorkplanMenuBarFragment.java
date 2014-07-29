@@ -136,8 +136,14 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
 				null);
 
-		initLayout();
 		return view;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
+		initLayout();
 	}
 
 	private void initLayout() {
@@ -303,9 +309,17 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		Log.d("Tugs", searchPhrase + "");
 
 		realRecord.clear();
-		realRecord.addAll(JardineApp.DB.getWorkplanEntry()
-				.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
-						searchPhrase, spinner.getSelectedItemPosition()));
+
+		if (spinner == null) {
+			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+					.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
+							searchPhrase, 0));
+		} else {
+			realRecord.addAll(JardineApp.DB.getWorkplanEntry()
+					.getRecordsByWorkplanIdDate(wId, dateFrom, dateTo,
+							searchPhrase, spinner.getSelectedItemPosition()));
+
+		}
 
 		int remainder = realRecord.size() % rowSize;
 		if (remainder > 0) {
