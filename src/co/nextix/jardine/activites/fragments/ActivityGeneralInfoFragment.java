@@ -12,6 +12,7 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
@@ -78,15 +79,18 @@ public class ActivityGeneralInfoFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
+				Bundle bun = new Bundle();
+				bun.putLong("activityID", activityRecord.getId());
 				ActivitiesConstant.ACTIVITY_RECORD = activityRecord;
 				android.support.v4.app.FragmentManager fragmentActivityDetailManager = getActivity().getSupportFragmentManager();
 				android.support.v4.app.FragmentTransaction fragmentTransaction = fragmentActivityDetailManager.beginTransaction();
 				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
 				// Add a fucking fragmentTODO
-//				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
-//				fragmentTransaction.replace(frag_layout_id, myFragment);
-//				fragmentTransaction.commit();
+				AddActivityFragment myFragment = new AddActivityFragment();
+				myFragment.setArguments(bun);
+				fragmentTransaction.replace(frag_layout_id, myFragment);
+				fragmentTransaction.commit();
 			}
 		});
 

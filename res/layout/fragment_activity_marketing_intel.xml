@@ -225,6 +225,16 @@
                 android:text="@string/add_marketing_intel"
                 android:visibility="gone" />
         </RelativeLayout>
+
+        <TextView
+            android:id="@+id/status_list_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:paddingBottom="54dp"
+            android:text="@string/no_data"
+            android:visibility="invisible" />
     </LinearLayout>
 
 </ScrollView>
