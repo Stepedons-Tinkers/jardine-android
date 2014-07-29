@@ -183,7 +183,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		imgFrom = (ImageButton) view.findViewById(R.id.ibWorkPlanFromCalendar);
 		imgTo = (ImageButton) view.findViewById(R.id.ibWorkPlanToCalendar);
-		
+
 		txtFrom.setText(formattedDate);
 		txtTo.setText(formattedDate);
 
@@ -499,7 +499,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 				searchView.onActionViewCollapsed();
 				searchPhrase = "";
 				setupWorkplanEntry();
-				
+
 				return true;
 			}
 		});
@@ -516,7 +516,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
-				
+
 				return true;
 			}
 
