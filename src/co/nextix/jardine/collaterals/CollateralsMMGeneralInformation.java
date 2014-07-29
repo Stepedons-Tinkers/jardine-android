@@ -48,7 +48,7 @@ public class CollateralsMMGeneralInformation extends Fragment {
 
 		vEventType.setText(getResources().getString(
 				R.string.customer_business_unit));
-		txtIsActive.setVisibility(View.INVISIBLE);
+		// txtIsActive.setVisibility(View.INVISIBLE);
 
 		crmNo = (TextView) view.findViewById(R.id.tvWorkPlanInfoCrmNo);
 		desc = (TextView) view.findViewById(R.id.tvCollateralsGIDesc);
@@ -77,7 +77,7 @@ public class CollateralsMMGeneralInformation extends Fragment {
 		if (bu != null)
 			eventType.setText(bu.getBusinessUnitName());
 
-		// isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
+		isActive.setText(record.getIsActive() > 0 ? "Yes" : "No");
 		createdTime
 				.setText(MyDateUtils.convertDateTime(record.getCreatedTime()));
 		modifiedTime.setText(MyDateUtils.convertDateTime(record
