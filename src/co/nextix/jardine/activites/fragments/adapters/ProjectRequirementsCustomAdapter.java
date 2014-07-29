@@ -28,6 +28,7 @@ import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class ProjectRequirementsCustomAdapter extends BaseAdapter {
@@ -154,7 +155,7 @@ public class ProjectRequirementsCustomAdapter extends BaseAdapter {
 				}
 			}
 
-			holder.date_needed_txt.setText(String.valueOf(this.tempValues
+			holder.date_needed_txt.setText(MyDateUtils.convertDate(this.tempValues
 					.getDateNeeded()));
 			
 			UserTable user = JardineApp.DB.getUser();

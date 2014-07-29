@@ -21,12 +21,14 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
@@ -159,9 +161,9 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 					}
 				}
 				
-				ProductSupplierTable supplier = JardineApp.DB.getProductSupplier();
+				CustomerTable supplier = JardineApp.DB.getCustomer();
 				if(supplier != null){
-					ProductSupplierRecord rec = supplier.getById(this.tempValues.getSupplier());
+					CustomerRecord rec = supplier.getById(this.tempValues.getSupplier());
 					holder.supplier.setText("");
 					if(rec != null){
 						holder.supplier.setText(rec.toString());

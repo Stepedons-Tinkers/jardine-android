@@ -32,6 +32,7 @@ import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.tables.DocumentTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
+import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class PhotosAndAttachmentsFragment extends Fragment {
@@ -45,7 +46,7 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
-	
+
 	private Bundle bundle;
 	private int frag_layout_id;
 
@@ -57,14 +58,14 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 				R.layout.fragment_activity_photos_and_attachments, container,
 				false);
 		this.setListData();
-		
+
 		bundle = getArguments();
-		
-		if(bundle != null){
+
+		if (bundle != null) {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
-		
-		Log.e("jdi"," size");
+
+		Log.e("jdi", " size");
 		((Button) myFragmentView
 				.findViewById(R.id.add_btn_jdi_product_stock_check))
 				.setOnClickListener(new OnClickListener() {
@@ -87,8 +88,7 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 						// with this
 						// fragment,
 						// and add the transaction to the back stack
-						transaction
-								.replace(frag_layout_id, newFragment);
+						transaction.replace(frag_layout_id, newFragment);
 						transaction.addToBackStack(null);
 
 						// Commit the transaction
@@ -101,11 +101,11 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(), "<==== ni sud here",
-								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(getActivity(), "<==== ni sud here",
+						// Toast.LENGTH_SHORT).show();
 						if (currentPage > 0) {
 							currentPage--;
-//							addItem(currentPage);
+							addItem(currentPage);
 						}
 					}
 				});
@@ -115,11 +115,11 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(), "ni sud here ====>",
-								Toast.LENGTH_SHORT).show();
+						// Toast.makeText(getActivity(), "ni sud here ====>",
+						// Toast.LENGTH_SHORT).show();
 						if (currentPage < totalPage - 1) {
 							currentPage++;
-//							addItem(currentPage);
+							addItem(currentPage);
 						}
 					}
 				});
@@ -132,10 +132,13 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 		this.realRecord = new ArrayList<DocumentRecord>();
 		this.tempRecord = new ArrayList<DocumentRecord>();
 
-		DocumentTable table = JardineApp.DB
-				.getDocument();
+		DocumentTable table = JardineApp.DB.getDocument();
 		List<DocumentRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		for (DocumentRecord rec : records)
+			if (rec.getModuleName().equals(Modules.Activity))
+				this.realRecord.add(rec);
+
+//		 this.realRecord.addAll(records);
 
 		if (realRecord.size() > 0) {
 			int remainder = realRecord.size() % rowSize;
@@ -166,7 +169,11 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
 				.setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
+		int rows = rowSize;
+		if (realRecord.size() < rows)
+			rows = realRecord.size();
+		for (int j = 0; j < rows; j++) {
+//		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
@@ -201,24 +208,25 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 		// CustomerDetailsFragment.newInstance(ar.getId()), JardineApp.TAG)
 		// .addToBackStack(JardineApp.TAG).commit();
 		// }
-		
-//		Fragment fragment = new JDIProductStockCheckDetailFragment();
-//		bundle.putLong("product_id", tempValues.getId());
-//		fragment.setArguments(bundle);
-//		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-//				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
-		
-		DocumentRecord epr = (DocumentRecord) this.tempRecord
-				.get(mPosition);
 
-        if (epr.getNo() != null) {
+		// Fragment fragment = new JDIProductStockCheckDetailFragment();
+		// bundle.putLong("product_id", tempValues.getId());
+		// fragment.setArguments(bundle);
+		// FragmentManager fragmentManager =
+		// getActivity().getSupportFragmentManager();
+		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+		// R.anim.slide_out_left)
+		// .replace(frag_layout_id, fragment).addToBackStack(null).commit();
 
-            Intent intent = new Intent(getActivity(),
-                    CollateralsFileViewer.class);
-            CollateralsConstants.FileRecord = epr;
-            getActivity().startActivity(intent);
-        }
+		DocumentRecord epr = (DocumentRecord) this.tempRecord.get(mPosition);
+
+		if (epr.getNo() != null) {
+
+			Intent intent = new Intent(getActivity(),
+					CollateralsFileViewer.class);
+			CollateralsConstants.FileRecord = epr;
+			getActivity().startActivity(intent);
+		}
 
 	}
 
