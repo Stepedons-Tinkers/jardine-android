@@ -33,6 +33,10 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_SMR;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_VENUE;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_WORKPLANENTRY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ROWID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -375,14 +379,13 @@ public class ActivityTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_ACTIVITY_NO, no);
+		args.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_ACTIVITY_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
 			return true;
 		} else {
 			return false;
@@ -1050,7 +1053,9 @@ public class ActivityTable {
 		}
 		return list;
 	}
-	public List<ActivityRecord> getActivityRecordsByDate(String dateFrom, String dateTo) {
+
+	public List<ActivityRecord> getActivityRecordsByDate(String dateFrom,
+			String dateTo) {
 		Cursor c = null;
 
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
@@ -1069,8 +1074,8 @@ public class ActivityTable {
 		} else if (!dateFrom.contentEquals("") && !dateTo.contentEquals("")) {
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 					+ KEY_ACTIVITY_CHECKIN + " >= DATE('" + dateFrom
-					+ "') AND " + KEY_ACTIVITY_CHECKIN + " <= DATE('"
-					+ dateTo + "')";		
+					+ "') AND " + KEY_ACTIVITY_CHECKIN + " <= DATE('" + dateTo
+					+ "')";
 		}
 		Log.d("Tugs", MY_QUERY);
 		try {
@@ -1157,7 +1162,6 @@ public class ActivityTable {
 		}
 		return list;
 	}
-	
 
 	// ===========================================================
 	// Public Foreign Key Methods

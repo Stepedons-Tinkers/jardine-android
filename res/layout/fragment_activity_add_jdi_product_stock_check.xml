@@ -328,9 +328,20 @@
                     <Spinner
                         android:id="@+id/supplier"
                         android:layout_width="0dp"
+<<<<<<< HEAD
                         android:layout_height="45dp"
                         android:background="#b0b0b0"
                         android:scrollHorizontally="true" />
+=======
+                        android:layout_height="wrap_content"
+                        android:background="#cac9c9"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="related Supplier record"
+                        android:textColor="#000000" />
+>>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
                 </HorizontalScrollView>
             </TableRow>
 

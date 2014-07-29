@@ -1,5 +1,18 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,19 +24,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
-
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY;
 
 public class JDIproductStockCheckTable {
 
@@ -177,14 +177,13 @@ public class JDIproductStockCheckTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_JDIPRODUCTSTOCKCHECK_NO, no);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_JDIPRODUCTSTOCKCHECK_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_JDIPRODUCTSTOCKCHECK_ROWID
 				+ "=" + id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
 			return true;
 		} else {
 			return false;
