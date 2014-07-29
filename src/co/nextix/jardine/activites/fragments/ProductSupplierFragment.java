@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,12 @@ import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailF
 import co.nextix.jardine.activites.fragments.detail.JDIProductStockCheckDetailFragment;
 import co.nextix.jardine.activites.fragments.detail.ProductSupplierDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -46,6 +51,9 @@ public class ProductSupplierFragment extends Fragment {
 	
 	private Bundle bundle;
 	private int frag_layout_id;
+
+	private ActivityRecord activityRecord = null;
+	private SharedPreferences pref = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -129,11 +137,27 @@ public class ProductSupplierFragment extends Fragment {
 	public void setListData() {
 		this.realRecord = new ArrayList<ProductSupplierRecord>();
 		this.tempRecord = new ArrayList<ProductSupplierRecord>();
-
-		ProductSupplierTable table = JardineApp.DB
-				.getProductSupplier();
+		
+		
+		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
+		
+		
+		ActivityTable act = JardineApp.DB.getActivity();
+		ProductSupplierTable table = JardineApp.DB.getProductSupplier();
 		List<ProductSupplierRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		
+		for (ProductSupplierRecord rec : records){
+			ActivityRecord reca = act.getById(rec.getActivity());
+			if(reca != null)
+			if (reca.toString().equals(this.activityRecord.getCrm()))
+				this.realRecord.add(rec);
+		}
+
+//		ProductSupplierTable table = JardineApp.DB
+//				.getProductSupplier();
+//		List<ProductSupplierRecord> records = table.getAllRecords();
+//		this.realRecord.addAll(records);
 
 		Log.d("Jardine",
 				"JDIProductStockCheck" + String.valueOf(records.size()));
@@ -156,7 +180,7 @@ public class ProductSupplierFragment extends Fragment {
 			this.setView();
 			this.isListHasNoData();
 			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-					.setText("The database is still empty. Wanna sync first?");
+					.setText("");
 		}
 	}
 
@@ -167,7 +191,11 @@ public class ProductSupplierFragment extends Fragment {
 		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
 				.setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
+		int rows = rowSize;
+		if (realRecord.size() < rows)
+			rows = realRecord.size();
+		for (int j = 0; j < rows; j++) {
+//		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
