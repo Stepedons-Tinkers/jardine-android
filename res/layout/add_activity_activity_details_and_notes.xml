@@ -423,6 +423,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="7dp"
+                        android:layout_marginEnd="-32dp"
                         android:layout_weight="0.3"
                         android:background="@drawable/edittext_border"
                         android:ems="10"
@@ -438,15 +439,29 @@
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="50dp"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginEnd="-26dp"
+                        android:layout_marginStart="26dp"
                         android:layout_marginTop="-7dp"
                         android:layout_weight="0.3"
                         android:gravity="center_vertical"
                         android:maxLines="2"
-                        android:paddingLeft="14dip"
+                        android:paddingLeft="20dip"
+                        android:paddingTop="14dip"
                         android:text="@string/follow_up_commitment_date"
                         android:textColor="#000000"
                         android:textSize="14sp"
                         android:textStyle="bold" />
+
+                    <ImageButton
+                        android:id="@+id/ibActivitiesFromCalendar"
+                        android:layout_width="@dimen/calendar_button"
+                        android:layout_height="@dimen/calendar_button"
+                        android:layout_gravity="center_vertical"
+                        android:background="@null"
+                        android:contentDescription="@string/desc_list_item_icon"
+                        android:src="@android:drawable/ic_menu_today" >
+                    </ImageButton>
 
                     <TextView
                         android:id="@+id/follow_up_commitment_date"
