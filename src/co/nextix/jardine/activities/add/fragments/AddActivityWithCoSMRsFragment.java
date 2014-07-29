@@ -54,6 +54,9 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs, container, false);
 
+		int size = AddActivityFragment.AddActivityIndexes.size();
+		AddActivityFragment.AddActivityIndexes.add(size, 2);
+		
 		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
 		ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
 

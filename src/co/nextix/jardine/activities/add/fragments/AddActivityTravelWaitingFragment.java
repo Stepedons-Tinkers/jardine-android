@@ -11,9 +11,11 @@ import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnKeyListener;
 import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
@@ -31,30 +33,16 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
 
-	private Fragment fragment = null;
-
-	private AddActivityFragment addActFrag1;
-
-//	public AddActivityTravelWaitingFragment(Fragment frag) {
-//		this.fragment = frag;
-//	}
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(
 				R.layout.add_activity_travel_or_waiting, container, false);
-
-//		addActFrag1 = (AddActivityFragment) fragment;
-
-		view.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return true;
-			}
-		});
+		
+		int size = AddActivityFragment.AddActivityIndexes.size();
+		Log.e("tr-size","" + size);
+		AddActivityFragment.AddActivityIndexes.add(size, 1);
 
 		this.saveBtn = (CircularProgressButton) view
 				.findViewById(R.id.btnWithText1);

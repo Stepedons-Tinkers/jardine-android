@@ -31,6 +31,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
@@ -69,15 +70,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
-		this.rootView.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return true;
-			}
-		});
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
+		DashBoardActivity.fromAddActivities = true;
+		
+		AddActivityFragment.AddActivityIndexes.add(0, 0);
 
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
@@ -232,7 +229,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 41;
 
-				} else {
+				} else { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);

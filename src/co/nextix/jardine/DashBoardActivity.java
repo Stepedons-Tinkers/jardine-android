@@ -26,6 +26,8 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
@@ -61,6 +63,8 @@ public class DashBoardActivity extends FragmentActivity {
 	private static final String TAG = "DashBoardActivity";
 	private AlertDialog theDialog;
 	private CalendarPickerView dialogView;
+	
+	public static boolean fromAddActivities = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -319,7 +323,25 @@ public class DashBoardActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		super.onBackPressed();
+		
+		int size = AddActivityFragment.AddActivityIndexes.size();
+		
+		if(fromAddActivities){
+			if(size != 1){
+				int previousSize = AddActivityFragment.AddActivityIndexes.size();
+				AddActivityFragment.AddActivityIndexes.remove(previousSize-1);
+				int currentSize = AddActivityFragment.AddActivityIndexes.size();
+				
+				Log.e("previousSize","" + previousSize);
+				Log.e("currentSize","" + currentSize);
+				
+//				AddActivityFragment.pager.setCurrentItem(index);
+			}else {
+				super.onBackPressed();
+			}
+		} else {
+			super.onBackPressed();
+		}
 
 		if (getSupportFragmentManager().findFragmentByTag("dashboard-name") instanceof DashboardFragment) {
 			mDrawerList.setItemChecked(0, true);
@@ -406,7 +428,7 @@ public class DashBoardActivity extends FragmentActivity {
 	public void startActivity(View view) {
 		android.support.v4.app.Fragment fragment = new StartActivityFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).commit();
 		setTitle("Activities");
 	}
 

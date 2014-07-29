@@ -139,8 +139,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
-		
-		Log.e("major?", "" + AddActivityDetailsAndNotesFragment.fromOther);
 
 		if (AddActivityDetailsAndNotesFragment.fromOther) {
 			saveORdone = (CircularProgressButton) view
@@ -405,7 +403,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		} else {
 			saveORdone.setProgress(0);
-			
 			if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
 				AddActivityFragment.pager.setCurrentItem(6);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits

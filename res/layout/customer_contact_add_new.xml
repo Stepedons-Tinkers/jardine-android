@@ -140,11 +140,13 @@
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
                     android:hint="@string/customer_contact_hint_fname"
+                    android:inputType="textPersonName"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
+
             </TableRow>
 
             <TableRow
@@ -169,11 +171,13 @@
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
                     android:hint="@string/customer_contact_hint_lname"
+                    android:inputType="textPersonName"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
+
             </TableRow>
 
             <TableRow
@@ -223,11 +227,13 @@
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
                     android:hint="@string/customer_contact_hint_mobile"
+                    android:inputType="number"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
+
             </TableRow>
 
             <TableRow
@@ -296,11 +302,13 @@
                     android:layout_weight="2"
                     android:background="@drawable/xml_edittext_bg"
                     android:hint="@string/customer_contact_hint_email"
+                    android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
+
             </TableRow>
 
             <TableRow
