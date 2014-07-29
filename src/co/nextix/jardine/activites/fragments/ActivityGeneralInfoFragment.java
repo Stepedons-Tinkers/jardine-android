@@ -19,6 +19,7 @@ import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class ActivityGeneralInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
@@ -41,8 +42,8 @@ public class ActivityGeneralInfoFragment extends Fragment {
 		}
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm() != null ? this.activityRecord.getCrm() : "");
-		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(this.activityRecord.getCheckIn());
-		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(this.activityRecord.getCheckOut());
+		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(MyDateUtils.convertDateTime(this.activityRecord.getCheckIn()));
+		((TextView) myFragmentView.findViewById(R.id.end_time)).setText(MyDateUtils.convertDateTime(this.activityRecord.getCheckOut()));
 
 	
 		ActivityTypeTable type =  JardineApp.DB.getActivityType();

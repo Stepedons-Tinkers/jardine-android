@@ -50,10 +50,12 @@
             android:configChanges="mcc|mnc|orientation|screenSize"
             android:logo="@drawable/actionbar_logo"
             android:theme="@style/Theme.Example" >
-            <!-- 
+
+            <!--
             <item android:name="android:windowBackground">
 @android:color/transparent
-            </item>  -->
+            </item>
+            -->
         </activity>
         <activity
             android:name="LoginActivity"
@@ -64,30 +66,6 @@
             android:name=".collaterals.CollateralsFileViewer"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="fullSensor" >
-        </activity>
-        <activity
-            android:name=".customers.AddCustomer"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Example" >
-        </activity>
-        <activity
-            android:name=".customers.EditCustomer"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Example" >
-        </activity>
-        <activity
-            android:name=".customers.EditCustomerContacts"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Example" >
-        </activity>
-        <activity
-            android:name=".customers.AddCustomerContacts"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="fullSensor"
-            android:theme="@style/Theme.Example" >
         </activity>
     </application>
 

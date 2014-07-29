@@ -34,6 +34,7 @@ import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.SMRTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.WorkplanTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class StartActivityCustomAdapter extends BaseAdapter implements OnClickListener {
@@ -147,8 +148,8 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
 			}else{
-				holder.start_time_txt.setText(this.tempValues.getCheckIn());
-				holder.end_time_txt.setText(this.tempValues.getCheckOut());
+				holder.start_time_txt.setText(MyDateUtils.convertDateTime(this.tempValues.getCheckIn()));
+				holder.end_time_txt.setText(MyDateUtils.convertDateTime(this.tempValues.getCheckOut()));
 				holder.crm_no_txt.setText(this.tempValues.getCrm());
 
 				
