@@ -1,5 +1,6 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
@@ -185,7 +186,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						editor.putString("highlights", highlights);
 						editor.putString("notes", notes);
 						editor.putString("next_steps", nextSteps);
-						editor.putString("follow_up_committment_date", followUpCommittmentDate);
+						editor.putString("follow_up_committment_date", followUpCommittmentDate.concat(displayFollowUpCommittmentDate()));
 
 						editor.commit(); // commit changes
 
@@ -258,5 +259,11 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	protected String FormatDateAndDay(int digit) {
 		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
+	}
+
+	protected String displayFollowUpCommittmentDate() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		return " " + df.format(calendar.getTime());
 	}
 }

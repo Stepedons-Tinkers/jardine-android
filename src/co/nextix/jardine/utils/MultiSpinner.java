@@ -54,19 +54,28 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
 			if (this.selected[i]) {
 				spinnerBuffer.append(items.get(i));
 				spinnerBuffer.append(", ");
-				numberOfChecks = +i;
+
 			}
 		}
 
-		if (numberOfChecks > 4) {
+		int hasCheck = 0;
+		while (this.selected[hasCheck]) {
+			hasCheck++;
+		}
+
+		// Toast.makeText(getContext(), "" + hasCheck,
+		// Toast.LENGTH_SHORT).show();
+
+		if (hasCheck > 5) {
 			spinnerText = this.defaultText;
 			Toast.makeText(getContext(), "Maximum of 5 only", Toast.LENGTH_SHORT).show();
 
-		} else if (numberOfChecks < 1) {
+		} else if (hasCheck < 1) {
 			spinnerText = this.defaultText;
 			Toast.makeText(getContext(), "Minimum of 1 selection must be observed", Toast.LENGTH_SHORT).show();
 
 		} else {
+
 			spinnerText = spinnerBuffer.toString();
 			if (spinnerText.length() > 2)
 				spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
