@@ -20,6 +20,7 @@ import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDImerchCheckStatusTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class JDIMerchandisingCheckDetailFragment extends Fragment {
 
@@ -68,8 +69,8 @@ public class JDIMerchandisingCheckDetailFragment extends Fragment {
 			}
 		}
 		
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){

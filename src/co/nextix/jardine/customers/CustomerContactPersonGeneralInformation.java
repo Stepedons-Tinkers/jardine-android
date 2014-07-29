@@ -1,6 +1,7 @@
 package co.nextix.jardine.customers;
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -129,11 +130,23 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 				break;
 			case R.id.btnEditContactPerson:
 				CustomerConstants.CUSTOMER_CONTACT_RECORD = record;
-				Intent intent = new Intent(getActivity(),
-						EditCustomerContacts.class);
-				intent.putExtra(CustomerConstants.KEY_CUSTOMER_LONG_ID,
-						customerId);
-				getActivity().startActivity(intent);
+//				Intent intent = new Intent(getActivity(),
+//						EditCustomerContacts.class);
+//				intent.putExtra(CustomerConstants.KEY_CUSTOMER_LONG_ID,
+//						customerId);
+//				getActivity().startActivity(intent);
+
+				EditCustomerContactsFragment editFragment = new EditCustomerContactsFragment();
+				
+				getActivity()
+						.getSupportFragmentManager()
+						.beginTransaction()
+						.setTransition(
+								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+						.replace(R.id.frame_container, editFragment)
+						.addToBackStack(null)
+						.commit();
+
 				break;
 			}
 

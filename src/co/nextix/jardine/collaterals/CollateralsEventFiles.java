@@ -1,5 +1,6 @@
 package co.nextix.jardine.collaterals;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import co.nextix.jardine.database.records.MarketingMaterialsRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Gravity;
@@ -19,6 +21,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
@@ -221,11 +224,51 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 
 				Intent intent = new Intent(Intent.ACTION_VIEW);
 				getActivity().startActivity(intent);
-				
+
+				MimeTypeMap myMime = MimeTypeMap.getSingleton();
+
+				Intent newIntent = new Intent(
+						android.content.Intent.ACTION_VIEW);
+				// Intent newIntent = new Intent(Intent.ACTION_VIEW);
+
+				File theFile = new File(JardineApp.JARDINE_DIRECTORY + "/"
+						+ epr.getModuleName(), epr.getFileName());
+
+				String mimeType = myMime.getMimeTypeFromExtension(fileExt(
+						theFile.toString()).substring(1));
+				newIntent.setDataAndType(Uri.fromFile(theFile), mimeType);
+				newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+				try {
+					getActivity().startActivity(newIntent);
+				} catch (android.content.ActivityNotFoundException e) {
+					Toast.makeText(getActivity(),
+							"No handler for this type of file.",
+							Toast.LENGTH_SHORT).show();
+				}
+
 			}
 			return true;
 		}
 	};
+
+	private String fileExt(String url) {
+		if (url.indexOf("?") > -1) {
+			url = url.substring(0, url.indexOf("?"));
+		}
+		if (url.lastIndexOf(".") == -1) {
+			return null;
+		} else {
+			String ext = url.substring(url.lastIndexOf("."));
+			if (ext.indexOf("%") > -1) {
+				ext = ext.substring(0, ext.indexOf("%"));
+			}
+			if (ext.indexOf("/") > -1) {
+				ext = ext.substring(0, ext.indexOf("/"));
+			}
+			return ext.toLowerCase();
+
+		}
+	}
 
 	@Override
 	public void onClick(View v) {

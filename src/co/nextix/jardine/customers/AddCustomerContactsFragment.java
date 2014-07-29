@@ -73,7 +73,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 	private CircularProgressButton saveORdone;
 	private boolean flag = false;
-	private boolean fromOther = false;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -303,13 +302,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 	public void insert() {
 
 		Calendar c = Calendar.getInstance();
-
-		JardineApp.DB.getCustomerContact().insert("", "",
-				field2.getText().toString(), field3.getText().toString(),
-				((PicklistRecord) field4.getSelectedItem()).getId(),
-				field5.getText().toString(), field6a.getText().toString(),
-				field7.getText().toString(), customerId, 1,
-				c.getTime().toString(), c.getTime().toString(), userId);
 
 		String no = "";
 		String crmNo = "";

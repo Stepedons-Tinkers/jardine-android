@@ -99,11 +99,11 @@ public class ProductSupplierFragment extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(), "<==== ni sud here",
-								Toast.LENGTH_SHORT).show();
+//						Toast.makeText(getActivity(), "<==== ni sud here",
+//								Toast.LENGTH_SHORT).show();
 						if (currentPage > 0) {
 							currentPage--;
-//							addItem(currentPage);
+							addItem(currentPage);
 						}
 					}
 				});
@@ -113,11 +113,11 @@ public class ProductSupplierFragment extends Fragment {
 
 					@Override
 					public void onClick(View v) {
-						Toast.makeText(getActivity(), "ni sud here ====>",
-								Toast.LENGTH_SHORT).show();
+//						Toast.makeText(getActivity(), "ni sud here ====>",
+//								Toast.LENGTH_SHORT).show();
 						if (currentPage < totalPage - 1) {
 							currentPage++;
-//							addItem(currentPage);
+							addItem(currentPage);
 						}
 					}
 				});

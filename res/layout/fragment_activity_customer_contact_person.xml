@@ -1,300 +1,309 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:isScrollContainer="true"
-    android:overScrollMode="always"
-    android:scrollbarStyle="outsideInset"
-    android:scrollbars="none" >
+    android:background="#ffffff"
+    android:fadingEdge="vertical"
+    android:gravity="center"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical" >
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
 
-        <TableLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingBottom="5dp"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
-            android:shrinkColumns="*"
-            android:stretchColumns="*" >
+            android:background="#ffffff"
+            android:orientation="vertical" >
 
-            <!-- Row 1 with single column -->
-
-            <TableRow
+            <TableLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#000000"
-                android:orientation="horizontal" >
+                android:paddingBottom="5dp"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:shrinkColumns="*"
+                android:stretchColumns="*" >
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
+                <!-- Row 1 with single column -->
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                    android:background="#000000"
+                    android:orientation="horizontal" >
 
-                    <TextView
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/crm_no_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-                </HorizontalScrollView>
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/crm_no_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
 
-                    <TextView
-                        android:id="@+id/customer"
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/firstname_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-                    <requestFocus />
-                </HorizontalScrollView>
+                        <TextView
+                            android:id="@+id/customer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/firstname_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                        <requestFocus />
+                    </HorizontalScrollView>
 
-                    <TextView
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/lastname_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-                </HorizontalScrollView>
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/lastname_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
 
-                    <TextView
-                        android:id="@+id/activity_type"
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/position_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-                    <requestFocus />
-                </HorizontalScrollView>
+                        <TextView
+                            android:id="@+id/activity_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/position_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0"
-                    android:visibility="gone" >
+                        <requestFocus />
+                    </HorizontalScrollView>
 
-                    <TextView
-                        android:id="@+id/assigned_to"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/customer_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <requestFocus />
-                </HorizontalScrollView>
-
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
-
-                    <TextView
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/mobile_no_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-                </HorizontalScrollView>
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0"
+                        android:visibility="gone" >
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0" >
+                        <TextView
+                            android:id="@+id/assigned_to"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/customer_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
 
-                    <TextView
+                        <requestFocus />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/assigned_to_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-                </HorizontalScrollView>
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-                <HorizontalScrollView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="4dp"
-                    android:layout_weight="0.3"
-                    android:background="#b0b0b0"
-                    android:visibility="gone" >
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/mobile_no_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
 
-                    <TextView
+                    <HorizontalScrollView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/action_contact_person"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-                </HorizontalScrollView>
-            </TableRow>
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0" >
 
-            <ListView
-                android:id="@+id/list"
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/assigned_to_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
+
+                    <HorizontalScrollView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="4dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="0.3"
+                        android:background="#b0b0b0"
+                        android:visibility="gone" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/action_contact_person"
+                            android:textColor="#000"
+                            android:textSize="14dp" />
+                    </HorizontalScrollView>
+                </TableRow>
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:choiceMode="singleChoice"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:drawSelectorOnTop="true"
+                    android:focusableInTouchMode="true"
+                    android:listSelector="@drawable/list_selector"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
+
+                <View
+                    android:id="@+id/view_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@color/black" />
+            </TableLayout>
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:choiceMode="singleChoice"
-                android:descendantFocusability="blocksDescendants"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:drawSelectorOnTop="true"
-                android:focusableInTouchMode="true"
-                android:listSelector="@drawable/list_selector"
-                android:overScrollMode="never"
-                android:scrollbars="none" />
+                android:layout_marginBottom="7dp" >
 
-            <View
-                android:id="@+id/view_stub"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/black" />
-        </TableLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" >
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp" >
+                    <ImageButton
+                        android:id="@+id/imageButton1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:onClick="prev"
+                        android:src="@drawable/prev" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center" >
+                    <TextView
+                        android:id="@+id/status_count_text"
+                        android:layout_width="74dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="1 of 1"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
 
-                <ImageButton
-                    android:id="@+id/imageButton1"
+                    <ImageButton
+                        android:id="@+id/imageButton3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24dp"
+                        android:onClick="next"
+                        android:src="@drawable/next" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/add_customer_contact_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:onClick="prev"
-                    android:src="@drawable/prev" />
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/add_customer_contact_person"
+                    android:visibility="gone" />
 
-                <TextView
-                    android:id="@+id/status_count_text"
-                    android:layout_width="74dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="1 of 1"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
+                <Button
+                    android:id="@+id/select_customer_contact_person"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:onClick="next"
-                    android:src="@drawable/next" />
-            </LinearLayout>
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/add_customer_contact_person"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/select_customer_contact_person"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
 
-            <Button
-                android:id="@+id/add_customer_contact_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="14dp"
-                android:text="@string/add_customer_contact_person"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/select_customer_contact_person"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_below="@+id/add_customer_contact_person"
-                android:layout_marginRight="14dp"
-                android:text="@string/select_customer_contact_person"
-                android:visibility="gone" />
-        </RelativeLayout>
-    </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

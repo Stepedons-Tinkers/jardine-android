@@ -19,6 +19,7 @@ import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class ProjectRequirementsDetailFragment extends Fragment {
 
@@ -57,11 +58,11 @@ public class ProjectRequirementsDetailFragment extends Fragment {
 			}
 		}
 		
-		((TextView) myFragmentView.findViewById(R.id.date_needed)).setText(this.record.getDateNeeded());
+		((TextView) myFragmentView.findViewById(R.id.date_needed)).setText(MyDateUtils.convertDate(this.record.getDateNeeded()));
 		((TextView) myFragmentView.findViewById(R.id.square_meters)).setText(this.record.getSquareMeters());
 		((TextView) myFragmentView.findViewById(R.id.product_brand)).setText(this.record.getProductsBrand());
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 		
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){

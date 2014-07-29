@@ -267,7 +267,7 @@ public class BusinessUnitTable {
 			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
 
 			if ((c != null) && c.moveToFirst()) {
-				result = c.getString(c.getColumnIndex(KEY_BUSINESSUNIT_ROWID));
+				result = c.getString(c.getColumnIndex(KEY_BUSINESSUNIT_NO));
 			}
 		} finally {
 			if (c != null) {

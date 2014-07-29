@@ -5,22 +5,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.ProgressDialog;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.DatabaseAdapter;
@@ -30,11 +14,31 @@ import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
-public class EditCustomerContacts extends Activity implements OnClickListener {
+public class EditCustomerContactsFragment extends Fragment implements
+		OnClickListener {
 
-	private long customerId;
-	private String customerName;
 	private String userName;
 	private long userId;
 	private TextView field1;
@@ -54,75 +58,100 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 
 	private CustomerContactRecord record;
 
+	private View view;
+
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.customer_contact_add_new);
 		String id = StoreAccount.restore(JardineApp.context).getString(
 				Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
 		userId = Long.parseLong(id);
+	}
+
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.customer_contact_add_new, container,
+				false);
+		return view;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		// TODO Auto-generated method stub
+		super.onActivityCreated(savedInstanceState);
 		initLayout();
+	}
+
+	private boolean checker() {
+		boolean flag = false;
+
+		if (!field2.getText().toString().contentEquals("")
+				&& !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0
+				&& !field5.getText().toString().contentEquals("")) {
+			flag = true;
+		} else {
+			flag = false;
+		}
+
+		return flag;
 	}
 
 	private void initLayout() {
 
 		record = CustomerConstants.CUSTOMER_CONTACT_RECORD;
-		customerId = this.getIntent().getExtras()
-				.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		customerName = this.getIntent().getExtras()
-				.getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
-		final Calendar c = Calendar.getInstance();
+
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
 
-		day = c.get(Calendar.DAY_OF_MONTH);
-		month = c.get(Calendar.MONTH);
-		year = c.get(Calendar.YEAR);
+		formattedDate = record.getBirthday();
 
-		formattedDate = year + "-" + (month + 1) + "-" + day;
-
-		cancel = (Button) findViewById(R.id.bCustomerContactAddCancel);
-		save = (Button) findViewById(R.id.bCustomerContactAddCreate);
+		cancel = (Button) view.findViewById(R.id.bCustomerContactAddCancel);
+		save = (Button) view.findViewById(R.id.bCustomerContactAddCreate);
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
 
 		save.setText("Update");
 
-		field1 = (TextView) findViewById(R.id.tvCustomerContactAddField1);
+		field1 = (TextView) view.findViewById(R.id.tvCustomerContactAddField1);
 
-		field2 = (EditText) findViewById(R.id.etCustomerContactAddField2);
-		field3 = (EditText) findViewById(R.id.etCustomerContactAddField3);
+		field2 = (EditText) view.findViewById(R.id.etCustomerContactAddField2);
+		field3 = (EditText) view.findViewById(R.id.etCustomerContactAddField3);
 
-		field4 = (Spinner) findViewById(R.id.spiCustomerContactAddField4);
+		field4 = (Spinner) view.findViewById(R.id.spiCustomerContactAddField4);
 
-		field5 = (EditText) findViewById(R.id.etCustomerContactAddField5);
+		field5 = (EditText) view.findViewById(R.id.etCustomerContactAddField5);
 
-		field6a = (TextView) findViewById(R.id.tvCustomerContactAddField6);
-		field6b = (ImageButton) findViewById(R.id.ibCustomerContactAddField6);
+		field6a = (TextView) view.findViewById(R.id.tvCustomerContactAddField6);
+		field6b = (ImageButton) view
+				.findViewById(R.id.ibCustomerContactAddField6);
 
-		field7 = (EditText) findViewById(R.id.etCustomerContactAddField7);
+		field7 = (EditText) view.findViewById(R.id.etCustomerContactAddField7);
 
-		field8 = (TextView) findViewById(R.id.tvCustomerContactAddField8);
+		field8 = (TextView) view.findViewById(R.id.tvCustomerContactAddField8);
 
-		field9 = (TextView) findViewById(R.id.tvCustomerContactAddField9);
+		field9 = (TextView) view.findViewById(R.id.tvCustomerContactAddField9);
 		// List to be populated in spinner adapter
 		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
 				.getAllRecords();
 		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(
-				this, R.layout.workplan_spinner_row, posi);
+				JardineApp.context, R.layout.workplan_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
 		field6b.setOnClickListener(this);
 		field8.setText(CustomerConstants.CUSTOMER_NAME);
-		
+
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
 			UserRecord user = u.getCurrentUser();
 			if (user != null) {
-				field9.setText(user.getFirstNameName() + " " + user.getLastname());
+				field9.setText(user.getFirstNameName() + " "
+						+ user.getLastname());
 			}
 		}
 
@@ -130,7 +159,7 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 		field3.setText(record.getLastName());
 		field4.setSelection((int) record.getPosition() - 1);
 		field5.setText(record.getMobileNo());
-		field6a.setText(record.getBirthday());
+		field6a.setText(MyDateUtils.convertDate(record.getBirthday()));
 		field7.setText(record.getEmailAddress());
 
 	}
@@ -140,13 +169,31 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 
 		switch (v.getId()) {
 		case R.id.bCustomerContactAddCancel:
-			finish();
+			getActivity().onBackPressed();
 			break;
 		case R.id.bCustomerContactAddCreate:
-			new InsertTask().execute();
+			if (checker()) {
+				new InsertTask().execute();
+			} else {
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
 			break;
 		case R.id.ibCustomerContactAddField6:
-			DatePickerDialog pickDialog = new DatePickerDialog(this,
+			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
 					android.R.style.Theme_Holo_Panel, datePickerListener, year,
 					month, day);
 			pickDialog.show();
@@ -168,8 +215,9 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 			// txtActualDate.setText(new StringBuilder().append(month + 1)
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
-			formattedDate = year + "-" + (month + 1) + "-" + day;
-			field6a.setText(formattedDate);
+			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
+					+ checkDigit(day);
+			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
 
@@ -181,7 +229,7 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 
 		@Override
 		protected void onPreExecute() {
-			dialog = new ProgressDialog(EditCustomerContacts.this);
+			dialog = new ProgressDialog(getActivity());
 			dialog.setMessage("Saving new Customer");
 			dialog.show();
 		}
@@ -206,12 +254,16 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 			dialog.dismiss();
 			if (result) {
 				showMsg("Successfully updated Customer Contact");
-				finish();
+				getActivity().onBackPressed();
 			} else {
 				showMsg("Something went wrong, failed to update customer contact");
 			}
 		}
 
+	}
+
+	public String checkDigit(int number) {
+		return number <= 9 ? "0" + number : String.valueOf(number);
 	}
 
 	public void insert() {
@@ -229,13 +281,13 @@ public class EditCustomerContacts extends Activity implements OnClickListener {
 				record.getNo(), record.getCrm(), field2.getText().toString(),
 				field3.getText().toString(),
 				((PicklistRecord) field4.getSelectedItem()).getId(),
-				field5.getText().toString(), field6a.getText().toString(),
-				field7.getText().toString(), customerId, 1,
+				field5.getText().toString(), formattedDate,
+				field7.getText().toString(), record.getCustomer(), 1,
 				record.getCreatedTime(), c.getTime().toString(), userId);
 
 	}
 
 	private void showMsg(String txt) {
-		Toast.makeText(this, txt, Toast.LENGTH_LONG).show();
+		Toast.makeText(getActivity(), txt, Toast.LENGTH_LONG).show();
 	}
 }

@@ -19,6 +19,7 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class MarketingIntelDetailFragment extends Fragment {
 
@@ -59,8 +60,8 @@ public class MarketingIntelDetailFragment extends Fragment {
 		}
 		
 		((TextView) myFragmentView.findViewById(R.id.details)).setText(this.record.getDetails());		
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 		
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){

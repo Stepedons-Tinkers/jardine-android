@@ -198,7 +198,7 @@
                 android:text="@string/next"
                 android:textSize="18sp"
                 android:visibility="invisible" />
-        </RelativeLayout>
+        </RelativeLayout>
         -->
     </LinearLayout>
 
