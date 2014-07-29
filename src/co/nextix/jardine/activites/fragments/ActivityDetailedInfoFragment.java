@@ -28,6 +28,7 @@ import co.nextix.jardine.database.tables.WorkplanTable;
 import co.nextix.jardine.database.tables.picklists.PAreaTable;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class ActivityDetailedInfoFragment extends Fragment {
 	private ActivityRecord activityRecord = null;
@@ -70,7 +71,7 @@ public class ActivityDetailedInfoFragment extends Fragment {
 		notes.setText(this.activityRecord.getNotes());
 		highlights.setText(this.activityRecord.getHighlights());
 		nextsteps.setText(this.activityRecord.getNextSteps());
-		commitment_date.setText(String.valueOf(this.activityRecord.getFollowUpCommitmentDate()));
+		commitment_date.setText(MyDateUtils.convertDate(this.activityRecord.getFollowUpCommitmentDate()));
 		
 		if(this.activityRecord.getFirstTimeVisit() == 0)
 			first_time_visit.setText("No");

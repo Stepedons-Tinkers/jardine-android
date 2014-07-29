@@ -30,6 +30,7 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements OnClickListener {
@@ -147,7 +148,7 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));
 				holder.title.setText(this.tempValues.getTitle());
 				holder.file_name.setText(this.tempValues.getFileName());
-				holder.modified_time.setText(this.tempValues.getModifiedTime());
+				holder.modified_time.setText(MyDateUtils.convertDateTime(this.tempValues.getModifiedTime()));
 				
 				UserTable user = JardineApp.DB.getUser();
 				if(user != null){

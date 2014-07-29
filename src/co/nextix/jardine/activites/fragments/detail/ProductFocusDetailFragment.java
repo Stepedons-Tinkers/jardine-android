@@ -14,6 +14,7 @@ import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class ProductFocusDetailFragment extends Fragment {
 
@@ -43,8 +44,8 @@ public class ProductFocusDetailFragment extends Fragment {
 		else
 			((TextView) myFragmentView.findViewById(R.id.is_active)).setText("Yes");
 		
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){
 			((TextView) myFragmentView.findViewById(R.id.created_by)).setText("");

@@ -27,6 +27,7 @@ import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
+import co.nextix.jardine.utils.MyDateUtils;
 
 public class CompetitorProductStockCheckDetailFragment extends Fragment {
 
@@ -82,8 +83,8 @@ public class CompetitorProductStockCheckDetailFragment extends Fragment {
 		else
 			((TextView) myFragmentView.findViewById(R.id.loaded_on_shelves)).setText("Yes");
 		
-		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(this.record.getCreatedTime());
-		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(this.record.getModifiedTime());
+		((TextView) myFragmentView.findViewById(R.id.created_time)).setText(MyDateUtils.convertDateTime(this.record.getCreatedTime()));
+		((TextView) myFragmentView.findViewById(R.id.modified_time)).setText(MyDateUtils.convertDateTime(this.record.getModifiedTime()));
 		
 		UserTable user = JardineApp.DB.getUser();
 		if(user != null){
