@@ -1,8 +1,22 @@
 package co.nextix.jardine.fragments;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import com.android.volley.Request.Method;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -89,6 +103,7 @@ import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
+import co.nextix.jardine.utils.NetworkUtils;
 import co.nextix.jardine.utils.Tools;
 import co.nextix.jardine.web.CreateRequests;
 import co.nextix.jardine.web.CreateResult;
@@ -121,6 +136,7 @@ import co.nextix.jardine.web.models.SMRModel;
 import co.nextix.jardine.web.models.SalesProtocolModel;
 import co.nextix.jardine.web.models.WorkplanEntryModel;
 import co.nextix.jardine.web.models.WorkplanModel;
+import co.nextix.jardine.web.requesters.DefaultRequester;
 import co.nextix.jardine.web.requesters.LoginModel;
 import co.nextix.jardine.web.requesters.WebCreateModel;
 import co.nextix.jardine.web.requesters.sync.SactRequester.ActResult;
@@ -221,8 +237,9 @@ public class SyncMenuBarFragment extends Fragment {
 						List<WebCreateModel> webModels = results.getCreate();
 						if (webModels != null) {
 							for (WebCreateModel model : webModels) {
-								table.updateNo(model.getMobileId(),
-										String.valueOf(model.getCrmNo()));
+								table.updateNo(rec.getId(),
+										String.valueOf(model.getCrmNo()),
+										model.getModifiedTime());
 								// table.updateModifiedTime(model.getMobileId(),
 								// model.getModifiedTime());
 							}
@@ -238,8 +255,8 @@ public class SyncMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 
 			if (result) {
-				new CreateCompetitorProductTask().execute();
-
+				 new CreateCompetitorProductTask().execute();
+//				createCompetitorProduct();
 			} else {
 				dialog.dismiss();
 				Toast.makeText(getActivity(), "Check Internet connection",
@@ -247,6 +264,115 @@ public class SyncMenuBarFragment extends Fragment {
 			}
 		}
 	}
+
+//	private void createCompetitorProduct() {
+//		dialog.setTitle("Create");
+//		dialog.setMessage("CompetitorProduct");
+//		dialog.setCancelable(false);
+//		dialog.setCanceledOnTouchOutside(false);
+//		dialog.show();
+//		final CompetitorProductTable table = JardineApp.DB
+//				.getCompetitorProduct();
+//		List<CompetitorProductRecord> records = table.getUnsyncedRecords();
+//		JSONObject requestList = new JSONObject();
+//		try {
+//
+//			UserTable userTable = JardineApp.DB.getUser();
+//
+//			for (int x = 0; x < records.size(); x++) {
+//				JSONObject requestObject = new JSONObject();
+//
+//				// get user id from db
+//				String id = userTable.getNoById(records.get(x).getCreatedBy());
+//				requestObject.put("assigned_user_id", id);
+//				requestObject.put("cf_1143", records.get(x).getCompetitor());
+//				requestObject.put("z_cmp_prbrnd", records.get(x)
+//						.getProductBrand());
+//				requestObject.put("z_cmp_prdesc", records.get(x)
+//						.getProductDescription());
+//				requestObject.put("z_cmp_prsize", records.get(x)
+//						.getProductSize());
+//				requestObject.put("z_cmp_isactive", records.get(x)
+//						.getIsActive());
+//
+//				requestList.put(String.valueOf(records.get(x).getId()),
+//						requestObject);
+//			}
+//
+//		} catch (JSONException e1) {
+//			e1.printStackTrace();
+//		}
+//		String urlString = JardineApp.WEB_URL;
+//		Log.d(JardineApp.TAG, urlString);
+//
+//		Map<String, String> params = new HashMap<String, String>();
+//		params.put("sessionName", JardineApp.SESSION_NAME);
+//		params.put("operation", "creates");
+//		params.put("elementType", Modules.CompetitorProduct);
+//		params.put("elements", requestList.toString());
+//
+//		JsonObjectRequest jsonObjReq = new JsonObjectRequest(Method.POST,
+//				urlString, new JSONObject(params),
+//				new Response.Listener<JSONObject>() {
+//
+//					@Override
+//					public void onResponse(JSONObject response) {
+//						Gson gson = new Gson();
+//						Type typeOfT = new TypeToken<DefaultRequester<CreateResult>>() {
+//						}.getType();
+//						DefaultRequester<CreateResult> requester = gson
+//								.fromJson(NetworkUtils.getReader(response
+//										.toString()), typeOfT);
+//						CreateResult results = (CreateResult) requester
+//								.getResult();
+//
+//						if (results != null) {
+//							List<WebCreateModel> models = results.getCreate();
+//							if (models != null) {
+//								for (WebCreateModel model : models) {
+//									table.updateNo(model.getMobileId(),
+//											String.valueOf(model.getCrmNo()),
+//											model.getModifiedTime());
+//								}
+//							}
+//						}
+//
+//						new CreateCustomerTask().execute();
+//					}
+//				}, new Response.ErrorListener() {
+//
+//					@Override
+//					public void onErrorResponse(VolleyError error) {
+//						VolleyLog.d(JardineApp.WEBTAG, error.getMessage());
+//						Log.e(JardineApp.WEBTAG, "Error: " + error.toString());
+//
+//					}
+//				}) {
+//
+//			// @Override
+//			// public Map<String, String> getHeaders() throws AuthFailureError {
+//			//
+//			// Map<String, String> headers = super.getHeaders();
+//			//
+//			// if (headers == null || headers.equals(Collections.emptyMap())) {
+//			// headers = new HashMap<String, String>();
+//			// }
+//			//
+//			// headers.put(MiimoveApp.COOKIES_KEY,
+//			// "miimove=" + StoreAccount.restoreSession(CONTEXT));
+//			//
+//			// return headers;
+//			// }
+//			//
+//			@Override
+//			public String getBodyContentType() {
+//				return "application/json; charset=utf-8";
+//			}
+//
+//		};
+//
+//		JardineApp.addToRequestQueue(jsonObjReq, JardineApp.WEBTAG);
+//	}
 
 	private class CreateCompetitorProductTask extends
 			AsyncTask<Void, Void, Boolean> {
@@ -275,7 +401,8 @@ public class SyncMenuBarFragment extends Fragment {
 				if (models != null) {
 					for (WebCreateModel model : models) {
 						table.updateNo(model.getMobileId(),
-								String.valueOf(model.getCrmNo()));
+								String.valueOf(model.getCrmNo()),
+								model.getModifiedTime());
 					}
 				}
 			}
