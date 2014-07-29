@@ -8,7 +8,7 @@ public class WebCreateModel {
 	// modifiedtime: "2014-06-18 22:16:34"
 
 	@SerializedName("id")
-	private long crm_no;
+	private long no;
 
 	@SerializedName("mobile_id")
 	private long mobile_id;
@@ -16,12 +16,15 @@ public class WebCreateModel {
 	@SerializedName("modifiedtime")
 	private String modifiedtime;
 
-	public long getCrmNo() {
-		return this.crm_no;
+	@SerializedName("crmid")
+	private String crmid;
+
+	public long getNo() {
+		return this.no;
 	}
 
-	public void setCrmNo(long crmNo) {
-		this.crm_no = crmNo;
+	public void setNo(long no) {
+		this.no = no;
 	}
 
 	public long getMobileId() {
@@ -38,5 +41,13 @@ public class WebCreateModel {
 
 	public void setModifiedTime(String modifiedTime) {
 		this.modifiedtime = modifiedTime;
+	}
+
+	public String getCrmId() {
+		return this.crmid;
+	}
+
+	public void setCrmId(String crmid) {
+		this.crmid = crmid;
 	}
 }

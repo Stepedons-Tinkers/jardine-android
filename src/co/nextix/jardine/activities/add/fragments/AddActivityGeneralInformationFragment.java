@@ -17,10 +17,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
@@ -28,9 +26,11 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
@@ -69,16 +69,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
-		this.rootView.setOnTouchListener(new OnTouchListener() {
-
-			@Override
-			public boolean onTouch(View v, MotionEvent event) {
-				return true;
-			}
-		});
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
-
+		
+		DashBoardActivity.fromAddActivities = true;
+		
+		if(DashBoardActivity.tabIndex.size() == 0){
+			DashBoardActivity.tabIndex.add(0, 0);
+		}
+		
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
 		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
@@ -232,7 +231,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 41;
 
-				} else {
+				} else { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);
@@ -262,11 +261,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				flag = 4;
+				flag = 4;				
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
 						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
 						AddActivityGeneralInformationFragment.this.day);
@@ -356,22 +355,31 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 				} else {
 					if(ActivityType == 1){ // travel
+						DashBoardActivity.tabIndex.add(1, 1);
 						AddActivityFragment.pager.setCurrentItem(1);
 					} else if (ActivityType == 43){ // coSMRs
+						DashBoardActivity.tabIndex.add(1, 2);
 						AddActivityFragment.pager.setCurrentItem(2);
 					} else if (ActivityType == 47){ // admin works
+						DashBoardActivity.tabIndex.add(1, 3);
 						AddActivityFragment.pager.setCurrentItem(3);
 					} else if (ActivityType == 4){ // retails
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 9){ // ki visits
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 101){ // major training
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 102){ // end user
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 41){ // full brand
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					} else if (ActivityType == 100){ // others
+						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					}
 				}

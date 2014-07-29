@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.database.sqlite.SQLiteException;
 import android.graphics.Typeface;
@@ -35,8 +34,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.add.fragments.AddActivityDetailsAndNotesFragment;
-import co.nextix.jardine.collaterals.AdapterCollateralsMarketingMaterials;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.collaterals.CustomSpinnerAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.tables.CustomerTable;
@@ -88,13 +86,16 @@ public class ViewAllCustomersFragment extends Fragment implements
 		view = inflater.inflate(R.layout.customer_view_all, container, false);
 		header = inflater.inflate(R.layout.table_row_customers, null);
 
+		DashBoardActivity.tabIndex.clear();
+		DashBoardActivity.fromAddActivities = false;
+		
 		initLayout();
 		return view;
 	}
 
 	private void initLayout() {
 
-		AddActivityDetailsAndNotesFragment.fromOther = false;
+		AddActivityFragment.fromOther = false;
 		// Header Data
 		tablerow = (TableRow) header.findViewById(R.id.trCustomersRow);
 		txtCrm = (TextView) header.findViewById(R.id.tvCustomerCRMNo);

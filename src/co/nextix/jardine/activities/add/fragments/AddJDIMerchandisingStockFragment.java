@@ -13,6 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Spinner;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
@@ -79,6 +80,7 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if(AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+						DashBoardActivity.tabIndex.add(6, 9);
 						AddActivityFragment.pager.setCurrentItem(9);
 					}
 				}

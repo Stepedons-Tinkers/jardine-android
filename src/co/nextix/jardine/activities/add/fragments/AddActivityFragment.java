@@ -8,17 +8,14 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import co.nextix.jardine.R;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
-import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -30,34 +27,18 @@ public class AddActivityFragment extends Fragment {
 	public static ViewPager pager;
 	protected MyPagerAdapter adapter;
 
-	private int firstPos;
-
-	private FragmentTransaction ft;
-	private FrameLayout fl;
-
-	private Bundle bundle;
-	private Bundle b;
-
 	public static long WORKPLAN_ENTRY_ID = 0;
 	public static long ACTIVITY_TYPE = 0;
 	public static int tabPosition = -1;
+	public static boolean fragmentStart = false;
+	public static boolean fromOther = true;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
-
-//		b = getArguments();
-//
-//		if (b != null) {
-//			WORKPLAN_ENTRY_ID = b.getLong(WorkPlanConstants.WORKPLAN_ENTRY_ROW_ID);
-//		}
-//
-//		ft = getFragmentManager().beginTransaction();
-//		fl = (FrameLayout) rootView.findViewById(R.id.layoutForAddingFrag);
-//
-//		bundle = new Bundle();
-//		bundle.putInt("layoutID", fl.getId());
+		
+		Log.e("add", "createView");
 		
 		List<Fragment> fragments = getFragments();
 
@@ -72,7 +53,7 @@ public class AddActivityFragment extends Fragment {
 		pager.setPageMargin(pageMargin);
 
 		tabs.setViewPager(pager, false);
-
+		
 		return rootView;
 	}
 	
@@ -119,24 +100,29 @@ public class AddActivityFragment extends Fragment {
 	private List<Fragment> getFragments(){
 		List<Fragment> flist = new ArrayList<Fragment>();
 		
-		flist.add(AddActivityGeneralInformationFragment.instantiate(getActivity(), AddActivityGeneralInformationFragment.class.getName()));
-		flist.add(AddActivityTravelWaitingFragment.instantiate(getActivity(), AddActivityTravelWaitingFragment.class.getName()));
-		flist.add(AddActivityWithCoSMRsFragment.instantiate(getActivity(), AddActivityWithCoSMRsFragment.class.getName()));
-		flist.add(AddActivityAdminWorksFragment.instantiate(getActivity(), AddActivityAdminWorksFragment.class.getName()));
-		flist.add(AddActivityDetailsAndNotesFragment.instantiate(getActivity(), AddActivityDetailsAndNotesFragment.class.getName()));
-		flist.add(AddCustomerContactsFragment.instantiate(getActivity(), AddCustomerContactsFragment.class.getName()));
-		flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
-		flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
-		flist.add(AddJDIMerchandisingStockFragment.instantiate(getActivity(), AddJDIMerchandisingStockFragment.class.getName()));
-		flist.add(AddCompetitorStockCheckFragment.instantiate(getActivity(), AddCompetitorStockCheckFragment.class.getName()));
-		flist.add(AddMarketingIntelFragment.instantiate(getActivity(), AddMarketingIntelFragment.class.getName()));
-		flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), AddActivityProjectVisitFragment.class.getName()));
-		flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), AddProjectRequirementsFragment.class.getName()));
-		flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), AddActivityTrainingsFragment.class.getName()));
-		flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName())); // identify product focus
-		flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(), AddActivityFullBrandActivationFragment.class.getName()));
-		flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName()));
-		
+/*0*/	flist.add(AddActivityGeneralInformationFragment.instantiate(getActivity(), 	AddActivityGeneralInformationFragment.class.getName()));
+/*1*/	flist.add(AddActivityTravelWaitingFragment.instantiate(getActivity(), 		AddActivityTravelWaitingFragment.class.getName()));
+/*2*/	flist.add(AddActivityWithCoSMRsFragment.instantiate(getActivity(), 			AddActivityWithCoSMRsFragment.class.getName()));
+/*3*/	flist.add(AddActivityAdminWorksFragment.instantiate(getActivity(), 			AddActivityAdminWorksFragment.class.getName()));
+/*4*/	flist.add(AddActivityDetailsAndNotesFragment.instantiate(getActivity(), 	AddActivityDetailsAndNotesFragment.class.getName()));
+/*5*/	flist.add(AddCustomerContactsFragment.instantiate(getActivity(), 			AddCustomerContactsFragment.class.getName()));
+/*6*/	flist.add(AddJDIProductStockFragment.instantiate(getActivity(), 			AddJDIProductStockFragment.class.getName()));
+/*7*/	flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), 	AddActivityProductSupplierFragment.class.getName()));
+/*8*/	flist.add(AddJDIMerchandisingStockFragment.instantiate(getActivity(), 		AddJDIMerchandisingStockFragment.class.getName()));
+/*9*/	flist.add(AddCompetitorStockCheckFragment.instantiate(getActivity(), 		AddCompetitorStockCheckFragment.class.getName()));
+/*10*/	flist.add(AddMarketingIntelFragment.instantiate(getActivity(),				AddMarketingIntelFragment.class.getName()));
+/*11*/	flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), 		AddActivityProjectVisitFragment.class.getName()));
+/*12*/	flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), 		AddProjectRequirementsFragment.class.getName()));
+/*13*/	flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), 			AddActivityTrainingsFragment.class.getName()));
+/*14*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), 		AddActivityPhotosAndAttachments.class.getName())); // identify product focus
+/*15*/	flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(), AddActivityFullBrandActivationFragment.class.getName()));
+/*16*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), 		AddActivityPhotosAndAttachments.class.getName()));
 		return flist;
+	}
+
+	@Override
+	public void onDestroy() {
+		super.onDestroy();
+		fragmentStart = false;
 	}
 }

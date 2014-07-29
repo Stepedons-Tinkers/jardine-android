@@ -162,18 +162,12 @@
                     android:layout_weight="0.3"
                     android:background="#b0b0b0" >
 
-                    <TextView
-                        android:id="@+id/customer"
+                    <Spinner
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="related Activity record"
-                        android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:layout_height="45dp"
+                        android:background="#b0b0b0"
+                        android:scrollHorizontally="true" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -217,17 +211,12 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
-                        android:id="@+id/TextView04"
+                    <Spinner
+                        android:id="@+id/product"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Product record"
-                        android:textColor="#000000" />
+                        android:scrollHorizontally="true" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -319,7 +308,7 @@
                         android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#cac9c9"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
@@ -336,17 +325,23 @@
                     android:layout_weight="0.3"
                     android:background="#cac9c9" >
 
-                    <TextView
-                        android:id="@+id/customer_name"
+                    <Spinner
+                        android:id="@+id/supplier"
                         android:layout_width="0dp"
+<<<<<<< HEAD
+                        android:layout_height="45dp"
+                        android:background="#b0b0b0"
+                        android:scrollHorizontally="true" />
+=======
                         android:layout_height="wrap_content"
-                        android:background="#dcdcdc"
+                        android:background="#cac9c9"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:text="related Supplier record"
                         android:textColor="#000000" />
+>>>>>>> 89ec886edb1dd1a5741eb7aa9c115966132a8844
                 </HorizontalScrollView>
             </TableRow>
 
@@ -428,7 +423,7 @@
 
                     <EditText
                         android:id="@+id/other_type_remarks"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
                         android:hint="remarks" />

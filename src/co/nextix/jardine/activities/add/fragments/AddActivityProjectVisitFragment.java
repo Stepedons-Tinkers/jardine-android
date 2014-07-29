@@ -23,6 +23,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -167,6 +168,7 @@ public class AddActivityProjectVisitFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+						DashBoardActivity.tabIndex.add(5, 12);
 						AddActivityFragment.pager.setCurrentItem(12);
 					}
 				}

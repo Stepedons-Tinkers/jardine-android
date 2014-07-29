@@ -470,20 +470,11 @@ public class DocumentTable {
 		}
 	}
 
-	public boolean updateNo(long id, String no, String modifiedTime) {
+	public boolean update(long id, String no, String modifiedTime,
+			String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_DOCUMENT_NO, no);
 		args.put(KEY_DOCUMENT_MODIFIEDTIME, modifiedTime);
-		if (mDb.update(mDatabaseTable, args, KEY_DOCUMENT_ROWID + "=" + id,
-				null) > 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
-
-	public boolean updateCrmNo(long id, String crmNo) {
-		ContentValues args = new ContentValues();
 		args.put(KEY_DOCUMENT_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_DOCUMENT_ROWID + "=" + id,
 				null) > 0) {

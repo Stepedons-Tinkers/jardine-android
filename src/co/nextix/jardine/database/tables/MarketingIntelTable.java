@@ -1,5 +1,9 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_ACTIVITY;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_COMPETITORPRODUCT;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_MARKETINGINTEL_CREATEDBY;
@@ -152,14 +156,13 @@ public class MarketingIntelTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_MARKETINGINTEL_NO, no);
+		args.put(KEY_MARKETINGINTEL_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_MARKETINGINTEL_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_MARKETINGINTEL_ROWID + "="
 				+ id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, createdBy);
 			return true;
 		} else {
 			return false;
