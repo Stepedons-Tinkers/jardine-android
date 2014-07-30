@@ -78,7 +78,7 @@
                     android:singleLine="true"
                     android:text="@string/general_info"
                     android:textColor="#fff"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -138,7 +138,7 @@
                         android:singleLine="true"
                         android:text="@string/crm_no_competitor_stock_check"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -159,7 +159,7 @@
                         android:singleLine="true"
                         android:text="incremental; auto-generated"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -180,7 +180,7 @@
                         android:state_selected="true"
                         android:text="@string/activity_jdi_merchandising"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <requestFocus
@@ -197,17 +197,16 @@
                     android:background="#b0b0b0" >
 
                     <TextView
-                        android:id="@+id/customer"
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:state_selected="true"
                         android:text="related Activity record"
-                        android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:textColor="#000"
+                        android:textSize="14sp" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -251,7 +250,7 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                   <Spinner
+                    <Spinner
                         android:id="@+id/product"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
@@ -337,14 +336,14 @@
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
                         android:gravity="center"
+                        android:hint="logged-in user"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:hint="logged-in user"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
-                
+
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -356,10 +355,10 @@
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#cac9c9"
-                        android:visibility="invisible"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true"
+                        android:visibility="invisible" />
                 </HorizontalScrollView>
-                
+
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -373,8 +372,8 @@
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#cac9c9"
-                        android:visibility="invisible"
-                        android:scrollHorizontally="true" />
+                        android:scrollHorizontally="true"
+                        android:visibility="invisible" />
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 
 public class AddProjectRequirementsFragment extends Fragment {
@@ -89,6 +90,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+						DashBoardActivity.tabIndex.add(6, 16);
 						AddActivityFragment.pager.setCurrentItem(16);
 					}
 				}

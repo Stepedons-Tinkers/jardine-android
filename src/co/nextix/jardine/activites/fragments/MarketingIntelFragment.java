@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -26,8 +27,12 @@ import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapte
 import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.records.ProjectRequirementRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.MarketingIntelTable;
+import co.nextix.jardine.database.tables.ProjectRequirementTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class MarketingIntelFragment extends Fragment {
@@ -45,6 +50,9 @@ public class MarketingIntelFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+
+	private ActivityRecord activityRecord = null;
+	private SharedPreferences pref = null;
 	
 	public MarketingIntelFragment() {
 		this.itemSearch = new ArrayList<MarketingIntelRecord>();
@@ -124,10 +132,25 @@ public class MarketingIntelFragment extends Fragment {
 	public void setListData() {
 		this.realRecord = new ArrayList<MarketingIntelRecord>();
 		this.tempRecord = new ArrayList<MarketingIntelRecord>();
-
+		
+		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
+		
+		
+		ActivityTable act = JardineApp.DB.getActivity();
 		MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
 		List<MarketingIntelRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		
+		for (MarketingIntelRecord rec : records){
+			ActivityRecord reca = act.getById(rec.getActivity());
+			if(reca != null)
+			if (reca.toString().equals(this.activityRecord.getCrm()))
+				this.realRecord.add(rec);
+		}
+
+//		MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
+//		List<MarketingIntelRecord> records = table.getAllRecords();
+//		this.realRecord.addAll(records);
 
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
 
@@ -147,7 +170,7 @@ public class MarketingIntelFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
 		}
 	}
 	
@@ -155,9 +178,14 @@ public class MarketingIntelFragment extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
+				.setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
+		int rows = rowSize;
+		if (realRecord.size() < rows)
+			rows = realRecord.size();
+		for (int j = 0; j < rows; j++) {
+//		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}

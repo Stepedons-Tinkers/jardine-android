@@ -15,6 +15,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -88,6 +89,7 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 					
 					if(AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+						DashBoardActivity.tabIndex.add(7, 10);
 						AddActivityFragment.pager.setCurrentItem(10);
 					}
 				}

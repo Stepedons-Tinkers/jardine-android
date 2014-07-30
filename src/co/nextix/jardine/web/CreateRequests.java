@@ -694,7 +694,7 @@ public class CreateRequests {
 				requestObject.put("mobile_id", records.get(x).getId());
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
-				
+
 			}
 
 		} catch (JSONException e1) {
@@ -802,7 +802,7 @@ public class CreateRequests {
 						.getSupplier());
 				requestObject.put("z_jps_supplier", supplier);
 				requestObject.put("mobile_id", records.get(x).getId());
-				
+
 				requestList.put(String.valueOf(records.get(x).getId()),
 						requestObject);
 			}
@@ -1190,6 +1190,7 @@ public class CreateRequests {
 			UserTable userTable = DB.getUser();
 			ActivityTable activityTable = DB.getActivity();
 			CustomerTable customerTable = DB.getCustomer();
+			ProductTable productTable = DB.getProduct();
 
 			for (int x = 0; x < records.size(); x++) {
 				JSONObject requestObject = new JSONObject();
@@ -1201,8 +1202,10 @@ public class CreateRequests {
 				String activity = activityTable.getNoById(records.get(x)
 						.getActivity());
 				requestObject.put("z_ps_activity", activity);
-				requestObject.put("z_ps_productbrand", records.get(x)
+				// get product id from db
+				String product = productTable.getNoById(records.get(x)
 						.getProductBrand());
+				requestObject.put("z_ps_productbrand", product);
 				// get customer id from db
 				String customer = customerTable.getNoById(records.get(x)
 						.getSupplier());

@@ -33,7 +33,8 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.utils.MyDateUtils;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements OnClickListener {
+public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements
+		OnClickListener {
 
 	/*********** Declare Used Variables *********/
 	private Context context;
@@ -45,7 +46,8 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 	private View vi = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public PhotosAndAttachmentsCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
+	public PhotosAndAttachmentsCustomAdapter(Context a, FragmentActivity act,
+			ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -54,7 +56,8 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
-		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
 
@@ -76,7 +79,7 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout table_row_clickable;
 		public TextView document_no;
 		public TextView title;
@@ -89,7 +92,8 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 	}
 
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
-	public View getView(final int position, final View convertView, ViewGroup parent) {
+	public View getView(final int position, final View convertView,
+			ViewGroup parent) {
 
 		this.vi = convertView;
 		final int pos = position;
@@ -99,18 +103,22 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_five_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_five_columns,
+					null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.table_row_clickable = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.table_row_clickable = (LinearLayout) vi
+					.findViewById(R.id.table_row_clickable);
 			holder.document_no = (TextView) vi.findViewById(R.id.column_one);
 			holder.title = (TextView) vi.findViewById(R.id.column_two);
 			holder.file_name = (TextView) vi.findViewById(R.id.column_three);
 			holder.modified_time = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by_txt = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by_txt = (TextView) vi
+					.findViewById(R.id.column_five);
 			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.delete_txt = (TextView) vi
+					.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -126,80 +134,82 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
+
 			this.tempValues = (DocumentRecord) this.data.get(position);
 
 			/************ Set Model values in Holder elements ***********/
 			holder.document_no.setText(this.tempValues.getCrmNo());
-			
-			
-			
 
 			if (holder.document_no.getText().toString().equals("")) {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
-				
+
 				holder.title.setText(null);
 				holder.file_name.setText(null);
 				holder.modified_time.setText(null);
 				holder.created_by_txt.setText(null);
-				
-				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else{
-				holder.table_row_clickable.setOnClickListener(new OnItemClickListener(pos));
+
+				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+						0, 0);
+			} else {
+				holder.table_row_clickable
+						.setOnClickListener(new OnItemClickListener(pos));
 				holder.title.setText(this.tempValues.getTitle());
 				holder.file_name.setText(this.tempValues.getFileName());
-				holder.modified_time.setText(MyDateUtils.convertDateTime(this.tempValues.getModifiedTime()));
-				
+				holder.modified_time.setText(MyDateUtils
+						.convertDateTime(this.tempValues.getModifiedTime()));
+
 				UserTable user = JardineApp.DB.getUser();
-				if(user != null){
-					UserRecord rec = user.getById(this.tempValues
-							.getUser());
+				if (user != null) {
+					UserRecord rec = user.getById(this.tempValues.getUser());
 					holder.created_by_txt.setText("");
-					if(rec != null){
+					if (rec != null) {
 						holder.created_by_txt.setText(rec.toString());
 					}
 				}
+
+				/******** Set Item Click Listener for LayoutInflater for each row ***********/
+				holder.edit_txt.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(activity.getApplicationContext(),
+								"Edit here", Toast.LENGTH_SHORT).show();
+						// JDIproductStockCheckRecord tempValues =
+						// (JDIproductStockCheckRecord) data.get(position);
+
+						// Saving acquired activity details
+						// SharedPreferences pref =
+						// activity.getApplicationContext().getSharedPreferences("ActivityInfo",
+						// 0);
+						// Editor editor = pref.edit();
+						// editor.putLong("activity_id", tempValues.getId());
+						// editor.commit(); // commit changes
+						//
+						// android.support.v4.app.Fragment fragment = new
+						// ActivityInfoFragment();
+						// android.support.v4.app.FragmentManager
+						// fragmentManager =
+						// activity.getSupportFragmentManager();
+						// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+						// R.anim.slide_out_left)
+						// .replace(R.id.frame_container,
+						// fragment).addToBackStack(null).commit();
+					}
+				});
+
+				holder.delete_txt.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View v) {
+						Toast.makeText(activity.getApplicationContext(),
+								"Delete here", Toast.LENGTH_SHORT).show();
+						showDeleteDialog(position);
+					}
+				});
+
+				// Events
 			}
-
-			/******** Set Item Click Listener for LayoutInflater for each row ***********/
-			holder.edit_txt.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					// JDIproductStockCheckRecord tempValues =
-					// (JDIproductStockCheckRecord) data.get(position);
-
-					// Saving acquired activity details
-					// SharedPreferences pref =
-					// activity.getApplicationContext().getSharedPreferences("ActivityInfo",
-					// 0);
-					// Editor editor = pref.edit();
-					// editor.putLong("activity_id", tempValues.getId());
-					// editor.commit(); // commit changes
-					//
-					// android.support.v4.app.Fragment fragment = new
-					// ActivityInfoFragment();
-					// android.support.v4.app.FragmentManager fragmentManager =
-					// activity.getSupportFragmentManager();
-					// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
-					// R.anim.slide_out_left)
-					// .replace(R.id.frame_container,
-					// fragment).addToBackStack(null).commit();
-				}
-			});
-
-			holder.delete_txt.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
-					showDeleteDialog(position);
-				}
-			});
-
-			// Events
-			
 		}
 
 		return vi;
@@ -233,8 +243,10 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) data.get(mPosition);
-				if (JardineApp.DB.getJDIproductStockCheck().delete(tempValues.getId())) {
+				JDIproductStockCheckRecord tempValues = (JDIproductStockCheckRecord) data
+						.get(mPosition);
+				if (JardineApp.DB.getJDIproductStockCheck().delete(
+						tempValues.getId())) {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
@@ -243,11 +255,13 @@ public class PhotosAndAttachmentsCustomAdapter extends BaseAdapter implements On
 						}
 					});
 
-					Toast.makeText(activity, "Successfully deleted stock", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Successfully deleted stock",
+							Toast.LENGTH_LONG).show();
 
 				} else {
 
-					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Failed to delete!",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.content.pm.ActivityInfo;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
@@ -26,8 +27,13 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIMerchandisingStockFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.DocumentRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.DocumentTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
+import co.nextix.jardine.keys.Modules;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class JDIMerchandisingCheckFragment extends Fragment {
@@ -49,6 +55,9 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	private boolean flag = false;
 	private int frag_layout_id = 0;
 	private Bundle bundle;
+	
+	private ActivityRecord activityRecord = null;
+	private SharedPreferences pref = null;
 	
 	public JDIMerchandisingCheckFragment() {
 		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
@@ -93,46 +102,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 			}
 		});
 		
-//		((EditText) this.rootView.findViewById(R.id.search_activities)).setOnEditorActionListener(new OnEditorActionListener() {
-//
-//			@Override
-//			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-//				if (actionId == EditorInfo.IME_ACTION_DONE) {
-//					ActivityTable table = JardineApp.DB.getActivity();
-//					List<ActivityRecord> records = table.getAllRecords();
-//
-//					itemSearch.clear();
-//					// Getting the position of the spinner
-//					for (int i = 0; i < records.size(); i++) {
-//						if (searchItem.equals(getActivity().getResources().getString(R.string.crm_no))
-//								&& v.getText().toString().equals(records.get(i).getCrm())) {
-//
-//							itemSearch.add(records.get(i));
-////						} else if (searchItem.equals(getActivity().getResources().getString(R.string.workplan_info_workplan))
-////								&& v.getText().toString().equals(String.valueOf(records.get(i).getWorkplan()))) {
-////
-////							itemSearch.add(records.get(i));
-//						} else if (searchItem.equals(getActivity().getResources().getString(R.string.activity_type))
-//								&& v.getText().toString().equals(String.valueOf(records.get(i).getActivityType()))) {
-//
-//							itemSearch.add(records.get(i));
-//						} else if (searchItem.equals(getActivity().getResources().getString(R.string.assigned_to))
-//								&& v.getText().toString().equals(String.valueOf(records.get(i).getCustomer()))) {
-//
-//							itemSearch.add(records.get(i));
-//						}
-//					}
-//
-//					CustomListView = getActivity().getApplicationContext();
-//					list = (ListView) rootView.findViewById(R.id.list);
-//					adapter = new StartActivityCustomAdapter(CustomListView, getActivity(), list, itemSearch, StartActivityFragment.this);
-//					list.setAdapter(adapter);
-//					ListViewUtility.setListViewHeightBasedOnChildren(list);
-//				}
-//
-//				return false;
-//			}
-//		});
+
 
 		((ImageButton) this.myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
@@ -165,11 +135,26 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	public void setListData() {
 		this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
 		this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
-
+		
+		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
+		
+		
+		ActivityTable act = JardineApp.DB.getActivity();
 		JDImerchandisingCheckTable table = JardineApp.DB.getJDImerchandisingCheck();
 		List<JDImerchandisingCheckRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		
+		for (JDImerchandisingCheckRecord rec : records){
+			ActivityRecord reca = act.getById(rec.getActivity());
+			if(reca != null)
+			if (reca.toString().equals(this.activityRecord.getCrm()))
+				this.realRecord.add(rec);
+		}
 
+//		JDImerchandisingCheckTable table = JardineApp.DB.getJDImerchandisingCheck();
+//		List<JDImerchandisingCheckRecord> records = table.getAllRecords();
+//		this.realRecord.addAll(records);
+		
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
 
 		if (realRecord.size() > 0) {
@@ -188,7 +173,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
 		}
 	}
 
@@ -196,9 +181,14 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.myFragmentView.findViewById(R.id.status_count_text))
+				.setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
+		int rows = rowSize;
+		if (realRecord.size() < rows)
+			rows = realRecord.size();
+		for (int j = 0; j < rows; j++) {
+//		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}

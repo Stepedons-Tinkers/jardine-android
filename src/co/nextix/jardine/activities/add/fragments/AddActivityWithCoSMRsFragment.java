@@ -5,6 +5,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
+import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -22,6 +23,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.SMRRecord;
@@ -51,32 +53,43 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs,
+				container, false);
 
 		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
-		ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
+		ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(
+				JardineApp.context, R.layout.add_activity_textview, smrList);
 
 		((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
-		((Spinner) rootView.findViewById(R.id.smr)).setOnItemSelectedListener(new OnItemSelectedListener() {
+		((Spinner) rootView.findViewById(R.id.smr))
+				.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View rootView, int position, long id) {
-				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-				Editor editor = pref.edit();
-				editor.putLong("smr", ((SMRRecord) parent.getSelectedItem()).getId());
-				editor.commit(); // commit changes
-			}
+					@Override
+					public void onItemSelected(AdapterView<?> parent,
+							View rootView, int position, long id) {
+						SharedPreferences pref = getActivity()
+								.getApplicationContext().getSharedPreferences(
+										"ActivityInfo", 0);
+						Editor editor = pref.edit();
+						editor.putLong("smr",
+								((SMRRecord) parent.getSelectedItem()).getId());
+						editor.commit(); // commit changes
+					}
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				if (parent.getSelectedItemPosition() == 0) {
-					Toast.makeText(getActivity(), "This field is required", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
+					@Override
+					public void onNothingSelected(AdapterView<?> parent) {
+						if (parent.getSelectedItemPosition() == 0) {
+							Toast.makeText(getActivity(),
+									"This field is required",
+									Toast.LENGTH_SHORT).show();
+						}
+					}
+				});
 
-		this.saveBtn = ((CircularProgressButton) rootView.findViewById(R.id.btnWithText1));
+		this.saveBtn = ((CircularProgressButton) rootView
+				.findViewById(R.id.btnWithText1));
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -88,49 +101,73 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
+					widthAnimation
+							.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation
+							.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+								@Override
+								public void onAnimationUpdate(
+										ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+									Integer value = (Integer) animation
+											.getAnimatedValue();
+									((CircularProgressButton) v)
+											.setProgress(value);
 
-							if (!flag) {
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
+									if (!flag) {
+										((CircularProgressButton) v)
+												.setProgress(-1);
+									}
+								}
+							});
 
 					widthAnimation.start();
 
-					long smr = ((SMRRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem()).getId();
+					long smr = ((SMRRecord) ((Spinner) rootView
+							.findViewById(R.id.smr)).getSelectedItem()).getId();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					SharedPreferences pref = getActivity()
+							.getApplicationContext().getSharedPreferences(
+									"ActivityInfo", 0);
 					if (smr != 0) {
 
 						flag = true;
 
-						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
-								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
-								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), " ", smr, "", 0,
-								0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+						new InsertTask("0", pref.getString("crm_no", null),
+								pref.getLong("activity_type", 0), pref
+										.getString("check_in", null), pref
+										.getString("check_out", null).concat(
+												displayCheckOut()), pref
+										.getLong("business_unit", 0), Long
+										.parseLong(StoreAccount.restore(
+												getActivity()).getString(
+												Account.ROWID)), 123.894882,
+								10.310235, pref.getString("check_in", null),
+								pref.getString("check_out", null).concat(
+										displayCheckOut()), " ", smr, "", 0, 0,
+								0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID,
+								"", 0, 0, "", "", "", "", "", 0, 0, "", 0, "")
+								.execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								getFragmentManager()
+										.popBackStackImmediate(
+												"general_information",
+												FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 
 						}, 1700);
 
 					} else {
 						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(),
+								"Please fill up required (RED COLOR) fields",
+								Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -206,12 +243,17 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
-				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-				String endUserActivityTypes) {
+		private InsertTask(String no, String crmNo, long activityType,
+				String checkIn, String checkOut, long businessUnit,
+				long createdBy, double longitude, double latitude,
+				String createdTime, String modifiedTime, String reasonsRemarks,
+				long smr, String adminDetails, long customer, long area,
+				long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes,
+				String highlights, String nextSteps,
+				String followUpCommitmentDate, String projectName,
+				long projectStage, long projectCategory, String venue,
+				int numberOfAttendees, String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -252,18 +294,21 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
+			this.widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
 
 			this.widthAnimation.start();
 		}
@@ -273,12 +318,18 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit, this.createdBy,
-						this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
-						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
-						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
-						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
-						this.endUserActivityTypes);
+				saveActivity(this.no, this.crmNo, this.activityType,
+						this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude,
+						this.createdTime, this.modifiedTime,
+						this.reasonsRemarks, this.smr, this.adminDetails,
+						this.customer, this.area, this.province, this.city,
+						this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes,
+						this.highlights, this.nextSteps,
+						this.followUpCommitmentDate, this.projectName,
+						this.projectStage, this.projectCategory, this.venue,
+						this.numberOfAttendees, this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -305,16 +356,26 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 		return " " + df.format(calendar.getTime());
 	}
 
-	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
-			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected void saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
-				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
-				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
-				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
+		JardineApp.DB.getActivity()
+				.insert(no, crmNo, activityType, checkIn, checkOut,
+						businessUnit, createdBy, longitude, latitude,
+						createdTime, modifiedTime, reasonsRemarks, smr,
+						adminDetails, customer, area, province, city,
+						workplanEntry, objective, firstTimeVisit, plannedVisit,
+						notes, highlights, nextSteps, followUpCommitmentDate,
+						projectName, projectStage, projectCategory, venue,
+						numberOfAttendees, endUserActivityTypes);
 	}
 }

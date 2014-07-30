@@ -31,6 +31,7 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.AddActivityDetailsAndNotesFragment;
@@ -138,10 +139,11 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
-		
-		Log.e("major?", "" + AddActivityDetailsAndNotesFragment.fromOther);
 
-		if (AddActivityDetailsAndNotesFragment.fromOther) {
+		Log.e("fromOtherMother",""+AddActivityFragment.fromOther );
+		
+		if (AddActivityFragment.fromOther ) {
+			Log.e("fromOther","fucker");
 			saveORdone = (CircularProgressButton) view
 					.findViewById(R.id.btnWithText1);
 			saveORdone.setVisibility(View.VISIBLE);
@@ -397,19 +399,24 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		} else {
 			saveORdone.setProgress(0);
-			
 			if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+				DashBoardActivity.tabIndex.add(3, 6);
 				AddActivityFragment.pager.setCurrentItem(6);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+				DashBoardActivity.tabIndex.add(3, 10);
 				AddActivityFragment.pager.setCurrentItem(10);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
+				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
+				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+				DashBoardActivity.tabIndex.add(3, 15);
 				AddActivityFragment.pager.setCurrentItem(15);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
-				
+				DashBoardActivity.tabIndex.add(3, 16);
+				AddActivityFragment.pager.setCurrentItem(16);
 			}
 		}
 	}

@@ -133,6 +133,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
+			
 			ActivityTable act = JardineApp.DB.getActivity();
 			if(act != null){
 				ActivityRecord rec = act.getById(this.tempValues.getActivity());

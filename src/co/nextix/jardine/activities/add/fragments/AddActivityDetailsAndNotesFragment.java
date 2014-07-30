@@ -22,9 +22,11 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CityTownRecord;
@@ -47,7 +49,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private ArrayAdapter<WorkplanEntryRecord> workplanEntryAdapter = null;
 
 	private boolean trapping = false;
-	public static boolean fromOther = true;
 
 	private Calendar calendar = null;
 
@@ -111,8 +112,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 			}
 		});
 
-		((TextView) this.rootView.findViewById(R.id.follow_up_commitment_date)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.ibFollowUpCommitmentCalendar)).setOnClickListener(new OnClickListener() {
 
+			@SuppressWarnings("deprecation")
 			@Override
 			public void onClick(View v) {
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
@@ -186,7 +188,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						editor.putString("highlights", highlights);
 						editor.putString("notes", notes);
 						editor.putString("next_steps", nextSteps);
-						editor.putString("follow_up_committment_date", followUpCommittmentDate.concat(displayFollowUpCommittmentDate()));
+						editor.putString("follow_up_committment_date", followUpCommittmentDate);
 
 						editor.commit(); // commit changes
 
@@ -222,20 +224,33 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					((CircularProgressButton) v).setProgress(0);
 
 					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // kivisits
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
 																							// training
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end
 																							// user
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
 																							// brand
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
 					} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
+						AddActivityFragment.fromOther = true;
+						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
+
 					}
 				}
 			}
