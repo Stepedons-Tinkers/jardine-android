@@ -231,8 +231,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						AddActivityFragment.fromOther = true;
 						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);
-					} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
-																							// training
+					} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major																			// training
 						AddActivityFragment.fromOther = true;
 						DashBoardActivity.tabIndex.add(2, 5);
 						AddActivityFragment.pager.setCurrentItem(5);

@@ -18,6 +18,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
@@ -118,7 +119,10 @@ public class AddActivityTrainingsFragment extends Fragment {
 					v.setClickable(true);
 					v.setEnabled(true);
 
-					// Transition
+					if(AddActivityGeneralInformationFragment.ActivityType == 101){ // major training
+						DashBoardActivity.tabIndex.add(4, 16);
+						AddActivityFragment.pager.setCurrentItem(16);
+					}
 
 				}
 
