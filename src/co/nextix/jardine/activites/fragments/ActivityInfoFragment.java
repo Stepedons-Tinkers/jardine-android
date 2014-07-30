@@ -140,116 +140,68 @@ public class ActivityInfoFragment extends Fragment {
 			super(fm);
 			this.fragments = fragments;
 			
-//			switch(titles){
-//			
-//			case 0:
-//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				TITLES.add(ActivityTravelOrWaitingFragment.instantiate(
-//						getActivity(),
-//						ActivityTravelOrWaitingFragment.class.getName()));
-//				break;
-//				
-//			case 1:
-//				TITLES.add("General Information");
-//				TITLES.add("With CoSMRs");
-//				break;
-//			
-//			case 2:
-//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				TITLES.add(ActivityAdminWorksFragment.instantiate(getActivity(),
-//						ActivityAdminWorksFragment.class.getName()));
-//				break;
-//			case 3:
-//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				TITLES.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				TITLES.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				TITLES.add(JDIProductStockFragment.instantiate(getActivity(),
-//						JDIProductStockFragment.class.getName()));
-//				TITLES.add(ProductSupplierFragment.instantiate(getActivity(),
-//						ProductSupplierFragment.class.getName()));
-//				TITLES.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),
-//						JDIMerchandisingCheckFragment.class.getName()));
-//				TITLES.add(CompetitorStockCheckFragment.instantiate(getActivity(),
-//						CompetitorStockCheckFragment.class.getName()));
-//				TITLES.add(MarketingIntelFragment.instantiate(getActivity(),
-//						MarketingIntelFragment.class.getName()));
-//				TITLES.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//			case 4:
-//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				TITLES.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				TITLES.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				flist.add(MarketingIntelFragment.instantiate(getActivity(),
-//						MarketingIntelFragment.class.getName()));
-//				flist.add(ActivityProjectVisitFragment.instantiate(getActivity(),
-//						ActivityProjectVisitFragment.class.getName()));
-//				flist.add(ProjectRequirementsFragment.instantiate(getActivity(),
-//						ProjectRequirementsFragment.class.getName()));
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//			case 5:
-//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				flist.add(JDIProductStockFragment.instantiate(getActivity(),
-//						JDIProductStockFragment.class.getName()));
-//				flist.add(ActivityTrainingsFragment.instantiate(getActivity(),
-//						ActivityTrainingsFragment.class.getName()));
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//			case 6:
-//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName())); // identify
-//																		// product
-//																		// focus
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//			case 7:
-//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				flist.add(ActivityBrandActivationFragment.instantiate(
-//						getActivity(),
-//						ActivityBrandActivationFragment.class.getName()));
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//
-//			default:
-//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-//						ActivityGeneralInfoFragment.class.getName()));
-//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-//						ActivityDetailedInfoFragment.class.getName()));
-//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
-//						CustomerContactPersonFragment.class.getName()));
-//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-//						PhotosAndAttachmentsFragment.class.getName()));
-//				break;
-//			}
+			switch(titles){
+			
+			case 0:
+				TITLES.add("General Information");
+				TITLES.add("Travel or Waiting");
+				break;			
+			case 1:
+				TITLES.add("General Information");
+				TITLES.add("With CoSMRs");
+				break;
+			case 2:
+				TITLES.add("General Information");
+				TITLES.add("Admin Works");
+				break;
+			case 3:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("JDI Product Stock Check");
+				TITLES.add("Product Supplier");
+				TITLES.add("JDI Merchandising Check");
+				TITLES.add("JDI Competitor Product Stock Check");
+				TITLES.add("Marketing Intel");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			case 4:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("Marketing Intel");
+				TITLES.add("Project Visit");
+				TITLES.add("Project Requirements");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			case 5:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("JDI Product Stock Check");
+				TITLES.add("Trainings");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			case 6:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			case 7:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("Full Brand Activation");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			default:
+				TITLES.add("General Information");
+				TITLES.add("Activity Details and Notes");
+				TITLES.add("Customer Contact Person");
+				TITLES.add("Activity Photos and Attachments");
+				break;
+			}
 		}
 
 		@Override
@@ -378,7 +330,7 @@ public class ActivityInfoFragment extends Fragment {
 					CustomerContactPersonFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
 					PhotosAndAttachmentsFragment.class.getName()));
-			break;
+
 		}
 		return flist;
 	}
