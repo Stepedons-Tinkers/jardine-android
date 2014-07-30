@@ -154,6 +154,8 @@ public class ViewAllCustomersFragment extends Fragment implements
 		realRecord = new ArrayList<CustomerRecord>();
 		tempRecord = new ArrayList<CustomerRecord>();
 		realRecord.addAll(table.getAllRecords());
+		
+		Log.d(JardineApp.TAG, realRecord.size() + "");
 
 		// for (int i = 1; i <= 37; i++) {
 		// CustomerRecord rec = new CustomerRecord();
@@ -178,6 +180,10 @@ public class ViewAllCustomersFragment extends Fragment implements
 			totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 
+		} else {
+			AdapterCustomers adapter = new AdapterCustomers(getActivity(),
+					R.layout.table_row_customers, realRecord);
+			list.setAdapter(adapter);
 		}
 
 	}
@@ -249,7 +255,8 @@ public class ViewAllCustomersFragment extends Fragment implements
 
 					act.getSupportFragmentManager()
 							.beginTransaction()
-							.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+							.setTransition(
+									FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 							.add(R.id.frame_container, fragment, JardineApp.TAG)
 							.addToBackStack(JardineApp.TAG).commit();
 				}

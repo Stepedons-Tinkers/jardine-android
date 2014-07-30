@@ -11,8 +11,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.MarketingMaterialsRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.utils.MyDateUtils;
 
 public class AdapterCollateralsMarketingMaterials extends
@@ -31,9 +33,10 @@ public class AdapterCollateralsMarketingMaterials extends
 
 	private static class ViewHolder {
 		public MarketingMaterialsRecord record;
-		public TextView txtCrmNo;
-		public TextView txtDescription;
-		public TextView txtIsActive;
+		public TextView txtCol1;
+		public TextView txtCol2;
+		public TextView txtCol3;
+		public TextView txtCol4;
 		public TableRow row;
 		public ImageView imgNew;
 	}
@@ -48,13 +51,15 @@ public class AdapterCollateralsMarketingMaterials extends
 			view = inflater.inflate(this.layout, parent, false);
 			holder = new ViewHolder();
 
-			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRow);
-			holder.txtCrmNo = (TextView) view
-					.findViewById(R.id.tvCollateralsMMCrmNo);
-			holder.txtDescription = (TextView) view
-					.findViewById(R.id.tvCollateralsMMDescription);
-			holder.txtIsActive = (TextView) view
-					.findViewById(R.id.tvCollateralsMMIsActive);
+			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRowH);
+			holder.txtCol1 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCol1);
+			holder.txtCol2 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCol2);
+			holder.txtCol3 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCol3);
+			holder.txtCol4 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCol4);
 			holder.imgNew = (ImageView) view
 					.findViewById(R.id.ivCollateralsMMNewIndicator);
 
@@ -71,14 +76,26 @@ public class AdapterCollateralsMarketingMaterials extends
 					.setBackgroundResource(R.color.collaterals_tablerow_color1);
 		}
 
-		holder.txtCrmNo.setText(holder.record.getCrm());
-		holder.txtDescription.setText(holder.record.getDescription());
-		holder.txtIsActive.setText(holder.record.getTags());
+		holder.txtCol1.setText(holder.record.getCrm());
+		holder.txtCol2.setText(holder.record.getDescription());
+		holder.txtCol3.setText(holder.record.getTags());
 
 		if (MyDateUtils.isDateNew(holder.record.getCreatedTime())) {
 			holder.imgNew.setVisibility(View.VISIBLE);
 		} else {
 			holder.imgNew.setVisibility(View.GONE);
+
+		}
+
+		if (holder.record.getNo() == null) {
+			holder.txtCol4.setText("");
+		} else {
+
+			if (holder.record.getIsActive() == 0) {
+				holder.txtCol4.setText("No");
+			} else if (holder.record.getIsActive() == 1) {
+				holder.txtCol4.setText("Yes");
+			}
 		}
 
 		return view;

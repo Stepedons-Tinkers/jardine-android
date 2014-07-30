@@ -208,6 +208,7 @@
     <string name="collaterals_file_modified_time">Modified Time</string>
     <string name="collaterals_sales_protocol">Sales Protocols</string>
     <string name="collaterals_sp_protocol_type">Protocol Type</string>
+    <string name="collaterals_file_type">File Type</string>
 
     <!-- Create/Edit Activity Details / General Information -->
     <string name="workplan_gen_info">Workplan</string>
