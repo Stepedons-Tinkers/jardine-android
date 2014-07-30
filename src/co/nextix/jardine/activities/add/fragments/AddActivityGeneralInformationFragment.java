@@ -69,14 +69,26 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
-
-		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 		DashBoardActivity.fromAddActivities = true;
-
 		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
+
+		if (pref != null) {
+			
+			if (pref.getString("activity_id_crm_no", null).isEmpty() && pref.getString("activity_id_crm_no", null) != null) {
+				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(pref.getString("activity_id_crm_no", null));
+				
+			} else if(pref.getString("activity_id_check_in", ActivitiesConstant.ACTIVITY_RECORD.getCheckIn()).isEmpty()
+					&& pref.getString("activity_id_check_in", ActivitiesConstant.ACTIVITY_RECORD.getCheckIn()) != null) {
+				
+				((TextView) this.rootView.findViewById(R.id.check_in)).setText(pref.getString("activity_id_check_in", null));
+			}
+		}
+
+		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());

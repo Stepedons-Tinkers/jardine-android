@@ -64,7 +64,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 					String adminWorks = ((EditText) view.findViewById(R.id.details_admin_works)).getText().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (adminWorks != null && !adminWorks.isEmpty()) {
 						flag = true;
 
@@ -80,6 +80,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 
 							@Override
 							public void run() {
+								pref.edit().clear().commit();
 								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 

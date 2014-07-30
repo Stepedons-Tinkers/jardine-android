@@ -80,7 +80,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 					String reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (reasons != null && !reasons.isEmpty()) {
 						flag = true;
 
@@ -95,6 +95,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 							@Override
 							public void run() {
+								pref.edit().clear().commit();
 								getFragmentManager();
 								getFragmentManager().popBackStackImmediate("activities", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
