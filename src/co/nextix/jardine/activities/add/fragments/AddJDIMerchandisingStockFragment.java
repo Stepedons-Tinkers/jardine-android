@@ -38,7 +38,7 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-		this.statusAdapter = new ArrayAdapter<>(JardineApp.context, R.layout.add_activity_textview, statusList);
+		this.statusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, statusList);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_merchandising_check, container, false);
 
