@@ -67,44 +67,42 @@ public class JDIProductStockFragment extends Fragment {
 		}
 		
 		Log.e("jdi"," size");
-		((Button) myFragmentView
-				.findViewById(R.id.add_btn_jdi_product_stock_check))
+//		((Button) myFragmentView
+//				.findViewById(R.id.add_btn_jdi_product_stock_check))
+//				.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						v.getBackground().setColorFilter(
+//								new LightingColorFilter(0x0033FF, 0x0066FF));
+//
+//						android.support.v4.app.Fragment newFragment = new AddJDIProductStockFragment();
+//
+//						// Create new transaction
+//						android.support.v4.app.FragmentTransaction transaction = getActivity()
+//								.getSupportFragmentManager()
+//								.beginTransaction()
+//								.setCustomAnimations(R.anim.slide_in_left,
+//										R.anim.slide_out_left);
+//
+//						// Replace whatever is in the fragment_container view
+//						// with this
+//						// fragment,
+//						// and add the transaction to the back stack
+//						transaction
+//								.replace(frag_layout_id, newFragment);
+//						transaction.addToBackStack(null);
+//
+//						// Commit the transaction
+//						transaction.commit();
+//					}
+//				});
+
+		((ImageButton) myFragmentView.findViewById(R.id.left_arrow))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-						v.getBackground().setColorFilter(
-								new LightingColorFilter(0x0033FF, 0x0066FF));
-
-						android.support.v4.app.Fragment newFragment = new AddJDIProductStockFragment();
-
-						// Create new transaction
-						android.support.v4.app.FragmentTransaction transaction = getActivity()
-								.getSupportFragmentManager()
-								.beginTransaction()
-								.setCustomAnimations(R.anim.slide_in_left,
-										R.anim.slide_out_left);
-
-						// Replace whatever is in the fragment_container view
-						// with this
-						// fragment,
-						// and add the transaction to the back stack
-						transaction
-								.replace(frag_layout_id, newFragment);
-						transaction.addToBackStack(null);
-
-						// Commit the transaction
-						transaction.commit();
-					}
-				});
-
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
-				.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View v) {
-//						Toast.makeText(getActivity(), "<==== ni sud here",
-//								Toast.LENGTH_SHORT).show();
 						if (currentPage > 0) {
 							currentPage--;
 							addItem(currentPage);
@@ -112,13 +110,11 @@ public class JDIProductStockFragment extends Fragment {
 					}
 				});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
+		((ImageButton) myFragmentView.findViewById(R.id.right_arrow))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
-//						Toast.makeText(getActivity(), "ni sud here ====>",
-//								Toast.LENGTH_SHORT).show();
 						if (currentPage < totalPage - 1) {
 							currentPage++;
 							addItem(currentPage);

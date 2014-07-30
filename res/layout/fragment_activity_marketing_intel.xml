@@ -1,34 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/scrollView"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true"
-    android:isScrollContainer="true"
-    android:overScrollMode="always"
-    android:scrollbarStyle="outsideInset"
-    android:scrollbars="none" >
+    android:background="#ffffff"
+    android:fadingEdge="vertical"
+    android:gravity="center"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#ffffff"
-        android:orientation="vertical" >
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:orientation="vertical"
-            android:paddingBottom="5dp"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin" >
+            android:layout_height="wrap_content"
+            android:background="#ffffff" >
 
             <TableLayout
+                android:id="@+id/activity_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#000000"
+                android:background="#ffffff"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="7dp"
                 android:shrinkColumns="*"
                 android:stretchColumns="*" >
 
@@ -40,115 +42,115 @@
                     android:background="#000000"
                     android:orientation="horizontal" >
 
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/crm_no_marketing_intel"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/customer"
+                    <LinearLayout
+                        android:id="@+id/table_row_clickable"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="2dp"
                         android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/activity_marketing_intel"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <requestFocus />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/competitor_marketing_intel"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <TextView
-                        android:id="@+id/activity_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/details_marketing_intel"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <requestFocus />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/assigned_to_marketing_intel"
-                        android:textColor="#000"
-                        android:textSize="14dp" />
-
-                    <HorizontalScrollView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="4dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="0.3"
-                        android:background="#b0b0b0"
-                        android:visibility="gone" >
+                        android:layout_weight="5" >
 
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
                             android:gravity="center"
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/action_marketing_intel"
+                            android:text="@string/crm_no_jdi"
                             android:textColor="#000"
-                            android:textSize="14dp" />
-                    </HorizontalScrollView>
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/customer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/activity_jdi"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/competitor_product"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/details"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/created_by"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <!--
+                         <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_weight="1"
+                        android:background="#b0b0b0"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/action_competitor_product_stock_check"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
+                        -->
+                    </LinearLayout>
                 </TableRow>
 
                 <ListView
@@ -171,70 +173,66 @@
                     android:layout_height="4dp"
                     android:background="@color/black" />
             </TableLayout>
-        </LinearLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="7dp" >
-
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center" >
+                android:layout_below="@+id/activity_table"
+                android:layout_marginBottom="7dp" >
 
-                <ImageButton
-                    android:id="@+id/imageButton1"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center" >
+
+                    <ImageButton
+                        android:id="@+id/left_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/prev" />
+
+                    <TextView
+                        android:id="@+id/status_count_text"
+                        android:layout_width="74dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="1 of 1"
+                        android:textColor="#000000"
+                        android:textSize="17sp" />
+
+                    <ImageButton
+                        android:id="@+id/right_arrow"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="24dp"
+                        android:src="@drawable/next" />
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/add_competitor_product_stock_check"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/status_count_text"
-                    android:layout_alignTop="@+id/status_count_text"
-                    android:layout_toLeftOf="@+id/status_count_text"
-                    android:onClick="prev"
-                    android:src="@drawable/prev" />
-
-                <TextView
-                    android:id="@+id/status_count_text"
-                    android:layout_width="74dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="1 of 1"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
-
-                <ImageButton
-                    android:id="@+id/imageButton3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:onClick="next"
-                    android:src="@drawable/next" />
-            </LinearLayout>
-
-            <Button
-                android:id="@+id/add_marketing_intel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="14dp"
-                android:text="@string/add_marketing_intel"
-                android:visibility="gone" />
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="14dp"
+                    android:text="@string/add_competitor_product_stock_check"
+                    android:visibility="gone" />
+            </RelativeLayout>
         </RelativeLayout>
+    </ScrollView>
 
-        <TextView
-            android:id="@+id/status_list_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:paddingBottom="54dp"
-            android:text="@string/no_data"
-            android:visibility="invisible" />
-    </LinearLayout>
+    <TextView
+        android:id="@+id/status_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="54dp"
+        android:text="@string/no_data"
+        android:visibility="invisible" />
 
-</ScrollView>
+</RelativeLayout>

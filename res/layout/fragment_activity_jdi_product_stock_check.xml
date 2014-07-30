@@ -118,6 +118,23 @@
                             android:text="@string/jdi_stock_status"
                             android:textColor="#000"
                             android:textSize="14sp" />
+                        <TextView
+                            android:id="@+id/activity_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/loaded_on_shelves_jdi"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
 
                         <TextView
                             android:layout_width="0dp"
@@ -191,9 +208,6 @@
                         android:id="@+id/left_arrow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignBottom="@+id/status_count_text"
-                        android:layout_alignTop="@+id/status_count_text"
-                        android:layout_toLeftOf="@+id/status_count_text"
                         android:onClick="prev"
                         android:src="@drawable/prev" />
 
@@ -238,7 +252,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:paddingBottom="54dp"
-        android:text="@string/no_data"
         android:visibility="invisible" />
 
 </RelativeLayout>

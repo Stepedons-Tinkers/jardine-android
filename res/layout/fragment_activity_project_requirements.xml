@@ -96,25 +96,7 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/competitor_product"
-                            android:textColor="#000"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/activity_type"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="2dp"
-                            android:layout_marginRight="2dp"
-                            android:layout_marginTop="4dp"
-                            android:layout_weight="1"
-                            android:background="#b0b0b0"
-                            android:gravity="center"
-                            android:padding="14dip"
-                            android:scrollHorizontally="true"
-                            android:singleLine="true"
-                            android:state_selected="true"
-                            android:text="@string/jdi_stock_status"
+                            android:text="@string/project_requirements"
                             android:textColor="#000"
                             android:textSize="14sp" />
 
@@ -130,7 +112,7 @@
                             android:padding="14dip"
                             android:scrollHorizontally="true"
                             android:singleLine="true"
-                            android:text="@string/loaded_on_shelves_competitor_product"
+                            android:text="@string/date_needed"
                             android:textColor="#000"
                             android:textSize="14sp" />
 
@@ -165,8 +147,7 @@
                         android:singleLine="true"
                         android:text="@string/action_competitor_product_stock_check"
                         android:textColor="#000"
-                        android:textSize="14sp" />
-                        -->
+                        android:textSize="14sp" /> -->
                     </LinearLayout>
                 </TableRow>
 
