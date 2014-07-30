@@ -87,16 +87,21 @@ public class AdapterCustomerContacts extends
 			holder.col5.setText("");
 
 		} else {
-			holder.col1.setText(holder.record.getCrm());
-			holder.col2.setText(holder.record.getFirstName());
+			try {
+				holder.col1.setText(holder.record.getCrm());
+				holder.col2.setText(holder.record.getFirstName());
 
-			holder.col3.setText(holder.record.getLastName());
+				holder.col3.setText(holder.record.getLastName());
 
-			PicklistRecord cPos = JardineApp.DB.getCustomerContactPosition()
-					.getById(holder.record.getPosition());
-			holder.col4.setText(cPos.getName());
+				PicklistRecord cPos = JardineApp.DB
+						.getCustomerContactPosition().getById(
+								holder.record.getPosition());
+				holder.col4.setText(cPos.getName());
 
-			holder.col5.setText(holder.record.getMobileNo());
+				holder.col5.setText(holder.record.getMobileNo());
+			} catch (Exception e) {
+
+			}
 
 		}
 		return view;

@@ -47,13 +47,13 @@ public class AdapterWorkplanEntry extends ArrayAdapter<WorkplanEntryRecord> {
 			view = inflater.inflate(this.layout, parent, false);
 			holder = new ViewHolder();
 
-			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRow);
+			holder.row = (TableRow) view.findViewById(R.id.trWorkplanRowH);
 			holder.txtCol1 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMCrmNo);
+					.findViewById(R.id.tvWorkplanCol1);
 			holder.txtCol2 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMDescription);
+					.findViewById(R.id.tvWorkplanCol2);
 			holder.txtCol3 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMIsActive);
+					.findViewById(R.id.tvWorkplanCol3);
 
 			view.setTag(holder);
 		} else {

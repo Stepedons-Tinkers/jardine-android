@@ -92,11 +92,21 @@ public class CustomerGeneralInformation extends Fragment {
 
 		ProvinceRecord prov = JardineApp.DB.getProvince().getById(
 				record.getProvince());
-		province.setText(prov.getName());
 
-		CityTownRecord city = JardineApp.DB.getCityTown().getById(
-				record.getCityTown());
-		cityOrTown.setText(city.getName());
+		if (prov == null) {
+			province.setText("");
+		} else {
+			province.setText(prov.getName());
+
+			CityTownRecord city = JardineApp.DB.getCityTown().getById(
+					record.getCityTown());
+			if (city == null) {
+				cityOrTown.setText("");
+			} else {
+				cityOrTown.setText(city.getName());
+			}
+
+		}
 
 		chainName.setText(record.getChainName());
 		PicklistRecord cSize = JardineApp.DB.getCustomerSize().getById(

@@ -54,7 +54,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
 	private View header;
-	private TextView txtCrm, txtDesc, txtIsActive;
+	private TextView txtCol1, txtCol2, txtCol3, txtCol4;
 	private TableRow trow;
 	private SearchView searchView;
 
@@ -86,28 +86,31 @@ public class CollateralsMarketingMaterials extends Fragment implements
 	private void initLayout() {
 
 		// Header Data
-		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
-		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
-		txtDesc = (TextView) header
-				.findViewById(R.id.tvCollateralsMMDescription);
-		txtIsActive = (TextView) header
-				.findViewById(R.id.tvCollateralsMMIsActive);
+		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRowH);
+		txtCol1 = (TextView) header.findViewById(R.id.tvCollateralsMMCol1);
+		txtCol2 = (TextView) header.findViewById(R.id.tvCollateralsMMCol2);
+		txtCol3 = (TextView) header.findViewById(R.id.tvCollateralsMMCol3);
+		txtCol4 = (TextView) header.findViewById(R.id.tvCollateralsMMCol4);
 
-		txtCrm.setText(getResources().getString(R.string.collaterals_ep_crm_no));
-		txtDesc.setText(getResources().getString(
+		txtCol1.setText(getResources()
+				.getString(R.string.collaterals_ep_crm_no));
+		txtCol2.setText(getResources().getString(
 				R.string.collaterals_ep_description));
-		txtIsActive.setText(getResources().getString(
-				R.string.collaterals_ep_tags));
+		txtCol3.setText(getResources().getString(R.string.collaterals_ep_tags));
+		txtCol4.setText(getResources().getString(
+				R.string.customer_details_is_active));
 		trow.setBackgroundResource(R.color.tab_pressed);
 
 		trow.setGravity(Gravity.CENTER);
-		txtCrm.setTypeface(null, Typeface.BOLD);
-		txtDesc.setTypeface(null, Typeface.BOLD);
-		txtIsActive.setTypeface(null, Typeface.BOLD);
+		txtCol1.setTypeface(null, Typeface.BOLD);
+		txtCol2.setTypeface(null, Typeface.BOLD);
+		txtCol3.setTypeface(null, Typeface.BOLD);
+		txtCol4.setTypeface(null, Typeface.BOLD);
 
-		txtCrm.setGravity(Gravity.CENTER);
-		txtDesc.setGravity(Gravity.CENTER);
-		txtIsActive.setGravity(Gravity.CENTER);
+		txtCol1.setGravity(Gravity.CENTER);
+		txtCol2.setGravity(Gravity.CENTER);
+		txtCol3.setGravity(Gravity.CENTER);
+		txtCol4.setGravity(Gravity.CENTER);
 
 		header.setClickable(false);
 		header.setFocusable(false);
@@ -326,7 +329,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 
 			@Override
 			public boolean onQueryTextChange(String arg0) {
-		
+
 				return true;
 			}
 

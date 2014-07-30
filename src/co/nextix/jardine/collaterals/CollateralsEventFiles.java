@@ -49,7 +49,7 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private ImageButton arrowLeft, arrowRight;
 	private TextView txtPage;
 	private View header;
-	private TextView txtCrm, txtDesc, txtIsActive;
+	private TextView txtCol1, txtCol2, txtCol3, txtCol4;
 	private TableRow trow;
 	private Spinner spinner;
 	private SearchView searchView;
@@ -80,28 +80,36 @@ public class CollateralsEventFiles extends Fragment implements OnClickListener {
 	private void initLayout() {
 
 		// Header Data
-		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
-		txtCrm = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
-		txtDesc = (TextView) header
-				.findViewById(R.id.tvCollateralsMMDescription);
-		txtIsActive = (TextView) header
-				.findViewById(R.id.tvCollateralsMMIsActive);
+		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRowH);
+		txtCol1 = (TextView) header.findViewById(R.id.tvCollateralsMMCol1);
+		txtCol2 = (TextView) header
+				.findViewById(R.id.tvCollateralsMMCol2);
+		txtCol3 = (TextView) header
+				.findViewById(R.id.tvCollateralsMMCol3);
+		txtCol4 = (TextView) header
+				.findViewById(R.id.tvCollateralsMMCol4);
 
 		trow.setGravity(Gravity.CENTER);
-		txtCrm.setTypeface(null, Typeface.BOLD);
-		txtDesc.setTypeface(null, Typeface.BOLD);
-		txtIsActive.setTypeface(null, Typeface.BOLD);
+		txtCol1.setTypeface(null, Typeface.BOLD);
+		txtCol2.setTypeface(null, Typeface.BOLD);
+		txtCol3.setTypeface(null, Typeface.BOLD);
+		txtCol4.setTypeface(null, Typeface.BOLD);
 
-		txtCrm.setGravity(Gravity.CENTER);
-		txtDesc.setGravity(Gravity.CENTER);
-		txtIsActive.setGravity(Gravity.CENTER);
+		txtCol1.setGravity(Gravity.CENTER);
+		txtCol2.setGravity(Gravity.CENTER);
+		txtCol3.setGravity(Gravity.CENTER);
+		txtCol4.setGravity(Gravity.CENTER);
 
-		txtCrm.setText(getResources()
+
+		txtCol1.setText(getResources()
 				.getString(R.string.collaterals_file_title));
-		txtDesc.setText(getResources().getString(R.string.collaterals_filename));
-		txtIsActive.setText(getResources().getString(
+		txtCol2.setText(getResources().getString(R.string.collaterals_filename));
+		txtCol3.setText(getResources().getString(
 				R.string.collaterals_file_modified_time));
+		txtCol4.setText(getResources().getString(
+				R.string.collaterals_file_type));
 		trow.setBackgroundResource(R.color.tab_pressed);
+		
 		header.setClickable(false);
 		header.setFocusable(false);
 		header.setFocusableInTouchMode(false);

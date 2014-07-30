@@ -36,13 +36,10 @@ import android.widget.SearchView;
 import android.widget.Spinner;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.collaterals.AdapterCollateralsEventProtocols;
 import co.nextix.jardine.collaterals.CustomSpinnerAdapter;
-import co.nextix.jardine.database.records.EventProtocolRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.WorkplanEntryTable;
@@ -133,7 +130,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		formattedDate = (month + 1) + "/" + day + "/" + year;
 
 		view = inflater.inflate(R.layout.workplan, container, false);
-		header = inflater.inflate(R.layout.collaterals_marketing_materials_row,
+		header = inflater.inflate(R.layout.workplan_3_columns,
 				null);
 
 		return view;
@@ -150,11 +147,11 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		// Header Data
 		getActivity().invalidateOptionsMenu();
-		trow = (TableRow) header.findViewById(R.id.trCollateralsMMRow);
-		txtCol1 = (TextView) header.findViewById(R.id.tvCollateralsMMCrmNo);
+		trow = (TableRow) header.findViewById(R.id.trWorkplanRowH);
+		txtCol1 = (TextView) header.findViewById(R.id.tvWorkplanCol1);
 		txtCol2 = (TextView) header
-				.findViewById(R.id.tvCollateralsMMDescription);
-		txtCol3 = (TextView) header.findViewById(R.id.tvCollateralsMMIsActive);
+				.findViewById(R.id.tvWorkplanCol2);
+		txtCol3 = (TextView) header.findViewById(R.id.tvWorkplanCol3);
 
 		trow.setGravity(Gravity.CENTER);
 		txtCol1.setGravity(Gravity.CENTER);
@@ -225,7 +222,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		}
 
 		adap = new WorkplanCustomerAdapter(getActivity(),
-				R.layout.workplan_spinner_row, workplans);
+				R.layout.workplan_3_columns, workplans);
 
 		searchSpinner.setAdapter(adap);
 
@@ -331,7 +328,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		} else {
 			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
 					getActivity(),
-					R.layout.collaterals_marketing_materials_row, realRecord);
+					R.layout.workplan_3_columns, realRecord);
 			list.setAdapter(adapter);
 		}
 
@@ -375,7 +372,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	private void setView() {
 
 		AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(getActivity(),
-				R.layout.collaterals_marketing_materials_row, tempRecord);
+				R.layout.workplan_3_columns, tempRecord);
 		list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

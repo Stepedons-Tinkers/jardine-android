@@ -7,7 +7,7 @@
     android:orientation="vertical" >
 
     <TableRow
-        android:id="@+id/trCollateralsMMRowH"
+        android:id="@+id/trWorkplanRowH"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
@@ -16,7 +16,7 @@
         android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/tvCollateralsMMCol1"
+            android:id="@+id/tvWorkplanCol1"
             android:layout_width="match_parent"
             android:layout_column="0"
             android:layout_weight="1"
@@ -34,7 +34,7 @@
             android:background="@color/black" />
 
         <TextView
-            android:id="@+id/tvCollateralsMMCol2"
+            android:id="@+id/tvWorkplanCol2"
             android:layout_width="match_parent"
             android:layout_column="1"
             android:layout_weight="1"
@@ -51,7 +51,7 @@
             android:background="@color/black" />
         
         <TextView
-            android:id="@+id/tvCollateralsMMCol3"
+            android:id="@+id/tvWorkplanCol3"
             android:layout_width="match_parent"
             android:layout_column="1"
             android:layout_weight="1"
@@ -61,36 +61,7 @@
             android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
-        <View
-            android:layout_width="2dp"
-            android:layout_height="match_parent"
-            android:layout_marginRight="2dp"
-            android:background="@color/black" />
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_column="2"
-            android:layout_weight="1" >
-
-            <TextView
-                android:id="@+id/tvCollateralsMMCol4"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:text="@string/collaterals_file_modified_time"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_xxlarge" />
-
-            <ImageView
-                android:id="@+id/ivCollateralsMMNewIndicator"
-                android:layout_width="@dimen/text_xxxxlarge"
-                android:layout_height="@dimen/text_xxxxlarge"
-                android:layout_gravity="center|end"
-                android:background="@null"
-                android:src="@drawable/collaterals_new"
-                android:visibility="gone" />
-        </FrameLayout>
+      
     </TableRow>
 
 </LinearLayout>
