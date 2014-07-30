@@ -36,7 +36,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#0000b6"
                     android:gravity="center"
                     android:padding="14dip"
@@ -120,10 +120,10 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:hint="logged-in user"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:hint="logged-in user"
                         android:textColor="#000"
                         android:textSize="14dp" />
                 </HorizontalScrollView>
@@ -166,11 +166,11 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:hint="auto-generated"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:hint="auto-generated"
                         android:textColor="#FF00"
                         android:textSize="14dp" />
 
@@ -216,12 +216,17 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/activity"
+                    <EditText
+                        android:id="@+id/details"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+                        android:ems="10"
+                        android:hint="text area"
+                        android:inputType="textMultiLine|textImeMultiLine"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -269,8 +274,8 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_weight="0.3"
                     android:background="#b0b0b0" >
 

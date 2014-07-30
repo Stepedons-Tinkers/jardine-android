@@ -69,7 +69,7 @@
 
                 <TextView
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="#0000b6"
                     android:gravity="center"
                     android:padding="14dip"
@@ -135,7 +135,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/crm_proj_requirements"
+                        android:text="@string/created_by_proj_requirement"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -149,16 +149,16 @@
                     android:background="#b0b0b0" >
 
                     <TextView
-                        android:id="@+id/crm_no"
+                        android:id="@+id/created_by"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="incremental; auto-generated"
+                        android:text="logged in user"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -177,7 +177,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:text="@string/activity_proj_requirements"
+                        android:text="@string/crm_proj_requirements"
                         android:textColor="#000"
                         android:textSize="14dp"
                         android:textStyle="bold" />
@@ -196,7 +196,7 @@
                     android:background="#b0b0b0" >
 
                     <TextView
-                        android:id="@+id/customer"
+                        android:id="@+id/crm_no"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -204,9 +204,9 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:state_selected="true"
-                        android:text="related Activity record"
-                        android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:text="incremental; auto-generated"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -231,7 +231,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"
@@ -239,7 +238,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/project_requirement_type"
+                        android:text="@string/activity_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -250,12 +249,17 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/spinner1"
+                    <TextView
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
+                        android:layout_height="wrap_content"
                         android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="related Activity record"
+                        android:textColor="#000000" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -273,7 +277,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/date_needed"
+                        android:text="@string/project_requirement_type"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -286,7 +290,7 @@
                     android:background="#dcdcdc" >
 
                     <Spinner
-                        android:id="@+id/spinner1"
+                        android:id="@+id/project_requirement_type"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
@@ -318,7 +322,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/square_meters_proj_requirements"
+                        android:text="@string/date_needed"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -329,17 +333,17 @@
                     android:layout_weight="0.3"
                     android:background="#cac9c9" >
 
-                    <EditText
-                        android:id="@+id/objective"
+                    <TextView
+                        android:id="@+id/date_needed"
                         android:layout_width="0dp"
-                        android:layout_height="45dp"
-                        android:background="#cac9c9"
-                        android:ems="10"
-                        android:hint="di importante"
-                        android:inputType="textMultiLine|textImeMultiLine|number"
-                        android:maxLines="100"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:padding="14dip"
                         android:scrollHorizontally="true"
-                        android:textColor="#000000" />
+                        android:singleLine="true"
+                        android:text="date picker [YYYY-MM-DD]"
+                        android:textColor="#000"
+                        android:textSize="14sp" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -357,7 +361,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/product_brand_proj_requirements"
+                        android:text="@string/square_meters_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -370,7 +374,7 @@
                     android:background="#cac9c9" >
 
                     <EditText
-                        android:id="@+id/objective"
+                        android:id="@+id/square_meters_proj_requirements"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#cac9c9"
@@ -406,7 +410,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/other_details_proj_requirements"
+                        android:text="@string/product_brand_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -417,16 +421,16 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <TextView
-                        android:id="@+id/TextView04"
+                    <EditText
+                        android:id="@+id/product_brand"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:gravity="center"
-                        android:padding="14dip"
+                        android:ems="10"
+                        android:hint="di importante"
+                        android:inputType="textMultiLine|textImeMultiLine|number"
+                        android:maxLines="100"
                         android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="related Supplier record"
                         android:textColor="#000000" />
                 </HorizontalScrollView>
 
@@ -446,7 +450,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="@string/created_by_proj_requirement"
+                        android:text="@string/other_details_proj_requirements"
                         android:textColor="#000000"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
@@ -459,12 +463,17 @@
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
-                    <Spinner
-                        android:id="@+id/spinner1"
+                    <EditText
+                        android:id="@+id/other_details"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
-                        android:scrollHorizontally="true" />
+                        android:ems="10"
+                        android:hint="di importante"
+                        android:inputType="textMultiLine|textImeMultiLine|number"
+                        android:maxLines="100"
+                        android:scrollHorizontally="true"
+                        android:textColor="#000000" />
                 </HorizontalScrollView>
             </TableRow>
         </TableLayout>

@@ -148,9 +148,9 @@
                     android:id="@+id/project_stage"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:background="#dcdcdc"
-                    android:layout_marginTop="4dp"
                     android:layout_marginRight="4dp"
+                    android:layout_marginTop="4dp"
+                    android:background="#dcdcdc"
                     android:scrollHorizontally="true" />
             </TableRow>
 
@@ -163,9 +163,8 @@
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
                     android:layout_weight="0.34"
                     android:background="#dcdcdc" >
 
@@ -186,15 +185,13 @@
                     android:id="@+id/project_category"
                     android:layout_width="0dp"
                     android:layout_height="50dp"
-                    android:background="#dcdcdc"
                     android:layout_weight="0.36"
-                    android:layout_marginTop="4dp"
+                    android:background="#dcdcdc"
                     android:scrollHorizontally="true" />
 
                 <HorizontalScrollView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc" >
 
@@ -213,9 +210,8 @@
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_marginRight="4dp"
-                    android:layout_marginTop="4dp"
                     android:layout_marginBottom="4dp"
+                    android:layout_marginRight="4dp"
                     android:layout_weight="0.3"
                     android:background="#dcdcdc"
                     android:ems="10"

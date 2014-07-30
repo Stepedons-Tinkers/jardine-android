@@ -2,8 +2,6 @@ package co.nextix.jardine.activities.add.fragments;
 
 import java.util.List;
 
-import com.dd.CircularProgressButton;
-
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
@@ -13,20 +11,21 @@ import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.TextView.OnEditorActionListener;
+import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.PicklistRecord;
+
+import com.dd.CircularProgressButton;
 
 public class AddActivityProjectVisitFragment extends Fragment {
 	

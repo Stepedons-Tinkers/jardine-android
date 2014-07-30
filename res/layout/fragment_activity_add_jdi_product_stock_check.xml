@@ -332,11 +332,7 @@
                         android:id="@+id/supplier"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
-<<<<<<< HEAD
                         android:background="#cac9c9" />
-=======
-                        android:background="#b0b0b0" />
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
                 </HorizontalScrollView>
             </TableRow>
 
