@@ -1,5 +1,26 @@
 package co.nextix.jardine.database.tables;
 
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_AREA;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_BUSINESSUNIT;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CHAINNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CITYTOWN;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATED_BY;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_DAYSUNCHANGED;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_FAX;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_LANDLINE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_PROVINCE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_RECORDSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_SIZE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_STREETADDRESS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_TYPE;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -12,26 +33,6 @@ import android.util.Log;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerRecord;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_NAME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CHAINNAME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_LANDLINE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_FAX;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_SIZE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_STREETADDRESS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_RECORDSTATUS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_TYPE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_BUSINESSUNIT;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_AREA;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_PROVINCE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CITYTOWN;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_ISACTIVE;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_DAYSUNCHANGED;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMER_CREATED_BY;
 
 public class CustomerTable {
 
@@ -346,14 +347,24 @@ public class CustomerTable {
 		return list;
 	}
 
-	public boolean updateNo(long id, String no) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_CUSTOMER_NO, no);
+		args.put(KEY_CUSTOMER_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_CUSTOMER_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id,
 				null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateModifiedTime(long id, String modifiedTime) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_CUSTOMER_MODIFIEDTIME, modifiedTime);
+		if (mDb.update(mDatabaseTable, args, KEY_CUSTOMER_ROWID + "=" + id,
+				null) > 0) {
 			return true;
 		} else {
 			return false;

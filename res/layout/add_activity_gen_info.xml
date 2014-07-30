@@ -199,7 +199,7 @@
                         android:textStyle="bold" />
 
                     <ImageButton
-                        android:id="@+id/ibActivitiesFromCalendar"
+                        android:id="@+id/ibChechOutCalendar"
                         android:layout_width="@dimen/calendar_button"
                         android:layout_height="@dimen/calendar_button"
                         android:layout_marginTop="4dp"
@@ -219,7 +219,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:hint="date-time picker"
+                            android:hint="yyyy-mm-dd"
                             android:maxLines="2"
                             android:padding="14dip"
                             android:scrollHorizontally="true"

@@ -86,14 +86,11 @@ public class AdapterCustomers extends ArrayAdapter<CustomerRecord> {
 
 			BusinessUnitRecord business = JardineApp.DB.getBusinessUnit()
 					.getById(holder.record.getBusinessUnit());
-			if(business != null)
-			{
+			if (business != null) {
 				holder.txtBusinessUnit.setText(business.getBusinessUnitName());
-			}else
-			{
+			} else {
 				holder.txtBusinessUnit.setText("");
 			}
-			
 
 			PicklistRecord area = JardineApp.DB.getArea().getById(
 					holder.record.getArea());
@@ -101,14 +98,26 @@ public class AdapterCustomers extends ArrayAdapter<CustomerRecord> {
 
 			ProvinceRecord prov = JardineApp.DB.getProvince().getById(
 					holder.record.getProvince());
-			holder.txtProvince.setText(prov.getName());
 
-			CityTownRecord city = JardineApp.DB.getCityTown().getById(
-					holder.record.getCityTown());
-			holder.txtCityOrTown.setText(city.getName());
+			if (prov == null) {
+				holder.txtProvince.setText("");
+				holder.txtCityOrTown.setText("");
+				
+
+			} else {
+				holder.txtProvince.setText(prov.getName());
+				CityTownRecord city = JardineApp.DB.getCityTown().getById(
+						holder.record.getCityTown());
+				if (city == null) {
+					holder.txtCityOrTown.setText("");
+				} else {
+					holder.txtCityOrTown.setText(city.getName());
+				}
+
+			}
+
 		}
 
 		return view;
 	}
-
 }

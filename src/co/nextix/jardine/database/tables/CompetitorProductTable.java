@@ -11,6 +11,10 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_P
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_PRODUCTDESCRIPTION;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_PRODUCTSIZE;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCT_ROWID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODIFIEDTIME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_NO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_ROWID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -433,15 +437,13 @@ public class CompetitorProductTable {
 		}
 	}
 
-	public boolean updateNo(long id, String no, String modifiedTime) {
+	public boolean update(long id, String no, String modifiedTime, String crmNo) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_COMPETITORPRODUCT_NO, no);
 		args.put(KEY_COMPETITORPRODUCT_MODIFIEDTIME, modifiedTime);
+		args.put(KEY_COMPETITORPRODUCT_CRMNO, crmNo);
 		if (mDb.update(mDatabaseTable, args, KEY_COMPETITORPRODUCT_ROWID + "="
 				+ id, null) > 0) {
-			// getRecords().update(id, no, competitor, productBrand,
-			// productDescription, productSize, isActive, createdTime,
-			// modifiedTime, user);
 			return true;
 		} else {
 			return false;

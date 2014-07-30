@@ -26,6 +26,7 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -260,11 +261,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-		((TextView) this.rootView.findViewById(R.id.check_out)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				flag = 4;
+				flag = 4;				
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
 						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
 						AddActivityGeneralInformationFragment.this.day);
@@ -281,7 +282,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (saveBtn.getProgress() == 0) {
-
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -333,7 +333,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 								v.setEnabled(true);
 							}
 
-						}, 1500);
+						}, 700);
 
 					} else {
 
@@ -353,6 +353,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+					
 					if(ActivityType == 1){ // travel
 						DashBoardActivity.tabIndex.add(1, 1);
 						AddActivityFragment.pager.setCurrentItem(1);

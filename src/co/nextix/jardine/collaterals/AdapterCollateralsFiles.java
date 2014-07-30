@@ -32,6 +32,7 @@ public class AdapterCollateralsFiles extends ArrayAdapter<DocumentRecord> {
 		public TextView col1;
 		public TextView col2;
 		public TextView col3;
+		public TextView col4;
 		public TableRow row;
 	}
 
@@ -45,13 +46,15 @@ public class AdapterCollateralsFiles extends ArrayAdapter<DocumentRecord> {
 			view = inflater.inflate(this.layout, parent, false);
 			holder = new ViewHolder();
 
-			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRow);
+			holder.row = (TableRow) view.findViewById(R.id.trCollateralsMMRowH);
 			holder.col1 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMCrmNo);
+					.findViewById(R.id.tvCollateralsMMCol1);
 			holder.col2 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMDescription);
+					.findViewById(R.id.tvCollateralsMMCol2);
 			holder.col3 = (TextView) view
-					.findViewById(R.id.tvCollateralsMMIsActive);
+					.findViewById(R.id.tvCollateralsMMCol3);
+			holder.col4 = (TextView) view
+					.findViewById(R.id.tvCollateralsMMCol4);
 			view.setTag(holder);
 		} else {
 			holder = (ViewHolder) view.getTag();
@@ -70,6 +73,7 @@ public class AdapterCollateralsFiles extends ArrayAdapter<DocumentRecord> {
 		holder.col2.setText(holder.record.getFileName());
 		holder.col3.setText(MyDateUtils.convertDateTime(holder.record
 				.getModifiedTime()));
+		holder.col4.setText(holder.record.getFileType());
 
 		return view;
 	}
