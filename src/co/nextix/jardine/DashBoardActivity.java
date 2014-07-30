@@ -326,9 +326,7 @@ public class DashBoardActivity extends FragmentActivity {
 	@Override
 	public void onBackPressed() {
 		if (fromAddActivities){
-			Log.e("else if","else if");
 			int size = tabIndex.size();
-			Log.e("size",""+size);
 			
 			if(size == 1){
 				super.onBackPressed();
@@ -338,7 +336,6 @@ public class DashBoardActivity extends FragmentActivity {
 			}
 			
 		} else {
-			Log.e("else","else");
 			super.onBackPressed();
 		}
 
@@ -351,6 +348,7 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	private void clearStack() {
+		getSupportFragmentManager().popBackStack();
 		getSupportFragmentManager().popBackStack("profile", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		getSupportFragmentManager().popBackStack("sync", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 		getSupportFragmentManager().popBackStack("workplan", FragmentManager.POP_BACK_STACK_INCLUSIVE);
@@ -427,7 +425,7 @@ public class DashBoardActivity extends FragmentActivity {
 	public void startActivity(View view) {
 		android.support.v4.app.Fragment fragment = new StartActivityFragment();
 		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
-		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("activities").commit();
 		setTitle("Activities");
 	}
 
