@@ -7,12 +7,10 @@ import java.util.Calendar;
 import android.animation.ValueAnimator;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -26,7 +24,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -46,6 +43,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 	private Uri imageUri = null;
 	private String imagePath = "";
+	private long row_id = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -133,7 +131,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
 
 						flag = true;
@@ -152,6 +150,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 							@Override
 							public void run() {
+								pref.edit().clear().commit();
 								getFragmentManager().popBackStackImmediate();
 							}
 
@@ -375,7 +374,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
+		this.row_id = JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
 				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
 				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
 				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
