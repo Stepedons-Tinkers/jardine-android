@@ -8,7 +8,6 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,16 +19,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-<<<<<<< HEAD
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
-=======
-import co.nextix.jardine.JardineApp;
-import co.nextix.jardine.DashBoardActivity;
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 
@@ -38,11 +31,7 @@ import com.dd.CircularProgressButton;
 public class AddJDIProductStockFragment extends Fragment {
 
 	private boolean flag = false;
-<<<<<<< HEAD
-=======
 
-	private ArrayAdapter<ActivityRecord> activityAdapter = null;
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
 	private ArrayAdapter<ProductRecord> productAdapter = null;
 	private ArrayAdapter<PicklistRecord> stockStatusAdapter = null;
 	private ArrayAdapter<CustomerRecord> supplierAdapter = null;
@@ -58,11 +47,7 @@ public class AddJDIProductStockFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
-<<<<<<< HEAD
-=======
 
-		this.activityAdapter = new ArrayAdapter<ActivityRecord>(JardineApp.context, R.layout.add_activity_textview, activityList);
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
 		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
 		this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
 		this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
@@ -115,12 +100,9 @@ public class AddJDIProductStockFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 					if (product != 0 && stockStatus != 0) {
-<<<<<<< HEAD
 
 						flag = true;
-=======
-						
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
+
 						Editor editor = pref.edit();
 						editor.putString("other_type_remarks", otherTypeRemarks);
 						editor.putLong("stock_status", stockStatus);
@@ -150,16 +132,12 @@ public class AddJDIProductStockFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-<<<<<<< HEAD
 
 					v.setClickable(true);
 					v.setEnabled(true);
 
 					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-=======
-					
-					if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
->>>>>>> d1070dbefe621544c6630b6b36e7d1aaff19a876
+
 						DashBoardActivity.tabIndex.add(4, 7);
 						AddActivityFragment.pager.setCurrentItem(7);
 					}
