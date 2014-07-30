@@ -1,12 +1,13 @@
 package co.nextix.jardine.activites.fragments;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
@@ -15,22 +16,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.SuperAwesomeCardFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityDIYorSupermarketFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityProjectVisitFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityRetailVisitFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityTrainingsFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityWithCoSMRsFragment;
-import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
-import co.nextix.jardine.keys.Modules;
-import co.nextix.jardine.utils.MyDateUtils;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -53,6 +43,8 @@ public class ActivityInfoFragment extends Fragment {
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+	
+	private int titles;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,7 +64,59 @@ public class ActivityInfoFragment extends Fragment {
 
 		tabers = (PagerSlidingTabStrip) tabs;
 		pager = (ViewPager) this.myFragmentView.findViewById(R.id.pager);
-		adapter = new MyPagerAdapter(getFragmentManager());
+		pager.setCurrentItem(0);
+
+		ArrayList<Integer> disableTabs = new ArrayList<Integer>();
+		this.pref = getActivity().getApplicationContext().getSharedPreferences(
+				"ActivityInfo", 0);
+		this.activityRecord = JardineApp.DB.getActivity().getById(
+				pref.getLong("activity_id", 0));
+
+		bundle = getArguments();
+
+		ActivityTypeTable type = JardineApp.DB.getActivityType();
+		List<Fragment> fragment = null;
+		if (type != null) {
+			ActivityTypeRecord record = type.getById(this.activityRecord
+					.getActivityType());
+			if (record != null) {
+
+				if (record.toString().equals("Travel")
+						|| record.toString().equals("Waiting")) { // done
+					fragment = getFragments(0);
+					titles = 0;
+				} else if (record.toString().equals(
+						"Company Work-with Co-SMR/ Supervisor")) { // done
+					titles = 1;
+					fragment = getFragments(1);
+				} else if (record.toString().equals("Admin Work")) { // done
+					fragment = getFragments(2);
+					titles = 2;
+				} else if (record.toString().equals(
+						"Retail Visits (Traditional Hardware)")
+						|| record.toString().equals("Retail Visits (Merienda)")) { // done
+					fragment = getFragments(3);
+					titles = 3;
+				} else if (record.toString().equals("KI Visits - On-site")) { // done
+					fragment = getFragments(4);
+					titles = 4;
+				} else if (record.toString().contains("Major Training")) { // done
+					fragment = getFragments(5);
+					titles = 5;
+				} else if (record.toString().contains("End User Activity")) { // done
+					fragment = getFragments(6);
+					titles = 6;
+				} else if (record.toString().equals("Full Brand Activation")) { // done
+					fragment = getFragments(7);
+					titles = 7;
+				} else {
+					fragment = getFragments(8);
+					titles = 8;
+				}
+			}
+		}
+
+		adapter = new MyPagerAdapter(getFragmentManager(), fragment);
 
 		pager.setAdapter(adapter);
 
@@ -82,373 +126,260 @@ public class ActivityInfoFragment extends Fragment {
 		pager.setPageMargin(pageMargin);
 		pager.setCurrentItem(0);
 
-//		ArrayList<Integer> disableTabs = new ArrayList<Integer>();
-//		this.pref = getActivity().getApplicationContext().getSharedPreferences(
-//				"ActivityInfo", 0);
-//		this.activityRecord = JardineApp.DB.getActivity().getById(
-//				pref.getLong("activity_id", 0));
-//
-//		bundle = getArguments();
-//
-//		ActivityTypeTable type = JardineApp.DB.getActivityType();
-//		if (type != null) {
-//			ActivityTypeRecord record = type.getById(this.activityRecord
-//					.getActivityType());
-//
-//			if (record != null) {
-//
-//				if (record.toString().equals("Travel")
-//						|| record.toString().equals("Waiting")) { // done
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(4);
-//					disableTabs.add(5);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//					disableTabs.add(16);
-//				} else if (record.toString().equals(
-//						"Company Work-with Co-SMR/ Supervisor")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(3);
-//					disableTabs.add(4);
-//					disableTabs.add(5);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//					disableTabs.add(16);
-//				} else if (record.toString().equals("Admin Work")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(4);
-//					disableTabs.add(5);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//					disableTabs.add(16);
-//				} else if (record.toString().equals(
-//						"Retail Visits (Traditional Hardware)")
-//						|| record.toString().equals("Retail Visits (Merienda)")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//				} else if (record.toString().equals("KI Visits - On-site")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//				} else if (record.toString().contains("Major Training")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//				} else if (record.toString().contains("End User Activity")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(15);
-//				} else if (record.toString().equals("Full Brand Activation")) { // done
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//				} else {
-//					disableTabs.add(1);
-//					disableTabs.add(2);
-//					disableTabs.add(3);
-//					disableTabs.add(6);
-//					disableTabs.add(7);
-//					disableTabs.add(8);
-//					disableTabs.add(9);
-//					disableTabs.add(10);
-//					disableTabs.add(11);
-//					disableTabs.add(12);
-//					disableTabs.add(13);
-//					disableTabs.add(14);
-//					disableTabs.add(15);
-//				}
-//			}
-//		}
-		 tabs.setViewPager(pager, true);
-//		tabs.setViewPagerForDisableSpecificTab(pager, false, disableTabs);
-		tabs.setOnPageChangeListener(new OnPageChangeListener() {
-
-			@Override
-			public void onPageSelected(int position) {
-				firstPos = position;
-
-				ft.setCustomAnimations(R.anim.slide_in_left,
-						R.anim.slide_out_left);
-
-				if (position == 0) {
-
-					// General Information
-					ActivityGeneralInfoFragment editActInfoFrag = new ActivityGeneralInfoFragment();
-					editActInfoFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, editActInfoFrag);
-					ft.commit();
-				} else if (position == 1) {
-
-					// Travel or Waiting
-					ActivityTravelOrWaitingFragment travelORwaitingFrag = new ActivityTravelOrWaitingFragment();
-					travelORwaitingFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, travelORwaitingFrag);
-					ft.commit();
-				} else if (position == 2) {
-
-					// WithCoSMRs
-					ActivityWithCoSMRsFragment withCoSMRsFrag = new ActivityWithCoSMRsFragment();
-					withCoSMRsFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, withCoSMRsFrag);
-					ft.commit();
-				} else if (position == 3) {
-
-					// Admin Works
-					ActivityAdminWorksFragment adminWorksFrag = new ActivityAdminWorksFragment();
-					adminWorksFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, adminWorksFrag);
-					ft.commit();
-				} else if (position == 4) {
-
-					// Activity Details and Notes
-					ActivityDetailedInfoFragment detailsANDnotesFrag = new ActivityDetailedInfoFragment();
-					detailsANDnotesFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, detailsANDnotesFrag);
-					ft.commit();
-				} else if (position == 5) {
-
-					// Customer Contact Person
-					CustomerContactPersonFragment customerContactPersonFrag = new CustomerContactPersonFragment();
-					customerContactPersonFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							customerContactPersonFrag);
-					ft.commit();
-				} else if (position == 6) {
-
-					// JDI Product Stock Check
-					JDIProductStockFragment jdiProductStockFrag = new JDIProductStockFragment();
-					jdiProductStockFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, jdiProductStockFrag);
-					ft.commit();
-				} else if (position == 7) {
-
-					// Product Supplier
-					ProductSupplierFragment productSupplierFrag = new ProductSupplierFragment();
-					productSupplierFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, productSupplierFrag);
-					ft.commit();
-				} else if (position == 8) {
-
-					// JDI Merchandising Check
-					JDIMerchandisingCheckFragment jdiMerchandisingCheckFrag = new JDIMerchandisingCheckFragment();
-					jdiMerchandisingCheckFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							jdiMerchandisingCheckFrag);
-					ft.commit();
-				} else if (position == 9) {
-
-					// JDI Competitor Product Stock Check
-					CompetitorStockCheckFragment jdiCompetitorProductStockCheckFrag = new CompetitorStockCheckFragment();
-					jdiCompetitorProductStockCheckFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							jdiCompetitorProductStockCheckFrag);
-					ft.commit();
-				} else if (position == 10) {
-
-					// Marketing Intel
-					MarketingIntelFragment marketingIntelFrag = new MarketingIntelFragment();
-					marketingIntelFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, marketingIntelFrag);
-					ft.commit();
-				} else if (position == 11) {
-
-					// Project Visit
-					ActivityProjectVisitFragment projectVisitFrag = new ActivityProjectVisitFragment();
-					projectVisitFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, projectVisitFrag);
-					ft.commit();
-				} else if (position == 12) {
-
-					// Project Requirements
-					ProjectRequirementsFragment projectRequirementsFrag = new ProjectRequirementsFragment();
-					projectRequirementsFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							projectRequirementsFrag);
-					ft.commit();
-				} else if (position == 13) {
-
-					// Trainings
-					ActivityTrainingsFragment trainingsFrag = new ActivityTrainingsFragment();
-					trainingsFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag, trainingsFrag);
-					ft.commit();
-				} else if (position == 14) {
-
-					// Identify Product Focus
-					ProductFocusFragment identifyProductFocusFrag = new ProductFocusFragment();
-					identifyProductFocusFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							identifyProductFocusFrag);
-					ft.commit();
-				} else if (position == 15) {
-
-					// Full Brand Activation
-					ActivityBrandActivationFragment fullBrandActivationFrag = new ActivityBrandActivationFragment();
-					fullBrandActivationFrag.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							fullBrandActivationFrag);
-					ft.commit();
-				} else if (position == 16) {
-
-					// Activity Photos and Attachments
-					PhotosAndAttachmentsFragment activityPhotosAndAttachments = new PhotosAndAttachmentsFragment();
-					activityPhotosAndAttachments.setArguments(bundle);
-
-					ft = getFragmentManager().beginTransaction();
-					ft.replace(R.id.layoutForAddingFrag,
-							activityPhotosAndAttachments);
-					ft.commit();
-				}
-
-			}
-
-			@Override
-			public void onPageScrolled(int arg0, float arg1, int arg2) {
-
-			}
-
-			@Override
-			public void onPageScrollStateChanged(int arg0) {
-
-			}
-		});
-
-		ActivityGeneralInfoFragment editActInfoFrag = new ActivityGeneralInfoFragment();
-		editActInfoFrag.setArguments(bundle);
-
-		ft.replace(R.id.layoutForAddingFrag, editActInfoFrag);
-		ft.commit();
+		tabs.setViewPager(pager, true);
 
 		return myFragmentView;
 	}
 
-	public class MyPagerAdapter extends FragmentPagerAdapter {
+	public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
-		private final String[] TITLES = { "General Information",
-				"Travel or Waiting", "With CoSMRs", "Admin Works",
-				"Activity Details and Notes", "Customer Contact Person",
-				"JDI Product Stock Check", "Product Supplier",
-				"JDI Merchandising Check",
-				"JDI Competitor Product Stock Check", "Marketing Intel",
-				"Project Visit", "Project Requirements", "Trainings",
-				"Identify Product Focus", "Full Brand Activation",
-				"Activity Photos and Attachments" };
+		private ArrayList<String> TITLES= new ArrayList<String>();
+		private List<Fragment> fragments;
 
-		public MyPagerAdapter(FragmentManager fm) {
+		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 			super(fm);
+			this.fragments = fragments;
+			
+//			switch(titles){
+//			
+//			case 0:
+//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				TITLES.add(ActivityTravelOrWaitingFragment.instantiate(
+//						getActivity(),
+//						ActivityTravelOrWaitingFragment.class.getName()));
+//				break;
+//				
+//			case 1:
+//				TITLES.add("General Information");
+//				TITLES.add("With CoSMRs");
+//				break;
+//			
+//			case 2:
+//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				TITLES.add(ActivityAdminWorksFragment.instantiate(getActivity(),
+//						ActivityAdminWorksFragment.class.getName()));
+//				break;
+//			case 3:
+//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				TITLES.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				TITLES.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				TITLES.add(JDIProductStockFragment.instantiate(getActivity(),
+//						JDIProductStockFragment.class.getName()));
+//				TITLES.add(ProductSupplierFragment.instantiate(getActivity(),
+//						ProductSupplierFragment.class.getName()));
+//				TITLES.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),
+//						JDIMerchandisingCheckFragment.class.getName()));
+//				TITLES.add(CompetitorStockCheckFragment.instantiate(getActivity(),
+//						CompetitorStockCheckFragment.class.getName()));
+//				TITLES.add(MarketingIntelFragment.instantiate(getActivity(),
+//						MarketingIntelFragment.class.getName()));
+//				TITLES.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//			case 4:
+//				TITLES.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				TITLES.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				TITLES.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				flist.add(MarketingIntelFragment.instantiate(getActivity(),
+//						MarketingIntelFragment.class.getName()));
+//				flist.add(ActivityProjectVisitFragment.instantiate(getActivity(),
+//						ActivityProjectVisitFragment.class.getName()));
+//				flist.add(ProjectRequirementsFragment.instantiate(getActivity(),
+//						ProjectRequirementsFragment.class.getName()));
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//			case 5:
+//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				flist.add(JDIProductStockFragment.instantiate(getActivity(),
+//						JDIProductStockFragment.class.getName()));
+//				flist.add(ActivityTrainingsFragment.instantiate(getActivity(),
+//						ActivityTrainingsFragment.class.getName()));
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//			case 6:
+//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName())); // identify
+//																		// product
+//																		// focus
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//			case 7:
+//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				flist.add(ActivityBrandActivationFragment.instantiate(
+//						getActivity(),
+//						ActivityBrandActivationFragment.class.getName()));
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//
+//			default:
+//				flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+//						ActivityGeneralInfoFragment.class.getName()));
+//				flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+//						ActivityDetailedInfoFragment.class.getName()));
+//				flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+//						CustomerContactPersonFragment.class.getName()));
+//				flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+//						PhotosAndAttachmentsFragment.class.getName()));
+//				break;
+//			}
 		}
 
 		@Override
 		public CharSequence getPageTitle(int position) {
-			return TITLES[position];
+			return TITLES.get(position);
 		}
 
 		@Override
 		public int getCount() {
-			return TITLES.length;
+			return this.fragments.size();
 		}
 
 		@Override
 		public Fragment getItem(int position) {
-			return SuperAwesomeCardFragment.newInstance(firstPos);
+			return this.fragments.get(position);
 		}
+	}
+
+	private List<Fragment> getFragments(int position) {
+		List<Fragment> flist = new ArrayList<Fragment>();
+
+		switch (position) {
+		case 0:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityTravelOrWaitingFragment.instantiate(
+					getActivity(),
+					ActivityTravelOrWaitingFragment.class.getName()));
+			break;
+		case 1:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityWithCoSMRsFragment.instantiate(getActivity(),
+					ActivityWithCoSMRsFragment.class.getName()));
+			break;
+		case 2:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityAdminWorksFragment.instantiate(getActivity(),
+					ActivityAdminWorksFragment.class.getName()));
+			break;
+		case 3:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(JDIProductStockFragment.instantiate(getActivity(),
+					JDIProductStockFragment.class.getName()));
+			flist.add(ProductSupplierFragment.instantiate(getActivity(),
+					ProductSupplierFragment.class.getName()));
+			flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),
+					JDIMerchandisingCheckFragment.class.getName()));
+			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),
+					CompetitorStockCheckFragment.class.getName()));
+			flist.add(MarketingIntelFragment.instantiate(getActivity(),
+					MarketingIntelFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+		case 4:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(MarketingIntelFragment.instantiate(getActivity(),
+					MarketingIntelFragment.class.getName()));
+			flist.add(ActivityProjectVisitFragment.instantiate(getActivity(),
+					ActivityProjectVisitFragment.class.getName()));
+			flist.add(ProjectRequirementsFragment.instantiate(getActivity(),
+					ProjectRequirementsFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+		case 5:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(JDIProductStockFragment.instantiate(getActivity(),
+					JDIProductStockFragment.class.getName()));
+			flist.add(ActivityTrainingsFragment.instantiate(getActivity(),
+					ActivityTrainingsFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+		case 6:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName())); // identify
+																	// product
+																	// focus
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+		case 7:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(ActivityBrandActivationFragment.instantiate(
+					getActivity(),
+					ActivityBrandActivationFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+
+		default:
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
+					ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
+					ActivityDetailedInfoFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
+					CustomerContactPersonFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
+					PhotosAndAttachmentsFragment.class.getName()));
+			break;
+		}
+		return flist;
 	}
 }
