@@ -155,13 +155,11 @@ public class EventProtocolTable {
 		switch (column) {
 		case 0:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_EVENTPROTOCOL_USER + " = " + userId + " AND "
 					+ KEY_EVENTPROTOCOL_CRMNO + " LIKE '%" + hint + "%'";
 			break;
 		case 1:
 
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_EVENTPROTOCOL_USER + " = " + userId + " AND "
 					+ KEY_EVENTPROTOCOL_DESCRIPTION + " LIKE '%" + hint + "%'";
 			break;
 		case 2:
@@ -171,8 +169,7 @@ public class EventProtocolTable {
 			MY_QUERY = "SELECT " + mDatabaseTable + ".* FROM " + mDatabaseTable
 					+ " INNER JOIN Event_Type ON " + mDatabaseTable + "."
 					+ KEY_EVENTPROTOCOL_EVENTTYPE + " = Event_Type._id WHERE "
-					+ mDatabaseTable + "." + KEY_EVENTPROTOCOL_USER + " = "
-					+ userId + " AND Event_Type.name LIKE '%" + hint + "%'";
+					+ "Event_Type.name LIKE '%" + hint + "%'";
 
 			break;
 		default:

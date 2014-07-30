@@ -148,7 +148,7 @@ public class CollateralsSalesProtocols extends Fragment implements
 		realRecord = new ArrayList<SalesProtocolRecord>();
 		tempRecord = new ArrayList<SalesProtocolRecord>();
 		try {
-			realRecord.addAll(table.getAllRecordsByUserId(userId));
+			realRecord.addAll(table.getAllRecords());
 		} catch (Exception e) {
 		}
 

@@ -34,7 +34,7 @@ public class DashboardFragment extends Fragment {
 		this.year = c.get(Calendar.YEAR);
 	}
 
-	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
+//	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
 
 	@SuppressWarnings("deprecation")
 	@Override

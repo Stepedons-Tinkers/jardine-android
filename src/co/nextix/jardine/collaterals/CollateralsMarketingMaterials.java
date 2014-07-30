@@ -141,7 +141,7 @@ public class CollateralsMarketingMaterials extends Fragment implements
 		String id = StoreAccount.restore(getActivity())
 				.getString(Account.ROWID);
 		userId = Long.parseLong(id);
-		realRecord.addAll(table.getAllRecordsByUser(userId));
+		realRecord.addAll(table.getAllRecords());
 
 		// for (int i = 1; i <= 89; i++) {
 		// MarketingMaterialsRecord rec = new MarketingMaterialsRecord();

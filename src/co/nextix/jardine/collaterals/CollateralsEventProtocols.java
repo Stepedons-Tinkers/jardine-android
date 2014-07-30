@@ -148,7 +148,7 @@ public class CollateralsEventProtocols extends Fragment implements
 		realRecord = new ArrayList<EventProtocolRecord>();
 		tempRecord = new ArrayList<EventProtocolRecord>();
 		try {
-			realRecord.addAll(table.getAllRecordsByUser(userId));
+			realRecord.addAll(table.getAllRecords());
 		} catch (Exception e) {
 		}
 

@@ -168,25 +168,16 @@ public class MarketingMaterialsTable {
 		switch (column) {
 		case 0:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
-					+ " AND " + KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%"
-					+ hint + "%'";
+					+ KEY_MARKETINGMATERIALS_CRMNO + " LIKE '%" + hint + "%'";
 			break;
 		case 1:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
-					+ " AND " + KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%"
-					+ hint + "%'";
+					+ KEY_MARKETINGMATERIALS_DESCRIPTION + " LIKE '%" + hint
+					+ "%'";
 			break;
 		case 2:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId
-					+ " AND " + KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint
-					+ "%'";
-			break;
-		default:
-			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_MARKETINGMATERIALS_CREATEDBY + " = " + userId;
+					+ KEY_MARKETINGMATERIALS_TAGS + " LIKE '%" + hint + "%'";
 			break;
 
 		}
