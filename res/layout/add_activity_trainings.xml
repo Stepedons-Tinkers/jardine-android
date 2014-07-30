@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/start_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -45,8 +46,39 @@
                     android:singleLine="true"
                     android:text="@string/trainings_gen_info"
                     android:textColor="#fff"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" >
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText2"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_margin="4dp"
+                        android:layout_toLeftOf="@+id/btnWithText1"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        android:visibility="invisible"
+                        app:textComplete="@string/complete_cancel"
+                        app:textError="@string/error"
+                        app:textIdle="@string/cancel" />
+
+                    <com.dd.CircularProgressButton
+                        android:id="@+id/btnWithText1"
+                        android:layout_width="196dp"
+                        android:layout_height="64dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_margin="4dp"
+                        android:textColor="@color/white"
+                        android:textSize="18sp"
+                        app:textComplete="@string/next"
+                        app:textError="@string/error"
+                        app:textIdle="@string/done" />
+                </RelativeLayout>
             </TableRow>
 
             <!-- Row 2 with 2 columns -->
@@ -79,7 +111,7 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <TextView
+                <EditText
                     android:id="@+id/venue"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
@@ -114,7 +146,7 @@
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
-                <TextView
+                <EditText
                     android:id="@+id/venue"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
