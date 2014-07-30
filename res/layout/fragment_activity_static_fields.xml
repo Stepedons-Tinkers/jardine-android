@@ -24,6 +24,12 @@
 	    android:layout_height="wrap_content"
 	    android:layout_below="@+id/tabs">	    
 	</FrameLayout>
+	
+    <FrameLayout 
+	    android:id="@+id/layoutForEditFrag"
+	    android:layout_width="match_parent"
+	    android:layout_height="match_parent">	    
+	</FrameLayout>
 
     <!-- <include layout="@layout/fragment_start_activity" /> -->
 
