@@ -132,6 +132,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		view = inflater.inflate(R.layout.workplan, container, false);
 		header = inflater.inflate(R.layout.workplan_3_columns,
 				null);
+		
+		DashBoardActivity.tabIndex.clear();
+		DashBoardActivity.fromAddActivities = false;
 
 		return view;
 	}

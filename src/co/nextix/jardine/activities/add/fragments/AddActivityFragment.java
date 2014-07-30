@@ -38,8 +38,6 @@ public class AddActivityFragment extends Fragment {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
 		
-		Log.e("add", "createView");
-		
 		List<Fragment> fragments = getFragments();
 
 		tabs = (PagerSlidingTabStrip) rootView.findViewById(R.id.tabs);
