@@ -36,11 +36,7 @@ public class ActivityGeneralInfoFragment extends Fragment {
 		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
 		
-		bundle = getArguments();
-		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2.getId();
 		
 		((TextView) myFragmentView.findViewById(R.id.crm_no)).setText(this.activityRecord.getCrm() != null ? this.activityRecord.getCrm() : "");
 		((TextView) myFragmentView.findViewById(R.id.start_time)).setText(MyDateUtils.convertDateTime(this.activityRecord.getCheckIn()));
@@ -89,7 +85,7 @@ public class ActivityGeneralInfoFragment extends Fragment {
 				// Add a fucking fragmentTODO
 				AddActivityFragment myFragment = new AddActivityFragment();
 				myFragment.setArguments(bun);
-				fragmentTransaction.replace(frag_layout_id, myFragment);
+				fragmentTransaction.replace(R.id.frame_container, myFragment);
 				fragmentTransaction.commit();
 			}
 		});

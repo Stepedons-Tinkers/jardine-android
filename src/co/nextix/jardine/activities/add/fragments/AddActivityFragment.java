@@ -32,11 +32,24 @@ public class AddActivityFragment extends Fragment {
 	public static int tabPosition = -1;
 	public static boolean fragmentStart = false;
 	public static boolean fromOther = true;
+	
+	private Bundle bundle;
+	private long activityID = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
+		
+		bundle = getArguments();
+		
+		if(bundle != null){
+			activityID = bundle.getLong("activityID");
+		}
+		
+		if(activityID != 0){
+			// query
+		}
 		
 		List<Fragment> fragments = getFragments();
 
@@ -112,7 +125,7 @@ public class AddActivityFragment extends Fragment {
 /*11*/	flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), 		AddActivityProjectVisitFragment.class.getName()));
 /*12*/	flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), 		AddProjectRequirementsFragment.class.getName()));
 /*13*/	flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), 			AddActivityTrainingsFragment.class.getName()));
-/*14*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), 		AddActivityPhotosAndAttachments.class.getName())); // identify product focus
+/*14*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), 		AddActivityPhotosAndAttachments.class.getName()));
 /*15*/	flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(), AddActivityFullBrandActivationFragment.class.getName()));
 /*16*/	flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), 		AddActivityPhotosAndAttachments.class.getName()));
 		return flist;

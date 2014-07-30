@@ -37,13 +37,14 @@ public class ActivityInfoFragment extends Fragment {
 
 	private FragmentTransaction ft;
 
-	private FrameLayout fl;
+	public static FrameLayout fragmentLayout_1;
+	public static FrameLayout fragmentLayout_2;
 
 	private Bundle bundle;
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
-	
+
 	private int titles;
 
 	@Override
@@ -53,11 +54,13 @@ public class ActivityInfoFragment extends Fragment {
 				R.layout.fragment_activity_static_fields, container, false);
 
 		ft = getFragmentManager().beginTransaction();
-		fl = (FrameLayout) this.myFragmentView
+		fragmentLayout_1 = (FrameLayout) this.myFragmentView
 				.findViewById(R.id.layoutForAddingFrag);
+		fragmentLayout_2 = (FrameLayout) this.myFragmentView
+				.findViewById(R.id.layoutForEditFrag);
 
 		bundle = new Bundle();
-		bundle.putInt("layoutID", fl.getId());
+		bundle.putInt("layoutID", fragmentLayout_1.getId());
 
 		tabs = (PagerSlidingTabStrip) this.myFragmentView
 				.findViewById(R.id.tabs);
@@ -133,13 +136,12 @@ public class ActivityInfoFragment extends Fragment {
 
 	public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
-		private ArrayList<String> TITLES= new ArrayList<String>();
+		private ArrayList<String> TITLES = new ArrayList<String>();
 		private List<Fragment> fragments;
 
 		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 			super(fm);
 			this.fragments = fragments;
-			
 			switch(titles){
 			
 			case 0:
