@@ -105,8 +105,14 @@ public class EditCustomerContactsFragment extends Fragment implements
 
 		record = CustomerConstants.CUSTOMER_CONTACT_RECORD;
 
+		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
+		
+		day = c.get(Calendar.DAY_OF_MONTH);
+		month = c.get(Calendar.MONTH);
+		year = c.get(Calendar.YEAR);
+
 
 		formattedDate = record.getBirthday();
 
@@ -159,7 +165,7 @@ public class EditCustomerContactsFragment extends Fragment implements
 		field3.setText(record.getLastName());
 		field4.setSelection((int) record.getPosition() - 1);
 		field5.setText(record.getMobileNo());
-		field6a.setText(MyDateUtils.convertDate(record.getBirthday()));
+		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field7.setText(record.getEmailAddress());
 
 	}

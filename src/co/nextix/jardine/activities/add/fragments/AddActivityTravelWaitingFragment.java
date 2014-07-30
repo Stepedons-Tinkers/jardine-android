@@ -33,7 +33,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 	private boolean flag = false;
 	private CircularProgressButton saveBtn = null;
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

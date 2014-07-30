@@ -55,7 +55,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int flag = 0;
 
 	private boolean trapping = false;
-	
+
 	public static int ActivityType = 0;
 
 	public AddActivityGeneralInformationFragment() {
@@ -71,13 +71,13 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
-		
+
 		DashBoardActivity.fromAddActivities = true;
-		
-		if(DashBoardActivity.tabIndex.size() == 0){
+
+		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
-		
+
 		// Auto populate fields
 		BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
 		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
@@ -247,7 +247,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					indexes.add(15);
 					AddActivityFragment.tabs.setViewPagerForDisable(AddActivityFragment.pager, false, indexes);
 					ActivityType = 100;
-					
+
 				}
 			}
 
@@ -265,7 +265,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				flag = 4;				
+				flag = 4;
 				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
 						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
 						AddActivityGeneralInformationFragment.this.day);
@@ -282,7 +282,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (saveBtn.getProgress() == 0) {
-
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -334,7 +333,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 								v.setEnabled(true);
 							}
 
-						}, 1500);
+						}, 700);
 
 					} else {
 
@@ -354,31 +353,35 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					}
 
 				} else {
-					if(ActivityType == 1){ // travel
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (ActivityType == 1) { // travel
 						DashBoardActivity.tabIndex.add(1, 1);
 						AddActivityFragment.pager.setCurrentItem(1);
-					} else if (ActivityType == 43){ // coSMRs
+					} else if (ActivityType == 43) { // coSMRs
 						DashBoardActivity.tabIndex.add(1, 2);
 						AddActivityFragment.pager.setCurrentItem(2);
-					} else if (ActivityType == 47){ // admin works
+					} else if (ActivityType == 47) { // admin works
 						DashBoardActivity.tabIndex.add(1, 3);
 						AddActivityFragment.pager.setCurrentItem(3);
-					} else if (ActivityType == 4){ // retails
+					} else if (ActivityType == 4) { // retails
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
-					} else if (ActivityType == 9){ // ki visits
+					} else if (ActivityType == 9) { // ki visits
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
-					} else if (ActivityType == 101){ // major training
+					} else if (ActivityType == 101) { // major training
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
-					} else if (ActivityType == 102){ // end user
+					} else if (ActivityType == 102) { // end user
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
-					} else if (ActivityType == 41){ // full brand
+					} else if (ActivityType == 41) { // full brand
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
-					} else if (ActivityType == 100){ // others
+					} else if (ActivityType == 100) { // others
 						DashBoardActivity.tabIndex.add(1, 4);
 						AddActivityFragment.pager.setCurrentItem(4);
 					}
@@ -450,17 +453,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		private boolean flag;
 
-		private InsertTask(String no, String crmNo, long activityType,
-				String checkIn, String checkOut, long businessUnit,
-				long createdBy, double longitude, double latitude,
-				String createdTime, String modifiedTime, String reasonsRemarks,
-				long smr, String adminDetails, long customer, long area,
-				long province, long city, long workplanEntry, String objective,
-				int firstTimeVisit, int plannedVisit, String notes,
-				String highlights, String nextSteps,
-				String followUpCommitmentDate, String projectName,
-				long projectStage, long projectCategory, String venue,
-				int numberOfAttendees, String endUserActivityTypes) {
+		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
+				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
+				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
+				String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -501,21 +499,18 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation
-					.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation
-					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
-							Integer value = (Integer) animation
-									.getAnimatedValue();
-							saveBtn.setProgress(value);
+			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					Integer value = (Integer) animation.getAnimatedValue();
+					saveBtn.setProgress(value);
 
-							if (!flag) {
-								saveBtn.setProgress(-1);
-							}
-						}
-					});
+					if (!flag) {
+						saveBtn.setProgress(-1);
+					}
+				}
+			});
 
 			this.widthAnimation.start();
 		}
@@ -525,18 +520,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.activityType,
-						this.checkIn, this.checkOut, this.businessUnit,
-						this.createdBy, this.longitude, this.latitude,
-						this.createdTime, this.modifiedTime,
-						this.reasonsRemarks, this.smr, this.adminDetails,
-						this.customer, this.area, this.province, this.city,
-						this.workplanEntry, this.objective,
-						this.firstTimeVisit, this.plannedVisit, this.notes,
-						this.highlights, this.nextSteps,
-						this.followUpCommitmentDate, this.projectName,
-						this.projectStage, this.projectCategory, this.venue,
-						this.numberOfAttendees, this.endUserActivityTypes);
+				saveActivity(this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit, this.createdBy,
+						this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
+						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
+						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
+						this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -560,68 +549,46 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	protected DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear,
-				int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
 			AddActivityGeneralInformationFragment.this.year = selectedYear;
 			AddActivityGeneralInformationFragment.this.month = selectedMonth;
 			AddActivityGeneralInformationFragment.this.day = selectedDay;
-			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year
-					+ "-"
-					+ AddActivityGeneralInformationFragment.this
-							.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
-					+ "-"
-					+ AddActivityGeneralInformationFragment.this
-							.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+			AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
+					+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
+					+ "-" + AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 			if (flag == 4) {
-				((TextView) rootView.findViewById(R.id.check_out))
-						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
+				((TextView) rootView.findViewById(R.id.check_out)).setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			} else {
-				((TextView) rootView
-						.findViewById(R.id.follow_up_commitment_date))
+				((TextView) rootView.findViewById(R.id.follow_up_commitment_date))
 						.setText(AddActivityGeneralInformationFragment.this.formattedDate);
 			}
 		}
 	};
 
 	protected String FormatDateAndDay(int digit) {
-		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit)
-				: String.valueOf(digit);
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit) : String.valueOf(digit);
 		return String.valueOf(formattedStringDigit);
 	}
 
 	protected String displayCheckIn() {
-		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year
-				+ "-"
-				+ AddActivityGeneralInformationFragment.this
-						.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1))
-				+ "-"
-				+ AddActivityGeneralInformationFragment.this
-						.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
+		AddActivityGeneralInformationFragment.this.formattedDate = AddActivityGeneralInformationFragment.this.year + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay((AddActivityGeneralInformationFragment.this.month + 1)) + "-"
+				+ AddActivityGeneralInformationFragment.this.FormatDateAndDay(AddActivityGeneralInformationFragment.this.day);
 
 		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
 	}
 
-	protected void saveActivity(String no, String crmNo, long activityType,
-			String checkIn, String checkOut, long businessUnit, long createdBy,
-			double longitude, double latitude, String createdTime,
-			String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province,
-			long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes,
-			String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory,
-			String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
+			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		JardineApp.DB.getActivity()
-				.insert(no, crmNo, activityType, checkIn, checkOut,
-						businessUnit, createdBy, longitude, latitude,
-						createdTime, modifiedTime, reasonsRemarks, smr,
-						adminDetails, customer, area, province, city,
-						workplanEntry, objective, firstTimeVisit, plannedVisit,
-						notes, highlights, nextSteps, followUpCommitmentDate,
-						projectName, projectStage, projectCategory, venue,
-						numberOfAttendees, endUserActivityTypes);
+		JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
+				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
+				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
+				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
 	}
 }
