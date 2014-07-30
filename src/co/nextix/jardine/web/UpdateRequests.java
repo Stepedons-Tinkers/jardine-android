@@ -110,31 +110,32 @@ public class UpdateRequests {
 				// get user id from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!customerName.equals(""))
-					requestObject.put("z_cu_customername", customerName);
-				if (!streetAdd.equals(""))
-					requestObject.put("z_cu_streetadd", streetAdd);
-				if (!chain.equals(""))
-					requestObject.put("z_cu_chainname", chain);
-				if (!land.equals(""))
-					requestObject.put("z_cu_landline", land);
-				if (!size.equals(""))
-					requestObject.put("z_cu_customersize", size);
-				if (!type.equals(""))
-					requestObject.put("z_cu_customertype", type);
-				if (!businessUnit.equals(""))
-					requestObject.put("z_cu_businessunit", businessUnit);
-				if (!area.equals(""))
-					requestObject.put("z_area", area);
-				if (!prov.equals(""))
-					requestObject.put("z_province", prov);
-				if (!city.equals(""))
-					requestObject.put("z_city ", city);
+				// if (!customerName.equals(""))
+				requestObject.put("z_cu_customername", customerName);
+				// if (!streetAdd.equals(""))
+				requestObject.put("z_cu_streetadd", streetAdd);
+				// if (!chain.equals(""))
+				requestObject.put("z_cu_chainname", chain);
+				// if (!land.equals(""))
+				requestObject.put("z_cu_landline", land);
+				// if (!size.equals(""))
+				requestObject.put("z_cu_customersize", size);
+				// if (!type.equals(""))
+				requestObject.put("z_cu_customertype", type);
+				// if (!businessUnit.equals(""))
+				requestObject.put("z_cu_businessunit", businessUnit);
+				// if (!area.equals(""))
+				requestObject.put("z_area", area);
+				// if (!prov.equals(""))
+				requestObject.put("z_province", prov);
+				// if (!city.equals(""))
+				requestObject.put("z_city ", city);
 				requestObject.put("z_cu_isactive", active);
-				if (!fax.equals(""))
-					requestObject.put("z_cu_fax ", fax);
+				// if (!fax.equals(""))
+				requestObject.put("z_cu_fax ", fax);
 				requestObject.put("z_cu_customerrecstat", recStat);
 				requestObject.put("mobile_id ", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -232,22 +233,23 @@ public class UpdateRequests {
 				// get user id from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!firstname.equals(""))
-					requestObject.put("z_cuc_firstname", firstname);
-				if (!lastname.equals(""))
-					requestObject.put("z_cuc_lastname", lastname);
-				if (!position.equals(""))
-					requestObject.put("z_cuc_position", position);
-				if (!mobile.equals(""))
-					requestObject.put("z_cuc_mobileno", mobile);
-				if (!bday.equals(""))
-					requestObject.put("z_cuc_birthday", bday);
-				if (!email.equals(""))
-					requestObject.put("z_cuc_email", email);
-				if (!customer.equals(""))
-					requestObject.put("z_cuc_customer", customer);
+				// if (!firstname.equals(""))
+				requestObject.put("z_cuc_firstname", firstname);
+				// if (!lastname.equals(""))
+				requestObject.put("z_cuc_lastname", lastname);
+				// if (!position.equals(""))
+				requestObject.put("z_cuc_position", position);
+				// if (!mobile.equals(""))
+				requestObject.put("z_cuc_mobileno", mobile);
+				// if (!bday.equals(""))
+				requestObject.put("z_cuc_birthday", bday);
+				// if (!email.equals(""))
+				requestObject.put("z_cuc_email", email);
+				// if (!customer.equals(""))
+				requestObject.put("z_cuc_customer", customer);
 				requestObject.put("z_cuc_isactive", active);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -381,66 +383,67 @@ public class UpdateRequests {
 						.getProvince());
 
 				requestObject.put("assigned_user_id", id);
-				if (!type.equals(""))
-					requestObject.put("z_ac_activitytype", type);
-				if (!businessUnit.equals(""))
-					requestObject.put("z_ac_businessunit", businessUnit);
-				if (!customer.equals(""))
-					requestObject.put("z_ac_customer", customer);
-				if (!details.equals(""))
-					requestObject.put("z_ac_details", details);
-				if (!startTime.equals(""))
-					requestObject.put("z_ac_starttime", startTime);
-				if (!endTime.equals(""))
-					requestObject.put("z_ac_endtime", endTime);
+				// if (!type.equals(""))
+				requestObject.put("z_ac_activitytype", type);
+				// if (!businessUnit.equals(""))
+				requestObject.put("z_ac_businessunit", businessUnit);
+				// if (!customer.equals(""))
+				requestObject.put("z_ac_customer", customer);
+				// if (!details.equals(""))
+				requestObject.put("z_ac_details", details);
+				// if (!startTime.equals(""))
+				requestObject.put("z_ac_starttime", startTime);
+				// if (!endTime.equals(""))
+				requestObject.put("z_ac_endtime", endTime);
 				if (endUserAct != null)
-					if (!endUserAct.equals("")) {
-						endUserAct.replace(",", "|##|");
-						requestObject.put("z_ac_enduseractype", endUserAct);
-					}
+					// if (!endUserAct.equals("")) {
+					endUserAct.replace(",", "|##|");
+				requestObject.put("z_ac_enduseractype", endUserAct);
+				// }
 				requestObject.put("z_ac_firsttimevisit", records.get(x)
 						.getFirstTimeVisit());
 				requestObject.put("z_ac_plannedvisit", records.get(x)
 						.getPlannedVisit());
-				if (!followup.equals(""))
-					requestObject.put("z_ac_followupcomdate", followup);
-				if (!highlights.equals(""))
-					requestObject.put("z_ac_highlights", highlights);
+				// if (!followup.equals(""))
+				requestObject.put("z_ac_followupcomdate", followup);
+				// if (!highlights.equals(""))
+				requestObject.put("z_ac_highlights", highlights);
 				requestObject
 						.put("z_ac_latitude", records.get(x).getLatitude());
 				requestObject.put("z_ac_longitude", records.get(x)
 						.getLongitude());
-				if (!nextsteps.equals(""))
-					requestObject.put("z_ac_nextsteps", nextsteps);
+				// if (!nextsteps.equals(""))
+				requestObject.put("z_ac_nextsteps", nextsteps);
 				requestObject.put("z_ac_noofattenees", records.get(x)
 						.getNumberOfAttendees());
-				if (!notes.equals(""))
-					requestObject.put("z_ac_notes", notes);
-				if (!objective.equals(""))
-					requestObject.put("z_ac_objective", objective);
-				if (!remarks.equals(""))
-					requestObject.put("z_ac_othersacttypermrk", remarks);
-				if (!projectCategory.equals(""))
-					requestObject.put("z_ac_projectcategory", projectCategory);
-				if (!projectName.equals(""))
-					requestObject.put("z_ac_projectname", projectName);
-				if (!projectStage.equals(""))
-					requestObject.put("z_ac_projectstage", projectStage);
-				if (!reasons.equals(""))
-					requestObject.put("z_ac_reasonremarks", reasons);
-				if (!smr.equals(""))
-					requestObject.put("z_ac_smr", smr);
-				if (!venue.equals(""))
-					requestObject.put("z_ac_venue", venue);
-				if (!workplanEntry.equals(""))
-					requestObject.put("z_ac_workplanentry", workplanEntry);
-				if (!area.equals(""))
-					requestObject.put("z_area", area);
-				if (!city.equals(""))
-					requestObject.put("z_city", city);
-				if (!province.equals(""))
-					requestObject.put("z_province", province);
+				// if (!notes.equals(""))
+				requestObject.put("z_ac_notes", notes);
+				// if (!objective.equals(""))
+				requestObject.put("z_ac_objective", objective);
+				// if (!remarks.equals(""))
+				requestObject.put("z_ac_othersacttypermrk", remarks);
+				// if (!projectCategory.equals(""))
+				requestObject.put("z_ac_projectcategory", projectCategory);
+				// if (!projectName.equals(""))
+				requestObject.put("z_ac_projectname", projectName);
+				// if (!projectStage.equals(""))
+				requestObject.put("z_ac_projectstage", projectStage);
+				// if (!reasons.equals(""))
+				requestObject.put("z_ac_reasonremarks", reasons);
+				// if (!smr.equals(""))
+				requestObject.put("z_ac_smr", smr);
+				// if (!venue.equals(""))
+				requestObject.put("z_ac_venue", venue);
+				// if (!workplanEntry.equals(""))
+				requestObject.put("z_ac_workplanentry", workplanEntry);
+				// if (!area.equals(""))
+				requestObject.put("z_area", area);
+				// if (!city.equals(""))
+				requestObject.put("z_city", city);
+				// if (!province.equals(""))
+				requestObject.put("z_province", province);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -536,13 +539,14 @@ public class UpdateRequests {
 				// get user id from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!activity.equals(""))
-					requestObject.put("z_jmc_activity", activity);
-				if (!product.equals(""))
-					requestObject.put("z_jmc_product", product);
-				if (!status.equals(""))
-					requestObject.put("z_jmc_status", status);
+				// if (!activity.equals(""))
+				requestObject.put("z_jmc_activity", activity);
+				// if (!product.equals(""))
+				requestObject.put("z_jmc_product", product);
+				// if (!status.equals(""))
+				requestObject.put("z_jmc_status", status);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -643,18 +647,19 @@ public class UpdateRequests {
 				// get user no from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!activity.equals(""))
-					requestObject.put("z_jps_activity", activity);
-				if (!product.equals(""))
-					requestObject.put("z_jps_product", product);
-				if (!status.equals(""))
-					requestObject.put("z_jps_stockstatus", status);
+				// if (!activity.equals(""))
+				requestObject.put("z_jps_activity", activity);
+				// if (!product.equals(""))
+				requestObject.put("z_jps_product", product);
+				// if (!status.equals(""))
+				requestObject.put("z_jps_stockstatus", status);
 				requestObject.put("z_jps_loadedonshelves", loaded);
-				if (!otherRemarks.equals(""))
-					requestObject.put("z_jps_othertyprmrks", otherRemarks);
-				if (!supplier.equals(""))
-					requestObject.put("z_jps_supplier", supplier);
+				// if (!otherRemarks.equals(""))
+				requestObject.put("z_jps_othertyprmrks", otherRemarks);
+				// if (!supplier.equals(""))
+				requestObject.put("z_jps_supplier", supplier);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -752,16 +757,17 @@ public class UpdateRequests {
 				// get user no from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!activity.equals(""))
-					requestObject.put("z_cps_activity", activity);
-				if (!product.equals(""))
-					requestObject.put("z_cps_competitorprod", product);
-				if (!status.equals(""))
-					requestObject.put("z_cps_stockstatus", status);
+				// if (!activity.equals(""))
+				requestObject.put("z_cps_activity", activity);
+				// if (!product.equals(""))
+				requestObject.put("z_cps_competitorprod", product);
+				// if (!status.equals(""))
+				requestObject.put("z_cps_stockstatus", status);
 				requestObject.put("z_cps_loadedonshelves", loaded);
-				if (!otherRemarks.equals(""))
-					requestObject.put("z_cps_othertyprmrks", otherRemarks);
+				// if (!otherRemarks.equals(""))
+				requestObject.put("z_cps_othertyprmrks", otherRemarks);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -855,13 +861,14 @@ public class UpdateRequests {
 						.getCompetitorProduct());
 
 				requestObject.put("assigned_user_id", id);
-				if (!activity.equals(""))
-					requestObject.put("z_min_activity", activity);
-				if (!compt.equals(""))
-					requestObject.put("z_min_competitorprod", compt);
-				if (!details.equals(""))
-					requestObject.put("z_min_details", details);
+				// if (!activity.equals(""))
+				requestObject.put("z_min_activity", activity);
+				// if (!compt.equals(""))
+				requestObject.put("z_min_competitorprod", compt);
+				// if (!details.equals(""))
+				requestObject.put("z_min_details", details);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -957,17 +964,18 @@ public class UpdateRequests {
 				// get user no from db
 				String id = userTable.getNoById(records.get(x).getCreatedBy());
 				requestObject.put("assigned_user_id", id);
-				if (!activity.equals(""))
-					requestObject.put("z_pr_activity", activity);
-				if (!type.equals(""))
-					requestObject.put("z_pr_prtype", type);
-				if (!date.equals(""))
-					requestObject.put("z_pr_dateneeded", date);
-				if (!squaremeters.equals(""))
-					requestObject.put("z_pr_squaremtrs", squaremeters);
-				if (!others.equals(""))
-					requestObject.put("z_pr_otherdet", others);
+				// if (!activity.equals(""))
+				requestObject.put("z_pr_activity", activity);
+				// if (!type.equals(""))
+				requestObject.put("z_pr_prtype", type);
+				// if (!date.equals(""))
+				requestObject.put("z_pr_dateneeded", date);
+				// if (!squaremeters.equals(""))
+				requestObject.put("z_pr_squaremtrs", squaremeters);
+				// if (!others.equals(""))
+				requestObject.put("z_pr_otherdet", others);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -1064,15 +1072,16 @@ public class UpdateRequests {
 				String productBrand = productTable.getNoById(records.get(x)
 						.getProductBrand());
 
-				if (!activity.equals(""))
-					requestObject.put("z_ps_activity", activity);
-				if (!productBrand.equals(""))
-					requestObject.put("z_ps_productbrand", productBrand);
-				if (!customer.equals(""))
-					requestObject.put("z_ps_supplier", customer);
-				if (!otherRemarks.equals(""))
-					requestObject.put("z_ps_othersremarks", otherRemarks);
+				// if (!activity.equals(""))
+				requestObject.put("z_ps_activity", activity);
+				// if (!productBrand.equals(""))
+				requestObject.put("z_ps_productbrand", productBrand);
+				// if (!customer.equals(""))
+				requestObject.put("z_ps_supplier", customer);
+				// if (!otherRemarks.equals(""))
+				requestObject.put("z_ps_othersremarks", otherRemarks);
 				requestObject.put("mobile_id", records.get(x).getId());
+				requestObject.put("crmid ", records.get(x).getCrm());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}

@@ -392,6 +392,17 @@ public class ProductSupplierTable {
 		}
 	}
 
+	public boolean updateModifiedTime(long id, String modifiedTime) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_PRODUCTSUPPLIER_MODIFIEDTIME, modifiedTime);
+		if (mDb.update(mDatabaseTable, args, KEY_PRODUCTSUPPLIER_ROWID + "="
+				+ id, null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean update(long id, String no, String crmNo, long productBrand,
 			long supplier, String othersRemarks, long activity, long createdBy,
 			String createdTime, String modifiedTime) {

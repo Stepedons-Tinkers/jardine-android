@@ -150,10 +150,11 @@ public class LoginActivity extends Activity {
 						UserTable table = JardineApp.DB.getUser();
 						table.updateLoggedArea(rowID, choices[areaChoice]);
 
-						Intent i =new Intent(getApplicationContext(),
+						Intent i = new Intent(getApplicationContext(),
 								DashBoardActivity.class);
 						i.putExtra("JUSTLOGGED", true);
-						Log.w(JardineApp.TAG, "LoginActivity: justLoggedIn: true");
+						Log.w(JardineApp.TAG,
+								"LoginActivity: justLoggedIn: true");
 						finish();
 						startActivity(i);
 						overridePendingTransition(R.anim.slide_in_left,
@@ -178,7 +179,8 @@ public class LoginActivity extends Activity {
 	private class LoginTask extends AsyncTask<Void, Void, Boolean> {
 		ProgressDialog dialog;
 		long rowid = 0;
-//		String[] choiceList;
+
+		// String[] choiceList;
 
 		@Override
 		protected void onPreExecute() {
@@ -199,24 +201,25 @@ public class LoginActivity extends Activity {
 					Log.i(JardineApp.TAG, "session: " + model.getSessionName());
 
 					JardineApp.SESSION_NAME = model.getSessionName();
-					
-					
+
 					UserTable userTable = JardineApp.DB.getUser();
 
 					String areas = model.getDetails().getArea()
 							.replace("|##|", ",");
+					int index = model.getUserId().indexOf("x");
+					String userID = model.getUserId().substring(index + 1);
+					Log.e(JardineApp.TAG, "id: " + userID);
 
 					if (!userTable.isExisting(model.getUserId())) {
-						rowid = userTable.insertUser(model.getUserId(),
-								editUsername.getText().toString(), editPassword
-										.getText().toString(), model
-										.getDetails().getEmail(), model
-										.getDetails().getLastName(), "", model
+						rowid = userTable.insertUser(userID, editUsername
+								.getText().toString(), editPassword.getText()
+								.toString(), model.getDetails().getEmail(),
+								model.getDetails().getLastName(), "", model
 										.getDetails().getFirstName(), 1, 1, "",
 								areas, SELECTED_AREA, MyDateUtils
 										.getCurrentTimeStamp());
 					} else {
-						rowid = userTable.getByWebId(model.getUserId()).getId();
+						rowid = userTable.getByWebId(userID).getId();
 						userTable.updateLogStatus(rowid, 1);
 						userTable.updateUser(rowid, model.getUserId(), model
 								.getDetails().getUserName(), editPassword
@@ -227,11 +230,10 @@ public class LoginActivity extends Activity {
 					}
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()
-							.toString(), model.getUserId(), String
-							.valueOf(rowid), model.getSessionName(),
-							SELECTED_AREA);
+							.toString(), userID, String.valueOf(rowid), model
+							.getSessionName(), SELECTED_AREA);
 
-//					choiceList = areas.split("\\s*,\\s*");
+					// choiceList = areas.split("\\s*,\\s*");
 
 					return true;
 				} else {

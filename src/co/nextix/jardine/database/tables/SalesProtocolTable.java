@@ -163,13 +163,11 @@ public class SalesProtocolTable {
 		switch (position) {
 		case 0:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_SALESPROTOCOL_CREATEDBY + " = " + userId + " AND "
 					+ KEY_SALESPROTOCOL_CRMNO + " LIKE '%" + searchPhrase
 					+ "%'";
 			break;
 		case 1:
 			MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-					+ KEY_SALESPROTOCOL_CREATEDBY + " = " + userId + " AND "
 					+ KEY_SALESPROTOCOL_DESCRIPTION + " LIKE '%" + searchPhrase
 					+ "%'";
 			break;

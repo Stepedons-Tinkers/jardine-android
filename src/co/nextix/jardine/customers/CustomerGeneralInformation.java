@@ -111,7 +111,11 @@ public class CustomerGeneralInformation extends Fragment {
 		chainName.setText(record.getChainName());
 		PicklistRecord cSize = JardineApp.DB.getCustomerSize().getById(
 				record.getCustomerSize());
-		customerSize.setText(cSize.getName());
+		if (cSize == null) {
+			customerSize.setText("");
+		} else {
+			customerSize.setText(cSize.getName());
+		}
 
 		streetAddress.setText(record.getStreetAddress());
 		landline.setText(record.getLandline());
@@ -119,7 +123,9 @@ public class CustomerGeneralInformation extends Fragment {
 
 		PicklistRecord cType = JardineApp.DB.getCustomerType().getById(
 				record.getCustomerType());
-		customerType.setText(cType.getName());
+
+		if (cType != null)
+			customerType.setText(cType.getName());
 
 		if (record.getIsActive() == 1) {
 			isActive.setText("Yes");
