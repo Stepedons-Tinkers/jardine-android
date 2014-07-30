@@ -96,7 +96,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 							@Override
 							public void run() {
 								getFragmentManager();
-								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								getFragmentManager().popBackStackImmediate("activities", FragmentManager.POP_BACK_STACK_INCLUSIVE);
 							}
 
 						}, 1700);

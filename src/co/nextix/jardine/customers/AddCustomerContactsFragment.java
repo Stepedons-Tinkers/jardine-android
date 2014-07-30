@@ -406,8 +406,8 @@ public class AddCustomerContactsFragment extends Fragment implements
 				DashBoardActivity.tabIndex.add(3, 10);
 				AddActivityFragment.pager.setCurrentItem(10);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
-				DashBoardActivity.tabIndex.add(3, 16);
-				AddActivityFragment.pager.setCurrentItem(16);
+				DashBoardActivity.tabIndex.add(3, 13);
+				AddActivityFragment.pager.setCurrentItem(13);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
 				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);
