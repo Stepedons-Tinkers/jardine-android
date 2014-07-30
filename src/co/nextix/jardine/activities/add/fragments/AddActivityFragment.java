@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,6 +52,9 @@ public class AddActivityFragment extends Fragment {
 
 		if (activityID != 0) {
 			// query
+			
+			Log.e("activityID","not zero");
+			
 			ActivitiesConstant.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(this.activityID);
 			
 			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
@@ -66,7 +70,7 @@ public class AddActivityFragment extends Fragment {
 			editor.putString("activity_id_latitude", String.valueOf(ActivitiesConstant.ACTIVITY_RECORD.getLatitude()));
 			editor.putString("activity_id_created_time", ActivitiesConstant.ACTIVITY_RECORD.getCreatedTime());
 			editor.putString("activities_id_modified_time", ActivitiesConstant.ACTIVITY_RECORD.getModifiedTime());
-			editor.putString("activity_id_reasons_remakrs", ActivitiesConstant.ACTIVITY_RECORD.getReasonRemarks());
+			editor.putString("activity_id_reasons_remarks", ActivitiesConstant.ACTIVITY_RECORD.getReasonRemarks());
 			editor.putLong("activity_id_smr", ActivitiesConstant.ACTIVITY_RECORD.getSmr());
 			editor.putString("activity_id_admin_details", ActivitiesConstant.ACTIVITY_RECORD.getAdminWorkDetails());
 			editor.putLong("activity_id_customer", ActivitiesConstant.ACTIVITY_RECORD.getCustomer());

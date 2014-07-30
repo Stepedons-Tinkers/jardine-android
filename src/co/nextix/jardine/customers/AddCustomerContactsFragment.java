@@ -38,6 +38,8 @@ import co.nextix.jardine.activities.add.fragments.AddActivityDetailsAndNotesFrag
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.CustomerContactRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
@@ -92,7 +94,34 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		view = inflater.inflate(R.layout.customer_contact_add_new, container,
 				false);
-
+		
+		
+		
+		e push lang niya ni chiong bahalag naay error kay mo lakaw nako.
+		
+		
+		
+		
+		
+		
+		
+		THANKS AND REGARDS
+		
+		
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(customerId);
+		String crmNo = pref.getString("activity_id_crm_no", null);
+		String firstName = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getFirstName();
+		String lastName = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getLastName();
+		String positionInput = JardineApp.DB.getCustomerContactPosition().getNameById(pref.getLong("activity_id_customer", 0));
+		String mobileNo = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getMobileNo();
+		String customerBirthday = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getBirthday();
+		String customerEmail = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getEmailAddress();		
+		String customerCustomer = JardineApp.DB.getCustomer().getById(customerId).toString();
+		record.getCrm();
+		record.getFirstName();
+		record.
+		String customer = JardineApp.DB.getCustomer().getById(record.getCustomer()).toString();
 		bundle = getArguments();
 
 		initLayout();
