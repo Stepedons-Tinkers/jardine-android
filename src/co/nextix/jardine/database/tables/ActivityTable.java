@@ -33,10 +33,6 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_SMR;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_VENUE;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ACTIVITY_WORKPLANENTRY;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_CUSTOMERCONTACT_ROWID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -384,6 +380,17 @@ public class ActivityTable {
 		args.put(KEY_ACTIVITY_NO, no);
 		args.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_ACTIVITY_CRMNO, crmNo);
+		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
+				null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateModifiedTime(long id, String modifiedTime) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_ACTIVITY_MODIFIEDTIME, modifiedTime);
 		if (mDb.update(mDatabaseTable, args, KEY_ACTIVITY_ROWID + "=" + id,
 				null) > 0) {
 			return true;

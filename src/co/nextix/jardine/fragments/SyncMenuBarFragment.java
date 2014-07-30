@@ -204,8 +204,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Documents");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -217,6 +233,9 @@ public class SyncMenuBarFragment extends Fragment {
 			if (records != null) {
 				CreateRequests request = new CreateRequests();
 				for (DocumentRecord rec : records) {
+					if (isCancelled()) {
+						break;
+					}
 					CreateResult results = request.documents(rec);
 					if (results != null) {
 						List<WebCreateModel> webModels = results.getCreate();
@@ -370,8 +389,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CompetitorProduct");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -463,8 +498,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Customer");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -510,8 +561,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CustomerContact");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -558,8 +625,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Activity");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -605,8 +688,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("JDImerchandisingCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -654,8 +753,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("JDIproductCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -703,8 +818,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CompetitorProductStockCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -752,8 +883,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("MarketingIntel");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -800,8 +947,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("ProjectRequirementTask");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -854,8 +1017,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("ProductSupplier");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1376,8 +1555,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("MarketingMaterials");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1395,6 +1590,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (updated != null) {
 				for (MarketingMaterialsModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long businessUnit = businessTable.getIdByNo(model
 								.getBusinessUnit());
@@ -1472,8 +1670,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("EventProtocol");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1491,6 +1705,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (EventProtocolModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long eventType = eventTypeTable.getIdByName(model
 								.getType());
@@ -1568,8 +1785,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Product");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1586,6 +1819,9 @@ public class SyncMenuBarFragment extends Fragment {
 			if (updated != null) {
 				for (ProductModel model : updated) {
 					if (!table.isExisting(model.getRecordId())) {
+						if (isCancelled()) {
+							break;
+						}
 						long businessUnit = busTable.getIdByNo(model
 								.getBusinessUnit());
 						long user = userTable.getIdByNo(model.getUserId());
@@ -1819,8 +2055,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CompetitorProduct");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1834,6 +2086,9 @@ public class SyncMenuBarFragment extends Fragment {
 			updated = request.CompetitorProduct(LAST_SYNC).getUpdated();
 			if (updated != null) {
 				for (CompetitorProductModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 
 						long user = userTable.getIdByNo(model.getUserId());
@@ -1913,8 +2168,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("SMR");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -1931,6 +2202,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (SMRModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
 						long businessUnit = businessTable.getIdByNo(model
@@ -2086,8 +2360,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Customer");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2111,6 +2401,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (CustomerModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
 						long customerType = customerTypeTable.getIdByName(model
@@ -2215,7 +2508,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.customer(sendUpdate);
+				List<WebCreateModel> mod = update.customer(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -2253,8 +2552,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CustomerContact");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2272,6 +2587,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (CustomerContactModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long position = custPositionTable.getIdByName(model
 								.getPosition());
@@ -2330,7 +2648,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.customerContact(sendUpdate);
+				List<WebCreateModel> mod = update.customerContact(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -2366,8 +2690,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("ActivityType");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2384,6 +2724,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (ActivityTypeModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long category = actCategoryTable.getIdByName(model
 								.getActivitytypeCategory());
@@ -2453,8 +2796,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Workplan");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2469,6 +2828,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (WorkplanModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 
 						long user = userTable.getIdByNo(model.getUserId());
@@ -2529,8 +2891,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("WorkplanEntry");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2556,6 +2934,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (WorkplanEntryModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long area = areaTable.getIdByName(model.getArea());
 						long province = provinceTable.getIdByName(model
@@ -2657,8 +3038,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Activity");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2688,6 +3085,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (ActivityModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 
 						long workplanEntry = workplanEntryTable.getIdByNo(model
@@ -2825,7 +3225,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.activity(sendUpdate);
+				List<WebCreateModel> mod = update.activity(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -2862,8 +3268,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("JDImerchandisingCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2881,6 +3303,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (JDImerchandisingCheckModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long activity = activityTable.getIdByNo(model
 								.getActivity());
@@ -2923,7 +3348,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.jdiMerchandising(sendUpdate);
+				List<WebCreateModel> mod = update.jdiMerchandising(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -2960,8 +3391,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("JDIproductStockCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -2982,6 +3429,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (JDIproductStockCheckModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long stockStatus = jdiProdStatusTable.getIdByName(model
 								.getStockstatus());
@@ -3045,7 +3495,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.jdiProduct(sendUpdate);
+				List<WebCreateModel> mod = update.jdiProduct(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -3083,8 +3539,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("CompetitorProductStockCheck");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3106,6 +3578,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (CompetitorProductStockCheckModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long activity = activityTable.getIdByNo(model
 								.getActivity());
@@ -3171,7 +3646,14 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.competitorProductStock(sendUpdate);
+				List<WebCreateModel> mod = update
+						.competitorProductStock(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -3208,8 +3690,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("MarketingIntel");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3227,6 +3725,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (MarketingIntelModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long competitor = compProdTable.getIdByNo(model
 								.getCompetitor());
@@ -3270,7 +3771,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.marketingIntel(sendUpdate);
+				List<WebCreateModel> mod = update.marketingIntel(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -3308,8 +3815,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("ProjectRequirement");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3328,6 +3851,9 @@ public class SyncMenuBarFragment extends Fragment {
 			deleted = result.getDeleted();
 			if (updated != null) {
 				for (ProjectRequirementModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long activity = activityTable.getIdByNo(model
 								.getActivity());
@@ -3379,7 +3905,14 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.projectRequirement(sendUpdate);
+				List<WebCreateModel> mod = update
+						.projectRequirement(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -3418,8 +3951,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("ProductSuppliers");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3436,6 +3985,9 @@ public class SyncMenuBarFragment extends Fragment {
 			updated = result.getUpdated();
 			if (result != null) {
 				for (ProductSupplierModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long supplier = customerTable.getIdByNo(model
 								.getSupplier());
@@ -3484,7 +4036,13 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (sendUpdate.size() > 0) {
 				UpdateRequests update = new UpdateRequests();
-				update.productSupplier(sendUpdate);
+				List<WebCreateModel> mod = update.productSupplier(sendUpdate);
+				if (mod != null) {
+					for (WebCreateModel updated : mod) {
+						table.updateModifiedTime(updated.getMobileId(),
+								updated.getModifiedTime());
+					}
+				}
 			}
 
 			if (deleted.size() > 0) {
@@ -3523,8 +4081,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("SalesProtocol");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3542,6 +4116,9 @@ public class SyncMenuBarFragment extends Fragment {
 			updated = result.getUpdated();
 			if (result != null) {
 				for (SalesProtocolModel model : updated) {
+					if (isCancelled()) {
+						break;
+					}
 					if (!table.isExisting(model.getRecordId())) {
 						long businessUnit = businessUnitTable.getIdByNo(model
 								.getBusinessUnit());
@@ -3619,8 +4196,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Notifications");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3635,7 +4228,9 @@ public class SyncMenuBarFragment extends Fragment {
 			List<CalendarModel> models = result.getUpdated();
 			if (result != null) {
 				for (CalendarModel model : models) {
-
+					if (isCancelled()) {
+						break;
+					}
 					long activity = actTable.getIdByNo(model.getActivityId());
 					if (!table.isExisting(activity, model.getActivityType(),
 							model.getSubject(), model.getDateStart(),
@@ -3685,8 +4280,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("EntityRelationship");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3702,11 +4313,17 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (activities != null) {
 				for (String id : activities) {
+					if (isCancelled()) {
+						break;
+					}
 					SyncRequests request = new SyncRequests();
 					List<EntityRelationshipModel> result = request
 							.EntityRelationships(id, Modules.Product);
 					if (result != null) {
 						for (EntityRelationshipModel model : result) {
+							if (isCancelled()) {
+								break;
+							}
 							// RetrieveRequests retrieve = new
 							// RetrieveRequests();
 							// DocumentModel data = retrieve.Document(model
@@ -3771,8 +4388,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Documents");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -3794,11 +4427,17 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (eventProtocols != null) {
 				for (String id : eventProtocols) {
+					if (isCancelled()) {
+						break;
+					}
 					SyncRequests request = new SyncRequests();
 					List<DocuRelModel> result = request
 							.DocumentRelationships(id);
 					if (result != null) {
 						for (DocuRelModel model : result) {
+							if (isCancelled()) {
+								break;
+							}
 							RetrieveRequests retrieve = new RetrieveRequests();
 							DocumentModel data = retrieve.Document(model
 									.getNotesid());
@@ -3838,11 +4477,17 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (marketingMats != null) {
 				for (String id : marketingMats) {
+					if (isCancelled()) {
+						break;
+					}
 					SyncRequests request = new SyncRequests();
 					List<DocuRelModel> result = request
 							.DocumentRelationships(id);
 					if (result != null) {
 						for (DocuRelModel model : result) {
+							if (isCancelled()) {
+								break;
+							}
 							RetrieveRequests retrieve = new RetrieveRequests();
 							DocumentModel data = retrieve.Document(model
 									.getNotesid());
@@ -3882,11 +4527,17 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (salesProtocols != null) {
 				for (String id : salesProtocols) {
+					if (isCancelled()) {
+						break;
+					}
 					SyncRequests request = new SyncRequests();
 					List<DocuRelModel> result = request
 							.DocumentRelationships(id);
 					if (result != null) {
 						for (DocuRelModel model : result) {
+							if (isCancelled()) {
+								break;
+							}
 							RetrieveRequests retrieve = new RetrieveRequests();
 							DocumentModel data = retrieve.Document(model
 									.getNotesid());
@@ -3926,11 +4577,17 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (activities != null) {
 				for (String id : activities) {
+					if (isCancelled()) {
+						break;
+					}
 					SyncRequests request = new SyncRequests();
 					List<DocuRelModel> result = request
 							.DocumentRelationships(id);
 					if (result != null) {
 						for (DocuRelModel model : result) {
+							if (isCancelled()) {
+								break;
+							}
 							RetrieveRequests retrieve = new RetrieveRequests();
 							DocumentModel data = retrieve.Document(model
 									.getNotesid());
@@ -3999,8 +4656,24 @@ public class SyncMenuBarFragment extends Fragment {
 			dialog.setMessage("Files");
 			dialog.setCancelable(false);
 			dialog.setCanceledOnTouchOutside(false);
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel",
+					new DialogInterface.OnClickListener() {
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							Log.i(TAG, "cancel clicked");
+							cancel(true);
+						}
+					});
 			dialog.show();
 			super.onPreExecute();
+		}
+
+		@Override
+		protected void onCancelled() {
+			isCancelled = true;
+			Log.e(TAG, "### onCancelled ###");
+			dialog.dismiss();
+			super.onCancelled();
 		}
 
 		@Override
@@ -4008,6 +4681,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (Event_Files_IDs != null) {
 				for (FileRecord record : Event_Files_IDs) {
+					if (isCancelled()) {
+						break;
+					}
 					RetrieveRequests request = new RetrieveRequests();
 					request.DownloadFile(
 							Integer.parseInt(record.getFileSize()),
@@ -4018,6 +4694,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (Marketing_Files_IDs != null) {
 				for (FileRecord record : Marketing_Files_IDs) {
+					if (isCancelled()) {
+						break;
+					}
 					RetrieveRequests request = new RetrieveRequests();
 					request.DownloadFile(
 							Integer.parseInt(record.getFileSize()),
@@ -4028,6 +4707,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (Sales_Files_IDs != null) {
 				for (FileRecord record : Sales_Files_IDs) {
+					if (isCancelled()) {
+						break;
+					}
 					RetrieveRequests request = new RetrieveRequests();
 					request.DownloadFile(
 							Integer.parseInt(record.getFileSize()),
@@ -4038,6 +4720,9 @@ public class SyncMenuBarFragment extends Fragment {
 
 			if (Activities_Files_IDs != null) {
 				for (FileRecord record : Activities_Files_IDs) {
+					if (isCancelled()) {
+						break;
+					}
 					RetrieveRequests request = new RetrieveRequests();
 					request.DownloadFile(
 							Integer.parseInt(record.getFileSize()),

@@ -190,6 +190,17 @@ public class ProjectRequirementTable {
 		}
 	}
 
+	public boolean updateModifiedTime(long id, String modifiedTime) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME, modifiedTime);
+		if (mDb.update(mDatabaseTable, args, KEY_PROJECTREQUIREMENTS_ROWID
+				+ "=" + id, null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	public boolean isExisting(String webID) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

@@ -11,10 +11,6 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTST
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_CRMNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_NO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_JDIPRODUCTSTOCKCHECK_ROWID;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -187,6 +183,17 @@ public class CompetitorProductStockCheckTable {
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_NO, no);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO, crmNo);
+		if (mDb.update(mDatabaseTable, args,
+				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateModifiedTime(long id, String modifiedTime) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME, modifiedTime);
 		if (mDb.update(mDatabaseTable, args,
 				KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID + "=" + id, null) > 0) {
 			return true;
