@@ -50,19 +50,33 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 	private long row_id = 0;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		this.view = inflater.inflate(R.layout.add_activity_photos_attachments, container, false);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		this.view = inflater.inflate(R.layout.add_activity_photos_attachments,
+				container, false);
 
-		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getLastname();
+		String assignedToFname = JardineApp.DB
+				.getUser()
+				.getById(
+						StoreAccount.restore(JardineApp.context).getLong(
+								Account.ROWID)).getFirstNameName();
+		String assignedToLname = JardineApp.DB
+				.getUser()
+				.getById(
+						StoreAccount.restore(JardineApp.context).getLong(
+								Account.ROWID)).getLastname();
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		SharedPreferences pref = getActivity().getApplicationContext()
+				.getSharedPreferences("ActivityInfo", 0);
 
 		long id = pref.getLong("activity_id_edit", 0);
 		ActivityRecord actRecord = JardineApp.DB.getActivity().getById(id);
-		DocumentRecord activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getNo());
+		DocumentRecord activityPhotosAndAttachments = null;
+
+		if (actRecord != null) {
+			activityPhotosAndAttachments = JardineApp.DB.getDocument()
+					.getRecordsForActivity(actRecord.getId());
+		}
 
 		if (activityPhotosAndAttachments != null) {
 			String crmNo = null;
@@ -74,66 +88,90 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 				crmNo = activityPhotosAndAttachments.getCrmNo();
 				title = activityPhotosAndAttachments.getTitle();
 				filePath = activityPhotosAndAttachments.getFilePath();
-				createdBy = JardineApp.DB.getUser().getById(activityPhotosAndAttachments.getUser()).toString();
+				createdBy = JardineApp.DB.getUser()
+						.getById(activityPhotosAndAttachments.getUser())
+						.toString();
 
 				((TextView) view.findViewById(R.id.document_no)).setText(crmNo);
 				((TextView) view.findViewById(R.id.title)).setText(title);
 				((TextView) view.findViewById(R.id.filename)).setText(filePath);
-				((TextView) view.findViewById(R.id.created_by)).setText(createdBy);
+				((TextView) view.findViewById(R.id.created_by))
+						.setText(createdBy);
 
 			} catch (Exception e) {
 
 			}
 		}
 
-		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) this.view.findViewById(R.id.filename)).setOnClickListener(new View.OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				AlertDialog.Builder alert = new AlertDialog.Builder(getActivity());
-				alert.setMessage("Choose from: ");
-				alert.setPositiveButton("Camera", new OnClickListener() {
+		((TextView) this.view.findViewById(R.id.created_by))
+				.setText(assignedToLname + "," + assignedToFname);
+		((TextView) this.view.findViewById(R.id.filename))
+				.setOnClickListener(new View.OnClickListener() {
 
 					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						String appName = getResources().getString(R.string.app_name);
-						String folder = Environment.getExternalStorageDirectory().toString() + "/" + appName;
-						String imageName = "jardine_image.jpg";
+					public void onClick(View v) {
+						AlertDialog.Builder alert = new AlertDialog.Builder(
+								getActivity());
+						alert.setMessage("Choose from: ");
+						alert.setPositiveButton("Camera",
+								new OnClickListener() {
 
-						Intent takeFromCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										String appName = getResources()
+												.getString(R.string.app_name);
+										String folder = Environment
+												.getExternalStorageDirectory()
+												.toString()
+												+ "/" + appName;
+										String imageName = "jardine_image.jpg";
 
-						File file = new File(folder);
+										Intent takeFromCamera = new Intent(
+												MediaStore.ACTION_IMAGE_CAPTURE);
 
-						if (file.mkdir()) {
-							Log.d("folder", "created");
-						} else {
-							Log.d("folder", "not created");
-						}
+										File file = new File(folder);
 
-						File fileToSave = new File(folder, imageName);
+										if (file.mkdir()) {
+											Log.d("folder", "created");
+										} else {
+											Log.d("folder", "not created");
+										}
 
-						imageUri = Uri.fromFile(fileToSave);
+										File fileToSave = new File(folder,
+												imageName);
 
-						takeFromCamera.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, imageUri);
-						takeFromCamera.putExtra("return-data", true);
-						startActivityForResult(takeFromCamera, REQUEST_CODE_FROM_CAMERA);
-					}
-				}).setNegativeButton("Gallery", new OnClickListener() {
+										imageUri = Uri.fromFile(fileToSave);
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						Intent pickFromGallery = new Intent(Intent.ACTION_PICK,
-								android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-						startActivityForResult(pickFromGallery, REQUEST_CODE_FROM_GALLERY);
+										takeFromCamera
+												.putExtra(
+														android.provider.MediaStore.EXTRA_OUTPUT,
+														imageUri);
+										takeFromCamera.putExtra("return-data",
+												true);
+										startActivityForResult(takeFromCamera,
+												REQUEST_CODE_FROM_CAMERA);
+									}
+								}).setNegativeButton("Gallery",
+								new OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										Intent pickFromGallery = new Intent(
+												Intent.ACTION_PICK,
+												android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+										startActivityForResult(pickFromGallery,
+												REQUEST_CODE_FROM_GALLERY);
+									}
+								});
+						alert.create();
+						alert.show();
 					}
 				});
-				alert.create();
-				alert.show();
-			}
-		});
 
-		this.saveBtn = (CircularProgressButton) this.view.findViewById(R.id.btnWithText1);
+		this.saveBtn = (CircularProgressButton) this.view
+				.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -145,40 +183,68 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
+					widthAnimation
+							.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation
+							.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+								@Override
+								public void onAnimationUpdate(
+										ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+									Integer value = (Integer) animation
+											.getAnimatedValue();
+									((CircularProgressButton) v)
+											.setProgress(value);
 
-							if (!flag) {
+									if (!flag) {
 
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
+										((CircularProgressButton) v)
+												.setProgress(-1);
+									}
+								}
+							});
 
 					widthAnimation.start();
 
-					String title = ((EditText) view.findViewById(R.id.title)).getText().toString();
-					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
+					String title = ((EditText) view.findViewById(R.id.title))
+							.getText().toString();
+					String filename = ((TextView) view
+							.findViewById(R.id.filename)).getText().toString();
 
 					/** Checking of required fields **/
-					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
+					final SharedPreferences pref = getActivity()
+							.getApplicationContext().getSharedPreferences(
+									"ActivityInfo", 0);
+					if (title != null && !title.isEmpty() && filename != null
+							&& !filename.isEmpty()) {
 
 						flag = true;
-						new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
-								"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref
-								.getLong("createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString(
-								"check_out", null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area",
-								0), pref.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
-								.getString("objective", null), pref.getInt("first_time_visit", 0), pref.getInt("planned_time_visit", 0),
-								pref.getString("notes", null), pref.getString("highlights", null), pref.getString("next_steps", null), pref
-										.getString("follow_up_committment_date", null), "", 0, 0, "", 0, pref.getString(
-										"end_user_activity_types", null)).execute();
+						new InsertTask("", "",
+								pref.getLong("activity_type", 0), pref
+										.getString("check_in", null), pref
+										.getString("check_out", null).concat(
+												displayCheckOut()), pref
+										.getLong("business_unit", 0), pref
+										.getLong("createdBy", 0), 123.894882,
+								10.310235, pref.getString("check_in", null),
+								pref.getString("check_out", null).concat(
+										displayCheckOut()), "", 0, "", pref
+										.getLong("customer", 0), pref.getLong(
+										"area", 0),
+								pref.getLong("province", 0), pref.getLong(
+										"city_town", 0), pref.getLong(
+										"workplan_entry", 0), pref.getString(
+										"objective", null), pref.getInt(
+										"first_time_visit", 0), pref.getInt(
+										"planned_time_visit", 0), pref
+										.getString("notes", null), pref
+										.getString("highlights", null), pref
+										.getString("next_steps", null), pref
+										.getString(
+												"follow_up_committment_date",
+												null), "", 0, 0, "", 0, pref
+										.getString("end_user_activity_types",
+												null)).execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -193,7 +259,9 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 					} else {
 						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(),
+								"Please fill up required (RED COLOR) fields",
+								Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -227,25 +295,30 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == REQUEST_CODE_FROM_CAMERA) {
 				imagePath = imageUri.getPath();
-				((TextView) view.findViewById(R.id.filename)).setText(imagePath);
+				((TextView) view.findViewById(R.id.filename))
+						.setText(imagePath);
 			} else if (requestCode == REQUEST_CODE_FROM_GALLERY) {
 				imageUri = data.getData();
 				imagePath = getRealPathFromURI(imageUri);
-				((TextView) view.findViewById(R.id.filename)).setText(imagePath);
+				((TextView) view.findViewById(R.id.filename))
+						.setText(imagePath);
 			}
 		} else {
-			Toast.makeText(getActivity(), "Attachment not found", Toast.LENGTH_SHORT).show();
+			Toast.makeText(getActivity(), "Attachment not found",
+					Toast.LENGTH_SHORT).show();
 		}
 	};
 
 	private String getRealPathFromURI(Uri contentURI) {
 		String result;
-		Cursor cursor = getActivity().getContentResolver().query(contentURI, null, null, null, null);
+		Cursor cursor = getActivity().getContentResolver().query(contentURI,
+				null, null, null, null);
 		if (cursor == null) {
 			result = contentURI.getPath();
 		} else {
 			cursor.moveToFirst();
-			int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+			int idx = cursor
+					.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
 			result = cursor.getString(idx);
 			cursor.close();
 		}
@@ -394,12 +467,17 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		private boolean flag;
 
 		// For activity adding
-		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
-				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-				int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-				String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees,
-				String endUserActivityTypes) {
+		private InsertTask(String no, String crmNo, long activityType,
+				String checkIn, String checkOut, long businessUnit,
+				long createdBy, double longitude, double latitude,
+				String createdTime, String modifiedTime, String reasonsRemarks,
+				long smr, String adminDetails, long customer, long area,
+				long province, long city, long workplanEntry, String objective,
+				int firstTimeVisit, int plannedVisit, String notes,
+				String highlights, String nextSteps,
+				String followUpCommitmentDate, String projectName,
+				long projectStage, long projectCategory, String venue,
+				int numberOfAttendees, String endUserActivityTypes) {
 
 			this.no = no;
 			this.crmNo = crmNo;
@@ -436,8 +514,10 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		}
 
 		// For customer contact adding
-		private InsertTask(String no, String crmNo, String firstName, String lastName, long position, String mobileNo, String birthday,
-				String emailAddress, long customer, int isActive, String createdTime, String modifiedTime, long user) {
+		private InsertTask(String no, String crmNo, String firstName,
+				String lastName, long position, String mobileNo,
+				String birthday, String emailAddress, long customer,
+				int isActive, String createdTime, String modifiedTime, long user) {
 
 		}
 
@@ -446,18 +526,21 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			// Animate Button
 			this.widthAnimation = ValueAnimator.ofInt(1, 100);
 			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
+			this.widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			this.widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveBtn.setProgress(-1);
+							}
+						}
+					});
 
 			this.widthAnimation.start();
 		}
@@ -467,12 +550,18 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			this.flag = false;
 			try {
 
-				saveActivity(this.no, this.crmNo, this.activityType, this.checkIn, this.checkOut, this.businessUnit, this.createdBy,
-						this.longitude, this.latitude, this.createdTime, this.modifiedTime, this.reasonsRemarks, this.smr,
-						this.adminDetails, this.customer, this.area, this.province, this.city, this.workplanEntry, this.objective,
-						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
-						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
-						this.endUserActivityTypes);
+				saveActivity(this.no, this.crmNo, this.activityType,
+						this.checkIn, this.checkOut, this.businessUnit,
+						this.createdBy, this.longitude, this.latitude,
+						this.createdTime, this.modifiedTime,
+						this.reasonsRemarks, this.smr, this.adminDetails,
+						this.customer, this.area, this.province, this.city,
+						this.workplanEntry, this.objective,
+						this.firstTimeVisit, this.plannedVisit, this.notes,
+						this.highlights, this.nextSteps,
+						this.followUpCommitmentDate, this.projectName,
+						this.projectStage, this.projectCategory, this.venue,
+						this.numberOfAttendees, this.endUserActivityTypes);
 
 				this.flag = true;
 			} catch (Exception e) {
@@ -499,63 +588,89 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		return " " + df.format(calendar.getTime());
 	}
 
-	protected void saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
-			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected void saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		this.row_id = JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude,
-				latitude, createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry,
-				objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
-				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
+		this.row_id = JardineApp.DB.getActivity().insert(no, crmNo,
+				activityType, checkIn, checkOut, businessUnit, createdBy,
+				longitude, latitude, createdTime, modifiedTime, reasonsRemarks,
+				smr, adminDetails, customer, area, province, city,
+				workplanEntry, objective, firstTimeVisit, plannedVisit, notes,
+				highlights, nextSteps, followUpCommitmentDate, projectName,
+				projectStage, projectCategory, venue, numberOfAttendees,
+				endUserActivityTypes);
 	}
 
-	protected void saveCustomerContactPerson(String no, String crmNo, String firstName, String lastName, long position, String mobileNo,
-			String birthday, String emailAddress, long customer, int isActive, String createdTime, String modifiedTime, long user) {
+	protected void saveCustomerContactPerson(String no, String crmNo,
+			String firstName, String lastName, long position, String mobileNo,
+			String birthday, String emailAddress, long customer, int isActive,
+			String createdTime, String modifiedTime, long user) {
 
 		// Inset to the database
-		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName, lastName, position, mobileNo, birthday, emailAddress, customer,
+		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName,
+				lastName, position, mobileNo, birthday, emailAddress, customer,
 				isActive, createdTime, modifiedTime, user);
 	}
 
-	protected void saveJDIProductStockCheck(String no, String crmNo, long activity, long product, long stockStatus, int loadedOnShelves,
-			long customerType, String otherRemarks, String createdTime, String modifiedTime, long createdBy) {
-
-		// Insert to the database
-		JardineApp.DB.getJDIproductStockCheck().insert(no, crmNo, activity, product, stockStatus, loadedOnShelves, customerType,
-				otherRemarks, createdTime, modifiedTime, createdBy);
-	}
-
-	protected void saveProductSupplier(String no, String crmNo, long productBrand, long supplier, String othersRemarks, long activity,
-			long createdBy, String createdTime, String modifiedTime) {
-
-		// Insert to the database
-		JardineApp.DB.getProductSupplier().insert(no, crmNo, productBrand, supplier, othersRemarks, activity, createdBy, createdTime,
-				modifiedTime);
-	}
-
-	protected void saveJDIMerchandisingCheck(String no, String crmNo, long activity, long productBrand, long status, String createdTime,
-			String modifiedTime, long user) {
-
-		// Insert to the database
-		JardineApp.DB.getJDImerchandisingCheck().insert(no, crmNo, activity, productBrand, status, createdTime, modifiedTime, user);
-	}
-
-	protected void saveCompetitorProductStockCheck(String no, String crmNo, long activity, long competitorProduct, long stockStatus,
-			int loadedOnShelves, String otherRemarks, String createdTime, String modifiedTime, long createdBy) {
-
-		// Insert to the database
-		JardineApp.DB.getCompetitorProductStockCheck().insert(no, crmNo, activity, competitorProduct, stockStatus, loadedOnShelves,
-				otherRemarks, createdTime, modifiedTime, createdBy);
-	}
-
-	protected void saveMarketingIntel(String no, String crmNo, long activity, long competitorProduct, String details, String createdTime,
+	protected void saveJDIProductStockCheck(String no, String crmNo,
+			long activity, long product, long stockStatus, int loadedOnShelves,
+			long customerType, String otherRemarks, String createdTime,
 			String modifiedTime, long createdBy) {
 
 		// Insert to the database
-		JardineApp.DB.getMarketingIntel().insert(no, crmNo, activity, competitorProduct, details, createdTime, modifiedTime, createdBy);
+		JardineApp.DB.getJDIproductStockCheck().insert(no, crmNo, activity,
+				product, stockStatus, loadedOnShelves, customerType,
+				otherRemarks, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveProductSupplier(String no, String crmNo,
+			long productBrand, long supplier, String othersRemarks,
+			long activity, long createdBy, String createdTime,
+			String modifiedTime) {
+
+		// Insert to the database
+		JardineApp.DB.getProductSupplier().insert(no, crmNo, productBrand,
+				supplier, othersRemarks, activity, createdBy, createdTime,
+				modifiedTime);
+	}
+
+	protected void saveJDIMerchandisingCheck(String no, String crmNo,
+			long activity, long productBrand, long status, String createdTime,
+			String modifiedTime, long user) {
+
+		// Insert to the database
+		JardineApp.DB.getJDImerchandisingCheck().insert(no, crmNo, activity,
+				productBrand, status, createdTime, modifiedTime, user);
+	}
+
+	protected void saveCompetitorProductStockCheck(String no, String crmNo,
+			long activity, long competitorProduct, long stockStatus,
+			int loadedOnShelves, String otherRemarks, String createdTime,
+			String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getCompetitorProductStockCheck().insert(no, crmNo,
+				activity, competitorProduct, stockStatus, loadedOnShelves,
+				otherRemarks, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveMarketingIntel(String no, String crmNo, long activity,
+			long competitorProduct, String details, String createdTime,
+			String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getMarketingIntel().insert(no, crmNo, activity,
+				competitorProduct, details, createdTime, modifiedTime,
+				createdBy);
 	}
 
 	protected void saveEndUserActivityType(String no) {
@@ -564,12 +679,16 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		JardineApp.DB.getActEndUserActivityType().insert(no);
 	}
 
-	protected void saveProjectRequirements(String no, String crmNo, long activity, long projectRequirementType, String dateNeeded,
-			String squareMeters, String productsBrand, String otherDetails, String createdTime, String modifiedTime, long createdBy) {
+	protected void saveProjectRequirements(String no, String crmNo,
+			long activity, long projectRequirementType, String dateNeeded,
+			String squareMeters, String productsBrand, String otherDetails,
+			String createdTime, String modifiedTime, long createdBy) {
 
 		// Insert to the database
-		JardineApp.DB.getProjectRequirement().insert(no, crmNo, activity, projectRequirementType, dateNeeded, squareMeters, productsBrand,
-				otherDetails, createdTime, modifiedTime, createdBy);
+		JardineApp.DB.getProjectRequirement().insert(no, crmNo, activity,
+				projectRequirementType, dateNeeded, squareMeters,
+				productsBrand, otherDetails, createdTime, modifiedTime,
+				createdBy);
 	}
 
 	protected void saveIdentifyProductFocus(long product, long activity) {
@@ -578,11 +697,14 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		JardineApp.DB.getProductFocus().insert(product, activity);
 	}
 
-	protected void saveActivityPhotosAndAttachments(String no, String crmNo, String title, String moduleName, String moduleId,
-			String fileName, String fileType, String filePath, int isActive, String createdTime, String modifiedTime, long user) {
+	protected void saveActivityPhotosAndAttachments(String no, String crmNo,
+			String title, String moduleName, String moduleId, String fileName,
+			String fileType, String filePath, int isActive,long moduleRowId, String createdTime,
+			String modifiedTime, long user) {
 
 		// Insert to the database
-		JardineApp.DB.getDocument().insert(no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive, createdTime,
+		JardineApp.DB.getDocument().insert(no, crmNo, title, moduleName,
+				moduleId, fileName, fileType, filePath, isActive, moduleRowId, createdTime,
 				modifiedTime, user);
 	}
 }

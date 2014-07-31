@@ -25,6 +25,7 @@ public class DocumentRecord {
 	private String file_type;
 	private String file_path;
 	private int is_active;
+	private long module_rowid;
 	private String created_time;
 	private String modified_time;
 	private long user; // User Table
@@ -40,7 +41,7 @@ public class DocumentRecord {
 
 	public DocumentRecord(long id, String no, String crmNo, String title,
 			String moduleName, String moduleId, String fileName,
-			String fileType, String filePath, int isActive, String createdTime,
+			String fileType, String filePath, int isActive, long moduleRowId, String createdTime,
 			String modifiedTime, long user) {
 
 		this.id = id;
@@ -53,6 +54,7 @@ public class DocumentRecord {
 		this.file_type = fileType;
 		this.file_path = filePath;
 		this.is_active = isActive;
+		this.module_rowid = moduleRowId;
 		this.created_time = createdTime;
 		this.modified_time = modifiedTime;
 		this.user = user;
@@ -160,6 +162,14 @@ public class DocumentRecord {
 
 	public String getCreatedTime() {
 		return this.created_time;
+	}
+	
+	public void setModuleRowid(long moduleRowid) {
+		this.module_rowid = moduleRowid;
+	}
+	
+	public long getModuleRowid() {
+		return module_rowid;
 	}
 	
 	@Override

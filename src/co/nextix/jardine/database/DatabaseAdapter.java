@@ -386,6 +386,7 @@ public class DatabaseAdapter {
 	public static final String KEY_DOCUMENT_FILETYPE = "file_type";
 	public static final String KEY_DOCUMENT_FILEPATH = "file_path";
 	public static final String KEY_DOCUMENT_ISACTIVE = "is_active";
+	public static final String KEY_DOCUMENT_MODULEROWID = "module_rowid";
 	public static final String KEY_DOCUMENT_CREATEDTIME = "created_time";
 	public static final String KEY_DOCUMENT_MODIFIEDTIME = "modified_time";
 	public static final String KEY_DOCUMENT_USER = "user";
@@ -532,7 +533,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_WORKPLAN = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_MARKETING_MATERIALS = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s real, %s integer, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_JDI_MERCHANDISING = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s real, %s real, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
+	private String TABLE_CREATE_DOCUMENT = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text,%s text, %s integer, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_CALENDAR = "create table %s (%s integer primary key autoincrement, %s text, %s text , %s text, %s text, %s text, %s text, %s text, %s real, %s text, %s text, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PICKLISTS = "create table %s (%s integer primary key autoincrement, %s text)";
 	private String TABLE_CREATE_PICKLISTS_W_DEPENDENCIES = "create table %s (%s integer primary key autoincrement, %s text, %s real)";
@@ -1457,8 +1458,9 @@ public class DatabaseAdapter {
 					KEY_DOCUMENT_MODULENAME, KEY_DOCUMENT_MODULEID,
 					KEY_DOCUMENT_FILENAME, KEY_DOCUMENT_FILETYPE,
 					KEY_DOCUMENT_FILEPATH, KEY_DOCUMENT_ISACTIVE,
-					KEY_DOCUMENT_CREATEDTIME, KEY_DOCUMENT_MODIFIEDTIME,
-					KEY_DOCUMENT_USER, KEY_DOCUMENT_USER, USER_TABLE,
+					KEY_DOCUMENT_MODULEROWID, KEY_DOCUMENT_CREATEDTIME,
+					KEY_DOCUMENT_MODIFIEDTIME, KEY_DOCUMENT_USER,
+					KEY_DOCUMENT_MODULEROWID, KEY_DOCUMENT_USER, USER_TABLE,
 					KEY_USER_ROWID);
 			String calendar = String.format(TABLE_CREATE_CALENDAR,
 					CALENDAR_TABLE, KEY_CALENDAR_ROWID,
