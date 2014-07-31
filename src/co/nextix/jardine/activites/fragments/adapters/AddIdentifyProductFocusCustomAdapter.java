@@ -14,6 +14,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -42,7 +45,9 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public AddIdentifyProductFocusCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public AddIdentifyProductFocusCustomAdapter(Context a,
+			FragmentActivity act, ListView listView, ArrayList<?> d,
+			Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -52,7 +57,8 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 		this.data = d;
 
 		/*********** Layout inflator to call external xml layout () **********************/
-		inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		inflater = (LayoutInflater) context
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 	}
 
@@ -74,7 +80,7 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView product_no;
@@ -84,11 +90,13 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 		public TextView created_by;
 		public TextView edit_txt;
 		public TextView delete_txt;
+		public CheckBox checker;
 
 	}
 
 	/*********** Depends upon data size called for each row , Create each ListView row ***********/
-	public View getView(final int position, final View convertView, ViewGroup parent) {
+	public View getView(final int position, final View convertView,
+			ViewGroup parent) {
 
 		this.vi = convertView;
 		final int pos = position;
@@ -98,18 +106,24 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_seven_columns_checkbox, null);
+			this.vi = inflater.inflate(
+					R.layout.table_row_items_seven_columns_checkbox, null);
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
+			holder.clickable_item_container = (LinearLayout) vi
+					.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.product_no = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_brand       = (TextView) vi.findViewById(R.id.column_three);
-			holder.product_description        = (TextView) vi.findViewById(R.id.column_four);
-			holder.is_active   = (TextView) vi.findViewById(R.id.column_five);
-			holder.created_by   = (TextView) vi.findViewById(R.id.column_six);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.product_brand = (TextView) vi
+					.findViewById(R.id.column_three);
+			holder.product_description = (TextView) vi
+					.findViewById(R.id.column_four);
+			holder.is_active = (TextView) vi.findViewById(R.id.column_five);
+			holder.created_by = (TextView) vi.findViewById(R.id.column_six);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi
+					.findViewById(R.id.action_delete_txt);
+			holder.checker = (CheckBox) vi.findViewById(R.id.checkbox1);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -126,55 +140,69 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (ProductRecord) this.data.get(position);
-			
+
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(String.valueOf(this.tempValues.getCrm()));
-			holder.product_no.setText(String.valueOf(this.tempValues.getProductNumber()));
-			holder.product_description.setText(String.valueOf(this.tempValues.getProductDescription()));
-			holder.product_brand.setText(String.valueOf(this.tempValues.getProductBrand()));
-			holder.is_active.setText(String.valueOf(this.tempValues.getIsActive()));
+			holder.product_no.setText(String.valueOf(this.tempValues
+					.getProductNumber()));
+			holder.product_description.setText(String.valueOf(this.tempValues
+					.getProductDescription()));
+			holder.product_brand.setText(String.valueOf(this.tempValues
+					.getProductBrand()));
+			holder.is_active.setText(String.valueOf(this.tempValues
+					.getIsActive()));
 
 			UserTable user = JardineApp.DB.getUser();
-			if(user != null){
+			if (user != null) {
 				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
 				holder.created_by.setText("");
-				if(rec != null){
+				if (rec != null) {
 					holder.created_by.setText(rec.toString());
 				}
 			}
-			
-			if (holder.crm_no_txt.getText().toString().equals("")||holder.crm_no_txt.getText().toString()==null||holder.crm_no_txt.getText().toString().equals("null")) {
+
+			if (holder.crm_no_txt.getText().toString().equals("")
+					|| holder.crm_no_txt.getText().toString() == null
+					|| holder.crm_no_txt.getText().toString().equals("null")) {
 				holder.product_no.setText("");
 				holder.created_by.setText("");
 				holder.product_brand.setText("");
 				holder.crm_no_txt.setText("");
 				holder.product_description.setText("");
 				holder.is_active.setText("");
-//				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else
-			{
-				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));	
+				// holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+				// 0, 0);
+			} else {
+				holder.clickable_item_container
+						.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(position);
+					Toast.makeText(activity.getApplicationContext(),
+							"Edit here", Toast.LENGTH_SHORT).show();
+					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data
+							.get(position);
 
 					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					SharedPreferences pref = activity.getApplicationContext()
+							.getSharedPreferences("ActivityInfo", 0);
 					Editor editor = pref.edit();
 					editor.putLong("activity_id", tempValues.getId());
 					editor.commit(); // commit changes
 
 					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					android.support.v4.app.FragmentManager fragmentManager = activity
+							.getSupportFragmentManager();
+					fragmentManager
+							.beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left,
+									R.anim.slide_out_left)
+							.replace(R.id.frame_container, fragment)
+							.addToBackStack(null).commit();
 				}
 			});
 
@@ -182,18 +210,38 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 
 				@Override
 				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
+					Toast.makeText(activity.getApplicationContext(),
+							"Delete here", Toast.LENGTH_SHORT).show();
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
+
+			if (AddIdentifyProductFocusFragment.passValues
+					.contains((ProductRecord) data.get(position)))
+				holder.checker.setChecked(true);
+			else
+				holder.checker.setChecked(false);
+
+			holder.checker
+					.setOnCheckedChangeListener(new OnCheckedChangeListener() {
+						@Override
+						public void onCheckedChanged(CompoundButton buttonView,
+								boolean isChecked) {
+							// TODO Auto-generated method stub
+							if (isChecked)
+								AddIdentifyProductFocusFragment.passValues
+										.add((ProductRecord) data.get(position));
+							else
+								AddIdentifyProductFocusFragment.passValues
+										.remove((ProductRecord) data
+												.get(position));
+						}
+					});
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {
@@ -218,7 +266,8 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(mPosition);
+				CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data
+						.get(mPosition);
 				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
 
 					activity.runOnUiThread(new Runnable() {
@@ -228,9 +277,11 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 						}
 					});
 
-					Toast.makeText(activity, "Successfully deleted activity", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Successfully deleted activity",
+							Toast.LENGTH_LONG).show();
 				} else {
-					Toast.makeText(activity, "Failed to delete!", Toast.LENGTH_LONG).show();
+					Toast.makeText(activity, "Failed to delete!",
+							Toast.LENGTH_LONG).show();
 				}
 			}
 		});
