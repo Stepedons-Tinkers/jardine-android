@@ -45,6 +45,7 @@ import com.dd.CircularProgressButton;
 public class AddActivityGeneralInformationFragment extends Fragment {
 	private View rootView = null;
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
+	private ArrayAdapter<BusinessUnitRecord> activityBusinessAdapter = null;
 	private CircularProgressButton saveBtn = null;
 
 	private Calendar calendar = null;
@@ -71,6 +72,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
+		List<BusinessUnitRecord> businessUnitList = JardineApp.DB.getBusinessUnit().getAllRecords();
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long id = pref.getLong("activity_id_edit", 0);
@@ -80,43 +82,47 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
 
-		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
-		if (activityRecord != null) {
+		if (JardineApp.DB.getActivity().getById(id) != null) {
 
-			String crmNo = activityRecord.getCrm();
-			String checkIn = activityRecord.getCheckIn();
-			String checkOut = activityRecord.getCheckOut();
-			long businessUnit = activityRecord.getBusinessUnit();
-			long activityType = activityRecord.getActivityType();
-			long createdBy = activityRecord.getCreatedBy();
+			String crmNo = JardineApp.DB.getActivity().getById(id).getCrm();
+			String checkIn = JardineApp.DB.getActivity().getById(id).getCheckIn();
+			String checkOut = JardineApp.DB.getActivity().getById(id).getCheckOut();
+			long businessUnit = JardineApp.DB.getActivity().getById(id).getBusinessUnit();
+			long activityType = JardineApp.DB.getActivity().getById(id).getActivityType();
+			long createdBy = JardineApp.DB.getActivity().getById(id).getCreatedBy();
 
 			if (crmNo != null && checkIn != null && businessUnit != 0 && activityType != 0 && checkOut != null && createdBy != 0) {
 
 				Log.e("condition", "true");
 				String lastName = JardineApp.DB.getUser().getById(createdBy).getLastname();
 				String firstName = JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
-				String bUnit = JardineApp.DB.getBusinessUnit().getById(businessUnit).toString();
 
 				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(crmNo);
 				((TextView) this.rootView.findViewById(R.id.check_in)).setText(checkIn);
-				((EditText) this.rootView.findViewById(R.id.business_unit)).setText(bUnit);
 				((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
 				((EditText) this.rootView.findViewById(R.id.created_by)).setText("" + lastName + ", " + firstName);
 
 				for (int i = 0; i < activityTypeList.size(); i++) {
-					if (activityRecord.getActivityType() == activityTypeList.get(i).getId()) {
+					if (JardineApp.DB.getActivity().getById(id).getActivityType() == activityTypeList.get(i).getId()) {
 						((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection(i);
 						break;
 					}
 				}
 
+				for (int i = 0; i < businessUnitList.size(); i++) {
+					if (JardineApp.DB.getActivity().getById(id).getBusinessUnit() == businessUnitList.get(i).getId()) {
+						((Spinner) this.rootView.findViewById(R.id.business_unit)).setSelection(i);
+						break;
+					}
+				}
 			}
 
 		} else {
 
 			Log.e("condition", "false");
+
 			// Auto populate fields
-			BusinessUnitRecord activity = JardineApp.DB.getBusinessUnit().getById(JardineApp.DB.getUser().getCurrentUser().getId());
+
 			String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
 			String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
@@ -124,8 +130,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
 					activityTypeList);
 
+			this.activityBusinessAdapter = new ArrayAdapter<BusinessUnitRecord>(JardineApp.context, R.layout.add_activity_textview,
+					businessUnitList);
+
 			// Setting to text field auto populate data
-			((EditText) this.rootView.findViewById(R.id.business_unit)).setText(activity != null ? activity.toString() : "");
+			((Spinner) this.rootView.findViewById(R.id.business_unit)).setAdapter(this.activityBusinessAdapter);
 			((Spinner) this.rootView.findViewById(R.id.activity_type)).setAdapter(activityTypeAdapter);
 			((EditText) this.rootView.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 		}
