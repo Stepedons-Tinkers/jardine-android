@@ -55,7 +55,7 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 			public void onClick(final View v) {
 				v.setClickable(false);
 				v.setEnabled(false);
-				
+
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
@@ -95,7 +95,7 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 					((CircularProgressButton) v).setProgress(0);
 					v.setClickable(true);
 					v.setEnabled(true);
-					
+
 					if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
 																					// brand
 						DashBoardActivity.tabIndex.add(4, 16);

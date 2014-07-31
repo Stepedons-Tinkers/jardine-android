@@ -6,11 +6,11 @@ import java.util.List;
 import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,17 +20,15 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
-import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
-import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -130,7 +128,6 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (((CircularProgressButton) v).getProgress() == 0) {
-
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -150,17 +147,19 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 					widthAnimation.start();
 
-					String title = ((EditText) view.findViewById(R.id.title)).getText().toString();
-					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
-
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
+					if (passValues.size() > 1) {
 
 						flag = true;
+						Editor editor = pref.edit();
+						// editor.putLong("identify_focus",
+						// identifyProductFocus);
+						editor.commit();
 
 						v.setClickable(true);
 						v.setEnabled(true);
+
 					} else {
 						flag = false;
 						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
@@ -183,8 +182,14 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 					// insert then pop all backstack
 				}
 
+				if (AddActivityGeneralInformationFragment.ActivityType == 102) { // product
+																					// focus
+					DashBoardActivity.tabIndex.add(4, 16);
+					AddActivityFragment.pager.setCurrentItem(16);
+				}
+
 				// String names = "";
-				// for(int i = 0; i < passValues.size(); i++){
+				// for (int i = 0; i < passValues.size(); i++) {
 				// names = names + passValues.get(i) + "\n";
 				// }
 				// Toast.makeText(getActivity(), names,
@@ -246,7 +251,6 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
 
-		Toast.makeText(getActivity(), "Enter", Toast.LENGTH_SHORT).show();
 		this.adapter = new AddIdentifyProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
 		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
 		// getActivity(), list, this.tempRecord, this);

@@ -156,6 +156,7 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 				holder.crm_no_txt.setText("");
 				holder.product_description.setText("");
 				holder.is_active.setText("");
+				holder.checker.setVisibility(CheckBox.GONE);
 				// holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0,
 				// 0, 0);
 			} else {
@@ -205,9 +206,11 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 						if (isChecked){
 							if (AddIdentifyProductFocusFragment.passValues.size() < 5) 
 								AddIdentifyProductFocusFragment.passValues.add((ProductRecord) data.get(position));
-							 else 
-									Toast.makeText(context, "Cannot select more than 5 Brands.", Toast.LENGTH_SHORT).show();
+							 else {
+								 AddIdentifyProductFocusFragment.passValues.remove((ProductRecord) data.get(position));
+								Toast.makeText(context, "Cannot select more than 5 Brands.", Toast.LENGTH_SHORT).show();
 									holder.checker.setChecked(false);
+							 }
 						}
 						else
 							AddIdentifyProductFocusFragment.passValues.remove((ProductRecord) data.get(position));

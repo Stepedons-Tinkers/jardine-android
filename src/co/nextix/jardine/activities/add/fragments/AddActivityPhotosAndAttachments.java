@@ -292,11 +292,12 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							// moduleName, moduleId, fileType,
 							new InsertTask("", "", title, "", "", filename, "", filename, 1, row_id, pref.getString("check_in", null), pref
 									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
-						}
 
-						// } else if(){ // IdentifyFocus
-						//
-						// } else if(){ // FullBranFocus
+						} else if (AddIdentifyProductFocusFragment.passValues.size() != 0) { // IdentifyFocus
+							for (int i = 0; i < AddIdentifyProductFocusFragment.passValues.size(); i++)
+								new InsertTask(AddIdentifyProductFocusFragment.passValues.get(i).getId(), row_id);
+						}
+						// else if(){ // FullBranFocus
 						// } else if (){ // CustomerContactPerson
 						// }
 
@@ -722,10 +723,9 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							this.customerContactIsActive, this.customerContactCreatedTime, this.customerContactModifiedTime,
 							this.customerContactUser);
 
-					saveJDIProductStockCheck(this.jdiProductNo, this.jdiProductCrmNo, this.jdiProductActivity,
-							this.jdiProductProduct, this.jdiProductStockStatus, this.jdiProductLoadedOnShelves,
-							this.jdiProductCustomerType, this.jdiProductOtherRemarks, this.jdiProductCreatedTime,
-							this.jdiProductModifiedTime, this.jdiProductCreatedBy);
+					saveJDIProductStockCheck(this.jdiProductNo, this.jdiProductCrmNo, this.jdiProductActivity, this.jdiProductProduct,
+							this.jdiProductStockStatus, this.jdiProductLoadedOnShelves, this.jdiProductCustomerType,
+							this.jdiProductOtherRemarks, this.jdiProductCreatedTime, this.jdiProductModifiedTime, this.jdiProductCreatedBy);
 
 					saveProductSupplier(this.productSupplierNo, this.productSupplierCrmNo, this.productSupplierProductBrand,
 							this.productSupplierSupplier, this.productSupplierOthersRemarks, this.productSupplierActivity,

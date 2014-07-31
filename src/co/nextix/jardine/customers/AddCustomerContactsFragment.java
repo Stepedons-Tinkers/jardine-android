@@ -412,6 +412,9 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				editor.putString("email_address", emailAddress);
 				editor.putLong("user_id", userId);
 				editor.commit(); // commit changes
+				
+				saveORdone.setClickable(true);
+				saveORdone.setEnabled(true);
 
 			} else {
 
