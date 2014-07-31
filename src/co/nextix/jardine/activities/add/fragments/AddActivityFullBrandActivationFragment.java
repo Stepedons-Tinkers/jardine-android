@@ -19,7 +19,6 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
-import co.nextix.jardine.database.records.ProjectRequirementRecord;
 import co.nextix.jardine.utils.MultiSpinner;
 import co.nextix.jardine.utils.MultiSpinner.MultiSpinnerListener;
 
@@ -32,21 +31,22 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
 		this.view = inflater.inflate(R.layout.add_activity_full_brand, container, false);
 		final List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		MultiSpinner multiSpinner = (MultiSpinner) this.view.findViewById(R.id.multi_spinner);
-		
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long activity_id = pref.getLong("activity_id_edit", 0);
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 		if (activityRecord != null) {
 			multiSpinner.setItems(activityTypeList, " ", this);
+			
+		} else {
+			multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
+
 		}
 
-		
-		multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -76,7 +76,7 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 
 					String endUserActvityTypes = ((Spinner) view.findViewById(R.id.multi_spinner)).getSelectedItem().toString();
 					Toast.makeText(getActivity().getApplicationContext(), endUserActvityTypes, Toast.LENGTH_LONG).show();
-					
+
 					Editor editor = pref.edit();
 					editor.putString("end_user_activity_types", endUserActvityTypes);
 					editor.putInt("end_user_activity_types_position", POSITION_END_USER_ACTIVITY_TYPE);
