@@ -56,17 +56,20 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long smrID = pref.getLong("activity_id_smr", 0);
+		long smrID = pref.getLong("activity_id_edit", 0);
 
+		SMRRecord record = JardineApp.DB.getSMR().getById(smrID);
 		if (smrID != 0) {
 			for (int i = 0; i < smrList.size(); i++) {
-				((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
+				if (smrList.get(i).getId() == record.getId()) {
+					((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
+				}
 			}
+		} else {
+
+			ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
+			((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
 		}
-
-		ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
-
-		((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
 		((Spinner) rootView.findViewById(R.id.smr)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override

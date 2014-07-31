@@ -50,7 +50,9 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 		long id = pref.getLong("activity_id_edit", 0);
 		JDImerchandisingCheckRecord jdiMerchandisingCheck = JardineApp.DB.getJDImerchandisingCheck().getById(id);
+
 		if (jdiMerchandisingCheck != null) {
+
 			String jdiMerchandisingCrmNo = null;
 			String jdiMerchandisingActivity = null;
 			int jdiMerchandisingProduct = 0;
@@ -58,19 +60,20 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 			String jdiMerchandisingCreatedBy = null;
 
 			try {
+
 				jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
 				jdiMerchandisingActivity = String.valueOf(jdiMerchandisingCheck.getActivity());
 				jdiMerchandisingProduct = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
 				jdiMerchandisingStatus = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
 				jdiMerchandisingCreatedBy = JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
-				
+
 			} catch (Exception e) {
 
 			}
 
-			if (jdiMerchandisingCrmNo != null && !jdiMerchandisingCrmNo.isEmpty() && jdiMerchandisingActivity != null
-					&& !jdiMerchandisingActivity.isEmpty() && jdiMerchandisingProduct != 0 && jdiMerchandisingStatus != 0
-					&& jdiMerchandisingCreatedBy != null && !jdiMerchandisingCreatedBy.isEmpty()) {
+			if (jdiMerchandisingCrmNo != null || !jdiMerchandisingCrmNo.isEmpty() || jdiMerchandisingActivity != null
+					|| !jdiMerchandisingActivity.isEmpty() || jdiMerchandisingProduct != 0 || jdiMerchandisingStatus != 0
+					|| jdiMerchandisingCreatedBy != null || !jdiMerchandisingCreatedBy.isEmpty()) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);

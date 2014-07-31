@@ -36,19 +36,19 @@ public class AddActivityTrainingsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.add_activity_trainings, container, false);
-
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long activity_id = pref.getLong("activity_id_edit", 0);
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
-
 		if (activityRecord != null) {
+			
 			String venue = null;
 			int numberOfAttendees = 0;
 
 			try {
 				venue = activityRecord.getVenue();
 				numberOfAttendees = activityRecord.getNumberOfAttendees();
+				
 			} catch (Exception e) {
 
 			}

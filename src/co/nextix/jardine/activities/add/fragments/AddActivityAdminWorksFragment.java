@@ -33,12 +33,10 @@ public class AddActivityAdminWorksFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_admin_works, container, false);
-
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
 		String adminWorksDetail = pref.getString("activity_id_admin_details", null);
 
-		if (adminWorksDetail != null) {
+		if (adminWorksDetail != null || !adminWorksDetail.isEmpty()) {
 			((EditText) view.findViewById(R.id.details_admin_works)).setText(adminWorksDetail);
 		}
 
@@ -70,7 +68,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 
 					widthAnimation.start();
 					String adminWorks = null;
-					
+
 					try {
 						adminWorks = ((EditText) view.findViewById(R.id.details_admin_works)).getText().toString();
 					} catch (Exception e) {

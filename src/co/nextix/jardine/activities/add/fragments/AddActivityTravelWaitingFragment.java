@@ -35,9 +35,8 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		String reasonRemarks = pref.getString("activity_id_reasons_remarks", null);
-		if (reasonRemarks != null) {
-			((EditText) view.findViewById(R.id.reason_remarks)).setText(reasonRemarks);
+		if (pref.getString("activity_id_reasons_remarks", null) != null || !pref.getString("activity_id_reasons_remarks", null).isEmpty()) {
+			((EditText) view.findViewById(R.id.reason_remarks)).setText(pref.getString("activity_id_reasons_remarks", null));
 		}
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
@@ -69,7 +68,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 					widthAnimation.start();
 
 					String reasons = null;
-					
+
 					try {
 						reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
 					} catch (Exception e) {

@@ -58,6 +58,7 @@ public class AddJDIProductStockFragment extends Fragment {
 		JDIproductStockCheckRecord jdiProductStock = JardineApp.DB.getJDIproductStockCheck().getById(id);
 
 		if (jdiProductStock != null) {
+
 			String jdiProductStockCrmNo = null;
 			String jdiActivity = null;
 			int jdiProduct = 0;
@@ -76,14 +77,14 @@ public class AddJDIProductStockFragment extends Fragment {
 				jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
 				jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
 				jdiOtherRemarks = jdiProductStock.getOtherRemarks();
-				
+
 			} catch (Exception e) {
 
 			}
 
-			if (jdiProductStockCrmNo != null && !jdiProductStockCrmNo.isEmpty() && jdiActivity != null && !jdiActivity.isEmpty()
-					&& jdiProduct != 0 && jdiStockStatus != 0 && jdiLoadedOnShelves != -1 && jdiSupplier != 0 && jdiCreatedBy != null
-					&& !jdiCreatedBy.isEmpty() && jdiOtherRemarks != null && !jdiOtherRemarks.isEmpty()) {
+			if (jdiProductStockCrmNo != null || !jdiProductStockCrmNo.isEmpty() || jdiActivity != null || !jdiActivity.isEmpty()
+					|| jdiProduct != 0 || jdiStockStatus != 0 || jdiLoadedOnShelves != -1 || jdiSupplier != 0 || jdiCreatedBy != null
+					|| !jdiCreatedBy.isEmpty() || jdiOtherRemarks != null || !jdiOtherRemarks.isEmpty()) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
@@ -113,6 +114,7 @@ public class AddJDIProductStockFragment extends Fragment {
 				}
 
 			}
+
 		} else {
 
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);

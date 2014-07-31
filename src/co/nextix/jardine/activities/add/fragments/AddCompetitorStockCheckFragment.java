@@ -71,15 +71,15 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 				jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
 				jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
 				jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
-				
+
 			} catch (Exception e) {
 
 			}
 
-			if (jdiCompetitorProductCrmNo != null && !jdiCompetitorProductCrmNo.isEmpty() && jdiCompetitorProductActivity != null
-					&& !jdiCompetitorProductActivity.isEmpty() && jdiCompetitorProduct != 0 && jdiCompetitorStockStatus != 0
-					&& jdiCompetitorLoadedOnShelves != -1 && jdiCompetitorCreatedBy != null && !jdiCompetitorCreatedBy.isEmpty()
-					&& jdiCompetitorOtherTypeRemarks != null && !jdiCompetitorOtherTypeRemarks.isEmpty()) {
+			if (jdiCompetitorProductCrmNo != null || !jdiCompetitorProductCrmNo.isEmpty() || jdiCompetitorProductActivity != null
+					|| !jdiCompetitorProductActivity.isEmpty() || jdiCompetitorProduct != 0 || jdiCompetitorStockStatus != 0
+					|| jdiCompetitorLoadedOnShelves != -1 || jdiCompetitorCreatedBy != null || !jdiCompetitorCreatedBy.isEmpty()
+					|| jdiCompetitorOtherTypeRemarks != null || !jdiCompetitorOtherTypeRemarks.isEmpty()) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);

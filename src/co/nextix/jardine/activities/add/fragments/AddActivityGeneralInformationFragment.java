@@ -98,21 +98,22 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		if (JardineApp.DB.getActivity().getById(id) != null) {
 
-			String crmNo = JardineApp.DB.getActivity().getById(id).getCrm();
-			String checkIn = JardineApp.DB.getActivity().getById(id).getCheckIn();
 			String checkOut = JardineApp.DB.getActivity().getById(id).getCheckOut();
 			long businessUnit = JardineApp.DB.getActivity().getById(id).getBusinessUnit();
 			long activityType = JardineApp.DB.getActivity().getById(id).getActivityType();
 			long createdBy = JardineApp.DB.getActivity().getById(id).getCreatedBy();
 
-			if (crmNo != null && checkIn != null && businessUnit != 0 && activityType != 0 && checkOut != null && createdBy != 0) {
+			if (JardineApp.DB.getActivity().getById(id).getCrm() != null || !JardineApp.DB.getActivity().getById(id).getCrm().isEmpty()
+					|| JardineApp.DB.getActivity().getById(id).getCheckIn() != null
+					|| !JardineApp.DB.getActivity().getById(id).getCheckIn().isEmpty() && businessUnit != 0 && activityType != 0
+					&& checkOut != null && createdBy != 0) {
 
 				Log.e("condition", "true");
 				String lastName = JardineApp.DB.getUser().getById(createdBy).getLastname();
 				String firstName = JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
 
-				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(crmNo);
-				((TextView) this.rootView.findViewById(R.id.check_in)).setText(checkIn);
+				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(JardineApp.DB.getActivity().getById(id).getCrm());
+				((TextView) this.rootView.findViewById(R.id.check_in)).setText(JardineApp.DB.getActivity().getById(id).getCheckIn());
 				((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
 				((EditText) this.rootView.findViewById(R.id.created_by)).setText("" + lastName + ", " + firstName);
 

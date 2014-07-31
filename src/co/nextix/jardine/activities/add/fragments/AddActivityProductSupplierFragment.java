@@ -51,12 +51,14 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		ProductSupplierRecord productSupplier = JardineApp.DB.getProductSupplier().getById(id);
 
 		if (productSupplier != null) {
+
 			String productSupplierCreatedBy = null;
 			String productCrmNo = null;
 			String productActivity = null;
 			int productProductBrand = 0;
 			int productSuppliers = 0;
 			String productOtherRemarks = null;
+
 			try {
 				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
 				productCrmNo = productSupplier.getCrm();
@@ -64,14 +66,14 @@ public class AddActivityProductSupplierFragment extends Fragment {
 				productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
 				productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
 				productOtherRemarks = productSupplier.getOthersRemarks();
-				
+
 			} catch (Exception e) {
 
 			}
 
-			if (productSupplierCreatedBy != null && !productSupplierCreatedBy.isEmpty() && productCrmNo != null && !productCrmNo.isEmpty()
-					&& productActivity != null && !productActivity.isEmpty() && productProductBrand != 0 && productSuppliers != 0
-					&& productOtherRemarks != null && !productOtherRemarks.isEmpty()) {
+			if (productSupplierCreatedBy != null || !productSupplierCreatedBy.isEmpty() || productCrmNo != null || !productCrmNo.isEmpty()
+					|| productActivity != null || !productActivity.isEmpty() || productProductBrand != 0 || productSuppliers != 0
+					|| productOtherRemarks != null || !productOtherRemarks.isEmpty()) {
 
 				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
 				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
@@ -94,7 +96,9 @@ public class AddActivityProductSupplierFragment extends Fragment {
 				}
 
 			}
+
 		} else {
+
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
 			this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
 

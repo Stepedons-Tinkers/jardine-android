@@ -89,21 +89,41 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
 		if (activityRecord != null) {
 
-			long customerID = activityRecord.getCustomer();
-			long areaSelected = activityRecord.getArea();
-			final long provinceSelected = activityRecord.getProvince();
-			final long cityORtownSelected = activityRecord.getCity();
-			long workplanEntryInput = activityRecord.getWorkplanEntry();
-			String objectiveInput = activityRecord.getObjective();
-			String highlightsInput = activityRecord.getHighlights();
-			String notesInput = activityRecord.getNotes();
-			String nextStepsInput = activityRecord.getNextSteps();
-			String followUpInput = activityRecord.getFollowUpCommitmentDate();
-			int firstTime = activityRecord.getFirstTimeVisit();
-			int planned = activityRecord.getPlannedVisit();
+			long customerID = 0;
+			long areaSelected = 0;
+			long provinceSelected = 0;
+			long cityORtownSelected = 0;
+			long workplanEntryInput = 0;
+			String objectiveInput = null;
+			String highlightsInput = null;
+			String notesInput = null;
+			String nextStepsInput = null;
+			String followUpInput = null;
+			int firstTime = 0;
+			int planned = 0;
 
-			if (objectiveInput != null && highlightsInput != null && notesInput != null && nextStepsInput != null && followUpInput != null
-					&& customerID != 0 && areaSelected != 0 && provinceSelected != 0 && cityORtownSelected != 0 && workplanEntryInput != 0) {
+			try {
+
+				customerID = activityRecord.getCustomer();
+				areaSelected = activityRecord.getArea();
+				provinceSelected = activityRecord.getProvince();
+				cityORtownSelected = activityRecord.getCity();
+				workplanEntryInput = activityRecord.getWorkplanEntry();
+				objectiveInput = activityRecord.getObjective();
+				highlightsInput = activityRecord.getHighlights();
+				notesInput = activityRecord.getNotes();
+				nextStepsInput = activityRecord.getNextSteps();
+				followUpInput = activityRecord.getFollowUpCommitmentDate();
+				firstTime = activityRecord.getFirstTimeVisit();
+				planned = activityRecord.getPlannedVisit();
+			} catch (Exception e) {
+
+			}
+
+			if (objectiveInput != null || objectiveInput.isEmpty() || highlightsInput != null || !highlightsInput.isEmpty()
+					|| notesInput != null || !notesInput.isEmpty() || nextStepsInput != null || !nextStepsInput.isEmpty()
+					|| followUpInput != null || !followUpInput.isEmpty() || customerID != 0 || areaSelected != 0 || provinceSelected != 0
+					|| cityORtownSelected != 0 || workplanEntryInput != 0) {
 
 				for (int i = 0; i < customer.size(); i++) {
 					if (customer.get(i).getId() == activityRecord.getCustomer()) {
@@ -229,7 +249,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					String followUpCommittmentDate = null;
 
 					try {
-						
+
 						customer = ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer)).getSelectedItem()).getId();
 						area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
 						province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
@@ -244,7 +264,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
 						nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
 						followUpCommittmentDate = ((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).getText().toString();
-						
+
 					} catch (Exception e) {
 
 					}
