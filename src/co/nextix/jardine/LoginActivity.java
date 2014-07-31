@@ -210,7 +210,7 @@ public class LoginActivity extends Activity {
 					String userID = model.getUserId().substring(index + 1);
 					Log.e(JardineApp.TAG, "id: " + userID);
 
-					if (!userTable.isExisting(model.getUserId())) {
+					if (!userTable.isExisting(userID)) {
 						rowid = userTable.insertUser(userID, editUsername
 								.getText().toString(), editPassword.getText()
 								.toString(), model.getDetails().getEmail(),
@@ -218,6 +218,7 @@ public class LoginActivity extends Activity {
 										.getDetails().getFirstName(), 1, 1, "",
 								areas, SELECTED_AREA, MyDateUtils
 										.getCurrentTimeStamp());
+						userTable.updateLogStatus(rowid, 1);
 					} else {
 						rowid = userTable.getByWebId(userID).getId();
 						userTable.updateLogStatus(rowid, 1);

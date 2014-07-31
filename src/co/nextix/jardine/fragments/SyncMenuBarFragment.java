@@ -148,7 +148,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 	private final String TAG = "Webservice";
 	ProgressDialog dialog;
-	long USER_ID = JardineApp.DB.getUser().getCurrentUser().getId();
+	long USER_ID = JardineApp.DB.getUser().getCurrentUserId();
 	String LAST_SYNC = JardineApp.DB.getUser().getLastSync();
 	List<FileRecord> Event_Files_IDs = new ArrayList<FileRecord>();
 	List<FileRecord> Marketing_Files_IDs = new ArrayList<FileRecord>();
@@ -1407,16 +1407,17 @@ public class SyncMenuBarFragment extends Fragment {
 						table.insertUser(model.getCrmId(), model.getUsername(),
 								"", "", model.getLastName(), "",
 								model.getFirstName(), 0, 1, "", "", "", "");
-					} else {
-						long id = table.getIdByNo(model.getCrmId());
-						if (id != 0) {
-
-							table.updateUser(id, model.getCrmId(),
-									model.getUsername(), "", "",
-									model.getLastName(), "",
-									model.getFirstName(), "", "", 0);
-						}
-					}
+					} 
+//					else {
+//						long id = table.getIdByNo(model.getCrmId());
+//						if (id != 0) {
+//
+//							table.updateUser(id, model.getCrmId(),
+//									model.getUsername(), "", "",
+//									model.getLastName(), "",
+//									model.getFirstName(), "", "", 0);
+//						}
+//					}
 				}
 			}
 			if (isCancelled()) {
