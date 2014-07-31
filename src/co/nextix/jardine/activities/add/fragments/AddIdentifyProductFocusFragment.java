@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments.InsertTask;
@@ -38,7 +39,7 @@ import com.dd.CircularProgressButton;
 
 public class AddIdentifyProductFocusFragment extends Fragment {
 
-	private ProductFocusCustomAdapter adapter = null;
+	private AddIdentifyProductFocusCustomAdapter adapter = null;
 	private ArrayList<ProductRecord> realRecord = null;
 	private ArrayList<ProductRecord> tempRecord = null;
 	private ArrayList<ProductRecord> itemSearch = null;
@@ -235,7 +236,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-		this.adapter = new ProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new AddIdentifyProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
 		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
 		// getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
