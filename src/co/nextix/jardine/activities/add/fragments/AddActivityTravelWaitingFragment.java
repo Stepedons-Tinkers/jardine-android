@@ -89,9 +89,11 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 								pref.edit().clear().commit();
 								getFragmentManager();
 								getFragmentManager().popBackStack("activities", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 
-						}, 1700);
+						}, 1500);
 
 					} else {
 
@@ -112,6 +114,8 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
 				}
 			}
 		});

@@ -24,6 +24,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 
 import com.dd.CircularProgressButton;
@@ -46,6 +47,7 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				projectCategory);
 
 		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
+
 		((TextView) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
 
 			@Override
@@ -133,7 +135,7 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -152,25 +154,24 @@ public class AddActivityProjectVisitFragment extends Fragment {
 					widthAnimation.start();
 
 					String projectName = ((EditText) rootView.findViewById(R.id.project_name)).getText().toString();
+					long projectStage = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()).getId();
+					long projectCategory = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem())
+							.getId();
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-					if (true) {
+					if (projectName != null && !projectName.isEmpty()) {
 						flag = true;
 						Editor editor = pref.edit();
-						// editor.putString("details", details );
+						editor.putString("project_name", projectName);
+						editor.putLong("project_stage", projectStage);
+						editor.putLong("project_category", projectCategory);
 						editor.commit(); // commit changes
 
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
+						v.setClickable(true);
+						v.setEnabled(true);
 
-							@Override
-							public void run() {
-								getFragmentManager().popBackStackImmediate();
-							}
-
-						}, 2700);
 					} else {
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
@@ -181,13 +182,16 @@ public class AddActivityProjectVisitFragment extends Fragment {
 							@Override
 							public void run() {
 								((CircularProgressButton) v).setProgress(0);
-
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 						}, 1500);
 					}
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
 
 					if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
 																					// visits
