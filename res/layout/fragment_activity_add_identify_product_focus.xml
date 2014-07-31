@@ -216,6 +216,7 @@
                     android:scrollHorizontally="true"
                     android:singleLine="true"
                     android:state_selected="true"
+                    android:text="Select"
                     android:textColor="#000"
                     android:textSize="14dp" />
 
