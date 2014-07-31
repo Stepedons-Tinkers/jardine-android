@@ -14,7 +14,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -72,13 +71,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		List<BusinessUnitRecord> businessUnitList = JardineApp.DB.getBusinessUnit().getAllRecords();
-		
+
 		String assignedToFname = null;
-		String assignedToLname = null; 
-		
+		String assignedToLname = null;
+
 		// Auto populate fields
+
+		// Nganung mo null ni siya?.. fuck
 		try {
-			
+
 			assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 					.getFirstNameName();
 			assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
@@ -359,8 +360,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
 					long activityType = ((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem())
 							.getId();
-					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
 
+					long createdBy = JardineApp.DB.getUser().getCurrentUser().getId();
 					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
 							JardineApp.DB.getUser().getCurrentUser().getId());
 
@@ -448,9 +449,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				getActivity().getSupportFragmentManager().popBackStackImmediate("general_information",
-						FragmentManager.POP_BACK_STACK_INCLUSIVE);
-
+				Toast.makeText(getActivity(), "cancel", Toast.LENGTH_SHORT).show();
+				getActivity().getSupportFragmentManager().popBackStackImmediate();
 			}
 		});
 
