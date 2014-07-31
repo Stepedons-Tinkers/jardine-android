@@ -53,28 +53,48 @@ public class AddJDIProductStockFragment extends Fragment {
 		long id = pref.getLong("activity_id_edit", 0);
 		JDIproductStockCheckRecord jdiProductStock = JardineApp.DB.getJDIproductStockCheck().getById(id);
 
-		String jdiProductStockCrmNo = jdiProductStock.getCrm();
-		String jdiActivity = String.valueOf(jdiProductStock.getActivity());
-		int jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
-		int jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
-		int jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
-		int jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
-		String jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
-		String jdiOtherRemarks = jdiProductStock.getOtherRemarks();
+		if (jdiProductStock != null) {
+			String jdiProductStockCrmNo = jdiProductStock.getCrm();
+			String jdiActivity = String.valueOf(jdiProductStock.getActivity());
+			int jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
+			int jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
+			int jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
+			int jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
+			String jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
+			String jdiOtherRemarks = jdiProductStock.getOtherRemarks();
 
-		if (jdiProductStockCrmNo != null && !jdiProductStockCrmNo.isEmpty() && jdiActivity != null && !jdiActivity.isEmpty()
-				&& jdiProduct != 0 && jdiStockStatus != 0 && jdiLoadedOnShelves != -1 && jdiSupplier != 0 && jdiCreatedBy != null
-				&& !jdiCreatedBy.isEmpty() && jdiOtherRemarks != null && !jdiOtherRemarks.isEmpty()) {
+			if (jdiProductStockCrmNo != null && !jdiProductStockCrmNo.isEmpty() && jdiActivity != null && !jdiActivity.isEmpty()
+					&& jdiProduct != 0 && jdiStockStatus != 0 && jdiLoadedOnShelves != -1 && jdiSupplier != 0 && jdiCreatedBy != null
+					&& !jdiCreatedBy.isEmpty() && jdiOtherRemarks != null && !jdiOtherRemarks.isEmpty()) {
 
-			((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
-			((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
-			((Spinner) view.findViewById(R.id.product)).setSelection(jdiProduct);
-			((Spinner) view.findViewById(R.id.stock_status)).setSelection(jdiStockStatus);
-			((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
-			((Spinner) view.findViewById(R.id.supplier)).setSelection(jdiSupplier);
-			((TextView) view.findViewById(R.id.created_by)).setText(jdiCreatedBy);
-			((EditText) view.findViewById(R.id.other_type_remarks)).setText(jdiOtherRemarks);
-			
+				((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
+				((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
+				((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+				((TextView) view.findViewById(R.id.created_by)).setText(jdiCreatedBy);
+				((EditText) view.findViewById(R.id.other_type_remarks)).setText(jdiOtherRemarks);
+
+				for (int i = 0; i < productList.size(); i++) {
+					if (jdiProductStock.getProductBrand() == productList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.product)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < stockStatusList.size(); i++) {
+					if (jdiProductStock.getStockStatus() == stockStatusList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < supplierList.size(); i++) {
+					if (jdiProductStock.getSupplier() == supplierList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
+						break;
+					}
+				}
+
+			}
 		} else {
 
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);

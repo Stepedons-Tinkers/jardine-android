@@ -46,28 +46,31 @@ public class AddMarketingIntelFragment extends Fragment {
 		long id = pref.getLong("activity_id_edit", 0);
 		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
 
-		String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
-		String marketingIntelCrmNo = marketingIntel.getCrm();
-		String marketingActivity = String.valueOf(marketingIntel.getActivity());
-		long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
-		String marketingDetails = marketingIntel.getDetails();
+		if (marketingIntel != null) {
+			String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+			String marketingIntelCrmNo = marketingIntel.getCrm();
+			String marketingActivity = String.valueOf(marketingIntel.getActivity());
+			long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+			String marketingDetails = marketingIntel.getDetails();
 
-		if (marketingIntelCreatedBy != null && !marketingIntelCreatedBy.isEmpty() && marketingIntelCrmNo != null
-				&& !marketingIntelCrmNo.isEmpty() && marketingActivity != null && !marketingActivity.isEmpty()
-				&& marketingCompetitorProduct != 0 && marketingDetails != null && !marketingDetails.isEmpty()) {
+			if (marketingIntelCreatedBy != null && !marketingIntelCreatedBy.isEmpty() && marketingIntelCrmNo != null
+					&& !marketingIntelCrmNo.isEmpty() && marketingActivity != null && !marketingActivity.isEmpty()
+					&& marketingCompetitorProduct != 0 && marketingDetails != null && !marketingDetails.isEmpty()) {
 
-			((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
-			((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
-			((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
-			
-			for (int i = 0; i < competitorProductLsit.size(); i++) {
-				if (marketingIntel.getId() == competitorProductLsit.get(i).getId()) {
-					((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
+				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
+				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
+				((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
+
+				for (int i = 0; i < competitorProductLsit.size(); i++) {
+					if (marketingIntel.getCompetitorProduct() == competitorProductLsit.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
+						break;
+					}
 				}
-			}
-			
-			((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
 
+				((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
+
+			}
 		} else {
 
 			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.competitorProductAdapter);

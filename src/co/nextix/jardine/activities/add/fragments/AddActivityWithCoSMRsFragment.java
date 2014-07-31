@@ -5,7 +5,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
-import android.app.Activity;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
@@ -23,7 +22,6 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
-import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.SMRRecord;
@@ -55,16 +53,17 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs, container, false);
-		
+		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		
 		long smrID = pref.getLong("activity_id_smr", 0);
-		
-		if(smrID != 0){
-			((Spinner) rootView.findViewById(R.id.smr)).setSelection(Integer.parseInt(String.valueOf(smrID)));
+
+		if (smrID != 0) {
+			for (int i = 0; i < smrList.size(); i++) {
+				((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
+			}
 		}
 
-		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
 		ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
 
 		((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);

@@ -91,36 +91,38 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		view = inflater.inflate(R.layout.customer_contact_add_new, container, false);
 		bundle = getArguments();
 		initLayout();
-		
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("activity_id_customer", 0));
 
-		String crmNo = record.getCrm();
-		String firstName = record.getFirstName();
-		String lastName = record.getLastName();
-		long positionInput = record.getPosition();
-		String mobileNo = record.getMobileNo();
-		String customerBirthday = record.getBirthday();
-		String customerEmail = record.getEmailAddress();
-		String customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
-		String customerCreatedBy = record.toString();
+		if (record != null) {
+			String crmNo = record.getCrm();
+			String firstName = record.getFirstName();
+			String lastName = record.getLastName();
+			long positionInput = record.getPosition();
+			String mobileNo = record.getMobileNo();
+			String customerBirthday = record.getBirthday();
+			String customerEmail = record.getEmailAddress();
+			String customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
+			String customerCreatedBy = record.toString();
 
-		if (crmNo != null && !crmNo.isEmpty() && firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()
-				&& positionInput != 0 && mobileNo != null && !mobileNo.isEmpty() && customerBirthday != null && !customerBirthday.isEmpty()
-				&& customerEmail != null && !customerEmail.isEmpty() && customerCustomer != null && !customerCustomer.isEmpty()
-				&& customerCreatedBy != null && !customerCreatedBy.isEmpty()) {
+			if (crmNo != null && !crmNo.isEmpty() && firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()
+					&& positionInput != 0 && mobileNo != null && !mobileNo.isEmpty() && customerBirthday != null
+					&& !customerBirthday.isEmpty() && customerEmail != null && !customerEmail.isEmpty() && customerCustomer != null
+					&& !customerCustomer.isEmpty() && customerCreatedBy != null && !customerCreatedBy.isEmpty()) {
 
-			field1.setText(crmNo);
-			field2.setText(firstName);
-			field3.setText(lastName);
-			field4.setSelection(Integer.parseInt(String.valueOf(positionInput)));
-			field5.setText(mobileNo);
-			field6a.setText(customerBirthday);
-			field7.setText(customerEmail);
-			field8.setText(customerCustomer);
-			field9.setText(customerCreatedBy);
+				field1.setText(crmNo);
+				field2.setText(firstName);
+				field3.setText(lastName);
+				field4.setSelection(Integer.parseInt(String.valueOf(positionInput)));
+				field5.setText(mobileNo);
+				field6a.setText(customerBirthday);
+				field7.setText(customerEmail);
+				field8.setText(customerCustomer);
+				field9.setText(customerCreatedBy);
+			}
 		}
-		
+
 		return view;
 	}
 

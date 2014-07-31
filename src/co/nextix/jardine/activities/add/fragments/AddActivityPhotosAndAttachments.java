@@ -31,8 +31,6 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
-import co.nextix.jardine.database.records.MarketingIntelRecord;
-import co.nextix.jardine.database.tables.DocumentTable;
 
 import com.dd.CircularProgressButton;
 
@@ -54,27 +52,18 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		this.view = inflater.inflate(R.layout.add_activity_photos_attachments, container, false);
 		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
-		
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 		long id = pref.getLong("activity_id_edit", 0);
 		ActivityRecord actRecord = JardineApp.DB.getActivity().getById(id);
 		DocumentRecord activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getNo());
-		String activityPhotosAndAttachmentsTitle = 
-
-		String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
-		String marketingIntelCrmNo = marketingIntel.getCrm();
-		String marketingActivity = String.valueOf(marketingIntel.getActivity());
-		long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
-		String marketingDetails = marketingIntel.getDetails();
 		
-		if(){
+		if(activityPhotosAndAttachments != null){
 			
-		}else{
-		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		
 		}
-		
+
+		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 		((TextView) this.view.findViewById(R.id.filename)).setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -159,14 +148,14 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 						flag = true;
 						new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
-								"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref.getLong("createdBy",
-								0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString("check_out", null).concat(
-								displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area", 0), pref.getLong(
-								"province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref.getString(
-								"objective", null), pref.getInt("first_time_visit", 0), pref.getInt("planned_time_visit", 0), pref
-								.getString("notes", null), pref.getString("highlights", null), pref.getString("next_steps", null), pref
-								.getString("follow_up_committment_date", null), "", 0, 0, "", 0, pref.getString("end_user_activity_types",
-								null)).execute();
+								"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref
+								.getLong("createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString(
+								"check_out", null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area",
+								0), pref.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
+								.getString("objective", null), pref.getInt("first_time_visit", 0), pref.getInt("planned_time_visit", 0),
+								pref.getString("notes", null), pref.getString("highlights", null), pref.getString("next_steps", null), pref
+										.getString("follow_up_committment_date", null), "", 0, 0, "", 0, pref.getString(
+										"end_user_activity_types", null)).execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -245,6 +234,96 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		private ValueAnimator widthAnimation = null;
 
 		// String to be populated
+		private String customerContactNo = null;
+		private String customerContactCrmNo = null;
+		private String customerContactFirstName = null;
+		private String customerContactLastName = null;
+		private long customerContactposition = 0;
+		private String customerContactMobileNo = null;
+		private String customerContactBirthday = null;
+		private String customerContactEmailAddress = null;
+		private long customerContactCustomer = 0;
+		private int customerContactIsActive = 0;
+		private String customerContactCreatedTime = null;
+		private String customerContactModifiedTime = null;
+		private long customerContactUser = 0;
+
+		private String jdiProductStockCheckNo = null;
+		private String jdiProductStockCheckCrmNo = null;
+		private long jdiProductStockCheckActivity = 0;
+		private long jdiProductStockCheckProduct = 0;
+		private long jdiProductStockStatus = 0;
+		private int jdiProductStockCheckLoadedOnShelves = 0;
+		private long jdiProductStockCheckCustomerType = 0;
+		private String jdiProductStockCheckOtherRemarks = null;
+		private String jdiProductStockCheckCreatedTime = null;
+		private String jdiProductStockCheckModifiedTime = null;
+		private long jdiProductStockCheckCreatedBy = 0;
+
+		private String productSupplierNo = null;
+		private String productSupplierCrmNo = null;
+		private long productSupplierProductBrand = 0;
+		private long productSupplierSupplier = 0;
+		private String productSupplierOthersRemarks = null;
+		private long productSupplierActivity = 0;
+		private long productSupplierCreatedBy = 0;
+		private String productSupplierCreatedTime = null;
+		private String productSupplierModifiedTime = null;
+
+		private String jdiMerchandisingCheckNo = null;
+		private String jdiMerchandisingCrmNo = null;
+		private long jdiMerchandisingActivity = 0;
+		private long jdiMerchandisingProductBrand = 0;
+		private long jdiMerchandisingStatus = 0;
+		private String jdiMerchandisingCreatedTime = null;
+		private String jdiMerchandisingModifiedTime = null;
+		private long jdiMerchandisingUser = 0;
+
+		private String competitorProductStockCheckNo = null;
+		private String competitorProductStockCheckCrmNo = null;
+		private long competitorProductStockCheckActivity = 0;
+		private long competitorProduct = 0;
+		private long competitorProductStockStatus = 0;
+		private int competitorProductLoadedOnShelves = 0;
+		private String competitorProductOtherRemarks = null;
+		private String competitorProductCreatedTime = null;
+		private String competitorProductModifiedTime = null;
+		private long competitorProductCreatedBy = 0;
+
+		private String marketingIntelNo = null;
+		private String marketingIntelCrmNo = null;
+		private long marketingIntelActivity = 0;
+		private long marketingIntelcompetitorProduct = 0;
+		private String marketingIntelDetails = null;
+		private String marketingIntelCreatedTime = null;
+		private String marketingIntelModifiedTime = null;
+		private long marketingIntelCreatedBy = 0;
+
+		private String projectRequirementsNo = null;
+		private String projectRequirementsCrmNo = null;
+		private long projectRequirementsActivity = 0;
+		private long projectRequirementType = 0;
+		private String projectRequirementsDateNeeded = null;
+		private String projectRequirementsSquareMeters = null;
+		private String projectRequirementsProductsBrand = null;
+		private String projectRequirementsOtherDetails = null;
+		private String projectRequirementsCreatedTime = null;
+		private String projectRequirementsModifiedTime = null;
+		private long projectRequirementsCreatedBy = 0;
+
+		private String activityPhotosAndAttachmentsNo = null;
+		private String activityPhotosAndAttachmentsCrmNo = null;
+		private String activityPhotosAndAttachmentsTitle = null;
+		private String activityPhotosAndAttachmentsModuleName = null;
+		private String activityPhotosAndAttachmentsModuleId = null;
+		private String activityPhotosAndAttachmentsFileName = null;
+		private String activityPhotosAndAttachmentsFileType = null;
+		private String activityPhotosAndAttachmentsFilePath = null;
+		private int activityPhotosAndAttachmentsIsActive = 0;
+		private String activityPhotosAndAttachmentsCreatedTime = null;
+		private String activityPhotosAndAttachmentsModifiedTime = null;
+		private long activityPhotosAndAttachmentsUser = 0;
+
 		private String no = null;
 		private String crmNo = null;
 
@@ -291,6 +370,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 		private boolean flag;
 
+		// For activity adding
 		private InsertTask(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit, long createdBy,
 				double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
 				String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
@@ -330,6 +410,12 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			this.venue = venue;
 			this.numberOfAttendees = numberOfAttendees;
 			this.endUserActivityTypes = endUserActivityTypes;
+		}
+
+		// For customer contact adding
+		private InsertTask(String no, String crmNo, String firstName, String lastName, long position, String mobileNo, String birthday,
+				String emailAddress, long customer, int isActive, String createdTime, String modifiedTime, long user) {
+
 		}
 
 		@Override
@@ -401,5 +487,79 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 				latitude, createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry,
 				objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
 				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
+	}
+
+	protected void saveCustomerContactPerson(String no, String crmNo, String firstName, String lastName, long position, String mobileNo,
+			String birthday, String emailAddress, long customer, int isActive, String createdTime, String modifiedTime, long user) {
+
+		// Inset to the database
+		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName, lastName, position, mobileNo, birthday, emailAddress, customer,
+				isActive, createdTime, modifiedTime, user);
+	}
+
+	protected void saveJDIProductStockCheck(String no, String crmNo, long activity, long product, long stockStatus, int loadedOnShelves,
+			long customerType, String otherRemarks, String createdTime, String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getJDIproductStockCheck().insert(no, crmNo, activity, product, stockStatus, loadedOnShelves, customerType,
+				otherRemarks, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveProductSupplier(String no, String crmNo, long productBrand, long supplier, String othersRemarks, long activity,
+			long createdBy, String createdTime, String modifiedTime) {
+
+		// Insert to the database
+		JardineApp.DB.getProductSupplier().insert(no, crmNo, productBrand, supplier, othersRemarks, activity, createdBy, createdTime,
+				modifiedTime);
+	}
+
+	protected void saveJDIMerchandisingCheck(String no, String crmNo, long activity, long productBrand, long status, String createdTime,
+			String modifiedTime, long user) {
+
+		// Insert to the database
+		JardineApp.DB.getJDImerchandisingCheck().insert(no, crmNo, activity, productBrand, status, createdTime, modifiedTime, user);
+	}
+
+	protected void saveCompetitorProductStockCheck(String no, String crmNo, long activity, long competitorProduct, long stockStatus,
+			int loadedOnShelves, String otherRemarks, String createdTime, String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getCompetitorProductStockCheck().insert(no, crmNo, activity, competitorProduct, stockStatus, loadedOnShelves,
+				otherRemarks, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveMarketingIntel(String no, String crmNo, long activity, long competitorProduct, String details, String createdTime,
+			String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getMarketingIntel().insert(no, crmNo, activity, competitorProduct, details, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveEndUserActivityType(String no) {
+
+		// Insert to the database
+		JardineApp.DB.getActEndUserActivityType().insert(no);
+	}
+
+	protected void saveProjectRequirements(String no, String crmNo, long activity, long projectRequirementType, String dateNeeded,
+			String squareMeters, String productsBrand, String otherDetails, String createdTime, String modifiedTime, long createdBy) {
+
+		// Insert to the database
+		JardineApp.DB.getProjectRequirement().insert(no, crmNo, activity, projectRequirementType, dateNeeded, squareMeters, productsBrand,
+				otherDetails, createdTime, modifiedTime, createdBy);
+	}
+
+	protected void saveIdentifyProductFocus(long product, long activity) {
+
+		// Insert to the database
+		JardineApp.DB.getProductFocus().insert(product, activity);
+	}
+
+	protected void saveActivityPhotosAndAttachments(String no, String crmNo, String title, String moduleName, String moduleId,
+			String fileName, String fileType, String filePath, int isActive, String createdTime, String modifiedTime, long user) {
+
+		// Insert to the database
+		JardineApp.DB.getDocument().insert(no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive, createdTime,
+				modifiedTime, user);
 	}
 }

@@ -46,22 +46,36 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 		long id = pref.getLong("activity_id_edit", 0);
 		JDImerchandisingCheckRecord jdiMerchandisingCheck = JardineApp.DB.getJDImerchandisingCheck().getById(id);
+		if (jdiMerchandisingCheck != null) {
+			String jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
+			String jdiMerchandisingActivity = String.valueOf(jdiMerchandisingCheck.getActivity());
+			int jdiMerchandisingProduct = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
+			int jdiMerchandisingStatus = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
+			String jdiMerchandisingCreatedBy = JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
 
-		String jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
-		String jdiMerchandisingActivity = String.valueOf(jdiMerchandisingCheck.getActivity());
-		int jdiMerchandisingProduct = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
-		int jdiMerchandisingStatus = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
-		String jdiMerchandisingCreatedBy = JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
+			if (jdiMerchandisingCrmNo != null && !jdiMerchandisingCrmNo.isEmpty() && jdiMerchandisingActivity != null
+					&& !jdiMerchandisingActivity.isEmpty() && jdiMerchandisingProduct != 0 && jdiMerchandisingStatus != 0
+					&& jdiMerchandisingCreatedBy != null && !jdiMerchandisingCreatedBy.isEmpty()) {
 
-		if (jdiMerchandisingCrmNo != null && !jdiMerchandisingCrmNo.isEmpty() && jdiMerchandisingActivity != null
-				&& !jdiMerchandisingActivity.isEmpty() && jdiMerchandisingProduct != 0 && jdiMerchandisingStatus != 0
-				&& jdiMerchandisingCreatedBy != null && !jdiMerchandisingCreatedBy.isEmpty()) {
-			
-			((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
-			((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
-			((Spinner) view.findViewById(R.id.product)).setSelection(jdiMerchandisingProduct);
-			((Spinner) view.findViewById(R.id.status)).setSelection(jdiMerchandisingStatus);
-			((TextView) view.findViewById(R.id.created_by)).setText(jdiMerchandisingCreatedBy);
+				((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
+				((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
+				((TextView) view.findViewById(R.id.created_by)).setText(jdiMerchandisingCreatedBy);
+
+				for (int i = 0; i < productList.size(); i++) {
+					if (jdiMerchandisingCheck.getProductBrand() == productList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.product)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < statusList.size(); i++) {
+					if (jdiMerchandisingCheck.getStatus() == statusList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.status)).setSelection(i);
+						break;
+					}
+				}
+
+			}
 
 		} else {
 

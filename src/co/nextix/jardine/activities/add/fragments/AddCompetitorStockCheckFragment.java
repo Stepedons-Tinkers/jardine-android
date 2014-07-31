@@ -50,27 +50,41 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 		long id = pref.getLong("activity_id_edit", 0);
 		CompetitorProductStockCheckRecord jdiCompetitorStockCheck = JardineApp.DB.getCompetitorProductStockCheck().getById(id);
 
-		String jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
-		String jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
-		int jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
-		int jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
-		int jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
-		String jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
-		String jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
+		if (jdiCompetitorStockCheck != null) {
+			String jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
+			String jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
+			int jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
+			int jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
+			int jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
+			String jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
+			String jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
 
-		if (jdiCompetitorProductCrmNo != null && !jdiCompetitorProductCrmNo.isEmpty() && jdiCompetitorProductActivity != null
-				&& !jdiCompetitorProductActivity.isEmpty() && jdiCompetitorProduct != 0 && jdiCompetitorStockStatus != 0
-				&& jdiCompetitorLoadedOnShelves != -1 && jdiCompetitorCreatedBy != null && !jdiCompetitorCreatedBy.isEmpty()
-				&& jdiCompetitorOtherTypeRemarks != null && !jdiCompetitorOtherTypeRemarks.isEmpty()) {
-			
-			((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
-			((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);
-			((Spinner) view.findViewById(R.id.competitor_product)).setSelection(jdiCompetitorProduct);
-			((Spinner) view.findViewById(R.id.stock_status)).setSelection(jdiCompetitorStockStatus);
-			((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
-			((TextView) view.findViewById(R.id.created_by)).setText(jdiCompetitorCreatedBy);
-			((EditText) view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
+			if (jdiCompetitorProductCrmNo != null && !jdiCompetitorProductCrmNo.isEmpty() && jdiCompetitorProductActivity != null
+					&& !jdiCompetitorProductActivity.isEmpty() && jdiCompetitorProduct != 0 && jdiCompetitorStockStatus != 0
+					&& jdiCompetitorLoadedOnShelves != -1 && jdiCompetitorCreatedBy != null && !jdiCompetitorCreatedBy.isEmpty()
+					&& jdiCompetitorOtherTypeRemarks != null && !jdiCompetitorOtherTypeRemarks.isEmpty()) {
 
+				((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
+				((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);
+				((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+				((TextView) view.findViewById(R.id.created_by)).setText(jdiCompetitorCreatedBy);
+				((EditText) view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
+
+				for (int i = 0; i < competitorStockCheckList.size(); i++) {
+					if (jdiCompetitorStockCheck.getCompetitorProduct() == competitorStockCheckList.get(i).getCompetitorProduct()) {
+						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < jdiCompetitorStockCheckList.size(); i++) {
+					if (jdiCompetitorStockCheck.getStockStatus() == jdiCompetitorStockCheckList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
+						break;
+					}
+				}
+
+			}
 		} else {
 
 			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorStockAdapter);

@@ -29,6 +29,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -57,8 +58,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private int month = 0;
 	private int year = 0;
 
-	private boolean hasPref = false;
-
 	public AddActivityDetailsAndNotesFragment() {
 		this.calendar = Calendar.getInstance();
 		this.day = this.calendar.get(Calendar.DAY_OF_MONTH);
@@ -85,40 +84,62 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		((Spinner) rootView.findViewById(R.id.workplan_entry)).setAdapter(this.workplanEntryAdapter);
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		long id = pref.getLong("activity_id_edit", 0);
 
-		long customerID = pref.getLong("activity_id_customer", 0);
-		long areaSelected = pref.getLong("activitiy_id_area", 0);
-		final long provinceSelected = pref.getLong("activity_id_province", 0);
-		final long cityORtownSelected = pref.getLong("activity_id_city", 0);
-		long workplanEntryInput = pref.getLong("activity_id_workplan_entry", 0);
-		String objectiveInput = pref.getString("activity_id_objective", null);
-		String highlightsInput = pref.getString("activity_id_highlights", null);
-		String notesInput = pref.getString("activity_id_notes", null);
-		String nextStepsInput = pref.getString("activity_id_next_steps", null);
-		String followUpInput = pref.getString("activity_id_followup_committment_date", null);
-		int firstTime = pref.getInt("activity_id_first_time_visit", -1);
-		int planned = pref.getInt("activity_id_planned_visit", -1);
+		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
+		if (activityRecord != null) {
+			long customerID = activityRecord.getCustomer();
+			long areaSelected = activityRecord.getArea();
+			final long provinceSelected = activityRecord.getProvince();
+			final long cityORtownSelected = activityRecord.getCity();
+			long workplanEntryInput = activityRecord.getWorkplanEntry();
+			String objectiveInput = activityRecord.getObjective();
+			String highlightsInput = activityRecord.getHighlights();
+			String notesInput = activityRecord.getNotes();
+			String nextStepsInput = activityRecord.getNextSteps();
+			String followUpInput = activityRecord.getFollowUpCommitmentDate();
+			int firstTime = activityRecord.getFirstTimeVisit();
+			int planned = activityRecord.getPlannedVisit();
 
-		if (objectiveInput != null && highlightsInput != null && notesInput != null && nextStepsInput != null && followUpInput != null
-				&& customerID != 0 && areaSelected != 0 && provinceSelected != 0 && cityORtownSelected != 0 && workplanEntryInput != 0) {
+			if (objectiveInput != null && highlightsInput != null && notesInput != null && nextStepsInput != null && followUpInput != null
+					&& customerID != 0 && areaSelected != 0 && provinceSelected != 0 && cityORtownSelected != 0 && workplanEntryInput != 0) {
 
-			((Spinner) rootView.findViewById(R.id.customer)).setSelection(Integer.parseInt(String.valueOf(customerID)));
-			((Spinner) rootView.findViewById(R.id.area)).setSelection(Integer.parseInt(String.valueOf(areaSelected)));
-			((Spinner) rootView.findViewById(R.id.workplan_entry)).setSelection(Integer.parseInt(String.valueOf(workplanEntryInput)));
+				for (int i = 0; i < customer.size(); i++) {
+					if (customer.get(i).getId() == activityRecord.getCustomer()) {
+						((Spinner) rootView.findViewById(R.id.customer)).setSelection(i);
+						break;
+					}
+				}
 
-			if (planned == 1) {
-				((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).setChecked(true);
+				for (int i = 0; i < area.size(); i++) {
+					if (area.get(i).getId() == activityRecord.getArea()) {
+						((Spinner) rootView.findViewById(R.id.area)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < workplanEntry.size(); i++) {
+					if (workplanEntry.get(i).getWorkplan() == activityRecord.getWorkplanEntry()) {
+						((Spinner) rootView.findViewById(R.id.workplan_entry)).setSelection(Integer.parseInt(String
+								.valueOf(workplanEntryInput)));
+						break;
+					}
+				}
+
+				if (planned == 1) {
+					((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).setChecked(true);
+				}
+
+				if (firstTime == 1) {
+					((CheckBox) rootView.findViewById(R.id.planned_visit)).setChecked(true);
+				}
+
+				((EditText) rootView.findViewById(R.id.highlights)).setText(highlightsInput);
+				((EditText) rootView.findViewById(R.id.notes)).setText(notesInput);
+				((EditText) rootView.findViewById(R.id.next_steps)).setText(nextStepsInput);
+				((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).setText(followUpInput);
+				((EditText) rootView.findViewById(R.id.objective)).setText(objectiveInput);
 			}
-
-			if (firstTime == 1) {
-				((CheckBox) rootView.findViewById(R.id.planned_visit)).setChecked(true);
-			}
-
-			((EditText) rootView.findViewById(R.id.highlights)).setText(highlightsInput);
-			((EditText) rootView.findViewById(R.id.notes)).setText(notesInput);
-			((EditText) rootView.findViewById(R.id.next_steps)).setText(nextStepsInput);
-			((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).setText(followUpInput);
-			((EditText) rootView.findViewById(R.id.objective)).setText(objectiveInput);
 		}
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
@@ -130,10 +151,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						.getRecordsByAreaId(id + 1));
 
 				((Spinner) rootView.findViewById(R.id.province)).setAdapter(provinceAdapter);
-
-				if (hasPref) {
-					((Spinner) rootView.findViewById(R.id.province)).setSelection(Integer.parseInt(String.valueOf(provinceSelected)));
-				}
 
 			}
 
@@ -152,10 +169,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						.getRecordsByProvinceId(id + 1));
 
 				((Spinner) rootView.findViewById(R.id.city_town)).setAdapter(cityTownAdapter);
-
-				if (hasPref) {
-					((Spinner) rootView.findViewById(R.id.city_town)).setSelection(Integer.parseInt(String.valueOf(cityORtownSelected)));
-				}
 			}
 
 			@Override

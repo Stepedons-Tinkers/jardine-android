@@ -46,24 +46,39 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		long id = pref.getLong("activity_id_edit", 0);
 		ProductSupplierRecord productSupplier = JardineApp.DB.getProductSupplier().getById(id);
 
-		String productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
-		String productCrmNo = productSupplier.getCrm();
-		String productActivity = String.valueOf(productSupplier.getActivity());
-		int productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
-		int productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
-		String productOtherRemarks = productSupplier.getOthersRemarks();
+		if (productSupplier != null) {
+			String productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
+			String productCrmNo = productSupplier.getCrm();
+			String productActivity = String.valueOf(productSupplier.getActivity());
+			int productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
+			int productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
+			String productOtherRemarks = productSupplier.getOthersRemarks();
 
-		if (productSupplierCreatedBy != null && !productSupplierCreatedBy.isEmpty() && productCrmNo != null && !productCrmNo.isEmpty()
-				&& productActivity != null && !productActivity.isEmpty() && productProductBrand != 0 && productSuppliers != 0
-				&& productOtherRemarks != null && !productOtherRemarks.isEmpty()) {
+			if (productSupplierCreatedBy != null && !productSupplierCreatedBy.isEmpty() && productCrmNo != null && !productCrmNo.isEmpty()
+					&& productActivity != null && !productActivity.isEmpty() && productProductBrand != 0 && productSuppliers != 0
+					&& productOtherRemarks != null && !productOtherRemarks.isEmpty()) {
 
-			((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
-			((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
-			((TextView) view.findViewById(R.id.activity)).setText(productActivity);
-			((Spinner) view.findViewById(R.id.product_brand)).setSelection(productProductBrand);
-			((Spinner) view.findViewById(R.id.supplier)).setSelection(productSuppliers);
-			((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
+				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
+				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
+				((TextView) view.findViewById(R.id.activity)).setText(productActivity);
 
+				((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
+
+				for (int i = 0; i < productList.size(); i++) {
+					if (productSupplier.getProductBrand() == productList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.product_brand)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < customerList.size(); i++) {
+					if (productSupplier.getId() == customerList.get(i).getId()) {
+						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
+						break;
+					}
+				}
+
+			}
 		} else {
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
 			this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
