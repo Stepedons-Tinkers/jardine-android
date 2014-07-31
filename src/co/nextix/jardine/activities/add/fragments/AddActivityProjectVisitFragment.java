@@ -66,7 +66,7 @@ public class AddActivityProjectVisitFragment extends Fragment {
 
 			}
 
-			if (projectName != null || !projectName.isEmpty() || projectStageRecord != 0 || projectCategoryRecord != 0) {
+			if (projectName != null || projectStageRecord != 0 || projectCategoryRecord != 0) {
 				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);
 
 				for (int i = 0; i < projectStage.size(); i++) {

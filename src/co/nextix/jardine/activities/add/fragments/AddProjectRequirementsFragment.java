@@ -74,7 +74,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 		}
 		
 		String record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
-		if (projectRequirementRecord != null || record != null || !record.isEmpty()) {
+		if (projectRequirementRecord != null || record != null) {
 
 			long createdBy = 0;
 			String activity = null;

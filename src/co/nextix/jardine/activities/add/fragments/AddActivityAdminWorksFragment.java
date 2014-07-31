@@ -36,7 +36,7 @@ public class AddActivityAdminWorksFragment extends Fragment {
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		String adminWorksDetail = pref.getString("activity_id_admin_details", null);
 
-		if (adminWorksDetail != null || !adminWorksDetail.isEmpty()) {
+		if (adminWorksDetail != null) {
 			((EditText) view.findViewById(R.id.details_admin_works)).setText(adminWorksDetail);
 		}
 

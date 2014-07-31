@@ -69,9 +69,8 @@ public class AddMarketingIntelFragment extends Fragment {
 
 			}
 
-			if (marketingIntelCreatedBy != null || !marketingIntelCreatedBy.isEmpty() || marketingIntelCrmNo != null
-					|| !marketingIntelCrmNo.isEmpty() || marketingActivity != null || !marketingActivity.isEmpty()
-					|| marketingCompetitorProduct != 0 || marketingDetails != null || !marketingDetails.isEmpty()) {
+			if (marketingIntelCreatedBy != null || marketingIntelCrmNo != null || marketingActivity != null
+					|| marketingCompetitorProduct != 0 || marketingDetails != null) {
 
 				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
 				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
@@ -87,6 +86,7 @@ public class AddMarketingIntelFragment extends Fragment {
 				((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
 
 			}
+			
 		} else {
 
 			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.competitorProductAdapter);

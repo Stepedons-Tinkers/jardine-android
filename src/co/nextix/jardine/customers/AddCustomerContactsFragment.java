@@ -120,10 +120,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
 				customerCreatedBy = record.toString();
 
-				if (crmNo != null || !crmNo.isEmpty() || firstName != null || !firstName.isEmpty() || lastName != null
-						|| !lastName.isEmpty() || positionInput != 0 || mobileNo != null || !mobileNo.isEmpty() || customerBirthday != null
-						|| !customerBirthday.isEmpty() || customerEmail != null || !customerEmail.isEmpty() || customerCustomer != null
-						|| !customerCustomer.isEmpty() || customerCreatedBy != null || !customerCreatedBy.isEmpty()) {
+				if (crmNo != null || firstName != null || lastName != null || positionInput != 0 || mobileNo != null
+						|| customerBirthday != null || customerEmail != null || customerCustomer != null || customerCreatedBy != null) {
 
 					field1.setText(crmNo);
 					field2.setText(firstName);

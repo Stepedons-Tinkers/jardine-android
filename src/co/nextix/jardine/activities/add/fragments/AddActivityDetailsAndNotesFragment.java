@@ -120,10 +120,8 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 			}
 
-			if (objectiveInput != null || objectiveInput.isEmpty() || highlightsInput != null || !highlightsInput.isEmpty()
-					|| notesInput != null || !notesInput.isEmpty() || nextStepsInput != null || !nextStepsInput.isEmpty()
-					|| followUpInput != null || !followUpInput.isEmpty() || customerID != 0 || areaSelected != 0 || provinceSelected != 0
-					|| cityORtownSelected != 0 || workplanEntryInput != 0) {
+			if (objectiveInput != null || highlightsInput != null || notesInput != null || nextStepsInput != null || followUpInput != null
+					|| customerID != 0 || areaSelected != 0 || provinceSelected != 0 || cityORtownSelected != 0 || workplanEntryInput != 0) {
 
 				for (int i = 0; i < customer.size(); i++) {
 					if (customer.get(i).getId() == activityRecord.getCustomer()) {
@@ -235,6 +233,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 					widthAnimation.start();
 					long customer = 0;
+					long customerType = 0;
 					long area = 0;
 					long province = 0;
 					long cityTown = 0;
@@ -251,6 +250,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					try {
 
 						customer = ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer)).getSelectedItem()).getId();
+						customerType = ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer)).getSelectedItem()).getCustomerType();
 						area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
 						province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
 						cityTown = ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()).getId();
@@ -277,6 +277,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 						trapping = true;
 						Editor editor = pref.edit();
 						editor.putLong("customer", customer);
+						editor.putLong("customer_type", customerType);
 						editor.putLong("area", area);
 						editor.putLong("province", province);
 						editor.putLong("city_town", cityTown);

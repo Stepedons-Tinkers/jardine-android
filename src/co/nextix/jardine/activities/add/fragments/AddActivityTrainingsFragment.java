@@ -46,6 +46,7 @@ public class AddActivityTrainingsFragment extends Fragment {
 			int numberOfAttendees = 0;
 
 			try {
+				
 				venue = activityRecord.getVenue();
 				numberOfAttendees = activityRecord.getNumberOfAttendees();
 				

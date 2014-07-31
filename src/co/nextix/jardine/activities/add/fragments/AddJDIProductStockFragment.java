@@ -82,9 +82,8 @@ public class AddJDIProductStockFragment extends Fragment {
 
 			}
 
-			if (jdiProductStockCrmNo != null || !jdiProductStockCrmNo.isEmpty() || jdiActivity != null || !jdiActivity.isEmpty()
-					|| jdiProduct != 0 || jdiStockStatus != 0 || jdiLoadedOnShelves != -1 || jdiSupplier != 0 || jdiCreatedBy != null
-					|| !jdiCreatedBy.isEmpty() || jdiOtherRemarks != null || !jdiOtherRemarks.isEmpty()) {
+			if (jdiProductStockCrmNo != null || jdiActivity != null || jdiProduct != 0 || jdiStockStatus != 0 || jdiLoadedOnShelves != -1
+					|| jdiSupplier != 0 || jdiCreatedBy != null || jdiOtherRemarks != null) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);

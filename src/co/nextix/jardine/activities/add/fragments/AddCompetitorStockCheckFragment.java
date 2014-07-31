@@ -76,10 +76,9 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 
 			}
 
-			if (jdiCompetitorProductCrmNo != null || !jdiCompetitorProductCrmNo.isEmpty() || jdiCompetitorProductActivity != null
-					|| !jdiCompetitorProductActivity.isEmpty() || jdiCompetitorProduct != 0 || jdiCompetitorStockStatus != 0
-					|| jdiCompetitorLoadedOnShelves != -1 || jdiCompetitorCreatedBy != null || !jdiCompetitorCreatedBy.isEmpty()
-					|| jdiCompetitorOtherTypeRemarks != null || !jdiCompetitorOtherTypeRemarks.isEmpty()) {
+			if (jdiCompetitorProductCrmNo != null || jdiCompetitorProductActivity != null || jdiCompetitorProduct != 0
+					|| jdiCompetitorStockStatus != 0 || jdiCompetitorLoadedOnShelves != -1 || jdiCompetitorCreatedBy != null
+					|| jdiCompetitorOtherTypeRemarks != null) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);

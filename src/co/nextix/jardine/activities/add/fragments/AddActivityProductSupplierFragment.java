@@ -71,9 +71,8 @@ public class AddActivityProductSupplierFragment extends Fragment {
 
 			}
 
-			if (productSupplierCreatedBy != null || !productSupplierCreatedBy.isEmpty() || productCrmNo != null || !productCrmNo.isEmpty()
-					|| productActivity != null || !productActivity.isEmpty() || productProductBrand != 0 || productSuppliers != 0
-					|| productOtherRemarks != null || !productOtherRemarks.isEmpty()) {
+			if (productSupplierCreatedBy != null || productCrmNo != null || productActivity != null || productProductBrand != 0
+					|| productSuppliers != 0 || productOtherRemarks != null) {
 
 				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
 				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);

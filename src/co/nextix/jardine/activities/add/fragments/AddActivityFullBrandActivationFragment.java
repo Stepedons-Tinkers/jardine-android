@@ -40,8 +40,10 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 		if (activityRecord != null) {
+
+			// Check if it has check
 			multiSpinner.setItems(activityTypeList, " ", this);
-			
+
 		} else {
 			multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
 

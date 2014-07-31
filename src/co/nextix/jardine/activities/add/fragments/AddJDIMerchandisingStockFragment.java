@@ -71,9 +71,8 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 			}
 
-			if (jdiMerchandisingCrmNo != null || !jdiMerchandisingCrmNo.isEmpty() || jdiMerchandisingActivity != null
-					|| !jdiMerchandisingActivity.isEmpty() || jdiMerchandisingProduct != 0 || jdiMerchandisingStatus != 0
-					|| jdiMerchandisingCreatedBy != null || !jdiMerchandisingCreatedBy.isEmpty()) {
+			if (jdiMerchandisingCrmNo != null || jdiMerchandisingActivity != null || jdiMerchandisingProduct != 0
+					|| jdiMerchandisingStatus != 0 || jdiMerchandisingCreatedBy != null) {
 
 				((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
 				((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
