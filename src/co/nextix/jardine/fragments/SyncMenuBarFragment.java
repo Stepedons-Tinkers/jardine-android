@@ -3316,7 +3316,7 @@ public class SyncMenuBarFragment extends Fragment {
 						// if ((activity > 0) && (product > 0))
 						table.insert(model.getRecordId(), model.getCrmNo(),
 								activity, product, 1, model.getCreatedTime(),
-								model.getModifiedTime(), USER_ID);
+								model.getModifiedTime(), user);
 					} else {
 						long id = table.getIdByNo(model.getRecordId());
 
@@ -3334,7 +3334,7 @@ public class SyncMenuBarFragment extends Fragment {
 							if (table.update(id, model.getRecordId(),
 									model.getCrmNo(), activity, product, 1,
 									model.getCreatedTime(),
-									model.getModifiedTime(), USER_ID))
+									model.getModifiedTime(), user))
 								Log.i(TAG, "update: " + id);
 						} else if (MyDateUtils.isTimeAfter(
 								model.getModifiedTime(),

@@ -230,7 +230,7 @@ public class LoginActivity extends Activity {
 					}
 					StoreAccount.save(getApplicationContext(), editUsername
 							.getText().toString(), editPassword.getText()
-							.toString(), userID, String.valueOf(rowid), model
+							.toString(), userID, rowid, model
 							.getSessionName(), SELECTED_AREA);
 
 					// choiceList = areas.split("\\s*,\\s*");

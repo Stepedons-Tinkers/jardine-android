@@ -182,6 +182,25 @@ public class UserTable {
 		return record;
 	}
 
+	public long getCurrentUserId() {
+		long id = 0;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_USER_LOGGEDIN + "=1";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+
+			if ((c != null) && c.moveToFirst()) {
+				id = c.getLong(c.getColumnIndex(KEY_USER_ROWID));
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return id;
+	}
+
 	public int deleteById(long[] rowIds) {
 
 		String ids = Arrays.toString(rowIds);

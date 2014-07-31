@@ -16,7 +16,7 @@ public class StoreAccount {
 	public static final String SESSIONNAME_KEY = "sessionName";
 
 	public static void save(Context context, String username, String password,
-			String id, String rowid, String sessionName, String area) {
+			String id, long rowid, String sessionName, String area) {
 		final Editor editor = context.getSharedPreferences(PREFERENCE_FILENAME,
 				Context.MODE_PRIVATE).edit();
 		try {
@@ -25,7 +25,7 @@ public class StoreAccount {
 			editor.putString(StoreAccount.PASSWORD_KEY,
 					AEShelper.encrypt(password));
 			editor.putString(StoreAccount.ID_KEY, AEShelper.encrypt(id));
-			editor.putString(StoreAccount.ROWID_KEY, AEShelper.encrypt(rowid));
+			editor.putLong(StoreAccount.ROWID_KEY, rowid);
 			editor.putString(StoreAccount.SESSIONNAME_KEY,
 					AEShelper.encrypt(sessionName));
 			editor.putString(StoreAccount.AREA_KEY, AEShelper.encrypt(area));
@@ -56,7 +56,7 @@ public class StoreAccount {
 		final String username = prefs.getString(StoreAccount.USERNAME_KEY, "");
 		final String password = prefs.getString(StoreAccount.PASSWORD_KEY, "");
 		final String id = prefs.getString(StoreAccount.ID_KEY, "");
-		final String rowid = prefs.getString(StoreAccount.ROWID_KEY, "");
+		final long rowid = prefs.getLong(StoreAccount.ROWID_KEY, 0);
 		final String sessionname = prefs.getString(
 				StoreAccount.SESSIONNAME_KEY, "");
 		final String area = prefs.getString(StoreAccount.AREA_KEY, "");
@@ -64,7 +64,7 @@ public class StoreAccount {
 			bundle.putString(Account.USERNAME, AEShelper.decrypt(username));
 			bundle.putString(Account.PASSWORD, AEShelper.decrypt(password));
 			bundle.putString(Account.ID, AEShelper.decrypt(id));
-			bundle.putString(Account.ROWID, AEShelper.decrypt(rowid));
+			bundle.putLong(Account.ROWID, rowid);
 			bundle.putString(Account.SESSION_NAME,
 					AEShelper.decrypt(sessionname));
 			bundle.putString(Account.AREA, AEShelper.decrypt(area));
