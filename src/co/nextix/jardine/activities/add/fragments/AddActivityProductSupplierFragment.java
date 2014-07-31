@@ -51,12 +51,23 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		ProductSupplierRecord productSupplier = JardineApp.DB.getProductSupplier().getById(id);
 
 		if (productSupplier != null) {
-			String productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
-			String productCrmNo = productSupplier.getCrm();
-			String productActivity = String.valueOf(productSupplier.getActivity());
-			int productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
-			int productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
-			String productOtherRemarks = productSupplier.getOthersRemarks();
+			String productSupplierCreatedBy = null;
+			String productCrmNo = null;
+			String productActivity = null;
+			int productProductBrand = 0;
+			int productSuppliers = 0;
+			String productOtherRemarks = null;
+			try {
+				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
+				productCrmNo = productSupplier.getCrm();
+				productActivity = String.valueOf(productSupplier.getActivity());
+				productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
+				productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
+				productOtherRemarks = productSupplier.getOthersRemarks();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (productSupplierCreatedBy != null && !productSupplierCreatedBy.isEmpty() && productCrmNo != null && !productCrmNo.isEmpty()
 					&& productActivity != null && !productActivity.isEmpty() && productProductBrand != 0 && productSuppliers != 0

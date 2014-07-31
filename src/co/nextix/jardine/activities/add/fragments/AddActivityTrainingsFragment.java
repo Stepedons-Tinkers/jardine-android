@@ -43,14 +43,21 @@ public class AddActivityTrainingsFragment extends Fragment {
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 
 		if (activityRecord != null) {
-			String venue = activityRecord.getVenue();
-			int numberOfAttendees = activityRecord.getNumberOfAttendees();
+			String venue = null;
+			int numberOfAttendees = 0;
+
+			try {
+				venue = activityRecord.getVenue();
+				numberOfAttendees = activityRecord.getNumberOfAttendees();
+			} catch (Exception e) {
+
+			}
 
 			((EditText) rootView.findViewById(R.id.venue)).setText(venue);
 			((EditText) rootView.findViewById(R.id.no_of_attendees)).setText(String.valueOf(numberOfAttendees));
 
 		}
-		
+
 		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override

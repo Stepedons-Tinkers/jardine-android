@@ -52,7 +52,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.view = inflater.inflate(R.layout.add_activity_photos_attachments, container, false);
-		
+
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
@@ -65,7 +65,25 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		DocumentRecord activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getNo());
 
 		if (activityPhotosAndAttachments != null) {
+			String crmNo = null;
+			String title = null;
+			String filePath = null;
+			String createdBy = null;
 
+			try {
+				crmNo = activityPhotosAndAttachments.getCrmNo();
+				title = activityPhotosAndAttachments.getTitle();
+				filePath = activityPhotosAndAttachments.getFilePath();
+				createdBy = JardineApp.DB.getUser().getById(activityPhotosAndAttachments.getUser()).toString();
+
+				((TextView) view.findViewById(R.id.document_no)).setText(crmNo);
+				((TextView) view.findViewById(R.id.title)).setText(title);
+				((TextView) view.findViewById(R.id.filename)).setText(filePath);
+				((TextView) view.findViewById(R.id.created_by)).setText(createdBy);
+
+			} catch (Exception e) {
+
+			}
 		}
 
 		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);

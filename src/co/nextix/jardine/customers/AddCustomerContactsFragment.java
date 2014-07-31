@@ -96,15 +96,30 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("activity_id_customer", 0));
 
 		if (record != null) {
-			String crmNo = record.getCrm();
-			String firstName = record.getFirstName();
-			String lastName = record.getLastName();
-			long positionInput = record.getPosition();
-			String mobileNo = record.getMobileNo();
-			String customerBirthday = record.getBirthday();
-			String customerEmail = record.getEmailAddress();
-			String customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
-			String customerCreatedBy = record.toString();
+			String crmNo = null;
+			String firstName = null;
+			String lastName = null;
+			long positionInput = 0;
+			String mobileNo = null;
+			String customerBirthday = null;
+			String customerEmail = null;
+			String customerCustomer = null;
+			String customerCreatedBy = null;
+
+			try {
+				crmNo = record.getCrm();
+				mobileNo = record.getMobileNo();
+				record.getBirthday();
+				firstName = record.getFirstName();
+				lastName = record.getLastName();
+				positionInput = record.getPosition();
+				customerEmail = record.getEmailAddress();
+				customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
+				customerCreatedBy = record.toString();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (crmNo != null && !crmNo.isEmpty() && firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()
 					&& positionInput != 0 && mobileNo != null && !mobileNo.isEmpty() && customerBirthday != null

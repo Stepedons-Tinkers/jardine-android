@@ -68,7 +68,13 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 
 					widthAnimation.start();
 
-					String reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
+					String reasons = null;
+					
+					try {
+						reasons = ((EditText) view.findViewById(R.id.reason_remarks)).getText().toString();
+					} catch (Exception e) {
+
+					}
 
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
