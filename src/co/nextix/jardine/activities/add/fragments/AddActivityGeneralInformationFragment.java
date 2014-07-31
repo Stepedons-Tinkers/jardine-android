@@ -33,7 +33,6 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
@@ -73,12 +72,20 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		this.rootView = inflater.inflate(R.layout.add_activity_gen_info, container, false);
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		List<BusinessUnitRecord> businessUnitList = JardineApp.DB.getBusinessUnit().getAllRecords();
-
+		
+		String assignedToFname = null;
+		String assignedToLname = null; 
+		
 		// Auto populate fields
-		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getLastname();
+		try {
+			
+			assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+					.getFirstNameName();
+			assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+					.getLastname();
+		} catch (Exception e) {
+
+		}
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long id = pref.getLong("activity_id_edit", 0);
@@ -124,9 +131,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 
 		} else {
-			
+
 			Log.e("condition", "false");
-			
+
 			// ArrayAdapter for spinners
 			this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
 					activityTypeList);
