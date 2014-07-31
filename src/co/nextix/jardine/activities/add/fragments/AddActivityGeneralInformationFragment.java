@@ -449,7 +449,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				Toast.makeText(getActivity(), "cancel", Toast.LENGTH_SHORT).show();
 				getActivity().getSupportFragmentManager().popBackStackImmediate();
 			}
 		});
