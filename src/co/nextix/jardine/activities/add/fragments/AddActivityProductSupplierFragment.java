@@ -33,12 +33,12 @@ public class AddActivityProductSupplierFragment extends Fragment {
 
 	private boolean flag = false;
 	private ArrayAdapter<ProductRecord> productAdapter = null;
-	private ArrayAdapter<CustomerRecord> customerAdapter = null;
+	private ArrayAdapter<ProductSupplierRecord> customerAdapter = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
-		List<CustomerRecord> customerList = JardineApp.DB.getCustomer().getAllRecords();
+		List<ProductSupplierRecord> customerList = JardineApp.DB.getProductSupplier().getAllRecords();
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
@@ -99,10 +99,10 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		} else {
 
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-			this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
+			this.customerAdapter = new ArrayAdapter<ProductSupplierRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
 
-			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
+			((Spinner) view.findViewById(R.id.product_brand)).setAdapter(this.productAdapter);
+			((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.customerAdapter);
 			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
 			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
 			((TextView) view.findViewById(R.id.activity)).setClickable(false);
@@ -141,7 +141,7 @@ public class AddActivityProductSupplierFragment extends Fragment {
 					widthAnimation.start();
 
 					long productBrand = ((ProductRecord) ((Spinner) view.findViewById(R.id.product_brand)).getSelectedItem()).getId();
-					long supplier = ((CustomerRecord) ((Spinner) view.findViewById(R.id.supplier)).getSelectedItem()).getId();
+					long supplier = ((ProductSupplierRecord) ((Spinner) view.findViewById(R.id.supplier)).getSelectedItem()).getId();
 					String otherRemarks = ((EditText) view.findViewById(R.id.other_remarks)).getText().toString();
 
 					/** Checking of required fields **/
@@ -154,17 +154,9 @@ public class AddActivityProductSupplierFragment extends Fragment {
 						editor.putString("product_supplier_other_remarks", otherRemarks);
 						editor.commit(); // commit changes
 
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
+						v.setClickable(true);
+						v.setEnabled(true);
 
-							@Override
-							public void run() {
-								getFragmentManager().popBackStackImmediate();
-								v.setClickable(true);
-								v.setEnabled(true);
-							}
-
-						}, 1500);
 					} else {
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();

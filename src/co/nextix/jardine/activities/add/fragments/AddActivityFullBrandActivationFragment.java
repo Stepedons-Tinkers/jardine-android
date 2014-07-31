@@ -53,10 +53,13 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 
 			@Override
 			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+				
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(1500);
+					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
 					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
 						@Override
@@ -84,9 +87,15 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 					editor.putInt("end_user_activity_types_position", POSITION_END_USER_ACTIVITY_TYPE);
 					editor.commit(); // commit changes
 
+					v.setClickable(true);
+					v.setEnabled(true);
+
 				} else {
 
 					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+					
 					if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
 																					// brand
 						DashBoardActivity.tabIndex.add(4, 16);

@@ -34,12 +34,10 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.add.fragments.AddActivityDetailsAndNotesFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.CustomerContactRecord;
-import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
@@ -224,10 +222,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field6b.setOnClickListener(this);
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		CustomerRecord record = JardineApp.DB.getCustomer().getById(pref.getLong("customer", 0));
+		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("customer", 0));
 
 		if (record != null) {
-			field8.setText(record.toString());
+			field8.setText(JardineApp.DB.getUser().getById(record.getCustomer()).toString());
 		}
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
@@ -371,6 +369,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 	private void saveData() {
 		if (saveORdone.getProgress() == 0) {
+			saveORdone.setClickable(false);
+			saveORdone.setEnabled(false);
 
 			ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 			widthAnimation.setDuration(1500);
@@ -424,13 +424,17 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 					@Override
 					public void run() {
 						saveORdone.setProgress(0);
-
+						saveORdone.setClickable(true);
+						saveORdone.setEnabled(true);
 					}
 				}, 1500);
 			}
 
 		} else {
 			saveORdone.setProgress(0);
+			saveORdone.setClickable(true);
+			saveORdone.setEnabled(true);
+
 			if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 				DashBoardActivity.tabIndex.add(3, 6);
 				AddActivityFragment.pager.setCurrentItem(6);

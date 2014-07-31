@@ -135,6 +135,7 @@ public class AddMarketingIntelFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 					if (details != null && !details.isEmpty() && competitorProduct != 0) {
+						
 						flag = true;
 						Editor editor = pref.edit();
 						editor.putString("details_marketing_intel", details);
