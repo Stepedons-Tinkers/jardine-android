@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
+import co.nextix.jardine.database.records.ProductRecord;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -38,10 +39,14 @@ public class AddActivityFragment extends Fragment {
 
 	private Bundle bundle;
 	private long activityID = 0;
+	
+
+	public static ArrayList<Long> passValues;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		passValues = new ArrayList<Long>();
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
 
 		bundle = getArguments();

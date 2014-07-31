@@ -303,9 +303,7 @@ public class ActivityInfoFragment extends Fragment {
 			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
 					CustomerContactPersonFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-					PhotosAndAttachmentsFragment.class.getName())); // identify
-																	// product
-																	// focus
+					PhotosAndAttachmentsFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
 					PhotosAndAttachmentsFragment.class.getName()));
 			break;

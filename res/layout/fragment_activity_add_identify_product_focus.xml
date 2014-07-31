@@ -77,7 +77,7 @@
                         android:layout_margin="4dp"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        app:textComplete="@string/save"
+                        app:textComplete="@string/next"
                         app:textError="@string/error"
                         app:textIdle="@string/done" />
                 </RelativeLayout>

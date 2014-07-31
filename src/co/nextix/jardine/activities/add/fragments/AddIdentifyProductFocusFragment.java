@@ -48,7 +48,6 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-	public static ArrayList<ProductRecord> passValues;
 
 	private Bundle bundle;
 	private int frag_layout_id;
@@ -60,7 +59,6 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		passValues = new ArrayList<ProductRecord>();
 		view = inflater.inflate(R.layout.fragment_activity_add_identify_product_focus, container, false);
 		setListData();
 
@@ -149,7 +147,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (passValues.size() > 1) {
+					if (AddActivityFragment.passValues.size() > 0) {
 
 						flag = true;
 						Editor editor = pref.edit();
@@ -178,15 +176,20 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-
-					// insert then pop all backstack
-				}
-
-				if (AddActivityGeneralInformationFragment.ActivityType == 102) { // product
+					((CircularProgressButton) v).setClickable(true);
+					((CircularProgressButton) v).setEnabled(true);
+					
+					
+					if (AddActivityGeneralInformationFragment.ActivityType == 102) { // product
 																					// focus
 					DashBoardActivity.tabIndex.add(4, 16);
 					AddActivityFragment.pager.setCurrentItem(16);
 				}
+
+					// insert then pop all backstack
+				}
+
+				
 
 				// String names = "";
 				// for (int i = 0; i < passValues.size(); i++) {
