@@ -21,6 +21,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
@@ -36,6 +37,20 @@ public class AddActivityTrainingsFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		final View rootView = inflater.inflate(R.layout.add_activity_trainings, container, false);
 
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		long activity_id = pref.getLong("activity_id_edit", 0);
+
+		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
+
+		if (activityRecord != null) {
+			String venue = activityRecord.getVenue();
+			int numberOfAttendees = activityRecord.getNumberOfAttendees();
+
+			((EditText) rootView.findViewById(R.id.venue)).setText(venue);
+			((EditText) rootView.findViewById(R.id.no_of_attendees)).setText(String.valueOf(numberOfAttendees));
+
+		}
+		
 		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -119,7 +134,8 @@ public class AddActivityTrainingsFragment extends Fragment {
 					v.setClickable(true);
 					v.setEnabled(true);
 
-					if(AddActivityGeneralInformationFragment.ActivityType == 101){ // major training
+					if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
+																						// training
 						DashBoardActivity.tabIndex.add(4, 16);
 						AddActivityFragment.pager.setCurrentItem(16);
 					}

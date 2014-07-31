@@ -23,6 +23,8 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -33,8 +35,11 @@ public class AddMarketingIntelFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
+		
 		List<CompetitorProductRecord> competitorProductLsit = JardineApp.DB.getCompetitorProduct().getAllRecords();
 
 		this.competitorProductAdapter = new ArrayAdapter<CompetitorProductRecord>(JardineApp.context, R.layout.add_activity_textview,

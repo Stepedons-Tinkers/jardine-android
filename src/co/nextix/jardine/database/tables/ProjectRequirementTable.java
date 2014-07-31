@@ -339,6 +339,56 @@ public class ProjectRequirementTable {
 
 		return record;
 	}
+	
+	public ProjectRequirementRecord getByActivityId(long activityID) {
+		ProjectRequirementRecord record = null;
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PROJECTREQUIREMENTS_ACTIVITY + "=?";
+		Cursor c = null;
+		try {
+			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(activityID) });
+
+			if ((c != null) && c.moveToFirst()) {
+				long id = c.getLong(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ROWID));
+				String no = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_NO));
+				String crmNo = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CRMNO));
+				long activity = c.getLong(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_ACTIVITY));
+				long projectRequirementType = c.getLong(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_TYPE));
+				String dateNeeded = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_DATENEEDED));
+				String squareMeters = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_SQUAREMETERS));
+				// String productsUsed = c.getString(c
+				// .getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSUSED));
+				String productsBrand = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_PRODUCTSBRAND));
+				String otherDetails = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_OTHERDETAILS));
+				String createdTime = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDTIME));
+				String modifiedTime = c.getString(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_MODIFIEDTIME));
+				long createdBy = c.getLong(c
+						.getColumnIndex(KEY_PROJECTREQUIREMENTS_CREATEDBY));
+
+				record = new ProjectRequirementRecord(id, no, crmNo, activity,
+						projectRequirementType, dateNeeded, squareMeters,
+						productsBrand, otherDetails, createdTime, modifiedTime,
+						createdBy);
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+
+		return record;
+	}
 
 	public ProjectRequirementRecord getByWebId(String ID) {
 		ProjectRequirementRecord record = null;

@@ -47,6 +47,35 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				projectCategory);
 
 		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		long id = pref.getLong("activity_id_edit", 0);
+
+		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
+
+		if (record != null) {
+			String projectName = record.getProjectName();
+			long projectStageRecord = record.getProjectStage();
+			long projectCategoryRecord = record.getProjectCategory();
+
+			if (projectName != null && !projectName.isEmpty() && projectStageRecord != 0 && projectCategoryRecord != 0) {
+				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);
+
+				for (int i = 0; i < projectStage.size(); i++) {
+					if (projectStage.get(i).getId() == projectStageRecord) {
+						((Spinner) rootView.findViewById(R.id.project_stage)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < projectCategory.size(); i++) {
+					if (projectCategory.get(i).getId() == projectCategoryRecord) {
+						((Spinner) rootView.findViewById(R.id.project_category)).setSelection(i);
+						break;
+					}
+				}
+			}
+
+		}
 
 		((TextView) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
 
@@ -132,6 +161,9 @@ public class AddActivityProjectVisitFragment extends Fragment {
 
 			@Override
 			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);

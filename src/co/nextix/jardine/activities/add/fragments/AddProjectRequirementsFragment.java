@@ -25,7 +25,11 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.ProjectRequirementRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -51,24 +55,63 @@ public class AddProjectRequirementsFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
 
 		List<PicklistRecord> projectRequirementList = JardineApp.DB.getProjectRequirementType().getAllRecords();
-		this.projectRequirementAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,
-				projectRequirementList);
 
 		this.view = inflater.inflate(R.layout.fragment_activity_add_proj_requirements, container, false);
-		((Spinner) this.view.findViewById(R.id.project_requirements)).setAdapter(this.projectRequirementAdapter);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		long activity_id = pref.getLong("activity_id_edit", 0);
+		long projectRequirement_id = pref.getLong("project_requirement_id", 0);
 
-		// Setting to text field auto populate data
-		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) this.view.findViewById(R.id.created_by)).setEnabled(false);
-		((TextView) this.view.findViewById(R.id.created_by)).setClickable(false);
+		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
+		ProjectRequirementRecord projectRequirementRecord = JardineApp.DB.getProjectRequirement().getByActivityId(activity_id);
+		String record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
 
-		((TextView) this.view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((TextView) this.view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) this.view.findViewById(R.id.activity)).setClickable(false);
+		if (activityRecord != null && projectRequirementRecord != null && record != null && !record.isEmpty()) {
+
+			long createdBy = projectRequirementRecord.getCreatedBy();
+			String activity = projectRequirementRecord.getCrm();
+			String projectRequirement = projectRequirementRecord.getCrm();
+			String dateNeeded = projectRequirementRecord.getDateNeeded();
+			String squareMeters = projectRequirementRecord.getSquareMeters();
+			String productBrand = projectRequirementRecord.getProductsBrand();
+			String otherDetails = projectRequirementRecord.getOtherDetails();
+
+			((TextView) view.findViewById(R.id.created_by)).setText(JardineApp.DB.getUser().getById(createdBy).toString());
+			((TextView) view.findViewById(R.id.crm_no)).setText(projectRequirement);
+			((TextView) view.findViewById(R.id.activity)).setText(activity);
+			((TextView) view.findViewById(R.id.date_needed)).setText(dateNeeded);
+
+			for (int i = 0; i < projectRequirementList.size(); i++) {
+				if (projectRequirementList.get(i).getId() == projectRequirementRecord.getProjectRequirementType()) {
+					((Spinner) view.findViewById(R.id.project_requirement_type)).setSelection(i);
+					break;
+				}
+			}
+
+			((EditText) view.findViewById(R.id.square_meters_proj_requirements)).setText(squareMeters);
+			((EditText) view.findViewById(R.id.product_brand)).setText(productBrand);
+			((EditText) view.findViewById(R.id.other_details)).setText(otherDetails);
+		} else {
+
+			this.projectRequirementAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,
+					projectRequirementList);
+
+			((Spinner) this.view.findViewById(R.id.project_requirements)).setAdapter(this.projectRequirementAdapter);
+
+			// Setting to text field auto populate data
+			((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+			((TextView) this.view.findViewById(R.id.created_by)).setEnabled(false);
+			((TextView) this.view.findViewById(R.id.created_by)).setClickable(false);
+
+			((TextView) this.view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+			((TextView) this.view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) this.view.findViewById(R.id.activity)).setClickable(false);
+		}
 
 		((TextView) this.view.findViewById(R.id.date_needed)).setOnClickListener(new OnClickListener() {
 

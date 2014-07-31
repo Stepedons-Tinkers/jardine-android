@@ -147,7 +147,7 @@
                 </HorizontalScrollView>
 
                 <EditText
-                    android:id="@+id/venue"
+                    android:id="@+id/no_of_attendees"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="4dp"

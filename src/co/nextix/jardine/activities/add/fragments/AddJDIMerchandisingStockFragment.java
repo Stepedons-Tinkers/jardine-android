@@ -21,6 +21,8 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -35,8 +37,10 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
 		List<PicklistRecord> statusList = JardineApp.DB.getJDImerchCheckStatus().getAllRecords();
 
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
 
 		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
 		this.statusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, statusList);

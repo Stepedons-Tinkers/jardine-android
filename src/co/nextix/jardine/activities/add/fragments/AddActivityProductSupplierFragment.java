@@ -24,6 +24,8 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -37,8 +39,10 @@ public class AddActivityProductSupplierFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
 		List<CustomerRecord> customerList = JardineApp.DB.getCustomer().getAllRecords();
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
 
 		final View view = inflater.inflate(R.layout.add_activity_product_supplier, container, false);
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

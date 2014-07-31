@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
+import co.nextix.jardine.activities.add.fragments.AddActivityFullBrandActivationFragment;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 
 public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener, OnCancelListener {
@@ -46,8 +47,7 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
 		// refresh text on spinner
 		String spinnerText;
 		StringBuffer spinnerBuffer = new StringBuffer();
-
-		int numberOfChecks = 0;
+		
 		int i;
 
 		for (i = 0; i < items.size(); i++) {
@@ -80,7 +80,8 @@ public class MultiSpinner extends Spinner implements OnMultiChoiceClickListener,
 			if (spinnerText.length() > 2)
 				spinnerText = spinnerText.substring(0, spinnerText.length() - 2);
 		}
-
+		
+		AddActivityFullBrandActivationFragment.POSITION_END_USER_ACTIVITY_TYPE = hasCheck;
 		ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_spinner_item,
 				new String[] { spinnerText });
 

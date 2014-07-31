@@ -23,6 +23,8 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -36,8 +38,10 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 		List<CompetitorProductStockCheckRecord> competitorStockCheckList = JardineApp.DB.getCompetitorProductStockCheck().getAllRecords();
 		List<PicklistRecord> jdiCompetitorStockCheckList = JardineApp.DB.getCompetitorProductStockStatus().getAllRecords();
 
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
 
 		this.competitorStockAdapter = new ArrayAdapter<CompetitorProductStockCheckRecord>(JardineApp.context,
 				R.layout.add_activity_textview, competitorStockCheckList);

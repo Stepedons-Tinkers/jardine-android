@@ -26,6 +26,8 @@ import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -44,8 +46,10 @@ public class AddJDIProductStockFragment extends Fragment {
 		List<PicklistRecord> stockStatusList = JardineApp.DB.getJDIproductStatus().getAllRecords();
 		List<CustomerRecord> supplierList = JardineApp.DB.getCustomer().getAllRecords();
 
-		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

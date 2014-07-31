@@ -12,13 +12,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.database.records.ProjectRequirementRecord;
 import co.nextix.jardine.utils.MultiSpinner;
 import co.nextix.jardine.utils.MultiSpinner.MultiSpinnerListener;
 
@@ -27,16 +28,25 @@ import com.dd.CircularProgressButton;
 public class AddActivityFullBrandActivationFragment extends Fragment implements MultiSpinnerListener {
 	private View view = null;
 	private boolean flag = false;
+	public static int POSITION_END_USER_ACTIVITY_TYPE = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		this.view = inflater.inflate(R.layout.add_activity_full_brand, container, false);
-		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
-
+		final List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		MultiSpinner multiSpinner = (MultiSpinner) this.view.findViewById(R.id.multi_spinner);
-		multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
+		
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		long activity_id = pref.getLong("activity_id_edit", 0);
 
+		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
+		if (activityRecord != null) {
+			multiSpinner.setItems(activityTypeList, " ", this);
+		}
+
+		
+		multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -69,12 +79,14 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 					
 					Editor editor = pref.edit();
 					editor.putString("end_user_activity_types", endUserActvityTypes);
+					editor.putInt("end_user_activity_types_position", POSITION_END_USER_ACTIVITY_TYPE);
 					editor.commit(); // commit changes
 
 				} else {
 
 					((CircularProgressButton) v).setProgress(0);
-					if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+					if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
+																					// brand
 						DashBoardActivity.tabIndex.add(4, 16);
 						AddActivityFragment.pager.setCurrentItem(16);
 					}

@@ -74,6 +74,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		List<BusinessUnitRecord> businessUnitList = JardineApp.DB.getBusinessUnit().getAllRecords();
 
+		// Auto populate fields
+		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getFirstNameName();
+		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
+				.getLastname();
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long id = pref.getLong("activity_id_edit", 0);
 
@@ -118,14 +124,9 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 
 		} else {
-
+			
 			Log.e("condition", "false");
-
-			// Auto populate fields
-
-			String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
-			String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
-
+			
 			// ArrayAdapter for spinners
 			this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
 					activityTypeList);
