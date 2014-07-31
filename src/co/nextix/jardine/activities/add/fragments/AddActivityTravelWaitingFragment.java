@@ -82,10 +82,10 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 						flag = true;
 
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
-								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
-								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "",
-								0, 0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0),
+								StoreAccount.restore(getActivity()).getLong(Account.ROWID), 123.894882, 10.310235, pref.getString(
+										"check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), reasons, 0, "", 0,
+								0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -93,8 +93,7 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 							@Override
 							public void run() {
 								pref.edit().clear().commit();
-								getFragmentManager();
-								getFragmentManager().popBackStack("activities", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								getFragmentManager().popBackStackImmediate();
 								v.setClickable(true);
 								v.setEnabled(true);
 							}

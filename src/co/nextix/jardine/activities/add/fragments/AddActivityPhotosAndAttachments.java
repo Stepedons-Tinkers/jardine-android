@@ -267,6 +267,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
 
 						} else if (pref.getString("trainings_venue", null) != null && pref.getInt("trainings_no", -1) != -1) {
+
 							// Adding activity
 							new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
 									"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref.getLong(
@@ -372,8 +373,6 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 	}
 
 	protected class InsertTask extends AsyncTask<Void, Void, Boolean> {
-
-		private ValueAnimator widthAnimation = null;
 
 		// String to be populated
 		private String customerContactNo = null;
@@ -582,7 +581,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 				String otherRemarks, String createdTime, String modifiedTime, long createdBy) {
 
 			this.jdiProductNo = no;
-			this.jdiProductCreatedTime = crmNo;
+			this.jdiProductCrmNo = crmNo;
 			this.jdiProductActivity = activity;
 			this.jdiProductProduct = product;
 			this.jdiProductStockStatus = stockStatus;
@@ -700,23 +699,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 		@Override
 		protected void onPreExecute() {
-			// Animate Button
-			this.widthAnimation = ValueAnimator.ofInt(1, 100);
-			this.widthAnimation.setDuration(1500);
-			this.widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			this.widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveBtn.setProgress(value);
 
-					if (!flag) {
-						saveBtn.setProgress(-1);
-					}
-				}
-			});
-
-			this.widthAnimation.start();
 		}
 
 		@Override
@@ -739,7 +722,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							this.customerContactIsActive, this.customerContactCreatedTime, this.customerContactModifiedTime,
 							this.customerContactUser);
 
-					saveJDIProductStockCheck(this.jdiProductNo, this.jdiProductCreatedTime, this.jdiProductActivity,
+					saveJDIProductStockCheck(this.jdiProductNo, this.jdiProductCrmNo, this.jdiProductActivity,
 							this.jdiProductProduct, this.jdiProductStockStatus, this.jdiProductLoadedOnShelves,
 							this.jdiProductCustomerType, this.jdiProductOtherRemarks, this.jdiProductCreatedTime,
 							this.jdiProductModifiedTime, this.jdiProductCreatedBy);

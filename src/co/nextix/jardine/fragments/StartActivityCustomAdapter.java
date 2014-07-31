@@ -137,20 +137,22 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 			/************ Set Model values in Holder elements ***********/
 			
-
-			if (holder.crm_no_txt.getText().toString().equals("")) {
+			if (this.tempValues.toString() == null) {
 				holder.workplan_txt.setText(null);
 				holder.activity_type_txt.setText(null);
 				holder.start_time_txt.setText(null);
 				holder.end_time_txt.setText(null);
 				holder.created_by.setText(null);
 				holder.edit_txt.setText(null);
+				holder.crm_no_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
+				
 			}else{
 				holder.start_time_txt.setText(MyDateUtils.convertDateTime(this.tempValues.getCheckIn()));
 				holder.end_time_txt.setText(MyDateUtils.convertDateTime(this.tempValues.getCheckOut()));
 				holder.crm_no_txt.setText(this.tempValues.getCrm());
+				
 
 				
 				WorkplanTable wor = JardineApp.DB.getWorkplan();

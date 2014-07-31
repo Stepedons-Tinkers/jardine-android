@@ -41,12 +41,9 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.records.WorkplanEntryRecord;
-import co.nextix.jardine.database.records.WorkplanRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
-import co.nextix.jardine.workplan.AdapterWorkplanEntry;
 
 public class StartActivityFragment extends Fragment implements OnClickListener {
 
@@ -156,6 +153,7 @@ public class StartActivityFragment extends Fragment implements OnClickListener {
 
 			}
 		});
+		
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 		setListData();
 

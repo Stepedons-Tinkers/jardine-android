@@ -49,7 +49,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
-	
+
 	public static ArrayList<ProductRecord> passValues;
 
 	private Bundle bundle;
@@ -67,7 +67,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		setListData();
 
 		bundle = getArguments();
-		
+
 		if (bundle != null) {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
@@ -126,68 +126,69 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 			@Override
 			public void onClick(final View v) {
-//				v.setClickable(false);
-//				v.setEnabled(false);
-//
-//				if (((CircularProgressButton) v).getProgress() == 0) {
-//
-//					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-//					widthAnimation.setDuration(500);
-//					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-//					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-//						@Override
-//						public void onAnimationUpdate(ValueAnimator animation) {
-//
-//							Integer value = (Integer) animation.getAnimatedValue();
-//							((CircularProgressButton) v).setProgress(value);
-//
-//							if (!flag) {
-//
-//								((CircularProgressButton) v).setProgress(-1);
-//							}
-//						}
-//					});
-//
-//					widthAnimation.start();
-//
-//					String title = ((EditText) view.findViewById(R.id.title)).getText().toString();
-//					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
-//
-//					/** Checking of required fields **/
-//					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
-//
-//						flag = true;
-//						
-//						v.setClickable(true);
-//						v.setEnabled(true);
-//					} else {
-//						flag = false;
-//						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
-//
-//						Handler handler = new Handler();
-//						handler.postDelayed(new Runnable() {
-//
-//							@Override
-//							public void run() {
-//								((CircularProgressButton) v).setProgress(0);
-//								v.setClickable(true);
-//								v.setEnabled(true);
-//							}
-//						}, 1500);
-//					}
-//
-//				} else {
-//					((CircularProgressButton) v).setProgress(0);
-//
-//					// insert then pop all backstack
-//				}
-				
-				String names = "";				
-				for(int i = 0; i < passValues.size(); i++){
-					names = names + passValues.get(i) + "\n"; 
+				v.setClickable(false);
+				v.setEnabled(false);
+
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					String title = ((EditText) view.findViewById(R.id.title)).getText().toString();
+					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
+
+					/** Checking of required fields **/
+					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
+
+						flag = true;
+
+						v.setClickable(true);
+						v.setEnabled(true);
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
+					}
+
+				} else {
+					((CircularProgressButton) v).setProgress(0);
+
+					// insert then pop all backstack
 				}
-				Toast.makeText(getActivity(), names, Toast.LENGTH_SHORT).show();
+
+				// String names = "";
+				// for(int i = 0; i < passValues.size(); i++){
+				// names = names + passValues.get(i) + "\n";
+				// }
+				// Toast.makeText(getActivity(), names,
+				// Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -244,29 +245,30 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-		
+
 		Toast.makeText(getActivity(), "Enter", Toast.LENGTH_SHORT).show();
 		this.adapter = new AddIdentifyProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
 		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
 		// getActivity(), list, this.tempRecord, this);
-		
-		this.list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);  
+
+		this.list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//				CheckBox check = (CheckBox)view.findViewById(R.id.checkbox1);
-//				if(check.isChecked())
-//					check.setChecked(true);
-//				else
-//					check.setChecked(false);
+				// CheckBox check = (CheckBox)view.findViewById(R.id.checkbox1);
+				// if(check.isChecked())
+				// check.setChecked(true);
+				// else
+				// check.setChecked(false);
 			}
 		});
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	public void onItemClick(int mPosition) {
-//		ProductRecord tempValues = (ProductRecord) this.tempRecord.get(mPosition);
+		// ProductRecord tempValues = (ProductRecord)
+		// this.tempRecord.get(mPosition);
 
 		// SharedPreferences pref =
 		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
@@ -320,12 +322,14 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		// R.anim.slide_out_left)
 		// .replace(R.id.frame_container,
 		// fragment).addToBackStack(null).commit();
-//		Fragment fragment = new ProductFocusDetailFragment();
-//		bundle.putLong("product_id", tempValues.getId());
-//		fragment.setArguments(bundle);
-//		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-//		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-//				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+		// Fragment fragment = new ProductFocusDetailFragment();
+		// bundle.putLong("product_id", tempValues.getId());
+		// fragment.setArguments(bundle);
+		// FragmentManager fragmentManager =
+		// getActivity().getSupportFragmentManager();
+		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+		// R.anim.slide_out_left)
+		// .replace(frag_layout_id, fragment).addToBackStack(null).commit();
 
 	}
 

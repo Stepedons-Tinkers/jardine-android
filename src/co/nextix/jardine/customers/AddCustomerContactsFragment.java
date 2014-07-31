@@ -222,10 +222,14 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field4.setAdapter(adapter4);
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
-		
+
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		field8.setText(String.valueOf(pref.getLong("customer", 0)));
-		
+		CustomerRecord record = JardineApp.DB.getCustomer().getById(pref.getLong("customer", 0));
+
+		if (record != null) {
+			field8.setText(record.toString());
+		}
+
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
 			UserRecord user = u.getCurrentUser();

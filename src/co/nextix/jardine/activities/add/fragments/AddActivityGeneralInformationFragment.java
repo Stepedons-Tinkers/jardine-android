@@ -32,6 +32,7 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
@@ -84,6 +85,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					.getFirstNameName();
 			assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 					.getLastname();
+			
 		} catch (Exception e) {
 
 		}
@@ -91,41 +93,40 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long id = pref.getLong("activity_id_edit", 0);
 
+		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
 		DashBoardActivity.fromAddActivities = true;
 		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
 
-		if (JardineApp.DB.getActivity().getById(id) != null) {
+		if (record != null) {
 
-			String checkOut = JardineApp.DB.getActivity().getById(id).getCheckOut();
-			long businessUnit = JardineApp.DB.getActivity().getById(id).getBusinessUnit();
-			long activityType = JardineApp.DB.getActivity().getById(id).getActivityType();
-			long createdBy = JardineApp.DB.getActivity().getById(id).getCreatedBy();
+			String checkOut = record.getCheckOut();
+			long businessUnit = record.getBusinessUnit();
+			long activityType = record.getActivityType();
+			long createdBy = record.getCreatedBy();
 
-			if (JardineApp.DB.getActivity().getById(id).getCrm() != null || !JardineApp.DB.getActivity().getById(id).getCrm().isEmpty()
-					|| JardineApp.DB.getActivity().getById(id).getCheckIn() != null
-					|| !JardineApp.DB.getActivity().getById(id).getCheckIn().isEmpty() && businessUnit != 0 && activityType != 0
-					&& checkOut != null && createdBy != 0) {
+			if (record.getCrm() != null || !record.getCrm().isEmpty() || record.getCheckIn() != null || !record.getCheckIn().isEmpty()
+					&& businessUnit != 0 && activityType != 0 && checkOut != null && createdBy != 0) {
 
 				Log.e("condition", "true");
 				String lastName = JardineApp.DB.getUser().getById(createdBy).getLastname();
 				String firstName = JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
 
-				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(JardineApp.DB.getActivity().getById(id).getCrm());
-				((TextView) this.rootView.findViewById(R.id.check_in)).setText(JardineApp.DB.getActivity().getById(id).getCheckIn());
+				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(record.getCrm());
+				((TextView) this.rootView.findViewById(R.id.check_in)).setText(record.getCheckIn());
 				((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
 				((EditText) this.rootView.findViewById(R.id.created_by)).setText("" + lastName + ", " + firstName);
 
 				for (int i = 0; i < activityTypeList.size(); i++) {
-					if (JardineApp.DB.getActivity().getById(id).getActivityType() == activityTypeList.get(i).getId()) {
+					if (record.getActivityType() == activityTypeList.get(i).getId()) {
 						((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection(i);
 						break;
 					}
 				}
 
 				for (int i = 0; i < businessUnitList.size(); i++) {
-					if (JardineApp.DB.getActivity().getById(id).getBusinessUnit() == businessUnitList.get(i).getId()) {
+					if (record.getBusinessUnit() == businessUnitList.get(i).getId()) {
 						((Spinner) this.rootView.findViewById(R.id.business_unit)).setSelection(i);
 						break;
 					}

@@ -119,7 +119,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 			this.projectRequirementAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,
 					projectRequirementList);
 
-			((Spinner) this.view.findViewById(R.id.project_requirements)).setAdapter(this.projectRequirementAdapter);
+			((Spinner) this.view.findViewById(R.id.project_requirement_type)).setAdapter(this.projectRequirementAdapter);
 
 			// Setting to text field auto populate data
 			((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);

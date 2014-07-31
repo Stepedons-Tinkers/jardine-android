@@ -59,7 +59,7 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 		long smrID = pref.getLong("activity_id_edit", 0);
 
 		SMRRecord record = JardineApp.DB.getSMR().getById(smrID);
-		if (smrID != 0) {
+		if (record != null) {
 			for (int i = 0; i < smrList.size(); i++) {
 				if (smrList.get(i).getId() == record.getId()) {
 					((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
@@ -70,6 +70,7 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 			ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
 			((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
 		}
+
 		((Spinner) rootView.findViewById(R.id.smr)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
@@ -120,15 +121,16 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+
 					if (smr != 0) {
 
 						flag = true;
 
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
-								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), Long
-								.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID)), 123.894882, 10.310235, pref
-								.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), " ", smr, "", 0,
-								0, 0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
+								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0),
+								StoreAccount.restore(getActivity()).getLong(Account.ROWID), 123.894882, 10.310235, pref.getString(
+										"check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), " ", smr, "", 0, 0,
+								0, 0, AddActivityFragment.WORKPLAN_ENTRY_ID, "", 0, 0, "", "", "", "", "", 0, 0, "", 0, "").execute();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -136,15 +138,15 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 							@Override
 							public void run() {
 								pref.edit().clear().commit();
-								getFragmentManager().popBackStackImmediate("general_information", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+								getFragmentManager().popBackStackImmediate();
 							}
 
-						}, 1700);
+						}, 1500);
 
 					} else {
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-
+						
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
