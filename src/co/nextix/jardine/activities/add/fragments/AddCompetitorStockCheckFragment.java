@@ -55,13 +55,26 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 		CompetitorProductStockCheckRecord jdiCompetitorStockCheck = JardineApp.DB.getCompetitorProductStockCheck().getById(id);
 
 		if (jdiCompetitorStockCheck != null) {
-			String jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
-			String jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
-			int jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
-			int jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
-			int jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
-			String jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
-			String jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
+			String jdiCompetitorProductCrmNo = null;
+			String jdiCompetitorProductActivity = null;
+			int jdiCompetitorProduct = 0;
+			int jdiCompetitorStockStatus = 0;
+			int jdiCompetitorLoadedOnShelves = 0;
+			String jdiCompetitorCreatedBy = null;
+			String jdiCompetitorOtherTypeRemarks = null;
+
+			try {
+				jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
+				jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
+				jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
+				jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
+				jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
+				jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
+				jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (jdiCompetitorProductCrmNo != null && !jdiCompetitorProductCrmNo.isEmpty() && jdiCompetitorProductActivity != null
 					&& !jdiCompetitorProductActivity.isEmpty() && jdiCompetitorProduct != 0 && jdiCompetitorStockStatus != 0

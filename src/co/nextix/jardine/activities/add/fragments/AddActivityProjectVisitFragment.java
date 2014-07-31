@@ -53,9 +53,18 @@ public class AddActivityProjectVisitFragment extends Fragment {
 		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
 
 		if (record != null) {
-			String projectName = record.getProjectName();
-			long projectStageRecord = record.getProjectStage();
-			long projectCategoryRecord = record.getProjectCategory();
+			String projectName = null;
+			long projectStageRecord = 0;
+			long projectCategoryRecord = 0;
+
+			try {
+				projectName = record.getProjectName();
+				projectStageRecord = record.getProjectStage();
+				projectCategoryRecord = record.getProjectCategory();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (projectName != null && !projectName.isEmpty() && projectStageRecord != 0 && projectCategoryRecord != 0) {
 				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);

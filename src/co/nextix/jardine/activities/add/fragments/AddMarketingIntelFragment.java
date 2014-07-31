@@ -39,7 +39,7 @@ public class AddMarketingIntelFragment extends Fragment {
 				.getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getLastname();
-		
+
 		List<CompetitorProductRecord> competitorProductLsit = JardineApp.DB.getCompetitorProduct().getAllRecords();
 
 		this.competitorProductAdapter = new ArrayAdapter<CompetitorProductRecord>(JardineApp.context, R.layout.add_activity_textview,
@@ -52,11 +52,22 @@ public class AddMarketingIntelFragment extends Fragment {
 		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
 
 		if (marketingIntel != null) {
-			String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
-			String marketingIntelCrmNo = marketingIntel.getCrm();
-			String marketingActivity = String.valueOf(marketingIntel.getActivity());
-			long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
-			String marketingDetails = marketingIntel.getDetails();
+			String marketingIntelCreatedBy = null;
+			String marketingIntelCrmNo = null;
+			String marketingActivity = null;
+			long marketingCompetitorProduct = 0;
+			String marketingDetails = null;
+			
+			try {
+				marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+				marketingIntelCrmNo = marketingIntel.getCrm();
+				marketingActivity = String.valueOf(marketingIntel.getActivity());
+				marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+				marketingDetails = marketingIntel.getDetails();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (marketingIntelCreatedBy != null && !marketingIntelCreatedBy.isEmpty() && marketingIntelCrmNo != null
 					&& !marketingIntelCrmNo.isEmpty() && marketingActivity != null && !marketingActivity.isEmpty()

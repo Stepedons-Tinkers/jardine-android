@@ -58,14 +58,28 @@ public class AddJDIProductStockFragment extends Fragment {
 		JDIproductStockCheckRecord jdiProductStock = JardineApp.DB.getJDIproductStockCheck().getById(id);
 
 		if (jdiProductStock != null) {
-			String jdiProductStockCrmNo = jdiProductStock.getCrm();
-			String jdiActivity = String.valueOf(jdiProductStock.getActivity());
-			int jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
-			int jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
-			int jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
-			int jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
-			String jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
-			String jdiOtherRemarks = jdiProductStock.getOtherRemarks();
+			String jdiProductStockCrmNo = null;
+			String jdiActivity = null;
+			int jdiProduct = 0;
+			int jdiStockStatus = 0;
+			int jdiLoadedOnShelves = 0;
+			int jdiSupplier = 0;
+			String jdiCreatedBy = null;
+			String jdiOtherRemarks = null;
+
+			try {
+				jdiProductStockCrmNo = jdiProductStock.getCrm();
+				jdiActivity = String.valueOf(jdiProductStock.getActivity());
+				jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
+				jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
+				jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
+				jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
+				jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
+				jdiOtherRemarks = jdiProductStock.getOtherRemarks();
+				
+			} catch (Exception e) {
+
+			}
 
 			if (jdiProductStockCrmNo != null && !jdiProductStockCrmNo.isEmpty() && jdiActivity != null && !jdiActivity.isEmpty()
 					&& jdiProduct != 0 && jdiStockStatus != 0 && jdiLoadedOnShelves != -1 && jdiSupplier != 0 && jdiCreatedBy != null

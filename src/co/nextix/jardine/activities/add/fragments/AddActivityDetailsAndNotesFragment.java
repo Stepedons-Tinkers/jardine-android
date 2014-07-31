@@ -88,6 +88,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
 		if (activityRecord != null) {
+
 			long customerID = activityRecord.getCustomer();
 			long areaSelected = activityRecord.getArea();
 			final long provinceSelected = activityRecord.getProvince();
@@ -213,22 +214,40 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					});
 
 					widthAnimation.start();
+					long customer = 0;
+					long area = 0;
+					long province = 0;
+					long cityTown = 0;
+					String objective = null;
+					long workplanEntry = 0;
+					int firstTimeVisit = 0;
+					int plannedTimeVisit = 0;
 
-					long customer = ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer)).getSelectedItem()).getId();
-					long area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
-					long province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
-					long cityTown = ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()).getId();
-					String objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
-					long workplanEntry = ((WorkplanEntryRecord) ((Spinner) rootView.findViewById(R.id.workplan_entry)).getSelectedItem())
-							.getId();
-					int firstTimeVisit = ((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0;
-					int plannedTimeVisit = ((CheckBox) rootView.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0;
+					String highlights = null;
+					String notes = null;
+					String nextSteps = null;
+					String followUpCommittmentDate = null;
 
-					String highlights = ((EditText) rootView.findViewById(R.id.highlights)).getText().toString();
-					String notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
-					String nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
-					String followUpCommittmentDate = ((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).getText()
-							.toString();
+					try {
+						
+						customer = ((CustomerRecord) ((Spinner) rootView.findViewById(R.id.customer)).getSelectedItem()).getId();
+						area = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.area)).getSelectedItem()).getId();
+						province = ((ProvinceRecord) ((Spinner) rootView.findViewById(R.id.province)).getSelectedItem()).getId();
+						cityTown = ((CityTownRecord) ((Spinner) rootView.findViewById(R.id.city_town)).getSelectedItem()).getId();
+						objective = ((EditText) rootView.findViewById(R.id.objective)).getText().toString();
+						workplanEntry = ((WorkplanEntryRecord) ((Spinner) rootView.findViewById(R.id.workplan_entry)).getSelectedItem())
+								.getId();
+						firstTimeVisit = ((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).isChecked() ? 1 : 0;
+						plannedTimeVisit = ((CheckBox) rootView.findViewById(R.id.planned_visit_checkbox)).isChecked() ? 1 : 0;
+
+						highlights = ((EditText) rootView.findViewById(R.id.highlights)).getText().toString();
+						notes = ((EditText) rootView.findViewById(R.id.notes)).getText().toString();
+						nextSteps = ((EditText) rootView.findViewById(R.id.next_steps)).getText().toString();
+						followUpCommittmentDate = ((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).getText().toString();
+						
+					} catch (Exception e) {
+
+					}
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

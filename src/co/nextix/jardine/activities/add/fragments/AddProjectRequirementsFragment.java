@@ -65,21 +65,32 @@ public class AddProjectRequirementsFragment extends Fragment {
 		this.view = inflater.inflate(R.layout.fragment_activity_add_proj_requirements, container, false);
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long activity_id = pref.getLong("activity_id_edit", 0);
-		long projectRequirement_id = pref.getLong("project_requirement_id", 0);
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 		ProjectRequirementRecord projectRequirementRecord = JardineApp.DB.getProjectRequirement().getByActivityId(activity_id);
 		String record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
 
 		if (activityRecord != null && projectRequirementRecord != null && record != null && !record.isEmpty()) {
+			long createdBy = 0;
+			String activity = null;
+			String projectRequirement = null;
+			String dateNeeded = null;
+			String squareMeters = null;
+			String productBrand = null;
+			String otherDetails = null;
 
-			long createdBy = projectRequirementRecord.getCreatedBy();
-			String activity = projectRequirementRecord.getCrm();
-			String projectRequirement = projectRequirementRecord.getCrm();
-			String dateNeeded = projectRequirementRecord.getDateNeeded();
-			String squareMeters = projectRequirementRecord.getSquareMeters();
-			String productBrand = projectRequirementRecord.getProductsBrand();
-			String otherDetails = projectRequirementRecord.getOtherDetails();
+			try {
+				createdBy = projectRequirementRecord.getCreatedBy();
+				activity = projectRequirementRecord.getCrm();
+				projectRequirement = projectRequirementRecord.getCrm();
+				dateNeeded = projectRequirementRecord.getDateNeeded();
+				squareMeters = projectRequirementRecord.getSquareMeters();
+				productBrand = projectRequirementRecord.getProductsBrand();
+				otherDetails = projectRequirementRecord.getOtherDetails();
+
+			} catch (Exception e) {
+
+			}
 
 			((TextView) view.findViewById(R.id.created_by)).setText(JardineApp.DB.getUser().getById(createdBy).toString());
 			((TextView) view.findViewById(R.id.crm_no)).setText(projectRequirement);
