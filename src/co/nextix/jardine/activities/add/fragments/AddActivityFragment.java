@@ -170,7 +170,7 @@ public class AddActivityFragment extends Fragment {
 		/* 11 */flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), AddActivityProjectVisitFragment.class.getName()));
 		/* 12 */flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), AddProjectRequirementsFragment.class.getName()));
 		/* 13 */flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), AddActivityTrainingsFragment.class.getName()));
-		/* 14 */flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName()));
+		/* 14 */flist.add(AddIdentifyProductFocusFragment.instantiate(getActivity(), AddIdentifyProductFocusFragment.class.getName()));
 		/* 15 */flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(),
 				AddActivityFullBrandActivationFragment.class.getName()));
 		/* 16 */flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName()));

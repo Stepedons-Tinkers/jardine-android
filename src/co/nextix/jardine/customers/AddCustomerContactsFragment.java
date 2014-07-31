@@ -80,9 +80,9 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String id = StoreAccount.restore(JardineApp.context).getString(Account.ROWID);
+		long id = StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
-		userId = Long.parseLong(id);
+		userId = id;//Long.parseLong(id);
 	}
 
 	@Override
@@ -429,12 +429,14 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				AddActivityFragment.pager.setCurrentItem(13);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end
 																					// user
-				DashBoardActivity.tabIndex.add(3, 16);
-				AddActivityFragment.pager.setCurrentItem(16);
+				DashBoardActivity.tabIndex.add(3, 14);
+				AddActivityFragment.pager.setCurrentItem(14);
+				
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
 																					// brand
 				DashBoardActivity.tabIndex.add(3, 15);
 				AddActivityFragment.pager.setCurrentItem(15);
+				
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
 				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);
