@@ -23,6 +23,7 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILENAME;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILETYPE;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_FILEPATH;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_ISACTIVE;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODULEROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_CREATEDTIME;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_MODIFIEDTIME;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_DOCUMENT_USER;
@@ -79,11 +80,12 @@ public class DocumentTable {
 					String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 					String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 					int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 					String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 					String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -113,11 +115,12 @@ public class DocumentTable {
 					String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 					String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 					int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 					String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 					String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -170,11 +173,12 @@ public class DocumentTable {
 					String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 					String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 					int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 					String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 					String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+					list.add(new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 							createdTime, modifiedTime, user));
 				} while (c.moveToNext());
 			}
@@ -207,11 +211,12 @@ public class DocumentTable {
 					String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 					String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 					int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+					long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 					String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 					String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 					long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-					record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+					record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 							createdTime, modifiedTime, user);
 				} while (c.moveToNext());
 			}
@@ -310,11 +315,12 @@ public class DocumentTable {
 				String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 				String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 				int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+				long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 				String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 				String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-				record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+				record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -344,11 +350,12 @@ public class DocumentTable {
 				String fileType = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILETYPE));
 				String filePath = c.getString(c.getColumnIndex(KEY_DOCUMENT_FILEPATH));
 				int isActive = c.getInt(c.getColumnIndex(KEY_DOCUMENT_ISACTIVE));
+				long moduleRowId = c.getLong(c.getColumnIndex(KEY_DOCUMENT_MODULEROWID));
 				String createdTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_CREATEDTIME));
 				String modifiedTime = c.getString(c.getColumnIndex(KEY_DOCUMENT_MODIFIEDTIME));
 				long user = c.getLong(c.getColumnIndex(KEY_DOCUMENT_USER));
 
-				record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,
+				record = new DocumentRecord(id, no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive,moduleRowId,
 						createdTime, modifiedTime, user);
 			}
 		} finally {
@@ -399,7 +406,7 @@ public class DocumentTable {
 	}
 
 	public long insert(String no, String crmNo, String title, String moduleName, String moduleId, String fileName, String fileType,
-			String filePath, int isActive, String createdTime, String modifiedTime, long user) {
+			String filePath, int isActive, long moduleRowId, String createdTime, String modifiedTime, long user) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -416,6 +423,7 @@ public class DocumentTable {
 		initialValues.put(KEY_DOCUMENT_FILETYPE, fileType);
 		initialValues.put(KEY_DOCUMENT_FILEPATH, filePath);
 		initialValues.put(KEY_DOCUMENT_ISACTIVE, isActive);
+		initialValues.put(KEY_DOCUMENT_MODULEROWID, moduleRowId);
 		initialValues.put(KEY_DOCUMENT_CREATEDTIME, createdTime);
 		initialValues.put(KEY_DOCUMENT_MODIFIEDTIME, modifiedTime);
 		initialValues.put(KEY_DOCUMENT_USER, user);
@@ -451,9 +459,19 @@ public class DocumentTable {
 			return false;
 		}
 	}
+	
+	public boolean update(long id, long moduleRowId) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_DOCUMENT_MODULEROWID, moduleRowId);
+		if (mDb.update(mDatabaseTable, args, KEY_DOCUMENT_ROWID + "=" + id, null) > 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 	public boolean update(long id, String no, String crmNo, String title, String moduleName, String moduleId, String fileName,
-			String fileType, String filePath, int isActive, String createdTime, String modifiedTime, long user) {
+			String fileType, String filePath, int isActive, long moduleRowId, String createdTime, String modifiedTime, long user) {
 		ContentValues args = new ContentValues();
 		args.put(KEY_DOCUMENT_NO, no);
 		args.put(KEY_DOCUMENT_CRMNO, crmNo);
@@ -464,6 +482,7 @@ public class DocumentTable {
 		args.put(KEY_DOCUMENT_FILETYPE, fileType);
 		args.put(KEY_DOCUMENT_FILEPATH, filePath);
 		args.put(KEY_DOCUMENT_ISACTIVE, isActive);
+		args.put(KEY_DOCUMENT_MODULEROWID, moduleRowId);
 		args.put(KEY_DOCUMENT_CREATEDTIME, createdTime);
 		args.put(KEY_DOCUMENT_MODIFIEDTIME, modifiedTime);
 		args.put(KEY_DOCUMENT_USER, user);

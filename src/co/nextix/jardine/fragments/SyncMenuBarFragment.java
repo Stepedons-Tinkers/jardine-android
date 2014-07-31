@@ -1407,17 +1407,17 @@ public class SyncMenuBarFragment extends Fragment {
 						table.insertUser(model.getCrmId(), model.getUsername(),
 								"", "", model.getLastName(), "",
 								model.getFirstName(), 0, 1, "", "", "", "");
-					} 
-//					else {
-//						long id = table.getIdByNo(model.getCrmId());
-//						if (id != 0) {
-//
-//							table.updateUser(id, model.getCrmId(),
-//									model.getUsername(), "", "",
-//									model.getLastName(), "",
-//									model.getFirstName(), "", "", 0);
-//						}
-//					}
+					}
+					// else {
+					// long id = table.getIdByNo(model.getCrmId());
+					// if (id != 0) {
+					//
+					// table.updateUser(id, model.getCrmId(),
+					// model.getUsername(), "", "",
+					// model.getLastName(), "",
+					// model.getFirstName(), "", "", 0);
+					// }
+					// }
 				}
 			}
 			if (isCancelled()) {
@@ -4451,6 +4451,8 @@ public class SyncMenuBarFragment extends Fragment {
 										.getRecordId()))) {
 									long user = userTable.getIdByNo(data
 											.getUserId());
+									long eventProtoc = eventTable
+											.getIdByNo(model.getCrmId());
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -4459,7 +4461,7 @@ public class SyncMenuBarFragment extends Fragment {
 											model.getCrmId(),
 											data.getFilename(),
 											data.getFileType(),
-											data.getFilePath(), 1,
+											data.getFilePath(), 1, eventProtoc,
 											data.getCreatedTime(),
 											data.getModifiedTime(), user);
 									Log.w(TAG, "Document: event ** Added ** "
@@ -4501,6 +4503,8 @@ public class SyncMenuBarFragment extends Fragment {
 										.getRecordId()))) {
 									long user = userTable.getIdByNo(data
 											.getUserId());
+									long marketingMat = marketingMatTable
+											.getIdByNo(model.getCrmId());
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -4510,6 +4514,7 @@ public class SyncMenuBarFragment extends Fragment {
 											data.getFilename(),
 											data.getFileType(),
 											data.getFilePath(), 1,
+											marketingMat,
 											data.getCreatedTime(),
 											data.getModifiedTime(), user);
 									Log.w(TAG, "Document: market ** Added ** "
@@ -4551,6 +4556,8 @@ public class SyncMenuBarFragment extends Fragment {
 										.getRecordId()))) {
 									long user = userTable.getIdByNo(data
 											.getUserId());
+									long salesProtoc = salesProtocolsTable
+											.getIdByNo(model.getCrmId());
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -4559,7 +4566,7 @@ public class SyncMenuBarFragment extends Fragment {
 											model.getCrmId(),
 											data.getFilename(),
 											data.getFileType(),
-											data.getFilePath(), 1,
+											data.getFilePath(), 1, salesProtoc,
 											data.getCreatedTime(),
 											data.getModifiedTime(), user);
 									Log.w(TAG, "Document: event ** Added ** "
@@ -4601,6 +4608,8 @@ public class SyncMenuBarFragment extends Fragment {
 										.getRecordId()))) {
 									long user = userTable.getIdByNo(data
 											.getUserId());
+									long activity = activityTable
+											.getIdByNo(model.getCrmId());
 									long rowid = table.insert(
 											String.valueOf(data.getRecordId()),
 											data.getNoteNo(),
@@ -4608,7 +4617,7 @@ public class SyncMenuBarFragment extends Fragment {
 											Modules.Activity, model.getCrmId(),
 											data.getFilename(),
 											data.getFileType(),
-											data.getFilePath(), 1,
+											data.getFilePath(), 1, activity,
 											data.getCreatedTime(),
 											data.getModifiedTime(), user);
 									Log.w(TAG,
