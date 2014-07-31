@@ -82,9 +82,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		super.onCreate(savedInstanceState);
 		long id = StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
-		userId = id;//Long.parseLong(id);
+		userId = id;
 	}
 
+	@SuppressWarnings("unused")
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -94,8 +95,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("activity_id_customer", 0));
+		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition().getAllRecords();
 
 		if (record != null) {
+
 			String crmNo = null;
 			String firstName = null;
 			String lastName = null;
@@ -116,25 +119,31 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				customerEmail = record.getEmailAddress();
 				customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
 				customerCreatedBy = record.toString();
-				
+
+				if (crmNo != null || !crmNo.isEmpty() || firstName != null || !firstName.isEmpty() || lastName != null
+						|| !lastName.isEmpty() || positionInput != 0 || mobileNo != null || !mobileNo.isEmpty() || customerBirthday != null
+						|| !customerBirthday.isEmpty() || customerEmail != null || !customerEmail.isEmpty() || customerCustomer != null
+						|| !customerCustomer.isEmpty() || customerCreatedBy != null || !customerCreatedBy.isEmpty()) {
+
+					field1.setText(crmNo);
+					field2.setText(firstName);
+					field3.setText(lastName);
+
+					field5.setText(mobileNo);
+					field6a.setText(customerBirthday);
+					field7.setText(customerEmail);
+					field8.setText(customerCustomer);
+					field9.setText(customerCreatedBy);
+
+					for (int i = 0; i < posi.size(); i++) {
+						if (posi.get(i).getId() == record.getPosition()) {
+							field4.setSelection(i);
+						}
+					}
+				}
+
 			} catch (Exception e) {
 
-			}
-
-			if (crmNo != null && !crmNo.isEmpty() && firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()
-					&& positionInput != 0 && mobileNo != null && !mobileNo.isEmpty() && customerBirthday != null
-					&& !customerBirthday.isEmpty() && customerEmail != null && !customerEmail.isEmpty() && customerCustomer != null
-					&& !customerCustomer.isEmpty() && customerCreatedBy != null && !customerCreatedBy.isEmpty()) {
-
-				field1.setText(crmNo);
-				field2.setText(firstName);
-				field3.setText(lastName);
-				field4.setSelection(Integer.parseInt(String.valueOf(positionInput)));
-				field5.setText(mobileNo);
-				field6a.setText(customerBirthday);
-				field7.setText(customerEmail);
-				field8.setText(customerCustomer);
-				field9.setText(customerCreatedBy);
 			}
 		}
 
@@ -431,12 +440,12 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 																					// user
 				DashBoardActivity.tabIndex.add(3, 14);
 				AddActivityFragment.pager.setCurrentItem(14);
-				
+
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
 																					// brand
 				DashBoardActivity.tabIndex.add(3, 15);
 				AddActivityFragment.pager.setCurrentItem(15);
-				
+
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
 				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);

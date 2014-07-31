@@ -57,21 +57,21 @@ public class AddMarketingIntelFragment extends Fragment {
 			String marketingActivity = null;
 			long marketingCompetitorProduct = 0;
 			String marketingDetails = null;
-			
+
 			try {
 				marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
 				marketingIntelCrmNo = marketingIntel.getCrm();
 				marketingActivity = String.valueOf(marketingIntel.getActivity());
 				marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
 				marketingDetails = marketingIntel.getDetails();
-				
+
 			} catch (Exception e) {
 
 			}
 
-			if (marketingIntelCreatedBy != null && !marketingIntelCreatedBy.isEmpty() && marketingIntelCrmNo != null
-					&& !marketingIntelCrmNo.isEmpty() && marketingActivity != null && !marketingActivity.isEmpty()
-					&& marketingCompetitorProduct != 0 && marketingDetails != null && !marketingDetails.isEmpty()) {
+			if (marketingIntelCreatedBy != null || !marketingIntelCreatedBy.isEmpty() || marketingIntelCrmNo != null
+					|| !marketingIntelCrmNo.isEmpty() || marketingActivity != null || !marketingActivity.isEmpty()
+					|| marketingCompetitorProduct != 0 || marketingDetails != null || !marketingDetails.isEmpty()) {
 
 				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
 				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);

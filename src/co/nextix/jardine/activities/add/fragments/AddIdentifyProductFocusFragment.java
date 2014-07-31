@@ -30,7 +30,6 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments.InsertTask;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
