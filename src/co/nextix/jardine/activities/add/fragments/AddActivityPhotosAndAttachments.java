@@ -29,6 +29,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.tables.DocumentTable;
 
 import com.dd.CircularProgressButton;
 
@@ -50,8 +54,27 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		this.view = inflater.inflate(R.layout.add_activity_photos_attachments, container, false);
 		String assignedToFname = JardineApp.DB.getUser().getCurrentUser().getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
+		
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
+		long id = pref.getLong("activity_id_edit", 0);
+		ActivityRecord actRecord = JardineApp.DB.getActivity().getById(id);
+		DocumentRecord activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getNo());
+		String activityPhotosAndAttachmentsTitle = 
+
+		String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+		String marketingIntelCrmNo = marketingIntel.getCrm();
+		String marketingActivity = String.valueOf(marketingIntel.getActivity());
+		long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+		String marketingDetails = marketingIntel.getDetails();
+		
+		if(){
+			
+		}else{
 		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		
+		}
+		
 		((TextView) this.view.findViewById(R.id.filename)).setOnClickListener(new View.OnClickListener() {
 
 			@Override
@@ -374,9 +397,9 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
 
 		// Insert to the database
-		this.row_id = JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude, latitude,
-				createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry, objective,
-				firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
+		this.row_id = JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude,
+				latitude, createdTime, modifiedTime, reasonsRemarks, smr, adminDetails, customer, area, province, city, workplanEntry,
+				objective, firstTimeVisit, plannedVisit, notes, highlights, nextSteps, followUpCommitmentDate, projectName, projectStage,
 				projectCategory, venue, numberOfAttendees, endUserActivityTypes);
 	}
 }

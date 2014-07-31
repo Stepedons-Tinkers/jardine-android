@@ -3,9 +3,12 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -13,19 +16,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityPhotosAndAttachments.InsertTask;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+
+import com.dd.CircularProgressButton;
 
 public class AddIdentifyProductFocusFragment extends Fragment {
 
@@ -34,7 +43,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	private ArrayList<ProductRecord> tempRecord = null;
 	private ArrayList<ProductRecord> itemSearch = null;
 	private Context CustomListView = null;
-	private View myFragmentView = null;
+	private View view = null;
 	private ListView list = null;
 	private int rowSize = 5;
 	private int totalPage = 0;
@@ -42,6 +51,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+	private boolean flag = false;
 
 	public AddIdentifyProductFocusFragment() {
 		this.itemSearch = new ArrayList<ProductRecord>();
@@ -50,7 +60,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		myFragmentView = inflater.inflate(R.layout.fragment_activity_add_identify_product_focus, container, false);
+		view = inflater.inflate(R.layout.fragment_activity_add_identify_product_focus, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -60,7 +70,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		}
 
 		// ONCLICK sa mga buttons sa fragment
-		((Button) myFragmentView.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
+		((Button) view.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -83,7 +93,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -96,7 +106,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -109,7 +119,70 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 			}
 		});
 
-		return myFragmentView;
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new View.OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					String title = ((EditText) view.findViewById(R.id.title)).getText().toString();
+					String filename = ((TextView) view.findViewById(R.id.filename)).getText().toString();
+
+					/** Checking of required fields **/
+					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
+
+						flag = true;
+						
+						v.setClickable(true);
+						v.setEnabled(true);
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
+					}
+
+				} else {
+					((CircularProgressButton) v).setProgress(0);
+
+					// insert then pop all backstack
+				}
+			}
+		});
+
+		return view;
 	}
 
 	public void setListData() {
@@ -147,7 +220,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
 		for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
@@ -161,7 +234,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
-		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
+		this.list = (ListView) this.view.findViewById(R.id.list);
 		this.adapter = new ProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
 		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
 		// getActivity(), list, this.tempRecord, this);
@@ -242,14 +315,14 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
 		// ((TextView)
 		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
 		// ((TextView)
 		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}

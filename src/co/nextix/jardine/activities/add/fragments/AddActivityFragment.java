@@ -59,6 +59,7 @@ public class AddActivityFragment extends Fragment {
 			
 			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 			Editor editor = pref.edit();
+			
 			editor.putLong("activity_id_edit", ActivitiesConstant.ACTIVITY_RECORD.getId());
 			editor.putString("activity_id_crm_no", ActivitiesConstant.ACTIVITY_RECORD.getCrm());
 			editor.putLong("activity_id_activity_type", ActivitiesConstant.ACTIVITY_RECORD.getActivityType());

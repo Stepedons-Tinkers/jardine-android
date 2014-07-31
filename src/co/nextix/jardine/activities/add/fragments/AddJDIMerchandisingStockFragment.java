@@ -18,6 +18,7 @@ import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 
@@ -41,17 +42,40 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 		this.statusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, statusList);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_merchandising_check, container, false);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-		((Spinner) view.findViewById(R.id.status)).setAdapter(this.statusAdapter);
+		long id = pref.getLong("activity_id_edit", 0);
+		JDImerchandisingCheckRecord jdiMerchandisingCheck = JardineApp.DB.getJDImerchandisingCheck().getById(id);
 
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		String jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
+		String jdiMerchandisingActivity = String.valueOf(jdiMerchandisingCheck.getActivity());
+		int jdiMerchandisingProduct = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
+		int jdiMerchandisingStatus = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
+		String jdiMerchandisingCreatedBy = JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
 
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		if (jdiMerchandisingCrmNo != null && !jdiMerchandisingCrmNo.isEmpty() && jdiMerchandisingActivity != null
+				&& !jdiMerchandisingActivity.isEmpty() && jdiMerchandisingProduct != 0 && jdiMerchandisingStatus != 0
+				&& jdiMerchandisingCreatedBy != null && !jdiMerchandisingCreatedBy.isEmpty()) {
+			
+			((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
+			((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
+			((Spinner) view.findViewById(R.id.product)).setSelection(jdiMerchandisingProduct);
+			((Spinner) view.findViewById(R.id.status)).setSelection(jdiMerchandisingStatus);
+			((TextView) view.findViewById(R.id.created_by)).setText(jdiMerchandisingCreatedBy);
+
+		} else {
+
+			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
+			((Spinner) view.findViewById(R.id.status)).setAdapter(this.statusAdapter);
+
+			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+
+			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

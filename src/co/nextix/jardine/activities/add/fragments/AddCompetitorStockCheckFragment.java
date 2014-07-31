@@ -6,7 +6,6 @@ import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,17 +45,46 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 				jdiCompetitorStockCheckList);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_competitor_product_stock_check, container, false);
-		((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorStockAdapter);
-		((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.jdiCompetitorStockCheckAdapter);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		long id = pref.getLong("activity_id_edit", 0);
+		CompetitorProductStockCheckRecord jdiCompetitorStockCheck = JardineApp.DB.getCompetitorProductStockCheck().getById(id);
 
-		// Disable fields
-		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) view.findViewById(R.id.activity)).setClickable(false);
-		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		String jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
+		String jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
+		int jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
+		int jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
+		int jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
+		String jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
+		String jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
+
+		if (jdiCompetitorProductCrmNo != null && !jdiCompetitorProductCrmNo.isEmpty() && jdiCompetitorProductActivity != null
+				&& !jdiCompetitorProductActivity.isEmpty() && jdiCompetitorProduct != 0 && jdiCompetitorStockStatus != 0
+				&& jdiCompetitorLoadedOnShelves != -1 && jdiCompetitorCreatedBy != null && !jdiCompetitorCreatedBy.isEmpty()
+				&& jdiCompetitorOtherTypeRemarks != null && !jdiCompetitorOtherTypeRemarks.isEmpty()) {
+			
+			((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
+			((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);
+			((Spinner) view.findViewById(R.id.competitor_product)).setSelection(jdiCompetitorProduct);
+			((Spinner) view.findViewById(R.id.stock_status)).setSelection(jdiCompetitorStockStatus);
+			((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+			((TextView) view.findViewById(R.id.created_by)).setText(jdiCompetitorCreatedBy);
+			((EditText) view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
+
+		} else {
+
+			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorStockAdapter);
+			((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.jdiCompetitorStockCheckAdapter);
+
+			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+
+			// Disable fields
+			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

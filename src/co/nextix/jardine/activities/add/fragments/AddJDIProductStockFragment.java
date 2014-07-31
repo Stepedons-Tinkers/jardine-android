@@ -23,6 +23,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CustomerRecord;
+import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 
@@ -47,22 +48,51 @@ public class AddJDIProductStockFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-		this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
-		this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
+		long id = pref.getLong("activity_id_edit", 0);
+		JDIproductStockCheckRecord jdiProductStock = JardineApp.DB.getJDIproductStockCheck().getById(id);
 
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-		((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.stockStatusAdapter);
-		((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.supplierAdapter);
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		String jdiProductStockCrmNo = jdiProductStock.getCrm();
+		String jdiActivity = String.valueOf(jdiProductStock.getActivity());
+		int jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
+		int jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
+		int jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
+		int jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
+		String jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
+		String jdiOtherRemarks = jdiProductStock.getOtherRemarks();
 
-		// Disable fields
-		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) view.findViewById(R.id.activity)).setClickable(false);
-		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		if (jdiProductStockCrmNo != null && !jdiProductStockCrmNo.isEmpty() && jdiActivity != null && !jdiActivity.isEmpty()
+				&& jdiProduct != 0 && jdiStockStatus != 0 && jdiLoadedOnShelves != -1 && jdiSupplier != 0 && jdiCreatedBy != null
+				&& !jdiCreatedBy.isEmpty() && jdiOtherRemarks != null && !jdiOtherRemarks.isEmpty()) {
+
+			((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
+			((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
+			((Spinner) view.findViewById(R.id.product)).setSelection(jdiProduct);
+			((Spinner) view.findViewById(R.id.stock_status)).setSelection(jdiStockStatus);
+			((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+			((Spinner) view.findViewById(R.id.supplier)).setSelection(jdiSupplier);
+			((TextView) view.findViewById(R.id.created_by)).setText(jdiCreatedBy);
+			((EditText) view.findViewById(R.id.other_type_remarks)).setText(jdiOtherRemarks);
+			
+		} else {
+
+			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
+			this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
+			this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
+
+			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
+			((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.stockStatusAdapter);
+			((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.supplierAdapter);
+			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+
+			// Disable fields
+			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

@@ -217,7 +217,7 @@
                     android:background="#dcdcdc" >
 
                     <EditText
-                        android:id="@+id/details"
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
                         android:layout_height="45dp"
                         android:background="#dcdcdc"

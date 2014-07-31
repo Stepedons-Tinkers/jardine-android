@@ -49,8 +49,7 @@ import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
 
-public class AddCustomerContactsFragment extends Fragment implements
-		OnClickListener {
+public class AddCustomerContactsFragment extends Fragment implements OnClickListener {
 
 	private View view;
 	private long customerId;
@@ -81,60 +80,55 @@ public class AddCustomerContactsFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String id = StoreAccount.restore(JardineApp.context).getString(
-				Account.ROWID);
-		userName = StoreAccount.restore(JardineApp.context).getString(
-				Account.USERNAME);
+		String id = StoreAccount.restore(JardineApp.context).getString(Account.ROWID);
+		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
 		userId = Long.parseLong(id);
 	}
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.customer_contact_add_new, container,
-				false);
-		
-		
-		
-		e push lang niya ni chiong bahalag naay error kay mo lakaw nako.
-		
-		
-		
-		
-		
-		
-		
-		THANKS AND REGARDS
-		
+		view = inflater.inflate(R.layout.customer_contact_add_new, container, false);
+		bundle = getArguments();
+		initLayout();
 		
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(customerId);
-		String crmNo = pref.getString("activity_id_crm_no", null);
-		String firstName = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getFirstName();
-		String lastName = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getLastName();
-		String positionInput = JardineApp.DB.getCustomerContactPosition().getNameById(pref.getLong("activity_id_customer", 0));
-		String mobileNo = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getMobileNo();
-		String customerBirthday = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getBirthday();
-		String customerEmail = JardineApp.DB.getCustomerContact().getById(Integer.parseInt(String.valueOf(pref.getLong("activity_id_customer", 0)))).getEmailAddress();		
-		String customerCustomer = JardineApp.DB.getCustomer().getById(customerId).toString();
-		record.getCrm();
-		record.getFirstName();
-		record.
-		String customer = JardineApp.DB.getCustomer().getById(record.getCustomer()).toString();
-		bundle = getArguments();
+		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("activity_id_customer", 0));
 
-		initLayout();
+		String crmNo = record.getCrm();
+		String firstName = record.getFirstName();
+		String lastName = record.getLastName();
+		long positionInput = record.getPosition();
+		String mobileNo = record.getMobileNo();
+		String customerBirthday = record.getBirthday();
+		String customerEmail = record.getEmailAddress();
+		String customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
+		String customerCreatedBy = record.toString();
+
+		if (crmNo != null && !crmNo.isEmpty() && firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty()
+				&& positionInput != 0 && mobileNo != null && !mobileNo.isEmpty() && customerBirthday != null && !customerBirthday.isEmpty()
+				&& customerEmail != null && !customerEmail.isEmpty() && customerCustomer != null && !customerCustomer.isEmpty()
+				&& customerCreatedBy != null && !customerCreatedBy.isEmpty()) {
+
+			field1.setText(crmNo);
+			field2.setText(firstName);
+			field3.setText(lastName);
+			field4.setSelection(Integer.parseInt(String.valueOf(positionInput)));
+			field5.setText(mobileNo);
+			field6a.setText(customerBirthday);
+			field7.setText(customerEmail);
+			field8.setText(customerCustomer);
+			field9.setText(customerCreatedBy);
+		}
+		
 		return view;
 	}
 
 	private boolean checker() {
 		boolean flag = false;
 
-		if (!field2.getText().toString().contentEquals("")
-				&& !field3.getText().toString().contentEquals("")
-				&& field4.getSelectedItemPosition() != 0
-				&& !field5.getText().toString().contentEquals("")) {
+		if (!field2.getText().toString().contentEquals("") && !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0 && !field5.getText().toString().contentEquals("")) {
 			flag = true;
 		} else {
 			flag = false;
@@ -145,13 +139,11 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 	private void initLayout() {
 
-		if(bundle != null){
-			customerId = bundle.getLong(
-					CustomerConstants.KEY_CUSTOMER_LONG_ID);
-			customerName = bundle.getString(
-					CustomerConstants.KEY_CUSTOMER_USERNAME);
+		if (bundle != null) {
+			customerId = bundle.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
+			customerName = bundle.getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
 		}
-		
+
 		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
@@ -160,8 +152,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
 
-		formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
-				+ checkDigit(day);
+		formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
 
 		cancel = (Button) view.findViewById(R.id.bCustomerContactAddCancel);
 		save = (Button) view.findViewById(R.id.bCustomerContactAddCreate);
@@ -169,12 +160,11 @@ public class AddCustomerContactsFragment extends Fragment implements
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
 
-		Log.e("fromOtherMother",""+AddActivityFragment.fromOther );
-		
-		if (AddActivityFragment.fromOther ) {
-			Log.e("fromOther","fucker");
-			saveORdone = (CircularProgressButton) view
-					.findViewById(R.id.btnWithText1);
+		Log.e("fromOtherMother", "" + AddActivityFragment.fromOther);
+
+		if (AddActivityFragment.fromOther) {
+			Log.e("fromOther", "fucker");
+			saveORdone = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 			saveORdone.setVisibility(View.VISIBLE);
 			saveORdone.setOnClickListener(this);
 
@@ -194,8 +184,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		field5 = (EditText) view.findViewById(R.id.etCustomerContactAddField5);
 
 		field6a = (TextView) view.findViewById(R.id.tvCustomerContactAddField6);
-		field6b = (ImageButton) view
-				.findViewById(R.id.ibCustomerContactAddField6);
+		field6b = (ImageButton) view.findViewById(R.id.ibCustomerContactAddField6);
 
 		field7 = (EditText) view.findViewById(R.id.etCustomerContactAddField7);
 
@@ -203,10 +192,8 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		field9 = (TextView) view.findViewById(R.id.tvCustomerContactAddField9);
 		// List to be populated in spinner adapter
-		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
-				.getAllRecords();
-		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(
-				JardineApp.context, R.layout.customer_spinner_row, posi);
+		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition().getAllRecords();
+		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.customer_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
@@ -232,27 +219,23 @@ public class AddCustomerContactsFragment extends Fragment implements
 			if (checker()) {
 				new InsertTask().execute();
 			} else {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(
-						getActivity());
+				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
 				dialog.setTitle("Warning");
 				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
-				dialog.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
+				dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
 
-							}
-						});
+					}
+				});
 				dialog.show();
 			}
 
 			break;
 		case R.id.ibCustomerContactAddField6:
-			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
-					android.R.style.Theme_Holo_Panel, datePickerListener, year,
+			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener, year,
 					month, day);
 			pickDialog.show();
 			break;
@@ -265,8 +248,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear,
-				int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
 
 			year = selectedYear;
 			month = selectedMonth;
@@ -277,8 +259,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
 
-			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
-					+ checkDigit(day);
+			formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
 			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
@@ -349,8 +330,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
 		long user = userId;
 
-		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName,
-				lastName, position, mobileNo, birthday, emailAddress, customer,
+		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName, lastName, position, mobileNo, birthday, emailAddress, customer,
 				isActive, createdTime, modifiedTime, user);
 	}
 
@@ -363,21 +343,18 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 			ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 			widthAnimation.setDuration(1500);
-			widthAnimation
-					.setInterpolator(new AccelerateDecelerateInterpolator());
-			widthAnimation
-					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
-							Integer value = (Integer) animation
-									.getAnimatedValue();
-							saveORdone.setProgress(value);
+			widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+			widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+				@Override
+				public void onAnimationUpdate(ValueAnimator animation) {
+					Integer value = (Integer) animation.getAnimatedValue();
+					saveORdone.setProgress(value);
 
-							if (!flag) {
-								saveORdone.setProgress(-1);
-							}
-						}
-					});
+					if (!flag) {
+						saveORdone.setProgress(-1);
+					}
+				}
+			});
 
 			widthAnimation.start();
 
@@ -389,14 +366,10 @@ public class AddCustomerContactsFragment extends Fragment implements
 			String emailAddress = field7.getText().toString();
 
 			/** Checking of required fields **/
-			SharedPreferences pref = getActivity().getApplicationContext()
-					.getSharedPreferences("ActivityInfo", 0);
+			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-			if (firstName != null && !firstName.isEmpty() && lastName != null
-					&& !lastName.isEmpty() && position != 0 && mobileNo != null
-					&& !mobileNo.isEmpty() && birthday != null
-					&& !birthday.isEmpty() && emailAddress != null
-					&& !emailAddress.isEmpty()) {
+			if (firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty() && position != 0 && mobileNo != null
+					&& !mobileNo.isEmpty() && birthday != null && !birthday.isEmpty() && emailAddress != null && !emailAddress.isEmpty()) {
 
 				flag = true;
 				Editor editor = pref.edit();
@@ -411,9 +384,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 			} else {
 
 				flag = false;
-				Toast.makeText(getActivity(),
-						"Please fill up required (RED COLOR) fields",
-						Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
 
 				Handler handler = new Handler();
 				handler.postDelayed(new Runnable() {
@@ -428,19 +399,23 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		} else {
 			saveORdone.setProgress(0);
-			if (AddActivityGeneralInformationFragment.ActivityType == 4){ // retails
+			if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 				DashBoardActivity.tabIndex.add(3, 6);
 				AddActivityFragment.pager.setCurrentItem(6);
-			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki visits
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+																					// visits
 				DashBoardActivity.tabIndex.add(3, 10);
 				AddActivityFragment.pager.setCurrentItem(10);
-			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major training
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
+																					// training
 				DashBoardActivity.tabIndex.add(3, 13);
 				AddActivityFragment.pager.setCurrentItem(13);
-			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end user
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end
+																					// user
 				DashBoardActivity.tabIndex.add(3, 16);
 				AddActivityFragment.pager.setCurrentItem(16);
-			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full brand
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
+																					// brand
 				DashBoardActivity.tabIndex.add(3, 15);
 				AddActivityFragment.pager.setCurrentItem(15);
 			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others

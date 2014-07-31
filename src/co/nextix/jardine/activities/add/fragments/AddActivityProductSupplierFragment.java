@@ -23,6 +23,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.records.ProductSupplierRecord;
 
 import com.dd.CircularProgressButton;
 
@@ -40,18 +41,43 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getCurrentUser().getLastname();
 
 		final View view = inflater.inflate(R.layout.add_activity_product_supplier, container, false);
-		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-		((Spinner) view.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		long id = pref.getLong("activity_id_edit", 0);
+		ProductSupplierRecord productSupplier = JardineApp.DB.getProductSupplier().getById(id);
 
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		String productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
+		String productCrmNo = productSupplier.getCrm();
+		String productActivity = String.valueOf(productSupplier.getActivity());
+		int productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
+		int productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
+		String productOtherRemarks = productSupplier.getOthersRemarks();
+
+		if (productSupplierCreatedBy != null && !productSupplierCreatedBy.isEmpty() && productCrmNo != null && !productCrmNo.isEmpty()
+				&& productActivity != null && !productActivity.isEmpty() && productProductBrand != 0 && productSuppliers != 0
+				&& productOtherRemarks != null && !productOtherRemarks.isEmpty()) {
+
+			((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
+			((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
+			((TextView) view.findViewById(R.id.activity)).setText(productActivity);
+			((Spinner) view.findViewById(R.id.product_brand)).setSelection(productProductBrand);
+			((Spinner) view.findViewById(R.id.supplier)).setSelection(productSuppliers);
+			((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
+
+		} else {
+			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
+			this.customerAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
+
+			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
+			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
+			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+
+			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

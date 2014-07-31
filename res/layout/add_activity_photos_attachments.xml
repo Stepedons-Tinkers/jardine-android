@@ -42,7 +42,7 @@
                     android:padding="14dip"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:text="@string/general_info"
+                    android:text="@string/activity_photos_attachments"
                     android:textColor="#fff"
                     android:textSize="14dp"
                     android:textStyle="bold" />

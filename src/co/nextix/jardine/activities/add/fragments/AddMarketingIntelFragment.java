@@ -22,6 +22,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
 
 import com.dd.CircularProgressButton;
 
@@ -38,16 +39,46 @@ public class AddMarketingIntelFragment extends Fragment {
 
 		this.competitorProductAdapter = new ArrayAdapter<CompetitorProductRecord>(JardineApp.context, R.layout.add_activity_textview,
 				competitorProductLsit);
+
 		final View view = inflater.inflate(R.layout.fragment_activity_add_marketing_intel, container, false);
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-		((Spinner) view.findViewById(R.id.customer)).setAdapter(this.competitorProductAdapter);
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		long id = pref.getLong("activity_id_edit", 0);
+		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
 
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		String marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+		String marketingIntelCrmNo = marketingIntel.getCrm();
+		String marketingActivity = String.valueOf(marketingIntel.getActivity());
+		long marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+		String marketingDetails = marketingIntel.getDetails();
+
+		if (marketingIntelCreatedBy != null && !marketingIntelCreatedBy.isEmpty() && marketingIntelCrmNo != null
+				&& !marketingIntelCrmNo.isEmpty() && marketingActivity != null && !marketingActivity.isEmpty()
+				&& marketingCompetitorProduct != 0 && marketingDetails != null && !marketingDetails.isEmpty()) {
+
+			((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
+			((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
+			((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
+			
+			for (int i = 0; i < competitorProductLsit.size(); i++) {
+				if (marketingIntel.getId() == competitorProductLsit.get(i).getId()) {
+					((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
+				}
+			}
+			
+			((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
+
+		} else {
+
+			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.competitorProductAdapter);
+			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+
+			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -129,5 +160,4 @@ public class AddMarketingIntelFragment extends Fragment {
 
 		return view;
 	}
-
 }
