@@ -143,8 +143,8 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 					if (product != 0 && status != 0) {
 						flag = true;
 						Editor editor = pref.edit();
-						editor.putLong("product", product);
-						editor.putLong("status", status);
+						editor.putLong("product_merch", product);
+						editor.putLong("status_merch", status);
 						editor.commit(); // commit changes
 
 						v.setClickable(true);

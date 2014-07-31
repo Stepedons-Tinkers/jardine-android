@@ -174,54 +174,130 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 					if (title != null && !title.isEmpty() && filename != null && !filename.isEmpty()) {
 
 						flag = true;
-						new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
-								"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref
-								.getLong("createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString(
-								"check_out", null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area",
-								0), pref.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
-								.getString("objective", null), pref.getInt("first_time_visit", 0), pref.getInt("planned_time_visit", 0),
-								pref.getString("notes", null), pref.getString("highlights", null), pref.getString("next_steps", null), pref
-										.getString("follow_up_committment_date", null), "", 0, 0, "", 0, pref.getString(
-										"end_user_activity_types", null)).execute();
+						if (pref.getString("details_marketing_intel", null) != null
+								&& pref.getLong("competitor_product_marketing_intel", 0) != 0) {
 
-						if (row_id != -1) {
-							
-							// Customer Contact
-							new InsertTask(String no, String crmNo, String firstName, String lastName, long position, String mobileNo, String birthday,
-									String emailAddress, long customer, int isActive, String createdTime, String modifiedTime, long user).execute();
-							
+							// Adding activity
+							new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
+									"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref.getLong(
+									"createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString("check_out",
+									null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area", 0), pref
+									.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
+									.getString("objective", null), pref.getInt("first_time_visit", 0),
+									pref.getInt("planned_time_visit", 0), pref.getString("notes", null),
+									pref.getString("highlights", null), pref.getString("next_steps", null), pref.getString(
+											"follow_up_committment_date", null), "", 0, 0, "", 0, "").execute();
+
+							// Customer Contact // bug customer, isActive and
+							// user
+							new InsertTask("", "", pref.getString("first_name", null), pref.getString("last_name", null), pref.getLong(
+									"position", 0), pref.getString("mobile_number", null), pref.getString("birthday", null), pref
+									.getString("email_address", null), pref.getLong("customer", 0), 1, pref.getString("check_in", null),
+									pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("createdBy",
+											pref.getLong("user_id", 0))).execute();
+
 							// Jdi Product Stock Check
-							new InsertTask(String no, String crmNo, long activity, long product, long stockStatus, int loadedOnShelves, long customerType,
-							String otherRemarks, String createdTime, String modifiedTime, long createdBy).execute();
-							
+							new InsertTask("", "", row_id, pref.getLong("product_jdi", 0), pref.getLong("stock_status", 0), pref.getInt(
+									"loaded_on_shelves", 0), pref.getLong("customer_type", 0), pref.getString("other_type_remarks", null),
+									pref.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), pref
+											.getLong("createdBy", 0)).execute();
+
 							// Product Supplier
-							new InsertTask(String no, String crmNo, long productBrand, long supplier, String othersRemarks, long activity, long createdBy,
-										String createdTime, String modifiedTime).execute();
-							
-							
+							new InsertTask("", "", pref.getLong("product_brand", 0), pref.getLong("supplier", 0), pref.getString(
+									"product_supplier_other_remarks", null), row_id, pref.getLong("createdBy", 0), pref.getString(
+									"check_in", null), pref.getString("check_out", null).concat(displayCheckOut())).execute();
+
 							// Jdi Merchandising check
-							new InsertTask(String no, String crmNo, long activity, long productBrand, long status, String createdTime, String modifiedTime,
-									long user).execute();
-							
+							new InsertTask("", "", row_id, pref.getLong("product_merch", 0), pref.getLong("status_merch", 0), pref
+									.getString("check_in", null), pref.getString("check_out", null).concat(displayCheckOut()), pref
+									.getLong("user_id", 0)).execute();
+
 							// Competitor Product Stock Check
-							new InsertTask(String no, String crmNo, long activity, long competitorProduct, long stockStatus, int loadedOnShelves,
-									String otherRemarks, String createdTime, String modifiedTime, long createdBy).execute();
-							
+							new InsertTask("", "", row_id, pref.getLong("competitor_product", 0), pref
+									.getLong("stock_status_competitor", 0), pref.getInt("loaded_on_shelves_competitor", 0), pref.getString(
+									"competitor_other_remarks", null), pref.getString("check_in", null), pref.getString("check_out", null)
+									.concat(displayCheckOut()), pref.getLong("createdBy", 0)).execute();
+
 							// Marketing Intel
-							new InsertTask(String no, String crmNo, long activity, long competitorProduct, String details, String createdTime,
-									String modifiedTime, long createdBy).execute();
-							
+							new InsertTask("", "", row_id, pref.getLong("competitor_product_marketing_intel", 0), pref.getString(
+									"details_marketing_intel", null), pref.getString("check_in", null), pref.getString("check_out", null)
+									.concat(displayCheckOut()), pref.getLong("createdBy", 0)).execute();
+
+							// Activity Photos and Attachments bugs in
+							// moduleName, moduleId, fileType,
+							new InsertTask("", "", title, "", "", filename, "", filename, 1, row_id, pref.getString("check_in", null), pref
+									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
+
+						} else if (pref.getLong("project_requirement_type", 0) != 0
+								&& pref.getString("date_needed_project_requirement_type", null) != null
+								&& pref.getString("square_meters_proj_requirement", null) != null
+								&& pref.getString("product_brand_proj_requirement", null) != null
+								&& pref.getString("other_details_proj_requirement", null) != null) {
+
+							// Adding activity
+							new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
+									"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref.getLong(
+									"createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString("check_out",
+									null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area", 0), pref
+									.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
+									.getString("objective", null), pref.getInt("first_time_visit", 0),
+									pref.getInt("planned_time_visit", 0), pref.getString("notes", null),
+									pref.getString("highlights", null), pref.getString("next_steps", null), pref.getString(
+											"follow_up_committment_date", null), pref.getString("project_name", null), pref.getLong(
+											"project_stage", 0), pref.getLong("project_category", 0), "", 0, "").execute();
+
+							// Customer Contact // bug customer, isActive and
+							// user
+							new InsertTask("", "", pref.getString("first_name", null), pref.getString("last_name", null), pref.getLong(
+									"position", 0), pref.getString("mobile_number", null), pref.getString("birthday", null), pref
+									.getString("email_address", null), pref.getLong("customer", 0), 1, pref.getString("check_in", null),
+									pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("createdBy",
+											pref.getLong("user_id", 0))).execute();
+
 							// Project Requirements
-							new InsertTask(String no, String crmNo, long activity, long projectRequirementType, String dateNeeded, String squareMeters,
-									String productsBrand, String otherDetails, String createdTime, String modifiedTime, long createdBy).execute();
-							
-							// Identify Product Focus
-							new InsertTask(long product, long activity).execute();
-							
-							// Activity Photos and Attachments
-							new InsertTask(String no, String crmNo, String title, String moduleName, String moduleId, String fileName, String fileType,
-									String filePath, int isActive, long moduleRowId, String createdTime, String modifiedTime, long user).execute();
+							new InsertTask("", "", row_id, pref.getLong("project_requirement_type", 0), pref.getString(
+									"date_needed_project_requirement_type", null), pref.getString("square_meters_proj_requirement", null),
+									pref.getString("product_brand_proj_requirement", null), pref.getString(
+											"other_details_proj_requirement", null), pref.getString("check_in", null), pref.getString(
+											"check_out", null).concat(displayCheckOut()), pref.getLong("createdBy", 0)).execute();
+
+							// Activity Photos and Attachments bugs in
+							// moduleName, moduleId, fileType,
+							new InsertTask("", "", title, "", "", filename, "", filename, 1, row_id, pref.getString("check_in", null), pref
+									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
+
+						} else if (pref.getString("trainings_venue", null) != null && pref.getInt("trainings_no", -1) != -1) {
+							// Adding activity
+							new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
+									"check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0), pref.getLong(
+									"createdBy", 0), 123.894882, 10.310235, pref.getString("check_in", null), pref.getString("check_out",
+									null).concat(displayCheckOut()), "", 0, "", pref.getLong("customer", 0), pref.getLong("area", 0), pref
+									.getLong("province", 0), pref.getLong("city_town", 0), pref.getLong("workplan_entry", 0), pref
+									.getString("objective", null), pref.getInt("first_time_visit", 0),
+									pref.getInt("planned_time_visit", 0), pref.getString("notes", null),
+									pref.getString("highlights", null), pref.getString("next_steps", null), pref.getString(
+											"follow_up_committment_date", null), "", 0, 0, pref.getString("trainings_venue", null), pref
+											.getInt("trainings_no", 0), "").execute();
+
+							// Customer Contact // bug customer, isActive and
+							// user
+							new InsertTask("", "", pref.getString("first_name", null), pref.getString("last_name", null), pref.getLong(
+									"position", 0), pref.getString("mobile_number", null), pref.getString("birthday", null), pref
+									.getString("email_address", null), pref.getLong("customer", 0), 1, pref.getString("check_in", null),
+									pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("createdBy",
+											pref.getLong("user_id", 0))).execute();
+
+							// Activity Photos and Attachments bugs in
+							// moduleName, moduleId, fileType,
+							new InsertTask("", "", title, "", "", filename, "", filename, 1, row_id, pref.getString("check_in", null), pref
+									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
 						}
+
+						// } else if(){ // IdentifyFocus
+						//
+						// } else if(){ // FullBranFocus
+						// } else if (){ // CustomerContactPerson
+						// }
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -235,6 +311,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 						}, 1500);
 
 					} else {
+
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
 
@@ -252,7 +329,6 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-
 					// insert then pop all backstack
 				}
 			}
@@ -654,6 +730,52 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 						this.firstTimeVisit, this.plannedVisit, this.notes, this.highlights, this.nextSteps, this.followUpCommitmentDate,
 						this.projectName, this.projectStage, this.projectCategory, this.venue, this.numberOfAttendees,
 						this.endUserActivityTypes);
+
+				if (row_id != -1) {
+
+					saveCustomerContactPerson(this.customerContactNo, this.customerContactCrmNo, this.customerContactFirstName,
+							this.customerContactLastName, this.customerContactPosition, this.customerContactMobileNo,
+							this.customerContactBirthday, this.customerContactEmailAddress, this.customerContactCustomer,
+							this.customerContactIsActive, this.customerContactCreatedTime, this.customerContactModifiedTime,
+							this.customerContactUser);
+
+					saveJDIProductStockCheck(this.jdiProductNo, this.jdiProductCreatedTime, this.jdiProductActivity,
+							this.jdiProductProduct, this.jdiProductStockStatus, this.jdiProductLoadedOnShelves,
+							this.jdiProductCustomerType, this.jdiProductOtherRemarks, this.jdiProductCreatedTime,
+							this.jdiProductModifiedTime, this.jdiProductCreatedBy);
+
+					saveProductSupplier(this.productSupplierNo, this.productSupplierCrmNo, this.productSupplierProductBrand,
+							this.productSupplierSupplier, this.productSupplierOthersRemarks, this.productSupplierActivity,
+							this.productSupplierCreatedBy, this.productSupplierCreatedTime, this.productSupplierModifiedTime);
+
+					saveJDIMerchandisingCheck(this.jdiMerchandisingNo, this.jdiMerchandisingCrmNo, this.jdiMerchandisingActivity,
+							this.jdiMerchandisingProductBrand, this.jdiMerchandisingStatus, this.jdiMerchandisingCreatedTime,
+							this.jdiMerchandisingModifiedTime, this.jdiMerchandisingUser);
+
+					saveCompetitorProductStockCheck(this.competitorProductNo, this.competitorProductCrmNo, this.competitorProductActivity,
+							this.competitorProduct, this.competitorProductStockStatus, this.competitorProductLoadedOnShelves,
+							this.competitorProductOtherRemarks, this.competitorProductCreatedTime, this.competitorProductModifiedTime,
+							this.competitorProductCreatedBy);
+
+					saveMarketingIntel(this.marketingIntelNo, this.marketingIntelCrmNo, this.marketingIntelActivity,
+							this.marketingIntelCompetitorProduct, this.marketingIntelDetails, this.marketingIntelCreatedTime,
+							this.marketingIntelModifiedTime, this.marketingIntelCreatedBy);
+
+					saveProjectRequirements(this.projectRequirementsNo, this.projectRequirementsCrmNo, this.projectRequirementsActivity,
+							this.projectRequirementType, this.projectRequirementDateNeeded, this.projectRequirementsSquareMeters,
+							this.projectRequirementsProductsBrand, this.projectRequirementsOtherDetails,
+							this.projectRequirementsCreatedTime, this.projectRequirementsModifiedTime, this.projectRequirementsCreatedBy);
+
+					saveIdentifyProductFocus(this.identifyProductFocusProduct, this.identifyProductFocusProductActivity);
+
+					saveActivityPhotosAndAttachments(this.activityPhotosAndAttachmentsNo, this.activityPhotosAndAttachmentsCrmNo,
+							this.activityPhotosAndAttachmentsTitle, this.activityPhotosAndAttachmentsModuleName,
+							this.activityPhotosAndAttachmentsModuleId, this.activityPhotosAndAttachmentsFileName,
+							this.activityPhotosAndAttachmentsFileType, this.activityPhotosAndAttachmentsFilePath,
+							this.activityPhotosAndAttachmentsIsActive, this.activityPhotosAndAttachmentsModuleRowId,
+							this.activityPhotosAndAttachmentsCreatedTime, this.activityPhotosAndAttachmentsModifiedTime,
+							this.activityPhotosAndAttachmentsUser);
+				}
 
 				this.flag = true;
 			} catch (Exception e) {

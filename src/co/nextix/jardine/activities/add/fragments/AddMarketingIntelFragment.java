@@ -137,7 +137,7 @@ public class AddMarketingIntelFragment extends Fragment {
 					if (details != null && !details.isEmpty() && competitorProduct != 0) {
 						flag = true;
 						Editor editor = pref.edit();
-						editor.putString("details", details);
+						editor.putString("details_marketing_intel", details);
 						editor.putLong("competitor_product_marketing_intel", competitorProduct);
 						editor.commit(); // commit changes
 

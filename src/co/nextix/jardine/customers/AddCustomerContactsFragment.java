@@ -222,7 +222,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field4.setAdapter(adapter4);
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
-		field8.setText(CustomerConstants.CUSTOMER_NAME);
+		
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		field8.setText(String.valueOf(pref.getLong("customer", 0)));
+		
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
 			UserRecord user = u.getCurrentUser();
@@ -403,6 +406,7 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				editor.putString("mobile_number", mobileNo);
 				editor.putString("birthday", birthday);
 				editor.putString("email_address", emailAddress);
+				editor.putLong("user_id", userId);
 				editor.commit(); // commit changes
 
 			} else {

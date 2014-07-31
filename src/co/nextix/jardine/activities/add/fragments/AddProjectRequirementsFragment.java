@@ -68,12 +68,13 @@ public class AddProjectRequirementsFragment extends Fragment {
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 		ProjectRequirementRecord projectRequirementRecord = null;
-		
+		String record = null;
+
 		if (activityRecord != null) {
 			projectRequirementRecord = JardineApp.DB.getProjectRequirement().getByActivityId(activity_id);
+			record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
 		}
-		
-		String record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
+
 		if (projectRequirementRecord != null || record != null) {
 
 			long createdBy = 0;
@@ -112,7 +113,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 			((EditText) view.findViewById(R.id.square_meters_proj_requirements)).setText(squareMeters);
 			((EditText) view.findViewById(R.id.product_brand)).setText(productBrand);
 			((EditText) view.findViewById(R.id.other_details)).setText(otherDetails);
-			
+
 		} else {
 
 			this.projectRequirementAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,

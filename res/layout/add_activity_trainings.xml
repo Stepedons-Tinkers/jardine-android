@@ -154,6 +154,7 @@
                     android:layout_marginRight="4dp"
                     android:layout_marginTop="4dp"
                     android:layout_weight="0.3"
+                    android:inputType="number"
                     android:background="#dcdcdc"
                     android:ems="10"
                     android:gravity="center"

@@ -6,26 +6,17 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.ActivityTypeRecord;
-import co.nextix.jardine.database.records.BusinessUnitRecord;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
 
 import com.dd.CircularProgressButton;
 
@@ -41,15 +32,15 @@ public class AddActivityTrainingsFragment extends Fragment {
 
 		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
 		if (activityRecord != null) {
-			
+
 			String venue = null;
 			int numberOfAttendees = 0;
 
 			try {
-				
+
 				venue = activityRecord.getVenue();
 				numberOfAttendees = activityRecord.getNumberOfAttendees();
-				
+
 			} catch (Exception e) {
 
 			}
@@ -84,28 +75,17 @@ public class AddActivityTrainingsFragment extends Fragment {
 
 					widthAnimation.start();
 
-					String crmno = ((TextView) rootView.findViewById(R.id.crm_no)).getText().toString();
-					String checkin = ((TextView) rootView.findViewById(R.id.check_in)).getText().toString();
-					String checkout = ((TextView) rootView.findViewById(R.id.check_out)).getText().toString();
-					long activityType = ((ActivityTypeRecord) ((Spinner) rootView.findViewById(R.id.activity_type)).getSelectedItem())
-							.getId();
-					long createdBy = Long.parseLong(StoreAccount.restore(getActivity()).getString(Account.ROWID));
-
-					BusinessUnitRecord businessUnit = JardineApp.DB.getBusinessUnit().getById(
-							JardineApp.DB.getUser().getCurrentUser().getId());
+					String venue = ((EditText) rootView.findViewById(R.id.venue)).getText().toString();
+					int noOfAttendees = Integer.parseInt((((EditText) rootView.findViewById(R.id.no_of_attendees)).getText().toString()));
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (activityType != 0 && checkin != null && !checkin.isEmpty() && checkout != null && !checkout.isEmpty()) {
+					if (venue != null && !venue.isEmpty() && noOfAttendees != -1) {
 
 						trapping = true;
 						Editor editor = pref.edit();
-						editor.putString("crm_no", crmno);
-						editor.putString("check_in", checkin);
-						editor.putString("check_out", checkout);
-						editor.putLong("activity_type", activityType);
-						editor.putLong("createdBy", createdBy);
-						editor.putLong("business_unit", businessUnit.getId());
+						editor.putString("trainings_venue", venue);
+						editor.putInt("trainings_no", noOfAttendees);
 						editor.commit(); // commit changes
 
 						// Set the button click to true
@@ -150,22 +130,6 @@ public class AddActivityTrainingsFragment extends Fragment {
 
 				}
 
-			}
-		});
-
-		((TextView) rootView.findViewById(R.id.venue)).setOnEditorActionListener(new OnEditorActionListener() {
-
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putString("venue", v.getText().toString());
-					editor.putString("no_attendees", ((EditText) rootView.findViewById(R.id.number_of_attendees)).getText().toString());
-					editor.commit(); // commit changes
-				}
-
-				return false;
 			}
 		});
 

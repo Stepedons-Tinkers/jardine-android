@@ -156,8 +156,8 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 						flag = true;
 						Editor editor = pref.edit();
 						editor.putLong("competitor_product", competitorProduct);
-						editor.putLong("stock_status", stockStatus);
-						editor.putInt("loaded_on_shelves", loadedOnShelves);
+						editor.putLong("stock_status_competitor", stockStatus);
+						editor.putInt("loaded_on_shelves_competitor", loadedOnShelves);
 						editor.putString("competitor_other_remarks", otherRemarks);
 						editor.commit(); // commit changes
 

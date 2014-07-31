@@ -108,64 +108,6 @@ public class AddActivityProjectVisitFragment extends Fragment {
 		((Spinner) rootView.findViewById(R.id.project_stage)).setAdapter(this.projectStage);
 		((Spinner) rootView.findViewById(R.id.project_category)).setAdapter(this.projectCategory);
 
-		// ((Spinner)
-		// rootView.findViewById(R.id.project_stage)).setOnItemSelectedListener(new
-		// OnItemSelectedListener() {
-		//
-		// @Override
-		// public void onItemSelected(AdapterView<?> parent, View view, int
-		// position, long id) {
-		// SharedPreferences pref =
-		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
-		// 0);
-		// Editor editor = pref.edit();
-		// editor.putString("project_name", ((EditText)
-		// rootView.findViewById(R.id.project_name)).getText().toString());
-		// editor.putString("project_stage",
-		// String.valueOf(parent.getSelectedItem()));
-		// editor.putString("project_category", String.valueOf(((Spinner)
-		// rootView.findViewById(R.id.project_category)).getSelectedItem()));
-		// editor.commit(); // commit changes
-		// }
-		//
-		// @Override
-		// public void onNothingSelected(AdapterView<?> parent) {
-		// if (parent.getSelectedItemPosition() == 0) {
-		// Toast.makeText(getActivity(), "This field requires data",
-		// Toast.LENGTH_SHORT).show();
-		// }
-		// }
-		// });
-		//
-		// ((Spinner)
-		// rootView.findViewById(R.id.project_category)).setOnItemSelectedListener(new
-		// OnItemSelectedListener() {
-		//
-		// @Override
-		// public void onItemSelected(AdapterView<?> parent, View view, int
-		// position, long id) {
-		// SharedPreferences pref =
-		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
-		// 0);
-		// Editor editor = pref.edit();
-		// editor.putString("project_name", ((EditText)
-		// rootView.findViewById(R.id.project_name)).getText().toString());
-		// editor.putString("project_category",
-		// String.valueOf(parent.getSelectedItem()));
-		// editor.putString("project_stage", String.valueOf(((Spinner)
-		// rootView.findViewById(R.id.project_stage)).getSelectedItem()));
-		// editor.commit(); // commit changes
-		// }
-		//
-		// @Override
-		// public void onNothingSelected(AdapterView<?> parent) {
-		// if (parent.getSelectedItemPosition() == 0) {
-		// Toast.makeText(getActivity(), "This field requires data",
-		// Toast.LENGTH_SHORT).show();
-		// }
-		// }
-		// });
-
 		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
