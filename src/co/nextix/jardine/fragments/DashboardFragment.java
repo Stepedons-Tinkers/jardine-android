@@ -88,44 +88,44 @@ public class DashboardFragment extends Fragment {
 //
 //		});
 
-		this.startAnimationPopOut(rootView);
+//		this.startAnimationPopOut(rootView);
 		return rootView;
 	}
 
-	private void startAnimationPopOut(final View view) {
-		TextView myLayout = (TextView) view
-				.findViewById(R.id.update_activities);
-		Animation animation = AnimationUtils.loadAnimation(getActivity(),
-				R.anim.tile_animation);
-
-		animation.setAnimationListener(new AnimationListener() {
-			@Override
-			public void onAnimationStart(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationRepeat(Animation animation) {
-
-			}
-
-			@Override
-			public void onAnimationEnd(final Animation animation) {
-				counter++;
-				TextView myLayout = (TextView) view
-						.findViewById(R.id.update_activities);
-				myLayout.setText("" + counter + " remaining stocks \n"
-						+ counter + " updates for marketing intel");
-				myLayout.startAnimation(animation);
-			}
-		});
-
-		animation.setRepeatCount(Animation.INFINITE);
-		animation.setRepeatMode(Animation.INFINITE);
-
-		myLayout.clearAnimation();
-		myLayout.startAnimation(animation);
-	}
+//	private void startAnimationPopOut(final View view) {
+//		TextView myLayout = (TextView) view
+//				.findViewById(R.id.update_activities);
+//		Animation animation = AnimationUtils.loadAnimation(getActivity(),
+//				R.anim.tile_animation);
+//
+//		animation.setAnimationListener(new AnimationListener() {
+//			@Override
+//			public void onAnimationStart(Animation animation) {
+//
+//			}
+//
+//			@Override
+//			public void onAnimationRepeat(Animation animation) {
+//
+//			}
+//
+//			@Override
+//			public void onAnimationEnd(final Animation animation) {
+//				counter++;
+//				TextView myLayout = (TextView) view
+//						.findViewById(R.id.update_activities);
+//				myLayout.setText("" + counter + " remaining stocks \n"
+//						+ counter + " updates for marketing intel");
+//				myLayout.startAnimation(animation);
+//			}
+//		});
+//
+//		animation.setRepeatCount(Animation.INFINITE);
+//		animation.setRepeatMode(Animation.INFINITE);
+//
+//		myLayout.clearAnimation();
+//		myLayout.startAnimation(animation);
+//	}
 
 	protected String concatenateDay(String day) {
 		String concatenatedDay = "";

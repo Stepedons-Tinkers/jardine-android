@@ -101,9 +101,9 @@ public class WorkplanMenuBarFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String id = StoreAccount.restore(getActivity())
-				.getString(Account.ROWID);
-		userId = Long.parseLong(id);
+//		String id = StoreAccount.restore(getActivity())
+//				.getString(Account.ROWID);
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 		this.setHasOptionsMenu(true);
 
 	}
@@ -130,9 +130,8 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		formattedDate = (month + 1) + "/" + day + "/" + year;
 
 		view = inflater.inflate(R.layout.workplan, container, false);
-		header = inflater.inflate(R.layout.workplan_3_columns,
-				null);
-		
+		header = inflater.inflate(R.layout.workplan_3_columns, null);
+
 		DashBoardActivity.tabIndex.clear();
 		DashBoardActivity.fromAddActivities = false;
 
@@ -152,8 +151,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 		getActivity().invalidateOptionsMenu();
 		trow = (TableRow) header.findViewById(R.id.trWorkplanRowH);
 		txtCol1 = (TextView) header.findViewById(R.id.tvWorkplanCol1);
-		txtCol2 = (TextView) header
-				.findViewById(R.id.tvWorkplanCol2);
+		txtCol2 = (TextView) header.findViewById(R.id.tvWorkplanCol2);
 		txtCol3 = (TextView) header.findViewById(R.id.tvWorkplanCol3);
 
 		trow.setGravity(Gravity.CENTER);
@@ -330,8 +328,7 @@ public class WorkplanMenuBarFragment extends Fragment implements
 
 		} else {
 			AdapterWorkplanEntry adapter = new AdapterWorkplanEntry(
-					getActivity(),
-					R.layout.workplan_3_columns, realRecord);
+					getActivity(), R.layout.workplan_3_columns, realRecord);
 			list.setAdapter(adapter);
 		}
 

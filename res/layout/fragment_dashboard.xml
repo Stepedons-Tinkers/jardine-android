@@ -93,6 +93,18 @@
                         android:layout_marginLeft="27dp"
                         android:layout_marginTop="160dp"
                         android:text="4 stocks left \n 0 updates for marketing intel"
+                        android:textColor="@android:color/white"
+                        android:visibility="gone" />
+                    
+                    <TextView
+                        android:id="@+id/update_activities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="140dp"
+                        android:text="View today&apos;s activities"
                         android:textColor="@android:color/white" />
                 </RelativeLayout>
 
@@ -107,7 +119,31 @@
                     android:paddingLeft="14dp"
                     android:paddingTop="67dp"
                     android:text="View today&apos;s workplan"
-                    android:textColor="@android:color/white" />
+                    android:textColor="@android:color/white" 
+                    android:visibility="gone"/>
+                
+                
+                <RelativeLayout
+                    android:id="@+id/activites"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    
+                    android:layout_weight="1"
+                    android:background="@drawable/workplan_tile"
+                    android:onClick="viewTodaysWorkplan" >
+
+
+                    <TextView
+                        android:id="@+id/update_activities"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="27dp"
+                        android:layout_marginTop="140dp"
+                        android:text="View today&apos;s activities"
+                        android:textColor="@android:color/white" />
+                </RelativeLayout>
             </LinearLayout>
 
             <TextView

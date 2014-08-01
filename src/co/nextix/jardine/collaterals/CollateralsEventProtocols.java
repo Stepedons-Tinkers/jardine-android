@@ -141,9 +141,9 @@ public class CollateralsEventProtocols extends Fragment implements
 		arrowRight.setOnClickListener(this);
 
 		EventProtocolTable table = JardineApp.DB.getEventProtocol();
-		String id = StoreAccount.restore(getActivity())
-				.getString(Account.ROWID);
-		userId = Long.parseLong(id);
+//		String id = StoreAccount.restore(getActivity())
+//				.getString(Account.ROWID);
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 
 		realRecord = new ArrayList<EventProtocolRecord>();
 		tempRecord = new ArrayList<EventProtocolRecord>();

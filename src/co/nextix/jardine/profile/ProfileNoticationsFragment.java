@@ -86,9 +86,9 @@ public class ProfileNoticationsFragment extends Fragment {
 	}
 
 	private void populateData() {
-		String id = StoreAccount.restore(getActivity())
-				.getString(Account.ROWID);
-		userId = Long.parseLong(id);
+//		String id = StoreAccount.restore(getActivity())
+//				.getString(Account.ROWID);
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 
 		List<CalendarRecord> dummy = JardineApp.DB.getCalendar()
 				.getAllRecordsByUserId(userId, MyDateUtils.getCurrentDate());

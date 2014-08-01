@@ -141,9 +141,9 @@ public class CollateralsSalesProtocols extends Fragment implements
 		arrowRight.setOnClickListener(this);
 
 		SalesProtocolTable table = JardineApp.DB.getSalesProtocol();
-		String id = StoreAccount.restore(getActivity())
-				.getString(Account.ROWID);
-		userId = Long.parseLong(id);
+//		String id = StoreAccount.restore(getActivity())
+//				.getString(Account.ROWID);
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 
 		realRecord = new ArrayList<SalesProtocolRecord>();
 		tempRecord = new ArrayList<SalesProtocolRecord>();
