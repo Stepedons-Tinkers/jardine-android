@@ -78,9 +78,9 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		long id = StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
+//		long id = StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
-		userId = id;
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 	}
 
 	@SuppressWarnings("unused")

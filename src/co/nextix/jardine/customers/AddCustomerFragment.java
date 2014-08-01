@@ -63,12 +63,12 @@ public class AddCustomerFragment extends Fragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		String id = StoreAccount.restore(JardineApp.context).getString(
-				Account.ROWID);
+//		String id = StoreAccount.restore(JardineApp.context).getString(
+//				Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
 
-		userId = Long.parseLong(id);
+		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 	}
 
 	@Override
