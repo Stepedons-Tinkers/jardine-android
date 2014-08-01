@@ -25,8 +25,12 @@ import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
 import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
+import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.ProductFocusRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.database.tables.ActivityTable;
+import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.ProductFocusTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -59,11 +63,15 @@ public class ProductFocusFragment extends Fragment {
 		myFragmentView = inflater.inflate(R.layout.fragment_activity_product_focus, container, false);
 		setListData();
 		
-		bundle = getArguments();
+//		bundle = getArguments();
 		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 		
 		// ONCLICK sa mga buttons sa fragment
 		((Button) myFragmentView.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
@@ -126,6 +134,22 @@ public class ProductFocusFragment extends Fragment {
 	public void setListData() {
 		this.realRecord = new ArrayList<ProductRecord>();
 		this.tempRecord = new ArrayList<ProductRecord>();
+		
+		
+//		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
+//		
+//		
+//		ActivityTable act = JardineApp.DB.getActivity();
+//		ProductTable table = JardineApp.DB.getProduct();
+//		List<ProductRecord> records = table.getAllRecords();
+//		
+//		for (ProductRecord rec : records){
+//			ActivityRecord reca = act.getById(rec.get);
+//			if(reca != null)
+//			if (reca.toString().equals(this.activityRecord.getCrm()))
+//				this.realRecord.add(rec);
+//		}
 
 		ProductTable table = JardineApp.DB.getProduct();
 		List<ProductRecord> records = table.getAllRecords();

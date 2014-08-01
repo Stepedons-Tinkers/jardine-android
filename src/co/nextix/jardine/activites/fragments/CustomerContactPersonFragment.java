@@ -56,11 +56,15 @@ public class CustomerContactPersonFragment extends Fragment {
 		myFragmentView = inflater.inflate(R.layout.fragment_activity_customer_contact_person, container, false);
 		setListData();
 		
-		bundle = getArguments();
+//		bundle = getArguments();
 		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 		
 		// ONCLICK sa mga buttons sa fragment
 		((Button) myFragmentView.findViewById(R.id.add_customer_contact_person)).setOnClickListener(new OnClickListener() {

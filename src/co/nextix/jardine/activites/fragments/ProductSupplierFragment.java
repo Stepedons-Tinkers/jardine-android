@@ -64,11 +64,15 @@ public class ProductSupplierFragment extends Fragment {
 				false);
 		this.setListData();
 		
-		bundle = getArguments();
+//		bundle = getArguments();
 		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 		
 		Log.e("jdi"," size");
 		((Button) myFragmentView

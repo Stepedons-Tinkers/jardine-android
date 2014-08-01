@@ -66,11 +66,15 @@ public class CompetitorStockCheckFragment extends Fragment {
 				false);
 		setListData();
 
-		bundle = getArguments();
-
-		if (bundle != null) {
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		bundle = getArguments();
+		
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
 		// ONCLICK sa mga buttons sa fragment
 		((Button) myFragmentView

@@ -10,7 +10,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
-import android.support.v4.view.ViewPager.OnPageChangeListener;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -38,7 +37,9 @@ public class ActivityInfoFragment extends Fragment {
 	private FragmentTransaction ft;
 
 	public static FrameLayout fragmentLayout_1;
+	public static int fragmentLayout_1id;
 	public static FrameLayout fragmentLayout_2;
+	public static int fragmentLayout_2id;
 
 	private Bundle bundle;
 
@@ -54,10 +55,14 @@ public class ActivityInfoFragment extends Fragment {
 				R.layout.fragment_activity_static_fields, container, false);
 
 		ft = getFragmentManager().beginTransaction();
+		fragmentLayout_1id = R.id.layoutForAddingFrag;
 		fragmentLayout_1 = (FrameLayout) this.myFragmentView
-				.findViewById(R.id.layoutForAddingFrag);
+				.findViewById(fragmentLayout_1id);
+		
+		fragmentLayout_2id = R.id.layoutForEditFrag;
 		fragmentLayout_2 = (FrameLayout) this.myFragmentView
-				.findViewById(R.id.layoutForEditFrag);
+				.findViewById(fragmentLayout_2id);
+		
 
 		bundle = new Bundle();
 		bundle.putInt("layoutID", fragmentLayout_1.getId());
@@ -142,12 +147,12 @@ public class ActivityInfoFragment extends Fragment {
 		public MyPagerAdapter(FragmentManager fm, List<Fragment> fragments) {
 			super(fm);
 			this.fragments = fragments;
-			switch(titles){
-			
+			switch (titles) {
+
 			case 0:
 				TITLES.add("General Information");
 				TITLES.add("Travel or Waiting");
-				break;			
+				break;
 			case 1:
 				TITLES.add("General Information");
 				TITLES.add("With CoSMRs");
@@ -188,6 +193,7 @@ public class ActivityInfoFragment extends Fragment {
 				TITLES.add("General Information");
 				TITLES.add("Activity Details and Notes");
 				TITLES.add("Customer Contact Person");
+				TITLES.add("Identify Product Focus");
 				TITLES.add("Activity Photos and Attachments");
 				break;
 			case 7:
@@ -302,8 +308,9 @@ public class ActivityInfoFragment extends Fragment {
 					ActivityDetailedInfoFragment.class.getName()));
 			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
 					CustomerContactPersonFragment.class.getName()));
-			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-					PhotosAndAttachmentsFragment.class.getName()));
+			flist.add(ProductFocusFragment.instantiate(
+					getActivity(),
+					ProductFocusFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
 					PhotosAndAttachmentsFragment.class.getName()));
 			break;

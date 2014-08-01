@@ -241,7 +241,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									"",
 									0,
 									"",
-									pref.getLong("customer", 0),
+									pref.getLong("customerlong", 0),
 									pref.getLong("area", 0),
 									pref.getLong("province", 0),
 									pref.getLong("city_town", 0),
@@ -264,7 +264,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 											.getString("mobile_number", null),
 									pref.getString("birthday", null), pref
 											.getString("email_address", null),
-									pref.getLong("customer", 0), 1, pref
+									pref.getLong("customerlong", 0), 1, pref
 											.getString("check_in", null), pref
 											.getString("check_out", null)
 											.concat(displayCheckOut()), pref
@@ -362,7 +362,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									"",
 									0,
 									"",
-									pref.getLong("customer", 0),
+									pref.getLong("customerlong", 0),
 									pref.getLong("area", 0),
 									pref.getLong("province", 0),
 									pref.getLong("city_town", 0),
@@ -388,7 +388,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 											.getString("mobile_number", null),
 									pref.getString("birthday", null), pref
 											.getString("email_address", null),
-									pref.getLong("customer", 0), 1, pref
+									pref.getLong("customerlong", 0), 1, pref
 											.getString("check_in", null), pref
 											.getString("check_out", null)
 											.concat(displayCheckOut()), pref
@@ -445,7 +445,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									"",
 									0,
 									"",
-									pref.getLong("customer", 0),
+									pref.getLong("customerlong", 0),
 									pref.getLong("area", 0),
 									pref.getLong("province", 0),
 									pref.getLong("city_town", 0),
@@ -470,7 +470,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 											.getString("mobile_number", null),
 									pref.getString("birthday", null), pref
 											.getString("email_address", null),
-									pref.getLong("customer", 0), 1, pref
+									pref.getLong("customerlong", 0), 1, pref
 											.getString("check_in", null), pref
 											.getString("check_out", null)
 											.concat(displayCheckOut()), pref
@@ -507,7 +507,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									"",
 									0,
 									"",
-									pref.getLong("customer", 0),
+									pref.getLong("customerlong", 0),
 									pref.getLong("area", 0),
 									pref.getLong("province", 0),
 									pref.getLong("city_town", 0),
@@ -554,7 +554,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									"",
 									0,
 									"",
-									pref.getLong("customer", 0),
+									pref.getLong("customerlong", 0),
 									pref.getLong("area", 0),
 									pref.getLong("province", 0),
 									pref.getLong("city_town", 0),

@@ -135,8 +135,9 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 		DocumentTable table = JardineApp.DB.getDocument();
 		List<DocumentRecord> records = table.getAllRecords();
 		for (DocumentRecord rec : records)
-			if (rec.getModuleName().equals(Modules.Activity))
-				this.realRecord.add(rec);
+			if(rec.toString() != null)
+				if (rec.getModuleName().equals(Modules.Activity))
+					this.realRecord.add(rec);
 
 //		 this.realRecord.addAll(records);
 

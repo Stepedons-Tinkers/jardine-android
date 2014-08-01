@@ -276,7 +276,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 						trapping = true;
 						Editor editor = pref.edit();
-						editor.putLong("customer", customer);
+						editor.putLong("customerlong", customer);
 						editor.putLong("customer_type", customerType);
 						editor.putLong("area", area);
 						editor.putLong("province", province);

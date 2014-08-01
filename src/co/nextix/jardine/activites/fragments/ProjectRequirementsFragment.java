@@ -72,11 +72,15 @@ public class ProjectRequirementsFragment extends Fragment {
 				false);
 		
 		setListData();
-		bundle = getArguments();
-
-		if (bundle != null) {
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		bundle = getArguments();
+		
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 		
 //		((Button) myFragmentView.findViewById(R.id.add_proj_requirement))
 //				.setOnClickListener(new OnClickListener() {

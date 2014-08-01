@@ -73,11 +73,15 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check, container, false);
 		setListData();
 		
-		bundle = getArguments();
+//		bundle = getArguments();
 		
-		if(bundle != null){
-			frag_layout_id = bundle.getInt("layoutID");
-		}
+//		if(bundle != null){
+//			frag_layout_id = bundle.getInt("layoutID");
+//		}
+		
+		bundle = new Bundle();
+		
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 		
 		((Button) this.myFragmentView.findViewById(R.id.add_btn_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
 
