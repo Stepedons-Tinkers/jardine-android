@@ -183,8 +183,8 @@ public class ProductSupplierFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-					.setText("");
+//			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//					.setText("");
 		}
 	}
 
@@ -248,16 +248,16 @@ public class ProductSupplierFragment extends Fragment {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.GONE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-				.setVisibility(View.VISIBLE);
+//		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//				.setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.VISIBLE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-				.setVisibility(View.INVISIBLE);
+//		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//				.setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

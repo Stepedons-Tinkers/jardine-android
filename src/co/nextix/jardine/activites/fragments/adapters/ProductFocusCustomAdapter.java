@@ -24,8 +24,10 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.ProductFocusFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
+import co.nextix.jardine.database.records.ProductFocusRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
@@ -37,7 +39,7 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private ProductRecord tempValues = null;
+	private ProductFocusRecord tempValues = null;
 	private View vi = null;
 	private ListView listView = null;
 
@@ -125,21 +127,25 @@ public class ProductFocusCustomAdapter extends BaseAdapter {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (ProductRecord) this.data.get(position);
+			this.tempValues = (ProductFocusRecord) this.data.get(position);
 			
 			/************ Set Model values in Holder elements ***********/
-			holder.crm_no_txt.setText(String.valueOf(this.tempValues.getCrm()));
-			holder.product_no.setText(String.valueOf(this.tempValues.getProductNumber()));
-			holder.product_description.setText(String.valueOf(this.tempValues.getProductDescription()));
-			holder.product_brand.setText(String.valueOf(this.tempValues.getProductBrand()));
-			if(this.tempValues.getIsActive() == 0)
+			ProductTable table = JardineApp.DB.getProduct();
+			ProductRecord product = table.getById(this.tempValues.getId());
+			
+			
+			holder.crm_no_txt.setText(String.valueOf(product.getCrm()));
+			holder.product_no.setText(String.valueOf(product.getProductNumber()));
+			holder.product_description.setText(String.valueOf(product.getProductDescription()));
+			holder.product_brand.setText(String.valueOf(product.getProductBrand()));
+			if(product.getIsActive() == 0)
 				holder.is_active.setText("No");
 			else
 				holder.is_active.setText("Yes");
 
 			UserTable user = JardineApp.DB.getUser();
 			if(user != null){
-				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				UserRecord rec = user.getById(product.getCreatedBy());
 				holder.created_by.setText("");
 				if(rec != null){
 					holder.created_by.setText(rec.toString());

@@ -174,7 +174,7 @@ public class MarketingIntelFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
+//			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
 		}
 	}
 	

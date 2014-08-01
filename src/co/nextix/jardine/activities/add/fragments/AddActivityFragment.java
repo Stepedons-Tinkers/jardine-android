@@ -46,6 +46,7 @@ public class AddActivityFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+		AddActivityFragment.fromOther = true;
 		passValues = new ArrayList<Long>();
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
 

@@ -78,6 +78,33 @@ public class ProductFocusTable {
 		return list;
 	}
 
+	public List<ProductFocusRecord> getRecordsByActivity(long activityID) {
+		Cursor c = null;
+		List<ProductFocusRecord> list = new ArrayList<ProductFocusRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_PRODUCTFOCUS_ACTIVITY + "=" + activityID;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst() && (c != null)) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTFOCUS_ROWID));
+					long product = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTFOCUS_PRODUCT));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTFOCUS_ACTIVITY));
+
+					list.add(new ProductFocusRecord(id, product, activity));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
 	// public boolean isExisting(String webID) {
 	// boolean exists = false;
 	// String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "

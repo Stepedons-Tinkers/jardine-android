@@ -222,7 +222,7 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field6b.setOnClickListener(this);
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("customer", 0));
+		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("customerLong", 0));
 
 		if (record != null) {
 			field8.setText(JardineApp.DB.getUser().getById(record.getCustomer()).toString());

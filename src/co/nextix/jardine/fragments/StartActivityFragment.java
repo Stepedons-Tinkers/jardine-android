@@ -388,7 +388,7 @@ public class StartActivityFragment extends Fragment implements OnClickListener {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.rootView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+//			((TextView) this.rootView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
 		}
 	}
 
@@ -472,13 +472,13 @@ public class StartActivityFragment extends Fragment implements OnClickListener {
 	protected void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+//		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	protected void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.rootView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+//		((TextView) this.rootView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	protected void refreshListView() {

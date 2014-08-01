@@ -127,10 +127,10 @@ public class StartActivityCustomAdapter extends BaseAdapter implements OnClickLi
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
+//			sct.isListHasNoData();
 
 		} else {
-			sct.isListHasData();
+//			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (ActivityRecord) this.data.get(position);

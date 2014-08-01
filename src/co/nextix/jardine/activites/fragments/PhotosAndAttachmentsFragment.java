@@ -158,8 +158,8 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-					.setText("The database is still empty. Wanna sync first?");
+//			((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//					.setText("The database is still empty. Wanna sync first?");
 		}
 	}
 
@@ -235,16 +235,16 @@ public class PhotosAndAttachmentsFragment extends Fragment {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.GONE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-				.setVisibility(View.VISIBLE);
+//		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//				.setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub))
 				.setVisibility(View.VISIBLE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-				.setVisibility(View.INVISIBLE);
+//		((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
+//				.setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

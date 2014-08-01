@@ -150,7 +150,7 @@ public class CustomerContactPersonFragment extends Fragment {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+//			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
 		}
 	}
 	

@@ -521,16 +521,19 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									pref.getString(
 											"follow_up_committment_date", null),
 									"", 0, 0, "", 0, "").execute();
-							
-							long finalPassValues = 0;
-							for (int i = 0; i < AddActivityFragment.passValues
-									.size(); i++){
-								
-								finalPassValues = AddActivityFragment.passValues.get(i);
-								
-							}
-								new InsertTask(finalPassValues, row_id).execute();
-							
+
+							// long finalPassValues = 0;
+							// for (int i = 0; i <
+							// AddActivityFragment.passValues
+							// .size(); i++){
+							//
+							// finalPassValues =
+							// AddActivityFragment.passValues.get(i);
+							//
+							// }
+							// new InsertTask(finalPassValues,
+							// row_id).execute();
+
 						} else if (pref.getString("end_user_activity_types",
 								null) != null
 								&& !pref.getString("end_user_activity_types",
@@ -1021,7 +1024,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 						this.projectStage, this.projectCategory, this.venue,
 						this.numberOfAttendees, this.endUserActivityTypes);
 
-				if (row_id != -1) {
+				if (row_id > 0) {
 
 					saveCustomerContactPerson(this.customerContactNo,
 							this.customerContactCrmNo,
@@ -1115,6 +1118,16 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							this.activityPhotosAndAttachmentsCreatedTime,
 							this.activityPhotosAndAttachmentsModifiedTime,
 							this.activityPhotosAndAttachmentsUser);
+
+					// TODO
+					if (AddActivityFragment.passValues.size() != 0) {
+						for (int i = 0; i < AddActivityFragment.passValues
+								.size(); i++) {
+							new InsertTask(
+									AddActivityFragment.passValues.get(i),
+									row_id).execute();
+						}
+					}
 				}
 
 				this.flag = true;

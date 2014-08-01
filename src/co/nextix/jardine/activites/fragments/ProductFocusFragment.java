@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -22,26 +23,20 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.ProductFocusCustomAdapter;
-import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
 import co.nextix.jardine.activites.fragments.detail.ProductFocusDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.ProductFocusRecord;
-import co.nextix.jardine.database.records.ProductRecord;
-import co.nextix.jardine.database.tables.ActivityTable;
-import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.ProductFocusTable;
-import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class ProductFocusFragment extends Fragment {
 
 
 	private ProductFocusCustomAdapter adapter = null;
-	private ArrayList<ProductRecord> realRecord = null;
-	private ArrayList<ProductRecord> tempRecord = null;
-	private ArrayList<ProductRecord> itemSearch = null;
+	private ArrayList<ProductFocusRecord> realRecord = null;
+	private ArrayList<ProductFocusRecord> tempRecord = null;
+	private ArrayList<ProductFocusRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View myFragmentView = null;
 	private ListView list = null;
@@ -52,8 +47,12 @@ public class ProductFocusFragment extends Fragment {
 	private Bundle bundle;
 	private int frag_layout_id;
 	
+	private ActivityRecord activityRecord = null;
+	private SharedPreferences pref = null;
+
+	
 	public ProductFocusFragment() {
-		this.itemSearch = new ArrayList<ProductRecord>();
+		this.itemSearch = new ArrayList<ProductFocusRecord>();
 	}
 	
 	
@@ -132,8 +131,8 @@ public class ProductFocusFragment extends Fragment {
 	
 	
 	public void setListData() {
-		this.realRecord = new ArrayList<ProductRecord>();
-		this.tempRecord = new ArrayList<ProductRecord>();
+		this.realRecord = new ArrayList<ProductFocusRecord>();
+		this.tempRecord = new ArrayList<ProductFocusRecord>();
 		
 		
 //		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
@@ -151,8 +150,12 @@ public class ProductFocusFragment extends Fragment {
 //				this.realRecord.add(rec);
 //		}
 
-		ProductTable table = JardineApp.DB.getProduct();
-		List<ProductRecord> records = table.getAllRecords();
+		
+		this.pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		this.activityRecord = JardineApp.DB.getActivity().getById(pref.getLong("activity_id", 0));
+
+		ProductFocusTable table = JardineApp.DB.getProductFocus();
+		List<ProductFocusRecord> records = table.getRecordsByActivity(this.activityRecord.getId());
 		this.realRecord.addAll(records);
 
 		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
@@ -161,7 +164,7 @@ public class ProductFocusFragment extends Fragment {
 			int remainder = realRecord.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
-					ProductRecord rec = new ProductRecord();
+					ProductFocusRecord rec = new ProductFocusRecord();
 					realRecord.add(rec);
 				}
 			}
@@ -213,7 +216,7 @@ public class ProductFocusFragment extends Fragment {
 	
 	
 	public void onItemClick(int mPosition) {
-		ProductRecord tempValues = (ProductRecord) this.tempRecord.get(mPosition);
+		ProductFocusRecord tempValues = (ProductFocusRecord) this.tempRecord.get(mPosition);
 
 //		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 //		Editor editor = pref.edit();
