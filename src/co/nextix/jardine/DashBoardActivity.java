@@ -430,7 +430,10 @@ public class DashBoardActivity extends FragmentActivity {
 	}
 
 	public void viewTodaysWorkplan(View view) {
-
+		android.support.v4.app.Fragment fragment = new WorkplanMenuBarFragment();
+		android.support.v4.app.FragmentManager fragmentManager = getSupportFragmentManager();
+		fragmentManager.beginTransaction().replace(R.id.frame_container, fragment).addToBackStack("workplan").commit();
+		setTitle("Workplan");
 	}
 
 	public static String toddMMyy(Date day) {

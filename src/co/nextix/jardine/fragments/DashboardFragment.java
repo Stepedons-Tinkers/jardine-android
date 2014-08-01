@@ -126,6 +126,10 @@ public class DashboardFragment extends Fragment {
 //		myLayout.clearAnimation();
 //		myLayout.startAnimation(animation);
 //	}
+	
+	public void viewTodaysWorkplan(View v){
+		
+	}
 
 	protected String concatenateDay(String day) {
 		String concatenatedDay = "";

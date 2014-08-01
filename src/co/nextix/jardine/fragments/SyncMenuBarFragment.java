@@ -4855,12 +4855,15 @@ public class SyncMenuBarFragment extends Fragment {
 	}
 
 	private void buildAlertMessage() {
-		final AlertDialog.Builder builder = new AlertDialog.Builder(
-				getActivity());
-		builder.setMessage("Please check internet connection.")
-				.setCancelable(false).setPositiveButton("Ok", null);
-		final AlertDialog alert = builder.create();
-		alert.show();
+		// final AlertDialog.Builder builder = new AlertDialog.Builder(
+		// getActivity());
+		// builder.setMessage("Please check internet connection.")
+		// .setCancelable(false).setPositiveButton("Ok", null);
+		// final AlertDialog alert = builder.create();
+		// alert.show();
+
+		Toast.makeText(getActivity(), "Please Check Internet Connection!",
+				Toast.LENGTH_LONG).show();
 	}
 
 	private boolean isNetworkAvailable() {
