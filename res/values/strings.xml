@@ -148,6 +148,7 @@
     <string name="planned_visit">Planned Visit</string>
     <string name="modified_time">Modified Time</string>
     <string name="edit_activity">Edit Activity</string>
+    <string name="delete_activity">Delete Activity</string>
     <string name="source">Source</string>
     <string name="back_to_activity">Back to Activity </string>
     <string name="others"> \"Others" Activity\nType Remarks</string>
