@@ -28,6 +28,13 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
+            <Button
+                android:id="@+id/delete_activity"
+                android:layout_width="154dp"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/edit_activity"
+                android:layout_gravity="right"
+                android:text="@string/delete_activity" />
 
             <Button
                 android:id="@+id/edit_activity"

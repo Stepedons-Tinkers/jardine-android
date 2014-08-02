@@ -2,6 +2,7 @@ package co.nextix.jardine.activities.add.fragments;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.animation.ValueAnimator;
@@ -522,17 +523,19 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 											"follow_up_committment_date", null),
 									"", 0, 0, "", 0, "").execute();
 
-							// long finalPassValues = 0;
+							new InsertTask(AddActivityFragment.passValues,
+									row_id).execute();
+
+							// // TODO
+							// if (AddActivityFragment.passValues.size() != 0) {
 							// for (int i = 0; i <
 							// AddActivityFragment.passValues
-							// .size(); i++){
-							//
-							// finalPassValues =
-							// AddActivityFragment.passValues.get(i);
-							//
-							// }
-							// new InsertTask(finalPassValues,
+							// .size(); i++) {
+							// new InsertTask(
+							// AddActivityFragment.passValues.get(i),
 							// row_id).execute();
+							// }
+							// }
 
 						} else if (pref.getString("end_user_activity_types",
 								null) != null
@@ -737,8 +740,10 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		private String projectRequirementsModifiedTime = null;
 		private long projectRequirementsCreatedBy = 0;
 
-		private long identifyProductFocusProduct = 0;
-		private long identifyProductFocusProductActivity = 0;
+		private ArrayList<Long> identifyProductFocusProduct = new ArrayList<Long>();
+		private long identifyProductFocusProductActivity;
+		// private long identifyProductFocusProduct = 0;
+		// private long identifyProductFocusProductActivity = 0;
 
 		private String activityPhotosAndAttachmentsNo = null;
 		private String activityPhotosAndAttachmentsCrmNo = null;
@@ -973,7 +978,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		}
 
 		// For Identify Product Focus
-		private InsertTask(long product, long activity) {
+		private InsertTask(ArrayList<Long> product, long activity) {
 			this.identifyProductFocusProduct = product;
 			this.identifyProductFocusProductActivity = activity;
 		}
@@ -1118,16 +1123,6 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							this.activityPhotosAndAttachmentsCreatedTime,
 							this.activityPhotosAndAttachmentsModifiedTime,
 							this.activityPhotosAndAttachmentsUser);
-
-					// TODO
-					if (AddActivityFragment.passValues.size() != 0) {
-						for (int i = 0; i < AddActivityFragment.passValues
-								.size(); i++) {
-							new InsertTask(
-									AddActivityFragment.passValues.get(i),
-									row_id).execute();
-						}
-					}
 				}
 
 				this.flag = true;
@@ -1260,10 +1255,13 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 				createdBy);
 	}
 
-	protected void saveIdentifyProductFocus(long product, long activity) {
+	protected void saveIdentifyProductFocus(ArrayList<Long> product,
+			long activity) {
 
 		// Insert to the database
-		JardineApp.DB.getProductFocus().insert(product, activity);
+		for (int i = 0; i < product.size(); i++)
+			JardineApp.DB.getProductFocus().insert(product.get(i).longValue(),
+					activity);
 	}
 
 	protected void saveActivityPhotosAndAttachments(String no, String crmNo,
