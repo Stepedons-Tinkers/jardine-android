@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">JardIn</string>
+    <string name="app_name">Jardine SFA</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="drawer_open">Slider Menu Opened</string>
@@ -377,6 +377,7 @@
     <string name="customer_contact_hint_email">email address</string>
     <string name="customer_days_unchange">Days Unchanged</string>
     <string name="customer_record_status">Customer Record Status</string>
+     <string name="customer_pending_approval">Pending For Approval</string>
 
     <!-- Customer Contact Person -->
     <string name="crm_no_contact_person">CRM No</string>
