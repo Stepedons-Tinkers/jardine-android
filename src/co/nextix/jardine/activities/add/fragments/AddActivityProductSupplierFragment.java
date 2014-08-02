@@ -33,14 +33,16 @@ public class AddActivityProductSupplierFragment extends Fragment {
 
 	private boolean flag = false;
 	private ArrayAdapter<ProductRecord> productAdapter = null;
-	private ArrayAdapter<ProductSupplierRecord> customerAdapter = null;
+	private ArrayAdapter<CustomerRecord> productSupplierAdapter = null;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
-		List<ProductSupplierRecord> customerList = JardineApp.DB.getProductSupplier().getAllRecords();
+		List<CustomerRecord> productSupplierList = JardineApp.DB.getCustomer().getAllRecords();
+
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getFirstNameName();
+
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getLastname();
 
@@ -48,47 +50,50 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
 		long id = pref.getLong("activity_id_edit", 0);
-		ProductSupplierRecord productSupplier = JardineApp.DB.getProductSupplier().getById(id);
+
+		ProductSupplierRecord productRecord = JardineApp.DB.getProductSupplier().getById(id);
+		CustomerRecord productSupplier = JardineApp.DB.getCustomer().getById(id);
 
 		if (productSupplier != null) {
-
 			String productSupplierCreatedBy = null;
 			String productCrmNo = null;
-			String productActivity = null;
-			int productProductBrand = 0;
-			int productSuppliers = 0;
+			
+			long productActivity = 0;
+			long productProductBrand = 0;
+			
+			String productSuppliers = null;
 			String productOtherRemarks = null;
 
 			try {
-				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productSupplier.getCreatedBy()).toString();
-				productCrmNo = productSupplier.getCrm();
-				productActivity = String.valueOf(productSupplier.getActivity());
-				productProductBrand = Integer.parseInt(String.valueOf(productSupplier.getProductBrand()));
-				productSuppliers = Integer.parseInt(String.valueOf(productSupplier.getSupplier()));
-				productOtherRemarks = productSupplier.getOthersRemarks();
+				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productRecord.getCreatedBy()).toString();
+				productCrmNo = productRecord.getCrm();
+				productActivity = productRecord.getId(); //getActivity();
+				productProductBrand = productRecord.getProductBrand();
+				productSuppliers = productSupplier.getCustomerName();
+				productOtherRemarks = productRecord.getOthersRemarks();
 
 			} catch (Exception e) {
 
 			}
 
-			if (productSupplierCreatedBy != null || productCrmNo != null || productActivity != null || productProductBrand != 0
-					|| productSuppliers != 0 || productOtherRemarks != null) {
+			if (productSupplierCreatedBy != null || productCrmNo != null || productActivity != 0 || productProductBrand != 0
+					|| productSuppliers != null || productOtherRemarks != null) {
 
 				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
 				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
-				((TextView) view.findViewById(R.id.activity)).setText(productActivity);
+				((TextView) view.findViewById(R.id.activity)).setText(String.valueOf(productActivity));
 
 				((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
 
 				for (int i = 0; i < productList.size(); i++) {
-					if (productSupplier.getProductBrand() == productList.get(i).getId()) {
+					if (productRecord.getProductBrand() == productList.get(i).getId()) {
 						((Spinner) view.findViewById(R.id.product_brand)).setSelection(i);
 						break;
 					}
 				}
 
-				for (int i = 0; i < customerList.size(); i++) {
-					if (productSupplier.getId() == customerList.get(i).getId()) {
+				for (int i = 0; i < productSupplierList.size(); i++) {
+					if (productSupplier.getId() == productSupplierList.get(i).getId()) {
 						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
 						break;
 					}
@@ -99,10 +104,12 @@ public class AddActivityProductSupplierFragment extends Fragment {
 		} else {
 
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-			this.customerAdapter = new ArrayAdapter<ProductSupplierRecord>(JardineApp.context, R.layout.add_activity_textview, customerList);
+			this.productSupplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview,
+					productSupplierList);
 
 			((Spinner) view.findViewById(R.id.product_brand)).setAdapter(this.productAdapter);
-			((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.customerAdapter);
+			((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.productSupplierAdapter);
+
 			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
 			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
 			((TextView) view.findViewById(R.id.activity)).setClickable(false);
@@ -141,7 +148,7 @@ public class AddActivityProductSupplierFragment extends Fragment {
 					widthAnimation.start();
 
 					long productBrand = ((ProductRecord) ((Spinner) view.findViewById(R.id.product_brand)).getSelectedItem()).getId();
-					long supplier = ((ProductSupplierRecord) ((Spinner) view.findViewById(R.id.supplier)).getSelectedItem()).getId();
+					long supplier = ((CustomerRecord) ((Spinner) view.findViewById(R.id.supplier)).getSelectedItem()).getId();
 					String otherRemarks = ((EditText) view.findViewById(R.id.other_remarks)).getText().toString();
 
 					/** Checking of required fields **/

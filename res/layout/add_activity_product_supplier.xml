@@ -49,6 +49,7 @@
                     android:layout_toLeftOf="@+id/btnWithText1"
                     android:textColor="@color/white"
                     android:textSize="18sp"
+                    android:visibility="invisible"
                     app:textComplete="@string/complete_cancel"
                     app:textError="@string/error"
                     app:textIdle="@string/cancel" />

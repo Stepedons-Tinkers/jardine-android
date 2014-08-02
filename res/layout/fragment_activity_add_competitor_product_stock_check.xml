@@ -106,7 +106,7 @@
                         android:layout_margin="4dp"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        app:textComplete="@string/complete"
+                        app:textComplete="@string/next"
                         app:textError="@string/error"
                         app:textIdle="@string/done" />
                 </RelativeLayout>
@@ -169,7 +169,6 @@
                     android:background="#b0b0b0" >
 
                     <TextView
-                        android:id="@+id/customer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -196,7 +195,7 @@
                     android:background="#b0b0b0" >
 
                     <TextView
-                        android:id="@+id/customer"
+                        android:id="@+id/activity"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -295,7 +294,6 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
@@ -309,7 +307,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
@@ -343,7 +340,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
@@ -378,7 +374,6 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
@@ -392,7 +387,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"
@@ -432,7 +426,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"

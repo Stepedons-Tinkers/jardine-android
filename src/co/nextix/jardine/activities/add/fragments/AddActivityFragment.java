@@ -19,7 +19,6 @@ import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
-import co.nextix.jardine.database.records.ProductRecord;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -62,7 +61,6 @@ public class AddActivityFragment extends Fragment {
 			Log.e("activityID","not zero");
 			
 			ActivitiesConstant.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(this.activityID);
-			
 			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 			Editor editor = pref.edit();
 			

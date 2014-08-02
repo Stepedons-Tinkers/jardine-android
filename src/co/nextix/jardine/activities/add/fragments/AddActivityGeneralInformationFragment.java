@@ -77,15 +77,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		String assignedToLname = null;
 
 		// Auto populate fields
-
-		// Nganung mo null ni siya?.. fuck
+		// Nganung mo null ni siya?..
 		try {
 
 			assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 					.getFirstNameName();
+
 			assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 					.getLastname();
-			
+
 		} catch (Exception e) {
 
 		}
@@ -311,7 +311,6 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 			@Override
 			public void onNothingSelected(AdapterView<?> parent) {
-				// TODO Auto-generated method stub
 
 			}
 		});
@@ -331,8 +330,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
-		saveBtn = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
-		saveBtn.setOnClickListener(new View.OnClickListener() {
+		this.saveBtn = (CircularProgressButton) this.rootView.findViewById(R.id.btnWithText1);
+		this.saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
@@ -455,7 +454,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			}
 		});
 
-		return rootView;
+		return this.rootView;
 	}
 
 	protected class InsertTask extends AsyncTask<Void, Void, Boolean> {

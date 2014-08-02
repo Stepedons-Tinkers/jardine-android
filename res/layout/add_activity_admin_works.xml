@@ -120,7 +120,6 @@
                             android:layout_weight="0.3"
                             android:background="@drawable/edittext_border"
                             android:gravity="center_vertical"
-                            android:hint="related Customer record"
                             android:maxHeight="80dp"
                             android:minHeight="50dp"
                             android:padding="2dp"

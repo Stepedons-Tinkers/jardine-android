@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -93,9 +92,12 @@ public class AddActivityAdminWorksFragment extends Fragment {
 							public void run() {
 								pref.edit().clear().commit();
 								getFragmentManager().popBackStackImmediate();
+								
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 
-						}, 1700);
+						}, 1500);
 
 					} else {
  

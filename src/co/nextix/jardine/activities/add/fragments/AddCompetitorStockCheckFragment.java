@@ -29,13 +29,13 @@ import co.nextix.jardine.security.StoreAccount.Account;
 import com.dd.CircularProgressButton;
 
 public class AddCompetitorStockCheckFragment extends Fragment {
-	private ArrayAdapter<CompetitorProductStockCheckRecord> competitorStockAdapter = null;
+	private ArrayAdapter<CompetitorProductRecord> competitorStockAdapter = null;
 	private ArrayAdapter<PicklistRecord> jdiCompetitorStockCheckAdapter = null;
 	private boolean flag = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		List<CompetitorProductStockCheckRecord> competitorStockCheckList = JardineApp.DB.getCompetitorProductStockCheck().getAllRecords();
+		List<CompetitorProductRecord> competitorStockCheckList = JardineApp.DB.getCompetitorProduct().getAllRecords();
 		List<PicklistRecord> jdiCompetitorStockCheckList = JardineApp.DB.getCompetitorProductStockStatus().getAllRecords();
 
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
@@ -43,8 +43,9 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getLastname();
 
-		this.competitorStockAdapter = new ArrayAdapter<CompetitorProductStockCheckRecord>(JardineApp.context,
-				R.layout.add_activity_textview, competitorStockCheckList);
+		this.competitorStockAdapter = new ArrayAdapter<CompetitorProductRecord>(JardineApp.context, R.layout.add_activity_textview,
+				competitorStockCheckList);
+
 		this.jdiCompetitorStockCheckAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,
 				jdiCompetitorStockCheckList);
 
@@ -87,7 +88,7 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 				((EditText) view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
 
 				for (int i = 0; i < competitorStockCheckList.size(); i++) {
-					if (jdiCompetitorStockCheck.getCompetitorProduct() == competitorStockCheckList.get(i).getCompetitorProduct()) {
+					if (jdiCompetitorStockCheck.getCompetitorProduct() == competitorStockCheckList.get(i).getId()) {
 						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
 						break;
 					}

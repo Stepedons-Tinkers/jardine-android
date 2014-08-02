@@ -6,25 +6,22 @@ import java.util.List;
 
 import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.SMRRecord;
+import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -53,41 +50,24 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs, container, false);
-		List<SMRRecord> smrList = JardineApp.DB.getSMR().getAllRecords();
+		List<UserRecord> userList = JardineApp.DB.getUser().getAllRecords();
 
 		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 		long smrID = pref.getLong("activity_id_edit", 0);
 
 		SMRRecord record = JardineApp.DB.getSMR().getById(smrID);
 		if (record != null) {
-			for (int i = 0; i < smrList.size(); i++) {
-				if (smrList.get(i).getId() == record.getId()) {
+			for (int i = 0; i < userList.size(); i++) {
+				if (userList.get(i).getId() == record.getId()) {
 					((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
 				}
 			}
+
 		} else {
 
-			ArrayAdapter<SMRRecord> smrAdapter = new ArrayAdapter<SMRRecord>(JardineApp.context, R.layout.add_activity_textview, smrList);
+			ArrayAdapter<UserRecord> smrAdapter = new ArrayAdapter<UserRecord>(JardineApp.context, R.layout.add_activity_textview, userList);
 			((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
 		}
-
-		((Spinner) rootView.findViewById(R.id.smr)).setOnItemSelectedListener(new OnItemSelectedListener() {
-
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View rootView, int position, long id) {
-				SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-				Editor editor = pref.edit();
-				editor.putLong("smr", ((SMRRecord) parent.getSelectedItem()).getId());
-				editor.commit(); // commit changes
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-				if (parent.getSelectedItemPosition() == 0) {
-					Toast.makeText(getActivity(), "This field is required", Toast.LENGTH_SHORT).show();
-				}
-			}
-		});
 
 		this.saveBtn = ((CircularProgressButton) rootView.findViewById(R.id.btnWithText1));
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -117,15 +97,16 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long smr = ((SMRRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem()).getId();
+					String smrString = ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem().toString();
 
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-					if (smr != 0) {
+					if (smrString != null && !smrString.isEmpty()) {
+
+						long smr = ((UserRecord) ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem()).getId();
 
 						flag = true;
-
 						new InsertTask("0", pref.getString("crm_no", null), pref.getLong("activity_type", 0), pref.getString("check_in",
 								null), pref.getString("check_out", null).concat(displayCheckOut()), pref.getLong("business_unit", 0),
 								StoreAccount.restore(getActivity()).getLong(Account.ROWID), 123.894882, 10.310235, pref.getString(
@@ -139,14 +120,18 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 							public void run() {
 								pref.edit().clear().commit();
 								getFragmentManager().popBackStackImmediate();
+
+								v.setClickable(true);
+								v.setEnabled(true);
 							}
 
 						}, 1500);
 
 					} else {
+
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-						
+
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
