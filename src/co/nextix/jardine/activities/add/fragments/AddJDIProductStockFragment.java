@@ -48,90 +48,106 @@ public class AddJDIProductStockFragment extends Fragment {
 
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getFirstNameName();
+
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getLastname();
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//
-//		long id = pref.getLong("activity_id_edit", 0);
-//		JDIproductStockCheckRecord jdiProductStock = JardineApp.DB.getJDIproductStockCheck().getById(id);
-//
-//		if (jdiProductStock != null) {
-//
-//			String jdiProductStockCrmNo = null;
-//			String jdiActivity = null;
-//			int jdiProduct = 0;
-//			int jdiStockStatus = 0;
-//			int jdiLoadedOnShelves = 0;
-//			int jdiSupplier = 0;
-//			String jdiCreatedBy = null;
-//			String jdiOtherRemarks = null;
-//
-//			try {
-//				jdiProductStockCrmNo = jdiProductStock.getCrm();
-//				jdiActivity = String.valueOf(jdiProductStock.getActivity());
-//				jdiProduct = Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
-//				jdiStockStatus = Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
-//				jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
-//				jdiSupplier = Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
-//				jdiCreatedBy = JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
-//				jdiOtherRemarks = jdiProductStock.getOtherRemarks();
-//
-//			} catch (Exception e) {
-//
-//			}
-//
-//			if (jdiProductStockCrmNo != null || jdiActivity != null || jdiProduct != 0 || jdiStockStatus != 0 || jdiLoadedOnShelves != -1
-//					|| jdiSupplier != 0 || jdiCreatedBy != null || jdiOtherRemarks != null) {
-//
-//				((TextView) view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
-//				((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
-//				((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
-//				((TextView) view.findViewById(R.id.created_by)).setText(jdiCreatedBy);
-//				((EditText) view.findViewById(R.id.other_type_remarks)).setText(jdiOtherRemarks);
-//
-//				for (int i = 0; i < productList.size(); i++) {
-//					if (jdiProductStock.getProductBrand() == productList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.product)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				for (int i = 0; i < stockStatusList.size(); i++) {
-//					if (jdiProductStock.getStockStatus() == stockStatusList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				for (int i = 0; i < supplierList.size(); i++) {
-//					if (jdiProductStock.getSupplier() == supplierList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//			}
-//
-//		} else {
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		//
+		// long id = pref.getLong("activity_id_edit", 0);
+		// JDIproductStockCheckRecord jdiProductStock =
+		// JardineApp.DB.getJDIproductStockCheck().getById(id);
+		//
+		// if (jdiProductStock != null) {
+		//
+		// String jdiProductStockCrmNo = null;
+		// String jdiActivity = null;
+		// int jdiProduct = 0;
+		// int jdiStockStatus = 0;
+		// int jdiLoadedOnShelves = 0;
+		// int jdiSupplier = 0;
+		// String jdiCreatedBy = null;
+		// String jdiOtherRemarks = null;
+		//
+		// try {
+		// jdiProductStockCrmNo = jdiProductStock.getCrm();
+		// jdiActivity = String.valueOf(jdiProductStock.getActivity());
+		// jdiProduct =
+		// Integer.parseInt(String.valueOf(jdiProductStock.getProductBrand()));
+		// jdiStockStatus =
+		// Integer.parseInt(String.valueOf(jdiProductStock.getStockStatus()));
+		// jdiLoadedOnShelves = jdiProductStock.getLoadedOnShelves();
+		// jdiSupplier =
+		// Integer.parseInt(String.valueOf(jdiProductStock.getSupplier()));
+		// jdiCreatedBy =
+		// JardineApp.DB.getUser().getById(jdiProductStock.getCreatedBy()).toString();
+		// jdiOtherRemarks = jdiProductStock.getOtherRemarks();
+		//
+		// } catch (Exception e) {
+		//
+		// }
+		//
+		// if (jdiProductStockCrmNo != null || jdiActivity != null || jdiProduct
+		// != 0 || jdiStockStatus != 0 || jdiLoadedOnShelves != -1
+		// || jdiSupplier != 0 || jdiCreatedBy != null || jdiOtherRemarks !=
+		// null) {
+		//
+		// ((TextView)
+		// view.findViewById(R.id.crm_no)).setText(jdiProductStockCrmNo);
+		// ((TextView) view.findViewById(R.id.activity)).setText(jdiActivity);
+		// ((CheckBox)
+		// view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+		// ((TextView)
+		// view.findViewById(R.id.created_by)).setText(jdiCreatedBy);
+		// ((EditText)
+		// view.findViewById(R.id.other_type_remarks)).setText(jdiOtherRemarks);
+		//
+		// for (int i = 0; i < productList.size(); i++) {
+		// if (jdiProductStock.getProductBrand() == productList.get(i).getId())
+		// {
+		// ((Spinner) view.findViewById(R.id.product)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// for (int i = 0; i < stockStatusList.size(); i++) {
+		// if (jdiProductStock.getStockStatus() ==
+		// stockStatusList.get(i).getId()) {
+		// ((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// for (int i = 0; i < supplierList.size(); i++) {
+		// if (jdiProductStock.getSupplier() == supplierList.get(i).getId()) {
+		// ((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// }
+		//
+		// } else {
 
-			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-			this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
-			this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
+		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
+		this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
+		this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
 
-			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-			((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.stockStatusAdapter);
-			((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.supplierAdapter);
-			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
+		((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.stockStatusAdapter);
+		((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.supplierAdapter);
+		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 
-			// Disable fields
-			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-			((TextView) view.findViewById(R.id.activity)).setClickable(false);
-			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-//		}
+		// Disable fields
+		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		// }
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

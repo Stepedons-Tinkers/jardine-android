@@ -7,7 +7,6 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.provider.SyncStateContract.Constants;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -19,21 +18,20 @@ import android.view.View;
 import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
-
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.DocuInfoRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
-import co.nextix.jardine.database.records.ProductFocusRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;
 import co.nextix.jardine.keys.Constant;
-
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -58,20 +56,19 @@ public class AddActivityFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		AddActivityFragment.fromOther = true;
-		
-		
+
 		Constant.addJDIproductStockCheckRecords = new ArrayList<JDIproductStockCheckRecord>();
 		Constant.addProductSupplierRecords = new ArrayList<ProductSupplierRecord>();
 		Constant.addJDImerchandisingCheckRecords = new ArrayList<JDImerchandisingCheckRecord>();
-		
+
 		Constant.addCompetitorProductRecords = new ArrayList<CompetitorProductRecord>();
 		Constant.addMarketingIntelRecords = new ArrayList<MarketingIntelRecord>();
 		Constant.addProjectRequirmentRecords = new ArrayList<ProjectRequirementRecord>();
-		
+
 		Constant.addProductFocusRecords = new ArrayList<ProductRecord>();
 		Constant.addCustomerContactRecords = new ArrayList<CustomerContactRecord>();
 		Constant.addDocuInfoRecords = new ArrayList<DocuInfoRecord>();
-		
+
 		rootView = inflater.inflate(R.layout.add_activity_fragment, container, false);
 
 		bundle = getArguments();
@@ -193,8 +190,8 @@ public class AddActivityFragment extends Fragment {
 		/* 5 */flist.add(AddCustomerContactsFragment.instantiate(getActivity(), AddCustomerContactsFragment.class.getName()));
 		/* 6 */flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
 		/* 7 */flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
-		/* 8 */flist.add(AddJDIMerchandisingStockFragment.instantiate(getActivity(), AddJDIMerchandisingStockFragment.class.getName()));
-		/* 9 */flist.add(AddCompetitorStockCheckFragment.instantiate(getActivity(), AddCompetitorStockCheckFragment.class.getName()));
+		/* 8 */flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(), JDIMerchandisingCheckFragment.class.getName()));
+		/* 9 */flist.add(CompetitorStockCheckFragment.instantiate(getActivity(), CompetitorStockCheckFragment.class.getName()));
 		/* 10 */flist.add(MarketingIntelFragment.instantiate(getActivity(), MarketingIntelFragment.class.getName()));
 		/* 11 */flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), AddActivityProjectVisitFragment.class.getName()));
 		/* 12 */flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), AddProjectRequirementsFragment.class.getName()));
