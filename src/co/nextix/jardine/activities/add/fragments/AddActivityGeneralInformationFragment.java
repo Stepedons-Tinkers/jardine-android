@@ -91,10 +91,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 		}
 
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//		long id = pref.getLong("activity_id_edit", 0);
-//
-//		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		// long id = pref.getLong("activity_id_edit", 0);
+		//
+		// ActivityRecord record = JardineApp.DB.getActivity().getById(id);
 		DashBoardActivity.fromAddActivities = true;
 		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
@@ -320,17 +322,21 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-//		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				flag = 4;
-//				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
-//						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
-//						AddActivityGeneralInformationFragment.this.day);
-//				pickDialog.show();
-//			}
-//		});
+		// ((ImageButton)
+		// this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new
+		// OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// flag = 4;
+		// DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
+		// android.R.style.Theme_Holo_Panel, datePickerListener,
+		// AddActivityGeneralInformationFragment.this.year,
+		// AddActivityGeneralInformationFragment.this.month,
+		// AddActivityGeneralInformationFragment.this.day);
+		// pickDialog.show();
+		// }
+		// });
 
 		this.saveBtn = (CircularProgressButton) this.rootView.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -370,13 +376,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//					if (activityType != 0 && checkin != null && !checkin.isEmpty() && checkout != null && !checkout.isEmpty()) {
+					// if (activityType != 0 && checkin != null &&
+					// !checkin.isEmpty() && checkout != null &&
+					// !checkout.isEmpty()) {
 					if (activityType != 0) {
 						trapping = true;
 						Editor editor = pref.edit();
 						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
-//						editor.putString("check_out", checkout);
+						// editor.putString("check_out", checkout);
 						editor.putLong("activity_type", activityType);
 						editor.putLong("createdBy", createdBy);
 						editor.putLong("business_unit", businessUnit.getId());

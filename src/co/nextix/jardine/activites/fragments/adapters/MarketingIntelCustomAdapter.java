@@ -23,13 +23,12 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.database.records.UserRecord;
-import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.MarketingIntelTable;
 import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
@@ -78,7 +77,7 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView activity_type_txt;
@@ -105,14 +104,14 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
+			holder.clickable_item_container = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.competitor_product       = (TextView) vi.findViewById(R.id.column_three);
-			holder.details        = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.competitor_product = (TextView) vi.findViewById(R.id.column_three);
+			holder.details = (TextView) vi.findViewById(R.id.column_four);
+			holder.created_by = (TextView) vi.findViewById(R.id.column_five);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -133,50 +132,49 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
 
-			ActivityTable act = JardineApp.DB.getActivity();
-			if(act != null){
-				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+			MarketingIntelTable act = JardineApp.DB.getMarketingIntel();
+			if (act != null) {
+				MarketingIntelRecord rec = act.getById(this.tempValues.getActivity());
 				holder.activity_type_txt.setText("");
-				if(rec != null){
+				if (rec != null) {
 					holder.activity_type_txt.setText(rec.toString());
 				}
 			}
-			
+
 			CompetitorProductTable product = JardineApp.DB.getCompetitorProduct();
-			if(product != null){
+			if (product != null) {
 				CompetitorProductRecord rec = product.getById(this.tempValues.getCompetitorProduct());
 				holder.competitor_product.setText("");
-				if(rec != null){
-					holder.competitor_product.setText(rec.toString());		
+				if (rec != null) {
+					holder.competitor_product.setText(rec.toString());
 				}
 			}
-			
+
 			holder.details.setText(String.valueOf(this.tempValues.getDetails()));
-			
+
 			UserTable user = JardineApp.DB.getUser();
-			if(user != null){
+			if (user != null) {
 				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
-				holder.created_by.setText("");	
-				if(rec != null){
-					holder.created_by.setText(rec.toString());	
+				holder.created_by.setText("");
+				if (rec != null) {
+					holder.created_by.setText(rec.toString());
 				}
-				
+
 			}
-			
-			
+
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
 				holder.created_by.setText(null);
 				holder.competitor_product.setText(null);
 				holder.crm_no_txt.setText(null);
 				holder.details.setText(null);
-//				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else
-			{
-				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));	
+				// holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0,
+				// 0, 0);
+
+			} else {
+				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
@@ -206,14 +204,11 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {
@@ -254,6 +249,7 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 				}
 			}
 		});
+
 		dialog.setNegativeButton("No", new DialogInterface.OnClickListener() {
 
 			@Override

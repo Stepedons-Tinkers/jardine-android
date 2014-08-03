@@ -32,6 +32,9 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.database.records.ProductFocusRecord;
+import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -307,7 +310,8 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 							new InsertTask("", "", title, "", "", filename, "", filename, 1, row_id, pref.getString("check_in", null), pref
 									.getString("check_out", null).concat(displayCheckOut()), pref.getLong("user_id", 0)).execute();
 
-						} else if (AddActivityFragment.passValues.size() != 0) { // IdentifyFocus
+							//TODO!!!!!!!!!
+						} else if (Constant.addProductFocusRecords.size() != 0) { // IdentifyFocus
 
 							// Adding activity
 							new InsertTask("", "", pref.getLong("activity_type", 0), pref.getString("check_in", null), pref.getString(
@@ -320,7 +324,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 									pref.getString("next_steps", null), pref.getString("follow_up_committment_date", null), "", 0, 0, "",
 									0, "").execute();
 
-							new InsertTask(AddActivityFragment.passValues, row_id).execute();
+							new InsertTask(Constant.addProductFocusRecords, row_id).execute();
 
 							// // TODO
 							// if (AddActivityFragment.passValues.size() != 0) {
@@ -503,7 +507,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		private String projectRequirementsModifiedTime = null;
 		private long projectRequirementsCreatedBy = 0;
 
-		private ArrayList<Long> identifyProductFocusProduct = new ArrayList<Long>();
+		private ArrayList<ProductRecord> identifyProductFocusProduct = new ArrayList<ProductRecord>();
 		private long identifyProductFocusProductActivity;
 		// private long identifyProductFocusProduct = 0;
 		// private long identifyProductFocusProductActivity = 0;
@@ -725,7 +729,7 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		}
 
 		// For Identify Product Focus
-		private InsertTask(ArrayList<Long> product, long activity) {
+		private InsertTask(ArrayList<ProductRecord> product, long activity) {
 			this.identifyProductFocusProduct = product;
 			this.identifyProductFocusProductActivity = activity;
 		}
@@ -914,11 +918,11 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 				otherDetails, createdTime, modifiedTime, createdBy);
 	}
 
-	protected void saveIdentifyProductFocus(ArrayList<Long> product, long activity) {
+	protected void saveIdentifyProductFocus(ArrayList<ProductRecord> product, long activity) {
 
 		// Insert to the database
 		for (int i = 0; i < product.size(); i++)
-			JardineApp.DB.getProductFocus().insert(product.get(i).longValue(), activity);
+			JardineApp.DB.getProductFocus().insert(product.get(i).getId(), activity);
 	}
 
 	protected void saveActivityPhotosAndAttachments(String no, String crmNo, String title, String moduleName, String moduleId,
