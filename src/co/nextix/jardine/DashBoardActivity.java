@@ -468,7 +468,9 @@ public class DashBoardActivity extends FragmentActivity {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
-				startActivity(new Intent(DashBoardActivity.this, LoginActivity.class));
+				Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				startActivity(intent);
 				DashBoardActivity.this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
 			} else {

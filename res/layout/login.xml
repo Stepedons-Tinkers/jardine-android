@@ -13,7 +13,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/jardine_logo_icon">
+            android:src="@drawable/jardine_logo_icon"
+            android:layout_centerInParent="true">
             
         </ImageView>
     </RelativeLayout>
@@ -22,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#2f3233"
+        android:background="@color/white"
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
@@ -92,6 +93,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/signin_bg"
             android:ems="10"
+            android:layout_margin="10dp"
             android:onClick="signInClicked" />
 
         <RelativeLayout
