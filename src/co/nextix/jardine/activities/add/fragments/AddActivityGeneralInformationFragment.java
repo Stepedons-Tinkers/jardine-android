@@ -102,6 +102,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
 
+<<<<<<< HEAD
 		// if (record != null) {
 		//
 		// String checkOut = record.getCheckOut();
@@ -162,6 +163,59 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setAdapter(activityTypeAdapter);
 		((EditText) this.rootView.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 		// }
+=======
+//		if (record != null) {
+//	
+//			String checkOut = record.getCheckOut();
+//			long businessUnit = record.getBusinessUnit();
+//			long activityType = record.getActivityType();
+//			long createdBy = record.getCreatedBy();
+//
+//			if (record.getCrm() != null || !record.getCrm().isEmpty() || record.getCheckIn() != null || !record.getCheckIn().isEmpty()
+//					&& businessUnit != 0 && activityType != 0 && checkOut != null && createdBy != 0) {
+//
+//				Log.e("condition", "true");
+//				String lastName = JardineApp.DB.getUser().getById(createdBy).getLastname();
+//				String firstName = JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
+//
+//				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(record.getCrm());
+//				((TextView) this.rootView.findViewById(R.id.check_in)).setText(record.getCheckIn());
+//				((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
+//				((EditText) this.rootView.findViewById(R.id.created_by)).setText("" + lastName + ", " + firstName);
+//
+//				for (int i = 0; i < activityTypeList.size(); i++) {
+//					if (record.getActivityType() == activityTypeList.get(i).getId()) {
+//						((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				for (int i = 0; i < businessUnitList.size(); i++) {
+//					if (record.getBusinessUnit() == businessUnitList.get(i).getId()) {
+//						((Spinner) this.rootView.findViewById(R.id.business_unit)).setSelection(i);
+//						break;
+//					}
+//				}
+//			}
+//
+//		} else {
+
+
+			Log.e("condition", "false");
+
+			// ArrayAdapter for spinners
+			this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(JardineApp.context, R.layout.add_activity_textview,
+					activityTypeList);
+
+			this.activityBusinessAdapter = new ArrayAdapter<BusinessUnitRecord>(JardineApp.context, R.layout.add_activity_textview,
+					businessUnitList);
+
+			// Setting to text field auto populate data
+			((Spinner) this.rootView.findViewById(R.id.business_unit)).setAdapter(this.activityBusinessAdapter);
+			((Spinner) this.rootView.findViewById(R.id.activity_type)).setAdapter(activityTypeAdapter);
+			((EditText) this.rootView.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+//		}
+>>>>>>> ff10d8f0f545d59f58efcc7524cdc2b365ce4e56
 
 		((Spinner) this.rootView.findViewById(R.id.activity_type)).setOnItemSelectedListener(new OnItemSelectedListener() {
 
