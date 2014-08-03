@@ -70,37 +70,37 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getLastname();
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long id = pref.getLong("activity_id_edit", 0);
-		
-		ActivityRecord actRecord = JardineApp.DB.getActivity().getById(id);
-		DocumentRecord activityPhotosAndAttachments = null;
-
-		if (actRecord != null) {
-			activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getId());
-		}
-
-		if (activityPhotosAndAttachments != null) {
-			String crmNo = null;
-			String title = null;
-			String filePath = null;
-			String createdBy = null;
-
-			try {
-				crmNo = activityPhotosAndAttachments.getCrmNo();
-				title = activityPhotosAndAttachments.getTitle();
-				filePath = activityPhotosAndAttachments.getFilePath();
-				createdBy = JardineApp.DB.getUser().getById(activityPhotosAndAttachments.getUser()).toString();
-
-				((TextView) view.findViewById(R.id.document_no)).setText(crmNo);
-				((TextView) view.findViewById(R.id.title)).setText(title);
-				((TextView) view.findViewById(R.id.filename)).setText(filePath);
-				((TextView) view.findViewById(R.id.created_by)).setText(createdBy);
-
-			} catch (Exception e) {
-
-			}
-		}
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long id = pref.getLong("activity_id_edit", 0);
+//		
+//		ActivityRecord actRecord = JardineApp.DB.getActivity().getById(id);
+//		DocumentRecord activityPhotosAndAttachments = null;
+//
+//		if (actRecord != null) {
+//			activityPhotosAndAttachments = JardineApp.DB.getDocument().getRecordsForActivity(actRecord.getId());
+//		}
+//
+//		if (activityPhotosAndAttachments != null) {
+//			String crmNo = null;
+//			String title = null;
+//			String filePath = null;
+//			String createdBy = null;
+//
+//			try {
+//				crmNo = activityPhotosAndAttachments.getCrmNo();
+//				title = activityPhotosAndAttachments.getTitle();
+//				filePath = activityPhotosAndAttachments.getFilePath();
+//				createdBy = JardineApp.DB.getUser().getById(activityPhotosAndAttachments.getUser()).toString();
+//
+//				((TextView) view.findViewById(R.id.document_no)).setText(crmNo);
+//				((TextView) view.findViewById(R.id.title)).setText(title);
+//				((TextView) view.findViewById(R.id.filename)).setText(filePath);
+//				((TextView) view.findViewById(R.id.created_by)).setText(createdBy);
+//
+//			} catch (Exception e) {
+//
+//			}
+//		}
 
 		((TextView) this.view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 		((TextView) this.view.findViewById(R.id.filename)).setOnClickListener(new View.OnClickListener() {

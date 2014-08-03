@@ -52,22 +52,22 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 		this.rootView = inflater.inflate(R.layout.add_activity_with_co_smrs, container, false);
 		List<UserRecord> userList = JardineApp.DB.getUser().getAllRecords();
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long smrID = pref.getLong("activity_id_edit", 0);
-
-		SMRRecord record = JardineApp.DB.getSMR().getById(smrID);
-		if (record != null) {
-			for (int i = 0; i < userList.size(); i++) {
-				if (userList.get(i).getId() == record.getId()) {
-					((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
-				}
-			}
-
-		} else {
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long smrID = pref.getLong("activity_id_edit", 0);
+//
+//		SMRRecord record = JardineApp.DB.getSMR().getById(smrID);
+//		if (record != null) {
+//			for (int i = 0; i < userList.size(); i++) {
+//				if (userList.get(i).getId() == record.getId()) {
+//					((Spinner) rootView.findViewById(R.id.smr)).setSelection(i);
+//				}
+//			}
+//
+//		} else {
 
 			ArrayAdapter<UserRecord> smrAdapter = new ArrayAdapter<UserRecord>(JardineApp.context, R.layout.add_activity_textview, userList);
 			((Spinner) rootView.findViewById(R.id.smr)).setAdapter(smrAdapter);
-		}
+//		}
 
 		this.saveBtn = ((CircularProgressButton) rootView.findViewById(R.id.btnWithText1));
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {

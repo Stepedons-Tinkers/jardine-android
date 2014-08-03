@@ -47,61 +47,61 @@ public class AddActivityProductSupplierFragment extends Fragment {
 				.getLastname();
 
 		final View view = inflater.inflate(R.layout.add_activity_product_supplier, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
-		long id = pref.getLong("activity_id_edit", 0);
-
-		ProductSupplierRecord productRecord = JardineApp.DB.getProductSupplier().getById(id);
-		CustomerRecord productSupplier = JardineApp.DB.getCustomer().getById(id);
-
-		if (productSupplier != null) {
-			String productSupplierCreatedBy = null;
-			String productCrmNo = null;
-			
-			long productActivity = 0;
-			long productProductBrand = 0;
-			
-			String productSuppliers = null;
-			String productOtherRemarks = null;
-
-			try {
-				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productRecord.getCreatedBy()).toString();
-				productCrmNo = productRecord.getCrm();
-				productActivity = productRecord.getId(); //getActivity();
-				productProductBrand = productRecord.getProductBrand();
-				productSuppliers = productSupplier.getCustomerName();
-				productOtherRemarks = productRecord.getOthersRemarks();
-
-			} catch (Exception e) {
-
-			}
-
-			if (productSupplierCreatedBy != null || productCrmNo != null || productActivity != 0 || productProductBrand != 0
-					|| productSuppliers != null || productOtherRemarks != null) {
-
-				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
-				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
-				((TextView) view.findViewById(R.id.activity)).setText(String.valueOf(productActivity));
-
-				((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
-
-				for (int i = 0; i < productList.size(); i++) {
-					if (productRecord.getProductBrand() == productList.get(i).getId()) {
-						((Spinner) view.findViewById(R.id.product_brand)).setSelection(i);
-						break;
-					}
-				}
-
-				for (int i = 0; i < productSupplierList.size(); i++) {
-					if (productSupplier.getId() == productSupplierList.get(i).getId()) {
-						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
-						break;
-					}
-				}
-
-			}
-
-		} else {
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//
+//		long id = pref.getLong("activity_id_edit", 0);
+//
+//		ProductSupplierRecord productRecord = JardineApp.DB.getProductSupplier().getById(id);
+//		CustomerRecord productSupplier = JardineApp.DB.getCustomer().getById(id);
+//
+//		if (productSupplier != null) {
+//			String productSupplierCreatedBy = null;
+//			String productCrmNo = null;
+//			
+//			long productActivity = 0;
+//			long productProductBrand = 0;
+//			
+//			String productSuppliers = null;
+//			String productOtherRemarks = null;
+//
+//			try {
+//				productSupplierCreatedBy = JardineApp.DB.getUser().getById(productRecord.getCreatedBy()).toString();
+//				productCrmNo = productRecord.getCrm();
+//				productActivity = productRecord.getId(); //getActivity();
+//				productProductBrand = productRecord.getProductBrand();
+//				productSuppliers = productSupplier.getCustomerName();
+//				productOtherRemarks = productRecord.getOthersRemarks();
+//
+//			} catch (Exception e) {
+//
+//			}
+//
+//			if (productSupplierCreatedBy != null || productCrmNo != null || productActivity != 0 || productProductBrand != 0
+//					|| productSuppliers != null || productOtherRemarks != null) {
+//
+//				((TextView) view.findViewById(R.id.created_by)).setText(productSupplierCreatedBy);
+//				((TextView) view.findViewById(R.id.crm_no)).setText(productCrmNo);
+//				((TextView) view.findViewById(R.id.activity)).setText(String.valueOf(productActivity));
+//
+//				((EditText) view.findViewById(R.id.other_remarks)).setText(productOtherRemarks);
+//
+//				for (int i = 0; i < productList.size(); i++) {
+//					if (productRecord.getProductBrand() == productList.get(i).getId()) {
+//						((Spinner) view.findViewById(R.id.product_brand)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				for (int i = 0; i < productSupplierList.size(); i++) {
+//					if (productSupplier.getId() == productSupplierList.get(i).getId()) {
+//						((Spinner) view.findViewById(R.id.supplier)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//			}
+//
+//		} else {
 
 			this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
 			this.productSupplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview,
@@ -117,7 +117,7 @@ public class AddActivityProductSupplierFragment extends Fragment {
 			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
 			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-		}
+//		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

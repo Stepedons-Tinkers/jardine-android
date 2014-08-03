@@ -55,6 +55,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
 		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
 				.getFirstNameName();
 		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
@@ -63,58 +64,58 @@ public class AddProjectRequirementsFragment extends Fragment {
 		List<PicklistRecord> projectRequirementList = JardineApp.DB.getProjectRequirementType().getAllRecords();
 
 		this.view = inflater.inflate(R.layout.fragment_activity_add_proj_requirements, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long activity_id = pref.getLong("activity_id_edit", 0);
-
-		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
-		ProjectRequirementRecord projectRequirementRecord = null;
-		String record = null;
-
-		if (activityRecord != null) {
-			projectRequirementRecord = JardineApp.DB.getProjectRequirement().getByActivityId(activity_id);
-			record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
-		}
-
-		if (projectRequirementRecord != null || record != null) {
-
-			long createdBy = 0;
-			String activity = null;
-			String projectRequirement = null;
-			String dateNeeded = null;
-			String squareMeters = null;
-			String productBrand = null;
-			String otherDetails = null;
-
-			try {
-				createdBy = projectRequirementRecord.getCreatedBy();
-				activity = projectRequirementRecord.getCrm();
-				projectRequirement = projectRequirementRecord.getCrm();
-				dateNeeded = projectRequirementRecord.getDateNeeded();
-				squareMeters = projectRequirementRecord.getSquareMeters();
-				productBrand = projectRequirementRecord.getProductsBrand();
-				otherDetails = projectRequirementRecord.getOtherDetails();
-
-			} catch (Exception e) {
-
-			}
-
-			((TextView) view.findViewById(R.id.created_by)).setText(JardineApp.DB.getUser().getById(createdBy).toString());
-			((TextView) view.findViewById(R.id.crm_no)).setText(projectRequirement);
-			((TextView) view.findViewById(R.id.activity)).setText(activity);
-			((TextView) view.findViewById(R.id.date_needed)).setText(dateNeeded);
-
-			for (int i = 0; i < projectRequirementList.size(); i++) {
-				if (projectRequirementList.get(i).getId() == projectRequirementRecord.getProjectRequirementType()) {
-					((Spinner) view.findViewById(R.id.project_requirement_type)).setSelection(i);
-					break;
-				}
-			}
-
-			((EditText) view.findViewById(R.id.square_meters_proj_requirements)).setText(squareMeters);
-			((EditText) view.findViewById(R.id.product_brand)).setText(productBrand);
-			((EditText) view.findViewById(R.id.other_details)).setText(otherDetails);
-
-		} else {
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long activity_id = pref.getLong("activity_id_edit", 0);
+//
+//		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
+//		ProjectRequirementRecord projectRequirementRecord = null;
+//		String record = null;
+//
+//		if (activityRecord != null) {
+//			projectRequirementRecord = JardineApp.DB.getProjectRequirement().getByActivityId(activity_id);
+//			record = JardineApp.DB.getProjectRequirementType().getNameById(activityRecord.getId());
+//		}
+//
+//		if (projectRequirementRecord != null || record != null) {
+//
+//			long createdBy = 0;
+//			String activity = null;
+//			String projectRequirement = null;
+//			String dateNeeded = null;
+//			String squareMeters = null;
+//			String productBrand = null;
+//			String otherDetails = null;
+//
+//			try {
+//				createdBy = projectRequirementRecord.getCreatedBy();
+//				activity = projectRequirementRecord.getCrm();
+//				projectRequirement = projectRequirementRecord.getCrm();
+//				dateNeeded = projectRequirementRecord.getDateNeeded();
+//				squareMeters = projectRequirementRecord.getSquareMeters();
+//				productBrand = projectRequirementRecord.getProductsBrand();
+//				otherDetails = projectRequirementRecord.getOtherDetails();
+//
+//			} catch (Exception e) {
+//
+//			}
+//
+//			((TextView) view.findViewById(R.id.created_by)).setText(JardineApp.DB.getUser().getById(createdBy).toString());
+//			((TextView) view.findViewById(R.id.crm_no)).setText(projectRequirement);
+//			((TextView) view.findViewById(R.id.activity)).setText(activity);
+//			((TextView) view.findViewById(R.id.date_needed)).setText(dateNeeded);
+//
+//			for (int i = 0; i < projectRequirementList.size(); i++) {
+//				if (projectRequirementList.get(i).getId() == projectRequirementRecord.getProjectRequirementType()) {
+//					((Spinner) view.findViewById(R.id.project_requirement_type)).setSelection(i);
+//					break;
+//				}
+//			}
+//
+//			((EditText) view.findViewById(R.id.square_meters_proj_requirements)).setText(squareMeters);
+//			((EditText) view.findViewById(R.id.product_brand)).setText(productBrand);
+//			((EditText) view.findViewById(R.id.other_details)).setText(otherDetails);
+//
+//		} else {
 
 			this.projectRequirementAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview,
 					projectRequirementList);
@@ -129,7 +130,7 @@ public class AddProjectRequirementsFragment extends Fragment {
 			((TextView) this.view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
 			((TextView) this.view.findViewById(R.id.activity)).setEnabled(false);
 			((TextView) this.view.findViewById(R.id.activity)).setClickable(false);
-		}
+//		}
 
 		((TextView) this.view.findViewById(R.id.date_needed)).setOnClickListener(new OnClickListener() {
 
@@ -174,17 +175,23 @@ public class AddProjectRequirementsFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					long projectRequirementType = ((PicklistRecord) ((Spinner) view.findViewById(R.id.project_requirement_type))
-							.getSelectedItem()).getId();
+
+					String projectRequirementTypeString = ((Spinner) view.findViewById(R.id.project_requirement_type)).getSelectedItem()
+							.toString();
 
 					String date_needed = ((TextView) view.findViewById(R.id.date_needed)).getText().toString().concat(displayCheckOut());
 					String square_meters_proj_requirement = ((EditText) view.findViewById(R.id.square_meters_proj_requirements)).getText()
 							.toString();
+					
 					String product_brand = ((EditText) view.findViewById(R.id.product_brand)).getText().toString();
 					String other_details = ((EditText) view.findViewById(R.id.other_details)).getText().toString();
 
-					if (projectRequirementType != 0) {
+					if (projectRequirementTypeString != null && !projectRequirementTypeString.isEmpty()) {
+						
 						flag = true;
+						long projectRequirementType = ((PicklistRecord) ((Spinner) view.findViewById(R.id.project_requirement_type))
+								.getSelectedItem()).getId();
+
 						Editor editor = pref.edit();
 						editor.putLong("project_requirement_type", projectRequirementType);
 						editor.putString("date_needed_project_requirement_type", date_needed);
