@@ -211,6 +211,7 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 					int position, long id) {
 				CustomerContactRecord epr = (CustomerContactRecord) parent
 						.getAdapter().getItem(position);
+				CustomerConstants.CUSTOMER_CONTACT_RECORD = epr;
 
 				if (epr.getNo() != null) {
 

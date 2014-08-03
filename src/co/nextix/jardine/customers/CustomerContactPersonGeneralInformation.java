@@ -79,7 +79,8 @@ public class CustomerContactPersonGeneralInformation extends Fragment {
 		edit.setOnClickListener(click);
 		delete.setOnClickListener(click);
 
-		record = JardineApp.DB.getCustomerContact().getById(customerId);
+//		record = JardineApp.DB.getCustomerContact().getById(customerId);
+		record = CustomerConstants.CUSTOMER_CONTACT_RECORD;
 
 		field1.setText(record.getCrm());
 		field2.setText(record.getFirstName());

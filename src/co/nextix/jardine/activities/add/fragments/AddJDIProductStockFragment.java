@@ -176,7 +176,7 @@ public class AddJDIProductStockFragment extends Fragment {
 						editor.putString("other_type_remarks", otherTypeRemarks);
 						editor.putLong("stock_status", stockStatus);
 						editor.putLong("loaded_on_shelves", loadedOnShelves);
-						editor.putLong("product", product);
+						editor.putLong("product_jdi", product);
 						editor.putLong("supplier", supplier);
 						editor.commit(); // commit changes
 

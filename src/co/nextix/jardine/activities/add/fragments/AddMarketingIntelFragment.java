@@ -89,7 +89,7 @@ public class AddMarketingIntelFragment extends Fragment {
 			
 		} else {
 
-			((Spinner) view.findViewById(R.id.customer)).setAdapter(this.competitorProductAdapter);
+			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
 			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
 			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
 			((TextView) view.findViewById(R.id.activity)).setClickable(false);

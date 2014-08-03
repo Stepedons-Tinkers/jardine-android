@@ -140,6 +140,7 @@
                     android:background="@drawable/xml_edittext_bg"
                     android:hint="@string/customer_hint_street_address"
                     android:maxLines="1"
+                    android:nextFocusDown="@+id/etCustomerAddField5"
                     android:padding="7dp"
                     android:text=""
                     android:textColor="@color/black"
@@ -430,14 +431,18 @@
                     android:textSize="@dimen/text_xxlarge"
                     android:textStyle="bold" />
 
-                <Spinner
-                    android:id="@+id/spiCustomerAddField14"
+                <TextView
+                    android:id="@+id/tvCustomerAddField14"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:drawable/btn_dropdown"
-                    android:dropDownSelector="@color/collaterals_tablerow_trasparent_select"
-                    android:spinnerMode="dropdown" >
-                </Spinner>
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="@string/customer_pending_approval"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
             </TableRow>
         </TableLayout>
     </LinearLayout>

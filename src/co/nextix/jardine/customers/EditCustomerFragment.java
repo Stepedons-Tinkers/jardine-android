@@ -20,6 +20,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -48,18 +49,20 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 	private Spinner field8, field9, field10, field11;
 	private EditText field12;
 	private TextView field13;
-	private Spinner field14;
+	private TextView field14;
 
 	private long userId;
 	private String userName;
 
 	private CustomerRecord record;
+	private String strCustomerType = "Modern Trade";
+	private String strCustomerRS = "Pending For Approval";
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-//		String id = StoreAccount.restore(JardineApp.context).getString(
-//				Account.ROWID);
+		// String id = StoreAccount.restore(JardineApp.context).getString(
+		// Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
 		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
@@ -108,7 +111,7 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 
 		field13 = (TextView) view.findViewById(R.id.tvCustomerAddField13);
 
-		field14 = (Spinner) view.findViewById(R.id.spiCustomerAddField14);
+		field14 = (TextView) view.findViewById(R.id.tvCustomerAddField14);
 
 		// List to be populated in spinner adapter
 		List<PicklistRecord> customerSize = JardineApp.DB.getCustomerSize()
@@ -209,7 +212,6 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		field7.setAdapter(adapter7);
 		field9.setAdapter(adapter9);
 		field8.setAdapter(adapter8);
-		field14.setAdapter(adapter14);
 
 		field13.setText(userName);
 
@@ -219,8 +221,43 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		field5.setText(record.getLandline());
 
 		field6.setSelection((int) record.getCustomerSize() - 1);
+
+		field7.setOnItemSelectedListener(new OnItemSelectedListener() {
+
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				PicklistRecord pRecord = (PicklistRecord) parent.getAdapter()
+						.getItem(position);
+
+				if (pRecord.getName().contentEquals(strCustomerType)) {
+
+					field4.setText(record.getChainName());
+					field4.setEnabled(true);
+					field4.setFocusableInTouchMode(true);
+					field4.setHint("chain name");
+					field4.setHintTextColor(Color.DKGRAY);
+					field4.setTypeface(null, Typeface.NORMAL);
+
+				} else {
+					field4.setText(null);
+					field4.setEnabled(false);
+					field4.setFocusableInTouchMode(false);
+					field4.setHint("customer type must be Modern Trade");
+					field4.setHintTextColor(Color.RED);
+					field4.setTypeface(null, Typeface.BOLD);
+				}
+
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+				// TODO Auto-generated method stub
+
+			}
+		});
 		field7.setSelection((int) record.getCustomerType() - 1);
-		field14.setSelection((int) record.getCustomerRecordStatus() - 1);
 
 		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
 				record.getBusinessUnit());
@@ -249,17 +286,65 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 	public boolean checker() {
 		boolean flag = false;
 
-		if (!field2.getText().toString().contentEquals("")
-				&& !field3.getText().toString().contentEquals("")
-				&& !field4.getText().toString().contentEquals("")
-				&& !field5.getText().toString().contentEquals("")
-				&& field6.getSelectedItemPosition() != 0
-				&& field7.getSelectedItemPosition() != 0
-				&& field9.getSelectedItemPosition() != 0) {
+		PicklistRecord pRecord = (PicklistRecord) field7.getSelectedItem();
 
-			flag = true;
+		if (pRecord.getName().contentEquals(strCustomerType)) {
+			if (!field2.getText().toString().contentEquals("")
+					&& !field3.getText().toString().contentEquals("")
+					&& !field4.getText().toString().contentEquals("")
+					&& !field5.getText().toString().contentEquals("")
+					&& field6.getSelectedItemPosition() != 0
+					&& field7.getSelectedItemPosition() != 0
+					&& field9.getSelectedItemPosition() != 0) {
+
+				flag = true;
+			} else {
+				flag = false;
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are fax and street address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
+
 		} else {
-			flag = false;
+			if (!field2.getText().toString().contentEquals("")
+					&& !field3.getText().toString().contentEquals("")
+					&& !field5.getText().toString().contentEquals("")
+					&& field6.getSelectedItemPosition() != 0
+					&& field7.getSelectedItemPosition() != 0
+					&& field9.getSelectedItemPosition() != 0) {
+
+				flag = true;
+			} else {
+				flag = false;
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
+				dialog.setTitle("Warning");
+				dialog.setMessage("Fields that are allowed to be empty are fax, chain name and street address only.");
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
+
+							}
+						});
+				dialog.show();
+			}
+
 		}
 
 		return flag;
@@ -296,11 +381,20 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		long cityTown = ((CityTownRecord) field11.getSelectedItem()).getId();
 		String fax = field12.getText().toString();
 		long created_by = record.getCreatedBy();
-		long customerRecordStatus = ((PicklistRecord) field14.getSelectedItem())
-				.getId();
+		long customerRecordStatus = 1;
 		int isActive = 1;
 
 		int daysUnchanged = 0;
+
+		List<PicklistRecord> customerRS = JardineApp.DB
+				.getCustomerRecordStatus().getAllRecords();
+
+		for (int i = 0; i < customerRS.size(); i++) {
+			if (customerRS.get(i).getName().contentEquals(strCustomerRS)) {
+				customerRecordStatus = customerRS.get(i).getId();
+				break;
+			}
+		}
 
 		String createdTime = record.getCreatedTime();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
@@ -322,22 +416,6 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		case R.id.bCustomerAddCreate:
 			if (checker()) {
 				new InsertTask().execute();
-			} else {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(
-						getActivity());
-				dialog.setTitle("Warning");
-				dialog.setMessage("Fields that are allowed to be empty are fax and street address only.");
-				dialog.setPositiveButton("Ok",
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								dialog.dismiss();
-
-							}
-						});
-				dialog.show();
 			}
 
 			break;
