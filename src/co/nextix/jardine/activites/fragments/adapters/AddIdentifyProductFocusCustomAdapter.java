@@ -31,6 +31,7 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
+import co.nextix.jardine.keys.Constant;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
@@ -194,7 +195,7 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 				}
 			});
 
-			if (AddActivityFragment.passValues.contains(((ProductRecord) data.get(position)).getId()))
+			if (Constant.addProductFocusRecords.contains(((ProductRecord) data.get(position))))
 				holder.checker.setChecked(true);
 			else
 				holder.checker.setChecked(false);
@@ -205,16 +206,16 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 					// TODO Auto-generated method stub
 					
 						if (isChecked){
-							if (AddActivityFragment.passValues.size() < 5) 
-								AddActivityFragment.passValues.add(((ProductRecord) data.get(position)).getId());
+							if (Constant.addProductFocusRecords.size() < 5) 
+								Constant.addProductFocusRecords.add(((ProductRecord) data.get(position)));
 							 else {
-								 AddActivityFragment.passValues.remove(((ProductRecord) data.get(position)).getId());
+								Constant.addProductFocusRecords.remove(((ProductRecord) data.get(position)));
 								Toast.makeText(context, "Cannot select more than 5 Brands.", Toast.LENGTH_SHORT).show();
 									holder.checker.setChecked(false);
 							 }
 						}
 						else
-							AddActivityFragment.passValues.remove(((ProductRecord) data.get(position)).getId());
+							Constant.addProductFocusRecords.remove(((ProductRecord) data.get(position)));
 
 				}
 			});

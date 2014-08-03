@@ -31,6 +31,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
 import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
@@ -144,10 +145,11 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 					});
 
 					widthAnimation.start();
-
+					
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (AddActivityFragment.passValues.size() > 0) {
+					//TODO !!!!!!
+					if (Constant.addProductFocusRecords.size() > 0) {
 
 						flag = true;
 						Editor editor = pref.edit();
