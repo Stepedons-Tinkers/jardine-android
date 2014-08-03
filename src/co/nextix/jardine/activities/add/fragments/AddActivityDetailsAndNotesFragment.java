@@ -83,83 +83,83 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		((Spinner) rootView.findViewById(R.id.area)).setAdapter(this.areaAdapter);
 		((Spinner) rootView.findViewById(R.id.workplan_entry)).setAdapter(this.workplanEntryAdapter);
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long id = pref.getLong("activity_id_edit", 0);
-
-		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
-		if (activityRecord != null) {
-
-			long customerID = 0;
-			long areaSelected = 0;
-			long provinceSelected = 0;
-			long cityORtownSelected = 0;
-			long workplanEntryInput = 0;
-			String objectiveInput = null;
-			String highlightsInput = null;
-			String notesInput = null;
-			String nextStepsInput = null;
-			String followUpInput = null;
-			int firstTime = 0;
-			int planned = 0;
-
-			try {
-
-				customerID = activityRecord.getCustomer();
-				areaSelected = activityRecord.getArea();
-				provinceSelected = activityRecord.getProvince();
-				cityORtownSelected = activityRecord.getCity();
-				workplanEntryInput = activityRecord.getWorkplanEntry();
-				objectiveInput = activityRecord.getObjective();
-				highlightsInput = activityRecord.getHighlights();
-				notesInput = activityRecord.getNotes();
-				nextStepsInput = activityRecord.getNextSteps();
-				followUpInput = activityRecord.getFollowUpCommitmentDate();
-				firstTime = activityRecord.getFirstTimeVisit();
-				planned = activityRecord.getPlannedVisit();
-			} catch (Exception e) {
-
-			}
-
-			if (objectiveInput != null || highlightsInput != null || notesInput != null || nextStepsInput != null || followUpInput != null
-					|| customerID != 0 || areaSelected != 0 || provinceSelected != 0 || cityORtownSelected != 0 || workplanEntryInput != 0) {
-
-				for (int i = 0; i < customer.size(); i++) {
-					if (customer.get(i).getId() == activityRecord.getCustomer()) {
-						((Spinner) rootView.findViewById(R.id.customer)).setSelection(i);
-						break;
-					}
-				}
-
-				for (int i = 0; i < area.size(); i++) {
-					if (area.get(i).getId() == activityRecord.getArea()) {
-						((Spinner) rootView.findViewById(R.id.area)).setSelection(i);
-						break;
-					}
-				}
-
-				for (int i = 0; i < workplanEntry.size(); i++) {
-					if (workplanEntry.get(i).getWorkplan() == activityRecord.getWorkplanEntry()) {
-						((Spinner) rootView.findViewById(R.id.workplan_entry)).setSelection(Integer.parseInt(String
-								.valueOf(workplanEntryInput)));
-						break;
-					}
-				}
-
-				if (planned == 1) {
-					((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).setChecked(true);
-				}
-
-				if (firstTime == 1) {
-					((CheckBox) rootView.findViewById(R.id.planned_visit)).setChecked(true);
-				}
-
-				((EditText) rootView.findViewById(R.id.highlights)).setText(highlightsInput);
-				((EditText) rootView.findViewById(R.id.notes)).setText(notesInput);
-				((EditText) rootView.findViewById(R.id.next_steps)).setText(nextStepsInput);
-				((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).setText(followUpInput);
-				((EditText) rootView.findViewById(R.id.objective)).setText(objectiveInput);
-			}
-		}
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long id = pref.getLong("activity_id_edit", 0);
+//
+//		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(id);
+//		if (activityRecord != null) {
+//
+//			long customerID = 0;
+//			long areaSelected = 0;
+//			long provinceSelected = 0;
+//			long cityORtownSelected = 0;
+//			long workplanEntryInput = 0;
+//			String objectiveInput = null;
+//			String highlightsInput = null;
+//			String notesInput = null;
+//			String nextStepsInput = null;
+//			String followUpInput = null;
+//			int firstTime = 0;
+//			int planned = 0;
+//
+//			try {
+//
+//				customerID = activityRecord.getCustomer();
+//				areaSelected = activityRecord.getArea();
+//				provinceSelected = activityRecord.getProvince();
+//				cityORtownSelected = activityRecord.getCity();
+//				workplanEntryInput = activityRecord.getWorkplanEntry();
+//				objectiveInput = activityRecord.getObjective();
+//				highlightsInput = activityRecord.getHighlights();
+//				notesInput = activityRecord.getNotes();
+//				nextStepsInput = activityRecord.getNextSteps();
+//				followUpInput = activityRecord.getFollowUpCommitmentDate();
+//				firstTime = activityRecord.getFirstTimeVisit();
+//				planned = activityRecord.getPlannedVisit();
+//			} catch (Exception e) {
+//
+//			}
+//
+//			if (objectiveInput != null || highlightsInput != null || notesInput != null || nextStepsInput != null || followUpInput != null
+//					|| customerID != 0 || areaSelected != 0 || provinceSelected != 0 || cityORtownSelected != 0 || workplanEntryInput != 0) {
+//
+//				for (int i = 0; i < customer.size(); i++) {
+//					if (customer.get(i).getId() == activityRecord.getCustomer()) {
+//						((Spinner) rootView.findViewById(R.id.customer)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				for (int i = 0; i < area.size(); i++) {
+//					if (area.get(i).getId() == activityRecord.getArea()) {
+//						((Spinner) rootView.findViewById(R.id.area)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				for (int i = 0; i < workplanEntry.size(); i++) {
+//					if (workplanEntry.get(i).getWorkplan() == activityRecord.getWorkplanEntry()) {
+//						((Spinner) rootView.findViewById(R.id.workplan_entry)).setSelection(Integer.parseInt(String
+//								.valueOf(workplanEntryInput)));
+//						break;
+//					}
+//				}
+//
+//				if (planned == 1) {
+//					((CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox)).setChecked(true);
+//				}
+//
+//				if (firstTime == 1) {
+//					((CheckBox) rootView.findViewById(R.id.planned_visit)).setChecked(true);
+//				}
+//
+//				((EditText) rootView.findViewById(R.id.highlights)).setText(highlightsInput);
+//				((EditText) rootView.findViewById(R.id.notes)).setText(notesInput);
+//				((EditText) rootView.findViewById(R.id.next_steps)).setText(nextStepsInput);
+//				((TextView) rootView.findViewById(R.id.follow_up_commitment_date)).setText(followUpInput);
+//				((EditText) rootView.findViewById(R.id.objective)).setText(objectiveInput);
+//			}
+//		}
 
 		((Spinner) this.rootView.findViewById(R.id.area)).setOnItemSelectedListener(new OnItemSelectedListener() {
 

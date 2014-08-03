@@ -9,7 +9,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,12 +32,12 @@ public class AddActivityTravelWaitingFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_travel_or_waiting, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
-		String reasonRemarks = pref.getString("activity_id_reasons_remarks", null);
-		if (reasonRemarks != null) {
-			((EditText) view.findViewById(R.id.reason_remarks)).setText(reasonRemarks);
-		}
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//
+//		String reasonRemarks = pref.getString("activity_id_reasons_remarks", null);
+//		if (reasonRemarks != null) {
+//			((EditText) view.findViewById(R.id.reason_remarks)).setText(reasonRemarks);
+//		}
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {

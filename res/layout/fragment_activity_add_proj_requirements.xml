@@ -75,9 +75,9 @@
                     android:padding="14dip"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:text="@string/general_info"
+                    android:text="@string/project_requirements"
                     android:textColor="#fff"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -137,7 +137,7 @@
                         android:singleLine="true"
                         android:text="@string/created_by_proj_requirement"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -179,7 +179,7 @@
                         android:state_selected="true"
                         android:text="@string/crm_proj_requirements"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <requestFocus
@@ -353,7 +353,6 @@
                     android:background="#cac9c9" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#cac9c9"
@@ -388,7 +387,6 @@
             </TableRow>
 
             <TableRow
-                android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#0000b6"
@@ -402,7 +400,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView04"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"
@@ -442,7 +439,6 @@
                     android:background="#dcdcdc" >
 
                     <TextView
-                        android:id="@+id/TextView05"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:background="#dcdcdc"

@@ -8,18 +8,15 @@ import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
@@ -47,63 +44,44 @@ public class AddActivityProjectVisitFragment extends Fragment {
 				projectCategory);
 
 		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long id = pref.getLong("activity_id_edit", 0);
-
-		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
-
-		if (record != null) {
-			String projectName = null;
-			long projectStageRecord = 0;
-			long projectCategoryRecord = 0;
-
-			try {
-				projectName = record.getProjectName();
-				projectStageRecord = record.getProjectStage();
-				projectCategoryRecord = record.getProjectCategory();
-
-			} catch (Exception e) {
-
-			}
-
-			if (projectName != null || projectStageRecord != 0 || projectCategoryRecord != 0) {
-				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);
-
-				for (int i = 0; i < projectStage.size(); i++) {
-					if (projectStage.get(i).getId() == projectStageRecord) {
-						((Spinner) rootView.findViewById(R.id.project_stage)).setSelection(i);
-						break;
-					}
-				}
-
-				for (int i = 0; i < projectCategory.size(); i++) {
-					if (projectCategory.get(i).getId() == projectCategoryRecord) {
-						((Spinner) rootView.findViewById(R.id.project_category)).setSelection(i);
-						break;
-					}
-				}
-			}
-
-		}
-
-		((TextView) rootView.findViewById(R.id.project_name)).setOnEditorActionListener(new OnEditorActionListener() {
-
-			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_DONE) {
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putString("project_name", v.getText().toString());
-					editor.putString("project_stage",
-							String.valueOf(((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()));
-					editor.putString("project_category",
-							String.valueOf(((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem()));
-					editor.commit(); // commit changes
-				}
-
-				return false;
-			}
-		});
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long id = pref.getLong("activity_id_edit", 0);
+//
+//		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
+//
+//		if (record != null) {
+//			String projectName = null;
+//			long projectStageRecord = 0;
+//			long projectCategoryRecord = 0;
+//
+//			try {
+//				projectName = record.getProjectName();
+//				projectStageRecord = record.getProjectStage();
+//				projectCategoryRecord = record.getProjectCategory();
+//
+//			} catch (Exception e) {
+//
+//			}
+//
+//			if (projectName != null || projectStageRecord != 0 || projectCategoryRecord != 0) {
+//				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);
+//
+//				for (int i = 0; i < projectStage.size(); i++) {
+//					if (projectStage.get(i).getId() == projectStageRecord) {
+//						((Spinner) rootView.findViewById(R.id.project_stage)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				for (int i = 0; i < projectCategory.size(); i++) {
+//					if (projectCategory.get(i).getId() == projectCategoryRecord) {
+//						((Spinner) rootView.findViewById(R.id.project_category)).setSelection(i);
+//						break;
+//					}
+//				}
+//			}
+//
+//		}
 
 		((Spinner) rootView.findViewById(R.id.project_stage)).setAdapter(this.projectStage);
 		((Spinner) rootView.findViewById(R.id.project_category)).setAdapter(this.projectCategory);
@@ -137,15 +115,21 @@ public class AddActivityProjectVisitFragment extends Fragment {
 					widthAnimation.start();
 
 					String projectName = ((EditText) rootView.findViewById(R.id.project_name)).getText().toString();
-					long projectStage = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem()).getId();
-					long projectCategory = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem())
-							.getId();
+					String projectStageString = ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem().toString();
+					String projectCategoryString = ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem().toString();
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-					if (projectName != null && !projectName.isEmpty()) {
+					if (projectName != null && !projectName.isEmpty() && projectStageString != null && !projectStageString.isEmpty()
+							&& projectCategoryString != null && !projectCategoryString.isEmpty()) {
 						flag = true;
+
+						long projectStage = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem())
+								.getId();
+						long projectCategory = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem())
+								.getId();
+
 						Editor editor = pref.edit();
 						editor.putString("project_name", projectName);
 						editor.putLong("project_stage", projectStage);

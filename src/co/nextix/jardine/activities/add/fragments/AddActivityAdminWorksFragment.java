@@ -32,12 +32,12 @@ public class AddActivityAdminWorksFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		final View view = inflater.inflate(R.layout.add_activity_admin_works, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		String adminWorksDetail = pref.getString("activity_id_admin_details", null);
-
-		if (adminWorksDetail != null) {
-			((EditText) view.findViewById(R.id.details_admin_works)).setText(adminWorksDetail);
-		}
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		String adminWorksDetail = pref.getString("activity_id_admin_details", null);
+//
+//		if (adminWorksDetail != null) {
+//			((EditText) view.findViewById(R.id.details_admin_works)).setText(adminWorksDetail);
+//		}
 
 		this.saveBtn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new OnClickListener() {

@@ -35,19 +35,19 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 		final List<ActivityTypeRecord> activityTypeList = JardineApp.DB.getActivityType().getAllRecords();
 		MultiSpinner multiSpinner = (MultiSpinner) this.view.findViewById(R.id.multi_spinner);
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		long activity_id = pref.getLong("activity_id_edit", 0);
-
-		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
-		if (activityRecord != null) {
-
-			// Check if it has check
-			multiSpinner.setItems(activityTypeList, " ", this);
-
-		} else {
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//		long activity_id = pref.getLong("activity_id_edit", 0);
+//
+//		ActivityRecord activityRecord = JardineApp.DB.getActivity().getById(activity_id);
+//		if (activityRecord != null) {
+//
+//			// Check if it has check
+//			multiSpinner.setItems(activityTypeList, " ", this);
+//
+//		} else {
 			multiSpinner.setItems(activityTypeList, "- Uncheked to select ( max 5; min 1 ) -", this);
 
-		}
+//		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 

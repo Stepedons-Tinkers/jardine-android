@@ -42,9 +42,9 @@
                     android:padding="14dip"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:text="@string/general_info"
+                    android:text="@string/marketing_intel"
                     android:textColor="#fff"
-                    android:textSize="14dp"
+                    android:textSize="14sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -104,7 +104,7 @@
                         android:singleLine="true"
                         android:text="@string/created_by"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -125,7 +125,7 @@
                         android:scrollHorizontally="true"
                         android:singleLine="true"
                         android:textColor="#000"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
                 </HorizontalScrollView>
 
                 <HorizontalScrollView
@@ -145,7 +145,7 @@
                         android:state_selected="true"
                         android:text="@string/crm_no"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <requestFocus
@@ -172,7 +172,7 @@
                         android:singleLine="true"
                         android:state_selected="true"
                         android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <requestFocus
                         android:layout_width="wrap_content"
@@ -288,7 +288,7 @@
                         android:singleLine="true"
                         android:text="@string/details_marketing_intel"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
                 </HorizontalScrollView>
 
@@ -326,7 +326,7 @@
                         android:singleLine="true"
                         android:state_selected="true"
                         android:textColor="#000"
-                        android:textSize="14dp"
+                        android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <requestFocus
@@ -350,7 +350,7 @@
                         android:singleLine="true"
                         android:state_selected="true"
                         android:textColor="#FF00"
-                        android:textSize="14dp" />
+                        android:textSize="14sp" />
 
                     <requestFocus
                         android:layout_width="wrap_content"

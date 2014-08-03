@@ -105,7 +105,7 @@
     <string name="activity_information">Activity Information</string>
     <string name="jdi_product_stock_check">JDI Product Stock Check</string>
     <string name="jdi_merchandising_check">JDI Merchandising Check</string>
-    <string name="competitor_product_stock_check">Competitor Product Stock Check</string>
+    <string name="competitor_product_stock_check">JDI Competitor Product Stock Check</string>
     <string name="marketing_intel"> Marketing Intel</string>
     <string name="project_requirements">Project Requirements</string>
     <string name="diy_or_supermarket_photos">DIY or Supermarket Photos</string>

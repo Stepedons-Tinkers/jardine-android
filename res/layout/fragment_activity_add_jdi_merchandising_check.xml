@@ -76,7 +76,7 @@
                     android:padding="14dip"
                     android:scrollHorizontally="true"
                     android:singleLine="true"
-                    android:text="@string/general_info"
+                    android:text="@string/jdi_merchandising_check"
                     android:textColor="#fff"
                     android:textSize="14sp"
                     android:textStyle="bold" />

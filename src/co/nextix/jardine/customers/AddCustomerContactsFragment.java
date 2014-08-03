@@ -225,7 +225,7 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("customerLong", 0));
 
 		if (record != null) {
-			field8.setText(JardineApp.DB.getUser().getById(record.getCustomer()).toString());
+			field8.setText(JardineApp.DB.getUser().getById(record.getId()).toString());
 		}
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();

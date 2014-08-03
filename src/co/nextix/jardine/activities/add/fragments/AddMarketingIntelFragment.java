@@ -46,48 +46,48 @@ public class AddMarketingIntelFragment extends Fragment {
 				competitorProductLsit);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_marketing_intel, container, false);
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
-		long id = pref.getLong("activity_id_edit", 0);
-		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
-
-		if (marketingIntel != null) {
-			String marketingIntelCreatedBy = null;
-			String marketingIntelCrmNo = null;
-			String marketingActivity = null;
-			long marketingCompetitorProduct = 0;
-			String marketingDetails = null;
-
-			try {
-				marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
-				marketingIntelCrmNo = marketingIntel.getCrm();
-				marketingActivity = String.valueOf(marketingIntel.getActivity());
-				marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
-				marketingDetails = marketingIntel.getDetails();
-
-			} catch (Exception e) {
-
-			}
-
-			if (marketingIntelCreatedBy != null || marketingIntelCrmNo != null || marketingActivity != null
-					|| marketingCompetitorProduct != 0 || marketingDetails != null) {
-
-				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
-				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
-				((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
-
-				for (int i = 0; i < competitorProductLsit.size(); i++) {
-					if (marketingIntel.getCompetitorProduct() == competitorProductLsit.get(i).getId()) {
-						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
-						break;
-					}
-				}
-
-				((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
-
-			}
-			
-		} else {
+//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+//
+//		long id = pref.getLong("activity_id_edit", 0);
+//		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
+//
+//		if (marketingIntel != null) {
+//			String marketingIntelCreatedBy = null;
+//			String marketingIntelCrmNo = null;
+//			String marketingActivity = null;
+//			long marketingCompetitorProduct = 0;
+//			String marketingDetails = null;
+//
+//			try {
+//				marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+//				marketingIntelCrmNo = marketingIntel.getCrm();
+//				marketingActivity = String.valueOf(marketingIntel.getActivity());
+//				marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+//				marketingDetails = marketingIntel.getDetails();
+//
+//			} catch (Exception e) {
+//
+//			}
+//
+//			if (marketingIntelCreatedBy != null || marketingIntelCrmNo != null || marketingActivity != null
+//					|| marketingCompetitorProduct != 0 || marketingDetails != null) {
+//
+//				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
+//				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
+//				((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
+//
+//				for (int i = 0; i < competitorProductLsit.size(); i++) {
+//					if (marketingIntel.getCompetitorProduct() == competitorProductLsit.get(i).getId()) {
+//						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
+//						break;
+//					}
+//				}
+//
+//				((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
+//
+//			}
+//			
+//		} else {
 
 			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
 			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
@@ -97,7 +97,7 @@ public class AddMarketingIntelFragment extends Fragment {
 			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
 			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
 			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-		}
+//		}
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
