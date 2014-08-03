@@ -25,19 +25,16 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
-import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
 

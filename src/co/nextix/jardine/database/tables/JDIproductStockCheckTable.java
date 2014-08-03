@@ -121,7 +121,7 @@ public class JDIproductStockCheckTable {
 	public List<JDIproductStockCheckRecord> getUnsyncedRecords() {
 		List<JDIproductStockCheckRecord> list = new ArrayList<JDIproductStockCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_JDIPRODUCTSTOCKCHECK_NO + " ISNULL";
+				+ KEY_JDIPRODUCTSTOCKCHECK_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

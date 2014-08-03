@@ -117,7 +117,7 @@
 
     <!-- View Activity Details / General Information -->
     <string name="general_info">General Information</string>
-    <string name="details"     >      Details      </string>
+    <string name="details">      Details      </string>
     <string name="travel_or_waiting">Travel or Waiting</string>
     <string name="admin_works">Admin Works</string>
     <string name="activity_details">Activity Details and Notes</string>
@@ -151,6 +151,7 @@
     <string name="delete_activity">Delete Activity</string>
     <string name="source">Source</string>
     <string name="back_to_activity">Back to Activity </string>
+    <string name="back">Back</string>
     <string name="others"> \"Others" Activity\nType Remarks</string>
     <string name="reason_remarks">Reason Remarks\n- Waiting or Travel</string>
     <string name="business_unit">Business Unit</string>
@@ -239,6 +240,8 @@
     <string name="complete">Saved!</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
+    <string name="add">Add</string>
+    <string name="success">Added Successfully!</string>
     <string name="complete_cancel">Canceled!</string>
     <string name="add_activity">Add Activity</string>
 
@@ -377,7 +380,7 @@
     <string name="customer_contact_hint_email">email address</string>
     <string name="customer_days_unchange">Days Unchanged</string>
     <string name="customer_record_status">Customer Record Status</string>
-     <string name="customer_pending_approval">Pending For Approval</string>
+    <string name="customer_pending_approval">Pending For Approval</string>
 
     <!-- Customer Contact Person -->
     <string name="crm_no_contact_person">CRM No</string>
@@ -388,7 +391,7 @@
     <string name="mobile_no_contact_person">Mobile No</string>
     <string name="assigned_to_contact_person">Created By</string>
     <string name="action_contact_person">Action</string>
-    <string name="add_customer_contact_person">Add Customer Contact Person</string>
+    <string name="add_customer_contact_person">Add Customer Contact</string>
     <string name="all_caps_add_customer_contact_person">ADD CUSTOMER CONTACT PERSON</string>
     <string name="select_customer_contact_person">Select Customer Contact Person</string>
     <string name="all_caps_select_customer_contact_person">SELECT CUSTOMER CONTACT PERSON</string>
@@ -412,12 +415,15 @@
     <string name="action_products">Action</string>
     <string name="select_products">Select Product</string>
     <string name="all_caps_select_products">SELECT PRODUCT</string>
-    
+
     <!-- Attachment and Photos -->
     <string name="document_no">Document No</string>
     <string name="attachment_photo_title">Title</string>
-    
+
     <!-- Ki Visits -->
     <string name="ki_visits">KI Visits</string>
+    
+    <!-- Customers -->
+    <string name="activities_select_customer_contact">Select Customer Contacts</string>
 
 </resources>

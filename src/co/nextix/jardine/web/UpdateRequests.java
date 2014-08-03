@@ -135,7 +135,7 @@ public class UpdateRequests {
 				requestObject.put("z_cu_fax ", fax);
 				requestObject.put("z_cu_customerrecstat", recStat);
 				requestObject.put("mobile_id ", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -249,7 +249,7 @@ public class UpdateRequests {
 				requestObject.put("z_cuc_customer", customer);
 				requestObject.put("z_cuc_isactive", active);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -443,7 +443,7 @@ public class UpdateRequests {
 				// if (!province.equals(""))
 				requestObject.put("z_province", province);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -546,7 +546,7 @@ public class UpdateRequests {
 				// if (!status.equals(""))
 				requestObject.put("z_jmc_status", status);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -659,7 +659,7 @@ public class UpdateRequests {
 				// if (!supplier.equals(""))
 				requestObject.put("z_jps_supplier", supplier);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -767,7 +767,7 @@ public class UpdateRequests {
 				// if (!otherRemarks.equals(""))
 				requestObject.put("z_cps_othertyprmrks", otherRemarks);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -868,7 +868,7 @@ public class UpdateRequests {
 				// if (!details.equals(""))
 				requestObject.put("z_min_details", details);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -975,7 +975,7 @@ public class UpdateRequests {
 				// if (!others.equals(""))
 				requestObject.put("z_pr_otherdet", others);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}
@@ -1081,7 +1081,7 @@ public class UpdateRequests {
 				// if (!otherRemarks.equals(""))
 				requestObject.put("z_ps_othersremarks", otherRemarks);
 				requestObject.put("mobile_id", records.get(x).getId());
-				requestObject.put("crmid ", records.get(x).getCrm());
+				requestObject.put("crmid", records.get(x).getNo());
 
 				requestList.put(String.valueOf(x), requestObject);
 			}

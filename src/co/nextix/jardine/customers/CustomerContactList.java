@@ -89,6 +89,12 @@ public class CustomerContactList extends Fragment implements OnClickListener {
 		col3 = (TextView) header.findViewById(R.id.tvCustomerContactCol3);
 		col4 = (TextView) header.findViewById(R.id.tvCustomerContactCol4);
 		col5 = (TextView) header.findViewById(R.id.tvCustomerContactCol5);
+		
+		col1.setText(getResources().getString(R.string.crm_no_contact_person));
+		col2.setText(getResources().getString(R.string.firstname_contact_person));
+		col3.setText(getResources().getString(R.string.lastname_contact_person));
+		col4.setText(getResources().getString(R.string.position_contact_person));
+		col5.setText(getResources().getString(R.string.mobile_no_contact_person));
 
 		trow.setGravity(Gravity.CENTER);
 		col1.setGravity(Gravity.CENTER);

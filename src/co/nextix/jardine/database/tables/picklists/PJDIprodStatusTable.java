@@ -120,13 +120,13 @@ public class PJDIprodStatusTable {
 		return rowsDeleted;
 	}
 
-	public PicklistRecord getById(int ID) {
+	public PicklistRecord getById(long ID) {
 		PicklistRecord record = null;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_JDI_STOCK_STATUS_ROWID + "=?";
+				+ KEY_JDI_STOCK_STATUS_ROWID + "=" + ID;
 		Cursor c = null;
 		try {
-			c = mDb.rawQuery(MY_QUERY, new String[] { String.valueOf(ID) });
+			c = mDb.rawQuery(MY_QUERY, null);
 
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
