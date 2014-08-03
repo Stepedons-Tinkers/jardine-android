@@ -47,7 +47,8 @@ import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
 
-public class AddCustomerContactsFragment extends Fragment implements OnClickListener {
+public class AddCustomerContactsFragment extends Fragment implements
+		OnClickListener {
 
 	private View view;
 	private long customerId;
@@ -78,22 +79,29 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		long id = StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
-		userName = StoreAccount.restore(JardineApp.context).getString(Account.USERNAME);
+		// long id =
+		// StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
+		userName = StoreAccount.restore(JardineApp.context).getString(
+				Account.USERNAME);
 		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 	}
 
 	@SuppressWarnings("unused")
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		view = inflater.inflate(R.layout.customer_contact_add_new, container, false);
+		view = inflater.inflate(R.layout.customer_contact_add_new, container,
+				false);
 		bundle = getArguments();
 		initLayout();
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("activity_id_customer", 0));
-		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition().getAllRecords();
+		SharedPreferences pref = getActivity().getApplicationContext()
+				.getSharedPreferences("ActivityInfo", 0);
+		CustomerContactRecord record = JardineApp.DB.getCustomerContact()
+				.getById(pref.getLong("activity_id_customer", 0));
+		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
+				.getAllRecords();
 
 		if (record != null) {
 
@@ -115,11 +123,15 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				lastName = record.getLastName();
 				positionInput = record.getPosition();
 				customerEmail = record.getEmailAddress();
-				customerCustomer = JardineApp.DB.getCustomer().getById(record.getId()).toString();
+				customerCustomer = JardineApp.DB.getCustomer()
+						.getById(record.getId()).toString();
 				customerCreatedBy = record.toString();
 
-				if (crmNo != null || firstName != null || lastName != null || positionInput != 0 || mobileNo != null
-						|| customerBirthday != null || customerEmail != null || customerCustomer != null || customerCreatedBy != null) {
+				if (crmNo != null || firstName != null || lastName != null
+						|| positionInput != 0 || mobileNo != null
+						|| customerBirthday != null || customerEmail != null
+						|| customerCustomer != null
+						|| customerCreatedBy != null) {
 
 					field1.setText(crmNo);
 					field2.setText(firstName);
@@ -149,8 +161,10 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	private boolean checker() {
 		boolean flag = false;
 
-		if (!field2.getText().toString().contentEquals("") && !field3.getText().toString().contentEquals("")
-				&& field4.getSelectedItemPosition() != 0 && !field5.getText().toString().contentEquals("")) {
+		if (!field2.getText().toString().contentEquals("")
+				&& !field3.getText().toString().contentEquals("")
+				&& field4.getSelectedItemPosition() != 0
+				&& !field5.getText().toString().contentEquals("")) {
 			flag = true;
 		} else {
 			flag = false;
@@ -163,7 +177,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		if (bundle != null) {
 			customerId = bundle.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
-			customerName = bundle.getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
+			customerName = bundle
+					.getString(CustomerConstants.KEY_CUSTOMER_USERNAME);
 		}
 
 		final Calendar c = Calendar.getInstance();
@@ -174,7 +189,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
 
-		formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
+		formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
+				+ checkDigit(day);
 
 		cancel = (Button) view.findViewById(R.id.bCustomerContactAddCancel);
 		save = (Button) view.findViewById(R.id.bCustomerContactAddCreate);
@@ -186,7 +202,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		if (AddActivityFragment.fromOther) {
 			Log.e("fromOther", "fucker");
-			saveORdone = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
+			saveORdone = (CircularProgressButton) view
+					.findViewById(R.id.btnWithText1);
 			saveORdone.setVisibility(View.VISIBLE);
 			saveORdone.setOnClickListener(this);
 
@@ -206,7 +223,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		field5 = (EditText) view.findViewById(R.id.etCustomerContactAddField5);
 
 		field6a = (TextView) view.findViewById(R.id.tvCustomerContactAddField6);
-		field6b = (ImageButton) view.findViewById(R.id.ibCustomerContactAddField6);
+		field6b = (ImageButton) view
+				.findViewById(R.id.ibCustomerContactAddField6);
 
 		field7 = (EditText) view.findViewById(R.id.etCustomerContactAddField7);
 
@@ -214,19 +232,16 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 		field9 = (TextView) view.findViewById(R.id.tvCustomerContactAddField9);
 		// List to be populated in spinner adapter
-		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition().getAllRecords();
-		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.customer_spinner_row, posi);
+		List<PicklistRecord> posi = JardineApp.DB.getCustomerContactPosition()
+				.getAllRecords();
+		ArrayAdapter<PicklistRecord> adapter4 = new ArrayAdapter<PicklistRecord>(
+				JardineApp.context, R.layout.customer_spinner_row, posi);
 
 		field4.setAdapter(adapter4);
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		CustomerContactRecord record = JardineApp.DB.getCustomerContact().getById(pref.getLong("customerLong", 0));
-
-		if (record != null) {
-			field8.setText(JardineApp.DB.getUser().getById(record.getId()).toString());
-		}
+		field8.setText(CustomerConstants.CUSTOMER_NAME);
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
@@ -248,23 +263,27 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 			if (checker()) {
 				new InsertTask().execute();
 			} else {
-				AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+				AlertDialog.Builder dialog = new AlertDialog.Builder(
+						getActivity());
 				dialog.setTitle("Warning");
 				dialog.setMessage("Fields that are allowed to be empty are birthday and email address only.");
-				dialog.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+				dialog.setPositiveButton("Ok",
+						new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						dialog.dismiss();
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								dialog.dismiss();
 
-					}
-				});
+							}
+						});
 				dialog.show();
 			}
 
 			break;
 		case R.id.ibCustomerContactAddField6:
-			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener, year,
+			DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
+					android.R.style.Theme_Holo_Panel, datePickerListener, year,
 					month, day);
 			pickDialog.show();
 			break;
@@ -277,7 +296,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 	private DatePickerDialog.OnDateSetListener datePickerListener = new DatePickerDialog.OnDateSetListener() {
 
 		@Override
-		public void onDateSet(DatePicker view, int selectedYear, int selectedMonth, int selectedDay) {
+		public void onDateSet(DatePicker view, int selectedYear,
+				int selectedMonth, int selectedDay) {
 
 			year = selectedYear;
 			month = selectedMonth;
@@ -288,7 +308,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 			// .append("/").append(day).append("/").append(year)
 			// .append(" "));
 
-			formattedDate = year + "-" + (checkDigit(month + 1)) + "-" + checkDigit(day);
+			formattedDate = year + "-" + (checkDigit(month + 1)) + "-"
+					+ checkDigit(day);
 			field6a.setText(MyDateUtils.convertDate(formattedDate));
 
 		}
@@ -359,7 +380,8 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();
 		long user = userId;
 
-		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName, lastName, position, mobileNo, birthday, emailAddress, customer,
+		JardineApp.DB.getCustomerContact().insert(no, crmNo, firstName,
+				lastName, position, mobileNo, birthday, emailAddress, customer,
 				isActive, createdTime, modifiedTime, user);
 	}
 
@@ -374,18 +396,21 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 
 			ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 			widthAnimation.setDuration(1500);
-			widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-			widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-				@Override
-				public void onAnimationUpdate(ValueAnimator animation) {
-					Integer value = (Integer) animation.getAnimatedValue();
-					saveORdone.setProgress(value);
+			widthAnimation
+					.setInterpolator(new AccelerateDecelerateInterpolator());
+			widthAnimation
+					.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+							Integer value = (Integer) animation
+									.getAnimatedValue();
+							saveORdone.setProgress(value);
 
-					if (!flag) {
-						saveORdone.setProgress(-1);
-					}
-				}
-			});
+							if (!flag) {
+								saveORdone.setProgress(-1);
+							}
+						}
+					});
 
 			widthAnimation.start();
 
@@ -397,10 +422,14 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 			String emailAddress = field7.getText().toString();
 
 			/** Checking of required fields **/
-			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+			SharedPreferences pref = getActivity().getApplicationContext()
+					.getSharedPreferences("ActivityInfo", 0);
 
-			if (firstName != null && !firstName.isEmpty() && lastName != null && !lastName.isEmpty() && position != 0 && mobileNo != null
-					&& !mobileNo.isEmpty() && birthday != null && !birthday.isEmpty() && emailAddress != null && !emailAddress.isEmpty()) {
+			if (firstName != null && !firstName.isEmpty() && lastName != null
+					&& !lastName.isEmpty() && position != 0 && mobileNo != null
+					&& !mobileNo.isEmpty() && birthday != null
+					&& !birthday.isEmpty() && emailAddress != null
+					&& !emailAddress.isEmpty()) {
 
 				flag = true;
 				Editor editor = pref.edit();
@@ -412,14 +441,16 @@ public class AddCustomerContactsFragment extends Fragment implements OnClickList
 				editor.putString("email_address", emailAddress);
 				editor.putLong("user_id", userId);
 				editor.commit(); // commit changes
-				
+
 				saveORdone.setClickable(true);
 				saveORdone.setEnabled(true);
 
 			} else {
 
 				flag = false;
-				Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+				Toast.makeText(getActivity(),
+						"Please fill up required (RED COLOR) fields",
+						Toast.LENGTH_LONG).show();
 
 				Handler handler = new Handler();
 				handler.postDelayed(new Runnable() {
