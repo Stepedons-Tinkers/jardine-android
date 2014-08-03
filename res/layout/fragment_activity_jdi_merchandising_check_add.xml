@@ -203,7 +203,8 @@
                         android:singleLine="true"
                         android:text="@string/action_jdi"
                         android:textColor="#000"
-                        android:textSize="14sp" /  -->
+                        android:textSize="14sp" /
+                    -->
                 </TableRow>
 
                 <ListView
@@ -231,11 +232,13 @@
                 android:id="@+id/status_list_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:paddingBottom="54dp"
-                android:text="@string/no_data"
+                android:layout_marginBottom="47dp"
+                android:paddingBottom="24dp"
+                android:text="@string/list_empty"
                 android:visibility="invisible" />
+
         </RelativeLayout>
     </ScrollView>
 

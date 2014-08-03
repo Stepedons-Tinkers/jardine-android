@@ -298,8 +298,8 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:paddingBottom="54dp"
-        android:text="@string/no_data"
+        android:paddingBottom="14dp"
+        android:text="@string/list_empty"
         android:visibility="invisible" />
 
 </RelativeLayout>

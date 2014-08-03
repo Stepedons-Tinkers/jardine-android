@@ -51,6 +51,10 @@ public class CompetitorProductRecord {
 		this.modified_time = modifiedTime;
 		this.created_by = created_by;
 	}
+	
+	public CompetitorProductRecord(){
+		
+	}
 
 	// ===========================================================
 	// Public methods

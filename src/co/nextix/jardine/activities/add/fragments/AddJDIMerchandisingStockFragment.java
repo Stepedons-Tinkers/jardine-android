@@ -3,9 +3,8 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.List;
 
 import android.animation.ValueAnimator;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +17,7 @@ import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
@@ -32,6 +32,12 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 	private ArrayAdapter<ProductRecord> productAdapter = null;
 	private ArrayAdapter<PicklistRecord> statusAdapter = null;
 	private boolean flag = false;
+
+	private Fragment frag = null;
+
+	public AddJDIMerchandisingStockFragment(Fragment frag) {
+		this.frag = frag;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -162,9 +168,24 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 						JDImerchandisingCheckRecord jdiMerchant = new JDImerchandisingCheckRecord();
 						jdiMerchant.setCrm(((TextView) view.findViewById(R.id.crm_no)).getText().toString());
+						jdiMerchant.setProductBrand(productLong);
+						jdiMerchant.setStatus(statusLong);
+						jdiMerchant.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
+						Constant.addJDImerchandisingCheckRecords.add(jdiMerchant);
 
-						v.setClickable(true);
-						v.setEnabled(true);
+						JDIMerchandisingCheckFragment jdiMerchantFrag = (JDIMerchandisingCheckFragment) frag;
+						jdiMerchantFrag.setListData();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								getFragmentManager().popBackStackImmediate();
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
 					}
 
 				} else {

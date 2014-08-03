@@ -26,6 +26,7 @@ import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.detail.CompetitorProductStockCheckDetailFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class CompetitorStockCheckFragment extends Fragment {
@@ -117,34 +118,40 @@ public class CompetitorStockCheckFragment extends Fragment {
 	}
 
 	public void setListData() {
-		this.realRecord = new ArrayList<CompetitorProductStockCheckRecord>();
-		this.tempRecord = new ArrayList<CompetitorProductStockCheckRecord>();
+		// this.realRecord = new ArrayList<CompetitorProductStockCheckRecord>();
+		// this.tempRecord = new ArrayList<CompetitorProductStockCheckRecord>();
+		//
+		// CompetitorProductStockCheckTable table =
+		// JardineApp.DB.getCompetitorProductStockCheck();
+		// List<CompetitorProductStockCheckRecord> records =
+		// table.getAllRecords();
+		// this.realRecord.addAll(records);
 
-		CompetitorProductStockCheckTable table = JardineApp.DB.getCompetitorProductStockCheck();
-		List<CompetitorProductStockCheckRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		if (Constant.addCompetitorProductRecords != null) {
+			Log.d("Jardine", "ActivityRecord" + String.valueOf(Constant.addCompetitorProductRecords.size()));
 
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
-
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					CompetitorProductStockCheckRecord rec = new CompetitorProductStockCheckRecord();
-					realRecord.add(rec);
+			if (realRecord.size() > 0) {
+				int remainder = realRecord.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						CompetitorProductStockCheckRecord rec = new CompetitorProductStockCheckRecord();
+						realRecord.add(rec);
+					}
 				}
+
+				this.totalPage = realRecord.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView();
+				this.isListHasNoData();
+				((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
-
-			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
-
 		} else {
-
 			this.setView();
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view))
-			// .setText("");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
 	}
 
@@ -241,15 +248,13 @@ public class CompetitorStockCheckFragment extends Fragment {
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-		// .setVisibility(View.VISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-		// .setVisibility(View.INVISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

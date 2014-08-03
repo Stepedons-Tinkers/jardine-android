@@ -23,6 +23,7 @@ import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.DocuInfoRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
@@ -61,7 +62,7 @@ public class AddActivityFragment extends Fragment {
 		Constant.addProductSupplierRecords = new ArrayList<ProductSupplierRecord>();
 		Constant.addJDImerchandisingCheckRecords = new ArrayList<JDImerchandisingCheckRecord>();
 
-		Constant.addCompetitorProductRecords = new ArrayList<CompetitorProductRecord>();
+		Constant.addCompetitorProductRecords = new ArrayList<CompetitorProductStockCheckRecord>();
 		Constant.addMarketingIntelRecords = new ArrayList<MarketingIntelRecord>();
 		Constant.addProjectRequirmentRecords = new ArrayList<ProjectRequirementRecord>();
 
@@ -128,7 +129,7 @@ public class AddActivityFragment extends Fragment {
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
 
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(0);
+		pager.setCurrentItem(8);
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 		pager.setPageMargin(pageMargin);

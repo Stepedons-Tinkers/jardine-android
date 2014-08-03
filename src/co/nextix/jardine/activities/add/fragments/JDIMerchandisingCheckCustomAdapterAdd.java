@@ -79,7 +79,7 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView activity_type_txt;
@@ -106,14 +106,14 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
+			holder.clickable_item_container = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_txt       = (TextView) vi.findViewById(R.id.column_three);
-			holder.status_txt        = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.product_txt = (TextView) vi.findViewById(R.id.column_three);
+			holder.status_txt = (TextView) vi.findViewById(R.id.column_four);
+			holder.created_by = (TextView) vi.findViewById(R.id.column_five);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -133,42 +133,9 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			
-			ActivityTable act = JardineApp.DB.getActivity();
-			if(act != null){
-				ActivityRecord rec = act.getById(this.tempValues.getActivity());
-				holder.activity_type_txt.setText("");
-				if(rec != null){
-					holder.activity_type_txt.setText(rec.toString());
-				}
-			}
-			
-			ProductTable product = JardineApp.DB.getProduct();
-			if(product != null){
-				ProductRecord rec = product.getById(this.tempValues.getProductBrand());
-				holder.product_txt.setText("");
-				if(rec != null){
-					holder.product_txt.setText(rec.toString());
-				}
-			}
-			
-			PJDIprodStatusTable status = JardineApp.DB.getJDIproductStatus();
-			if(status != null){
-				PicklistRecord pick =  status.getById((int)this.tempValues.getStatus());
-				holder.status_txt.setText("");
-				if(pick != null){
-					holder.status_txt.setText(pick.toString());
-				}
-			}
-			
-			UserTable user = JardineApp.DB.getUser();
-			if(user != null){
-				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
-				holder.created_by.setText("");
-				if(rec != null){
-					holder.created_by.setText(rec.toString());
-				}
-			}
+			holder.product_txt.setText("" + this.tempValues.getProductBrand());
+			holder.status_txt.setText("" + this.tempValues.getStatus());
+			holder.created_by.setText("" + this.tempValues.getCreatedBy());
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
@@ -178,28 +145,35 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else{
+			} else {
 				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-//					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
-//
-//					// Saving acquired activity details
-//					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//					Editor editor = pref.edit();
-//					editor.putLong("activity_id", tempValues.getId());
-//					editor.commit(); // commit changes
-//
-//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-//					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-//					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-//							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					// JDImerchandisingCheckRecord tempValues =
+					// (JDImerchandisingCheckRecord) data.get(position);
+					//
+					// // Saving acquired activity details
+					// SharedPreferences pref =
+					// activity.getApplicationContext().getSharedPreferences("ActivityInfo",
+					// 0);
+					// Editor editor = pref.edit();
+					// editor.putLong("activity_id", tempValues.getId());
+					// editor.commit(); // commit changes
+					//
+					// android.support.v4.app.Fragment fragment = new
+					// ActivityInfoFragment();
+					// android.support.v4.app.FragmentManager fragmentManager =
+					// activity.getSupportFragmentManager();
+					// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+					// R.anim.slide_out_left)
+					// .replace(R.id.frame_container,
+					// fragment).addToBackStack(null).commit();
 				}
 			});
 
@@ -211,15 +185,11 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
-			
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {

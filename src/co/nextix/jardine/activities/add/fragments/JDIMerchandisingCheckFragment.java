@@ -1,10 +1,10 @@
 package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -20,13 +20,11 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
-import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.adapters.JDIMerchandisingCheckCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
-import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class JDIMerchandisingCheckFragment extends Fragment {
@@ -76,10 +74,9 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				// v.getBackground().setColorFilter(new
-				// LightingColorFilter(0x0033FF, 0x0066FF));
+				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
-				Fragment newFragment = new AddJDIMerchandisingStockFragment();
+				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragment.this);
 
 				// Create new transaction
 				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
@@ -125,33 +122,39 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
-		this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
-		this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		// this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		// this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		//
+		// JDImerchandisingCheckTable table =
+		// JardineApp.DB.getJDImerchandisingCheck();
+		// List<JDImerchandisingCheckRecord> records = table.getAllRecords();
+		// this.realRecord.addAll(records);
 
-		JDImerchandisingCheckTable table = JardineApp.DB.getJDImerchandisingCheck();
-		List<JDImerchandisingCheckRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		if (Constant.addJDImerchandisingCheckRecords != null) {
+			Log.d("Jardine", "ActivityRecord" + String.valueOf(Constant.addJDImerchandisingCheckRecords.size()));
 
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
-
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					JDImerchandisingCheckRecord rec = new JDImerchandisingCheckRecord();
-					realRecord.add(rec);
+			if (realRecord.size() > 0) {
+				int remainder = realRecord.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						JDImerchandisingCheckRecord rec = new JDImerchandisingCheckRecord();
+						realRecord.add(rec);
+					}
 				}
+
+				this.totalPage = realRecord.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView();
+				this.isListHasNoData();
+				((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
-
-			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
-
 		} else {
-
 			this.setView();
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
 	}
 
@@ -250,15 +253,13 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

@@ -139,46 +139,15 @@ public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 			/************ Set Model values in Holder elements ***********/
 
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			ActivityTable act = JardineApp.DB.getActivity();
-			if (act != null) {
-				ActivityRecord rec = act.getById(this.tempValues.getActivity());
-				holder.activity_type_txt.setText("");
-				if (rec != null) {
-					holder.activity_type_txt.setText(rec.toString());
-				}
-
-			}
-			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
-			if (comp != null) {
-				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
-				holder.competitor_product.setText("");
-				if (product != null) {
-					holder.competitor_product.setText(product.toString());
-				}
-			}
-
-			PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
-			if (comp_status != null) {
-				PicklistRecord rec = comp_status.getById((int) this.tempValues.getStockStatus());
-				holder.stock_status.setText("");
-				if (rec != null) {
-					holder.stock_status.setText(rec.toString());
-				}
-			}
+			holder.competitor_product.setText("" + this.tempValues.getCompetitorProduct());
+			holder.stock_status.setText("" + this.tempValues.getStockStatus());
 
 			if (this.tempValues.getLoadedOnShelves() == 0)
 				holder.loaded_on_shelves.setText("No");
 			else
 				holder.loaded_on_shelves.setText("Yes");
 
-			UserTable user = JardineApp.DB.getUser();
-			if (user != null) {
-				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
-				holder.assigned_to.setText("");
-				if (rec != null) {
-					holder.assigned_to.setText(rec.toString());
-				}
-			}
+			holder.assigned_to.setText(" " + this.tempValues.getCreatedBy());
 
 			holder.other_type.setText(this.tempValues.getOtherRemarks());
 
