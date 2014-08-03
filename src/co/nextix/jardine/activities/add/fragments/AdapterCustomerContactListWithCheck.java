@@ -121,11 +121,7 @@ public class AdapterCustomerContactListWithCheck extends
 									CompoundButton buttonView, boolean isChecked) {
 
 								holder.record.setSelected(isChecked);
-								Toast.makeText(
-										context,
-										holder.record.getFirstName() + " "
-												+ holder.record.isSelected(),
-										Toast.LENGTH_LONG).show();
+
 							}
 						});
 
