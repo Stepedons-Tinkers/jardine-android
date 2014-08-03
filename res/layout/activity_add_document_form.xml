@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:overScrollMode="never"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/bActivityAddDocumentAdd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="10dp"
+                android:layout_toLeftOf="@+id/bActivityAddDocumentCancel"
+                android:background="@color/green"
+                android:padding="10dp"
+                android:text="@string/attachment_add" />
+
+            <Button
+                android:id="@+id/bActivityAddDocumentCancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="#FF00"
+                android:padding="10dp"
+                android:text="@string/cancel" />
+        </RelativeLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/xml_tablelayout_bg"
+            android:padding="5dp" >
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/document_no"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvActivityDocumentAddField1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:gravity="center"
+                    android:hint="AUTO GENERATED"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="AUTO GENERATED"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/attachment_photo_title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etActivityDocumentAddField2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:gravity="left"
+                    android:hint="@string/attachment_photo_title"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/attachment_file"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvActivityDocumentAddField3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:gravity="center"
+                    android:hint="@string/attachment_tap"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+            </TableRow>
+            <TableRow
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:text="@string/created_by"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvActivityDocumentAddField4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:background="@drawable/xml_edittext_bg"
+                    android:gravity="center"
+                    android:hint="@string/created_by"
+                    android:maxLines="1"
+                    android:padding="7dp"
+                    android:text="@string/created_by"
+                    android:textColor="@color/darkness_blue"
+                    android:textSize="@dimen/text_xxlarge"
+                    android:textStyle="bold" />
+            </TableRow>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>

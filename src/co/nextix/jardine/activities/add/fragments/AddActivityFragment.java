@@ -128,7 +128,7 @@ public class AddActivityFragment extends Fragment {
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
 
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(10);
+		pager.setCurrentItem(16);
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 		pager.setPageMargin(pageMargin);
@@ -200,7 +200,7 @@ public class AddActivityFragment extends Fragment {
 		/* 14 */flist.add(AddIdentifyProductFocusFragment.instantiate(getActivity(), AddIdentifyProductFocusFragment.class.getName()));
 		/* 15 */flist.add(AddActivityFullBrandActivationFragment.instantiate(getActivity(),
 				AddActivityFullBrandActivationFragment.class.getName()));
-		/* 16 */flist.add(AddActivityPhotosAndAttachments.instantiate(getActivity(), AddActivityPhotosAndAttachments.class.getName()));
+		/* 16 */flist.add(ActivitiesDocumentList.instantiate(getActivity(), ActivitiesDocumentList.class.getName()));
 		return flist;
 	}
 
