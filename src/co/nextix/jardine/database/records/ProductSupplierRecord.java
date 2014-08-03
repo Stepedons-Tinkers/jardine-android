@@ -21,6 +21,10 @@ public class ProductSupplierRecord {
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
+	
+	public ProductSupplierRecord(){
+		
+	}
 
 	public ProductSupplierRecord(long id, String no, String crmNo,
 			long productBrand, long supplier, String othersRemarks,

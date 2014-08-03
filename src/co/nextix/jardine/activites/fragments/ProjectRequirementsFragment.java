@@ -26,7 +26,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.ProjectRequirementsCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.ProjectRequirementsDetailFragment;
-import co.nextix.jardine.activities.add.fragments.AddProjectRequirementsFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityProjectRequirementsFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.records.ProjectRequirementRecord;

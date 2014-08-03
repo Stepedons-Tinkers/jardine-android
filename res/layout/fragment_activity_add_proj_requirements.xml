@@ -9,7 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="54dp"
         android:background="#fff"
-        android:orientation="horizontal" >
+        android:orientation="horizontal" 
+        android:visibility="gone">
 
         <Button
             android:id="@+id/activity_info"
@@ -341,7 +342,7 @@
                         android:padding="14dip"
                         android:scrollHorizontally="true"
                         android:singleLine="true"
-                        android:text="date picker [YYYY-MM-DD]"
+                        android:hint="Tap to select"
                         android:textColor="#000"
                         android:textSize="14sp" />
                 </HorizontalScrollView>
@@ -378,7 +379,7 @@
                         android:layout_height="45dp"
                         android:background="#cac9c9"
                         android:ems="10"
-                        android:hint="di importante"
+                        android:hint="@string/square_meters_proj_requirements"
                         android:inputType="textMultiLine|textImeMultiLine|number"
                         android:maxLines="100"
                         android:scrollHorizontally="true"
@@ -424,7 +425,7 @@
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
                         android:ems="10"
-                        android:hint="di importante"
+                        android:hint="@string/product_brand"
                         android:inputType="textMultiLine|textImeMultiLine|number"
                         android:maxLines="100"
                         android:scrollHorizontally="true"
@@ -465,7 +466,7 @@
                         android:layout_height="45dp"
                         android:background="#dcdcdc"
                         android:ems="10"
-                        android:hint="di importante"
+                        android:hint="@string/other_details_proj_requirements"
                         android:inputType="textMultiLine|textImeMultiLine|number"
                         android:maxLines="100"
                         android:scrollHorizontally="true"
