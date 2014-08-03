@@ -420,6 +420,9 @@
     <!-- Attachment and Photos -->
     <string name="document_no">Document No</string>
     <string name="attachment_photo_title">Title</string>
+    <string name="attachment_add">Add</string>
+     <string name="attachment_tap">Tap to Select File</string>
+     <string name="attachment_file">File</string>
 
     <!-- Ki Visits -->
     <string name="ki_visits">KI Visits</string>
