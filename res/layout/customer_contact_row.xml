@@ -18,14 +18,14 @@
 
         <TextView
             android:id="@+id/tvCustomerContactCol1"
-            android:layout_width="180dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_weight="1"
             android:ellipsize="end"
             android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="@string/crm_no_contact_person"
             android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
@@ -37,13 +37,13 @@
 
         <TextView
             android:id="@+id/tvCustomerContactCol2"
-            android:layout_width="180dp"
-            android:layout_column="1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="2"
             android:layout_weight="1"
             android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="@string/firstname_contact_person"
             android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
@@ -55,13 +55,13 @@
 
         <TextView
             android:id="@+id/tvCustomerContactCol3"
-            android:layout_width="185dp"
-            android:layout_column="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="4"
             android:layout_weight="1"
             android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="@string/lastname_contact_person"
             android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
@@ -73,13 +73,13 @@
 
         <TextView
             android:id="@+id/tvCustomerContactCol4"
-            android:layout_width="180dp"
-            android:layout_column="2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="5"
             android:layout_weight="1"
             android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
-            android:text="@string/position_contact_person"
             android:textColor="@color/black"
             android:textSize="@dimen/text_xxlarge" />
 
@@ -89,17 +89,32 @@
             android:layout_marginRight="2dp"
             android:background="@color/black" />
 
-        <TextView
-            android:id="@+id/tvCustomerContactCol5"
-            android:layout_width="180dp"
-            android:layout_column="2"
-            android:layout_weight="1"
-            android:gravity="left"
-            android:maxLines="1"
-            android:padding="5dp"
-            android:text="@string/mobile_no_contact_person"
-            android:textColor="@color/black"
-            android:textSize="@dimen/text_xxlarge" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_column="8"
+            android:layout_weight="1" >
+
+            <TextView
+                android:id="@+id/tvCustomerContactCol5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:gravity="left"
+                android:maxLines="1"
+                android:padding="5dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_xxlarge" />
+
+            <CheckBox
+                android:id="@+id/cbCustomerContactCol5a"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@null"
+                android:checked="true"
+                android:visibility="gone" />
+        </RelativeLayout>
     </TableRow>
 
 </LinearLayout>
