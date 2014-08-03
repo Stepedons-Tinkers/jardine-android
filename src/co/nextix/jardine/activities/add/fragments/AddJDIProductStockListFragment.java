@@ -33,6 +33,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 	private int frag_layout_id;
 
 	private Button addButton, cancelButton, nextButton;
+	AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -112,7 +113,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 			// .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 			// .add(R.id.frame_container, fragment, JardineApp.TAG)
 			// .addToBackStack(JardineApp.TAG).commit();
-			AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+//			AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
 			fragment.setTargetFragment(AddJDIProductStockListFragment.this,
 					987654);
 
@@ -142,7 +143,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 	}
 
 	public void removeFragment() {
-		AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+//		AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
 		this.getChildFragmentManager().beginTransaction()
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 				.remove(fragment).addToBackStack(JardineApp.TAG).commit();
