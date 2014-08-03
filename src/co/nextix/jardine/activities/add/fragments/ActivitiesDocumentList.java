@@ -7,6 +7,7 @@ import java.util.List;
 import android.app.AlertDialog;
 import android.app.FragmentTransaction;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -21,6 +22,7 @@ import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
@@ -156,7 +158,7 @@ public class ActivitiesDocumentList extends Fragment implements
 	public void removeFragment() {
 		this.getChildFragmentManager().beginTransaction()
 				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-				.remove(fragment).commit();
+				.remove(fragment).addToBackStack(JardineApp.TAG).commit();
 	}
 
 	ActivitiesDocumentsAddNew fragment = new ActivitiesDocumentsAddNew();
@@ -166,10 +168,12 @@ public class ActivitiesDocumentList extends Fragment implements
 		switch (v.getId()) {
 
 		case R.id.bActivityAddCustomerContact:
+			fragment = new ActivitiesDocumentsAddNew();
 			fragment.setTargetFragment(this, 15);
-			this.getChildFragmentManager().beginTransaction()
+			this.getFragmentManager().beginTransaction()
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-					.add(R.id.flActivityAddCustomerRootView, fragment).commit();
+					.add(R.id.flActivityAddCustomerRootView, fragment)
+					.addToBackStack(JardineApp.TAG).commit();
 			break;
 		case R.id.bActivityContactNext:
 
@@ -177,5 +181,11 @@ public class ActivitiesDocumentList extends Fragment implements
 		}
 
 	}
+
+	// @Override
+	// public void onActivityResult(int requestCode, int resultCode, Intent
+	// data) {
+	// fragment.onActivityResult(requestCode, resultCode, data);
+	// }
 
 }

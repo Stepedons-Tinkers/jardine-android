@@ -46,8 +46,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 	private Uri imageUri = null;
 	private long userId;
 
-
-	private File theFile;	
+	private File theFile;
 	private final int REQUEST_CODE_FROM_GALLERY = 1;
 	private final int REQUEST_CODE_FROM_CAMERA = 2;
 
@@ -81,6 +80,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 		txt4 = (TextView) view.findViewById(R.id.tvActivityDocumentAddField4);
 
 		txt3.setOnClickListener(this);
+		txt3.setText("");
 
 		txt2 = (EditText) view.findViewById(R.id.etActivityDocumentAddField2);
 
@@ -96,7 +96,10 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 
 		switch (v.getId()) {
 		case R.id.bActivityAddDocumentAdd:
-			save();
+			if (checker()) {
+				save();
+			}
+
 			break;
 		case R.id.bActivityAddDocumentCancel:
 			dismiss();
@@ -143,7 +146,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 		String ts = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US)
 				.format(new Date());
 
-		return "Jardine_" + ts;
+		return "Jardine_" + ts + ".jpg";
 	}
 
 	public static String getMimeType(String url) {
@@ -187,6 +190,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 						android.provider.MediaStore.EXTRA_OUTPUT, imageUri);
 				takeFromCamera.putExtra("return-data", true);
 				startActivityForResult(takeFromCamera, REQUEST_CODE_FROM_CAMERA);
+
 			}
 		}).setNegativeButton("Gallery", new OnClickListener() {
 
@@ -208,8 +212,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-
-		getActivity();
+		// getActivity();
 
 		if (resultCode == Activity.RESULT_OK) {
 			if (requestCode == REQUEST_CODE_FROM_CAMERA) {
@@ -224,6 +227,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 			Toast.makeText(getActivity(), "Attachment not found",
 					Toast.LENGTH_SHORT).show();
 		}
+
 	}
 
 	private String getRealPathFromURI(Uri contentURI) {
@@ -239,20 +243,54 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 			result = cursor.getString(idx);
 			cursor.close();
 		}
+
+		theFile = new File(result);
 		return result;
 	}
-	
-	public boolean checker()
-	{
+
+	public boolean checker() {
 		boolean flag = false;
-		if(theFile.exists())
-		{
-			if(!txt3.getText().toString().contentEquals(""))
-			{
-				flag = true;
+		if (theFile != null) {
+			if (theFile.exists()) {
+				if (!txt3.getText().toString().contentEquals("")) {
+					flag = true;
+				} else {
+					flag = false;
+					AlertDialog.Builder dialog = new AlertDialog.Builder(
+							getActivity());
+					dialog.setTitle("Warning");
+					dialog.setMessage("Please input Title!");
+					dialog.setPositiveButton("Ok",
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									dialog.dismiss();
+
+								}
+							});
+					dialog.show();
+				}
 			}
+		} else {
+			flag = false;
+			AlertDialog.Builder dialog = new AlertDialog.Builder(getActivity());
+			dialog.setTitle("Warning");
+			dialog.setMessage("File does not exist!");
+			dialog.setPositiveButton("Ok",
+					new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							dialog.dismiss();
+
+						}
+					});
+			dialog.show();
+
 		}
-		
+
 		return flag;
 	}
 

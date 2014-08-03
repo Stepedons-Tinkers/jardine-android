@@ -129,7 +129,7 @@ public class AddActivityFragment extends Fragment {
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
 
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(0);
+		pager.setCurrentItem(16);
 
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
