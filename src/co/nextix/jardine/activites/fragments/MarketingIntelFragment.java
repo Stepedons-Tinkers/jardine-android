@@ -86,7 +86,7 @@ public class MarketingIntelFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(R.id.layoutForAddingFrag, newFragment);
+				transaction.replace(R.id.frame_container, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction
@@ -194,10 +194,9 @@ public class MarketingIntelFragment extends Fragment {
 		// this.Constant.addMarketingIntelRecords = new
 		// ArrayList<MarketingIntelRecord>();
 		// this.tempRecord = new ArrayList<MarketingIntelRecord>();
-		
 
 		Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
-		
+
 		if (Constant.addMarketingIntelRecords.size() > 0) {
 			int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
 			if (remainder > 0) {

@@ -200,7 +200,7 @@ public class AddMarketingIntelFragment extends Fragment {
 
 							@Override
 							public void run() {
-								getFragmentManager().popBackStack();
+								getFragmentManager().popBackStackImmediate();
 								btn.setClickable(true);
 								btn.setEnabled(true);
 							}
