@@ -3,6 +3,7 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.List;
 
 import android.animation.ValueAnimator;
+import android.app.FragmentTransaction;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
@@ -40,19 +41,31 @@ public class AddJDIProductStockFragment extends Fragment {
 	private ArrayAdapter<CustomerRecord> supplierAdapter = null;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
 
-		List<ProductRecord> productList = JardineApp.DB.getProduct().getAllRecords();
-		List<PicklistRecord> stockStatusList = JardineApp.DB.getJDIproductStatus().getAllRecords();
-		List<CustomerRecord> supplierList = JardineApp.DB.getCustomer().getAllRecords();
+		List<ProductRecord> productList = JardineApp.DB.getProduct()
+				.getAllRecords();
+		List<PicklistRecord> stockStatusList = JardineApp.DB
+				.getJDIproductStatus().getAllRecords();
+		List<CustomerRecord> supplierList = JardineApp.DB.getCustomer()
+				.getAllRecords();
 
-		String assignedToFname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getFirstNameName();
+		String assignedToFname = JardineApp.DB
+				.getUser()
+				.getById(
+						StoreAccount.restore(JardineApp.context).getLong(
+								Account.ROWID)).getFirstNameName();
 
-		String assignedToLname = JardineApp.DB.getUser().getById(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID))
-				.getLastname();
+		String assignedToLname = JardineApp.DB
+				.getUser()
+				.getById(
+						StoreAccount.restore(JardineApp.context).getLong(
+								Account.ROWID)).getLastname();
 
-		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_product_stock_check, container, false);
+		final View view = inflater.inflate(
+				R.layout.fragment_activity_add_jdi_product_stock_check,
+				container, false);
 		// SharedPreferences pref =
 		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
 		// 0);
@@ -132,15 +145,25 @@ public class AddJDIProductStockFragment extends Fragment {
 		//
 		// } else {
 
-		this.productAdapter = new ArrayAdapter<ProductRecord>(JardineApp.context, R.layout.add_activity_textview, productList);
-		this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, stockStatusList);
-		this.supplierAdapter = new ArrayAdapter<CustomerRecord>(JardineApp.context, R.layout.add_activity_textview, supplierList);
+		this.productAdapter = new ArrayAdapter<ProductRecord>(
+				JardineApp.context, R.layout.add_activity_textview, productList);
+		this.stockStatusAdapter = new ArrayAdapter<PicklistRecord>(
+				JardineApp.context, R.layout.add_activity_textview,
+				stockStatusList);
+		this.supplierAdapter = new ArrayAdapter<CustomerRecord>(
+				JardineApp.context, R.layout.add_activity_textview,
+				supplierList);
 
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-		((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.stockStatusAdapter);
-		((Spinner) view.findViewById(R.id.supplier)).setAdapter(this.supplierAdapter);
-		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		((TextView) view.findViewById(R.id.activity))
+				.setText("AUTO_GEN_ON_SAVE");
+		((Spinner) view.findViewById(R.id.product))
+				.setAdapter(this.productAdapter);
+		((Spinner) view.findViewById(R.id.stock_status))
+				.setAdapter(this.stockStatusAdapter);
+		((Spinner) view.findViewById(R.id.supplier))
+				.setAdapter(this.supplierAdapter);
+		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname
+				+ "," + assignedToFname);
 
 		// Disable fields
 		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
@@ -149,86 +172,114 @@ public class AddJDIProductStockFragment extends Fragment {
 		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
 		// }
 
-		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(final View v) {
-				if (((CircularProgressButton) v).getProgress() == 0) {
-					v.setClickable(false);
-					v.setEnabled(false);
+					@Override
+					public void onClick(final View v) {
+						if (((CircularProgressButton) v).getProgress() == 0) {
+							v.setClickable(false);
+							v.setEnabled(false);
 
-					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
+							ValueAnimator widthAnimation = ValueAnimator.ofInt(
+									1, 100);
+							widthAnimation.setDuration(500);
+							widthAnimation
+									.setInterpolator(new AccelerateDecelerateInterpolator());
+							widthAnimation
+									.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+										@Override
+										public void onAnimationUpdate(
+												ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+											Integer value = (Integer) animation
+													.getAnimatedValue();
+											((CircularProgressButton) v)
+													.setProgress(value);
 
-							if (!flag) {
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
+											if (!flag) {
+												((CircularProgressButton) v)
+														.setProgress(-1);
+											}
+										}
+									});
 
-					widthAnimation.start();
+							widthAnimation.start();
 
-					long product = ((ProductRecord) ((Spinner) view.findViewById(R.id.product)).getSelectedItem()).getId();
-					long stockStatus = ((PicklistRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem()).getId();
+							long product = ((ProductRecord) ((Spinner) view
+									.findViewById(R.id.product))
+									.getSelectedItem()).getId();
+							long stockStatus = ((PicklistRecord) ((Spinner) view
+									.findViewById(R.id.stock_status))
+									.getSelectedItem()).getId();
 
-					long loadedOnShelves = ((CheckBox) view.findViewById(R.id.loaded_on_shelves)).isChecked() ? 1 : 0;
-					long supplier = ((CustomerRecord) ((Spinner) view.findViewById(R.id.supplier)).getSelectedItem()).getId();
+							long loadedOnShelves = ((CheckBox) view
+									.findViewById(R.id.loaded_on_shelves))
+									.isChecked() ? 1 : 0;
+							long supplier = ((CustomerRecord) ((Spinner) view
+									.findViewById(R.id.supplier))
+									.getSelectedItem()).getId();
 
-					String otherTypeRemarks = ((EditText) view.findViewById(R.id.other_type_remarks)).getText().toString();
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+							String otherTypeRemarks = ((EditText) view
+									.findViewById(R.id.other_type_remarks))
+									.getText().toString();
+							SharedPreferences pref = getActivity()
+									.getApplicationContext()
+									.getSharedPreferences("ActivityInfo", 0);
 
-					if (product != 0 && stockStatus != 0) {
+							if (product != 0 && stockStatus != 0) {
 
-						flag = true;
+								flag = true;
 
-						Editor editor = pref.edit();
-						editor.putString("other_type_remarks", otherTypeRemarks);
-						editor.putLong("stock_status", stockStatus);
-						editor.putLong("loaded_on_shelves", loadedOnShelves);
-						editor.putLong("product_jdi", product);
-						editor.putLong("supplier", supplier);
-						editor.commit(); // commit changes
+								Editor editor = pref.edit();
+								editor.putString("other_type_remarks",
+										otherTypeRemarks);
+								editor.putLong("stock_status", stockStatus);
+								editor.putLong("loaded_on_shelves",
+										loadedOnShelves);
+								editor.putLong("product_jdi", product);
+								editor.putLong("supplier", supplier);
+								editor.commit(); // commit changes
 
-						v.setClickable(true);
-						v.setEnabled(true);
-
-					} else {
-						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-
-							@Override
-							public void run() {
-								((CircularProgressButton) v).setProgress(-1);
 								v.setClickable(true);
 								v.setEnabled(true);
+
+							} else {
+								flag = false;
+								Toast.makeText(
+										getActivity(),
+										"Please fill up required (RED COLOR) fields",
+										Toast.LENGTH_SHORT).show();
+
+								Handler handler = new Handler();
+								handler.postDelayed(new Runnable() {
+
+									@Override
+									public void run() {
+										((CircularProgressButton) v)
+												.setProgress(-1);
+										v.setClickable(true);
+										v.setEnabled(true);
+									}
+								}, 1500);
 							}
-						}, 1500);
+
+						} else {
+							((CircularProgressButton) v).setProgress(0);
+
+							v.setClickable(true);
+							v.setEnabled(true);
+
+							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+
+								DashBoardActivity.tabIndex.add(4, 7);
+								AddActivityFragment.pager.setCurrentItem(7);
+							}
+						}
 					}
-
-				} else {
-					((CircularProgressButton) v).setProgress(0);
-
-					v.setClickable(true);
-					v.setEnabled(true);
-
-					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-
-						DashBoardActivity.tabIndex.add(4, 7);
-						AddActivityFragment.pager.setCurrentItem(7);
-					}
-				}
-			}
-		});
+				});
+		
+//		testList();
 
 		return view;
 	}
@@ -239,5 +290,15 @@ public class AddJDIProductStockFragment extends Fragment {
 
 	public void createJDIProductStockCheck(View view) {
 
+	}
+
+	private void testList() {
+		DashBoardActivity act = (DashBoardActivity) getActivity();
+		AddJDIProductStockListFragment fragment = new AddJDIProductStockListFragment();
+
+		act.getSupportFragmentManager().beginTransaction()
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+				.add(R.id.frame_container, fragment, JardineApp.TAG)
+				.addToBackStack(JardineApp.TAG).commit();
 	}
 }

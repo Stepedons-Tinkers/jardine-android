@@ -106,6 +106,7 @@ public class ActivitiesCustomerContactList extends Fragment implements
 		//
 		btnAdd = (Button) view.findViewById(R.id.bActivityAddCustomerContact);
 		btnNext = (Button) view.findViewById(R.id.bActivityContactNext);
+		btnNext.setOnClickListener(this);
 
 		realRecord = new ArrayList<CustomerContactRecord>();
 		tempRecord = new ArrayList<CustomerContactRecord>();
@@ -277,7 +278,31 @@ public class ActivitiesCustomerContactList extends Fragment implements
 			break;
 
 		case R.id.bActivityContactNext:
-				
+			if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+				DashBoardActivity.tabIndex.add(3, 6);
+				AddActivityFragment.pager.setCurrentItem(6);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+																					// visits
+				DashBoardActivity.tabIndex.add(3, 10);
+				AddActivityFragment.pager.setCurrentItem(10);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 101) { // major
+																					// training
+				DashBoardActivity.tabIndex.add(3, 13);
+				AddActivityFragment.pager.setCurrentItem(13);
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 102) { // end
+																					// user
+				DashBoardActivity.tabIndex.add(3, 14);
+				AddActivityFragment.pager.setCurrentItem(14);
+
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 41) { // full
+																					// brand
+				DashBoardActivity.tabIndex.add(3, 15);
+				AddActivityFragment.pager.setCurrentItem(15);
+
+			} else if (AddActivityGeneralInformationFragment.ActivityType == 100) { // others
+				DashBoardActivity.tabIndex.add(3, 16);
+				AddActivityFragment.pager.setCurrentItem(16);
+			}
 			break;
 		}
 
