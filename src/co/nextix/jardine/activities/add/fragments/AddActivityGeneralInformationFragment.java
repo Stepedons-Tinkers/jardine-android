@@ -101,7 +101,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		}
 
 //		if (record != null) {
-//
+//	
 //			String checkOut = record.getCheckOut();
 //			long businessUnit = record.getBusinessUnit();
 //			long activityType = record.getActivityType();
