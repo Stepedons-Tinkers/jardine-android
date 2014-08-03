@@ -1,12 +1,12 @@
 package co.nextix.jardine.activites.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
@@ -14,28 +14,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.activities.add.fragments.AddMarketingIntelFragment;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+
+import com.dd.CircularProgressButton;
 
 public class MarketingIntelFragment extends Fragment {
 
 	private MarketingIntelCustomAdapter adapter = null;
-	private ArrayList<MarketingIntelRecord> realRecord = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
 
 	private Context CustomListView = null;
-	private View myFragmentView = null;
+	private View view = null;
 	private ListView list = null;
 	private int rowSize = 5;
 	private int totalPage = 0;
@@ -44,10 +51,13 @@ public class MarketingIntelFragment extends Fragment {
 	private Bundle bundle;
 	private int frag_layout_id;
 
+	private boolean flag = false;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		myFragmentView = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		view = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		this.tempRecord = new ArrayList<MarketingIntelRecord>();
 		setListData();
 
 		bundle = getArguments();
@@ -60,13 +70,14 @@ public class MarketingIntelFragment extends Fragment {
 
 		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
-		((Button) myFragmentView.findViewById(R.id.add_marketing_intel)).setOnClickListener(new OnClickListener() {
+		((Button) view.findViewById(R.id.add_marketing_intel)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+				// v.getBackground().setColorFilter(new
+				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment();
+				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragment.this);
 
 				// Create new transaction
 				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
@@ -75,7 +86,7 @@ public class MarketingIntelFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(frag_layout_id, newFragment);
+				transaction.replace(R.id.layoutForAddingFrag, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction
@@ -83,7 +94,7 @@ public class MarketingIntelFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -95,7 +106,7 @@ public class MarketingIntelFragment extends Fragment {
 			}
 		});
 
-		((ImageButton) myFragmentView.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -107,40 +118,103 @@ public class MarketingIntelFragment extends Fragment {
 			}
 		});
 
-		return myFragmentView;
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					/** Checking of required fields **/
+
+					if (Constant.addMarketingIntelRecords != null) {
+
+						flag = true;
+						v.setClickable(true);
+						v.setEnabled(true);
+
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
+					}
+
+				} else {
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retail
+						DashBoardActivity.tabIndex.add(8, 16);
+						AddActivityFragment.pager.setCurrentItem(16);
+					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+																							// visits
+						DashBoardActivity.tabIndex.add(4, 11);
+						AddActivityFragment.pager.setCurrentItem(11);
+					}
+				}
+			}
+		});
+
+		return view;
 	}
 
 	public void setListData() {
-		this.realRecord = new ArrayList<MarketingIntelRecord>();
-		this.tempRecord = new ArrayList<MarketingIntelRecord>();
+		// this.Constant.addMarketingIntelRecords = new
+		// ArrayList<MarketingIntelRecord>();
+		// this.tempRecord = new ArrayList<MarketingIntelRecord>();
+		
 
-		List<MarketingIntelRecord> records = JardineApp.DB.getMarketingIntel().getAllRecords();
-		this.realRecord.addAll(records);
-
-		// MarketingIntelTable table = JardineApp.DB.getMarketingIntel();
-		// List<MarketingIntelRecord> records = table.getAllRecords();
-		// this.realRecord.addAll(records);
-
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
-
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
+		Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
+		
+		if (Constant.addMarketingIntelRecords.size() > 0) {
+			int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
 			if (remainder > 0) {
 				for (int i = 0; i < rowSize - remainder; i++) {
 					MarketingIntelRecord rec = new MarketingIntelRecord();
-					realRecord.add(rec);
+					Constant.addMarketingIntelRecords.add(rec);
 				}
 			}
 
-			this.totalPage = realRecord.size() / rowSize;
+			this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
 			addItem(currentPage);
 
 		} else {
 
 			this.setView();
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view)).setText("");
+			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
 	}
 
@@ -148,14 +222,14 @@ public class MarketingIntelFragment extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
 		int rows = rowSize;
-		if (realRecord.size() < rows)
-			rows = realRecord.size();
+		if (Constant.addMarketingIntelRecords.size() < rows)
+			rows = Constant.addMarketingIntelRecords.size();
 		for (int j = 0; j < rows; j++) {
 			// for (int j = 0; j < rowSize; j++) {
-			tempRecord.add(j, realRecord.get(count));
+			tempRecord.add(j, Constant.addMarketingIntelRecords.get(count));
 			count = count + 1;
 		}
 
@@ -166,7 +240,7 @@ public class MarketingIntelFragment extends Fragment {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
-		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
+		this.list = (ListView) this.view.findViewById(R.id.list);
 		this.adapter = new MarketingIntelCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -245,16 +319,14 @@ public class MarketingIntelFragment extends Fragment {
 
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

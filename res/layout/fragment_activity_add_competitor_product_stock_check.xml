@@ -12,7 +12,7 @@
         android:orientation="horizontal" >
 
         <Button
-            android:id="@+id/activity_info"
+            android:id="@+id/back"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginTop="-8dp"
@@ -23,14 +23,13 @@
             android:textSize="14sp" />
 
         <Button
-            android:id="@+id/jdi_stock_check"
+            android:id="@+id/jdi_competitor_product_stock_check"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="-9dp"
             android:layout_marginTop="-8dp"
             android:layout_weight="3.74"
             android:inputType="text|textCapCharacters"
-            android:onClick="jdiStockCheck"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
             android:text="@string/all_caps_add_competitor_product_stock_check"
@@ -93,7 +92,6 @@
                         android:layout_toLeftOf="@+id/btnWithText1"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        android:visibility="invisible"
                         app:textComplete="@string/complete_cancel"
                         app:textError="@string/error"
                         app:textIdle="@string/cancel" />
@@ -106,9 +104,9 @@
                         android:layout_margin="4dp"
                         android:textColor="@color/white"
                         android:textSize="18sp"
-                        app:textComplete="@string/next"
+                        app:textComplete="@string/success"
                         app:textError="@string/error"
-                        app:textIdle="@string/done" />
+                        app:textIdle="@string/create" />
                 </RelativeLayout>
             </TableRow>
 
