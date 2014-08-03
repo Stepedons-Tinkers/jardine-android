@@ -34,7 +34,7 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
 
-public class MarketingIntelFragment extends Fragment {
+public class MarketingIntelFragmentAdd extends Fragment {
 
 	private MarketingIntelCustomAdapterAdd adapter = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
@@ -75,7 +75,7 @@ public class MarketingIntelFragment extends Fragment {
 				// v.getBackground().setColorFilter(new
 				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragment.this);
+				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
 
 				// Create new transaction
 				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()

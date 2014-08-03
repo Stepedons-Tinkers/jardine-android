@@ -27,7 +27,7 @@ import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class JDIMerchandisingCheckFragment extends Fragment {
+public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
 	private JDIMerchandisingCheckCustomAdapterAdd adapter = null;
 	private ArrayList<JDImerchandisingCheckRecord> realRecord = null;
@@ -47,7 +47,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 	private int frag_layout_id = 0;
 	private Bundle bundle;
 
-	public JDIMerchandisingCheckFragment() {
+	public JDIMerchandisingCheckFragmentAdd() {
 		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
 	}
 
@@ -76,7 +76,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 			public void onClick(View v) {
 				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
-				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragment.this);
+				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragmentAdd.this);
 
 				// Create new transaction
 				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()

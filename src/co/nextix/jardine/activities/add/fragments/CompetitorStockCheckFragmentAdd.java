@@ -29,7 +29,7 @@ import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class CompetitorStockCheckFragment extends Fragment {
+public class CompetitorStockCheckFragmentAdd extends Fragment {
 
 	private CompetitorProductStockCheckCustomAdapterAdd adapter = null;
 	private ArrayList<CompetitorProductStockCheckRecord> realRecord = null;

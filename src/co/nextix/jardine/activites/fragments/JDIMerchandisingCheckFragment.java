@@ -83,7 +83,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 //				// v.getBackground().setColorFilter(new
 //				// LightingColorFilter(0x0033FF, 0x0066FF));
 //
-//				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragment.this);
+//				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragmentAdd.this);
 //
 //				// Create new transaction
 //				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()

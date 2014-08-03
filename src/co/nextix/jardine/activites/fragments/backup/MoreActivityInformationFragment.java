@@ -86,7 +86,7 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-//				android.support.v4.app.Fragment newFragment = new JDIMerchandisingCheckFragment();
+//				android.support.v4.app.Fragment newFragment = new JDIMerchandisingCheckFragmentAdd();
 //
 //				// Create new transaction
 //				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
@@ -124,7 +124,7 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-//				android.support.v4.app.Fragment newFragment = new CompetitorStockCheckFragment();
+//				android.support.v4.app.Fragment newFragment = new CompetitorStockCheckFragmentAdd();
 //				// Create new transaction
 //				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
 //				transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
@@ -161,7 +161,7 @@ public class MoreActivityInformationFragment extends Fragment {
 			}
 
 			private void appointFragment() {
-//				android.support.v4.app.Fragment newFragment = new MarketingIntelFragment();
+//				android.support.v4.app.Fragment newFragment = new MarketingIntelFragmentAdd();
 //
 //				// Create new transaction
 //				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
