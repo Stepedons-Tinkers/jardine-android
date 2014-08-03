@@ -184,7 +184,6 @@
                             android:textColor="#000"
                             android:textSize="14sp" />
                     </LinearLayout>
-
                 </TableRow>
 
                 <ListView
@@ -270,5 +269,11 @@
         android:layout_centerVertical="true"
         android:paddingBottom="54dp"
         android:visibility="invisible" />
+
+    <FrameLayout
+        android:id="@+id/jdiprodadd_frame_fakelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+    </FrameLayout>
 
 </RelativeLayout>
