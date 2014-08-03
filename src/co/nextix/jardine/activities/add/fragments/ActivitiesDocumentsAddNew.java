@@ -80,9 +80,10 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 		txt4 = (TextView) view.findViewById(R.id.tvActivityDocumentAddField4);
 
 		txt3.setOnClickListener(this);
-		txt3.setText("");
+		
 
 		txt2 = (EditText) view.findViewById(R.id.etActivityDocumentAddField2);
+		txt2.setText("");
 
 		UserRecord userRecord = JardineApp.DB.getUser().getCurrentUser();
 		userId = userRecord.getId();
@@ -252,7 +253,7 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 		boolean flag = false;
 		if (theFile != null) {
 			if (theFile.exists()) {
-				if (!txt3.getText().toString().contentEquals("")) {
+				if (!txt2.getText().toString().contentEquals("")) {
 					flag = true;
 				} else {
 					flag = false;

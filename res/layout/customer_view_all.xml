@@ -78,7 +78,7 @@
             android:padding="10dp"
             android:text="Add Customer"
             android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:textSize="@dimen/text_xxlarge" />
     </RelativeLayout>
 
 </ScrollView>
