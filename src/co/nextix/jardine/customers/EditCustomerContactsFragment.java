@@ -64,8 +64,8 @@ public class EditCustomerContactsFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-//		String id = StoreAccount.restore(JardineApp.context).getString(
-//				Account.ROWID);
+		// String id = StoreAccount.restore(JardineApp.context).getString(
+		// Account.ROWID);
 		userName = StoreAccount.restore(JardineApp.context).getString(
 				Account.USERNAME);
 		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
@@ -108,11 +108,10 @@ public class EditCustomerContactsFragment extends Fragment implements
 		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
-		
+
 		day = c.get(Calendar.DAY_OF_MONTH);
 		month = c.get(Calendar.MONTH);
 		year = c.get(Calendar.YEAR);
-
 
 		formattedDate = record.getBirthday();
 
@@ -163,7 +162,14 @@ public class EditCustomerContactsFragment extends Fragment implements
 
 		field2.setText(record.getFirstName());
 		field3.setText(record.getLastName());
-		field4.setSelection((int) record.getPosition() - 1);
+
+		for (int i = 0; i < posi.size(); i++) {
+			if (posi.get(i).getId() == (record.getPosition())) {
+				field4.setSelection(i);
+				break;
+			}
+		}
+
 		field5.setText(record.getMobileNo());
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field7.setText(record.getEmailAddress());
