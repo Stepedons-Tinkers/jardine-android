@@ -27,9 +27,11 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.add.fragments.AddMarketingIntelFragment.OnHeadlineSelectedListener;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
 import co.nextix.jardine.fragments.ProfileFragment;
@@ -41,7 +43,7 @@ import co.nextix.jardine.security.StoreAccount;
 
 import com.squareup.timessquare.CalendarPickerView;
 
-public class DashBoardActivity extends FragmentActivity {
+public class DashBoardActivity extends FragmentActivity implements OnHeadlineSelectedListener {
 	private DrawerLayout mDrawerLayout;
 	private ListView mDrawerList;
 	private ActionBarDrawerToggle mDrawerToggle;
@@ -62,7 +64,7 @@ public class DashBoardActivity extends FragmentActivity {
 	private static final String TAG = "DashBoardActivity";
 	private AlertDialog theDialog;
 	private CalendarPickerView dialogView;
-	
+
 	public static boolean fromAddActivities = false;
 	public static ArrayList<Integer> tabIndex;
 
@@ -70,7 +72,7 @@ public class DashBoardActivity extends FragmentActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.dashboard);
-		
+
 		tabIndex = new ArrayList<Integer>();
 
 		this.mTitle = mDrawerTitle = getTitle();
@@ -130,7 +132,7 @@ public class DashBoardActivity extends FragmentActivity {
 																									// icon
 				R.string.app_name, // nav drawer open - description for
 									// accessibility
-				
+
 				R.string.app_name // nav drawer close - description for
 									// accessibility
 		) {
@@ -325,16 +327,16 @@ public class DashBoardActivity extends FragmentActivity {
 
 	@Override
 	public void onBackPressed() {
-		if (fromAddActivities){
+		if (fromAddActivities) {
 			int size = tabIndex.size();
-			
-			if(size == 1){
+
+			if (size == 1) {
 				super.onBackPressed();
-			}else{
-				AddActivityFragment.pager.setCurrentItem(tabIndex.get(size-2));
-				tabIndex.remove(size-1);
+			} else {
+				AddActivityFragment.pager.setCurrentItem(tabIndex.get(size - 2));
+				tabIndex.remove(size - 1);
 			}
-			
+
 		} else {
 			super.onBackPressed();
 		}
@@ -345,6 +347,8 @@ public class DashBoardActivity extends FragmentActivity {
 			setTitle(navMenuTitles[0]);
 			mDrawerLayout.closeDrawer(mDrawerList);
 		}
+
+		// super.onBackPressed();
 	}
 
 	private void clearStack() {
@@ -469,7 +473,7 @@ public class DashBoardActivity extends FragmentActivity {
 			dialog.dismiss();
 			if (result) {
 				Intent intent = new Intent(DashBoardActivity.this, LoginActivity.class);
-				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+				intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 				startActivity(intent);
 				DashBoardActivity.this.overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_left);
 
@@ -511,5 +515,13 @@ public class DashBoardActivity extends FragmentActivity {
 		});
 		builderSingle.show();
 
+	}
+
+	public void onArticleSelected(ArrayList<MarketingIntelRecord> rec) {
+		// The user selected the headline of an article from the
+		// HeadlinesFragment
+		// Do something here to display that article
+		
+		Toast.makeText(getApplicationContext(), rec.toString(), Toast.LENGTH_SHORT).show();
 	}
 }

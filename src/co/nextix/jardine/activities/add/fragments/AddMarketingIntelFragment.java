@@ -1,27 +1,31 @@
 package co.nextix.jardine.activities.add.fragments;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.animation.ValueAnimator;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -29,8 +33,34 @@ import com.dd.CircularProgressButton;
 
 public class AddMarketingIntelFragment extends Fragment {
 
+	OnHeadlineSelectedListener mCallback;
+
 	private ArrayAdapter<CompetitorProductRecord> competitorProductAdapter = null;
 	private boolean flag = false;
+	private CircularProgressButton btn = null;
+	private Fragment frag = null;
+
+	public AddMarketingIntelFragment(Fragment frag) {
+		this.frag = frag;
+	}
+
+	// Container Activity must implement this interface
+	public interface OnHeadlineSelectedListener {
+		public void onArticleSelected(ArrayList<MarketingIntelRecord> rec);
+	}
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+
+		// This makes sure that the container activity has implemented
+		// the callback interface. If not, it throws an exception
+		try {
+			mCallback = (OnHeadlineSelectedListener) activity;
+		} catch (ClassCastException e) {
+			throw new ClassCastException(activity.toString() + " must implement OnHeadlineSelectedListener");
+		}
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,67 +75,79 @@ public class AddMarketingIntelFragment extends Fragment {
 				competitorProductLsit);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_marketing_intel, container, false);
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//
-//		long id = pref.getLong("activity_id_edit", 0);
-//		MarketingIntelRecord marketingIntel = JardineApp.DB.getMarketingIntel().getById(id);
-//
-//		if (marketingIntel != null) {
-//			String marketingIntelCreatedBy = null;
-//			String marketingIntelCrmNo = null;
-//			String marketingActivity = null;
-//			long marketingCompetitorProduct = 0;
-//			String marketingDetails = null;
-//
-//			try {
-//				marketingIntelCreatedBy = JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
-//				marketingIntelCrmNo = marketingIntel.getCrm();
-//				marketingActivity = String.valueOf(marketingIntel.getActivity());
-//				marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
-//				marketingDetails = marketingIntel.getDetails();
-//
-//			} catch (Exception e) {
-//
-//			}
-//
-//			if (marketingIntelCreatedBy != null || marketingIntelCrmNo != null || marketingActivity != null
-//					|| marketingCompetitorProduct != 0 || marketingDetails != null) {
-//
-//				((TextView) view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
-//				((TextView) view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
-//				((EditText) view.findViewById(R.id.activity)).setText(marketingActivity);
-//
-//				for (int i = 0; i < competitorProductLsit.size(); i++) {
-//					if (marketingIntel.getCompetitorProduct() == competitorProductLsit.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				((EditText) view.findViewById(R.id.details)).setText(marketingDetails);
-//
-//			}
-//			
-//		} else {
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		//
+		// long id = pref.getLong("activity_id_edit", 0);
+		// MarketingIntelRecord marketingIntel =
+		// JardineApp.DB.getMarketingIntel().getById(id);
+		//
+		// if (marketingIntel != null) {
+		// String marketingIntelCreatedBy = null;
+		// String marketingIntelCrmNo = null;
+		// String marketingActivity = null;
+		// long marketingCompetitorProduct = 0;
+		// String marketingDetails = null;
+		//
+		// try {
+		// marketingIntelCreatedBy =
+		// JardineApp.DB.getUser().getById(marketingIntel.getCreatedBy()).toString();
+		// marketingIntelCrmNo = marketingIntel.getCrm();
+		// marketingActivity = String.valueOf(marketingIntel.getActivity());
+		// marketingCompetitorProduct = marketingIntel.getCompetitorProduct();
+		// marketingDetails = marketingIntel.getDetails();
+		//
+		// } catch (Exception e) {
+		//
+		// }
+		//
+		// if (marketingIntelCreatedBy != null || marketingIntelCrmNo != null ||
+		// marketingActivity != null
+		// || marketingCompetitorProduct != 0 || marketingDetails != null) {
+		//
+		// ((TextView)
+		// view.findViewById(R.id.created_by)).setText(marketingIntelCrmNo);
+		// ((TextView)
+		// view.findViewById(R.id.crm_no)).setText(marketingIntelCrmNo);
+		// ((EditText)
+		// view.findViewById(R.id.activity)).setText(marketingActivity);
+		//
+		// for (int i = 0; i < competitorProductLsit.size(); i++) {
+		// if (marketingIntel.getCompetitorProduct() ==
+		// competitorProductLsit.get(i).getId()) {
+		// ((Spinner)
+		// view.findViewById(R.id.competitor_product)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// ((EditText)
+		// view.findViewById(R.id.details)).setText(marketingDetails);
+		//
+		// }
+		//
+		// } else {
 
-			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
-			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-			((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
+		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+		((TextView) view.findViewById(R.id.activity)).setClickable(false);
 
-			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-//		}
+		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		// }
 
-		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+		this.btn = (CircularProgressButton) view.findViewById(R.id.btnWithText1);
+		this.btn.setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(final View v) {
-				v.setClickable(false);
-				v.setEnabled(false);
+			public void onClick(View v) {
+				btn.setClickable(false);
+				btn.setEnabled(false);
 
-				if (((CircularProgressButton) v).getProgress() == 0) {
+				if (btn.getProgress() == 0) {
 
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
@@ -115,11 +157,11 @@ public class AddMarketingIntelFragment extends Fragment {
 						public void onAnimationUpdate(ValueAnimator animation) {
 
 							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+							btn.setProgress(value);
 
 							if (!flag) {
 
-								((CircularProgressButton) v).setProgress(-1);
+								btn.setProgress(-1);
 							}
 						}
 					});
@@ -127,53 +169,67 @@ public class AddMarketingIntelFragment extends Fragment {
 					widthAnimation.start();
 
 					String details = ((EditText) view.findViewById(R.id.details)).getText().toString();
-					long competitorProduct = ((CompetitorProductRecord) ((Spinner) view.findViewById(R.id.competitor_product))
-							.getSelectedItem()).getId();
+					String competitorProductString = ((Spinner) view.findViewById(R.id.competitor_product)).getSelectedItem().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 
-					if (details != null && !details.isEmpty() && competitorProduct != 0) {
-						
+					if (details != null && !details.isEmpty() && competitorProductString != null && !competitorProductString.isEmpty()) {
+
 						flag = true;
-						Editor editor = pref.edit();
-						editor.putString("details_marketing_intel", details);
-						editor.putLong("competitor_product_marketing_intel", competitorProduct);
-						editor.commit(); // commit changes
+						long competitorProduct = ((CompetitorProductRecord) ((Spinner) view.findViewById(R.id.competitor_product))
+								.getSelectedItem()).getId();
 
-						v.setClickable(true);
-						v.setEnabled(true);
+						MarketingIntelRecord record = new MarketingIntelRecord();
+						record.setCrm(((TextView) view.findViewById(R.id.crm_no)).getText().toString());
+						record.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
+						record.setDetails(details);
+						record.setCompetitorProduct(competitorProduct);
+						Constant.addMarketingIntelRecords.add(record);
+						
+						MarketingIntelFragment mark = (MarketingIntelFragment) frag;
+						mark.setListData();
 
-					} else {
-						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+						// Calling the activity itself
+						mCallback.onArticleSelected(Constant.addMarketingIntelRecords);
+
+						Log.d(JardineApp.TAG, "" + Constant.addMarketingIntelRecords.size());
+						btn.setProgress(0);
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								((CircularProgressButton) v).setProgress(0);
-								v.setClickable(true);
-								v.setEnabled(true);
+								getFragmentManager().popBackStack();
+								btn.setClickable(true);
+								btn.setEnabled(true);
 							}
 						}, 1500);
+
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+
+						btn.setClickable(true);
+						btn.setEnabled(true);
+
 					}
 
 				} else {
-					((CircularProgressButton) v).setProgress(0);
-					v.setClickable(true);
-					v.setEnabled(true);
 
-					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retail
-						DashBoardActivity.tabIndex.add(8, 16);
-						AddActivityFragment.pager.setCurrentItem(16);
-					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
-																							// visits
-						DashBoardActivity.tabIndex.add(4, 11);
-						AddActivityFragment.pager.setCurrentItem(11);
-					}
+					btn.setProgress(0);
+					btn.setClickable(true);
+					btn.setEnabled(true);
+
 				}
+			}
+		});
+
+		((Button) view.findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View btn) {
+				getFragmentManager().popBackStackImmediate();
 			}
 		});
 

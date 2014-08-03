@@ -80,7 +80,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 				// with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(frag_layout_id, newFragment);
+				transaction.replace(R.id.layoutForAddingFrag, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction
