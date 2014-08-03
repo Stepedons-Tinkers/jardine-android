@@ -18,7 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -38,7 +40,6 @@ public class AddActivityFragment extends Fragment {
 
 	private Bundle bundle;
 	private long activityID = 0;
-	
 
 	public static ArrayList<Long> passValues;
 
@@ -57,13 +58,13 @@ public class AddActivityFragment extends Fragment {
 
 		if (activityID != 0) {
 			// query
-			
-			Log.e("activityID","not zero");
-			
+
+			Log.e("activityID", "not zero");
+
 			ActivitiesConstant.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(this.activityID);
 			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 			Editor editor = pref.edit();
-			
+
 			editor.putLong("activity_id_edit", ActivitiesConstant.ACTIVITY_RECORD.getId());
 			editor.putString("activity_id_crm_no", ActivitiesConstant.ACTIVITY_RECORD.getCrm());
 			editor.putLong("activity_id_activity_type", ActivitiesConstant.ACTIVITY_RECORD.getActivityType());
@@ -170,7 +171,7 @@ public class AddActivityFragment extends Fragment {
 		/* 7 */flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
 		/* 8 */flist.add(AddJDIMerchandisingStockFragment.instantiate(getActivity(), AddJDIMerchandisingStockFragment.class.getName()));
 		/* 9 */flist.add(AddCompetitorStockCheckFragment.instantiate(getActivity(), AddCompetitorStockCheckFragment.class.getName()));
-		/* 10 */flist.add(AddMarketingIntelFragment.instantiate(getActivity(), AddMarketingIntelFragment.class.getName()));
+		/* 10 */flist.add(MarketingIntelFragment.instantiate(getActivity(), MarketingIntelFragment.class.getName()));
 		/* 11 */flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), AddActivityProjectVisitFragment.class.getName()));
 		/* 12 */flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), AddProjectRequirementsFragment.class.getName()));
 		/* 13 */flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), AddActivityTrainingsFragment.class.getName()));
