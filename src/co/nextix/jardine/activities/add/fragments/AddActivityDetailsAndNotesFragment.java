@@ -29,7 +29,6 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CityTownRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.PicklistRecord;

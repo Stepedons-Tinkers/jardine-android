@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:overScrollMode="never"
-    android:scrollbars="none" >
+    android:scrollbars="none"
+    tools:context=".DashBoardActivity" >
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -52,32 +54,6 @@
                 android:background="#FF00"
                 android:padding="10dp"
                 android:text="@string/cancel" />
-
-            <com.dd.CircularProgressButton
-                android:id="@+id/btnWithText2"
-                android:layout_width="196dp"
-                android:layout_height="64dp"
-                android:layout_margin="4dp"
-                android:layout_toLeftOf="@+id/btnWithText1"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="gone"
-                app:textComplete="@string/complete_cancel"
-                app:textError="@string/error"
-                app:textIdle="@string/cancel" />
-
-            <com.dd.CircularProgressButton
-                android:id="@+id/btnWithText1"
-                android:layout_width="196dp"
-                android:layout_height="45dp"
-                android:layout_alignParentRight="true"
-                android:layout_margin="4dp"
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:visibility="gone"
-                app:textComplete="@string/next"
-                app:textError="@string/error"
-                app:textIdle="@string/done" />
         </RelativeLayout>
 
         <TableLayout
@@ -146,7 +122,6 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
-
             </TableRow>
 
             <TableRow
@@ -177,7 +152,6 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
-
             </TableRow>
 
             <TableRow
@@ -233,7 +207,6 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
-
             </TableRow>
 
             <TableRow
@@ -308,7 +281,6 @@
                     android:text=""
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_xxlarge" />
-
             </TableRow>
 
             <TableRow

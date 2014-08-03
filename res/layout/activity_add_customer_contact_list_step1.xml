@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:overScrollMode="never"
     android:paddingBottom="10dp"
     android:paddingTop="10dp" >
 
@@ -51,7 +52,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/flActivityFL"
-            android:layout_marginTop="5dp" android:visibility="gone">
+            android:layout_marginTop="5dp"
+            android:visibility="gone" >
 
             <ImageButton
                 android:id="@+id/ibActivityCustomerLeft"
@@ -95,8 +97,13 @@
                 android:text="@string/add_customer_contact_person"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_xxlarge" />
-
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/flActivityAddCustomerRootView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
     </RelativeLayout>
 
 </ScrollView>

@@ -5,24 +5,19 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -31,13 +26,12 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
+import co.nextix.jardine.activities.add.fragments.ActivitiesCustomerContactList;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
-import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.UserTable;
@@ -47,11 +41,10 @@ import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
 
-public class AddCustomerContactsFragment extends Fragment implements
+public class AddCustomerContactsFragment2 extends Fragment implements
 		OnClickListener {
 
 	private View view;
-	private long customerId;
 	private long userId;
 	private TextView field1;
 	private EditText field2, field3;
@@ -77,8 +70,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
-		// long id =
-		// StoreAccount.restore(JardineApp.context).getLong(Account.ROWID);
 		userId = StoreAccount.restore(getActivity()).getLong(Account.ROWID);
 	}
 
@@ -112,10 +103,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 	private void initLayout() {
 
-		if (bundle != null) {
-			customerId = bundle.getLong(CustomerConstants.KEY_CUSTOMER_LONG_ID);
-		}
-
 		final Calendar c = Calendar.getInstance();
 		df = new SimpleDateFormat("MM/dd/yyyy");
 		today = new Date();
@@ -132,8 +119,6 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		cancel.setOnClickListener(this);
 		save.setOnClickListener(this);
-
-		Log.e("fromOtherMother", "" + AddActivityFragment.fromOther);
 
 		cancel.setBackgroundColor(Color.RED);
 
@@ -165,7 +150,8 @@ public class AddCustomerContactsFragment extends Fragment implements
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 
-		field8.setText(CustomerConstants.CUSTOMER_NAME);
+		field8.setText(ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD
+				.getCustomerName());
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
@@ -182,7 +168,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 
 		switch (v.getId()) {
 		case R.id.bCustomerContactAddCancel:
-			getActivity().onBackPressed();
+			dismiss();
 			break;
 		case R.id.bCustomerContactAddCreate:
 			if (checker()) {
@@ -274,14 +260,18 @@ public class AddCustomerContactsFragment extends Fragment implements
 			dialog.dismiss();
 			if (result) {
 				showMsg("Successfully added Customer Contact");
-				CustomerContactList contactList = (CustomerContactList) getTargetFragment();
-				contactList.initLayout();
-				getActivity().onBackPressed();
+				dismiss();
 			} else {
 				showMsg("Something went wrong, failed to add customer contact");
 			}
 		}
 
+	}
+
+	public void dismiss() {
+		ActivitiesCustomerContactList contactList = (ActivitiesCustomerContactList) getTargetFragment();
+		contactList.populate2();
+		contactList.removeFragment();
 	}
 
 	public void insert() {
@@ -296,7 +286,7 @@ public class AddCustomerContactsFragment extends Fragment implements
 		String mobileNo = field5.getText().toString();
 		String birthday = formattedDate;
 		String emailAddress = field7.getText().toString();
-		long customer = customerId;
+		long customer = ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD.getId();
 		int isActive = 1;
 
 		String createdTime = MyDateUtils.getCurrentTimeStamp();

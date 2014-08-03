@@ -11,6 +11,6 @@ public class ActivitiesConstant {
 	public static ActivityRecord ACTIVITY_RECORD = null;
 	public static long ACTIVITY_ID = 0;
 	public static List<CustomerContactRecord> ACTIVITY_CUSTOMER_CONTACT_MAIN_LIST = new ArrayList<CustomerContactRecord>();
+	public static List<CustomerContactRecord> ACTIVITY_CUSTOMER_CONTACT_FILTERED = new ArrayList<CustomerContactRecord>();;
 	public static CustomerRecord ACTIVITY_CUSTOMER_RECORD = null;
-
 }
