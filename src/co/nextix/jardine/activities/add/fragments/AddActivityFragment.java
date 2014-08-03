@@ -192,7 +192,7 @@ public class AddActivityFragment extends Fragment {
 		/* 4 */flist.add(AddActivityDetailsAndNotesFragment.instantiate(getActivity(), AddActivityDetailsAndNotesFragment.class.getName()));
 		/* 5 */flist.add(AddCustomerContactsFragment.instantiate(getActivity(), AddCustomerContactsFragment.class.getName()));
 		/* 6 */flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
-		/* 7 */flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
+		/* 7 */flist.add(AddActivityProductSupplierListFragment.instantiate(getActivity(), AddActivityProductSupplierListFragment.class.getName()));
 		/* 8 */flist.add(AddJDIMerchandisingStockFragment.instantiate(getActivity(), AddJDIMerchandisingStockFragment.class.getName()));
 		/* 9 */flist.add(AddCompetitorStockCheckFragment.instantiate(getActivity(), AddCompetitorStockCheckFragment.class.getName()));
 		/* 10 */flist.add(MarketingIntelFragment.instantiate(getActivity(), MarketingIntelFragment.class.getName()));

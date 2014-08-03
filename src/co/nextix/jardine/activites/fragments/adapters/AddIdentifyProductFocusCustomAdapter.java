@@ -114,8 +114,6 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 			holder.product_description = (TextView) vi.findViewById(R.id.column_four);
 			holder.is_active = (TextView) vi.findViewById(R.id.column_five);
 			holder.created_by = (TextView) vi.findViewById(R.id.column_six);
-			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 			holder.checker = (CheckBox) vi.findViewById(R.id.checkbox1);
 
 			/************ Set holder with LayoutInflater ************/
