@@ -344,14 +344,22 @@ public class AddJDIProductStockFragment extends Fragment implements
 					MyDateUtils.getCurrentTimeStamp(), user);
 			Constant.addJDIproductStockCheckRecords.add(record);
 
-			getFragmentManager().popBackStackImmediate();
+//			getFragmentManager().popBackStackImmediate();
+			dismiss();
 			break;
 
 		case R.id.jdiprodaddfrag_button_cancel:
 
-			getFragmentManager().popBackStackImmediate();
+//			getFragmentManager().popBackStackImmediate();
+			dismiss();
 			break;
 		}
+	}
+
+	public void dismiss() {
+		AddJDIProductStockListFragment jdiList = (AddJDIProductStockListFragment) getTargetFragment();
+		jdiList.populate();
+		jdiList.removeFragment();
 	}
 
 }

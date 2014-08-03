@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
 
@@ -25,20 +25,18 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
-import co.nextix.jardine.activities.add.fragments.AddActivityGeneralInformationFragment;
-import co.nextix.jardine.activities.add.fragments.AddMarketingIntelFragment;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
 
-public class MarketingIntelFragment extends Fragment {
+public class MarketingIntelFragmentAdd extends Fragment {
 
-	private MarketingIntelCustomAdapter adapter = null;
+	private MarketingIntelCustomAdapterAdd adapter = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
 
 	private Context CustomListView = null;
@@ -77,7 +75,7 @@ public class MarketingIntelFragment extends Fragment {
 				// v.getBackground().setColorFilter(new
 				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragment.this);
+				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
 
 				// Create new transaction
 				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
@@ -86,7 +84,7 @@ public class MarketingIntelFragment extends Fragment {
 				// Replace whatever is in the fragment_container view with this
 				// fragment,
 				// and add the transaction to the back stack
-				transaction.replace(R.id.frame_container, newFragment);
+				transaction.replace(frag_layout_id, newFragment);
 				transaction.addToBackStack(null);
 
 				// Commit the transaction
@@ -195,19 +193,27 @@ public class MarketingIntelFragment extends Fragment {
 		// ArrayList<MarketingIntelRecord>();
 		// this.tempRecord = new ArrayList<MarketingIntelRecord>();
 
-		Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
+		if (Constant.addMarketingIntelRecords != null) {
+			Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
 
-		if (Constant.addMarketingIntelRecords.size() > 0) {
-			int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					MarketingIntelRecord rec = new MarketingIntelRecord();
-					Constant.addMarketingIntelRecords.add(rec);
+			if (Constant.addMarketingIntelRecords.size() > 0) {
+				int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						MarketingIntelRecord rec = new MarketingIntelRecord();
+						Constant.addMarketingIntelRecords.add(rec);
+					}
 				}
-			}
 
-			this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
-			addItem(currentPage);
+				this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView();
+				this.isListHasNoData();
+				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
+			}
 
 		} else {
 
@@ -240,7 +246,7 @@ public class MarketingIntelFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-		this.adapter = new MarketingIntelCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new MarketingIntelCustomAdapterAdd(CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

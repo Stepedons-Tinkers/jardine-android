@@ -252,6 +252,8 @@ public class ActivitiesDocumentsAddNew extends Fragment implements
 				flag = true;
 			}
 		}
+		
+		return flag;
 	}
 
 }

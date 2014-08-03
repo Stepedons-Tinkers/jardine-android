@@ -162,6 +162,7 @@
     <string name="other_type_remarks">Other - Type Remarks</string>
     <string name="end_user_activity_types">End-User Activity Types</string>
     <string name="no_data">Error 404: Search not found </string>
+    <string name="list_empty">No Data.</string>
     <string name="next">NEXT</string>
     <string name="previous">PREVIOUS</string>
 

@@ -23,6 +23,7 @@ import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.customers.AddCustomerContactsFragment;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.DocuInfoRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
@@ -61,7 +62,7 @@ public class AddActivityFragment extends Fragment {
 		Constant.addProductSupplierRecords = new ArrayList<ProductSupplierRecord>();
 		Constant.addJDImerchandisingCheckRecords = new ArrayList<JDImerchandisingCheckRecord>();
 
-		Constant.addCompetitorProductRecords = new ArrayList<CompetitorProductRecord>();
+		Constant.addCompetitorProductRecords = new ArrayList<CompetitorProductStockCheckRecord>();
 		Constant.addMarketingIntelRecords = new ArrayList<MarketingIntelRecord>();
 		Constant.addProjectRequirmentRecords = new ArrayList<ProjectRequirementRecord>();
 
@@ -128,7 +129,8 @@ public class AddActivityFragment extends Fragment {
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
 
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(16);
+		pager.setCurrentItem(0);
+
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
 		pager.setPageMargin(pageMargin);
@@ -191,9 +193,9 @@ public class AddActivityFragment extends Fragment {
 //		/* 6 */flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
 		/* 6 */flist.add(AddJDIProductStockListFragment.instantiate(getActivity(), AddJDIProductStockListFragment.class.getName()));
 		/* 7 */flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
-		/* 8 */flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(), JDIMerchandisingCheckFragment.class.getName()));
-		/* 9 */flist.add(CompetitorStockCheckFragment.instantiate(getActivity(), CompetitorStockCheckFragment.class.getName()));
-		/* 10 */flist.add(MarketingIntelFragment.instantiate(getActivity(), MarketingIntelFragment.class.getName()));
+		/* 8 */flist.add(JDIMerchandisingCheckFragmentAdd.instantiate(getActivity(), JDIMerchandisingCheckFragmentAdd.class.getName()));
+		/* 9 */flist.add(CompetitorStockCheckFragmentAdd.instantiate(getActivity(), CompetitorStockCheckFragmentAdd.class.getName()));
+		/* 10 */flist.add(MarketingIntelFragmentAdd.instantiate(getActivity(), MarketingIntelFragmentAdd.class.getName()));
 		/* 11 */flist.add(AddActivityProjectVisitFragment.instantiate(getActivity(), AddActivityProjectVisitFragment.class.getName()));
 		/* 12 */flist.add(AddProjectRequirementsFragment.instantiate(getActivity(), AddProjectRequirementsFragment.class.getName()));
 		/* 13 */flist.add(AddActivityTrainingsFragment.instantiate(getActivity(), AddActivityTrainingsFragment.class.getName()));

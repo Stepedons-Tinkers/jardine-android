@@ -6,6 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,6 +24,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -50,72 +52,91 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 				jdiCompetitorStockCheckList);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_competitor_product_stock_check, container, false);
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//
-//		long id = pref.getLong("activity_id_edit", 0);
-//		CompetitorProductStockCheckRecord jdiCompetitorStockCheck = JardineApp.DB.getCompetitorProductStockCheck().getById(id);
-//
-//		if (jdiCompetitorStockCheck != null) {
-//			String jdiCompetitorProductCrmNo = null;
-//			String jdiCompetitorProductActivity = null;
-//			int jdiCompetitorProduct = 0;
-//			int jdiCompetitorStockStatus = 0;
-//			int jdiCompetitorLoadedOnShelves = 0;
-//			String jdiCompetitorCreatedBy = null;
-//			String jdiCompetitorOtherTypeRemarks = null;
-//
-//			try {
-//				jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
-//				jdiCompetitorProductActivity = String.valueOf(jdiCompetitorStockCheck.getActivity());
-//				jdiCompetitorProduct = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
-//				jdiCompetitorStockStatus = Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
-//				jdiCompetitorLoadedOnShelves = jdiCompetitorStockCheck.getLoadedOnShelves();
-//				jdiCompetitorCreatedBy = JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
-//				jdiCompetitorOtherTypeRemarks = jdiCompetitorStockCheck.getOtherRemarks();
-//
-//			} catch (Exception e) {
-//
-//			}
-//
-//			if (jdiCompetitorProductCrmNo != null || jdiCompetitorProductActivity != null || jdiCompetitorProduct != 0
-//					|| jdiCompetitorStockStatus != 0 || jdiCompetitorLoadedOnShelves != -1 || jdiCompetitorCreatedBy != null
-//					|| jdiCompetitorOtherTypeRemarks != null) {
-//
-//				((TextView) view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
-//				((TextView) view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);
-//				((CheckBox) view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
-//				((TextView) view.findViewById(R.id.created_by)).setText(jdiCompetitorCreatedBy);
-//				((EditText) view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
-//
-//				for (int i = 0; i < competitorStockCheckList.size(); i++) {
-//					if (jdiCompetitorStockCheck.getCompetitorProduct() == competitorStockCheckList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.competitor_product)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				for (int i = 0; i < jdiCompetitorStockCheckList.size(); i++) {
-//					if (jdiCompetitorStockCheck.getStockStatus() == jdiCompetitorStockCheckList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//			}
-//		} else {
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		//
+		// long id = pref.getLong("activity_id_edit", 0);
+		// CompetitorProductStockCheckRecord jdiCompetitorStockCheck =
+		// JardineApp.DB.getCompetitorProductStockCheck().getById(id);
+		//
+		// if (jdiCompetitorStockCheck != null) {
+		// String jdiCompetitorProductCrmNo = null;
+		// String jdiCompetitorProductActivity = null;
+		// int jdiCompetitorProduct = 0;
+		// int jdiCompetitorStockStatus = 0;
+		// int jdiCompetitorLoadedOnShelves = 0;
+		// String jdiCompetitorCreatedBy = null;
+		// String jdiCompetitorOtherTypeRemarks = null;
+		//
+		// try {
+		// jdiCompetitorProductCrmNo = jdiCompetitorStockCheck.getCrm();
+		// jdiCompetitorProductActivity =
+		// String.valueOf(jdiCompetitorStockCheck.getActivity());
+		// jdiCompetitorProduct =
+		// Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getCompetitorProduct()));
+		// jdiCompetitorStockStatus =
+		// Integer.parseInt(String.valueOf(jdiCompetitorStockCheck.getStockStatus()));
+		// jdiCompetitorLoadedOnShelves =
+		// jdiCompetitorStockCheck.getLoadedOnShelves();
+		// jdiCompetitorCreatedBy =
+		// JardineApp.DB.getUser().getById(jdiCompetitorStockCheck.getCreatedBy()).toString();
+		// jdiCompetitorOtherTypeRemarks =
+		// jdiCompetitorStockCheck.getOtherRemarks();
+		//
+		// } catch (Exception e) {
+		//
+		// }
+		//
+		// if (jdiCompetitorProductCrmNo != null || jdiCompetitorProductActivity
+		// != null || jdiCompetitorProduct != 0
+		// || jdiCompetitorStockStatus != 0 || jdiCompetitorLoadedOnShelves !=
+		// -1 || jdiCompetitorCreatedBy != null
+		// || jdiCompetitorOtherTypeRemarks != null) {
+		//
+		// ((TextView)
+		// view.findViewById(R.id.crm_no)).setText(jdiCompetitorProductCrmNo);
+		// ((TextView)
+		// view.findViewById(R.id.activity)).setText(jdiCompetitorProductActivity);
+		// ((CheckBox)
+		// view.findViewById(R.id.loaded_on_shelves)).setChecked(true);
+		// ((TextView)
+		// view.findViewById(R.id.created_by)).setText(jdiCompetitorCreatedBy);
+		// ((EditText)
+		// view.findViewById(R.id.other_remarks)).setText(jdiCompetitorOtherTypeRemarks);
+		//
+		// for (int i = 0; i < competitorStockCheckList.size(); i++) {
+		// if (jdiCompetitorStockCheck.getCompetitorProduct() ==
+		// competitorStockCheckList.get(i).getId()) {
+		// ((Spinner)
+		// view.findViewById(R.id.competitor_product)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// for (int i = 0; i < jdiCompetitorStockCheckList.size(); i++) {
+		// if (jdiCompetitorStockCheck.getStockStatus() ==
+		// jdiCompetitorStockCheckList.get(i).getId()) {
+		// ((Spinner) view.findViewById(R.id.stock_status)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// }
+		// } else {
 
-			((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorStockAdapter);
-			((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.jdiCompetitorStockCheckAdapter);
+		((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorStockAdapter);
+		((Spinner) view.findViewById(R.id.stock_status)).setAdapter(this.jdiCompetitorStockCheckAdapter);
 
-			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
 
-			// Disable fields
-			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-			((TextView) view.findViewById(R.id.activity)).setClickable(false);
-			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
-			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-//		}
+		// Disable fields
+		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		// }
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -145,25 +166,43 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long competitorProduct = ((CompetitorProductRecord) ((Spinner) view.findViewById(R.id.competitor_product))
-							.getSelectedItem()).getId();
-					long stockStatus = ((PicklistRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem()).getId();
-					int loadedOnShelves = ((CheckBox) view.findViewById(R.id.loaded_on_shelves)).isChecked() ? 1 : 0;
-					String otherRemarks = ((EditText) view.findViewById(R.id.other_remarks)).getText().toString();
+					String competitorProduct = ((Spinner) view.findViewById(R.id.competitor_product)).getSelectedItem().toString();
 
+					String stockStatus = ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem().toString();
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (competitorProduct != 0 && stockStatus != 0) {
-						flag = true;
-						Editor editor = pref.edit();
-						editor.putLong("competitor_product", competitorProduct);
-						editor.putLong("stock_status_competitor", stockStatus);
-						editor.putInt("loaded_on_shelves_competitor", loadedOnShelves);
-						editor.putString("competitor_other_remarks", otherRemarks);
-						editor.commit(); // commit changes
 
-						v.setClickable(true);
-						v.setEnabled(true);
+					if (competitorProduct != null && stockStatus != null && !competitorProduct.isEmpty() && !stockStatus.isEmpty()) {
+
+						flag = true;
+
+						long competitorProductLong = ((CompetitorProductRecord) ((Spinner) view.findViewById(R.id.competitor_product))
+								.getSelectedItem()).getId();
+						long stockStatusLong = ((PicklistRecord) ((Spinner) view.findViewById(R.id.stock_status)).getSelectedItem())
+								.getId();
+						int loadedOnShelves = ((CheckBox) view.findViewById(R.id.loaded_on_shelves)).isChecked() ? 1 : 0;
+						String otherRemarks = ((EditText) view.findViewById(R.id.other_remarks)).getText().toString();
+
+						CompetitorProductStockCheckRecord compStockCheck = new CompetitorProductStockCheckRecord();
+						compStockCheck.setCrm(((TextView) view.findViewById(R.id.crm_no)).getText().toString());
+						compStockCheck.setCompetitorProduct(((CompetitorProductRecord) ((Spinner) view
+								.findViewById(R.id.competitor_product)).getSelectedItem()).getId());
+
+						compStockCheck.setStockStatus(stockStatusLong);
+						compStockCheck.setLoadedOnShelves(loadedOnShelves);
+						compStockCheck.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
+						compStockCheck.setOtherRemarks(otherRemarks);
+						Constant.addCompetitorProductRecords.add(compStockCheck);
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								getFragmentManager().popBackStackImmediate();
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
 					}
 
 				} else {

@@ -17,6 +17,7 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.JDIproductStockListAdapter;
+import co.nextix.jardine.customers.AddCustomerContactsFragment2;
 import co.nextix.jardine.keys.Constant;
 
 public class AddJDIProductStockListFragment extends Fragment implements
@@ -32,6 +33,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 	private int frag_layout_id;
 
 	private Button addButton, cancelButton, nextButton;
+	AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,8 +46,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 		addButton = (Button) view.findViewById(R.id.jdiprodadd_button_add);
 		cancelButton = (Button) view
 				.findViewById(R.id.jdiprodadd_button_cancel);
-		nextButton = (Button) view
-				.findViewById(R.id.jdiprodadd_button_next);
+		nextButton = (Button) view.findViewById(R.id.jdiprodadd_button_next);
 
 		addButton.setVisibility(View.VISIBLE);
 		cancelButton.setVisibility(View.VISIBLE);
@@ -64,7 +65,7 @@ public class AddJDIProductStockListFragment extends Fragment implements
 		populate();
 	}
 
-	private void populate() {
+	public void populate() {
 		Log.e(JardineApp.TAG, "onStart: size "
 				+ Constant.addJDIproductStockCheckRecords.size());
 		if (Constant.addJDIproductStockCheckRecords != null) {
@@ -102,14 +103,28 @@ public class AddJDIProductStockListFragment extends Fragment implements
 		switch (v.getId()) {
 		case R.id.jdiprodadd_button_add:
 			//
-			DashBoardActivity act = (DashBoardActivity) getActivity();
-			AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+			// DashBoardActivity act = (DashBoardActivity) getActivity();
+			// AddJDIProductStockFragment fragment = new
+			// AddJDIProductStockFragment();
+			//
+			// FragmentManager frag = act.getSupportFragmentManager();
+			// frag.addOnBackStackChangedListener(getListener());
+			// frag.beginTransaction()
+			// .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+			// .add(R.id.frame_container, fragment, JardineApp.TAG)
+			// .addToBackStack(JardineApp.TAG).commit();
+//			AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+			fragment.setTargetFragment(AddJDIProductStockListFragment.this,
+					987654);
 
-			FragmentManager frag = act.getSupportFragmentManager();
-			frag.addOnBackStackChangedListener(getListener());
-			frag.beginTransaction()
+			// this.getChildFragmentManager().beginTransaction()
+			// .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+			// .attach(fragment)
+			// .addToBackStack(JardineApp.TAG).commit();
+
+			this.getChildFragmentManager().beginTransaction()
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-					.add(R.id.frame_container, fragment, JardineApp.TAG)
+					.add(R.id.jdiprodadd_frame_fakelayout, fragment)
 					.addToBackStack(JardineApp.TAG).commit();
 			break;
 		case R.id.jdiprodadd_button_next:
@@ -125,6 +140,13 @@ public class AddJDIProductStockListFragment extends Fragment implements
 			// TODO erase lists?
 			break;
 		}
+	}
+
+	public void removeFragment() {
+//		AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+		this.getChildFragmentManager().beginTransaction()
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+				.remove(fragment).addToBackStack(JardineApp.TAG).commit();
 	}
 
 }
