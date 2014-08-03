@@ -1202,7 +1202,7 @@ public class RetrieveRequests {
 		// fPath.mkdirs();
 
 		long startTime = System.currentTimeMillis();
-		Log.w(JardineApp.TAG, "file download beginning: " + UrlPath);
+		Log.w(TAG, "file download beginning: " + UrlPath);
 
 		if (!file.exists()) {
 			URL url = null;
@@ -1270,13 +1270,15 @@ public class RetrieveRequests {
 			}
 		}
 
-		if (file.length() > 0)
+		if (file.length() > 0) {
 			result = true;
-		Log.e(JardineApp.TAG, "download saved in: " + file.getAbsolutePath());
-		Log.e(JardineApp.TAG,
-				"download completed in "
-						+ ((System.currentTimeMillis() - startTime) / 1000)
-						+ " sec. length: " + file.length());
+			Log.e(TAG,
+					"download saved in: " + file.getAbsolutePath());
+			Log.e(TAG,
+					"download completed in "
+							+ ((System.currentTimeMillis() - startTime) / 1000)
+							+ " sec. length: " + file.length());
+		}
 
 		return result;
 	}
