@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/svActivityAddCustomerContactList"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/white"
+    android:overScrollMode="never"
     android:paddingBottom="10dp"
     android:paddingTop="10dp" >
 
@@ -13,16 +15,26 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" >
 
+        <Button
+            android:id="@+id/bActivityContactNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="@string/next"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_xxlarge" />
+
         <FrameLayout
-            android:id="@+id/flCustomersFL1"
+            android:id="@+id/flActivityFL"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentLeft="true"
+            android:layout_below="@+id/bActivityContactNext"
             android:background="@drawable/xml_tablelayout_bg"
             android:padding="2dp" >
 
             <ListView
-                android:id="@+id/lvCustomers"
+                android:id="@+id/lvActiviyCustomerContactList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:descendantFocusability="blocksDescendants"
@@ -35,22 +47,22 @@
         </FrameLayout>
 
         <LinearLayout
-            android:id="@+id/llCustomersLayout"
+            android:id="@+id/llActivityLinear1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentLeft="true"
-            android:layout_below="@+id/flCustomersFL1"
-            android:layout_marginTop="5dp" >
+            android:layout_below="@+id/flActivityFL"
+            android:layout_marginTop="5dp"
+            android:visibility="gone" >
 
             <ImageButton
-                android:id="@+id/ibCustomersLeft"
+                android:id="@+id/ibActivityCustomerLeft"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_media_previous" />
 
             <TextView
-                android:id="@+id/tvCustomersPage"
+                android:id="@+id/tvActivityCustomerPage"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="10dp"
@@ -60,39 +72,38 @@
                 android:textColor="@color/black" />
 
             <ImageButton
-                android:id="@+id/ibCustomersRight"
+                android:id="@+id/ibActivityCustomerRight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@android:drawable/ic_media_next" />
         </LinearLayout>
 
-        <Button
-            android:id="@+id/bActivityAddCustomerContact"
-            style="?android:attr/buttonStyle"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignRight="@+id/flCustomersFL1"
-            android:layout_below="@+id/flCustomersFL1"
-            android:layout_marginTop="5dp"
-            android:background="@color/green"
-            android:padding="10dp"
-            android:text="Add Customer"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/flActivityFL"
+            android:gravity="right"
+            android:orientation="vertical" >
 
-        <Button
-            android:id="@+id/bActivitySelectCustomer"
-            style="?android:attr/buttonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/flCustomersFL1"
-            android:layout_marginTop="5dp"
-            android:layout_toLeftOf="@+id/bActivityAddCustomerContact"
-            android:background="@color/green"
-            android:padding="10dp"
-            android:text="Add Customer"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
+            <Button
+                android:id="@+id/bActivityAddCustomerContact"
+                style="?android:attr/buttonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@color/green"
+                android:padding="10dp"
+                android:text="@string/add_customer_contact_person"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/text_xxlarge" />
+        </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/flActivityAddCustomerRootView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+        </FrameLayout>
     </RelativeLayout>
 
 </ScrollView>

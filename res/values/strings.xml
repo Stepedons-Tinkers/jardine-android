@@ -391,7 +391,7 @@
     <string name="mobile_no_contact_person">Mobile No</string>
     <string name="assigned_to_contact_person">Created By</string>
     <string name="action_contact_person">Action</string>
-    <string name="add_customer_contact_person">Add Customer Contact Person</string>
+    <string name="add_customer_contact_person">Add Customer Contact</string>
     <string name="all_caps_add_customer_contact_person">ADD CUSTOMER CONTACT PERSON</string>
     <string name="select_customer_contact_person">Select Customer Contact Person</string>
     <string name="all_caps_select_customer_contact_person">SELECT CUSTOMER CONTACT PERSON</string>
@@ -422,5 +422,8 @@
 
     <!-- Ki Visits -->
     <string name="ki_visits">KI Visits</string>
+    
+    <!-- Customers -->
+    <string name="activities_select_customer_contact">Select Customer Contacts</string>
 
 </resources>

@@ -217,14 +217,14 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="0.3"
-                        android:background="@drawable/edittext_border"
+                        android:background="@drawable/xml_edittext_bg"
                         android:hint="textarea"
                         android:inputType="textMultiLine"
                         android:maxHeight="80dp"
                         android:minHeight="50dp"
                         android:padding="2dp"
                         android:scrollHorizontally="true"
-                        android:textColor="#000000"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView

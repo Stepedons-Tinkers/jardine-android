@@ -34,6 +34,8 @@ public class CustomerContactRecord {
 	private String created_time;
 	private String modified_time;
 	private long created_by; // User Table
+			
+	private boolean isSelected;
 
 	// ===========================================================
 	// Public constructors
@@ -179,6 +181,14 @@ public class CustomerContactRecord {
 	@Override
 	public String toString() {
 		return this.first_name + " " + last_name;
+	}
+
+	public boolean isSelected() {
+		return isSelected;
+	}
+
+	public void setSelected(boolean isSelected) {
+		this.isSelected = isSelected;
 	}
 
 }

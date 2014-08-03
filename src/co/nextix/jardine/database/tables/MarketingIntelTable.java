@@ -107,7 +107,7 @@ public class MarketingIntelTable {
 	public List<MarketingIntelRecord> getUnsyncedRecords() {
 		List<MarketingIntelRecord> list = new ArrayList<MarketingIntelRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_MARKETINGINTEL_NO + " ISNULL";
+				+ KEY_MARKETINGINTEL_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

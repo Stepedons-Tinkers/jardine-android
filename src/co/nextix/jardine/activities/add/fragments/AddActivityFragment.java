@@ -187,8 +187,9 @@ public class AddActivityFragment extends Fragment {
 		/* 2 */flist.add(AddActivityWithCoSMRsFragment.instantiate(getActivity(), AddActivityWithCoSMRsFragment.class.getName()));
 		/* 3 */flist.add(AddActivityAdminWorksFragment.instantiate(getActivity(), AddActivityAdminWorksFragment.class.getName()));
 		/* 4 */flist.add(AddActivityDetailsAndNotesFragment.instantiate(getActivity(), AddActivityDetailsAndNotesFragment.class.getName()));
-		/* 5 */flist.add(AddCustomerContactsFragment.instantiate(getActivity(), AddCustomerContactsFragment.class.getName()));
-		/* 6 */flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
+		/* 5 */flist.add(ActivitiesCustomerContactList.instantiate(getActivity(), ActivitiesCustomerContactList.class.getName()));
+//		/* 6 */flist.add(AddJDIProductStockFragment.instantiate(getActivity(), AddJDIProductStockFragment.class.getName()));
+		/* 6 */flist.add(AddJDIProductStockListFragment.instantiate(getActivity(), AddJDIProductStockListFragment.class.getName()));
 		/* 7 */flist.add(AddActivityProductSupplierFragment.instantiate(getActivity(), AddActivityProductSupplierFragment.class.getName()));
 		/* 8 */flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(), JDIMerchandisingCheckFragment.class.getName()));
 		/* 9 */flist.add(CompetitorStockCheckFragment.instantiate(getActivity(), CompetitorStockCheckFragment.class.getName()));

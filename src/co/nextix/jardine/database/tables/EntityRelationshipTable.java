@@ -10,11 +10,15 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.EntityRelationshipRecord;
+import co.nextix.jardine.keys.Modules;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_ROWID;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_CRMNO;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_MODULEID;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_MODULENO;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_MODULENAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_RELATEDID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_RELATEDNO;
-import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_RELATEDNAME;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_ENTITYRELATIONSHIP_SYNCED;
 
 public class EntityRelationshipTable {
 
@@ -63,18 +67,91 @@ public class EntityRelationshipTable {
 				do {
 					long id = c.getLong(c
 							.getColumnIndex(KEY_ENTITYRELATIONSHIP_ROWID));
-					String crmNo = c.getString(c
-							.getColumnIndex(KEY_ENTITYRELATIONSHIP_CRMNO));
+					long moduleId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULEID));
+					String moduleNo = c.getString(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENO));
 					String moduleName = c.getString(c
 							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENAME));
+					long relatedId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDID));
 					String relatedNo = c.getString(c
 							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNO));
-					String relatedModuleName = c
+					String relatedName = c
 							.getString(c
-									.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME));
+									.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNAME));
+					int isSynced = c.getInt(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_SYNCED));
 
-					list.add(new EntityRelationshipRecord(id, crmNo,
-							moduleName, relatedNo, relatedModuleName));
+					list.add(new EntityRelationshipRecord(id, moduleId,
+							moduleNo, moduleName, relatedId, relatedNo,
+							relatedName, isSynced));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<EntityRelationshipRecord> getUnsyncedRecords() {
+		Cursor c = null;
+		List<EntityRelationshipRecord> list = new ArrayList<EntityRelationshipRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ENTITYRELATIONSHIP_SYNCED + "=0";
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_ROWID));
+					long moduleId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULEID));
+					String moduleNo = c.getString(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENO));
+					String moduleName = c.getString(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENAME));
+					long relatedId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDID));
+					String relatedNo = c.getString(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNO));
+					String relatedName = c
+							.getString(c
+									.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNAME));
+					int isSynced = c.getInt(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_SYNCED));
+
+					list.add(new EntityRelationshipRecord(id, moduleId,
+							moduleNo, moduleName, relatedId, relatedNo,
+							relatedName, isSynced));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<Long> getRecordsWithRelatedProducts(
+			long activity) {
+		Cursor c = null;
+		List<Long> list = new ArrayList<Long>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ENTITYRELATIONSHIP_RELATEDNAME + "='" + Modules.Product
+				+ "'" + " AND " + KEY_ENTITYRELATIONSHIP_MODULEID + "="
+				+ activity;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long relatedId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDID));
+
+					list.add(relatedId);
 				} while (c.moveToNext());
 			}
 		} finally {
@@ -104,15 +181,15 @@ public class EntityRelationshipTable {
 	// return exists;
 	// }
 
-	public boolean isExisting(String crmNo, String module, String relCrmNo,
-			String relModule) {
+	public boolean isExisting(String moduleNo, String moduleName,
+			String relatedNo, String relatedName) {
 		boolean exists = false;
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ENTITYRELATIONSHIP_CRMNO + "='" + crmNo + "' AND "
-				+ KEY_ENTITYRELATIONSHIP_CRMNO + "='" + relCrmNo + "' AND "
-				+ KEY_ENTITYRELATIONSHIP_MODULENAME + "='" + module + "' AND "
-				+ KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME + "='" + relModule
-				+ "'";
+				+ KEY_ENTITYRELATIONSHIP_MODULENO + "='" + moduleNo + "' AND "
+				+ KEY_ENTITYRELATIONSHIP_RELATEDNO + "='" + relatedNo
+				+ "' AND " + KEY_ENTITYRELATIONSHIP_MODULENAME + "='"
+				+ moduleName + "' AND " + KEY_ENTITYRELATIONSHIP_RELATEDNAME
+				+ "='" + relatedName + "'";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
@@ -208,18 +285,23 @@ public class EntityRelationshipTable {
 			if ((c != null) && c.moveToFirst()) {
 				long id = c.getLong(c
 						.getColumnIndex(KEY_ENTITYRELATIONSHIP_ROWID));
-				String crmNo = c.getString(c
-						.getColumnIndex(KEY_ENTITYRELATIONSHIP_CRMNO));
+				long moduleId = c.getLong(c
+						.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULEID));
+				String moduleNo = c.getString(c
+						.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENO));
 				String moduleName = c.getString(c
 						.getColumnIndex(KEY_ENTITYRELATIONSHIP_MODULENAME));
+				long relatedId = c.getLong(c
+						.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDID));
 				String relatedNo = c.getString(c
 						.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNO));
-				String relatedModuleName = c
-						.getString(c
-								.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME));
+				String relatedName = c.getString(c
+						.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDNAME));
+				int isSynced = c.getInt(c
+						.getColumnIndex(KEY_ENTITYRELATIONSHIP_SYNCED));
 
-				record = new EntityRelationshipRecord(id, crmNo, moduleName,
-						relatedNo, relatedModuleName);
+				record = new EntityRelationshipRecord(id, moduleId, moduleNo,
+						moduleName, relatedId, relatedNo, relatedName, isSynced);
 			}
 		} finally {
 			if (c != null) {
@@ -293,8 +375,8 @@ public class EntityRelationshipTable {
 	// return record;
 	// }
 
-	public long insert(String crmNo, String moduleName, String relatedNo,
-			String relatedModuleName) {
+	public long insert(long moduleId, String moduleNo, String moduleName,
+			long relatedId, String relatedNo, String relatedName, int isSynced) {
 		// if (name == null) {
 		// throw new NullPointerException("name");
 		// }
@@ -302,10 +384,13 @@ public class EntityRelationshipTable {
 
 		ContentValues args = new ContentValues();
 
-		args.put(KEY_ENTITYRELATIONSHIP_CRMNO, crmNo);
+		args.put(KEY_ENTITYRELATIONSHIP_MODULEID, moduleId);
+		args.put(KEY_ENTITYRELATIONSHIP_MODULENO, moduleNo);
 		args.put(KEY_ENTITYRELATIONSHIP_MODULENAME, moduleName);
+		args.put(KEY_ENTITYRELATIONSHIP_RELATEDID, relatedId);
 		args.put(KEY_ENTITYRELATIONSHIP_RELATEDNO, relatedNo);
-		args.put(KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME, relatedModuleName);
+		args.put(KEY_ENTITYRELATIONSHIP_RELATEDNAME, relatedName);
+		args.put(KEY_ENTITYRELATIONSHIP_SYNCED, isSynced);
 
 		long ids = mDb.insert(mDatabaseTable, null, args);
 		if (ids >= 0) {
@@ -327,13 +412,44 @@ public class EntityRelationshipTable {
 		}
 	}
 
-	public boolean update(long id, String crmNo, String moduleName,
-			String relatedNo, String relatedModuleName) {
+	public boolean updateSync(long id, int isSynced) {
 		ContentValues args = new ContentValues();
-		args.put(KEY_ENTITYRELATIONSHIP_CRMNO, crmNo);
-		args.put(KEY_ENTITYRELATIONSHIP_MODULENAME, moduleName);
+		args.put(KEY_ENTITYRELATIONSHIP_SYNCED, isSynced);
+		if (mDb.update(mDatabaseTable, args, KEY_ENTITYRELATIONSHIP_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, startDate, endDate, status,
+			// createdTime, modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean updateNos(long id, String moduleNo, String relatedNo) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_ENTITYRELATIONSHIP_MODULENO, moduleNo);
 		args.put(KEY_ENTITYRELATIONSHIP_RELATEDNO, relatedNo);
-		args.put(KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME, relatedModuleName);
+		if (mDb.update(mDatabaseTable, args, KEY_ENTITYRELATIONSHIP_ROWID + "="
+				+ id, null) > 0) {
+			// getRecords().update(id, no, startDate, endDate, status,
+			// createdTime, modifiedTime, user);
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	public boolean update(long id, long moduleId, String moduleNo,
+			String moduleName, long relatedId, String relatedNo,
+			String relatedName, int isSynced) {
+		ContentValues args = new ContentValues();
+		args.put(KEY_ENTITYRELATIONSHIP_MODULEID, moduleId);
+		args.put(KEY_ENTITYRELATIONSHIP_MODULENO, moduleNo);
+		args.put(KEY_ENTITYRELATIONSHIP_MODULENAME, moduleName);
+		args.put(KEY_ENTITYRELATIONSHIP_RELATEDID, relatedId);
+		args.put(KEY_ENTITYRELATIONSHIP_RELATEDNO, relatedNo);
+		args.put(KEY_ENTITYRELATIONSHIP_RELATEDNAME, relatedName);
+		args.put(KEY_ENTITYRELATIONSHIP_SYNCED, isSynced);
 		if (mDb.update(mDatabaseTable, args, KEY_ENTITYRELATIONSHIP_ROWID + "="
 				+ id, null) > 0) {
 			// getRecords().update(id, no, startDate, endDate, status,

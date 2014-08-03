@@ -186,7 +186,7 @@ public class DocumentTable {
 	public List<DocumentRecord> getUnsyncedRecords() {
 		List<DocumentRecord> list = new ArrayList<DocumentRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_DOCUMENT_NO + " ISNULL";
+				+ KEY_DOCUMENT_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
