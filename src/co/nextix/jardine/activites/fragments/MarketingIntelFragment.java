@@ -56,7 +56,7 @@ public class MarketingIntelFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		view = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		view = inflater.inflate(R.layout.fragment_activity_marketing_intel_add, container, false);
 		this.tempRecord = new ArrayList<MarketingIntelRecord>();
 		setListData();
 

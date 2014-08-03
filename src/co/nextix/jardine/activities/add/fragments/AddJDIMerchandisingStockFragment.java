@@ -18,8 +18,10 @@ import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -45,67 +47,80 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 		this.statusAdapter = new ArrayAdapter<PicklistRecord>(JardineApp.context, R.layout.add_activity_textview, statusList);
 
 		final View view = inflater.inflate(R.layout.fragment_activity_add_jdi_merchandising_check, container, false);
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//
-//		long id = pref.getLong("activity_id_edit", 0);
-//		JDImerchandisingCheckRecord jdiMerchandisingCheck = JardineApp.DB.getJDImerchandisingCheck().getById(id);
-//
-//		if (jdiMerchandisingCheck != null) {
-//
-//			String jdiMerchandisingCrmNo = null;
-//			String jdiMerchandisingActivity = null;
-//			int jdiMerchandisingProduct = 0;
-//			int jdiMerchandisingStatus = 0;
-//			String jdiMerchandisingCreatedBy = null;
-//
-//			try {
-//
-//				jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
-//				jdiMerchandisingActivity = String.valueOf(jdiMerchandisingCheck.getActivity());
-//				jdiMerchandisingProduct = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
-//				jdiMerchandisingStatus = Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
-//				jdiMerchandisingCreatedBy = JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
-//
-//			} catch (Exception e) {
-//
-//			}
-//
-//			if (jdiMerchandisingCrmNo != null || jdiMerchandisingActivity != null || jdiMerchandisingProduct != 0
-//					|| jdiMerchandisingStatus != 0 || jdiMerchandisingCreatedBy != null) {
-//
-//				((TextView) view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
-//				((TextView) view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
-//				((TextView) view.findViewById(R.id.created_by)).setText(jdiMerchandisingCreatedBy);
-//
-//				for (int i = 0; i < productList.size(); i++) {
-//					if (jdiMerchandisingCheck.getProductBrand() == productList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.product)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				for (int i = 0; i < statusList.size(); i++) {
-//					if (jdiMerchandisingCheck.getStatus() == statusList.get(i).getId()) {
-//						((Spinner) view.findViewById(R.id.status)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//			}
-//
-//		} else {
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		//
+		// long id = pref.getLong("activity_id_edit", 0);
+		// JDImerchandisingCheckRecord jdiMerchandisingCheck =
+		// JardineApp.DB.getJDImerchandisingCheck().getById(id);
+		//
+		// if (jdiMerchandisingCheck != null) {
+		//
+		// String jdiMerchandisingCrmNo = null;
+		// String jdiMerchandisingActivity = null;
+		// int jdiMerchandisingProduct = 0;
+		// int jdiMerchandisingStatus = 0;
+		// String jdiMerchandisingCreatedBy = null;
+		//
+		// try {
+		//
+		// jdiMerchandisingCrmNo = jdiMerchandisingCheck.getCrm();
+		// jdiMerchandisingActivity =
+		// String.valueOf(jdiMerchandisingCheck.getActivity());
+		// jdiMerchandisingProduct =
+		// Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getProductBrand()));
+		// jdiMerchandisingStatus =
+		// Integer.parseInt(String.valueOf(jdiMerchandisingCheck.getStatus()));
+		// jdiMerchandisingCreatedBy =
+		// JardineApp.DB.getUser().getById(jdiMerchandisingCheck.getCreatedBy()).toString();
+		//
+		// } catch (Exception e) {
+		//
+		// }
+		//
+		// if (jdiMerchandisingCrmNo != null || jdiMerchandisingActivity != null
+		// || jdiMerchandisingProduct != 0
+		// || jdiMerchandisingStatus != 0 || jdiMerchandisingCreatedBy != null)
+		// {
+		//
+		// ((TextView)
+		// view.findViewById(R.id.crm_no)).setText(jdiMerchandisingCrmNo);
+		// ((TextView)
+		// view.findViewById(R.id.activity)).setText(jdiMerchandisingActivity);
+		// ((TextView)
+		// view.findViewById(R.id.created_by)).setText(jdiMerchandisingCreatedBy);
+		//
+		// for (int i = 0; i < productList.size(); i++) {
+		// if (jdiMerchandisingCheck.getProductBrand() ==
+		// productList.get(i).getId()) {
+		// ((Spinner) view.findViewById(R.id.product)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// for (int i = 0; i < statusList.size(); i++) {
+		// if (jdiMerchandisingCheck.getStatus() == statusList.get(i).getId()) {
+		// ((Spinner) view.findViewById(R.id.status)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// }
+		//
+		// } else {
 
-			((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
-			((Spinner) view.findViewById(R.id.status)).setAdapter(this.statusAdapter);
+		((Spinner) view.findViewById(R.id.product)).setAdapter(this.productAdapter);
+		((Spinner) view.findViewById(R.id.status)).setAdapter(this.statusAdapter);
 
-			((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
-			((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
-			((TextView) view.findViewById(R.id.created_by)).setClickable(false);
+		((TextView) view.findViewById(R.id.created_by)).setText(assignedToLname + "," + assignedToFname);
+		((TextView) view.findViewById(R.id.created_by)).setEnabled(false);
+		((TextView) view.findViewById(R.id.created_by)).setClickable(false);
 
-			((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
-			((TextView) view.findViewById(R.id.activity)).setEnabled(false);
-			((TextView) view.findViewById(R.id.activity)).setClickable(false);
-//		}
+		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
+		((TextView) view.findViewById(R.id.activity)).setClickable(false);
+		// }
 
 		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
@@ -134,17 +149,19 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 
 					widthAnimation.start();
 
-					long product = ((ProductRecord) ((Spinner) view.findViewById(R.id.product)).getSelectedItem()).getId();
-					long status = ((PicklistRecord) ((Spinner) view.findViewById(R.id.status)).getSelectedItem()).getId();
+					String product = ((Spinner) view.findViewById(R.id.product)).getSelectedItem().toString();
+					String status = ((Spinner) view.findViewById(R.id.product)).getSelectedItem().toString();
 
 					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (product != 0 && status != 0) {
+					if (product != null && status != null && !product.isEmpty() && !status.isEmpty()) {
+
+						long productLong = ((ProductRecord) ((Spinner) view.findViewById(R.id.product)).getSelectedItem()).getId();
+						long statusLong = ((PicklistRecord) ((Spinner) view.findViewById(R.id.status)).getSelectedItem()).getId();
+
 						flag = true;
-						Editor editor = pref.edit();
-						editor.putLong("product_merch", product);
-						editor.putLong("status_merch", status);
-						editor.commit(); // commit changes
+
+						JDImerchandisingCheckRecord jdiMerchant = new JDImerchandisingCheckRecord();
+						jdiMerchant.setCrm(((TextView) view.findViewById(R.id.crm_no)).getText().toString());
 
 						v.setClickable(true);
 						v.setEnabled(true);

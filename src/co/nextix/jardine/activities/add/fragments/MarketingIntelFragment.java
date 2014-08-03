@@ -36,7 +36,7 @@ import com.dd.CircularProgressButton;
 
 public class MarketingIntelFragment extends Fragment {
 
-	private MarketingIntelCustomAdapter adapter = null;
+	private MarketingIntelCustomAdapterAdd adapter = null;
 	private ArrayList<MarketingIntelRecord> tempRecord = null;
 
 	private Context CustomListView = null;
@@ -54,7 +54,7 @@ public class MarketingIntelFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-		view = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
+		view = inflater.inflate(R.layout.fragment_activity_marketing_intel_add, container, false);
 		this.tempRecord = new ArrayList<MarketingIntelRecord>();
 		setListData();
 
@@ -246,7 +246,7 @@ public class MarketingIntelFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-		this.adapter = new MarketingIntelCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new MarketingIntelCustomAdapterAdd(CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

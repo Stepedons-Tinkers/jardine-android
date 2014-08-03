@@ -31,7 +31,7 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class JDIMerchandisingCheckFragment extends Fragment {
 
-	private JDIMerchandisingCheckCustomAdapter adapter = null;
+	private JDIMerchandisingCheckCustomAdapterAdd adapter = null;
 	private ArrayList<JDImerchandisingCheckRecord> realRecord = null;
 	private ArrayList<JDImerchandisingCheckRecord> tempRecord = null;
 	private ArrayList<JDImerchandisingCheckRecord> itemSearch = null;
@@ -59,7 +59,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 
-		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check, container, false);
+		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -178,7 +178,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new JDIMerchandisingCheckCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new JDIMerchandisingCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

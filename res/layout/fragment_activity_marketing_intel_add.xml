@@ -27,7 +27,6 @@
                 android:id="@+id/activity_table"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_above="@+id/persistent_bottom"
                 android:layout_marginLeft="14dp"
                 android:layout_marginRight="14dp"
                 android:background="#ffffff"

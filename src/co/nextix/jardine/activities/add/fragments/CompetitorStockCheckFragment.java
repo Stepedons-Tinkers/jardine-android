@@ -23,7 +23,6 @@ import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.adapters.CompetitorProductStockCheckCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.CompetitorProductStockCheckDetailFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
@@ -31,7 +30,7 @@ import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class CompetitorStockCheckFragment extends Fragment {
 
-	private CompetitorProductStockCheckCustomAdapter adapter = null;
+	private CompetitorProductStockCheckCustomAdapterAdd adapter = null;
 	private ArrayList<CompetitorProductStockCheckRecord> realRecord = null;
 	private ArrayList<CompetitorProductStockCheckRecord> tempRecord = null;
 	private Context CustomListView = null;
@@ -50,7 +49,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check, container, false);
+		myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -172,7 +171,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new CompetitorProductStockCheckCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new CompetitorProductStockCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 

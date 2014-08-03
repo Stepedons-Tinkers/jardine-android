@@ -63,7 +63,7 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 
-		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check, container, false);
+		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();

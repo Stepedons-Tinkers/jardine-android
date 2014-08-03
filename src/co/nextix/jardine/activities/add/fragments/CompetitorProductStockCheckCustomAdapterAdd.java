@@ -33,7 +33,7 @@ import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
+public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 
 	/*********** Declare Used Variables *********/
 	private Context context;
@@ -46,7 +46,7 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public CompetitorProductStockCheckCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public CompetitorProductStockCheckCustomAdapterAdd(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
