@@ -121,7 +121,7 @@ public class ProjectRequirementTable {
 	public List<ProjectRequirementRecord> getUnsyncedRecords() {
 		List<ProjectRequirementRecord> list = new ArrayList<ProjectRequirementRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_PROJECTREQUIREMENTS_NO + " ISNULL";
+				+ KEY_PROJECTREQUIREMENTS_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

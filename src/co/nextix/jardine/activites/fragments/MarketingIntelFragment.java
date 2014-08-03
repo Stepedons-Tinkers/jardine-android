@@ -50,11 +50,11 @@ public class MarketingIntelFragment extends Fragment {
 		myFragmentView = inflater.inflate(R.layout.fragment_activity_marketing_intel, container, false);
 		setListData();
 
-		// bundle = getArguments();
+		bundle = getArguments();
 
-		// if(bundle != null){
-		// frag_layout_id = bundle.getInt("layoutID");
-		// }
+		if (bundle != null) {
+			frag_layout_id = bundle.getInt("layoutID");
+		}
 
 		bundle = new Bundle();
 

@@ -1295,8 +1295,9 @@ public class SyncRequests {
 
 		List<EntityRelationshipModel> result = null;
 
-		String q = "\"select * from vtiger_crmentityrel where crmid=" + crmNo
-				+ " AND relmodule='" + relatedModule + "'\"";
+		String q = "\"select * from vtiger_crmentityrel where module='"
+				+ Modules.Activity + "' AND relmodule='" + relatedModule
+				+ "' crmid=" + crmNo + "\"";
 		String query = "";
 		try {
 			query = URLEncoder.encode(q, "UTF-8");
@@ -1304,9 +1305,9 @@ public class SyncRequests {
 			e1.printStackTrace();
 		}
 
-		String urlString = JardineApp.WEB_URL + "?elementType="
-				+ Modules.Document + "&sessionName=" + JardineApp.SESSION_NAME
-				+ "&query=" + query + "&operation=" + "querypicklist";
+		String urlString = JardineApp.WEB_URL + "?&sessionName="
+				+ JardineApp.SESSION_NAME + "&query=" + query + "&operation="
+				+ "querypicklist";
 
 		URL url;
 		try {

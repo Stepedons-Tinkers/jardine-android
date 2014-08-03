@@ -42,19 +42,19 @@ public class EntityRelationshipModel {
 		this.module = module;
 	}
 
-	public String getRelationCrmId() {
+	public String getRelatedCrmId() {
 		return relation_crmid;
 	}
 
-	public void setRelationCrmid(String relationCrmId) {
+	public void setRelatedCrmId(String relationCrmId) {
 		this.relation_crmid = relationCrmId;
 	}
 
-	public String getRelationModule() {
+	public String getRelatedModule() {
 		return relation_module;
 	}
 
-	public void setRelationModule(String relationModule) {
+	public void setRelatedModule(String relationModule) {
 		this.relation_module = relationModule;
 	}
 }

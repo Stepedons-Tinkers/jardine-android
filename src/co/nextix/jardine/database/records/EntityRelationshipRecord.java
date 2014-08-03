@@ -6,32 +6,43 @@ public class EntityRelationshipRecord {
 	// ===========================================================
 
 	private long id;
-	private String crm_no;
+	private long module_id;
+	private String module_no;
 	private String module_name;
+	private long related_id;
 	private String related_no;
-	private String related_module_name;
+	private String related_name;
+	private int is_synced;
 
 	// ===========================================================
 	// Public constructors
 	// ===========================================================
 
-	public EntityRelationshipRecord(String crmNo, String moduleName,
-			String relatedNo, String relatedModuleName) {
+//	public EntityRelationshipRecord(long moduleId, String moduleNo,
+//			String moduleName, long relatedId, String relatedNo,
+//			String relatedName, int isSynced) {
+//
+//		this.module_id = moduleId;
+//		this.module_no = moduleNo;
+//		this.module_name = moduleName;
+//		this.related_id = relatedId;
+//		this.related_no = relatedNo;
+//		this.related_name = relatedName;
+//		this.is_synced = isSynced;
+//	}
 
-		this.crm_no = crmNo;
-		this.module_name = moduleName;
-		this.related_no = relatedNo;
-		this.related_module_name = relatedModuleName;
-	}
-
-	public EntityRelationshipRecord(long id, String crmNo, String moduleName,
-			String relatedNo, String relatedModuleName) {
+	public EntityRelationshipRecord(long id, long moduleId, String moduleNo,
+			String moduleName, long relatedId, String relatedNo,
+			String relatedName, int isSynced) {
 
 		this.id = id;
-		this.crm_no = crmNo;
+		this.module_id = moduleId;
+		this.module_no = moduleNo;
 		this.module_name = moduleName;
+		this.related_id = relatedId;
 		this.related_no = relatedNo;
-		this.related_module_name = relatedModuleName;
+		this.related_name = relatedName;
+		this.is_synced = isSynced;
 	}
 
 	// ===========================================================
@@ -42,12 +53,20 @@ public class EntityRelationshipRecord {
 		return id;
 	}
 
-	public void setCrmNo(String crmNo) {
-		this.crm_no = crmNo;
+	public void setModuleId(long moduleId) {
+		this.module_id = moduleId;
 	}
 
-	public String getCrmNo() {
-		return crm_no;
+	public long getModuleId() {
+		return module_id;
+	}
+
+	public void setModuleNo(String moduleNo) {
+		this.module_no = moduleNo;
+	}
+
+	public String getModuleNo() {
+		return module_no;
 	}
 
 	public void setModuleName(String moduleName) {
@@ -58,6 +77,14 @@ public class EntityRelationshipRecord {
 		return this.module_name;
 	}
 
+	public void setRelatedId(long relatedId) {
+		this.related_id = relatedId;
+	}
+
+	public long getRelatedId() {
+		return related_id;
+	}
+
 	public void setRelatedNo(String relatedNo) {
 		this.related_no = relatedNo;
 	}
@@ -66,11 +93,19 @@ public class EntityRelationshipRecord {
 		return related_no;
 	}
 
-	public void setRelatedModuleName(String relatedModuleName) {
-		this.related_module_name = relatedModuleName;
+	public void setRelatedName(String relatedName) {
+		this.related_name = relatedName;
 	}
 
-	public String getRelatedModuleName() {
-		return related_module_name;
+	public String getRelatedName() {
+		return related_name;
+	}
+	
+	public void setIsSynced(int isSynced) {
+		this.is_synced = isSynced;
+	}
+	
+	public int getIsSynced() {
+		return is_synced;
 	}
 }
