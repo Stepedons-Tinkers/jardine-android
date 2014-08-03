@@ -26,7 +26,10 @@ import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
+import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.MarketingIntelTable;
+import co.nextix.jardine.database.tables.UserTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class MarketingIntelCustomAdapter extends BaseAdapter {
@@ -128,17 +131,38 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.activity_type_txt.setText("AUTO_GEN_ON_SAVE");
-//			CompetitorProductTable table = JardineApp.DB.getCompetitorProduct();
-//			CompetitorProductRecord record = table.getById(this.tempValues.getCompetitorProduct());
-			
-			holder.competitor_product.setText(""+ this.tempValues.toString());
+
+			MarketingIntelTable act = JardineApp.DB.getMarketingIntel();
+			if (act != null) {
+				MarketingIntelRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_type_txt.setText("");
+				if (rec != null) {
+					holder.activity_type_txt.setText(rec.toString());
+				}
+			}
+
+			CompetitorProductTable product = JardineApp.DB.getCompetitorProduct();
+			if (product != null) {
+				CompetitorProductRecord rec = product.getById(this.tempValues.getCompetitorProduct());
+				holder.competitor_product.setText("");
+				if (rec != null) {
+					holder.competitor_product.setText(rec.toString());
+				}
+			}
+
 			holder.details.setText(String.valueOf(this.tempValues.getDetails()));
-			holder.created_by.setText("" + this.tempValues.getCreatedBy());
 
-			
+			UserTable user = JardineApp.DB.getUser();
+			if (user != null) {
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");
+				if (rec != null) {
+					holder.created_by.setText(rec.toString());
+				}
 
-			if (this.tempValues.toString() == null) {
+			}
+
+			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
 				holder.created_by.setText(null);
 				holder.competitor_product.setText(null);
