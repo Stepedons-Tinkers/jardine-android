@@ -18,11 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
-import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
-import co.nextix.jardine.customers.AddCustomerContactsFragment;
-import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.DocuInfoRecord;
@@ -129,7 +124,7 @@ public class AddActivityFragment extends Fragment {
 		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragments);
 
 		pager.setAdapter(adapter);
-		pager.setCurrentItem(16);
+		pager.setCurrentItem(0);
 
 
 		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());

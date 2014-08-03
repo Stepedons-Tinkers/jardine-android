@@ -63,7 +63,6 @@ public class CompetitorStockCheckFragment extends Fragment {
 
 		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
-<<<<<<< HEAD
 		// ONCLICK sa mga buttons sa fragment
 		((Button) myFragmentView.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
 
@@ -88,32 +87,35 @@ public class CompetitorStockCheckFragment extends Fragment {
 				transaction.commit();
 			}
 		});
-=======
-//		// ONCLICK sa mga buttons sa fragment
-//		((Button) myFragmentView.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
-//
-//			@Override
-//			public void onClick(View v) {
-//				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
-//
-//				Fragment newFragment = new AddCompetitorStockCheckFragment();
-//
-//				// Create new transaction
-//				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-//						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-//
-//				// Replace whatever is in the fragment_container view
-//				// with this
-//				// fragment,
-//				// and add the transaction to the back stack
-//				transaction.replace(frag_layout_id, newFragment);
-//				transaction.addToBackStack(null);
-//
-//				// Commit the transaction
-//				transaction.commit();
-//			}
-//		});
->>>>>>> d2449adadb78c17b349a67cc79c935dec57d4b80
+
+		// // ONCLICK sa mga buttons sa fragment
+		// ((Button)
+		// myFragmentView.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new
+		// OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF,
+		// 0x0066FF));
+		//
+		// Fragment newFragment = new AddCompetitorStockCheckFragment();
+		//
+		// // Create new transaction
+		// FragmentTransaction transaction =
+		// getActivity().getSupportFragmentManager().beginTransaction()
+		// .setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+		//
+		// // Replace whatever is in the fragment_container view
+		// // with this
+		// // fragment,
+		// // and add the transaction to the back stack
+		// transaction.replace(frag_layout_id, newFragment);
+		// transaction.addToBackStack(null);
+		//
+		// // Commit the transaction
+		// transaction.commit();
+		// }
+		// });
 
 		((ImageButton) myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
