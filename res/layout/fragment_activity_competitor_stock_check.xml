@@ -1,298 +1,305 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:fadingEdge="vertical"
-    android:fillViewport="true"
-    android:isScrollContainer="true"
-    android:orientation="vertical"
-    android:overScrollMode="always"
-    android:scrollbarStyle="outsideInset"
-    android:scrollbars="none" >
+    android:background="#ffffff" >
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="342dp"
-        android:background="#ffffff" >
-
-        <TableLayout
-            android:id="@+id/activity_table"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#ffffff"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="7dp"
-            android:shrinkColumns="*"
-            android:stretchColumns="*" >
-
-            <!-- Row 1 with 1 columns -->
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#0000b6"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="@string/competitor_product_stock_check"
-                    android:textColor="#fff"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-
-                    <com.dd.CircularProgressButton
-                        android:id="@+id/btnWithText2"
-                        android:layout_width="196dp"
-                        android:layout_height="64dp"
-                        android:layout_margin="4dp"
-                        android:layout_toLeftOf="@+id/btnWithText1"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:visibility="invisible"
-                        app:textComplete="@string/complete_cancel"
-                        app:textError="@string/error"
-                        app:textIdle="@string/cancel" />
-
-                    <com.dd.CircularProgressButton
-                        android:id="@+id/btnWithText1"
-                        android:layout_width="196dp"
-                        android:layout_height="64dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="4dp"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:textComplete="@string/next"
-                        app:textError="@string/error"
-                        app:textIdle="@string/done" />
-                </RelativeLayout>
-            </TableRow>
-
-            <!-- Row 1 with single column -->
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#000000"
-                android:orientation="horizontal" >
-
-                <LinearLayout
-                    android:id="@+id/table_row_clickable"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_marginRight="2dp"
-                    android:layout_weight="5" >
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/crm_no_jdi"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/customer"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/activity_jdi"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/competitor_product"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/activity_type"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:state_selected="true"
-                        android:text="@string/jdi_stock_status"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/loaded_on_shelves_competitor_product"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/created_by"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginRight="2dp"
-                        android:layout_marginTop="4dp"
-                        android:layout_weight="1"
-                        android:background="#b0b0b0"
-                        android:gravity="center"
-                        android:padding="14dip"
-                        android:scrollHorizontally="true"
-                        android:singleLine="true"
-                        android:text="@string/other_type_remarks"
-                        android:textColor="#000"
-                        android:textSize="14sp" />
-                </LinearLayout>
-            </TableRow>
-
-            <ListView
-                android:id="@+id/list"
-                android:layout_width="match_parent"
-                android:layout_height="286dp"
-                android:choiceMode="singleChoice"
-                android:descendantFocusability="blocksDescendants"
-                android:divider="@null"
-                android:dividerHeight="0dp"
-                android:drawSelectorOnTop="true"
-                android:focusableInTouchMode="true"
-                android:listSelector="@drawable/list_selector"
-                android:overScrollMode="never"
-                android:scrollbars="none" />
-
-            <View
-                android:id="@+id/view_stub"
-                android:layout_width="match_parent"
-                android:layout_height="4dp"
-                android:background="@color/black" />
-        </TableLayout>
+        android:layout_height="298dp"
+        android:background="#ffffff"
+        android:fadingEdge="vertical"
+        android:fillViewport="true"
+        android:isScrollContainer="true"
+        android:orientation="vertical"
+        android:overScrollMode="always"
+        android:scrollbarStyle="outsideInset"
+        android:scrollbars="none" >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="14dp" >
+            android:background="#ffffff" >
 
-            <LinearLayout
+            <TableLayout
+                android:id="@+id/activity_table"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center" >
+                android:background="#ffffff"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:paddingRight="@dimen/activity_horizontal_margin"
+                android:paddingTop="7dp"
+                android:shrinkColumns="*"
+                android:stretchColumns="*" >
 
-                <ImageButton
-                    android:id="@+id/left_arrow"
-                    android:layout_width="wrap_content"
+                <!-- Row 1 with 1 columns -->
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/prev" />
+                    android:background="#ffffff"
+                    android:orientation="horizontal" >
 
-                <TextView
-                    android:id="@+id/status_count_text"
-                    android:layout_width="74dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="#0000b6"
+                        android:gravity="center"
+                        android:padding="14dip"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true"
+                        android:text="@string/competitor_product_stock_check"
+                        android:textColor="#fff"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" >
+
+                        <com.dd.CircularProgressButton
+                            android:id="@+id/btnWithText2"
+                            android:layout_width="196dp"
+                            android:layout_height="64dp"
+                            android:layout_margin="4dp"
+                            android:layout_toLeftOf="@+id/btnWithText1"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            android:visibility="invisible"
+                            app:textComplete="@string/complete_cancel"
+                            app:textError="@string/error"
+                            app:textIdle="@string/cancel" />
+
+                        <com.dd.CircularProgressButton
+                            android:id="@+id/btnWithText1"
+                            android:layout_width="196dp"
+                            android:layout_height="64dp"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="4dp"
+                            android:textColor="@color/white"
+                            android:textSize="18sp"
+                            app:textComplete="@string/next"
+                            app:textError="@string/error"
+                            app:textIdle="@string/done" />
+                    </RelativeLayout>
+                </TableRow>
+
+                <!-- Row 1 with single column -->
+
+                <TableRow
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="1 of 1"
-                    android:textColor="#000000"
-                    android:textSize="17sp" />
+                    android:background="#000000"
+                    android:orientation="horizontal" >
 
-                <ImageButton
-                    android:id="@+id/right_arrow"
-                    android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:id="@+id/table_row_clickable"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="2dp"
+                        android:layout_marginRight="2dp"
+                        android:layout_weight="5" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/crm_no_jdi"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/customer"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/activity_jdi"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/competitor_product"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/activity_type"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:state_selected="true"
+                            android:text="@string/jdi_stock_status"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/loaded_on_shelves_competitor_product"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/created_by"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:layout_marginRight="2dp"
+                            android:layout_marginTop="4dp"
+                            android:layout_weight="1"
+                            android:background="#b0b0b0"
+                            android:gravity="center"
+                            android:padding="14dip"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            android:text="@string/other_type_remarks"
+                            android:textColor="#000"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+                </TableRow>
+
+                <ListView
+                    android:id="@+id/list"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="24dp"
-                    android:src="@drawable/next" />
-            </LinearLayout>
+                    android:choiceMode="singleChoice"
+                    android:descendantFocusability="blocksDescendants"
+                    android:divider="@null"
+                    android:dividerHeight="0dp"
+                    android:drawSelectorOnTop="true"
+                    android:focusableInTouchMode="true"
+                    android:listSelector="@drawable/list_selector"
+                    android:overScrollMode="never"
+                    android:scrollbars="none" />
 
-            <Button
-                android:id="@+id/add_competitor_product_stock_check"
+                <View
+                    android:id="@+id/view_stub"
+                    android:layout_width="match_parent"
+                    android:layout_height="4dp"
+                    android:background="@color/black" />
+            </TableLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/scrollView"
+        android:layout_marginRight="14dp" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center" >
+
+            <ImageButton
+                android:id="@+id/left_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/add_competitor_product_stock_check" />
-        </RelativeLayout>
+                android:src="@drawable/prev" />
 
-        <TextView
-            android:id="@+id/status_list_view"
+            <TextView
+                android:id="@+id/status_count_text"
+                android:layout_width="74dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="14dip"
+                android:scrollHorizontally="true"
+                android:singleLine="true"
+                android:text="1 of 1"
+                android:textColor="#000000"
+                android:textSize="17sp" />
+
+            <ImageButton
+                android:id="@+id/right_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="24dp"
+                android:src="@drawable/next" />
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/add_competitor_product_stock_check"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
-            android:paddingBottom="54dp"
-            android:text="@string/no_data"
-            android:visibility="invisible" />
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="@string/add_competitor_product_stock_check" />
     </RelativeLayout>
 
-</ScrollView>
+    <TextView
+        android:id="@+id/status_list_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:paddingBottom="54dp"
+        android:text="@string/no_data"
+        android:visibility="invisible" />
+
+</RelativeLayout>
