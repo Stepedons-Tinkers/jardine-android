@@ -12,12 +12,12 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
@@ -173,7 +173,7 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 						jdiMerchant.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
 						Constant.addJDImerchandisingCheckRecords.add(jdiMerchant);
 
-						JDIMerchandisingCheckFragment jdiMerchantFrag = (JDIMerchandisingCheckFragment) frag;
+						JDIMerchandisingCheckFragmentAdd jdiMerchantFrag = (JDIMerchandisingCheckFragmentAdd) frag;
 						jdiMerchantFrag.setListData();
 
 						Handler handler = new Handler();
@@ -194,11 +194,15 @@ public class AddJDIMerchandisingStockFragment extends Fragment {
 					v.setClickable(true);
 					v.setEnabled(true);
 
-					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-						DashBoardActivity.tabIndex.add(6, 9);
-						AddActivityFragment.pager.setCurrentItem(9);
-					}
 				}
+			}
+		});
+
+		((Button) view.findViewById(R.id.back)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				getFragmentManager().popBackStackImmediate();
 			}
 		});
 

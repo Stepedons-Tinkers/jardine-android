@@ -186,7 +186,7 @@ public class AddMarketingIntelFragment extends Fragment {
 						record.setCompetitorProduct(competitorProduct);
 						Constant.addMarketingIntelRecords.add(record);
 						
-						MarketingIntelFragment mark = (MarketingIntelFragment) frag;
+						MarketingIntelFragmentAdd mark = (MarketingIntelFragmentAdd) frag;
 						mark.setListData();
 
 						// Calling the activity itself

@@ -203,7 +203,7 @@
                         android:singleLine="true"
                         android:text="@string/action_jdi"
                         android:textColor="#000"
-                        android:textSize="14sp" /
+                        android:textSize="14sp" /
                     -->
                 </TableRow>
 
@@ -238,7 +238,6 @@
                 android:paddingBottom="24dp"
                 android:text="@string/list_empty"
                 android:visibility="invisible" />
-
         </RelativeLayout>
     </ScrollView>
 
@@ -285,5 +284,10 @@
             android:layout_marginRight="24dp"
             android:src="@drawable/next" />
     </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/fake_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

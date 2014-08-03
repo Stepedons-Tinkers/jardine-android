@@ -75,20 +75,25 @@ public class MarketingIntelFragmentAdd extends Fragment {
 				// v.getBackground().setColorFilter(new
 				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
+				if (Constant.addMarketingIntelRecords.size() < 5) {
+					android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
 
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+					// Create new transaction
+					android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(frag_layout_id, newFragment);
-				transaction.addToBackStack(null);
+					// Replace whatever is in the fragment_container view with
+					// this
+					// fragment,
+					// and add the transaction to the back stack
+					transaction.replace(frag_layout_id, newFragment);
+					transaction.addToBackStack(null);
 
-				// Commit the transaction
-				transaction.commit();
+					// Commit the transaction
+					transaction.commit();
+				} else {
+					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -146,7 +151,7 @@ public class MarketingIntelFragmentAdd extends Fragment {
 
 					/** Checking of required fields **/
 
-					if (Constant.addMarketingIntelRecords != null) {
+					if (Constant.addMarketingIntelRecords.size() > 0) {
 
 						flag = true;
 						v.setClickable(true);
@@ -193,7 +198,7 @@ public class MarketingIntelFragmentAdd extends Fragment {
 		// ArrayList<MarketingIntelRecord>();
 		// this.tempRecord = new ArrayList<MarketingIntelRecord>();
 
-		if (Constant.addMarketingIntelRecords != null) {
+		if (Constant.addMarketingIntelRecords != null && Constant.addMarketingIntelRecords.size() >= 0) {
 			Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
 
 			if (Constant.addMarketingIntelRecords.size() > 0) {
@@ -210,14 +215,14 @@ public class MarketingIntelFragmentAdd extends Fragment {
 
 			} else {
 
-				this.setView();
+				this.setView(null);
 				this.isListHasNoData();
 				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
 
 		} else {
 
-			this.setView();
+			this.setView(null);
 			this.isListHasNoData();
 			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
@@ -238,16 +243,24 @@ public class MarketingIntelFragmentAdd extends Fragment {
 			count = count + 1;
 		}
 
-		this.setView();
+		this.setView(this.tempRecord);
 	}
 
-	private void setView() {
+	private void setView(ArrayList<MarketingIntelRecord> temp) {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-		this.adapter = new MarketingIntelCustomAdapterAdd(CustomListView, getActivity(), list, this.tempRecord, this);
-		this.list.setAdapter(adapter);
+
+		if (temp != null && temp.size() >= 0) {
+			this.adapter = new MarketingIntelCustomAdapterAdd(CustomListView, getActivity(), list, this.tempRecord, this);
+			this.list.setAdapter(adapter);
+
+		} else {
+			this.isListHasNoData();
+			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
+		}
+
 		list.setOnItemClickListener(new OnItemClickListener() {
 
 			@Override

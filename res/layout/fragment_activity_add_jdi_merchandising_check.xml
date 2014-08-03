@@ -29,6 +29,8 @@
             android:layout_marginLeft="-9dp"
             android:layout_marginTop="-8dp"
             android:layout_weight="3.74"
+            android:clickable="false"
+            android:enabled="false"
             android:inputType="text|textCapCharacters"
             android:paddingLeft="4dp"
             android:paddingRight="4dp"
@@ -126,6 +128,7 @@
                         android:layout_toLeftOf="@+id/btnWithText1"
                         android:textColor="@color/white"
                         android:textSize="18sp"
+                        android:visibility="invisible"
                         app:textComplete="@string/complete_cancel"
                         app:textError="@string/error"
                         app:textIdle="@string/cancel" />

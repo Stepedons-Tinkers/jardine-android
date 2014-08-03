@@ -2,30 +2,42 @@ package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
+import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.keys.Constant;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
+
+import com.dd.CircularProgressButton;
 
 public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
@@ -34,7 +46,7 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 	private ArrayList<JDImerchandisingCheckRecord> tempRecord = null;
 	private ArrayList<JDImerchandisingCheckRecord> itemSearch = null;
 	private Context CustomListView = null;
-	private View myFragmentView = null;
+	private View view = null;
 	private ListView list = null;
 
 	private int rowSize = 5;
@@ -57,7 +69,7 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
 		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
 
-		this.myFragmentView = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check_add, container, false);
+		this.view = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -70,30 +82,106 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
 		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
-		((Button) this.myFragmentView.findViewById(R.id.add_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
-			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
 
-				Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragmentAdd.this);
+				if (((CircularProgressButton) v).getProgress() == 0) {
 
-				// Create new transaction
-				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
 
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.layoutForAddingFrag, newFragment);
-				transaction.addToBackStack(null);
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
 
-				// Commit the transaction
-				transaction.commit();
+							if (!flag) {
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					/** Checking of required fields **/
+					if (Constant.addJDImerchandisingCheckRecords.size() > 0) {
+						flag = true;
+						v.setClickable(true);
+						v.setEnabled(true);
+					} else {
+						flag = false;
+						v.setClickable(true);
+						v.setEnabled(true);
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+
+							}
+						}, 750);
+					}
+
+				} else {
+
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+						DashBoardActivity.tabIndex.add(6, 9);
+						AddActivityFragment.pager.setCurrentItem(9);
+					}
+				}
 			}
 		});
 
-		((ImageButton) this.myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
+		((Button) this.view.findViewById(R.id.add_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				// v.getBackground().setColorFilter(new
+				// LightingColorFilter(0x0033FF, 0x0066FF));
+
+				if (Constant.addJDImerchandisingCheckRecords.size() < 5) {
+
+					Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragmentAdd.this);
+
+					// Create new transaction
+					FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
+					// Replace whatever is in the fragment_container view with
+					// this
+					// fragment,
+					// and add the transaction to the back stack
+
+					/**
+					 * NATNAT KANI AKO PASABOT NGA PATABANG KO GE UNSA NI NGA
+					 * MAWALA MAN NIG BALIK
+					 */
+
+					transaction.replace(R.id.fake_layout, newFragment);
+					transaction.addToBackStack(null);
+
+					// Commit the transaction
+					transaction.commit();
+
+				} else {
+					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		((ImageButton) this.view.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -105,7 +193,7 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 			}
 		});
 
-		((ImageButton) this.myFragmentView.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
+		((ImageButton) this.view.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -117,21 +205,20 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 			}
 		});
 
-		return this.myFragmentView;
+		return this.view;
 	}
 
 	/****** Function to set data in ArrayList *************/
 	public void setListData() {
-		// this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
-		// this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
-		//
+		this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
+
 		// JDImerchandisingCheckTable table =
 		// JardineApp.DB.getJDImerchandisingCheck();
 		// List<JDImerchandisingCheckRecord> records = table.getAllRecords();
-		// this.realRecord.addAll(records);
 
-		if (Constant.addJDImerchandisingCheckRecords != null) {
-			Log.d("Jardine", "ActivityRecord" + String.valueOf(Constant.addJDImerchandisingCheckRecords.size()));
+		if (Constant.addJDImerchandisingCheckRecords != null && Constant.addJDImerchandisingCheckRecords.size() > 0) {
+			this.realRecord.addAll(Constant.addJDImerchandisingCheckRecords);
 
 			if (realRecord.size() > 0) {
 				int remainder = realRecord.size() % rowSize;
@@ -149,12 +236,12 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
 				this.setView();
 				this.isListHasNoData();
-				((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
+				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
 		} else {
+
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
 	}
 
@@ -162,7 +249,7 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
 		int rows = rowSize;
 		if (realRecord.size() < rows)
@@ -180,7 +267,7 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
-		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
+		this.list = (ListView) this.view.findViewById(R.id.list);
 		this.adapter = new JDIMerchandisingCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -241,25 +328,28 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 		//
 		// editor.commit();
 
-		Fragment fragment = new JDIMerchandisingCheckDetailFragment();
-		bundle.putLong("merchandising_id", tempValues.getId());
-		fragment.setArguments(bundle);
-		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+		// Fragment fragment = new JDIMerchandisingCheckDetailFragment();
+		// bundle.putLong("merchandising_id", tempValues.getId());
+		// fragment.setArguments(bundle);
+		// FragmentManager fragmentManager =
+		// getActivity().getSupportFragmentManager();
+		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+		// R.anim.slide_out_left)
+		// .replace(R.id.layoutForAddingFrag,
+		// fragment).addToBackStack(null).commit();
 	}
 
 	// TODO Protected before but was changed to public due to some issues
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

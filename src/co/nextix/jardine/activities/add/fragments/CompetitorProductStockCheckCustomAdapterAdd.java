@@ -21,7 +21,6 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
@@ -98,7 +97,7 @@ public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+		CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 
 		if (convertView == null) {
 
@@ -139,15 +138,46 @@ public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 			/************ Set Model values in Holder elements ***********/
 
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.competitor_product.setText("" + this.tempValues.getCompetitorProduct());
-			holder.stock_status.setText("" + this.tempValues.getStockStatus());
+			ActivityTable act = JardineApp.DB.getActivity();
+			if (act != null) {
+				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_type_txt.setText("AUTO_GEN_ON_SAVE");
+				if (rec != null) {
+					holder.activity_type_txt.setText(rec.toString());
+				}
+
+			}
+			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
+			if (comp != null) {
+				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
+				holder.competitor_product.setText("");
+				if (product != null) {
+					holder.competitor_product.setText(product.toString());
+				}
+			}
+
+			PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
+			if (comp_status != null) {
+				PicklistRecord rec = comp_status.getById((int) this.tempValues.getStockStatus());
+				holder.stock_status.setText("");
+				if (rec != null) {
+					holder.stock_status.setText(rec.toString());
+				}
+			}
 
 			if (this.tempValues.getLoadedOnShelves() == 0)
 				holder.loaded_on_shelves.setText("No");
 			else
 				holder.loaded_on_shelves.setText("Yes");
 
-			holder.assigned_to.setText(" " + this.tempValues.getCreatedBy());
+			UserTable user = JardineApp.DB.getUser();
+			if (user != null) {
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.assigned_to.setText("");
+				if (rec != null) {
+					holder.assigned_to.setText(rec.toString());
+				}
+			}
 
 			holder.other_type.setText(this.tempValues.getOtherRemarks());
 
@@ -212,7 +242,7 @@ public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+			CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
@@ -230,7 +260,7 @@ public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+							CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 							sct.refreshListView();
 						}
 					});

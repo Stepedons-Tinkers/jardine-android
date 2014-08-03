@@ -34,6 +34,12 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 	private ArrayAdapter<CompetitorProductRecord> competitorStockAdapter = null;
 	private ArrayAdapter<PicklistRecord> jdiCompetitorStockCheckAdapter = null;
 	private boolean flag = false;
+	
+	private Fragment frag = null;
+	
+	public AddCompetitorStockCheckFragment(Fragment frag){
+		this.frag = frag;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -192,6 +198,9 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 						compStockCheck.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
 						compStockCheck.setOtherRemarks(otherRemarks);
 						Constant.addCompetitorProductRecords.add(compStockCheck);
+						
+						CompetitorStockCheckFragmentAdd compStockRecord = (CompetitorStockCheckFragmentAdd) frag;
+						compStockRecord.setListData();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {

@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,8 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -35,7 +30,6 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
 public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
-
 	/*********** Declare Used Variables *********/
 	private Context context;
 	private FragmentActivity activity;
@@ -97,7 +91,7 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+		JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 
 		if (convertView == null) {
 
@@ -133,9 +127,42 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			holder.product_txt.setText("" + this.tempValues.getProductBrand());
-			holder.status_txt.setText("" + this.tempValues.getStatus());
-			holder.created_by.setText("" + this.tempValues.getCreatedBy());
+
+			ActivityTable act = JardineApp.DB.getActivity();
+			if (act != null) {
+				ActivityRecord rec = act.getById(this.tempValues.getActivity());
+				holder.activity_type_txt.setText("AUTO_GEN_ON_SAVE");
+				if (rec != null) {
+					holder.activity_type_txt.setText(rec.toString());
+				}
+			}
+
+			ProductTable product = JardineApp.DB.getProduct();
+			if (product != null) {
+				ProductRecord rec = product.getById(this.tempValues.getProductBrand());
+				holder.product_txt.setText("");
+				if (rec != null) {
+					holder.product_txt.setText(rec.toString());
+				}
+			}
+
+			PJDIprodStatusTable status = JardineApp.DB.getJDIproductStatus();
+			if (status != null) {
+				PicklistRecord pick = status.getById((int) this.tempValues.getStatus());
+				holder.status_txt.setText("");
+				if (pick != null) {
+					holder.status_txt.setText(pick.toString());
+				}
+			}
+
+			UserTable user = JardineApp.DB.getUser();
+			if (user != null) {
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.created_by.setText("");
+				if (rec != null) {
+					holder.created_by.setText(rec.toString());
+				}
+			}
 
 			if (holder.crm_no_txt.getText().toString().equals("")) {
 				holder.activity_type_txt.setText(null);
@@ -201,7 +228,7 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+			JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
@@ -219,7 +246,7 @@ public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+							JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 							sct.refreshListView();
 						}
 					});
