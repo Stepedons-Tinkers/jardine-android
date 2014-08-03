@@ -71,13 +71,14 @@ public class JDIproductStockListAdapter extends
 		holder.delete_txt = (TextView) convertView
 				.findViewById(R.id.action_delete_txt);
 
-		holder.crm_no_txt.setText(getItem(position).getCrm());
+//		holder.crm_no_txt.setText(getItem(position).getCrm());
+		holder.crm_no_txt.setText("Auto-on sync");
 
 		ActivityTable act = JardineApp.DB.getActivity();
 		if (act != null) {
 			ActivityRecord actRec = act
 					.getById(getItem(position).getActivity());
-			holder.activity_txt.setText("");
+			holder.activity_txt.setText("Auto-on save");
 			if (actRec != null) {
 				holder.activity_txt.setText(actRec.toString());
 			}

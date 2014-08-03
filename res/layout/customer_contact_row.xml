@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:background="@null"
-                android:checked="true"
+                android:checked="false"
                 android:visibility="gone" />
         </RelativeLayout>
     </TableRow>

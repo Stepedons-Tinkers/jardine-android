@@ -1,48 +1,27 @@
 package co.nextix.jardine.activities.add.fragments;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentManager.OnBackStackChangedListener;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ListView;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.adapters.JDIProductStockCheckCustomAdapter;
 import co.nextix.jardine.activites.fragments.adapters.JDIproductStockListAdapter;
-import co.nextix.jardine.customers.CustomerDetailsFragment;
-import co.nextix.jardine.customers.ViewAllCustomersFragment;
-import co.nextix.jardine.database.records.CustomerRecord;
-import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.ProductRecord;
+import co.nextix.jardine.customers.AddCustomerContactsFragment2;
 import co.nextix.jardine.keys.Constant;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
 
-import com.dd.CircularProgressButton;
-
-import android.animation.ValueAnimator;
-import android.app.FragmentTransaction;
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.os.Bundle;
-import android.os.Handler;
-import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.View.OnClickListener;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.EditText;
-import android.widget.ListView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
-public class AddJDIProductStockListFragment extends Fragment {
+public class AddJDIProductStockListFragment extends Fragment implements
+		OnClickListener {
 
 	private JDIproductStockListAdapter adapter = null;
 	private Context CustomListView = null;
@@ -53,7 +32,7 @@ public class AddJDIProductStockListFragment extends Fragment {
 	private int currentPage = 0;
 	private int frag_layout_id;
 
-	private Button addButton, cancelButton;
+	private Button addButton, cancelButton, nextButton;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -66,41 +45,28 @@ public class AddJDIProductStockListFragment extends Fragment {
 		addButton = (Button) view.findViewById(R.id.jdiprodadd_button_add);
 		cancelButton = (Button) view
 				.findViewById(R.id.jdiprodadd_button_cancel);
+		nextButton = (Button) view.findViewById(R.id.jdiprodadd_button_next);
 
 		addButton.setVisibility(View.VISIBLE);
 		cancelButton.setVisibility(View.VISIBLE);
+		nextButton.setVisibility(View.VISIBLE);
 
-		addButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				DashBoardActivity act = (DashBoardActivity) getActivity();
-				AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
-
-				act.getSupportFragmentManager()
-						.beginTransaction()
-						.setTransition(
-								FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-						.add(R.id.frame_container, fragment, JardineApp.TAG)
-						.addToBackStack(JardineApp.TAG).commit();
-			}
-
-		});
-
-		cancelButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// TODO erase lists?
-			}
-
-		});
+		addButton.setOnClickListener(this);
+		cancelButton.setOnClickListener(this);
+		nextButton.setOnClickListener(this);
 
 		return view;
 	}
 
 	@Override
-	public void onStart() {
+	public void onResume() {
+		super.onResume();
+		populate();
+	}
+
+	public void populate() {
+		Log.e(JardineApp.TAG, "onStart: size "
+				+ Constant.addJDIproductStockCheckRecords.size());
 		if (Constant.addJDIproductStockCheckRecords != null) {
 			adapter = new JDIproductStockListAdapter(getActivity(),
 					R.layout.table_row_items_six_columns,
@@ -108,7 +74,78 @@ public class AddJDIProductStockListFragment extends Fragment {
 			list.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
 		}
-		super.onStart();
+	}
+
+	private OnBackStackChangedListener getListener() {
+		OnBackStackChangedListener result = new OnBackStackChangedListener() {
+			public void onBackStackChanged() {
+				DashBoardActivity act = (DashBoardActivity) getActivity();
+				FragmentManager manager = act.getSupportFragmentManager();
+
+				if (manager != null) {
+					int backStackEntryCount = manager.getBackStackEntryCount();
+					if (backStackEntryCount == 0) {
+						// finish();
+					}
+					Fragment fragment = manager.getFragments().get(
+							backStackEntryCount - 1);
+					fragment.onResume();
+				}
+			}
+		};
+
+		return result;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.jdiprodadd_button_add:
+			//
+			// DashBoardActivity act = (DashBoardActivity) getActivity();
+			// AddJDIProductStockFragment fragment = new
+			// AddJDIProductStockFragment();
+			//
+			// FragmentManager frag = act.getSupportFragmentManager();
+			// frag.addOnBackStackChangedListener(getListener());
+			// frag.beginTransaction()
+			// .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+			// .add(R.id.frame_container, fragment, JardineApp.TAG)
+			// .addToBackStack(JardineApp.TAG).commit();
+			AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+			fragment.setTargetFragment(AddJDIProductStockListFragment.this,
+					987654);
+
+			// this.getChildFragmentManager().beginTransaction()
+			// .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+			// .attach(fragment)
+			// .addToBackStack(JardineApp.TAG).commit();
+
+			this.getChildFragmentManager().beginTransaction()
+					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+					.add(R.id.jdiprodadd_frame_fakelayout, fragment)
+					.addToBackStack(JardineApp.TAG).commit();
+			break;
+		case R.id.jdiprodadd_button_next:
+			if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+
+				DashBoardActivity.tabIndex.add(4, 7);
+				AddActivityFragment.pager.setCurrentItem(7);
+			}
+			break;
+
+		case R.id.jdiprodadd_button_cancel:
+			//
+			// TODO erase lists?
+			break;
+		}
+	}
+
+	public void removeFragment() {
+		AddJDIProductStockFragment fragment = new AddJDIProductStockFragment();
+		this.getChildFragmentManager().beginTransaction()
+				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+				.remove(fragment).addToBackStack(JardineApp.TAG).commit();
 	}
 
 }
