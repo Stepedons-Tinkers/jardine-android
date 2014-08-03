@@ -220,7 +220,26 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		field4.setText(record.getChainName());
 		field5.setText(record.getLandline());
 
-		field6.setSelection((int) record.getCustomerSize() - 1);
+		for (int i = 0; i < customerSize.size(); i++) {
+			if (customerSize.get(i).getId() == record.getCustomerSize()) {
+				field6.setSelection(i);
+				break;
+			}
+		}
+
+		for (int i = 0; i < customerType.size(); i++) {
+			if (customerType.get(i).getId() == record.getCustomerType()) {
+				field7.setSelection(i);
+				break;
+			}
+		}
+
+		for (int i = 0; i < area.size(); i++) {
+			if (area.get(i).getId() == record.getArea()) {
+				field9.setSelection(i);
+				break;
+			}
+		}
 
 		field7.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -257,7 +276,6 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 
 			}
 		});
-		field7.setSelection((int) record.getCustomerType() - 1);
 
 		BusinessUnitRecord business = JardineApp.DB.getBusinessUnit().getById(
 				record.getBusinessUnit());
@@ -269,7 +287,7 @@ public class EditCustomerFragment extends Fragment implements OnClickListener {
 		}
 
 		field8.setSelection(bPosition);
-		field9.setSelection((int) record.getArea() - 1);
+
 		field12.setText(record.getFax());
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
