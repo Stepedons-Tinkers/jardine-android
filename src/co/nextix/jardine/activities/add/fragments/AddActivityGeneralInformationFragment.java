@@ -37,6 +37,7 @@ import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
+import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
 
@@ -99,6 +100,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
 
+<<<<<<< HEAD
 //		if (record != null) {
 //
 //			String checkOut = record.getCheckOut();
@@ -134,6 +136,50 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 //			}
 //
 //		} else {
+=======
+		if (record != null) {
+
+			String checkOut = record.getCheckOut();
+			long businessUnit = record.getBusinessUnit();
+			long activityType = record.getActivityType();
+			long createdBy = record.getCreatedBy();
+
+			if (record.getCrm() != null || !record.getCrm().isEmpty() || record.getCheckIn() != null || !record.getCheckIn().isEmpty()
+					&& businessUnit != 0 && activityType != 0 && checkOut != null && createdBy != 0) {
+
+				Log.e("condition", "true");
+				String lastName = JardineApp.DB.getUser().getById(createdBy).getLastname();
+				String firstName = JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
+
+				((TextView) this.rootView.findViewById(R.id.crm_no)).setText(record.getCrm());
+				((TextView) this.rootView.findViewById(R.id.check_in)).setText(MyDateUtils.convertDateTime(record.getCheckIn()));
+				if(checkOut != null){
+					if( !checkOut.isEmpty())
+						((TextView) this.rootView.findViewById(R.id.check_out)).setText(MyDateUtils.convertDateTime(checkOut));
+					else
+						((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
+				}else
+					((TextView) this.rootView.findViewById(R.id.check_out)).setText(checkOut);
+				
+				((EditText) this.rootView.findViewById(R.id.created_by)).setText("" + lastName + ", " + firstName);
+
+				for (int i = 0; i < activityTypeList.size(); i++) {
+					if (record.getActivityType() == activityTypeList.get(i).getId()) {
+						((Spinner) this.rootView.findViewById(R.id.activity_type)).setSelection(i);
+						break;
+					}
+				}
+
+				for (int i = 0; i < businessUnitList.size(); i++) {
+					if (record.getBusinessUnit() == businessUnitList.get(i).getId()) {
+						((Spinner) this.rootView.findViewById(R.id.business_unit)).setSelection(i);
+						break;
+					}
+				}
+			}
+
+		} else {
+>>>>>>> ed9dc860fed22d9443b9b4b5997cf16d752f02d2
 
 			Log.e("condition", "false");
 
@@ -318,17 +364,17 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this.displayCheckIn());
 		((TextView) this.rootView.findViewById(R.id.check_in)).setClickable(false);
 		((TextView) this.rootView.findViewById(R.id.check_in)).setFocusable(false);
-		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				flag = 4;
-				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
-						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
-						AddActivityGeneralInformationFragment.this.day);
-				pickDialog.show();
-			}
-		});
+//		((ImageButton) this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new OnClickListener() {
+//
+//			@Override
+//			public void onClick(View v) {
+//				flag = 4;
+//				DatePickerDialog pickDialog = new DatePickerDialog(getActivity(), android.R.style.Theme_Holo_Panel, datePickerListener,
+//						AddActivityGeneralInformationFragment.this.year, AddActivityGeneralInformationFragment.this.month,
+//						AddActivityGeneralInformationFragment.this.day);
+//				pickDialog.show();
+//			}
+//		});
 
 		this.saveBtn = (CircularProgressButton) this.rootView.findViewById(R.id.btnWithText1);
 		this.saveBtn.setOnClickListener(new View.OnClickListener() {
@@ -368,13 +414,13 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (activityType != 0 && checkin != null && !checkin.isEmpty() && checkout != null && !checkout.isEmpty()) {
-
+//					if (activityType != 0 && checkin != null && !checkin.isEmpty() && checkout != null && !checkout.isEmpty()) {
+					if (activityType != 0) {
 						trapping = true;
 						Editor editor = pref.edit();
 						editor.putString("crm_no", crmno);
 						editor.putString("check_in", checkin);
-						editor.putString("check_out", checkout);
+//						editor.putString("check_out", checkout);
 						editor.putLong("activity_type", activityType);
 						editor.putLong("createdBy", createdBy);
 						editor.putLong("business_unit", businessUnit.getId());

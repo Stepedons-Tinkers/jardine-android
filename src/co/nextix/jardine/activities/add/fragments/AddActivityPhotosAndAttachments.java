@@ -50,6 +50,13 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 	private Uri imageUri = null;
 	private String imagePath = "";
 
+	private Calendar calendar = null;
+	private SimpleDateFormat df = null;
+	private String formattedDate = null;
+	private int day = 0;
+	private int month = 0;
+	private int year = 0;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		this.view = inflater.inflate(R.layout.add_activity_photos_attachments, container, false);
@@ -147,6 +154,12 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 			public void onClick(final View v) {
 				v.setClickable(false);
 				v.setEnabled(false);
+
+				calendar = Calendar.getInstance();
+				df = new SimpleDateFormat("HH:mm:ss");
+				day = calendar.get(Calendar.DAY_OF_MONTH);
+				month = calendar.get(Calendar.MONTH);
+				year = calendar.get(Calendar.YEAR);
 
 				if (((CircularProgressButton) v).getProgress() == 0) {
 
@@ -819,17 +832,18 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		}
 	}
 
-	protected String displayCheckOut() {
-		Calendar calendar = Calendar.getInstance();
-		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
-		return " " + df.format(calendar.getTime());
-	}
 
-	protected Long saveActivity(String no, String crmNo, long activityType, String checkIn, String checkOut, long businessUnit,
-			long createdBy, double longitude, double latitude, String createdTime, String modifiedTime, String reasonsRemarks, long smr,
-			String adminDetails, long customer, long area, long province, long city, long workplanEntry, String objective,
-			int firstTimeVisit, int plannedVisit, String notes, String highlights, String nextSteps, String followUpCommitmentDate,
-			String projectName, long projectStage, long projectCategory, String venue, int numberOfAttendees, String endUserActivityTypes) {
+	protected Long saveActivity(String no, String crmNo, long activityType,
+			String checkIn, String checkOut, long businessUnit, long createdBy,
+			double longitude, double latitude, String createdTime,
+			String modifiedTime, String reasonsRemarks, long smr,
+			String adminDetails, long customer, long area, long province,
+			long city, long workplanEntry, String objective,
+			int firstTimeVisit, int plannedVisit, String notes,
+			String highlights, String nextSteps, String followUpCommitmentDate,
+			String projectName, long projectStage, long projectCategory,
+			String venue, int numberOfAttendees, String endUserActivityTypes) {
+
 
 		// Insert to the database
 		row_id = JardineApp.DB.getActivity().insert(no, crmNo, activityType, checkIn, checkOut, businessUnit, createdBy, longitude,
@@ -914,5 +928,25 @@ public class AddActivityPhotosAndAttachments extends Fragment {
 		// Insert to the database
 		JardineApp.DB.getDocument().insert(no, crmNo, title, moduleName, moduleId, fileName, fileType, filePath, isActive, moduleRowId,
 				createdTime, modifiedTime, user);
+	}
+
+//	protected String displayCheckOut() {
+//		this.formattedDate = this.year + "-"
+//				+ this.FormatDateAndDay(this.month + 1) + "-"
+//				+ this.FormatDateAndDay(this.day);
+//
+//		return this.formattedDate.concat(" " + df.format(calendar.getTime()));
+//	}
+
+	protected String displayCheckOut() {
+		Calendar calendar = Calendar.getInstance();
+		SimpleDateFormat df = new SimpleDateFormat("HH:mm:ss");
+		return " " + df.format(calendar.getTime());
+	}
+
+	protected String FormatDateAndDay(int digit) {
+		String formattedStringDigit = digit < 10 ? "0" + String.valueOf(digit)
+				: String.valueOf(digit);
+		return String.valueOf(formattedStringDigit);
 	}
 }
