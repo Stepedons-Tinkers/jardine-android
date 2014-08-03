@@ -101,7 +101,7 @@ public class JDImerchandisingCheckTable {
 	public List<JDImerchandisingCheckRecord> getUnsyncedRecords() {
 		List<JDImerchandisingCheckRecord> list = new ArrayList<JDImerchandisingCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_JDIMERCHANDISING_NO + " ISNULL";
+				+ KEY_JDIMERCHANDISING_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

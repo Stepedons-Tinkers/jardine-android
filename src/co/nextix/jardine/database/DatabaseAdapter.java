@@ -439,10 +439,13 @@ public class DatabaseAdapter {
 
 	// Entity Relationship
 	public static final String KEY_ENTITYRELATIONSHIP_ROWID = "_id";
-	public static final String KEY_ENTITYRELATIONSHIP_CRMNO = "crm_no";
+	public static final String KEY_ENTITYRELATIONSHIP_MODULEID = "module_id";
+	public static final String KEY_ENTITYRELATIONSHIP_MODULENO = "module_no";
 	public static final String KEY_ENTITYRELATIONSHIP_MODULENAME = "module_name";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDID = "related_id";
 	public static final String KEY_ENTITYRELATIONSHIP_RELATEDNO = "related_no";
-	public static final String KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME = "related_module_name";
+	public static final String KEY_ENTITYRELATIONSHIP_RELATEDNAME = "related_name";
+	public static final String KEY_ENTITYRELATIONSHIP_SYNCED = "is_synced";
 
 	// Picklists
 	public static final String KEY_PICKLISTS_ROWID = "_id";
@@ -540,7 +543,7 @@ public class DatabaseAdapter {
 	private String TABLE_CREATE_PRODUCTFOCUS = "create table %s (%s integer primary key autoincrement, %s real, %s real, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_PRODUCTSUPPLIER = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s real, %s text, %s real, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
 	private String TABLE_CREATE_SALESPROTOCOLS = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s real, %s text, %s text, %s text, %s real, %s integer, %s real, %s text, %s text, foreign key(%s) references %s(%s), foreign key(%s) references %s(%s), foreign key(%s) references %s(%s))";
-	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s text, %s text, %s text, %s text)";
+	private String TABLE_CREATE_ENTITYRELATIONSHIP = "create table %s (%s integer primary key autoincrement, %s real, %s text, %s text, %s real, %s text, %s text, %s integer)";
 
 	// ===========================================================
 	// Public static field
@@ -1507,10 +1510,14 @@ public class DatabaseAdapter {
 					KEY_SALESPROTOCOL_CREATEDBY, USER_TABLE, KEY_USER_ROWID);
 			String entityRelationship = String.format(
 					TABLE_CREATE_ENTITYRELATIONSHIP, ENTITY_RELATIONSHIP_TABLE,
-					KEY_ENTITYRELATIONSHIP_ROWID, KEY_ENTITYRELATIONSHIP_CRMNO,
+					KEY_ENTITYRELATIONSHIP_ROWID,
+					KEY_ENTITYRELATIONSHIP_MODULEID,
+					KEY_ENTITYRELATIONSHIP_MODULENO,
 					KEY_ENTITYRELATIONSHIP_MODULENAME,
+					KEY_ENTITYRELATIONSHIP_RELATEDID,
 					KEY_ENTITYRELATIONSHIP_RELATEDNO,
-					KEY_ENTITYRELATIONSHIP_RELATEDMODULENAME);
+					KEY_ENTITYRELATIONSHIP_RELATEDNAME,
+					KEY_ENTITYRELATIONSHIP_SYNCED);
 			db.execSQL(user);
 			db.execSQL(TABLE_CREATE_ACTIVITY);
 			db.execSQL(activityType);

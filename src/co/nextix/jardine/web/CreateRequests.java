@@ -36,6 +36,7 @@ import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.DocumentRecord;
+import co.nextix.jardine.database.records.EntityRelationshipRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
@@ -45,6 +46,7 @@ import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 import co.nextix.jardine.database.tables.BusinessUnitTable;
 import co.nextix.jardine.database.tables.CompetitorProductTable;
+import co.nextix.jardine.database.tables.CustomerContactTable;
 import co.nextix.jardine.database.tables.CustomerTable;
 import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.database.tables.SMRTable;
@@ -64,6 +66,7 @@ import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 import co.nextix.jardine.database.tables.picklists.PProjReqTypeTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
 import co.nextix.jardine.keys.Modules;
+import co.nextix.jardine.web.requesters.CreateRelationshipModel;
 import co.nextix.jardine.web.requesters.DefaultRequester;
 
 import com.google.gson.Gson;
@@ -1268,6 +1271,138 @@ public class CreateRequests {
 				DefaultRequester<CreateResult> requester = gson.fromJson(
 						getReader(), typeOfT);
 				model = (CreateResult) requester.getResult();
+
+			} else {
+				// getResponse();
+			}
+		} catch (ProtocolException e) {
+			e.printStackTrace();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+		return model;
+	}
+
+	public CreateRelationshipModel entityRelationship(
+			EntityRelationshipRecord record) {
+
+		CreateRelationshipModel model = null;
+
+		JSONObject requestList = new JSONObject();
+		try {
+
+			// "Relatedto":"XActivity",
+			// "Rid":"123",
+			// "RelatedFrom":"XCCPerson",
+			// "Tid":"456"
+
+//			for (int x = 0; x < records.size(); x++) {
+				JSONObject requestObject = new JSONObject();
+
+				requestObject.put("Relatedto", record.getModuleName());
+				requestObject.put("Rid", record.getModuleNo());
+				requestObject.put("RelatedFrom", record.getRelatedName());
+				requestObject.put("Tid", record.getRelatedNo());
+
+				requestList.put(String.valueOf(record.getId()),
+						requestObject);
+//			}
+
+		} catch (JSONException e1) {
+			e1.printStackTrace();
+		}
+
+		// BufferedWriter writer;
+		URL url;
+		String urlString = JardineApp.WEB_URL;
+		Log.d(TAG, urlString + " operation: " + "product" + " module: "
+				+ "EntityRelationships");
+		Log.w(TAG, requestList.toString());
+
+		try {
+
+			url = new URL(urlString);
+			getConnection(url, "POST");
+
+			DataOutputStream dos = new DataOutputStream(
+					JardineApp.httpConnection.getOutputStream());
+
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+
+			dos.writeBytes("Content-Disposition: form-data; name=\"sessionName\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.SESSION_NAME);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"operation\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("product");
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			// // **start
+			// dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+			// + JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			// dos.writeBytes("Content-Disposition: form-data; name=\"elementType\""
+			// + JardineApp.REQUEST_LINEEND);
+			// dos.writeBytes("Content-Type: application/json"
+			// + JardineApp.REQUEST_LINEEND);
+			// dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// dos.writeBytes(module);
+			// dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// // **end
+
+			// **start
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY + JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Disposition: form-data; name=\"elements\""
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes("Content-Type: application/json"
+					+ JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			dos.writeBytes(requestList.toString());
+			dos.writeBytes(JardineApp.REQUEST_LINEEND);
+			// **end
+
+			dos.writeBytes(JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_BOUNDARY
+					+ JardineApp.REQUEST_TWOHYPHENS
+					+ JardineApp.REQUEST_LINEEND); // this
+			// is
+			// for
+			// end
+			// of
+			// output
+
+			// close streams
+			dos.flush();
+			dos.close();
+
+			// status
+			int status = JardineApp.httpConnection.getResponseCode();
+
+			if (status == 200) {
+
+				Gson gson = new Gson();
+				Type typeOfT = new TypeToken<DefaultRequester<CreateRelationshipModel>>() {
+				}.getType();
+				DefaultRequester<CreateRelationshipModel> requester = gson
+						.fromJson(getReader(), typeOfT);
+				model = (CreateRelationshipModel) requester.getResult();
 
 			} else {
 				// getResponse();

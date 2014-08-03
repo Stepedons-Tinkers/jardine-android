@@ -122,7 +122,7 @@ public class CompetitorProductStockCheckTable {
 	public List<CompetitorProductStockCheckRecord> getUnsyncedRecords() {
 		List<CompetitorProductStockCheckRecord> list = new ArrayList<CompetitorProductStockCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + " ISNULL";
+				+ KEY_COMPETITORPRODUCTSTOCKCHECK_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

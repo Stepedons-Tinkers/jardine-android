@@ -280,7 +280,7 @@ public class CustomerTable {
 	public List<CustomerRecord> getUnsyncedRecords() {
 		List<CustomerRecord> list = new ArrayList<CustomerRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_CUSTOMER_NO + " ISNULL";
+				+ KEY_CUSTOMER_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

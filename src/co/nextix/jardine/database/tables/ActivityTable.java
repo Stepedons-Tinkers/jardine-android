@@ -265,7 +265,7 @@ public class ActivityTable {
 	public List<ActivityRecord> getUnsyncedRecords() {
 		List<ActivityRecord> list = new ArrayList<ActivityRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_ACTIVITY_NO + " ISNULL";
+				+ KEY_ACTIVITY_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

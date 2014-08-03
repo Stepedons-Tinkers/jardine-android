@@ -100,7 +100,7 @@ public class ProductSupplierTable {
 	public List<ProductSupplierRecord> getUnsyncedRecords() {
 		List<ProductSupplierRecord> list = new ArrayList<ProductSupplierRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
-				+ KEY_PRODUCTSUPPLIER_NO + " ISNULL";
+				+ KEY_PRODUCTSUPPLIER_NO + "=''";
 		Cursor c = null;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);

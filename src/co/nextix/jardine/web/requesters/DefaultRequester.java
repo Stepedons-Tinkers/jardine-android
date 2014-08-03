@@ -6,6 +6,9 @@ public class DefaultRequester<T> {
 	@SerializedName("success")
 	private String success;
 
+	@SerializedName("error")
+	private ErrorModel error;
+
 	@SerializedName("result")
 	private T result;
 
@@ -23,5 +26,13 @@ public class DefaultRequester<T> {
 
 	public void setResult(T result) {
 		this.result = result;
+	}
+
+	public ErrorModel getError() {
+		return this.error;
+	}
+
+	public void setError(ErrorModel error) {
+		this.error = error;
 	}
 }
