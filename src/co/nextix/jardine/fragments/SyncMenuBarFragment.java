@@ -273,7 +273,7 @@ public class SyncMenuBarFragment extends Fragment {
 				// createCompetitorProduct();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -452,7 +452,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateCustomerTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -565,7 +565,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateCustomerContactTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -634,7 +634,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateActivityTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -701,7 +701,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateJDImerchCheckTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -771,7 +771,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateJDIproductCheckTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -841,7 +841,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateCompetitorProductCheckTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -912,7 +912,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateMarketingIntelTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -980,7 +980,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateProjectRequirementTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1054,7 +1054,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1122,7 +1122,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1186,7 +1186,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1306,7 +1306,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new PicklistsTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1477,7 +1477,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncUsersTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1555,7 +1555,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncBusinessUnitTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1659,7 +1659,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncMarketingMaterialsTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1775,7 +1775,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncEventProtocolTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -1890,7 +1890,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncProductTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2004,7 +2004,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncCompetitorProductTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2273,7 +2273,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncSMRTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2383,7 +2383,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncCustomerTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2655,7 +2655,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncCustomerContactTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2795,7 +2795,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncActivityTypeTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2901,7 +2901,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncWorkplanTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -2996,7 +2996,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncWorkplanEntryTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3142,7 +3142,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncActivityTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3372,7 +3372,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncJDImerchTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3495,7 +3495,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncJDIproductTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3642,7 +3642,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncCompetitorProductStockTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3794,7 +3794,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncMarketingIntelTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -3918,7 +3918,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncProjRequirementTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4053,7 +4053,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncProductSupplierTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4183,7 +4183,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncSalesProtocolTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4303,7 +4303,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncCalendarTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4383,7 +4383,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncEntityRelationshipTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4521,7 +4521,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new SyncDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4798,7 +4798,7 @@ public class SyncMenuBarFragment extends Fragment {
 				// }
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4900,7 +4900,7 @@ public class SyncMenuBarFragment extends Fragment {
 			if (result) {
 				finishAlert();
 			} else {
-				Toast.makeText(getActivity(), "Check Internet connection",
+				Toast.makeText(CONTEXT, "Check Internet connection",
 						Toast.LENGTH_SHORT).show();
 			}
 		}
@@ -4961,18 +4961,18 @@ public class SyncMenuBarFragment extends Fragment {
 				if (isNetworkAvailable()) {
 					LogRequests log = new LogRequests();
 					LoginModel model = log.login(
-							StoreAccount.restore(getActivity()).getString(
+							StoreAccount.restore(CONTEXT).getString(
 									Account.USERNAME),
-							StoreAccount.restore(getActivity()).getString(
+							StoreAccount.restore(CONTEXT).getString(
 									Account.PASSWORD),
-							StoreAccount.restore(getActivity()).getString(
+							StoreAccount.restore(CONTEXT).getString(
 									Account.AREA));
 					if (model != null) {
 						Log.i(JardineApp.TAG,
 								"session: " + model.getSessionName());
 
 						JardineApp.SESSION_NAME = model.getSessionName();
-						StoreAccount.saveSession(getActivity(),
+						StoreAccount.saveSession(CONTEXT,
 								model.getSessionName());
 
 						successful = true;
@@ -4995,16 +4995,15 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(CONTEXT,
-						"Please Check Internet Connection!", Toast.LENGTH_LONG)
-						.show();
+				Toast.makeText(CONTEXT, "Please Check Internet Connection!",
+						Toast.LENGTH_LONG).show();
 			}
 		}
 	}
 
 	private void buildAlertMessage() {
 		// final AlertDialog.Builder builder = new AlertDialog.Builder(
-		// getActivity());
+		// CONTEXT);
 		// builder.setMessage("Please check internet connection.")
 		// .setCancelable(false).setPositiveButton("Ok", null);
 		// final AlertDialog alert = builder.create();
@@ -5012,7 +5011,7 @@ public class SyncMenuBarFragment extends Fragment {
 	}
 
 	private boolean isNetworkAvailable() {
-		ConnectivityManager connectivityManager = (ConnectivityManager) getActivity()
+		ConnectivityManager connectivityManager = (ConnectivityManager) CONTEXT
 				.getSystemService(Context.CONNECTIVITY_SERVICE);
 		NetworkInfo activeNetworkInfo = connectivityManager
 				.getActiveNetworkInfo();
