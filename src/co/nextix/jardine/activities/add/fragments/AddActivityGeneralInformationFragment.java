@@ -420,8 +420,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							.findViewById(R.id.check_in)).getText().toString();
 					String checkout = ((TextView) rootView
 							.findViewById(R.id.check_out)).getText().toString();
-					long activityType = ((ActivityTypeRecord) ((Spinner) rootView
-							.findViewById(R.id.activity_type))
+					
+					Spinner spin = ((Spinner) rootView
+							.findViewById(R.id.activity_type));
+					long activityType = ((ActivityTypeRecord) spin
 							.getSelectedItem()).getId();
 
 					long createdBy = JardineApp.DB.getUser().getCurrentUser()
@@ -475,7 +477,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						Toast.makeText(getActivity(),
 								"Please fill up required (RED COLOR) fields",
 								Toast.LENGTH_LONG).show();
-
+//						spin.setBackgroundColor(R.color.red);
+						spin.setOnClickListener(new OnClickListener() {
+							
+							@Override
+							public void onClick(View v) {
+								// TODO Auto-generated method stub
+//								spin.setBackgroundColor(R.color.red);
+							}
+						});
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 

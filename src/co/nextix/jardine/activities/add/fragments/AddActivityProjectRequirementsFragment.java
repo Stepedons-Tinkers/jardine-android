@@ -124,8 +124,9 @@ public class AddActivityProjectRequirementsFragment extends Fragment {
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-
-					String projectRequirementTypeString = ((Spinner) view.findViewById(R.id.project_requirement_type)).getSelectedItem()
+					
+					Spinner spin = ((Spinner) view.findViewById(R.id.project_requirement_type));
+					String projectRequirementTypeString = spin.getSelectedItem()
 							.toString();
 
 					String date_needed = ((TextView) view.findViewById(R.id.date_needed)).getText().toString();//.concat(displayCheckOut();
@@ -167,6 +168,7 @@ public class AddActivityProjectRequirementsFragment extends Fragment {
 						flag = false;
 						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
 
+//						spin.set
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 

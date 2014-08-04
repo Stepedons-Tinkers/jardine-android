@@ -365,11 +365,15 @@ public class StartActivityFragment extends Fragment implements OnClickListener {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
+				
+				
 				ActivityRecord tempValues = (ActivityRecord) parent
 						.getAdapter().getItem(position);
 
 				UserRecord userRecord = JardineApp.DB.getUser().getById(
 						tempValues.getCreatedBy());
+				
+				if(userRecord != null){
 
 				// Saving acquired activity details
 				SharedPreferences pref = getActivity().getApplicationContext()
@@ -433,7 +437,7 @@ public class StartActivityFragment extends Fragment implements OnClickListener {
 								R.anim.slide_out_left)
 						.replace(R.id.frame_container, fragment)
 						.addToBackStack(null).commit();
-
+				}
 			}
 		});
 

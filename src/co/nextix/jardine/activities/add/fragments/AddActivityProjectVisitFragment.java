@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.widget.ArrayAdapter;
@@ -170,24 +171,35 @@ public class AddActivityProjectVisitFragment extends Fragment {
 									&& !projectCategoryString.isEmpty()) {
 								flag = true;
 
-								long projectStage = ((PicklistRecord) ((Spinner) rootView
-										.findViewById(R.id.project_stage))
-										.getSelectedItem()).getId();
-								long projectCategory = ((PicklistRecord) ((Spinner) rootView
-										.findViewById(R.id.project_category))
-										.getSelectedItem()).getId();
-
-								Editor editor = pref.edit();
-								editor.putString("project_name", projectName);
-								editor.putLong("project_stage", projectStage);
-								editor.putLong("project_category",
-										projectCategory);
-								editor.commit(); // commit changes
+								
+//								long projectStage = ((PicklistRecord) ((Spinner) rootView
+//										.findViewById(R.id.project_stage))
+//										.getSelectedItem()).getId();
+//								long projectCategory = ((PicklistRecord) ((Spinner) rootView
+//										.findViewById(R.id.project_category))
+//										.getSelectedItem()).getId();
+//								Editor editor = pref.edit();
+//								editor.putString("project_name", projectName);
+//								editor.putLong("project_stage", projectStage);
+//								editor.putLong("project_category",
+//										projectCategory);
+//								editor.commit(); // commit changes
+								
+								
 
 								v.setClickable(true);
 								v.setEnabled(true);
 
 							} else {
+								editProjName.setError("Please Add Project Name");
+								editProjName.setOnFocusChangeListener(new OnFocusChangeListener() {
+									
+									@Override
+									public void onFocusChange(View v, boolean hasFocus) {
+										// TODO Auto-generated method stub
+										((TextView) v).setError(null);
+									}
+								});
 								flag = false;
 								Toast.makeText(
 										getActivity(),

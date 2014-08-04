@@ -20,6 +20,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
+import co.nextix.jardine.activities.add.fragments.AddActivityProductSupplierFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityProductSupplierListFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
@@ -190,7 +191,7 @@ public class AddProductSupplierCustomAdapter extends BaseAdapter implements OnCl
 
 		@Override
 		public void onClick(View arg0) {
-			ProductSupplierFragment sct = (ProductSupplierFragment) frag;
+			AddActivityProductSupplierListFragment sct = (AddActivityProductSupplierListFragment) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
