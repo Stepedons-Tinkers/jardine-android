@@ -183,7 +183,7 @@ public class AddMarketingIntelFragment extends Fragment {
 
 					/** Checking of required fields **/
 
-					if (details != null && !details.isEmpty() && competitorProductString.equals("- Select -")) {
+					if (details != null && !details.isEmpty() && !competitorProductString.equals("- Select -")) {
 
 						
 						etDetails.setError(null);
