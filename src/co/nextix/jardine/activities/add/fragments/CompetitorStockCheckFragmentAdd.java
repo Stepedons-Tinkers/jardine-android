@@ -130,24 +130,24 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 					widthAnimation.start();
 
 					/** Checking of required fields **/
-					if (Constant.addCompetitorProductRecords.size() > 0) {
-						flag = true;
-						v.setClickable(true);
-						v.setEnabled(true);
-					} else {
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-
-							@Override
-							public void run() {
-								flag = false;
-								v.setClickable(true);
-								v.setEnabled(true);
-								((CircularProgressButton) v).setProgress(0);
-
-							}
-						}, 750);
-					}
+//					if (Constant.addCompetitorProductRecords.size() > 0) {
+//						flag = true;
+//						v.setClickable(true);
+//						v.setEnabled(true);
+//					} else {
+//						Handler handler = new Handler();
+//						handler.postDelayed(new Runnable() {
+//
+//							@Override
+//							public void run() {
+//								flag = false;
+//								v.setClickable(true);
+//								v.setEnabled(true);
+//								((CircularProgressButton) v).setProgress(0);
+//
+//							}
+//						}, 750);
+//					}
 
 				} else {
 
@@ -160,31 +160,6 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 						AddActivityFragment.pager.setCurrentItem(10);
 					}
 				}
-			}
-		});
-
-		// ONCLICK sa mga buttons sa fragment
-		((Button) view.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
-
-				Fragment newFragment = new AddCompetitorStockCheckFragment(CompetitorStockCheckFragmentAdd.this);
-
-				// Create new transaction
-				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Replace whatever is in the fragment_container view
-				// with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.fake_layout, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
 			}
 		});
 
