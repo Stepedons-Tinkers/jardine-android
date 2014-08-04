@@ -118,6 +118,11 @@ public class AddActivityAdminWorksFragment extends Fragment implements
 							.getApplicationContext().getSharedPreferences(
 									"ActivityInfo", 0);
 					if (adminWorks != null && !adminWorks.isEmpty()) {
+						
+						 ((EditText) view
+									.findViewById(R.id.details_admin_works))
+									.setError(null);
+						 
 						flag = true;
 
 						// new InsertTask("0", pref.getString("crm_no", null),
@@ -154,9 +159,12 @@ public class AddActivityAdminWorksFragment extends Fragment implements
 
 					} else {
 
+						((EditText) view
+								.findViewById(R.id.details_admin_works))
+								.setError("Please provide admin works detail.");
 						flag = false;
 						Toast.makeText(getActivity(),
-								"Please fill up required (RED COLOR) fields",
+								"Please fill up required fields",
 								Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();

@@ -87,6 +87,9 @@ public class AddActivityTrainingsFragment extends Fragment {
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
 					if (venue != null && !venue.isEmpty() && noOfAttendess != null && !noOfAttendess.isEmpty()) {
 
+						((EditText) rootView.findViewById(R.id.venue)).setError(null);
+						((EditText) rootView.findViewById(R.id.no_of_attendees)).setError(null);
+
 						trapping = true;
 						int noOfAttendees = Integer.parseInt((((EditText) rootView.findViewById(R.id.no_of_attendees)).getText().toString()));
 
@@ -108,9 +111,13 @@ public class AddActivityTrainingsFragment extends Fragment {
 						}, 700);
 
 					} else {
+						if(venue == null || venue.isEmpty() )
+							((EditText) rootView.findViewById(R.id.venue)).setError("Please provide a venue.");
+						if(noOfAttendess == null || noOfAttendess.isEmpty())
+							((EditText) rootView.findViewById(R.id.no_of_attendees)).setError("Please provide no. of attendees.");
 
 						trapping = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_LONG).show();
+						Toast.makeText(getActivity(), "Please fill up required fields", Toast.LENGTH_LONG).show();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
