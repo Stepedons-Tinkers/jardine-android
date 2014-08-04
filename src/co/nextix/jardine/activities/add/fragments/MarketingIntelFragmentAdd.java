@@ -6,9 +6,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +24,6 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
-import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
@@ -202,15 +198,15 @@ public class MarketingIntelFragmentAdd extends Fragment {
 			Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
 
 			if (Constant.addMarketingIntelRecords.size() > 0) {
-				int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
-				if (remainder > 0) {
-					for (int i = 0; i < rowSize - remainder; i++) {
-						MarketingIntelRecord rec = new MarketingIntelRecord();
-						Constant.addMarketingIntelRecords.add(rec);
-					}
-				}
-
-				this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
+//				int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
+//				if (remainder > 0) {
+//					for (int i = 0; i < rowSize - remainder; i++) {
+//						//MarketingIntelRecord rec = new MarketingIntelRecord();
+//						//Constant.addMarketingIntelRecords.add(rec);
+//					}
+//				}
+//
+//				this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
 				addItem(currentPage);
 
 			} else {

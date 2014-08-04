@@ -136,7 +136,7 @@ public class AddMarketingIntelFragment extends Fragment {
 		// } else {
 
 		((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((TextView) view.findViewById(R.id.activity)).setHint("AUTO_GEN_ON_SAVE");
 		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
 		((TextView) view.findViewById(R.id.activity)).setClickable(false);
 
@@ -203,7 +203,7 @@ public class AddMarketingIntelFragment extends Fragment {
 						mark.setListData();
 
 						// Calling the activity itself
-						mCallback.onArticleSelected(Constant.addMarketingIntelRecords);
+						//mCallback.onArticleSelected(Constant.addMarketingIntelRecords);
 
 						Log.d(JardineApp.TAG, "" + Constant.addMarketingIntelRecords.size());
 						btn.setProgress(0);

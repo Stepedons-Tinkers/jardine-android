@@ -522,6 +522,6 @@ public class DashBoardActivity extends FragmentActivity implements OnHeadlineSel
 		// HeadlinesFragment
 		// Do something here to display that article
 		
-		Toast.makeText(getApplicationContext(), rec.toString(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), rec.toString(), Toast.LENGTH_SHORT).show();
 	}
 }

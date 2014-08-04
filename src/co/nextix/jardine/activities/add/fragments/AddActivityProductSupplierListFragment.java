@@ -9,6 +9,7 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
+import android.graphics.Color;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
 import android.os.Handler;
@@ -132,74 +133,38 @@ public class AddActivityProductSupplierListFragment extends Fragment {
 						}
 					}
 				});
-		
-		((CircularProgressButton) myFragmentView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
-
+		final Button sndButton = ((Button) myFragmentView.findViewById(R.id.btnWithText1));
+		sndButton.setBackgroundResource(R.color.blue);
+		sndButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(final View v) {
-				v.setClickable(false);
-				v.setEnabled(false);
-
-				if (((CircularProgressButton) v).getProgress() == 0) {
-
-					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
-
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
-
-							if (!flag) {
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
-
-					widthAnimation.start();
-
-					
-					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					if (Constant.addProductSupplierRecords.size() != 0) {
-						
+				if(!flag){
+					if (Constant.addProductSupplierRecords.size() != 0) {			
 						flag = true;
-						
-						v.setClickable(true);
-						v.setEnabled(true);
-
+						sndButton.setBackgroundResource(R.color.green);
+						sndButton.setText("Next");
 					} else {
 						flag = false;
 						Toast.makeText(getActivity(), "Please add at least one Product Supplier", Toast.LENGTH_SHORT).show();
-
 						Handler handler = new Handler();
+						sndButton.setBackgroundResource(R.color.red);
+						sndButton.setText("ERROR");
 						handler.postDelayed(new Runnable() {
 
 							@Override
 							public void run() {
-								((CircularProgressButton) v).setProgress(-1);
+								sndButton.setBackgroundResource(R.color.blue);
+								sndButton.setText("Done");
 								v.setClickable(true);
 								v.setEnabled(true);
 							}
 						}, 1500);
-						
-						
 					}
-
-				} else {
-					((CircularProgressButton) v).setProgress(0);
-					v.setClickable(true);
-					v.setEnabled(true);
-
+				}else{
 					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 						DashBoardActivity.tabIndex.add(5, 8);
 						AddActivityFragment.pager.setCurrentItem(8);
 					}
-//					getFragmentManager().popBackStackImmediate();
-
 				}
 			}
 		});
