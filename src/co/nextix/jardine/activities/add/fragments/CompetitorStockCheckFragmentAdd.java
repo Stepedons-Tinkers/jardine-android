@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,18 +20,20 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.adapters.CompetitorProductStockCheckCustomAdapter;
 import co.nextix.jardine.activites.fragments.detail.CompetitorProductStockCheckDetailFragment;
-import co.nextix.jardine.activities.add.fragments.AddCompetitorStockCheckFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.tables.CompetitorProductStockCheckTable;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class CompetitorStockCheckFragment extends Fragment {
+public class CompetitorStockCheckFragmentAdd extends Fragment {
 
-	private CompetitorProductStockCheckCustomAdapter adapter = null;
+	private CompetitorProductStockCheckCustomAdapterAdd adapter = null;
 	private ArrayList<CompetitorProductStockCheckRecord> realRecord = null;
 	private ArrayList<CompetitorProductStockCheckRecord> tempRecord = null;
 	private Context CustomListView = null;
@@ -68,23 +70,28 @@ public class CompetitorStockCheckFragment extends Fragment {
 
 			@Override
 			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+				// v.getBackground().setColorFilter(new
+				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				Fragment newFragment = new AddCompetitorStockCheckFragment(CompetitorStockCheckFragment.this);
+				if (Constant.addCompetitorProductRecords.size() < 5) {
+					Fragment newFragment = new AddCompetitorStockCheckFragment(CompetitorStockCheckFragmentAdd.this);
 
-				// Create new transaction
-				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+					// Create new transaction
+					FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
-				// Replace whatever is in the fragment_container view
-				// with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.layoutForAddingFrag, newFragment);
-				transaction.addToBackStack(null);
+					// Replace whatever is in the fragment_container view
+					// with this
+					// fragment,
+					// and add the transaction to the back stack
+					transaction.replace(R.id.layoutForAddingFrag, newFragment);
+					transaction.addToBackStack(null);
 
-				// Commit the transaction
-				transaction.commit();
+					// Commit the transaction
+					transaction.commit();
+				} else {
+					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
@@ -150,31 +157,37 @@ public class CompetitorStockCheckFragment extends Fragment {
 		this.realRecord = new ArrayList<CompetitorProductStockCheckRecord>();
 		this.tempRecord = new ArrayList<CompetitorProductStockCheckRecord>();
 
-		CompetitorProductStockCheckTable table = JardineApp.DB.getCompetitorProductStockCheck();
-		List<CompetitorProductStockCheckRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		// CompetitorProductStockCheckTable table =
+		// JardineApp.DB.getCompetitorProductStockCheck();
+		// List<CompetitorProductStockCheckRecord> records =
+		// table.getAllRecords();
 
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
+		if (Constant.addCompetitorProductRecords != null && Constant.addCompetitorProductRecords.size() > 0) {
+			this.realRecord.addAll(Constant.addCompetitorProductRecords);
 
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					CompetitorProductStockCheckRecord rec = new CompetitorProductStockCheckRecord();
-					realRecord.add(rec);
+			if (realRecord.size() > 0) {
+				int remainder = realRecord.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						CompetitorProductStockCheckRecord rec = new CompetitorProductStockCheckRecord();
+						realRecord.add(rec);
+					}
 				}
+
+				this.totalPage = realRecord.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView();
+				this.isListHasNoData();
+				((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
-
-			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
-
 		} else {
 
 			this.setView();
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view))
-			// .setText("");
+			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data");
 		}
 	}
 
@@ -201,7 +214,7 @@ public class CompetitorStockCheckFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new CompetitorProductStockCheckCustomAdapter(this.CustomListView, getActivity(), list, this.tempRecord, this);
+		this.adapter = new CompetitorProductStockCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
 
@@ -260,26 +273,26 @@ public class CompetitorStockCheckFragment extends Fragment {
 		//
 		// editor.commit();
 
-		Fragment fragment = new CompetitorProductStockCheckDetailFragment();
-		bundle.putLong("product_id", tempValues.getId());
-		fragment.setArguments(bundle);
-		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+		// Fragment fragment = new CompetitorProductStockCheckDetailFragment();
+		// bundle.putLong("product_id", tempValues.getId());
+		// fragment.setArguments(bundle);
+		// FragmentManager fragmentManager =
+		// getActivity().getSupportFragmentManager();
+		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+		// R.anim.slide_out_left)
+		// .replace(frag_layout_id, fragment).addToBackStack(null).commit();
 	}
 
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-		// .setVisibility(View.VISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView) this.myFragmentView.findViewById(R.id.status_list_view))
-		// .setVisibility(View.INVISIBLE);
+		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

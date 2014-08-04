@@ -76,29 +76,6 @@ public class JDIMerchandisingCheckFragment extends Fragment {
 
 		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
-		((Button) this.myFragmentView.findViewById(R.id.add_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				// v.getBackground().setColorFilter(new
-				// LightingColorFilter(0x0033FF, 0x0066FF));
-
-				Fragment newFragment = new AddJDIMerchandisingStockFragment();
-
-				// Create new transaction
-				FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(R.id.layoutForAddingFrag, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
-			}
-		});
 
 		((ImageButton) this.myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 

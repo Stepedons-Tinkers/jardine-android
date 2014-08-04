@@ -7,27 +7,24 @@
     android:orientation="vertical" >
 
     <TableRow
-        android:id="@+id/trCustomerContactRow"
+        android:id="@+id/trActivityRow"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
         android:clickable="false"
         android:focusable="false"
-        android:orientation="horizontal"
-        android:weightSum="5" >
+        android:orientation="horizontal" >
 
         <TextView
-            android:id="@+id/tvCustomerContactCol1"
+            android:id="@+id/tvActivityCol1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
             android:layout_column="0"
             android:layout_weight="1"
             android:ellipsize="end"
-            android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_xxlarge" />
+            android:textSize="@dimen/text_xlarge" />
 
         <View
             android:layout_width="2dp"
@@ -36,85 +33,77 @@
             android:background="@color/black" />
 
         <TextView
-            android:id="@+id/tvCustomerContactCol2"
+            android:id="@+id/tvActivityCol2"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_column="2"
+            android:layout_column="1"
             android:layout_weight="1"
-            android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_xxlarge" />
+            android:textSize="@dimen/text_xlarge" />
 
         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_marginRight="2dp"
             android:background="@color/black" />
-
+        
         <TextView
-            android:id="@+id/tvCustomerContactCol3"
+            android:id="@+id/tvActivityCol3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_column="4"
+            android:layout_column="1"
             android:layout_weight="1"
-            android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_xxlarge" />
-
-        <View
+            android:textSize="@dimen/text_xlarge" />
+         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_marginRight="2dp"
             android:background="@color/black" />
-
+        
         <TextView
-            android:id="@+id/tvCustomerContactCol4"
+            android:id="@+id/tvActivityCol4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_column="5"
+            android:layout_column="1"
             android:layout_weight="1"
-            android:gravity="left"
             android:maxLines="1"
             android:padding="5dp"
             android:textColor="@color/black"
-            android:textSize="@dimen/text_xxlarge" />
-
-        <View
+            android:textSize="@dimen/text_xlarge" />
+         <View
             android:layout_width="2dp"
             android:layout_height="match_parent"
             android:layout_marginRight="2dp"
             android:background="@color/black" />
-
-        <RelativeLayout
+        
+        <TextView
+            android:id="@+id/tvActivityCol5"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_column="8"
-            android:layout_weight="1" >
+            android:layout_column="1"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xlarge" />
+         <View
+            android:layout_width="2dp"
+            android:layout_height="match_parent"
+            android:layout_marginRight="2dp"
+            android:background="@color/black" />
+        
+        <TextView
+            android:id="@+id/tvActivityCol6"
+            android:layout_width="match_parent"
+            android:layout_column="1"
+            android:layout_weight="1"
+            android:maxLines="1"
+            android:padding="5dp"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_xlarge" />
 
-            <TextView
-                android:id="@+id/tvCustomerContactCol5"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:gravity="left"
-                android:maxLines="1"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_xxlarge" />
-
-            <CheckBox
-                android:id="@+id/cbCustomerContactCol5a"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:background="@null"
-                android:checked="false"
-                android:visibility="gone" />
-        </RelativeLayout>
+      
     </TableRow>
 
 </LinearLayout>

@@ -1,4 +1,4 @@
-package co.nextix.jardine.activites.fragments.adapters;
+package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
 
@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -30,8 +29,7 @@ import co.nextix.jardine.database.tables.UserTable;
 import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
-
+public class JDIMerchandisingCheckCustomAdapterAdd extends BaseAdapter {
 	/*********** Declare Used Variables *********/
 	private Context context;
 	private FragmentActivity activity;
@@ -43,7 +41,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public JDIMerchandisingCheckCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public JDIMerchandisingCheckCustomAdapterAdd(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -75,7 +73,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView activity_type_txt;
@@ -93,7 +91,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+		JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 
 		if (convertView == null) {
 
@@ -102,14 +100,14 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
+			holder.clickable_item_container = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_txt       = (TextView) vi.findViewById(R.id.column_three);
-			holder.status_txt        = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.product_txt = (TextView) vi.findViewById(R.id.column_three);
+			holder.status_txt = (TextView) vi.findViewById(R.id.column_four);
+			holder.created_by = (TextView) vi.findViewById(R.id.column_five);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -129,39 +127,39 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 			/************ Set Model values in Holder elements ***********/
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			
+
 			ActivityTable act = JardineApp.DB.getActivity();
-			if(act != null){
+			if (act != null) {
 				ActivityRecord rec = act.getById(this.tempValues.getActivity());
-				holder.activity_type_txt.setText("");
-				if(rec != null){
+				holder.activity_type_txt.setText("AUTO_GEN_ON_SAVE");
+				if (rec != null) {
 					holder.activity_type_txt.setText(rec.toString());
 				}
 			}
-			
+
 			ProductTable product = JardineApp.DB.getProduct();
-			if(product != null){
+			if (product != null) {
 				ProductRecord rec = product.getById(this.tempValues.getProductBrand());
 				holder.product_txt.setText("");
-				if(rec != null){
+				if (rec != null) {
 					holder.product_txt.setText(rec.toString());
 				}
 			}
-			
+
 			PJDIprodStatusTable status = JardineApp.DB.getJDIproductStatus();
-			if(status != null){
-				PicklistRecord pick =  status.getById((int)this.tempValues.getStatus());
+			if (status != null) {
+				PicklistRecord pick = status.getById((int) this.tempValues.getStatus());
 				holder.status_txt.setText("");
-				if(pick != null){
+				if (pick != null) {
 					holder.status_txt.setText(pick.toString());
 				}
 			}
-			
+
 			UserTable user = JardineApp.DB.getUser();
-			if(user != null){
+			if (user != null) {
 				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
 				holder.created_by.setText("");
-				if(rec != null){
+				if (rec != null) {
 					holder.created_by.setText(rec.toString());
 				}
 			}
@@ -174,28 +172,35 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else{
+			} else {
 				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-//					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
-//
-//					// Saving acquired activity details
-//					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//					Editor editor = pref.edit();
-//					editor.putLong("activity_id", tempValues.getId());
-//					editor.commit(); // commit changes
-//
-//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-//					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-//					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-//							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					// JDImerchandisingCheckRecord tempValues =
+					// (JDImerchandisingCheckRecord) data.get(position);
+					//
+					// // Saving acquired activity details
+					// SharedPreferences pref =
+					// activity.getApplicationContext().getSharedPreferences("ActivityInfo",
+					// 0);
+					// Editor editor = pref.edit();
+					// editor.putLong("activity_id", tempValues.getId());
+					// editor.commit(); // commit changes
+					//
+					// android.support.v4.app.Fragment fragment = new
+					// ActivityInfoFragment();
+					// android.support.v4.app.FragmentManager fragmentManager =
+					// activity.getSupportFragmentManager();
+					// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
+					// R.anim.slide_out_left)
+					// .replace(R.id.frame_container,
+					// fragment).addToBackStack(null).commit();
 				}
 			});
 
@@ -207,15 +212,11 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
-			
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {
@@ -227,7 +228,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+			JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
@@ -245,7 +246,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+							JDIMerchandisingCheckFragmentAdd sct = (JDIMerchandisingCheckFragmentAdd) frag;
 							sct.refreshListView();
 						}
 					});

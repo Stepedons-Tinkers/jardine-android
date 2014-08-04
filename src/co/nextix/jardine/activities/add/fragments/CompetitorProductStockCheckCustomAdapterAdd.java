@@ -1,10 +1,12 @@
-package co.nextix.jardine.activites.fragments.adapters;
+package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
@@ -18,19 +20,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.CompetitorProductRecord;
+import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.UserRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
-import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.database.tables.CompetitorProductTable;
 import co.nextix.jardine.database.tables.UserTable;
-import co.nextix.jardine.database.tables.picklists.PJDIprodStatusTable;
+import co.nextix.jardine.database.tables.picklists.PComptProdStockStatusTable;
 
 /********* Adapter class extends with BaseAdapter and implements with OnClickListener ************/
-public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
+public class CompetitorProductStockCheckCustomAdapterAdd extends BaseAdapter {
 
 	/*********** Declare Used Variables *********/
 	private Context context;
@@ -38,12 +40,12 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 	private Fragment frag;
 	private ArrayList<?> data;
 	private static LayoutInflater inflater = null;
-	private JDImerchandisingCheckRecord tempValues = null;
+	private CompetitorProductStockCheckRecord tempValues = null;
 	private View vi = null;
 	private ListView listView = null;
 
 	/************* CustomAdapter Constructor *****************/
-	public JDIMerchandisingCheckCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
+	public CompetitorProductStockCheckCustomAdapterAdd(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
 
 		/********** Take passed values **********/
 		this.context = a;
@@ -75,13 +77,15 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 	/********* Create a holder to contain inflated xml file elements ***********/
 	public static class ViewHolder {
-		
+
 		public LinearLayout clickable_item_container;
 		public TextView crm_no_txt;
 		public TextView activity_type_txt;
-		public TextView product_txt;
-		public TextView status_txt;
-		public TextView created_by;
+		public TextView competitor_product;
+		public TextView stock_status;
+		public TextView loaded_on_shelves;
+		public TextView assigned_to;
+		public TextView other_type;
 		public TextView edit_txt;
 		public TextView delete_txt;
 
@@ -93,23 +97,25 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+		CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 
 		if (convertView == null) {
 
 			/********** Inflate tabitem.xml file for each row ( Defined below ) ************/
-			this.vi = inflater.inflate(R.layout.table_row_items_five_columns, null);
+			this.vi = inflater.inflate(R.layout.table_row_items_seven_columns, null);
 
 			/******** View Holder Object to contain table_row_item.xml file elements ************/
 			holder = new ViewHolder();
-			holder.clickable_item_container    = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
-			holder.crm_no_txt        = (TextView) vi.findViewById(R.id.column_one);
+			holder.clickable_item_container = (LinearLayout) vi.findViewById(R.id.table_row_clickable);
+			holder.crm_no_txt = (TextView) vi.findViewById(R.id.column_one);
 			holder.activity_type_txt = (TextView) vi.findViewById(R.id.column_two);
-			holder.product_txt       = (TextView) vi.findViewById(R.id.column_three);
-			holder.status_txt        = (TextView) vi.findViewById(R.id.column_four);
-			holder.created_by   = (TextView) vi.findViewById(R.id.column_five);
-			holder.edit_txt          = (TextView) vi.findViewById(R.id.action_edit_txt);
-			holder.delete_txt        = (TextView) vi.findViewById(R.id.action_delete_txt);
+			holder.competitor_product = (TextView) vi.findViewById(R.id.column_three);
+			holder.stock_status = (TextView) vi.findViewById(R.id.column_four);
+			holder.loaded_on_shelves = (TextView) vi.findViewById(R.id.column_five);
+			holder.assigned_to = (TextView) vi.findViewById(R.id.column_six);
+			holder.other_type = (TextView) vi.findViewById(R.id.column_seven);
+			holder.edit_txt = (TextView) vi.findViewById(R.id.action_edit_txt);
+			holder.delete_txt = (TextView) vi.findViewById(R.id.action_delete_txt);
 
 			/************ Set holder with LayoutInflater ************/
 			this.vi.setTag(holder);
@@ -125,77 +131,88 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 			sct.isListHasData();
 
 			/***** Get each Model object from Arraylist ********/
-			this.tempValues = (JDImerchandisingCheckRecord) this.data.get(position);
+			this.tempValues = (CompetitorProductStockCheckRecord) this.data.get(position);
+
+			/************ Get Table Credentials for column names ***********/
 
 			/************ Set Model values in Holder elements ***********/
+
 			holder.crm_no_txt.setText(this.tempValues.getCrm());
-			
 			ActivityTable act = JardineApp.DB.getActivity();
-			if(act != null){
+			if (act != null) {
 				ActivityRecord rec = act.getById(this.tempValues.getActivity());
-				holder.activity_type_txt.setText("");
-				if(rec != null){
+				holder.activity_type_txt.setText("AUTO_GEN_ON_SAVE");
+				if (rec != null) {
 					holder.activity_type_txt.setText(rec.toString());
 				}
+
 			}
-			
-			ProductTable product = JardineApp.DB.getProduct();
-			if(product != null){
-				ProductRecord rec = product.getById(this.tempValues.getProductBrand());
-				holder.product_txt.setText("");
-				if(rec != null){
-					holder.product_txt.setText(rec.toString());
-				}
-			}
-			
-			PJDIprodStatusTable status = JardineApp.DB.getJDIproductStatus();
-			if(status != null){
-				PicklistRecord pick =  status.getById((int)this.tempValues.getStatus());
-				holder.status_txt.setText("");
-				if(pick != null){
-					holder.status_txt.setText(pick.toString());
-				}
-			}
-			
-			UserTable user = JardineApp.DB.getUser();
-			if(user != null){
-				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
-				holder.created_by.setText("");
-				if(rec != null){
-					holder.created_by.setText(rec.toString());
+			CompetitorProductTable comp = JardineApp.DB.getCompetitorProduct();
+			if (comp != null) {
+				CompetitorProductRecord product = comp.getById(this.tempValues.getCompetitorProduct());
+				holder.competitor_product.setText("");
+				if (product != null) {
+					holder.competitor_product.setText(product.toString());
 				}
 			}
 
+			PComptProdStockStatusTable comp_status = JardineApp.DB.getCompetitorProductStockStatus();
+			if (comp_status != null) {
+				PicklistRecord rec = comp_status.getById((int) this.tempValues.getStockStatus());
+				holder.stock_status.setText("");
+				if (rec != null) {
+					holder.stock_status.setText(rec.toString());
+				}
+			}
+
+			if (this.tempValues.getLoadedOnShelves() == 0)
+				holder.loaded_on_shelves.setText("No");
+			else
+				holder.loaded_on_shelves.setText("Yes");
+
+			UserTable user = JardineApp.DB.getUser();
+			if (user != null) {
+				UserRecord rec = user.getById(this.tempValues.getCreatedBy());
+				holder.assigned_to.setText("");
+				if (rec != null) {
+					holder.assigned_to.setText(rec.toString());
+				}
+			}
+
+			holder.other_type.setText(this.tempValues.getOtherRemarks());
+
 			if (holder.crm_no_txt.getText().toString().equals("")) {
+				holder.crm_no_txt.setText(null);
 				holder.activity_type_txt.setText(null);
-				holder.product_txt.setText(null);
-				holder.status_txt.setText(null);
-				holder.created_by.setText(null);
+				holder.competitor_product.setText(null);
+				holder.stock_status.setText(null);
+				holder.loaded_on_shelves.setText(null);
+				holder.assigned_to.setText(null);
 				holder.edit_txt.setText(null);
 				holder.delete_txt.setText(null);
 				holder.edit_txt.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-			}else{
+			} else {
 				holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
 			}
-			
+
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
 			holder.edit_txt.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
 					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-//					JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(position);
-//
-//					// Saving acquired activity details
-//					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//					Editor editor = pref.edit();
-//					editor.putLong("activity_id", tempValues.getId());
-//					editor.commit(); // commit changes
-//
-//					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-//					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-//					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-//							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
+					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(position);
+
+					// Saving acquired activity details
+					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					Editor editor = pref.edit();
+					editor.putLong("activity_id", tempValues.getId());
+					editor.commit(); // commit changes
+
+					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
+					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
+					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
 				}
 			});
 
@@ -207,15 +224,13 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 					showDeleteDialog(position, listView);
 				}
 			});
-			
-			
-			
+
+			holder.clickable_item_container.setOnClickListener(new OnItemClickListener(pos));
+
 		}
 
 		return vi;
 	}
-
-
 
 	/********* Called when Item click in ListView ************/
 	private class OnItemClickListener implements OnClickListener {
@@ -227,7 +242,7 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+			CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 			sct.onItemClick(mPosition);
 		}
 	}
@@ -240,12 +255,12 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) data.get(mPosition);
+				CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(mPosition);
 				if (JardineApp.DB.getActivity().delete(tempValues.getId())) {
 
 					activity.runOnUiThread(new Runnable() {
 						public void run() {
-							JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+							CompetitorStockCheckFragmentAdd sct = (CompetitorStockCheckFragmentAdd) frag;
 							sct.refreshListView();
 						}
 					});

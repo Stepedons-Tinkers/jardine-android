@@ -1,16 +1,14 @@
 package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.LightingColorFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -27,20 +25,20 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
-import co.nextix.jardine.database.records.ProductRecord;
-import co.nextix.jardine.database.tables.ProductTable;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
+import co.nextix.jardine.activites.fragments.adapters.MarketingIntelCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.MarketingIntelDetailFragment;
+import co.nextix.jardine.database.records.MarketingIntelRecord;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
 
-public class AddIdentifyProductFocusFragment extends Fragment {
+public class MarketingIntelFragmentAdd extends Fragment {
 
-	private AddIdentifyProductFocusCustomAdapter adapter = null;
-	private ArrayList<ProductRecord> realRecord = null;
-	private ArrayList<ProductRecord> tempRecord = null;
-	private ArrayList<ProductRecord> itemSearch = null;
+	private MarketingIntelCustomAdapterAdd adapter = null;
+	private ArrayList<MarketingIntelRecord> tempRecord = null;
+
 	private Context CustomListView = null;
 	private View view = null;
 	private ListView list = null;
@@ -48,18 +46,16 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-
 	private Bundle bundle;
 	private int frag_layout_id;
-	private boolean flag = false;
 
-	public AddIdentifyProductFocusFragment() {
-		this.itemSearch = new ArrayList<ProductRecord>();
-	}
+	private boolean flag = false;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_activity_add_identify_product_focus, container, false);
+		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+		view = inflater.inflate(R.layout.fragment_activity_marketing_intel_add, container, false);
+		this.tempRecord = new ArrayList<MarketingIntelRecord>();
 		setListData();
 
 		bundle = getArguments();
@@ -68,31 +64,40 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
 
-		// ONCLICK sa mga buttons sa fragment
-		((Button) view.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
+		bundle = new Bundle();
+
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
+
+		((Button) view.findViewById(R.id.add_marketing_intel)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+				// v.getBackground().setColorFilter(new
+				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddCompetitorStockCheckFragment(AddIdentifyProductFocusFragment.this);
+				if (Constant.addMarketingIntelRecords.size() < 5) {
+					android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
 
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+					// Create new transaction
+					android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(frag_layout_id, newFragment);
-				transaction.addToBackStack(null);
+					// Replace whatever is in the fragment_container view with
+					// this
+					// fragment,
+					// and add the transaction to the back stack
+					transaction.replace(frag_layout_id, newFragment);
+					transaction.addToBackStack(null);
 
-				// Commit the transaction
-				transaction.commit();
+					// Commit the transaction
+					transaction.commit();
+				} else {
+					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
+				}
 			}
 		});
 
-		((ImageButton) view.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -100,12 +105,11 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 					currentPage--;
 					addItem(currentPage);
 				}
-				// Toast.makeText(getActivity(), "<==== ni sud here",
-				// Toast.LENGTH_SHORT).show();
+
 			}
 		});
 
-		((ImageButton) view.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -113,12 +117,11 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 					currentPage++;
 					addItem(currentPage);
 				}
-				// Toast.makeText(getActivity(), "ni sud here ====>",
-				// Toast.LENGTH_SHORT).show();
+
 			}
 		});
 
-		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new View.OnClickListener() {
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
@@ -126,6 +129,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (((CircularProgressButton) v).getProgress() == 0) {
+
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -144,24 +148,18 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 					});
 
 					widthAnimation.start();
-					
+
 					/** Checking of required fields **/
-					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					//TODO !!!!!!
-					if (Constant.addProductFocusRecords.size() > 0) {
+
+					if (Constant.addMarketingIntelRecords.size() > 0) {
 
 						flag = true;
-						Editor editor = pref.edit();
-						// editor.putLong("identify_focus",
-						// identifyProductFocus);
-						editor.commit();
-
 						v.setClickable(true);
 						v.setEnabled(true);
 
 					} else {
 						flag = false;
-						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
+						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -177,27 +175,18 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);
-					((CircularProgressButton) v).setClickable(true);
-					((CircularProgressButton) v).setEnabled(true);
-					
-					
-					if (AddActivityGeneralInformationFragment.ActivityType == 102) { // product
-																					// focus
-					DashBoardActivity.tabIndex.add(4, 16);
-					AddActivityFragment.pager.setCurrentItem(16);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retail
+						DashBoardActivity.tabIndex.add(8, 16);
+						AddActivityFragment.pager.setCurrentItem(16);
+					} else if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+																							// visits
+						DashBoardActivity.tabIndex.add(4, 11);
+						AddActivityFragment.pager.setCurrentItem(11);
+					}
 				}
-
-					// insert then pop all backstack
-				}
-
-				
-
-				// String names = "";
-				// for (int i = 0; i < passValues.size(); i++) {
-				// names = names + passValues.get(i) + "\n";
-				// }
-				// Toast.makeText(getActivity(), names,
-				// Toast.LENGTH_SHORT).show();
 			}
 		});
 
@@ -205,33 +194,37 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 	}
 
 	public void setListData() {
-		this.realRecord = new ArrayList<ProductRecord>();
-		this.tempRecord = new ArrayList<ProductRecord>();
+		// this.Constant.addMarketingIntelRecords = new
+		// ArrayList<MarketingIntelRecord>();
+		// this.tempRecord = new ArrayList<MarketingIntelRecord>();
 
-		ProductTable table = JardineApp.DB.getProduct();
-		List<ProductRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+		if (Constant.addMarketingIntelRecords != null && Constant.addMarketingIntelRecords.size() >= 0) {
+			Log.d(JardineApp.TAG, "ActivityRecord" + String.valueOf(Constant.addMarketingIntelRecords.size()));
 
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
-
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					ProductRecord rec = new ProductRecord();
-					realRecord.add(rec);
+			if (Constant.addMarketingIntelRecords.size() > 0) {
+				int remainder = Constant.addMarketingIntelRecords.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						MarketingIntelRecord rec = new MarketingIntelRecord();
+						Constant.addMarketingIntelRecords.add(rec);
+					}
 				}
-			}
 
-			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
+				this.totalPage = Constant.addMarketingIntelRecords.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView(null);
+				this.isListHasNoData();
+				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
+			}
 
 		} else {
 
-			this.setView();
+			this.setView(null);
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
+			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 		}
 	}
 
@@ -241,42 +234,46 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		int temp = currentPage + 1;
 		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
-			tempRecord.add(j, realRecord.get(count));
+		int rows = rowSize;
+		if (Constant.addMarketingIntelRecords.size() < rows)
+			rows = Constant.addMarketingIntelRecords.size();
+		for (int j = 0; j < rows; j++) {
+			// for (int j = 0; j < rowSize; j++) {
+			tempRecord.add(j, Constant.addMarketingIntelRecords.get(count));
 			count = count + 1;
 		}
 
-		this.setView();
+		this.setView(this.tempRecord);
 	}
 
-	private void setView() {
+	private void setView(ArrayList<MarketingIntelRecord> temp) {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
 
-		this.adapter = new AddIdentifyProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
-		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
-		// getActivity(), list, this.tempRecord, this);
+		if (temp != null && temp.size() >= 0) {
+			this.adapter = new MarketingIntelCustomAdapterAdd(CustomListView, getActivity(), list, this.tempRecord, this);
+			this.list.setAdapter(adapter);
 
-		this.list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-		this.list.setAdapter(adapter);
+		} else {
+			this.isListHasNoData();
+			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
+		}
+
 		list.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// CheckBox check = (CheckBox)view.findViewById(R.id.checkbox1);
-				// if(check.isChecked())
-				// check.setChecked(true);
-				// else
-				// check.setChecked(false);
+
 			}
 		});
+
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	public void onItemClick(int mPosition) {
-		// ProductRecord tempValues = (ProductRecord)
-		// this.tempRecord.get(mPosition);
+		MarketingIntelRecord tempValues = (MarketingIntelRecord) this.tempRecord.get(mPosition);
 
 		// SharedPreferences pref =
 		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
@@ -321,7 +318,13 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		// + JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 		//
 		// editor.commit();
-		//
+
+		Fragment fragment = new MarketingIntelDetailFragment();
+		bundle.putLong("marketing_intel_id", tempValues.getId());
+		fragment.setArguments(bundle);
+		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
 		// android.support.v4.app.Fragment fragment = new
 		// ActivityInfoFragment();
 		// android.support.v4.app.FragmentManager fragmentManager =
@@ -330,29 +333,18 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		// R.anim.slide_out_left)
 		// .replace(R.id.frame_container,
 		// fragment).addToBackStack(null).commit();
-		// Fragment fragment = new ProductFocusDetailFragment();
-		// bundle.putLong("product_id", tempValues.getId());
-		// fragment.setArguments(bundle);
-		// FragmentManager fragmentManager =
-		// getActivity().getSupportFragmentManager();
-		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
-		// R.anim.slide_out_left)
-		// .replace(frag_layout_id, fragment).addToBackStack(null).commit();
-
 	}
 
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

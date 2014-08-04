@@ -73,7 +73,7 @@ public class CustomerContactPersonFragment extends Fragment {
 			public void onClick(View v) {
 				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
 
-				android.support.v4.app.Fragment newFragment = new AddCompetitorStockCheckFragment();
+				android.support.v4.app.Fragment newFragment = new AddCompetitorStockCheckFragment(CustomerContactPersonFragment.this);
 
 				// Create new transaction
 				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()

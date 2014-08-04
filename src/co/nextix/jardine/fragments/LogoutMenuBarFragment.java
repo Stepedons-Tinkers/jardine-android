@@ -55,6 +55,7 @@ public class LogoutMenuBarFragment extends Fragment {
 
 			StoreAccount.clear(getActivity());
 			// JardineApp.DB.close();
+			JardineApp.DB.clearDatabase();
 			JardineApp.SESSION_NAME = null;
 			return true;
 		}
@@ -63,6 +64,7 @@ public class LogoutMenuBarFragment extends Fragment {
 		protected void onPostExecute(Boolean result) {
 			dialog.dismiss();
 			if (result) {
+				getActivity().finish();
 				startActivity(new Intent(getActivity(), LoginActivity.class));
 				getActivity().overridePendingTransition(R.anim.slide_in_left,
 						R.anim.slide_out_left);

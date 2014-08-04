@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -29,59 +28,6 @@
             android:paddingTop="7dp"
             android:shrinkColumns="*"
             android:stretchColumns="*" >
-
-            <!-- Row 1 with 1 columns -->
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="#ffffff"
-                android:orientation="horizontal" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="#0000b6"
-                    android:gravity="center"
-                    android:padding="14dip"
-                    android:scrollHorizontally="true"
-                    android:singleLine="true"
-                    android:text="@string/competitor_product_stock_check"
-                    android:textColor="#fff"
-                    android:textSize="14dp"
-                    android:textStyle="bold" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" >
-
-                    <com.dd.CircularProgressButton
-                        android:id="@+id/btnWithText2"
-                        android:layout_width="196dp"
-                        android:layout_height="64dp"
-                        android:layout_margin="4dp"
-                        android:layout_toLeftOf="@+id/btnWithText1"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        android:visibility="invisible"
-                        app:textComplete="@string/complete_cancel"
-                        app:textError="@string/error"
-                        app:textIdle="@string/cancel" />
-
-                    <com.dd.CircularProgressButton
-                        android:id="@+id/btnWithText1"
-                        android:layout_width="196dp"
-                        android:layout_height="64dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_margin="4dp"
-                        android:textColor="@color/white"
-                        android:textSize="18sp"
-                        app:textComplete="@string/next"
-                        app:textError="@string/error"
-                        app:textIdle="@string/done" />
-                </RelativeLayout>
-            </TableRow>
 
             <!-- Row 1 with single column -->
 
@@ -220,7 +166,7 @@
             <ListView
                 android:id="@+id/list"
                 android:layout_width="match_parent"
-                android:layout_height="286dp"
+                android:layout_height="330dp"
                 android:choiceMode="singleChoice"
                 android:descendantFocusability="blocksDescendants"
                 android:divider="@null"
@@ -238,14 +184,10 @@
                 android:background="@color/black" />
         </TableLayout>
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="14dp" >
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/activity_table"
                 android:layout_alignParentBottom="true"
                 android:gravity="center" >
 
@@ -274,15 +216,6 @@
                     android:layout_marginRight="24dp"
                     android:src="@drawable/next" />
             </LinearLayout>
-
-            <Button
-                android:id="@+id/add_competitor_product_stock_check"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentRight="true"
-                android:text="@string/add_competitor_product_stock_check" />
-        </RelativeLayout>
 
         <TextView
             android:id="@+id/status_list_view"

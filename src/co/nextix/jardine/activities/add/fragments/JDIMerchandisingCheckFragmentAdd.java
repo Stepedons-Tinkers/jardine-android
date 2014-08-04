@@ -1,17 +1,15 @@
 package co.nextix.jardine.activities.add.fragments;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import android.animation.ValueAnimator;
 import android.content.Context;
-import android.content.SharedPreferences;
-import android.content.SharedPreferences.Editor;
-import android.graphics.LightingColorFilter;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,44 +20,56 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activites.fragments.adapters.AddIdentifyProductFocusCustomAdapter;
+import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
+import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
+import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
+import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.ProductRecord;
-import co.nextix.jardine.database.tables.ProductTable;
 import co.nextix.jardine.keys.Constant;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
 
-public class AddIdentifyProductFocusFragment extends Fragment {
+public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 
-	private AddIdentifyProductFocusCustomAdapter adapter = null;
-	private ArrayList<ProductRecord> realRecord = null;
-	private ArrayList<ProductRecord> tempRecord = null;
-	private ArrayList<ProductRecord> itemSearch = null;
+	private JDIMerchandisingCheckCustomAdapterAdd adapter = null;
+	private ArrayList<JDImerchandisingCheckRecord> realRecord = null;
+	private ArrayList<JDImerchandisingCheckRecord> tempRecord = null;
+	private ArrayList<JDImerchandisingCheckRecord> itemSearch = null;
 	private Context CustomListView = null;
 	private View view = null;
 	private ListView list = null;
+
 	private int rowSize = 5;
 	private int totalPage = 0;
 	private int currentPage = 0;
 
-
-	private Bundle bundle;
-	private int frag_layout_id;
+	private FragmentTransaction ft;
+	private Fragment fragmentForTransition;
 	private boolean flag = false;
+	private int frag_layout_id = 0;
+	private Bundle bundle;
 
-	public AddIdentifyProductFocusFragment() {
-		this.itemSearch = new ArrayList<ProductRecord>();
+	public JDIMerchandisingCheckFragmentAdd() {
+		this.itemSearch = new ArrayList<JDImerchandisingCheckRecord>();
 	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		view = inflater.inflate(R.layout.fragment_activity_add_identify_product_focus, container, false);
+		getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+		/******** Take some data in Arraylist ( CustomListViewValuesArr ) ***********/
+
+		this.view = inflater.inflate(R.layout.fragment_activity_jdi_merchandising_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -68,57 +78,11 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 			frag_layout_id = bundle.getInt("layoutID");
 		}
 
-		// ONCLICK sa mga buttons sa fragment
-		((Button) view.findViewById(R.id.select_products)).setOnClickListener(new OnClickListener() {
+		bundle = new Bundle();
 
-			@Override
-			public void onClick(View v) {
-				v.getBackground().setColorFilter(new LightingColorFilter(0x0033FF, 0x0066FF));
+		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
-				android.support.v4.app.Fragment newFragment = new AddCompetitorStockCheckFragment(AddIdentifyProductFocusFragment.this);
-
-				// Create new transaction
-				android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
-						.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
-
-				// Replace whatever is in the fragment_container view with this
-				// fragment,
-				// and add the transaction to the back stack
-				transaction.replace(frag_layout_id, newFragment);
-				transaction.addToBackStack(null);
-
-				// Commit the transaction
-				transaction.commit();
-			}
-		});
-
-		((ImageButton) view.findViewById(R.id.imageButton1)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (currentPage > 0) {
-					currentPage--;
-					addItem(currentPage);
-				}
-				// Toast.makeText(getActivity(), "<==== ni sud here",
-				// Toast.LENGTH_SHORT).show();
-			}
-		});
-
-		((ImageButton) view.findViewById(R.id.imageButton3)).setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				if (currentPage < totalPage - 1) {
-					currentPage++;
-					addItem(currentPage);
-				}
-				// Toast.makeText(getActivity(), "ni sud here ====>",
-				// Toast.LENGTH_SHORT).show();
-			}
-		});
-
-		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new View.OnClickListener() {
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
@@ -126,6 +90,7 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 				v.setEnabled(false);
 
 				if (((CircularProgressButton) v).getProgress() == 0) {
+
 					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
 					widthAnimation.setDuration(500);
 					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
@@ -137,31 +102,22 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 							((CircularProgressButton) v).setProgress(value);
 
 							if (!flag) {
-
 								((CircularProgressButton) v).setProgress(-1);
 							}
 						}
 					});
 
 					widthAnimation.start();
-					
+
 					/** Checking of required fields **/
-					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					//TODO !!!!!!
-					if (Constant.addProductFocusRecords.size() > 0) {
-
+					if (Constant.addJDImerchandisingCheckRecords.size() > 0) {
 						flag = true;
-						Editor editor = pref.edit();
-						// editor.putLong("identify_focus",
-						// identifyProductFocus);
-						editor.commit();
-
 						v.setClickable(true);
 						v.setEnabled(true);
-
 					} else {
 						flag = false;
-						Toast.makeText(getActivity(), "Please select at least 1", Toast.LENGTH_SHORT).show();
+						v.setClickable(true);
+						v.setEnabled(true);
 
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
@@ -169,69 +125,123 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 							@Override
 							public void run() {
 								((CircularProgressButton) v).setProgress(0);
-								v.setClickable(true);
-								v.setEnabled(true);
+
 							}
-						}, 1500);
+						}, 750);
 					}
 
 				} else {
+
 					((CircularProgressButton) v).setProgress(0);
-					((CircularProgressButton) v).setClickable(true);
-					((CircularProgressButton) v).setEnabled(true);
-					
-					
-					if (AddActivityGeneralInformationFragment.ActivityType == 102) { // product
-																					// focus
-					DashBoardActivity.tabIndex.add(4, 16);
-					AddActivityFragment.pager.setCurrentItem(16);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+						DashBoardActivity.tabIndex.add(6, 9);
+						AddActivityFragment.pager.setCurrentItem(9);
+					}
 				}
-
-					// insert then pop all backstack
-				}
-
-				
-
-				// String names = "";
-				// for (int i = 0; i < passValues.size(); i++) {
-				// names = names + passValues.get(i) + "\n";
-				// }
-				// Toast.makeText(getActivity(), names,
-				// Toast.LENGTH_SHORT).show();
 			}
 		});
 
-		return view;
-	}
+		((Button) this.view.findViewById(R.id.add_jdi_merchandising_check)).setOnClickListener(new OnClickListener() {
 
-	public void setListData() {
-		this.realRecord = new ArrayList<ProductRecord>();
-		this.tempRecord = new ArrayList<ProductRecord>();
+			@Override
+			public void onClick(View v) {
+				// v.getBackground().setColorFilter(new
+				// LightingColorFilter(0x0033FF, 0x0066FF));
 
-		ProductTable table = JardineApp.DB.getProduct();
-		List<ProductRecord> records = table.getAllRecords();
-		this.realRecord.addAll(records);
+				if (Constant.addJDImerchandisingCheckRecords.size() < 5) {
 
-		Log.d("Jardine", "ActivityRecord" + String.valueOf(records.size()));
+					Fragment newFragment = new AddJDIMerchandisingStockFragment(JDIMerchandisingCheckFragmentAdd.this);
 
-		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					ProductRecord rec = new ProductRecord();
-					realRecord.add(rec);
+					// Create new transaction
+					FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
+							.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+
+					// Replace whatever is in the fragment_container view with
+					// this
+					// fragment,
+					// and add the transaction to the back stack
+
+					/**
+					 * NATNAT KANI AKO PASABOT NGA PATABANG KO GE UNSA NI NGA
+					 * MAWALA MAN NIG BALIK
+					 */
+
+					transaction.replace(R.id.fake_layout, newFragment);
+					transaction.addToBackStack(null);
+
+					// Commit the transaction
+					transaction.commit();
+
+				} else {
+					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
 				}
 			}
+		});
 
-			this.totalPage = realRecord.size() / rowSize;
-			addItem(currentPage);
+		((ImageButton) this.view.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
+			@Override
+			public void onClick(View v) {
+
+				if (currentPage > 0) {
+					currentPage--;
+					addItem(currentPage);
+				}
+			}
+		});
+
+		((ImageButton) this.view.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+
+				if (currentPage < totalPage - 1) {
+					currentPage++;
+					addItem(currentPage);
+				}
+			}
+		});
+
+		return this.view;
+	}
+
+	/****** Function to set data in ArrayList *************/
+	public void setListData() {
+		this.realRecord = new ArrayList<JDImerchandisingCheckRecord>();
+		this.tempRecord = new ArrayList<JDImerchandisingCheckRecord>();
+
+		// JDImerchandisingCheckTable table =
+		// JardineApp.DB.getJDImerchandisingCheck();
+		// List<JDImerchandisingCheckRecord> records = table.getAllRecords();
+
+		if (Constant.addJDImerchandisingCheckRecords != null && Constant.addJDImerchandisingCheckRecords.size() > 0) {
+			this.realRecord.addAll(Constant.addJDImerchandisingCheckRecords);
+
+			if (realRecord.size() > 0) {
+				int remainder = realRecord.size() % rowSize;
+				if (remainder > 0) {
+					for (int i = 0; i < rowSize - remainder; i++) {
+						JDImerchandisingCheckRecord rec = new JDImerchandisingCheckRecord();
+						realRecord.add(rec);
+					}
+				}
+
+				this.totalPage = realRecord.size() / rowSize;
+				addItem(currentPage);
+
+			} else {
+
+				this.setView();
+				this.isListHasNoData();
+				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
+			}
 		} else {
 
 			this.setView();
 			this.isListHasNoData();
-			// ((TextView)
-			// this.myFragmentView.findViewById(R.id.status_list_view)).setText("The database is still empty. Wanna sync first?");
 		}
 	}
 
@@ -241,7 +251,11 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		int temp = currentPage + 1;
 		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
-		for (int j = 0; j < rowSize; j++) {
+		int rows = rowSize;
+		if (realRecord.size() < rows)
+			rows = realRecord.size();
+		for (int j = 0; j < rows; j++) {
+			// for (int j = 0; j < rowSize; j++) {
 			tempRecord.add(j, realRecord.get(count));
 			count = count + 1;
 		}
@@ -254,29 +268,21 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.view.findViewById(R.id.list);
-
-		this.adapter = new AddIdentifyProductFocusCustomAdapter(CustomListView, getActivity(), list, this.tempRecord, this);
-		// this.adapter = new MarketingIntelCustomAdapter(this.CustomListView,
-		// getActivity(), list, this.tempRecord, this);
-
-		this.list.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
+		this.adapter = new JDIMerchandisingCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
+
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				// CheckBox check = (CheckBox)view.findViewById(R.id.checkbox1);
-				// if(check.isChecked())
-				// check.setChecked(true);
-				// else
-				// check.setChecked(false);
+
 			}
 		});
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
+	// Event item listener
 	public void onItemClick(int mPosition) {
-		// ProductRecord tempValues = (ProductRecord)
-		// this.tempRecord.get(mPosition);
+		JDImerchandisingCheckRecord tempValues = (JDImerchandisingCheckRecord) this.tempRecord.get(mPosition);
 
 		// SharedPreferences pref =
 		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
@@ -321,41 +327,33 @@ public class AddIdentifyProductFocusFragment extends Fragment {
 		// + JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 		//
 		// editor.commit();
-		//
-		// android.support.v4.app.Fragment fragment = new
-		// ActivityInfoFragment();
-		// android.support.v4.app.FragmentManager fragmentManager =
-		// getActivity().getSupportFragmentManager();
-		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
-		// R.anim.slide_out_left)
-		// .replace(R.id.frame_container,
-		// fragment).addToBackStack(null).commit();
-		// Fragment fragment = new ProductFocusDetailFragment();
-		// bundle.putLong("product_id", tempValues.getId());
+
+		// Fragment fragment = new JDIMerchandisingCheckDetailFragment();
+		// bundle.putLong("merchandising_id", tempValues.getId());
 		// fragment.setArguments(bundle);
 		// FragmentManager fragmentManager =
 		// getActivity().getSupportFragmentManager();
 		// fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left,
 		// R.anim.slide_out_left)
-		// .replace(frag_layout_id, fragment).addToBackStack(null).commit();
-
+		// .replace(R.id.layoutForAddingFrag,
+		// fragment).addToBackStack(null).commit();
 	}
 
+	// TODO Protected before but was changed to public due to some issues
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
 		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
 		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		// ((TextView)
-		// this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {
 		this.setListData();
 	}
+
 }
