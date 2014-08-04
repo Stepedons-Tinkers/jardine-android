@@ -159,8 +159,12 @@ public class SyncMenuBarFragment extends Fragment {
 	protected PowerManager.WakeLock mWakeLock;
 	boolean isCancelled = false;
 	boolean isConnected = true;
+	public static Context CONTEXT;
 
-	public SyncMenuBarFragment() {
+	public static Fragment newInstance(Context context) {
+		SyncMenuBarFragment fragment = new SyncMenuBarFragment();
+		CONTEXT = context;
+		return fragment;
 	}
 
 	@SuppressWarnings("deprecation")
@@ -4904,8 +4908,7 @@ public class SyncMenuBarFragment extends Fragment {
 
 	private void finishAlert() {
 
-		AlertDialog.Builder builderSingle = new AlertDialog.Builder(
-				getActivity());
+		AlertDialog.Builder builderSingle = new AlertDialog.Builder(CONTEXT);
 		builderSingle.setMessage("Syncing Complete!");
 		builderSingle.setPositiveButton("OK",
 				new DialogInterface.OnClickListener() {

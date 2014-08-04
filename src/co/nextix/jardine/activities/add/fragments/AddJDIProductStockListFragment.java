@@ -49,8 +49,8 @@ public class AddJDIProductStockListFragment extends Fragment implements
 		nextButton = (Button) view.findViewById(R.id.jdiprodadd_button_next);
 
 		addButton.setVisibility(View.VISIBLE);
-		cancelButton.setVisibility(View.VISIBLE);
-		nextButton.setVisibility(View.VISIBLE);
+//		cancelButton.setVisibility(View.VISIBLE);
+//		nextButton.setVisibility(View.VISIBLE);
 
 		addButton.setOnClickListener(this);
 		cancelButton.setOnClickListener(this);
@@ -66,14 +66,19 @@ public class AddJDIProductStockListFragment extends Fragment implements
 	}
 
 	public void populate() {
-		Log.e(JardineApp.TAG, "onStart: size "
-				+ Constant.addJDIproductStockCheckRecords.size());
+		
 		if (Constant.addJDIproductStockCheckRecords != null) {
 			adapter = new JDIproductStockListAdapter(getActivity(),
 					R.layout.table_row_items_six_columns,
 					Constant.addJDIproductStockCheckRecords);
 			list.setAdapter(adapter);
 			adapter.notifyDataSetChanged();
+			
+			if(Constant.addJDIproductStockCheckRecords.size() > 0){
+				nextButton.setVisibility(View.VISIBLE);
+			}
+		}else{
+			nextButton.setVisibility(View.GONE);
 		}
 	}
 

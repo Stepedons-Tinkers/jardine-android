@@ -577,7 +577,7 @@ public class CreateRequests {
 				requestObject.put("z_ac_reasonremarks", records.get(x)
 						.getReasonRemarks());
 				// get smr from db
-				String smr = smrTable.getNoById(records.get(x).getSmr());
+				String smr = userTable.getNoById(records.get(x).getSmr());
 				requestObject.put("z_ac_smr", smr);
 				requestObject.put("z_ac_venue", records.get(x).getVenue());
 				// get workplanEntry from db

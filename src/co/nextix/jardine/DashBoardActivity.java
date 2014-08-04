@@ -224,7 +224,7 @@ public class DashBoardActivity extends FragmentActivity implements OnHeadlineSel
 			fragment = new ProfileFragment();
 			break;
 		case 2:
-			fragment = new SyncMenuBarFragment();
+			fragment = SyncMenuBarFragment.newInstance(DashBoardActivity.this);
 			break;
 		case 3:
 			fragment = new WorkplanMenuBarFragment();
