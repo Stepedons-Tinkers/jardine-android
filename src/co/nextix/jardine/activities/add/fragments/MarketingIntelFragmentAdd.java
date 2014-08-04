@@ -76,7 +76,7 @@ public class MarketingIntelFragmentAdd extends Fragment {
 				// LightingColorFilter(0x0033FF, 0x0066FF));
 
 				if (Constant.addMarketingIntelRecords.size() < 5) {
-					android.support.v4.app.Fragment newFragment = new AddMarketingIntelFragment(MarketingIntelFragmentAdd.this);
+					android.support.v4.app.Fragment newFragment = AddMarketingIntelFragment.newInstance(MarketingIntelFragmentAdd.this);
 
 					// Create new transaction
 					android.support.v4.app.FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction()
@@ -318,13 +318,13 @@ public class MarketingIntelFragmentAdd extends Fragment {
 		// + JardineApp.DB.getUser().getCurrentUser().getFirstNameName()));
 		//
 		// editor.commit();
-
-		Fragment fragment = new MarketingIntelDetailFragment();
-		bundle.putLong("marketing_intel_id", tempValues.getId());
-		fragment.setArguments(bundle);
-		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
+//
+//		Fragment fragment = new MarketingIntelDetailFragment();
+//		bundle.putLong("marketing_intel_id", tempValues.getId());
+//		fragment.setArguments(bundle);
+//		FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+//		fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
+//				.replace(frag_layout_id, fragment).addToBackStack(null).commit();
 		// android.support.v4.app.Fragment fragment = new
 		// ActivityInfoFragment();
 		// android.support.v4.app.FragmentManager fragmentManager =

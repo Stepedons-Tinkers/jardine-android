@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.animation.ValueAnimator;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -38,10 +39,15 @@ public class AddMarketingIntelFragment extends Fragment {
 	private ArrayAdapter<CompetitorProductRecord> competitorProductAdapter = null;
 	private boolean flag = false;
 	private CircularProgressButton btn = null;
-	private Fragment frag = null;
+	public Fragment frag = null;
 
-	public AddMarketingIntelFragment(Fragment frag) {
-		this.frag = frag;
+	public AddMarketingIntelFragment() {
+	}
+	
+	public static Fragment newInstance(Fragment frag){
+		AddMarketingIntelFragment fragment = new AddMarketingIntelFragment();
+		fragment.frag = frag;
+		return fragment;
 	}
 
 	// Container Activity must implement this interface
@@ -168,8 +174,12 @@ public class AddMarketingIntelFragment extends Fragment {
 
 					widthAnimation.start();
 
-					String details = ((EditText) view.findViewById(R.id.details)).getText().toString();
-					String competitorProductString = ((Spinner) view.findViewById(R.id.competitor_product)).getSelectedItem().toString();
+					
+					EditText etDetails = ((EditText) view.findViewById(R.id.details));
+					Spinner spCompetitorProduct = ((Spinner) view.findViewById(R.id.competitor_product));
+					
+					String details = etDetails.getText().toString();
+					String competitorProductString = spCompetitorProduct.getSelectedItem().toString();
 
 					/** Checking of required fields **/
 

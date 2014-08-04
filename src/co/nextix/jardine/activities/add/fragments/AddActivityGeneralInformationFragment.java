@@ -425,7 +425,15 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						Toast.makeText(getActivity(),
 								"Please fill up required (RED COLOR) fields",
 								Toast.LENGTH_LONG).show();
-
+//						spin.setBackgroundColor(R.color.red);
+//						spin.setOnClickListener(new OnClickListener() {
+//							
+//							@Override
+//							public void onClick(View v) {
+//								// TODO Auto-generated method stub
+////								spin.setBackgroundColor(R.color.red);
+//							}
+//						});
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 
