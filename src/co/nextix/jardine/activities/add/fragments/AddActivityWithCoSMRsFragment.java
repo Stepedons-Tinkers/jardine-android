@@ -22,6 +22,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.SMRRecord;
 import co.nextix.jardine.database.records.UserRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 
@@ -97,7 +98,10 @@ public class AddActivityWithCoSMRsFragment extends Fragment {
 
 					widthAnimation.start();
 
-					String smrString = ((Spinner) rootView.findViewById(R.id.smr)).getSelectedItem().toString();
+					Spinner smrSpinner = (Spinner) rootView.findViewById(R.id.smr);
+					long smrId = ((SMRRecord) smrSpinner.getSelectedItem()).getId();
+					String smrString = ((SMRRecord) smrSpinner.getSelectedItem()).toString();
+					Constant.activityGeneralInfo.setSmr(smrId);
 
 					/** Checking of required fields **/
 					final SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

@@ -17,6 +17,8 @@ import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.keys.Constant;
+import co.nextix.jardine.utils.Tools;
 
 import com.dd.CircularProgressButton;
 
@@ -77,6 +79,9 @@ public class AddActivityTrainingsFragment extends Fragment {
 
 					String venue = ((EditText) rootView.findViewById(R.id.venue)).getText().toString();
 					String noOfAttendess = ((EditText) rootView.findViewById(R.id.no_of_attendees)).getText().toString();
+					
+					Constant.activityGeneralInfo.setVenue(venue);
+					Constant.activityGeneralInfo.setNumberOfAttendees(Tools.parseIntWithDefault(noOfAttendess, 0));
 
 					/** Checking of required fields **/
 					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);

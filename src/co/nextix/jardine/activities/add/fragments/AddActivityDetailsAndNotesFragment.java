@@ -36,6 +36,7 @@ import co.nextix.jardine.database.records.ProvinceRecord;
 import co.nextix.jardine.database.records.WorkplanEntryRecord;
 import co.nextix.jardine.database.tables.picklists.PCityTownTable;
 import co.nextix.jardine.database.tables.picklists.PProvinceTable;
+import co.nextix.jardine.keys.Constant;
 
 import com.dd.CircularProgressButton;
 
@@ -98,7 +99,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 				CustomerRecord cRecord = (CustomerRecord) parent.getAdapter()
 						.getItem(position);
-					ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD = cRecord;
+				ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD = cRecord;
 			}
 
 			@Override
@@ -357,6 +358,28 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								followUpCommittmentDate = ((TextView) rootView
 										.findViewById(R.id.follow_up_commitment_date))
 										.getText().toString();
+
+								Constant.activityGeneralInfo
+										.setCustomer(customer);
+								Constant.activityGeneralInfo.setArea(area);
+								Constant.activityGeneralInfo
+										.setProvince(province);
+								Constant.activityGeneralInfo.setCity(cityTown);
+								Constant.activityGeneralInfo
+										.setObjective(objective);
+								Constant.activityGeneralInfo
+										.setWorkplanEntry(workplanEntry);
+								Constant.activityGeneralInfo
+										.setFirstTimeVisit(firstTimeVisit);
+								Constant.activityGeneralInfo
+										.setPlannedVisit(plannedTimeVisit);
+								Constant.activityGeneralInfo
+										.setHighlights(highlights);
+								Constant.activityGeneralInfo.setNotes(notes);
+								Constant.activityGeneralInfo
+										.setNextSteps(nextSteps);
+								Constant.activityGeneralInfo
+										.setFollowUpCommitmentDate(followUpCommittmentDate);
 
 							} catch (Exception e) {
 

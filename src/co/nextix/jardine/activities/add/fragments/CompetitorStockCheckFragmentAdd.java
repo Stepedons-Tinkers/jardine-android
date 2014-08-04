@@ -141,8 +141,8 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 //							@Override
 //							public void run() {
 //								flag = false;
-//								v.setClickable(true);
-//								v.setEnabled(true);
+								v.setClickable(true);
+								v.setEnabled(true);
 //								((CircularProgressButton) v).setProgress(0);
 //
 //							}
