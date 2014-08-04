@@ -1,4 +1,4 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.collaterals;
 
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
@@ -10,12 +10,6 @@ import android.widget.TabHost;
 import android.widget.TextView;
 import android.widget.TabHost.OnTabChangeListener;
 import co.nextix.jardine.R;
-import co.nextix.jardine.collaterals.CollateralsConstants;
-import co.nextix.jardine.collaterals.CollateralsEventFiles;
-import co.nextix.jardine.collaterals.CollateralsEventProtocols;
-import co.nextix.jardine.collaterals.CollateralsGeneralInformation;
-import co.nextix.jardine.collaterals.CollateralsMarketingMaterials;
-import co.nextix.jardine.collaterals.CollateralsSalesProtocols;
 import co.nextix.jardine.view.group.utils.TabFactory;
 
 public class CollateralsMenuBarFragment extends Fragment implements

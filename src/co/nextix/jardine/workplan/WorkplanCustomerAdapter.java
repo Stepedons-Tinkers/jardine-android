@@ -1,4 +1,4 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.workplan;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package co.nextix.jardine.fragments;
+package co.nextix.jardine.workplan;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -48,8 +48,6 @@ import co.nextix.jardine.security.StoreAccount;
 import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
-import co.nextix.jardine.workplan.AdapterWorkplanEntry;
-import co.nextix.jardine.workplan.WorkPlanFragmentDetails;
 
 public class WorkplanMenuBarFragment extends Fragment implements
 		OnClickListener {
