@@ -4995,7 +4995,7 @@ public class SyncMenuBarFragment extends Fragment {
 				new CreateDocumentsTask().execute();
 			} else {
 				dialog.dismiss();
-				Toast.makeText(getActivity(),
+				Toast.makeText(CONTEXT,
 						"Please Check Internet Connection!", Toast.LENGTH_LONG)
 						.show();
 			}
