@@ -3,10 +3,15 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dd.CircularProgressButton;
+
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +19,16 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
@@ -31,14 +40,18 @@ import co.nextix.jardine.activites.fragments.detail.JDIProductStockCheckDetailFr
 import co.nextix.jardine.activites.fragments.detail.ProductSupplierDetailFragment;
 import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
+import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
+import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.database.tables.ActivityTable;
 import co.nextix.jardine.database.tables.JDImerchandisingCheckTable;
 import co.nextix.jardine.database.tables.JDIproductStockCheckTable;
 import co.nextix.jardine.database.tables.ProductSupplierTable;
 import co.nextix.jardine.keys.Constant;
+import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 public class AddActivityProductSupplierListFragment extends Fragment {
@@ -55,6 +68,8 @@ public class AddActivityProductSupplierListFragment extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+	
+	private boolean flag = false;
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
@@ -117,34 +132,105 @@ public class AddActivityProductSupplierListFragment extends Fragment {
 						}
 					}
 				});
+		
+		((CircularProgressButton) myFragmentView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
-				.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
 
-					@Override
-					public void onClick(View v) {
-						// Toast.makeText(getActivity(), "<==== ni sud here",
-						// Toast.LENGTH_SHORT).show();
-						if (currentPage > 0) {
-							currentPage--;
-							addItem(currentPage);
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+								((CircularProgressButton) v).setProgress(-1);
+							}
 						}
-					}
-				});
+					});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
-				.setOnClickListener(new OnClickListener() {
+					widthAnimation.start();
 
-					@Override
-					public void onClick(View v) {
-						// Toast.makeText(getActivity(), "ni sud here ====>",
-						// Toast.LENGTH_SHORT).show();
-						if (currentPage < totalPage - 1) {
-							currentPage++;
-							addItem(currentPage);
-						}
+					
+					/** Checking of required fields **/
+					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+					if (Constant.addProductSupplierRecords.size() != 0) {
+						
+						flag = true;
+						
+						v.setClickable(true);
+						v.setEnabled(true);
+
+					} else {
+						flag = false;
+						Toast.makeText(getActivity(), "Please add at least one Product Supplier", Toast.LENGTH_SHORT).show();
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(-1);
+								v.setClickable(true);
+								v.setEnabled(true);
+							}
+						}, 1500);
+						
+						
 					}
-				});
+
+				} else {
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+						DashBoardActivity.tabIndex.add(5, 8);
+						AddActivityFragment.pager.setCurrentItem(8);
+					}
+//					getFragmentManager().popBackStackImmediate();
+
+				}
+			}
+		});
+
+//		((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
+//				.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						// Toast.makeText(getActivity(), "<==== ni sud here",
+//						// Toast.LENGTH_SHORT).show();
+//						if (currentPage > 0) {
+//							currentPage--;
+//							addItem(currentPage);
+//						}
+//					}
+//				});
+//
+//		((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
+//				.setOnClickListener(new OnClickListener() {
+//
+//					@Override
+//					public void onClick(View v) {
+//						// Toast.makeText(getActivity(), "ni sud here ====>",
+//						// Toast.LENGTH_SHORT).show();
+//						if (currentPage < totalPage - 1) {
+//							currentPage++;
+//							addItem(currentPage);
+//						}
+//					}
+//				});
 
 		return myFragmentView;
 	}

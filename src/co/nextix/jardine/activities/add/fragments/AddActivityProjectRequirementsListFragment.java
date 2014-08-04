@@ -3,10 +3,14 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dd.CircularProgressButton;
+
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -14,12 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
@@ -60,6 +66,8 @@ public class AddActivityProjectRequirementsListFragment extends Fragment {
 
 	private ActivityRecord activityRecord = null;
 	private SharedPreferences pref = null;
+
+	private boolean flag = false;
 
 	AddActivityProjectRequirementsFragment fragment = new AddActivityProjectRequirementsFragment();
 
@@ -120,30 +128,113 @@ public class AddActivityProjectRequirementsListFragment extends Fragment {
 					}
 				});
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
+		// ((ImageButton) myFragmentView.findViewById(R.id.imageButton1))
+		// .setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// // Toast.makeText(getActivity(), "<==== ni sud here",
+		// // Toast.LENGTH_SHORT).show();
+		// if (currentPage > 0) {
+		// currentPage--;
+		// addItem(currentPage);
+		// }
+		// }
+		// });
+		//
+		// ((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
+		// .setOnClickListener(new OnClickListener() {
+		//
+		// @Override
+		// public void onClick(View v) {
+		// // Toast.makeText(getActivity(), "ni sud here ====>",
+		// // Toast.LENGTH_SHORT).show();
+		// if (currentPage < totalPage - 1) {
+		// currentPage++;
+		// addItem(currentPage);
+		// }
+		// }
+		// });
+
+		((CircularProgressButton) myFragmentView
+				.findViewById(R.id.btnWithText1))
 				.setOnClickListener(new OnClickListener() {
 
 					@Override
-					public void onClick(View v) {
-						// Toast.makeText(getActivity(), "<==== ni sud here",
-						// Toast.LENGTH_SHORT).show();
-						if (currentPage > 0) {
-							currentPage--;
-							addItem(currentPage);
-						}
-					}
-				});
+					public void onClick(final View v) {
+						v.setClickable(false);
+						v.setEnabled(false);
 
-		((ImageButton) myFragmentView.findViewById(R.id.imageButton3))
-				.setOnClickListener(new OnClickListener() {
+						if (((CircularProgressButton) v).getProgress() == 0) {
 
-					@Override
-					public void onClick(View v) {
-						// Toast.makeText(getActivity(), "ni sud here ====>",
-						// Toast.LENGTH_SHORT).show();
-						if (currentPage < totalPage - 1) {
-							currentPage++;
-							addItem(currentPage);
+							ValueAnimator widthAnimation = ValueAnimator.ofInt(
+									1, 100);
+							widthAnimation.setDuration(500);
+							widthAnimation
+									.setInterpolator(new AccelerateDecelerateInterpolator());
+							widthAnimation
+									.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+
+										@Override
+										public void onAnimationUpdate(
+												ValueAnimator animation) {
+
+											Integer value = (Integer) animation
+													.getAnimatedValue();
+											((CircularProgressButton) v)
+													.setProgress(value);
+
+											if (!flag) {
+												((CircularProgressButton) v)
+														.setProgress(-1);
+											}
+										}
+									});
+
+							widthAnimation.start();
+
+							/** Checking of required fields **/
+							SharedPreferences pref = getActivity()
+									.getApplicationContext()
+									.getSharedPreferences("ActivityInfo", 0);
+							// if (Constant.addProductSupplierRecords.size() !=
+							// 0) {
+
+							flag = true;
+
+							v.setClickable(true);
+							v.setEnabled(true);
+
+							// } else {
+							// flag = false;
+							// Toast.makeText(getActivity(),
+							// "Please add at least one Product Supplier",
+							// Toast.LENGTH_SHORT).show();
+							//
+							// Handler handler = new Handler();
+							// handler.postDelayed(new Runnable() {
+							//
+							// @Override
+							// public void run() {
+							// ((CircularProgressButton) v).setProgress(-1);
+							// v.setClickable(true);
+							// v.setEnabled(true);
+							// }
+							// }, 1500);
+							// }
+
+						} else {
+							((CircularProgressButton) v).setProgress(0);
+							v.setClickable(true);
+							v.setEnabled(true);
+
+							if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+								// visits
+								DashBoardActivity.tabIndex.add(6, 16);
+								AddActivityFragment.pager.setCurrentItem(16);
+							}
+							// getFragmentManager().popBackStackImmediate();
+
 						}
 					}
 				});
@@ -198,16 +289,17 @@ public class AddActivityProjectRequirementsListFragment extends Fragment {
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
 		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
-		this.adapter = new AddProjectRequirementsCustomAdapter(this.CustomListView,
-				getActivity(), this.tempRecord, this);
+		this.adapter = new AddProjectRequirementsCustomAdapter(
+				this.CustomListView, getActivity(), this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		ListViewUtility.setListViewHeightBasedOnChildren(list);
 	}
 
 	// Event item listener
 	public void onItemClick(int mPosition) {
-//		ProjectRequirementRecord tempValues = (ProjectRequirementRecord) this.tempRecord
-//				.get(mPosition);
+		// ProjectRequirementRecord tempValues = (ProjectRequirementRecord)
+		// this.tempRecord
+		// .get(mPosition);
 
 		// JDIproductStockCheckRecord ar = (JDIproductStockCheckRecord)
 		// this.list.getAdapter().getItem(mPosition);
@@ -221,17 +313,17 @@ public class AddActivityProjectRequirementsListFragment extends Fragment {
 		// .addToBackStack(JardineApp.TAG).commit();
 		// }
 
-//		Fragment fragment = new ProductSupplierDetailFragment();
-//		bundle.putLong("product_id", tempValues.getId());
-//		fragment.setArguments(bundle);
-//		FragmentManager fragmentManager = getActivity()
-//				.getSupportFragmentManager();
-//		fragmentManager
-//				.beginTransaction()
-//				.setCustomAnimations(R.anim.slide_in_left,
-//						R.anim.slide_out_left)
-//				.replace(frag_layout_id, fragment).addToBackStack(null)
-//				.commit();
+		// Fragment fragment = new ProductSupplierDetailFragment();
+		// bundle.putLong("product_id", tempValues.getId());
+		// fragment.setArguments(bundle);
+		// FragmentManager fragmentManager = getActivity()
+		// .getSupportFragmentManager();
+		// fragmentManager
+		// .beginTransaction()
+		// .setCustomAnimations(R.anim.slide_in_left,
+		// R.anim.slide_out_left)
+		// .replace(frag_layout_id, fragment).addToBackStack(null)
+		// .commit();
 
 	}
 
