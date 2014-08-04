@@ -47,7 +47,7 @@ public class AddActivityFragment extends Fragment {
 	public static boolean fromOther = true;
 
 	private Bundle bundle;
-	private long activityID = 0;
+	public static long activityID = 0;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -76,8 +76,6 @@ public class AddActivityFragment extends Fragment {
 
 		if (activityID != 0) {
 			// query
-
-			Log.e("activityID", "not zero");
 
 			ActivitiesConstant.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(this.activityID);
 			SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
@@ -116,6 +114,9 @@ public class AddActivityFragment extends Fragment {
 			editor.putInt("activity_id_number_of_attendees", ActivitiesConstant.ACTIVITY_RECORD.getNumberOfAttendees());
 			editor.putString("activity_id_end_user_activity_types", ActivitiesConstant.ACTIVITY_RECORD.getEndUserActivityTypes());
 			editor.commit(); // commit changes
+			
+			Log.e("activity_type_number", "" + pref.getLong("activity_id_activity_type", 0));
+			Log.e("activity_type_data", "" + JardineApp.DB.getActivityType().getById(pref.getLong("activity_id_activity_type", 0)).toString());
 		}
 
 		List<Fragment> fragments = getFragments();

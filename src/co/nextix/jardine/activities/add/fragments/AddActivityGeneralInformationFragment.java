@@ -42,18 +42,34 @@ import com.dd.CircularProgressButton;
 
 @SuppressLint("ValidFragment")
 public class AddActivityGeneralInformationFragment extends Fragment {
+
 	private View rootView = null;
+
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
 	private ArrayAdapter<BusinessUnitRecord> activityBusinessAdapter = null;
+
 	private CircularProgressButton saveBtn = null;
 
 	private Calendar calendar = null;
 	private SimpleDateFormat df = null;
+
 	private String formattedDate = null;
+	private String assignedToFname = null;
+	private String assignedToLname = null;
+
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
 	private int flag = 0;
+
+	private EditText eCreatedBy;
+	
+	private TextView tCheckIn;
+	private TextView tCheckOut;
+	private TextView tCrmNo;
+
+	private Spinner sBusinessUnit;
+	private Spinner sActivityType;
 
 	private boolean trapping = false;
 
@@ -70,322 +86,260 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		this.rootView = inflater.inflate(R.layout.add_activity_gen_info,
-				container, false);
+		rootView = inflater.inflate(R.layout.add_activity_gen_info, container,
+				false);
+
+		eCreatedBy = (EditText) rootView.findViewById(R.id.created_by);
+		
+		tCheckIn = (TextView)rootView.findViewById(R.id.check_in);
+		tCheckOut = (TextView)rootView.findViewById(R.id.check_out);
+		tCrmNo = (TextView)rootView.findViewById(R.id.crm_no);
+		
+		tCheckIn.setText(displayCheckIn());
+
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB
 				.getActivityType().getAllRecords();
 		List<BusinessUnitRecord> businessUnitList = JardineApp.DB
 				.getBusinessUnit().getAllRecords();
 
-		String assignedToFname = null;
-		String assignedToLname = null;
+		// ArrayAdapter for spinners
+		activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(
+				JardineApp.context, R.layout.add_activity_textview,
+				activityTypeList);
 
-		// Auto populate fields
-		// Nganung mo null ni siya?..
-		try {
+		activityBusinessAdapter = new ArrayAdapter<BusinessUnitRecord>(
+				JardineApp.context, R.layout.add_activity_textview,
+				businessUnitList);
+		
+		sBusinessUnit = (Spinner) rootView.findViewById(R.id.business_unit);
+		sActivityType = (Spinner) rootView.findViewById(R.id.activity_type);
+		
+		sBusinessUnit.setAdapter(activityBusinessAdapter);
+		sActivityType.setAdapter(activityTypeAdapter);
 
-			assignedToFname = JardineApp.DB
-					.getUser()
-					.getById(
-							StoreAccount.restore(JardineApp.context).getLong(
-									Account.ROWID)).getFirstNameName();
-
-			assignedToLname = JardineApp.DB
-					.getUser()
-					.getById(
-							StoreAccount.restore(JardineApp.context).getLong(
-									Account.ROWID)).getLastname();
-
-		} catch (Exception e) {
-
-		}
-
-		// SharedPreferences pref =
-		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
-		// 0);
-		// long id = pref.getLong("activity_id_edit", 0);
-		//
-		// ActivityRecord record = JardineApp.DB.getActivity().getById(id);
 		DashBoardActivity.fromAddActivities = true;
 		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
 
-		// if (record != null) {
-		//
-		// String checkOut = record.getCheckOut();
-		// long businessUnit = record.getBusinessUnit();
-		// long activityType = record.getActivityType();
-		// long createdBy = record.getCreatedBy();
-		//
-		// if (record.getCrm() != null || !record.getCrm().isEmpty() ||
-		// record.getCheckIn() != null || !record.getCheckIn().isEmpty()
-		// && businessUnit != 0 && activityType != 0 && checkOut != null &&
-		// createdBy != 0) {
-		//
-		// Log.e("condition", "true");
-		// String lastName =
-		// JardineApp.DB.getUser().getById(createdBy).getLastname();
-		// String firstName =
-		// JardineApp.DB.getUser().getById(createdBy).getFirstNameName();
-		//
-		// ((TextView)
-		// this.rootView.findViewById(R.id.crm_no)).setText(record.getCrm());
-		// ((TextView)
-		// this.rootView.findViewById(R.id.check_in)).setText(record.getCheckIn());
-		// ((TextView)
-		// this.rootView.findViewById(R.id.check_out)).setText(checkOut);
-		// ((EditText) this.rootView.findViewById(R.id.created_by)).setText("" +
-		// lastName + ", " + firstName);
-		//
-		// for (int i = 0; i < activityTypeList.size(); i++) {
-		// if (record.getActivityType() == activityTypeList.get(i).getId()) {
-		// ((Spinner)
-		// this.rootView.findViewById(R.id.activity_type)).setSelection(i);
-		// break;
-		// }
-		// }
-		//
-		// for (int i = 0; i < businessUnitList.size(); i++) {
-		// if (record.getBusinessUnit() == businessUnitList.get(i).getId()) {
-		// ((Spinner)
-		// this.rootView.findViewById(R.id.business_unit)).setSelection(i);
-		// break;
-		// }
-		// }
-		// }
-		//
-		// } else {
+		SharedPreferences pref = getActivity().getApplicationContext()
+				.getSharedPreferences("ActivityInfo", 0);
+		if (AddActivityFragment.activityID != 0) {			
+			String crmNo = pref.getString("activity_id_crm_no", null);
+			String checkIn = pref.getString("activity_id_check_in", null);
+			String checkOut = pref.getString("activity_id_check_out", null);
+			String created = pref.getString("activity_id_created_by", null);
+			long unit = pref.getLong("activity_id_business_unit", 0);
+			long type = pref.getLong("activity_id_activity_type", 0);
+			
+			tCrmNo.setText(crmNo);
+			tCheckIn.setText(checkIn);
+			tCheckOut.setText(checkOut);
+			eCreatedBy.setText(created);
+			sBusinessUnit.setSelection(Integer.parseInt(String.valueOf(unit)));
+			
+		} else {
+			try {
+				assignedToFname = JardineApp.DB
+						.getUser()
+						.getById(
+								StoreAccount.restore(JardineApp.context)
+										.getLong(Account.ROWID))
+						.getFirstNameName();
+				assignedToLname = JardineApp.DB
+						.getUser()
+						.getById(
+								StoreAccount.restore(JardineApp.context)
+										.getLong(Account.ROWID)).getLastname();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 
-		Log.e("condition", "false");
+		eCreatedBy.setText(assignedToLname + ", " + assignedToFname);
 
-		// ArrayAdapter for spinners
-		this.activityTypeAdapter = new ArrayAdapter<ActivityTypeRecord>(
-				JardineApp.context, R.layout.add_activity_textview,
-				activityTypeList);
+		sActivityType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
-		this.activityBusinessAdapter = new ArrayAdapter<BusinessUnitRecord>(
-				JardineApp.context, R.layout.add_activity_textview,
-				businessUnitList);
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view,
+					int position, long id) {
+				String activityTypeName = ((ActivityTypeRecord) parent
+						.getSelectedItem()).getName();
+				ArrayList<Integer> indexes = new ArrayList<Integer>();
 
-		// Setting to text field auto populate data
-		((Spinner) this.rootView.findViewById(R.id.business_unit))
-				.setAdapter(this.activityBusinessAdapter);
-		((Spinner) this.rootView.findViewById(R.id.activity_type))
-				.setAdapter(activityTypeAdapter);
-		((EditText) this.rootView.findViewById(R.id.created_by))
-				.setText(assignedToLname + "," + assignedToFname);
-		// }
+				if (activityTypeName.equals("Travel")
+						|| activityTypeName.equals("Waiting")) { // done
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 1;
 
-		((Spinner) this.rootView.findViewById(R.id.activity_type))
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
+				} else if (activityTypeName
+						.equals("Company Work-with Co-SMR/ Supervisor")) { // done
+					indexes.add(1);
+					indexes.add(3);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 43;
 
-					@Override
-					public void onItemSelected(AdapterView<?> parent,
-							View view, int position, long id) {
-						String activityTypeName = ((ActivityTypeRecord) parent
-								.getSelectedItem()).getName();
-						ArrayList<Integer> indexes = new ArrayList<Integer>();
+				} else if (activityTypeName.equals("Admin Work")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(4);
+					indexes.add(5);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					indexes.add(16);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 47;
 
-						if (activityTypeName.equals("Travel")
-								|| activityTypeName.equals("Waiting")) { // done
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(4);
-							indexes.add(5);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							indexes.add(16);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 1;
+				} else if (activityTypeName
+						.equals("Retail Visits (Traditional Hardware)")
+						|| activityTypeName.equals("Retail Visits (Merienda)")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 4;
 
-						} else if (activityTypeName
-								.equals("Company Work-with Co-SMR/ Supervisor")) { // done
-							indexes.add(1);
-							indexes.add(3);
-							indexes.add(4);
-							indexes.add(5);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							indexes.add(16);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 43;
+				} else if (activityTypeName.equals("KI Visits - On-site")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 9;
 
-						} else if (activityTypeName.equals("Admin Work")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(4);
-							indexes.add(5);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							indexes.add(16);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 47;
+				} else if (activityTypeName.contains("Major Training")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(14);
+					indexes.add(15);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 101;
 
-						} else if (activityTypeName
-								.equals("Retail Visits (Traditional Hardware)")
-								|| activityTypeName
-										.equals("Retail Visits (Merienda)")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 4;
+				} else if (activityTypeName.contains("End User Activity")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(15);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 102;
 
-						} else if (activityTypeName
-								.equals("KI Visits - On-site")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 9;
+				} else if (activityTypeName.equals("Full Brand Activation")) { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 41;
 
-						} else if (activityTypeName.contains("Major Training")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(14);
-							indexes.add(15);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 101;
+				} else { // done
+					indexes.add(1);
+					indexes.add(2);
+					indexes.add(3);
+					indexes.add(6);
+					indexes.add(7);
+					indexes.add(8);
+					indexes.add(9);
+					indexes.add(10);
+					indexes.add(11);
+					indexes.add(12);
+					indexes.add(13);
+					indexes.add(14);
+					indexes.add(15);
+					AddActivityFragment.tabs.setViewPagerForDisable(
+							AddActivityFragment.pager, false, indexes);
+					ActivityType = 100;
 
-						} else if (activityTypeName
-								.contains("End User Activity")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(15);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 102;
+				}
+			}
 
-						} else if (activityTypeName
-								.equals("Full Brand Activation")) { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 41;
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-						} else { // done
-							indexes.add(1);
-							indexes.add(2);
-							indexes.add(3);
-							indexes.add(6);
-							indexes.add(7);
-							indexes.add(8);
-							indexes.add(9);
-							indexes.add(10);
-							indexes.add(11);
-							indexes.add(12);
-							indexes.add(13);
-							indexes.add(14);
-							indexes.add(15);
-							AddActivityFragment.tabs.setViewPagerForDisable(
-									AddActivityFragment.pager, false, indexes);
-							ActivityType = 100;
+			}
+		});
 
-						}
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> parent) {
-
-					}
-				});
-
-		((TextView) this.rootView.findViewById(R.id.check_in)).setText(this
-				.displayCheckIn());
-		((TextView) this.rootView.findViewById(R.id.check_in))
-				.setClickable(false);
-		((TextView) this.rootView.findViewById(R.id.check_in))
-				.setFocusable(false);
-		// ((ImageButton)
-		// this.rootView.findViewById(R.id.ibChechOutCalendar)).setOnClickListener(new
-		// OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// flag = 4;
-		// DatePickerDialog pickDialog = new DatePickerDialog(getActivity(),
-		// android.R.style.Theme_Holo_Panel, datePickerListener,
-		// AddActivityGeneralInformationFragment.this.year,
-		// AddActivityGeneralInformationFragment.this.month,
-		// AddActivityGeneralInformationFragment.this.day);
-		// pickDialog.show();
-		// }
-		// });
-
-		this.saveBtn = (CircularProgressButton) this.rootView
+		saveBtn = (CircularProgressButton) rootView
 				.findViewById(R.id.btnWithText1);
-		this.saveBtn.setOnClickListener(new View.OnClickListener() {
+		saveBtn.setOnClickListener(new View.OnClickListener() {
 
 			@Override
 			public void onClick(final View v) {
@@ -413,16 +367,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							});
 
 					widthAnimation.start();
-
-					String crmno = ((TextView) rootView
-							.findViewById(R.id.crm_no)).getText().toString();
-					String checkin = ((TextView) rootView
-							.findViewById(R.id.check_in)).getText().toString();
-					String checkout = ((TextView) rootView
-							.findViewById(R.id.check_out)).getText().toString();
-					long activityType = ((ActivityTypeRecord) ((Spinner) rootView
-							.findViewById(R.id.activity_type))
-							.getSelectedItem()).getId();
+					
+					String crmno = tCrmNo.getText().toString();
+					String checkin = tCheckIn.getText().toString();
+					String checkout = tCheckOut.getText().toString();
+					long activityType = ((ActivityTypeRecord) sActivityType.getSelectedItem()).getId();
 
 					long createdBy = JardineApp.DB.getUser().getCurrentUser()
 							.getId();
