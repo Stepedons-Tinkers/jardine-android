@@ -118,16 +118,8 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 						flag = false;
 						v.setClickable(true);
 						v.setEnabled(true);
-
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-
-							@Override
-							public void run() {
-								((CircularProgressButton) v).setProgress(0);
-
-							}
-						}, 750);
+						Toast.makeText(getActivity().getApplicationContext(), "Can't proceed", Toast.LENGTH_SHORT).show();
+						((CircularProgressButton) v).setProgress(0);
 					}
 
 				} else {
