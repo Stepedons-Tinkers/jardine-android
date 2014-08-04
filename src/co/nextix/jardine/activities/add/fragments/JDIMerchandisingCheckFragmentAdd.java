@@ -152,9 +152,6 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 					 * MAWALA MAN NIG BALIK
 					 */
 					
-					Log.e("fragment","" + (newFragment != null));
-					Log.e("fragment 2", newFragment.toString());
-
 					transaction.replace(R.id.fake_layout_jdi, newFragment);
 					transaction.addToBackStack(null);
 

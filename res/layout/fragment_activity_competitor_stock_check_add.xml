@@ -8,7 +8,7 @@
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="298dp"
+        android:layout_height="match_parent"
         android:background="#ffffff"
         android:fadingEdge="vertical"
         android:fillViewport="true"
@@ -242,6 +242,15 @@
                     android:layout_height="4dp"
                     android:background="@color/black" />
             </TableLayout>
+
+            <Button
+                android:id="@+id/add_competitor_product_stock_check"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="14dp"
+                android:text="@string/add_competitor_product_stock_check" />
         </RelativeLayout>
     </ScrollView>
 
@@ -282,15 +291,6 @@
                 android:layout_marginRight="24dp"
                 android:src="@drawable/next" />
         </LinearLayout>
-
-        <Button
-            android:id="@+id/add_competitor_product_stock_check"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="14dp"
-            android:text="@string/add_competitor_product_stock_check" />
     </RelativeLayout>
 
     <TextView
