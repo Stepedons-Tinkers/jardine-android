@@ -34,10 +34,10 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 	private ArrayAdapter<CompetitorProductRecord> competitorStockAdapter = null;
 	private ArrayAdapter<PicklistRecord> jdiCompetitorStockCheckAdapter = null;
 	private boolean flag = false;
-	
+
 	private Fragment frag = null;
-	
-	public AddCompetitorStockCheckFragment(Fragment frag){
+
+	public AddCompetitorStockCheckFragment(Fragment frag) {
 		this.frag = frag;
 	}
 
@@ -198,7 +198,7 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 						compStockCheck.setCreatedBy(StoreAccount.restore(JardineApp.context).getLong(Account.ROWID));
 						compStockCheck.setOtherRemarks(otherRemarks);
 						Constant.addCompetitorProductRecords.add(compStockCheck);
-						
+
 						CompetitorStockCheckFragmentAdd compStockRecord = (CompetitorStockCheckFragmentAdd) frag;
 						compStockRecord.setListData();
 
@@ -219,10 +219,6 @@ public class AddCompetitorStockCheckFragment extends Fragment {
 					v.setClickable(true);
 					v.setEnabled(true);
 
-					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
-						DashBoardActivity.tabIndex.add(7, 10);
-						AddActivityFragment.pager.setCurrentItem(10);
-					}
 				}
 			}
 		});

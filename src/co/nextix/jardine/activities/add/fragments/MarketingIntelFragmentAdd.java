@@ -86,7 +86,7 @@ public class MarketingIntelFragmentAdd extends Fragment {
 					// this
 					// fragment,
 					// and add the transaction to the back stack
-					transaction.replace(frag_layout_id, newFragment);
+					transaction.replace(R.id.fake_layout, newFragment);
 					transaction.addToBackStack(null);
 
 					// Commit the transaction
@@ -151,27 +151,27 @@ public class MarketingIntelFragmentAdd extends Fragment {
 
 					/** Checking of required fields **/
 
-					if (Constant.addMarketingIntelRecords.size() > 0) {
-
-						flag = true;
+//					if (Constant.addMarketingIntelRecords.size() > 0) {
+//
+//						flag = true;
 						v.setClickable(true);
 						v.setEnabled(true);
 
-					} else {
-						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-
-							@Override
-							public void run() {
-								((CircularProgressButton) v).setProgress(0);
-								v.setClickable(true);
-								v.setEnabled(true);
-							}
-						}, 1500);
-					}
+//					} else {
+//						flag = false;
+//						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
+//
+//						Handler handler = new Handler();
+//						handler.postDelayed(new Runnable() {
+//
+//							@Override
+//							public void run() {
+//								((CircularProgressButton) v).setProgress(0);
+//								v.setClickable(true);
+//								v.setEnabled(true);
+//							}
+//						}, 1500);
+//					}
 
 				} else {
 					((CircularProgressButton) v).setProgress(0);

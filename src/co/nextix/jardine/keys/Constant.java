@@ -2,6 +2,7 @@ package co.nextix.jardine.keys;
 
 import java.util.ArrayList;
 
+import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
@@ -26,5 +27,7 @@ public class Constant {
 	public static ArrayList<ProductRecord> addProductFocusRecords;
 	public static ArrayList<CustomerContactRecord> addCustomerContactRecords;
 	public static ArrayList<DocuInfoRecord> addDocuInfoRecords;
+	
+	public static ActivityRecord activityGeneralInfo;
 	
 }

@@ -23,6 +23,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
+import co.nextix.jardine.keys.Constant;
 
 import com.dd.CircularProgressButton;
 
@@ -34,140 +35,191 @@ public class AddActivityProjectVisitFragment extends Fragment {
 	private boolean flag = false;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		List<PicklistRecord> projectStage = JardineApp.DB.getActivityProjectStage().getAllRecords();
-		List<PicklistRecord> projectCategory = JardineApp.DB.getActivityProjectCategory().getAllRecords();
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		List<PicklistRecord> projectStage = JardineApp.DB
+				.getActivityProjectStage().getAllRecords();
+		List<PicklistRecord> projectCategory = JardineApp.DB
+				.getActivityProjectCategory().getAllRecords();
 
-		this.projectStage = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
+		this.projectStage = new ArrayAdapter<PicklistRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview,
 				projectStage);
-		this.projectCategory = new ArrayAdapter<PicklistRecord>(getActivity().getApplicationContext(), R.layout.add_activity_textview,
+		this.projectCategory = new ArrayAdapter<PicklistRecord>(getActivity()
+				.getApplicationContext(), R.layout.add_activity_textview,
 				projectCategory);
 
-		final View rootView = inflater.inflate(R.layout.add_activity_project_visit, container, false);
-//		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-//		long id = pref.getLong("activity_id_edit", 0);
-//
-//		ActivityRecord record = JardineApp.DB.getActivity().getById(id);
-//
-//		if (record != null) {
-//			String projectName = null;
-//			long projectStageRecord = 0;
-//			long projectCategoryRecord = 0;
-//
-//			try {
-//				projectName = record.getProjectName();
-//				projectStageRecord = record.getProjectStage();
-//				projectCategoryRecord = record.getProjectCategory();
-//
-//			} catch (Exception e) {
-//
-//			}
-//
-//			if (projectName != null || projectStageRecord != 0 || projectCategoryRecord != 0) {
-//				((TextView) rootView.findViewById(R.id.project_name)).setText(projectName);
-//
-//				for (int i = 0; i < projectStage.size(); i++) {
-//					if (projectStage.get(i).getId() == projectStageRecord) {
-//						((Spinner) rootView.findViewById(R.id.project_stage)).setSelection(i);
-//						break;
-//					}
-//				}
-//
-//				for (int i = 0; i < projectCategory.size(); i++) {
-//					if (projectCategory.get(i).getId() == projectCategoryRecord) {
-//						((Spinner) rootView.findViewById(R.id.project_category)).setSelection(i);
-//						break;
-//					}
-//				}
-//			}
-//
-//		}
+		final View rootView = inflater.inflate(
+				R.layout.add_activity_project_visit, container, false);
+		// SharedPreferences pref =
+		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
+		// 0);
+		// long id = pref.getLong("activity_id_edit", 0);
+		//
+		// ActivityRecord record = JardineApp.DB.getActivity().getById(id);
+		//
+		// if (record != null) {
+		// String projectName = null;
+		// long projectStageRecord = 0;
+		// long projectCategoryRecord = 0;
+		//
+		// try {
+		// projectName = record.getProjectName();
+		// projectStageRecord = record.getProjectStage();
+		// projectCategoryRecord = record.getProjectCategory();
+		//
+		// } catch (Exception e) {
+		//
+		// }
+		//
+		// if (projectName != null || projectStageRecord != 0 ||
+		// projectCategoryRecord != 0) {
+		// ((TextView)
+		// rootView.findViewById(R.id.project_name)).setText(projectName);
+		//
+		// for (int i = 0; i < projectStage.size(); i++) {
+		// if (projectStage.get(i).getId() == projectStageRecord) {
+		// ((Spinner)
+		// rootView.findViewById(R.id.project_stage)).setSelection(i);
+		// break;
+		// }
+		// }
+		//
+		// for (int i = 0; i < projectCategory.size(); i++) {
+		// if (projectCategory.get(i).getId() == projectCategoryRecord) {
+		// ((Spinner)
+		// rootView.findViewById(R.id.project_category)).setSelection(i);
+		// break;
+		// }
+		// }
+		// }
+		//
+		// }
 
-		((Spinner) rootView.findViewById(R.id.project_stage)).setAdapter(this.projectStage);
-		((Spinner) rootView.findViewById(R.id.project_category)).setAdapter(this.projectCategory);
+		((Spinner) rootView.findViewById(R.id.project_stage))
+				.setAdapter(this.projectStage);
+		((Spinner) rootView.findViewById(R.id.project_category))
+				.setAdapter(this.projectCategory);
 
-		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1))
+				.setOnClickListener(new OnClickListener() {
 
-			@Override
-			public void onClick(final View v) {
-				v.setClickable(false);
-				v.setEnabled(false);
+					@Override
+					public void onClick(final View v) {
+						v.setClickable(false);
+						v.setEnabled(false);
 
-				if (((CircularProgressButton) v).getProgress() == 0) {
+						if (((CircularProgressButton) v).getProgress() == 0) {
 
-					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
-					widthAnimation.setDuration(500);
-					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
-					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
-						@Override
-						public void onAnimationUpdate(ValueAnimator animation) {
+							ValueAnimator widthAnimation = ValueAnimator.ofInt(
+									1, 100);
+							widthAnimation.setDuration(500);
+							widthAnimation
+									.setInterpolator(new AccelerateDecelerateInterpolator());
+							widthAnimation
+									.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+										@Override
+										public void onAnimationUpdate(
+												ValueAnimator animation) {
 
-							Integer value = (Integer) animation.getAnimatedValue();
-							((CircularProgressButton) v).setProgress(value);
+											Integer value = (Integer) animation
+													.getAnimatedValue();
+											((CircularProgressButton) v)
+													.setProgress(value);
 
-							if (!flag) {
+											if (!flag) {
 
-								((CircularProgressButton) v).setProgress(-1);
-							}
-						}
-					});
+												((CircularProgressButton) v)
+														.setProgress(-1);
+											}
+										}
+									});
 
-					widthAnimation.start();
+							widthAnimation.start();
 
-					String projectName = ((EditText) rootView.findViewById(R.id.project_name)).getText().toString();
-					String projectStageString = ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem().toString();
-					String projectCategoryString = ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem().toString();
+							EditText editProjName = (EditText) rootView
+									.findViewById(R.id.project_name);
+							Spinner spinProjectStage = (Spinner) rootView
+									.findViewById(R.id.project_stage);
+							Spinner spinProjectCategory = (Spinner) rootView
+									.findViewById(R.id.project_category);
+							String projectName = editProjName.getText()
+									.toString();
+							String projectStageString = spinProjectStage
+									.getSelectedItem().toString();
+							String projectCategoryString = spinProjectCategory
+									.getSelectedItem().toString();
+							long projectStageId = ((PicklistRecord) spinProjectStage
+									.getSelectedItem()).getId();
+							long projectCategoryId = ((PicklistRecord) spinProjectCategory
+									.getSelectedItem()).getId();
+							
+							Constant.activityGeneralInfo.setProjectName(projectName);
+							Constant.activityGeneralInfo.setProjectStage(projectStageId);
+							Constant.activityGeneralInfo.setProjectCategory(projectCategoryId);
 
-					/** Checking of required fields **/
-					SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+							/** Checking of required fields **/
+							SharedPreferences pref = getActivity()
+									.getApplicationContext()
+									.getSharedPreferences("ActivityInfo", 0);
 
-					if (projectName != null && !projectName.isEmpty() && projectStageString != null && !projectStageString.isEmpty()
-							&& projectCategoryString != null && !projectCategoryString.isEmpty()) {
-						flag = true;
+							if (projectName != null && !projectName.isEmpty()
+									&& projectStageString != null
+									&& !projectStageString.isEmpty()
+									&& projectCategoryString != null
+									&& !projectCategoryString.isEmpty()) {
+								flag = true;
 
-						long projectStage = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_stage)).getSelectedItem())
-								.getId();
-						long projectCategory = ((PicklistRecord) ((Spinner) rootView.findViewById(R.id.project_category)).getSelectedItem())
-								.getId();
+								long projectStage = ((PicklistRecord) ((Spinner) rootView
+										.findViewById(R.id.project_stage))
+										.getSelectedItem()).getId();
+								long projectCategory = ((PicklistRecord) ((Spinner) rootView
+										.findViewById(R.id.project_category))
+										.getSelectedItem()).getId();
 
-						Editor editor = pref.edit();
-						editor.putString("project_name", projectName);
-						editor.putLong("project_stage", projectStage);
-						editor.putLong("project_category", projectCategory);
-						editor.commit(); // commit changes
+								Editor editor = pref.edit();
+								editor.putString("project_name", projectName);
+								editor.putLong("project_stage", projectStage);
+								editor.putLong("project_category",
+										projectCategory);
+								editor.commit(); // commit changes
 
-						v.setClickable(true);
-						v.setEnabled(true);
-
-					} else {
-						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-
-						Handler handler = new Handler();
-						handler.postDelayed(new Runnable() {
-
-							@Override
-							public void run() {
-								((CircularProgressButton) v).setProgress(0);
 								v.setClickable(true);
 								v.setEnabled(true);
+
+							} else {
+								flag = false;
+								Toast.makeText(
+										getActivity(),
+										"Please fill up required (RED COLOR) fields",
+										Toast.LENGTH_SHORT).show();
+
+								Handler handler = new Handler();
+								handler.postDelayed(new Runnable() {
+
+									@Override
+									public void run() {
+										((CircularProgressButton) v)
+												.setProgress(0);
+										v.setClickable(true);
+										v.setEnabled(true);
+									}
+								}, 1500);
 							}
-						}, 1500);
-					}
 
-				} else {
-					((CircularProgressButton) v).setProgress(0);
-					v.setClickable(true);
-					v.setEnabled(true);
+						} else {
+							((CircularProgressButton) v).setProgress(0);
+							v.setClickable(true);
+							v.setEnabled(true);
 
-					if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
-																					// visits
-						DashBoardActivity.tabIndex.add(5, 12);
-						AddActivityFragment.pager.setCurrentItem(12);
+							if (AddActivityGeneralInformationFragment.ActivityType == 9) { // ki
+																							// visits
+								DashBoardActivity.tabIndex.add(5, 12);
+								AddActivityFragment.pager.setCurrentItem(12);
+							}
+						}
 					}
-				}
-			}
-		});
+				});
 
 		return rootView;
 	}

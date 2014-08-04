@@ -22,7 +22,6 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
-import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
 
@@ -90,7 +89,7 @@ public class MarketingIntelCustomAdapterAdd extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		MarketingIntelFragment sct = (MarketingIntelFragment) frag;
+		MarketingIntelFragmentAdd sct = (MarketingIntelFragmentAdd) frag;
 
 		if (convertView == null) {
 
@@ -189,7 +188,7 @@ public class MarketingIntelCustomAdapterAdd extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			MarketingIntelFragment sct = (MarketingIntelFragment) frag;
+			MarketingIntelFragmentAdd sct = (MarketingIntelFragmentAdd) frag;
 			sct.onItemClick(mPosition);
 		}
 	}

@@ -19,6 +19,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.utils.MultiSpinner;
 import co.nextix.jardine.utils.MultiSpinner.MultiSpinnerListener;
 
@@ -86,6 +87,8 @@ public class AddActivityFullBrandActivationFragment extends Fragment implements 
 					editor.putString("end_user_activity_types", endUserActvityTypes);
 					editor.putInt("end_user_activity_types_position", POSITION_END_USER_ACTIVITY_TYPE);
 					editor.commit(); // commit changes
+					
+					Constant.activityGeneralInfo.setEndUserActivityTypes(endUserActvityTypes);
 
 					v.setClickable(true);
 					v.setEnabled(true);
