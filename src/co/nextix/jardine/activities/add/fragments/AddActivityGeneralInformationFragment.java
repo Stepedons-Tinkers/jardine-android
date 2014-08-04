@@ -128,15 +128,16 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 			String crmNo = pref.getString("activity_id_crm_no", null);
 			String checkIn = pref.getString("activity_id_check_in", null);
 			String checkOut = pref.getString("activity_id_check_out", null);
-			String created = pref.getString("activity_id_created_by", null);
+			long created = pref.getLong("activity_id_created_by", 0);
 			long unit = pref.getLong("activity_id_business_unit", 0);
 			long type = pref.getLong("activity_id_activity_type", 0);
 			
 			tCrmNo.setText(crmNo);
 			tCheckIn.setText(checkIn);
 			tCheckOut.setText(checkOut);
-			eCreatedBy.setText(created);
+			eCreatedBy.setText(JardineApp.DB.getUser().getById(created).toString());
 			sBusinessUnit.setSelection(Integer.parseInt(String.valueOf(unit)));
+			sActivityType.setSelection((Integer.parseInt(String.valueOf(type)))-1);
 			
 		} else {
 			try {
@@ -151,12 +152,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						.getById(
 								StoreAccount.restore(JardineApp.context)
 										.getLong(Account.ROWID)).getLastname();
+				
+				eCreatedBy.setText(assignedToLname + ", " + assignedToFname);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
-		}
-
-		eCreatedBy.setText(assignedToLname + ", " + assignedToFname);
+		}		
 
 		sActivityType.setOnItemSelectedListener(new OnItemSelectedListener() {
 

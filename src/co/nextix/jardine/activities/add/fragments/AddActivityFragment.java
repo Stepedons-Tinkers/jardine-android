@@ -117,6 +117,8 @@ public class AddActivityFragment extends Fragment {
 			
 			Log.e("activity_type_number", "" + pref.getLong("activity_id_activity_type", 0));
 			Log.e("activity_type_data", "" + JardineApp.DB.getActivityType().getById(pref.getLong("activity_id_activity_type", 0)).toString());
+			Log.e("createID",""+pref.getLong("activity_id_created_by", 0));
+			Log.e("created_name", "" + JardineApp.DB.getUser().getById(pref.getLong("activity_id_created_by", 0)));
 		}
 
 		List<Fragment> fragments = getFragments();

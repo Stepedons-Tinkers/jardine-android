@@ -58,7 +58,28 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	private int month = 0;
 	private int year = 0;
 
-	private Spinner customerSpinner;
+	private Spinner sCustomer;
+	private Spinner sArea;
+	private Spinner sWorkplanEntry;
+	private Spinner sProvince;
+	private Spinner sCityTown;
+	
+	private ImageButton ibFollowUpCalendar;
+	
+	private CircularProgressButton cpbSave;
+	
+	private EditText etObjective;
+	private EditText etHighlights;
+	private EditText etNotes;
+	private EditText etNextSteps;
+	
+	private TextView tvFollowUp;
+	
+	private CheckBox cbFirstTimeVisit;
+	private CheckBox cbPlannedTimeVisit;
+	
+	private long provinceNo;
+	private long cityNo;
 
 	public AddActivityDetailsAndNotesFragment() {
 		this.calendar = Calendar.getInstance();
@@ -70,28 +91,84 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
+		
+		rootView = inflater.inflate(
+				R.layout.add_activity_activity_details_and_notes, container,
+				false);
+		
 		List<CustomerRecord> customer = JardineApp.DB.getCustomer()
 				.getAllRecords();
 		List<PicklistRecord> area = JardineApp.DB.getArea().getAllRecords();
 		List<WorkplanEntryRecord> workplanEntry = JardineApp.DB
 				.getWorkplanEntry().getAllRecords();
 
-		this.customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity()
+		customerAdapter = new ArrayAdapter<CustomerRecord>(getActivity()
 				.getApplicationContext(), R.layout.add_activity_textview,
 				customer);
-		this.areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity()
+		areaAdapter = new ArrayAdapter<PicklistRecord>(getActivity()
 				.getApplicationContext(), R.layout.add_activity_textview, area);
-		this.workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(
+		workplanEntryAdapter = new ArrayAdapter<WorkplanEntryRecord>(
 				getActivity().getApplicationContext(),
 				R.layout.add_activity_textview, workplanEntry);
+		
+		cbFirstTimeVisit = (CheckBox) rootView.findViewById(R.id.first_time_visit_checkbox);
+		cbPlannedTimeVisit = (CheckBox) rootView.findViewById(R.id.planned_visit_checkbox);
+		
+		etObjective = (EditText) rootView.findViewById(R.id.objective);
+		etHighlights = (EditText) rootView.findViewById(R.id.highlights);
+		etNotes = (EditText) rootView.findViewById(R.id.notes);
+		etNextSteps = (EditText) rootView.findViewById(R.id.next_steps);
+		
+		tvFollowUp = (TextView) rootView.findViewById(R.id.follow_up_commitment_date);
+		
+		sCustomer = (Spinner) rootView.findViewById(R.id.customer);
+		sCustomer.setAdapter(this.customerAdapter);
+		
+		sWorkplanEntry = (Spinner) rootView.findViewById(R.id.workplan_entry);
+		sWorkplanEntry.setAdapter(workplanEntryAdapter);
+		
+		sArea = (Spinner) rootView.findViewById(R.id.area);		
+		sArea.setAdapter(areaAdapter);
+		
+		sProvince = (Spinner) rootView.findViewById(R.id.province);
+		
+		ibFollowUpCalendar = (ImageButton)rootView.findViewById(R.id.ibFollowUpCommitmentCalendar);
+		
+		cpbSave = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
+		
+		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
+		if (AddActivityFragment.activityID != 0) {	
+			long customerNo = pref.getLong("activity_id_customer", 0);
+			long areaNo = pref.getLong("activitiy_id_area", 0);
+			provinceNo = pref.getLong("activity_id_province", 0);
+			cityNo = pref.getLong("activity_id_city", 0);
+			String objective = pref.getString("activity_id_objective", null);
+			String notes = pref.getString("activity_id_notes", null);
+			String highlights = pref.getString("activity_id_highlights", null);
+			String nextSteps = pref.getString("activity_id_next_steps", null);
+			String followUp = pref.getString("activity_id_followup_committment_date", null);
+			int firstTime = pref.getInt("activity_id_first_time_visit", 0);
+			int planned = pref.getInt("activity_id_planned_visit", 0);
+			
+			sCustomer.setSelection(Integer.parseInt(String.valueOf(customerNo-1))-1);
+			sArea.setSelection(Integer.parseInt(String.valueOf(areaNo))-1);
+			
+			etObjective.setText(objective);
+			etNotes.setText(notes);
+			etHighlights.setText(highlights);
+			etNextSteps.setText(nextSteps);
+			tvFollowUp.setText(followUp);
+			
+			if(firstTime == 0){
+				cbFirstTimeVisit.setChecked(true);
+			}
+			
+			if(planned == 0){
+				cbPlannedTimeVisit.setChecked(true);
+			}
+		}
 
-		this.rootView = inflater.inflate(
-				R.layout.add_activity_activity_details_and_notes, container,
-				false);
-
-		customerSpinner = (Spinner) rootView.findViewById(R.id.customer);
-		customerSpinner.setAdapter(this.customerAdapter);
-		customerSpinner.setOnItemSelectedListener(new OnItemSelectedListener() {
+		sCustomer.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view,
@@ -107,106 +184,8 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 			}
 		});
-		// ((Spinner)
-		// rootView.findViewById(R.id.customer)).setAdapter(this.customerAdapter);
-		((Spinner) rootView.findViewById(R.id.area))
-				.setAdapter(this.areaAdapter);
-		((Spinner) rootView.findViewById(R.id.workplan_entry))
-				.setAdapter(this.workplanEntryAdapter);
 
-		// SharedPreferences pref =
-		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
-		// 0);
-		// long id = pref.getLong("activity_id_edit", 0);
-		//
-		// ActivityRecord activityRecord =
-		// JardineApp.DB.getActivity().getById(id);
-		// if (activityRecord != null) {
-		//
-		// long customerID = 0;
-		// long areaSelected = 0;
-		// long provinceSelected = 0;
-		// long cityORtownSelected = 0;
-		// long workplanEntryInput = 0;
-		// String objectiveInput = null;
-		// String highlightsInput = null;
-		// String notesInput = null;
-		// String nextStepsInput = null;
-		// String followUpInput = null;
-		// int firstTime = 0;
-		// int planned = 0;
-		//
-		// try {
-		//
-		// customerID = activityRecord.getCustomer();
-		// areaSelected = activityRecord.getArea();
-		// provinceSelected = activityRecord.getProvince();
-		// cityORtownSelected = activityRecord.getCity();
-		// workplanEntryInput = activityRecord.getWorkplanEntry();
-		// objectiveInput = activityRecord.getObjective();
-		// highlightsInput = activityRecord.getHighlights();
-		// notesInput = activityRecord.getNotes();
-		// nextStepsInput = activityRecord.getNextSteps();
-		// followUpInput = activityRecord.getFollowUpCommitmentDate();
-		// firstTime = activityRecord.getFirstTimeVisit();
-		// planned = activityRecord.getPlannedVisit();
-		// } catch (Exception e) {
-		//
-		// }
-		//
-		// if (objectiveInput != null || highlightsInput != null || notesInput
-		// != null || nextStepsInput != null || followUpInput != null
-		// || customerID != 0 || areaSelected != 0 || provinceSelected != 0 ||
-		// cityORtownSelected != 0 || workplanEntryInput != 0) {
-		//
-		// for (int i = 0; i < customer.size(); i++) {
-		// if (customer.get(i).getId() == activityRecord.getCustomer()) {
-		// ((Spinner) rootView.findViewById(R.id.customer)).setSelection(i);
-		// break;
-		// }
-		// }
-		//
-		// for (int i = 0; i < area.size(); i++) {
-		// if (area.get(i).getId() == activityRecord.getArea()) {
-		// ((Spinner) rootView.findViewById(R.id.area)).setSelection(i);
-		// break;
-		// }
-		// }
-		//
-		// for (int i = 0; i < workplanEntry.size(); i++) {
-		// if (workplanEntry.get(i).getWorkplan() ==
-		// activityRecord.getWorkplanEntry()) {
-		// ((Spinner)
-		// rootView.findViewById(R.id.workplan_entry)).setSelection(Integer.parseInt(String
-		// .valueOf(workplanEntryInput)));
-		// break;
-		// }
-		// }
-		//
-		// if (planned == 1) {
-		// ((CheckBox)
-		// rootView.findViewById(R.id.first_time_visit_checkbox)).setChecked(true);
-		// }
-		//
-		// if (firstTime == 1) {
-		// ((CheckBox)
-		// rootView.findViewById(R.id.planned_visit)).setChecked(true);
-		// }
-		//
-		// ((EditText)
-		// rootView.findViewById(R.id.highlights)).setText(highlightsInput);
-		// ((EditText) rootView.findViewById(R.id.notes)).setText(notesInput);
-		// ((EditText)
-		// rootView.findViewById(R.id.next_steps)).setText(nextStepsInput);
-		// ((TextView)
-		// rootView.findViewById(R.id.follow_up_commitment_date)).setText(followUpInput);
-		// ((EditText)
-		// rootView.findViewById(R.id.objective)).setText(objectiveInput);
-		// }
-		// }
-
-		((Spinner) this.rootView.findViewById(R.id.area))
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
+		sArea.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
@@ -218,9 +197,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								R.layout.add_activity_textview, provinceTable
 										.getRecordsByAreaId(id + 1));
 
-						((Spinner) rootView.findViewById(R.id.province))
-								.setAdapter(provinceAdapter);
-
+						sProvince = (Spinner) rootView.findViewById(R.id.province);
+						sProvince.setAdapter(provinceAdapter);
+						sProvince.setSelection(Integer.parseInt(String.valueOf(provinceNo))-1);
 					}
 
 					@Override
@@ -230,8 +209,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					}
 				});
 
-		((Spinner) this.rootView.findViewById(R.id.province))
-				.setOnItemSelectedListener(new OnItemSelectedListener() {
+		sProvince.setOnItemSelectedListener(new OnItemSelectedListener() {
 
 					@Override
 					public void onItemSelected(AdapterView<?> parent,
@@ -242,8 +220,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								R.layout.add_activity_textview, cityTable
 										.getRecordsByProvinceId(id + 1));
 
-						((Spinner) rootView.findViewById(R.id.city_town))
-								.setAdapter(cityTownAdapter);
+						sCityTown = (Spinner) rootView.findViewById(R.id.city_town);
+						sCityTown.setAdapter(cityTownAdapter);
+						sCityTown.setSelection(Integer.parseInt(String.valueOf(cityNo))-1);
 					}
 
 					@Override
@@ -253,9 +232,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					}
 				});
 
-		((ImageButton) this.rootView
-				.findViewById(R.id.ibFollowUpCommitmentCalendar))
-				.setOnClickListener(new OnClickListener() {
+		ibFollowUpCalendar.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -268,15 +245,14 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 					}
 				});
 
-		((CircularProgressButton) rootView.findViewById(R.id.btnWithText1))
-				.setOnClickListener(new OnClickListener() {
+		cpbSave.setOnClickListener(new OnClickListener() {
 
 					@Override
 					public void onClick(final View v) {
 						v.setClickable(false);
 						v.setClickable(false);
 
-						if (((CircularProgressButton) v).getProgress() == 0) {
+						if (cpbSave.getProgress() == 0) {
 
 							ValueAnimator widthAnimation = ValueAnimator.ofInt(
 									1, 100);
@@ -290,12 +266,10 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 												ValueAnimator animation) {
 											Integer value = (Integer) animation
 													.getAnimatedValue();
-											((CircularProgressButton) v)
-													.setProgress(value);
+											cpbSave.setProgress(value);
 
 											if (!trapping) {
-												((CircularProgressButton) v)
-														.setProgress(-1);
+												cpbSave.setProgress(-1);
 											}
 										}
 									});
@@ -318,46 +292,19 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 							try {
 
-								customer = ((CustomerRecord) ((Spinner) rootView
-										.findViewById(R.id.customer))
-										.getSelectedItem()).getId();
-								customerType = ((CustomerRecord) ((Spinner) rootView
-										.findViewById(R.id.customer))
-										.getSelectedItem()).getCustomerType();
-								area = ((PicklistRecord) ((Spinner) rootView
-										.findViewById(R.id.area))
-										.getSelectedItem()).getId();
-								province = ((ProvinceRecord) ((Spinner) rootView
-										.findViewById(R.id.province))
-										.getSelectedItem()).getId();
-								cityTown = ((CityTownRecord) ((Spinner) rootView
-										.findViewById(R.id.city_town))
-										.getSelectedItem()).getId();
-								objective = ((EditText) rootView
-										.findViewById(R.id.objective))
-										.getText().toString();
-								workplanEntry = ((WorkplanEntryRecord) ((Spinner) rootView
-										.findViewById(R.id.workplan_entry))
-										.getSelectedItem()).getId();
-								firstTimeVisit = ((CheckBox) rootView
-										.findViewById(R.id.first_time_visit_checkbox))
-										.isChecked() ? 1 : 0;
-								plannedTimeVisit = ((CheckBox) rootView
-										.findViewById(R.id.planned_visit_checkbox))
-										.isChecked() ? 1 : 0;
-
-								highlights = ((EditText) rootView
-										.findViewById(R.id.highlights))
-										.getText().toString();
-								notes = ((EditText) rootView
-										.findViewById(R.id.notes)).getText()
-										.toString();
-								nextSteps = ((EditText) rootView
-										.findViewById(R.id.next_steps))
-										.getText().toString();
-								followUpCommittmentDate = ((TextView) rootView
-										.findViewById(R.id.follow_up_commitment_date))
-										.getText().toString();
+								customer = ((CustomerRecord) sCustomer.getSelectedItem()).getId();
+								customerType = ((CustomerRecord) sCustomer.getSelectedItem()).getCustomerType();
+								area = ((PicklistRecord) sArea.getSelectedItem()).getId();
+								province = ((ProvinceRecord) sProvince.getSelectedItem()).getId();
+								cityTown = ((CityTownRecord) sCityTown.getSelectedItem()).getId();
+								objective = etObjective.getText().toString();
+								workplanEntry = ((WorkplanEntryRecord) sWorkplanEntry.getSelectedItem()).getId();
+								firstTimeVisit = cbFirstTimeVisit.isChecked() ? 1 : 0;
+								plannedTimeVisit = cbPlannedTimeVisit.isChecked() ? 1 : 0;
+								highlights = etHighlights.getText().toString();
+								notes = etNotes.toString();
+								nextSteps = etNextSteps.getText().toString();
+								followUpCommittmentDate = tvFollowUp.getText().toString();
 
 								Constant.activityGeneralInfo
 										.setCustomer(customer);
@@ -441,8 +388,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 									@Override
 									public void run() {
-										((CircularProgressButton) v)
-												.setProgress(0);
+										cpbSave.setProgress(0);
 										v.setClickable(true);
 										v.setClickable(true);
 									}
@@ -450,7 +396,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 							}
 
 						} else {
-							((CircularProgressButton) v).setProgress(0);
+							cpbSave.setProgress(0);
 
 							if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
 								AddActivityFragment.fromOther = true;
