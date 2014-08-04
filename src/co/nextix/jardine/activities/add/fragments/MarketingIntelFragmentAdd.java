@@ -86,7 +86,7 @@ public class MarketingIntelFragmentAdd extends Fragment {
 					// this
 					// fragment,
 					// and add the transaction to the back stack
-					transaction.replace(frag_layout_id, newFragment);
+					transaction.replace(R.id.fake_layout, newFragment);
 					transaction.addToBackStack(null);
 
 					// Commit the transaction

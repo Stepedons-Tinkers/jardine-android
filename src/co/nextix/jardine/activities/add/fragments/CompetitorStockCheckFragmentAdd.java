@@ -3,9 +3,13 @@ package co.nextix.jardine.activities.add.fragments;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.dd.CircularProgressButton;
+
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.graphics.LightingColorFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -13,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -21,6 +26,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
@@ -37,7 +43,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 	private ArrayList<CompetitorProductStockCheckRecord> realRecord = null;
 	private ArrayList<CompetitorProductStockCheckRecord> tempRecord = null;
 	private Context CustomListView = null;
-	private View myFragmentView = null;
+	private View view = null;
 	private ListView list = null;
 	private int rowSize = 5;
 	private int totalPage = 0;
@@ -45,6 +51,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 
 	private Bundle bundle;
 	private int frag_layout_id;
+	private boolean flag = false;
 
 	// private ActivityRecord activityRecord = null;
 	// private SharedPreferences pref = null;
@@ -52,7 +59,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-		myFragmentView = inflater.inflate(R.layout.fragment_activity_competitor_stock_check, container, false);
+		view = inflater.inflate(R.layout.fragment_activity_competitor_stock_check_add, container, false);
 		setListData();
 
 		bundle = getArguments();
@@ -66,7 +73,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 		frag_layout_id = ActivityInfoFragment.fragmentLayout_2id;
 
 		// ONCLICK sa mga buttons sa fragment
-		((Button) myFragmentView.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
+		((Button) view.findViewById(R.id.add_competitor_product_stock_check)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -91,6 +98,68 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 					transaction.commit();
 				} else {
 					Toast.makeText(getActivity().getApplicationContext(), "Can't add more than 5 items", Toast.LENGTH_SHORT).show();
+				}
+			}
+		});
+
+		((CircularProgressButton) view.findViewById(R.id.btnWithText1)).setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(final View v) {
+				v.setClickable(false);
+				v.setEnabled(false);
+
+				if (((CircularProgressButton) v).getProgress() == 0) {
+
+					ValueAnimator widthAnimation = ValueAnimator.ofInt(1, 100);
+					widthAnimation.setDuration(500);
+					widthAnimation.setInterpolator(new AccelerateDecelerateInterpolator());
+					widthAnimation.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+						@Override
+						public void onAnimationUpdate(ValueAnimator animation) {
+
+							Integer value = (Integer) animation.getAnimatedValue();
+							((CircularProgressButton) v).setProgress(value);
+
+							if (!flag) {
+								((CircularProgressButton) v).setProgress(-1);
+							}
+						}
+					});
+
+					widthAnimation.start();
+
+					/** Checking of required fields **/
+					if (Constant.addCompetitorProductRecords.size() > 0) {
+						flag = true;
+						v.setClickable(true);
+						v.setEnabled(true);
+					} else {
+						flag = false;
+						v.setClickable(true);
+						v.setEnabled(true);
+
+						Handler handler = new Handler();
+						handler.postDelayed(new Runnable() {
+
+							@Override
+							public void run() {
+								((CircularProgressButton) v).setProgress(0);
+
+							}
+						}, 750);
+					}
+
+				} else {
+
+					((CircularProgressButton) v).setProgress(0);
+					v.setClickable(true);
+					v.setEnabled(true);
+
+					if (AddActivityGeneralInformationFragment.ActivityType == 4) { // retails
+						DashBoardActivity.tabIndex.add(7, 10);
+						AddActivityFragment.pager.setCurrentItem(10);
+					}
 				}
 			}
 		});
@@ -124,7 +193,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 		// }
 		// });
 
-		((ImageButton) myFragmentView.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.left_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -137,7 +206,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 			}
 		});
 
-		((ImageButton) myFragmentView.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
+		((ImageButton) view.findViewById(R.id.right_arrow)).setOnClickListener(new OnClickListener() {
 
 			@Override
 			public void onClick(View v) {
@@ -150,7 +219,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 			}
 		});
 
-		return myFragmentView;
+		return view;
 	}
 
 	public void setListData() {
@@ -181,13 +250,13 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 
 				this.setView();
 				this.isListHasNoData();
-				((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data.");
+				((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data.");
 			}
 		} else {
 
 			this.setView();
 			this.isListHasNoData();
-			((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setText("No Data");
+			((TextView) this.view.findViewById(R.id.status_list_view)).setText("No Data");
 		}
 	}
 
@@ -195,7 +264,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 		tempRecord.clear();
 		count = count * rowSize;
 		int temp = currentPage + 1;
-		((TextView) this.myFragmentView.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
+		((TextView) this.view.findViewById(R.id.status_count_text)).setText(temp + " of " + totalPage);
 
 		int rows = rowSize;
 		if (realRecord.size() < rows)
@@ -213,7 +282,7 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 
 		/**************** Create Custom Adapter *********/
 		this.CustomListView = getActivity().getApplicationContext();
-		this.list = (ListView) this.myFragmentView.findViewById(R.id.list);
+		this.list = (ListView) this.view.findViewById(R.id.list);
 		this.adapter = new CompetitorProductStockCheckCustomAdapterAdd(this.CustomListView, getActivity(), list, this.tempRecord, this);
 		this.list.setAdapter(adapter);
 		list.setOnItemClickListener(new OnItemClickListener() {
@@ -285,14 +354,14 @@ public class CompetitorStockCheckFragmentAdd extends Fragment {
 
 	public void isListHasNoData() {
 		this.list.setVisibility(View.GONE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.GONE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.GONE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.VISIBLE);
 	}
 
 	public void isListHasData() {
 		this.list.setVisibility(View.VISIBLE);
-		((View) this.myFragmentView.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
-		((TextView) this.myFragmentView.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
+		((View) this.view.findViewById(R.id.view_stub)).setVisibility(View.VISIBLE);
+		((TextView) this.view.findViewById(R.id.status_list_view)).setVisibility(View.INVISIBLE);
 	}
 
 	public void refreshListView() {

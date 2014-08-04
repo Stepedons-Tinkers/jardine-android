@@ -302,4 +302,9 @@
         android:text="@string/list_empty"
         android:visibility="invisible" />
 
+    <FrameLayout
+        android:id="@+id/fake_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
 </RelativeLayout>
