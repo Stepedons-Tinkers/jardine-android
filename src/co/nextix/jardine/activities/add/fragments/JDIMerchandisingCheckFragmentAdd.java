@@ -6,10 +6,9 @@ import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,21 +19,13 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
-import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
-import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
-import co.nextix.jardine.activites.fragments.detail.JDIMerchandisingCheckDetailFragment;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
-import co.nextix.jardine.database.records.PicklistRecord;
-import co.nextix.jardine.database.records.ProductRecord;
 import co.nextix.jardine.keys.Constant;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
 import com.dd.CircularProgressButton;
@@ -160,8 +151,11 @@ public class JDIMerchandisingCheckFragmentAdd extends Fragment {
 					 * NATNAT KANI AKO PASABOT NGA PATABANG KO GE UNSA NI NGA
 					 * MAWALA MAN NIG BALIK
 					 */
+					
+					Log.e("fragment","" + (newFragment != null));
+					Log.e("fragment 2", newFragment.toString());
 
-					transaction.replace(R.id.fake_layout, newFragment);
+					transaction.replace(R.id.fake_layout_jdi, newFragment);
 					transaction.addToBackStack(null);
 
 					// Commit the transaction
