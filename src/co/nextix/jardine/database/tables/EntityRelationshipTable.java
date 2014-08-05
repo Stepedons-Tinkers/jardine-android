@@ -136,14 +136,38 @@ public class EntityRelationshipTable {
 		return list;
 	}
 
-	public List<Long> getRecordsWithRelatedProducts(
-			long activity) {
+	public List<Long> getRecordsWithRelatedProducts(long activity) {
 		Cursor c = null;
 		List<Long> list = new ArrayList<Long>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
 				+ KEY_ENTITYRELATIONSHIP_RELATEDNAME + "='" + Modules.Product
 				+ "'" + " AND " + KEY_ENTITYRELATIONSHIP_MODULEID + "="
 				+ activity;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long relatedId = c.getLong(c
+							.getColumnIndex(KEY_ENTITYRELATIONSHIP_RELATEDID));
+
+					list.add(relatedId);
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+
+	public List<Long> getRecordsWithRelatedCustomerContact(long activity) {
+		Cursor c = null;
+		List<Long> list = new ArrayList<Long>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE "
+				+ KEY_ENTITYRELATIONSHIP_RELATEDNAME + "='"
+				+ Modules.CustomerContact + "'" + " AND "
+				+ KEY_ENTITYRELATIONSHIP_MODULEID + "=" + activity;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {
