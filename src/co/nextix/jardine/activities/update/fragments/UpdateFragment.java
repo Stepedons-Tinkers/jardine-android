@@ -27,7 +27,6 @@ import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
 import co.nextix.jardine.activites.fragments.PhotosAndAttachmentsFragment;
 import co.nextix.jardine.activites.fragments.ProductFocusFragment;
-import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
 import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
 import co.nextix.jardine.activities.add.fragments.ActivitiesCustomerContactList;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
@@ -255,9 +254,10 @@ public class UpdateFragment extends Fragment {
 			
 			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));
 			
-			flist.add(UpdateProductSupplier.instantiate(getActivity(),UpdateProductSupplier.class.getName()));
+			flist.add(UpdateProductSupplierList.instantiate(getActivity(),UpdateProductSupplierList.class.getName()));
 			
-			flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),JDIMerchandisingCheckFragment.class.getName()));
+			flist.add(UpdateJDIMerchandisingStockCheckListFragment.instantiate(getActivity(),UpdateJDIMerchandisingStockCheckListFragment.class.getName()));
+			
 			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),CompetitorStockCheckFragment.class.getName()));
 			flist.add(MarketingIntelFragment.instantiate(getActivity(),MarketingIntelFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),PhotosAndAttachmentsFragment.class.getName()));

@@ -93,6 +93,46 @@ public class JDImerchandisingCheckTable {
 		}
 		return list;
 	}
+	
+	public List<JDImerchandisingCheckRecord> getAllRecordsByActivity(long activityID) {
+		Cursor c = null;
+		List<JDImerchandisingCheckRecord> list = new ArrayList<JDImerchandisingCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_JDIMERCHANDISING_ACTIVITY + "=" + activityID;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CRMNO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_ACTIVITY));
+					long productBrand = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_PRODUCTBRAND));
+					int status = c.getInt(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_STATUS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_MODIFIEDTIME));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_JDIMERCHANDISING_CREATEDBY));
+
+					list.add(new JDImerchandisingCheckRecord(id, no, crmNo,
+							activity, productBrand, status, createdTime,
+							modifiedTime, createdBy));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
 
 	// ===========================================================
 	// Public methods

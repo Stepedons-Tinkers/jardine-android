@@ -25,6 +25,8 @@ import android.widget.Toast;
 import co.nextix.jardine.DashBoardActivity;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateFragment;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -358,8 +360,13 @@ public class AddJDIProductStockFragment extends Fragment implements
 
 	public void dismiss() {
 		AddJDIProductStockListFragment jdiList = (AddJDIProductStockListFragment) getTargetFragment();
-		jdiList.populate();
-		jdiList.removeFragment();
+		if(UpdateConstants.RECORD == null){
+			jdiList.populate();
+			jdiList.removeFragment();
+		}else{
+			getActivity().getSupportFragmentManager();
+			getActivity().getSupportFragmentManager().popBackStack("to_add", FragmentManager.POP_BACK_STACK_INCLUSIVE);
+		}
 	}
 
 }

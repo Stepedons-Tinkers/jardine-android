@@ -19,6 +19,7 @@ import android.view.ViewGroup;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.CustomerContactRecord;
 import co.nextix.jardine.database.records.DocuInfoRecord;
@@ -53,6 +54,7 @@ public class AddActivityFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
 		AddActivityFragment.fromOther = true;
+		UpdateConstants.RECORD = null;
 
 		Constant.addJDIproductStockCheckRecords = new ArrayList<JDIproductStockCheckRecord>();
 		Constant.addProductSupplierRecords = new ArrayList<ProductSupplierRecord>();

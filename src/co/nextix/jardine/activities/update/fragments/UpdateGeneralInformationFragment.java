@@ -193,7 +193,7 @@ public class UpdateGeneralInformationFragment extends Fragment {
 					v.setClickable(true);
 					v.setEnabled(true);
 					
-					UpdateFragment.pager.setCurrentItem(1);
+					UpdateFragment.pager.setCurrentItem(4);
 				}
 			}
 		});

@@ -19,6 +19,8 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateJDIMerchandisingStockCheckListFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDImerchandisingCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -93,7 +95,15 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+		
+		UpdateJDIMerchandisingStockCheckListFragment upJDI = null;
+		JDIMerchandisingCheckFragment sct = null;
+		
+		if(UpdateConstants.RECORD != null){
+			upJDI = (UpdateJDIMerchandisingStockCheckListFragment) frag;
+		}else{
+			sct = (JDIMerchandisingCheckFragment) frag;
+		}
 
 		if (convertView == null) {
 
@@ -119,10 +129,18 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
+			if(upJDI != null){
+				upJDI.isListHasNoData();
+			}else if(sct != null){
+				sct.isListHasNoData();
+			}
 
 		} else {
-			sct.isListHasData();
+			if(upJDI != null){
+				upJDI.isListHasData(); 
+			}else if(sct != null){
+				sct.isListHasData();
+			}
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (JDImerchandisingCheckRecord) this.data.get(position);
@@ -227,8 +245,13 @@ public class JDIMerchandisingCheckCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
-			sct.onItemClick(mPosition);
+			if(UpdateConstants.RECORD != null){
+				UpdateJDIMerchandisingStockCheckListFragment upJDI = (UpdateJDIMerchandisingStockCheckListFragment) frag;
+				upJDI.onItemClick(mPosition);
+			}else{
+				JDIMerchandisingCheckFragment sct = (JDIMerchandisingCheckFragment) frag;
+				sct.onItemClick(mPosition);
+			}
 		}
 	}
 

@@ -24,33 +24,33 @@
             android:background="#ffffff"
             android:orientation="vertical" >
 
-<!--             <com.dd.CircularProgressButton -->
-<!--                 android:id="@+id/btnWithText1" -->
-<!--                 android:layout_width="196dp" -->
-<!--                 android:layout_height="wrap_content" -->
-<!--                 android:layout_alignParentRight="true" -->
-<!--                 android:layout_marginTop="4dp" -->
-<!--                 android:layout_marginRight="@dimen/activity_horizontal_margin" -->
-<!--                 android:layout_marginBottom="4dp" -->
-<!--                 android:paddingRight="@dimen/activity_horizontal_margin" -->
-<!--                 android:textColor="@color/white" -->
-<!--                 android:textSize="18sp" -->
-<!--                 app:textComplete="@string/next" -->
-<!--                 app:textError="@string/error" -->
-<!--                 app:textIdle="@string/done" /> -->
+            <!-- <com.dd.CircularProgressButton -->
+            <!-- android:id="@+id/btnWithText1" -->
+            <!-- android:layout_width="196dp" -->
+            <!-- android:layout_height="wrap_content" -->
+            <!-- android:layout_alignParentRight="true" -->
+            <!-- android:layout_marginTop="4dp" -->
+            <!-- android:layout_marginRight="@dimen/activity_horizontal_margin" -->
+            <!-- android:layout_marginBottom="4dp" -->
+            <!-- android:paddingRight="@dimen/activity_horizontal_margin" -->
+            <!-- android:textColor="@color/white" -->
+            <!-- android:textSize="18sp" -->
+            <!-- app:textComplete="@string/next" -->
+            <!-- app:textError="@string/error" -->
+            <!-- app:textIdle="@string/done" /> -->
 
-		<Button 
-		     android:id="@+id/btnWithText1" 
+            <Button
+                android:id="@+id/btnWithText1"
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
                 android:layout_marginBottom="4dp"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="4dp"
                 android:paddingRight="@dimen/activity_horizontal_margin"
+                android:text="@string/done"
                 android:textColor="@color/white"
-                android:textSize="18sp"
-               	android:text="@string/done" />
+                android:textSize="18sp" />
 
             <TableLayout
                 android:id="@+id/activity_table"
@@ -197,8 +197,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
-                    android:gravity="center" 
-                    android:visibility="gone">
+                    android:gravity="center"
+                    android:visibility="gone" >
 
                     <ImageButton
                         android:id="@+id/imageButton1"
@@ -249,10 +249,10 @@
         android:paddingBottom="54dp"
         android:text="@string/no_data"
         android:visibility="invisible" />
-    
+
     <FrameLayout
-        android:id="@+id/fake_layout"
+        android:id="@+id/update_fake_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
 
 </RelativeLayout>

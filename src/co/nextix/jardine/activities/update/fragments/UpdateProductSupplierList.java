@@ -6,18 +6,24 @@ import java.util.List;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.adapters.ProductSupplierCustomAdapter;
+import co.nextix.jardine.activites.fragments.detail.ProductSupplierDetailFragment;
+import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class UpdateProductSupplier extends Fragment {
+public class UpdateProductSupplierList extends Fragment {
 	
 	private View view;
 	
@@ -31,11 +37,36 @@ public class UpdateProductSupplier extends Fragment {
 	private int totalPage = 0;
 	private int currentPage = 0;
 	
+	private Button bAddProductSupplier;
+	private Button bDone;
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		
-		view = inflater.inflate(R.layout.update_product_supplier, container, false);
+		view = inflater.inflate(R.layout.update_product_supplier_list, container, false);
+		
+		bAddProductSupplier = (Button) view.findViewById(R.id.add_btn_jdi_product_stock_check);
+		bAddProductSupplier.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				Fragment fragment = new UpdateProductSupplierDetail();
+				FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+				ft.replace(R.id.update_fake_layout, fragment);
+				ft.addToBackStack("to_add_supplier");
+				ft.commit();
+			}
+		});
+		
+		bDone = (Button) view.findViewById(R.id.btnWithText1);
+		bDone.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				UpdateFragment.pager.setCurrentItem(5);
+			}
+		});
 		
 		setListData();
 		
@@ -101,5 +132,25 @@ public class UpdateProductSupplier extends Fragment {
 
 	public void refreshListView() {
 		this.setListData();
+	}
+	
+	public void onItemClick(int mPosition) {
+		ProductSupplierRecord tempValues = (ProductSupplierRecord) this.tempRecord.get(mPosition);
+		
+		Bundle bundle = new Bundle();
+		bundle.putLong("activity", tempValues.getActivity());
+		bundle.putLong("product_brand", tempValues.getProductBrand());
+		bundle.putLong("supplier", tempValues.getSupplier());
+		bundle.putString("other_remarks", tempValues.getOthersRemarks());
+		bundle.putLong("created_by", tempValues.getCreatedBy());
+		
+		Fragment fragment = new UpdateProductSupplierDetail();
+		fragment.setArguments(bundle);
+		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
+		ft.replace(R.id.update_fake_layout, fragment);
+		ft.addToBackStack("to_add_supplier");
+		ft.commit();
+
 	}
 }

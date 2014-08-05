@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
@@ -45,6 +46,8 @@ public class ActivityInfoFragment extends Fragment {
 			Bundle savedInstanceState) {
 		this.myFragmentView = inflater.inflate(
 				R.layout.fragment_activity_static_fields, container, false);
+		
+		UpdateConstants.RECORD = null;
 
 		fragmentLayout_1id = R.id.layoutForAddingFrag;
 		fragmentLayout_1 = (FrameLayout) this.myFragmentView
