@@ -1,103 +1,122 @@
-package co.nextix.jardine.activites.fragments;
+package co.nextix.jardine.activities.update.fragments;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.FrameLayout;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.database.records.ActivityRecord;
-import co.nextix.jardine.database.records.ActivityTypeRecord;
+import co.nextix.jardine.activites.fragments.ActivityAdminWorksFragment;
+import co.nextix.jardine.activites.fragments.ActivityBrandActivationFragment;
+import co.nextix.jardine.activites.fragments.ActivityDetailedInfoFragment;
+import co.nextix.jardine.activites.fragments.ActivityGeneralInfoFragment;
+import co.nextix.jardine.activites.fragments.ActivityProjectVisitFragment;
+import co.nextix.jardine.activites.fragments.ActivityTrainingsFragment;
+import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
+import co.nextix.jardine.activites.fragments.CustomerContactPersonFragment;
+import co.nextix.jardine.activites.fragments.JDIMerchandisingCheckFragment;
+import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
+import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
+import co.nextix.jardine.activites.fragments.PhotosAndAttachmentsFragment;
+import co.nextix.jardine.activites.fragments.ProductFocusFragment;
+import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
+import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 
 import com.astuetz.PagerSlidingTabStrip;
 
-public class ActivityInfoFragment extends Fragment {
-
-	private View myFragmentView = null;
-
-	private PagerSlidingTabStrip tabs;
-	private ViewPager pager;
-	private MyPagerAdapter adapter;
-
-	public static FrameLayout fragmentLayout_1;
-	public static int fragmentLayout_1id;
-	public static FrameLayout fragmentLayout_2;
-	public static int fragmentLayout_2id;
-
-	private ActivityRecord activityRecord = null;
-	private SharedPreferences pref = null;
-
+public class UpdateFragment extends Fragment {
+	
+	private View view;
+	
+	public static PagerSlidingTabStrip tabs;
+	public static ViewPager pager;
+	protected MyPagerAdapter adapter;
+	
+	private long activityID = 0;
 	private int titles;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		this.myFragmentView = inflater.inflate(
-				R.layout.fragment_activity_static_fields, container, false);
-
-		fragmentLayout_1id = R.id.layoutForAddingFrag;
-		fragmentLayout_1 = (FrameLayout) this.myFragmentView
-				.findViewById(fragmentLayout_1id);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		view = inflater.inflate(R.layout.fragment_activity_edit, container, false);
 		
-		fragmentLayout_2id = R.id.layoutForEditFrag;
-		fragmentLayout_2 = (FrameLayout) this.myFragmentView
-				.findViewById(fragmentLayout_2id);
-
-		tabs = (PagerSlidingTabStrip) this.myFragmentView
-				.findViewById(R.id.tabs);
-
-		pager = (ViewPager) this.myFragmentView.findViewById(R.id.pager);
-		pager.setCurrentItem(0);
-
-		this.pref = getActivity().getApplicationContext().getSharedPreferences(
-				"ActivityInfo", 0);
-		this.activityRecord = JardineApp.DB.getActivity().getById(
-				pref.getLong("activity_id", 0));
-
-		ActivityTypeTable type = JardineApp.DB.getActivityType();
+		Bundle b = getArguments();
+		if(b != null){
+			activityID = b.getLong("activityID");
+		}
+		
+		UpdateConstants.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(activityID);
+		
 		List<Fragment> fragment = null;
-		if (type != null) {
-			ActivityTypeRecord record = type.getById(this.activityRecord
-					.getActivityType());
-			if (record != null) {
-
-				if (record.toString().equals("Travel")
-						|| record.toString().equals("Waiting")) { // done
+		ActivityTypeTable type = JardineApp.DB.getActivityType();
+		
+		if(type != null){
+			UpdateConstants.RECORD = type.getById(UpdateConstants.ACTIVITY_RECORD.getActivityType());
+			if(UpdateConstants.RECORD != null){
+				
+				UpdateConstants.CRM_NO = UpdateConstants.ACTIVITY_RECORD.getCrm();
+				UpdateConstants.ACTIVITY_TYPE = UpdateConstants.ACTIVITY_RECORD.getActivityType();
+				UpdateConstants.CHECK_IN = UpdateConstants.ACTIVITY_RECORD.getCheckIn();
+				UpdateConstants.CHECK_OUT = UpdateConstants.ACTIVITY_RECORD.getCheckOut();
+				UpdateConstants.BUSINESS_UNIT = UpdateConstants.ACTIVITY_RECORD.getBusinessUnit();
+				UpdateConstants.CREATED_BY = UpdateConstants.ACTIVITY_RECORD.getCreatedBy();
+				
+				UpdateConstants.REASON_REMARKS = UpdateConstants.ACTIVITY_RECORD.getReasonRemarks();
+				
+				UpdateConstants.CO_SMR = UpdateConstants.ACTIVITY_RECORD.getSmr();
+				
+				UpdateConstants.ADMIN_WORK_DETAILS = UpdateConstants.ACTIVITY_RECORD.getAdminWorkDetails();
+				
+				UpdateConstants.CUSTOMER = UpdateConstants.ACTIVITY_RECORD.getCustomer();
+				UpdateConstants.AREA = UpdateConstants.ACTIVITY_RECORD.getArea();
+				UpdateConstants.PROVINCE = UpdateConstants.ACTIVITY_RECORD.getProvince();
+				UpdateConstants.CITY_TOWN = UpdateConstants.ACTIVITY_RECORD.getCity();
+				UpdateConstants.WORKPLAN_ENTRY = UpdateConstants.ACTIVITY_RECORD.getWorkplanEntry();
+				UpdateConstants.OBJECTIVE = UpdateConstants.ACTIVITY_RECORD.getObjective();
+				UpdateConstants.HIGHLIGHTS = UpdateConstants.ACTIVITY_RECORD.getHighlights();
+				UpdateConstants.NOTES = UpdateConstants.ACTIVITY_RECORD.getNotes();
+				UpdateConstants.NEXT_STEPS = UpdateConstants.ACTIVITY_RECORD.getNextSteps();
+				UpdateConstants.FIRST_TIME = UpdateConstants.ACTIVITY_RECORD.getFirstTimeVisit();
+				UpdateConstants.PLANNED = UpdateConstants.ACTIVITY_RECORD.getPlannedVisit();
+				UpdateConstants.FOLLOW_UP_DATE = UpdateConstants.ACTIVITY_RECORD.getFollowUpCommitmentDate();
+				
+				Log.e("province","" + UpdateConstants.PROVINCE);
+				
+				if (UpdateConstants.RECORD.toString().equals("Travel")
+						|| UpdateConstants.RECORD.toString().equals("Waiting")) { // done
 					fragment = getFragments(0);
 					titles = 0;
-				} else if (record.toString().equals(
+				} else if (UpdateConstants.RECORD.toString().equals(
 						"Company Work-with Co-SMR/ Supervisor")) { // done
 					titles = 1;
 					fragment = getFragments(1);
-				} else if (record.toString().equals("Admin Work")) { // done
+				} else if (UpdateConstants.RECORD.toString().equals("Admin Work")) { // done
 					fragment = getFragments(2);
 					titles = 2;
-				} else if (record.toString().equals(
+				} else if (UpdateConstants.RECORD.toString().equals(
 						"Retail Visits (Traditional Hardware)")
-						|| record.toString().equals("Retail Visits (Merienda)")) { // done
+						|| UpdateConstants.RECORD.toString().equals("Retail Visits (Merienda)")) { // done
 					fragment = getFragments(3);
 					titles = 3;
-				} else if (record.toString().equals("KI Visits - On-site")) { // done
+				} else if (UpdateConstants.RECORD.toString().equals("KI Visits - On-site")) { // done
 					fragment = getFragments(4);
 					titles = 4;
-				} else if (record.toString().contains("Major Training")) { // done
+				} else if (UpdateConstants.RECORD.toString().contains("Major Training")) { // done
 					fragment = getFragments(5);
 					titles = 5;
-				} else if (record.toString().contains("End User Activity")) { // done
+				} else if (UpdateConstants.RECORD.toString().contains("End User Activity")) { // done
 					fragment = getFragments(6);
 					titles = 6;
-				} else if (record.toString().equals("Full Brand Activation")) { // done
+				} else if (UpdateConstants.RECORD.toString().equals("Full Brand Activation")) { // done
 					fragment = getFragments(7);
 					titles = 7;
 				} else {
@@ -106,22 +125,24 @@ public class ActivityInfoFragment extends Fragment {
 				}
 			}
 		}
-
-		adapter = new MyPagerAdapter(getFragmentManager(), fragment);
-
+		
+		tabs = (PagerSlidingTabStrip) view.findViewById(R.id.tabs_update);
+		pager = (ViewPager) view.findViewById(R.id.non_swipeable_pager);
+		adapter = new MyPagerAdapter(getActivity().getSupportFragmentManager(), fragment);
+		
 		pager.setAdapter(adapter);
-
-		final int pageMargin = (int) TypedValue.applyDimension(
-				TypedValue.COMPLEX_UNIT_DIP, 4, getResources()
-						.getDisplayMetrics());
-		pager.setPageMargin(pageMargin);
 		pager.setCurrentItem(0);
 
-		tabs.setViewPager(pager, true);
+		final int pageMargin = (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 4, getResources().getDisplayMetrics());
+		pager.setPageMargin(pageMargin);
 
-		return myFragmentView;
+		tabs.setViewPager(pager, false);
+		
+		
+		
+		return view;
 	}
-
+	
 	public class MyPagerAdapter extends FragmentStatePagerAdapter {
 
 		private ArrayList<String> TITLES = new ArrayList<String>();
@@ -210,49 +231,33 @@ public class ActivityInfoFragment extends Fragment {
 			return this.fragments.get(position);
 		}
 	}
-
+	
 	private List<Fragment> getFragments(int position) {
 		List<Fragment> flist = new ArrayList<Fragment>();
 
 		switch (position) {
-		case 0:
-			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-					ActivityGeneralInfoFragment.class.getName()));
-			flist.add(ActivityTravelOrWaitingFragment.instantiate(
-					getActivity(),
-					ActivityTravelOrWaitingFragment.class.getName()));
+		case 0: // travel/waiting
+			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
+			flist.add(UpdateTravelWaitingFragment.instantiate(getActivity(),UpdateTravelWaitingFragment.class.getName()));
 			break;
-		case 1:
-			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-					ActivityGeneralInfoFragment.class.getName()));
-			flist.add(ActivityWithCoSMRsFragment.instantiate(getActivity(),
-					ActivityWithCoSMRsFragment.class.getName()));
+		case 1: // co smr
+			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
+			flist.add(UpdateWithCoSMRFragment.instantiate(getActivity(),UpdateWithCoSMRFragment.class.getName()));
 			break;
-		case 2:
-			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-					ActivityGeneralInfoFragment.class.getName()));
-			flist.add(ActivityAdminWorksFragment.instantiate(getActivity(),
-					ActivityAdminWorksFragment.class.getName()));
+		case 2: // admin works
+			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),ActivityGeneralInfoFragment.class.getName()));
+			flist.add(ActivityAdminWorksFragment.instantiate(getActivity(),ActivityAdminWorksFragment.class.getName()));
 			break;
-		case 3:
-			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),
-					ActivityGeneralInfoFragment.class.getName()));
-			flist.add(ActivityDetailedInfoFragment.instantiate(getActivity(),
-					ActivityDetailedInfoFragment.class.getName()));
-			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),
-					CustomerContactPersonFragment.class.getName()));
-			flist.add(JDIProductStockFragment.instantiate(getActivity(),
-					JDIProductStockFragment.class.getName()));
-			flist.add(ProductSupplierFragment.instantiate(getActivity(),
-					ProductSupplierFragment.class.getName()));
-			flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),
-					JDIMerchandisingCheckFragment.class.getName()));
-			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),
-					CompetitorStockCheckFragment.class.getName()));
-			flist.add(MarketingIntelFragment.instantiate(getActivity(),
-					MarketingIntelFragment.class.getName()));
-			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),
-					PhotosAndAttachmentsFragment.class.getName()));
+		case 3: // retail visits
+			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
+			flist.add(UpdateDetailsAndNotesFragment.instantiate(getActivity(),UpdateDetailsAndNotesFragment.class.getName()));
+			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),CustomerContactPersonFragment.class.getName()));
+			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));
+			flist.add(ProductSupplierFragment.instantiate(getActivity(),ProductSupplierFragment.class.getName()));
+			flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),JDIMerchandisingCheckFragment.class.getName()));
+			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),CompetitorStockCheckFragment.class.getName()));
+			flist.add(MarketingIntelFragment.instantiate(getActivity(),MarketingIntelFragment.class.getName()));
+			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),PhotosAndAttachmentsFragment.class.getName()));
 			break;
 		case 4:
 			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),

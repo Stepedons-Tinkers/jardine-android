@@ -16,7 +16,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.backup.MoreActivityInformationFragment;
 import co.nextix.jardine.activites.fragments.backup.StaticActivityInfoFragment;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
-import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;

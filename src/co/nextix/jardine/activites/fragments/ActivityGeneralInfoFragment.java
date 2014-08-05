@@ -13,6 +13,7 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.ActivityTypeRecord;
 import co.nextix.jardine.database.records.BusinessUnitRecord;
@@ -83,7 +84,7 @@ public class ActivityGeneralInfoFragment extends Fragment {
 				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
 				// Add a fucking fragmentTODO
-				AddActivityFragment myFragment = new AddActivityFragment();
+				UpdateFragment myFragment = new UpdateFragment();
 				myFragment.setArguments(bun);
 				fragmentTransaction.replace(R.id.frame_container, myFragment);
 				fragmentTransaction.commit();

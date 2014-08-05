@@ -74,7 +74,7 @@
                     android:layout_marginRight="10dp"
                     android:layout_marginTop="10dp"
                     android:text="Next"
-                    android:visibility="visible" />
+                    android:visibility="invisible" />
 
                 <Button
                     android:id="@+id/travelwaiting_add_button_add"

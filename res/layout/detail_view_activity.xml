@@ -119,7 +119,7 @@
             android:background="#ffffff" >
 
             <TextView
-                android:id="@+id/area"
+                android:id="@+id/update_area"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"
@@ -165,7 +165,7 @@
             android:background="#ffffff" >
 
             <TextView
-                android:id="@+id/province"
+                android:id="@+id/update_province"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#ffffff"

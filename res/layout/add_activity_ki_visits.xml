@@ -131,7 +131,7 @@
                         android:textStyle="bold" />
 
                     <Spinner
-                        android:id="@+id/area"
+                        android:id="@+id/update_area"
                         android:layout_width="0dp"
                         android:layout_height="58dp"
                         android:layout_marginRight="1dp"
@@ -166,7 +166,7 @@
                     </HorizontalScrollView>
 
                     <Spinner
-                        android:id="@+id/province"
+                        android:id="@+id/update_province"
                         android:layout_width="0dp"
                         android:layout_height="58dp"
                         android:layout_weight="0.3"

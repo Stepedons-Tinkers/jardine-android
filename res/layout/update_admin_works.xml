@@ -1,0 +1,135 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:isScrollContainer="true"
+    android:overScrollMode="always"
+    android:scrollbarStyle="outsideInset"
+    android:scrollbars="none" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="#0000b6"
+                android:gravity="center"
+                android:maxLines="2"
+                android:padding="14dip"
+                android:scrollHorizontally="true"
+                android:text="@string/admin_works"
+                android:textColor="#fff"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+
+                <com.dd.CircularProgressButton
+                    android:id="@+id/btnWithText2"
+                    android:layout_width="196dp"
+                    android:layout_height="64dp"
+                    android:layout_margin="4dp"
+                    android:layout_toLeftOf="@+id/btnWithText1"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:visibility="invisible"
+                    app:textComplete="@string/complete_cancel"
+                    app:textError="@string/error"
+                    app:textIdle="@string/cancel" />
+
+                <com.dd.CircularProgressButton
+                    android:id="@+id/btnWithText1"
+                    android:layout_width="196dp"
+                    android:layout_height="64dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="4dp"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    app:textComplete="@string/complete"
+                    app:textError="@string/error"
+                    app:textIdle="@string/done" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:background="#0000b6"
+            android:padding="4dp"
+            android:shrinkColumns="*"
+            android:stretchColumns="*" >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#FFFFFF"
+                android:orientation="vertical" >
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="2dp"
+                    android:orientation="horizontal" >
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="2dp"
+                        android:gravity="center_horizontal" >
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="0.3"
+                            android:gravity="center_vertical"
+                            android:maxLines="2"
+                            android:paddingLeft="14dip"
+                            android:scrollHorizontally="true"
+                            android:text="@string/details_admin_works"
+                            android:textColor="#000000"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <EditText
+                            android:id="@+id/update_admin_works"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="7dp"
+                            android:layout_marginRight="7dp"
+                            android:layout_marginTop="7dp"
+                            android:layout_weight="0.3"
+                            android:background="@drawable/edittext_border"
+                            android:gravity="center_vertical"
+                            android:maxHeight="80dp"
+                            android:minHeight="50dp"
+                            android:padding="2dp"
+                            android:scrollHorizontally="true"
+                            android:textColor="#000000"
+                            android:textSize="14sp" />
+                    </TableRow>
+                </TableRow>
+            </LinearLayout>
+        </TableLayout>
+    </LinearLayout>
+
+</ScrollView>

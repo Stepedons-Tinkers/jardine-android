@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.update.fragments.SaveActivityInfoFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
@@ -128,7 +128,7 @@ public class JDIProductStockCheckDetailFragment extends Fragment {
 				fragmentTransaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);
 
 				// Add a fucking fragment
-				SaveActivityInfoFragment myFragment = new SaveActivityInfoFragment();
+				UpdateFragment myFragment = new UpdateFragment();
 				fragmentTransaction.replace(frag_layout_id, myFragment);
 				fragmentTransaction.commit();
 			}

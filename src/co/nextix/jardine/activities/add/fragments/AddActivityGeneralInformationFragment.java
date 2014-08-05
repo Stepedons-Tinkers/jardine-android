@@ -63,7 +63,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 	private int flag = 0;
 
 	private EditText eCreatedBy;
-	
+
 	private TextView tCheckIn;
 	private TextView tCheckOut;
 	private TextView tCrmNo;
@@ -90,11 +90,11 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 				false);
 
 		eCreatedBy = (EditText) rootView.findViewById(R.id.created_by);
-		
-		tCheckIn = (TextView)rootView.findViewById(R.id.check_in);
-		tCheckOut = (TextView)rootView.findViewById(R.id.check_out);
-		tCrmNo = (TextView)rootView.findViewById(R.id.crm_no);
-		
+
+		tCheckIn = (TextView) rootView.findViewById(R.id.check_in);
+		tCheckOut = (TextView) rootView.findViewById(R.id.check_out);
+		tCrmNo = (TextView) rootView.findViewById(R.id.crm_no);
+
 		tCheckIn.setText(displayCheckIn());
 
 		List<ActivityTypeRecord> activityTypeList = JardineApp.DB
@@ -110,10 +110,10 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		activityBusinessAdapter = new ArrayAdapter<BusinessUnitRecord>(
 				JardineApp.context, R.layout.add_activity_textview,
 				businessUnitList);
-		
+
 		sBusinessUnit = (Spinner) rootView.findViewById(R.id.business_unit);
 		sActivityType = (Spinner) rootView.findViewById(R.id.activity_type);
-		
+
 		sBusinessUnit.setAdapter(activityBusinessAdapter);
 		sActivityType.setAdapter(activityTypeAdapter);
 
@@ -121,43 +121,23 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 		if (DashBoardActivity.tabIndex.size() == 0) {
 			DashBoardActivity.tabIndex.add(0, 0);
 		}
+		
+		try {
+			assignedToFname = JardineApp.DB
+					.getUser()
+					.getById(
+							StoreAccount.restore(JardineApp.context).getLong(
+									Account.ROWID)).getFirstNameName();
+			assignedToLname = JardineApp.DB
+					.getUser()
+					.getById(
+							StoreAccount.restore(JardineApp.context).getLong(
+									Account.ROWID)).getLastname();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
-		SharedPreferences pref = getActivity().getApplicationContext()
-				.getSharedPreferences("ActivityInfo", 0);
-		if (AddActivityFragment.activityID != 0) {			
-			String crmNo = pref.getString("activity_id_crm_no", null);
-			String checkIn = pref.getString("activity_id_check_in", null);
-			String checkOut = pref.getString("activity_id_check_out", null);
-			long created = pref.getLong("activity_id_created_by", 0);
-			long unit = pref.getLong("activity_id_business_unit", 0);
-			long type = pref.getLong("activity_id_activity_type", 0);
-			
-			tCrmNo.setText(crmNo);
-			tCheckIn.setText(checkIn);
-			tCheckOut.setText(checkOut);
-			eCreatedBy.setText(JardineApp.DB.getUser().getById(created).toString());
-			sBusinessUnit.setSelection(Integer.parseInt(String.valueOf(unit)));
-			sActivityType.setSelection((Integer.parseInt(String.valueOf(type)))-1);
-			
-		} else {
-			try {
-				assignedToFname = JardineApp.DB
-						.getUser()
-						.getById(
-								StoreAccount.restore(JardineApp.context)
-										.getLong(Account.ROWID))
-						.getFirstNameName();
-				assignedToLname = JardineApp.DB
-						.getUser()
-						.getById(
-								StoreAccount.restore(JardineApp.context)
-										.getLong(Account.ROWID)).getLastname();
-				
-				eCreatedBy.setText(assignedToLname + ", " + assignedToFname);
-			} catch (Exception e) {
-				e.printStackTrace();
-			}
-		}		
+		eCreatedBy.setText(assignedToLname + ", " + assignedToFname);
 
 		sActivityType.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -368,11 +348,12 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 							});
 
 					widthAnimation.start();
-					
+
 					String crmno = tCrmNo.getText().toString();
 					String checkin = tCheckIn.getText().toString();
 					String checkout = tCheckOut.getText().toString();
-					long activityType = ((ActivityTypeRecord) sActivityType.getSelectedItem()).getId();
+					long activityType = ((ActivityTypeRecord) sActivityType
+							.getSelectedItem()).getId();
 
 					long createdBy = JardineApp.DB.getUser().getCurrentUser()
 							.getId();
@@ -425,15 +406,7 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 						Toast.makeText(getActivity(),
 								"Please fill up required (RED COLOR) fields",
 								Toast.LENGTH_LONG).show();
-//						spin.setBackgroundColor(R.color.red);
-//						spin.setOnClickListener(new OnClickListener() {
-//							
-//							@Override
-//							public void onClick(View v) {
-//								// TODO Auto-generated method stub
-////								spin.setBackgroundColor(R.color.red);
-//							}
-//						});
+
 						Handler handler = new Handler();
 						handler.postDelayed(new Runnable() {
 

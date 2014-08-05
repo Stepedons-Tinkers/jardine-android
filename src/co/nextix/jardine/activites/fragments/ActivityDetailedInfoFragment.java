@@ -58,8 +58,8 @@ public class ActivityDetailedInfoFragment extends Fragment {
 		TextView commitment_date = (TextView)myFragmentView.findViewById(R.id.follow_up_commitment_date);
 		TextView workplan_entry = (TextView)myFragmentView.findViewById(R.id.workplan_entry);
 		TextView customer = (TextView)myFragmentView.findViewById(R.id.customer);
-		TextView area = (TextView)myFragmentView.findViewById(R.id.area);
-		TextView province = (TextView)myFragmentView.findViewById(R.id.province);
+		TextView area = (TextView)myFragmentView.findViewById(R.id.update_area);
+		TextView province = (TextView)myFragmentView.findViewById(R.id.update_province);
 		TextView city = (TextView) myFragmentView.findViewById(R.id.city_town);
 		
 		TextView objective = (TextView) myFragmentView.findViewById(R.id.objective);

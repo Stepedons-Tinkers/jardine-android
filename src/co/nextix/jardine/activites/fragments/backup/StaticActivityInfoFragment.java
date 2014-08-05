@@ -15,7 +15,7 @@ import co.nextix.jardine.activities.add.fragments.AddActivityProjectVisitFragmen
 import co.nextix.jardine.activities.add.fragments.AddActivityRetailVisitFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityTrainingsFragment;
 import co.nextix.jardine.activities.add.fragments.AddActivityWithCoSMRsFragment;
-import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateGeneralInformationFragment;
 
 public class StaticActivityInfoFragment extends Fragment {
 

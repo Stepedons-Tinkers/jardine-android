@@ -56,16 +56,6 @@ public class AddActivityTravelWaitingFragment extends Fragment implements
 		final View view = inflater.inflate(
 				R.layout.add_activity_travel_or_waiting, container, false);
 		editTxtReasons = (EditText) view.findViewById(R.id.reason_remarks);
-		// SharedPreferences pref =
-		// getActivity().getApplicationContext().getSharedPreferences("ActivityInfo",
-		// 0);
-		//
-		// String reasonRemarks = pref.getString("activity_id_reasons_remarks",
-		// null);
-		// if (reasonRemarks != null) {
-		// ((EditText)
-		// view.findViewById(R.id.reason_remarks)).setText(reasonRemarks);
-		// }
 
 		this.saveBtn = (CircularProgressButton) view
 				.findViewById(R.id.btnWithText1);

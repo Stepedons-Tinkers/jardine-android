@@ -26,7 +26,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.FrameLayout.LayoutParams;
 import co.nextix.jardine.activities.add.fragments.AddActivityWithCoSMRsFragment;
-import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateGeneralInformationFragment;
 
 public class SuperAwesomeCardFragment extends Fragment {
 

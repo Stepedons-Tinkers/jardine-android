@@ -77,9 +77,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 	
 	private CheckBox cbFirstTimeVisit;
 	private CheckBox cbPlannedTimeVisit;
-	
-	private long provinceNo;
-	private long cityNo;
 
 	public AddActivityDetailsAndNotesFragment() {
 		this.calendar = Calendar.getInstance();
@@ -127,46 +124,14 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 		sWorkplanEntry = (Spinner) rootView.findViewById(R.id.workplan_entry);
 		sWorkplanEntry.setAdapter(workplanEntryAdapter);
 		
-		sArea = (Spinner) rootView.findViewById(R.id.area);		
+		sArea = (Spinner) rootView.findViewById(R.id.update_area);		
 		sArea.setAdapter(areaAdapter);
 		
-		sProvince = (Spinner) rootView.findViewById(R.id.province);
+		sProvince = (Spinner) rootView.findViewById(R.id.update_province);
 		
 		ibFollowUpCalendar = (ImageButton)rootView.findViewById(R.id.ibFollowUpCommitmentCalendar);
 		
 		cpbSave = (CircularProgressButton) rootView.findViewById(R.id.btnWithText1);
-		
-		SharedPreferences pref = getActivity().getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-		if (AddActivityFragment.activityID != 0) {	
-			long customerNo = pref.getLong("activity_id_customer", 0);
-			long areaNo = pref.getLong("activitiy_id_area", 0);
-			provinceNo = pref.getLong("activity_id_province", 0);
-			cityNo = pref.getLong("activity_id_city", 0);
-			String objective = pref.getString("activity_id_objective", null);
-			String notes = pref.getString("activity_id_notes", null);
-			String highlights = pref.getString("activity_id_highlights", null);
-			String nextSteps = pref.getString("activity_id_next_steps", null);
-			String followUp = pref.getString("activity_id_followup_committment_date", null);
-			int firstTime = pref.getInt("activity_id_first_time_visit", 0);
-			int planned = pref.getInt("activity_id_planned_visit", 0);
-			
-			sCustomer.setSelection(Integer.parseInt(String.valueOf(customerNo-1))-1);
-			sArea.setSelection(Integer.parseInt(String.valueOf(areaNo))-1);
-			
-			etObjective.setText(objective);
-			etNotes.setText(notes);
-			etHighlights.setText(highlights);
-			etNextSteps.setText(nextSteps);
-			tvFollowUp.setText(followUp);
-			
-			if(firstTime == 0){
-				cbFirstTimeVisit.setChecked(true);
-			}
-			
-			if(planned == 0){
-				cbPlannedTimeVisit.setChecked(true);
-			}
-		}
 
 		sCustomer.setOnItemSelectedListener(new OnItemSelectedListener() {
 
@@ -197,9 +162,9 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								R.layout.add_activity_textview, provinceTable
 										.getRecordsByAreaId(id + 1));
 
-						sProvince = (Spinner) rootView.findViewById(R.id.province);
+						sProvince = (Spinner) rootView.findViewById(R.id.update_province);
 						sProvince.setAdapter(provinceAdapter);
-						sProvince.setSelection(Integer.parseInt(String.valueOf(provinceNo))-1);
+
 					}
 
 					@Override
@@ -222,7 +187,6 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 
 						sCityTown = (Spinner) rootView.findViewById(R.id.city_town);
 						sCityTown.setAdapter(cityTownAdapter);
-						sCityTown.setSelection(Integer.parseInt(String.valueOf(cityNo))-1);
 					}
 
 					@Override
@@ -302,7 +266,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								firstTimeVisit = cbFirstTimeVisit.isChecked() ? 1 : 0;
 								plannedTimeVisit = cbPlannedTimeVisit.isChecked() ? 1 : 0;
 								highlights = etHighlights.getText().toString();
-								notes = etNotes.toString();
+								notes = etNotes.getText().toString();
 								nextSteps = etNextSteps.getText().toString();
 								followUpCommittmentDate = tvFollowUp.getText().toString();
 
@@ -329,7 +293,7 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 										.setFollowUpCommitmentDate(followUpCommittmentDate);
 
 							} catch (Exception e) {
-
+								e.printStackTrace();
 							}
 
 							/** Checking of required fields **/

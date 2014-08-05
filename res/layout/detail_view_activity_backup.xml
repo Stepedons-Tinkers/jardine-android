@@ -824,7 +824,7 @@
             android:background="#cac9c9" >
 
             <TextView
-                android:id="@+id/area"
+                android:id="@+id/update_area"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#cac9c9"
@@ -870,7 +870,7 @@
             android:background="#dcdcdc" >
 
             <TextView
-                android:id="@+id/province"
+                android:id="@+id/update_province"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:background="#dcdcdc"

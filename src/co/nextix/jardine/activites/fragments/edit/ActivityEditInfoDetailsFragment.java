@@ -9,7 +9,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import co.nextix.jardine.R;
-import co.nextix.jardine.activities.update.fragments.EditActivityInfoFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateGeneralInformationFragment;
 
 public class ActivityEditInfoDetailsFragment extends Fragment {
 	@Override
