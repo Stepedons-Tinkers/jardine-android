@@ -136,7 +136,7 @@ public class AddMarketingIntelFragment extends Fragment {
 		// } else {
 
 		((Spinner) view.findViewById(R.id.competitor_product)).setAdapter(this.competitorProductAdapter);
-		((TextView) view.findViewById(R.id.activity)).setText("AUTO_GEN_ON_SAVE");
+		((TextView) view.findViewById(R.id.activity)).setHint("AUTO_GEN_ON_SAVE");
 		((TextView) view.findViewById(R.id.activity)).setEnabled(false);
 		((TextView) view.findViewById(R.id.activity)).setClickable(false);
 
@@ -183,7 +183,10 @@ public class AddMarketingIntelFragment extends Fragment {
 
 					/** Checking of required fields **/
 
-					if (details != null && !details.isEmpty() && competitorProductString != null && !competitorProductString.isEmpty()) {
+					if (details != null && !details.isEmpty() && !competitorProductString.equals("- Select -")) {
+
+						
+						etDetails.setError(null);
 
 						flag = true;
 						long competitorProduct = ((CompetitorProductRecord) ((Spinner) view.findViewById(R.id.competitor_product))
@@ -200,7 +203,7 @@ public class AddMarketingIntelFragment extends Fragment {
 						mark.setListData();
 
 						// Calling the activity itself
-						mCallback.onArticleSelected(Constant.addMarketingIntelRecords);
+						//mCallback.onArticleSelected(Constant.addMarketingIntelRecords);
 
 						Log.d(JardineApp.TAG, "" + Constant.addMarketingIntelRecords.size());
 						btn.setProgress(0);
@@ -218,8 +221,10 @@ public class AddMarketingIntelFragment extends Fragment {
 
 					} else {
 						flag = false;
-						Toast.makeText(getActivity(), "Please fill up required (RED COLOR) fields", Toast.LENGTH_SHORT).show();
-
+						Toast.makeText(getActivity(), "Please fill up required fields", Toast.LENGTH_SHORT).show();
+						if(details == null || details.isEmpty())
+							etDetails.setError("Please provide some details.");
+						
 						btn.setClickable(true);
 						btn.setEnabled(true);
 

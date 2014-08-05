@@ -29,17 +29,17 @@ import android.widget.Toast;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
 import co.nextix.jardine.activities.add.fragments.AddMarketingIntelFragment.OnHeadlineSelectedListener;
 import co.nextix.jardine.adapter.NavDrawerListAdapter;
+import co.nextix.jardine.collaterals.CollateralsMenuBarFragment;
 import co.nextix.jardine.customers.ViewAllCustomersFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
-import co.nextix.jardine.fragments.CollateralsMenuBarFragment;
 import co.nextix.jardine.fragments.DashboardFragment;
 import co.nextix.jardine.fragments.ProfileFragment;
 import co.nextix.jardine.fragments.StartActivityFragment;
 import co.nextix.jardine.fragments.SyncMenuBarFragment;
-import co.nextix.jardine.fragments.WorkplanMenuBarFragment;
 import co.nextix.jardine.model.NavDrawerItem;
 import co.nextix.jardine.security.StoreAccount;
+import co.nextix.jardine.workplan.WorkplanMenuBarFragment;
 
 import com.squareup.timessquare.CalendarPickerView;
 
@@ -522,6 +522,6 @@ public class DashBoardActivity extends FragmentActivity implements OnHeadlineSel
 		// HeadlinesFragment
 		// Do something here to display that article
 		
-		Toast.makeText(getApplicationContext(), rec.toString(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(getApplicationContext(), rec.toString(), Toast.LENGTH_SHORT).show();
 	}
 }

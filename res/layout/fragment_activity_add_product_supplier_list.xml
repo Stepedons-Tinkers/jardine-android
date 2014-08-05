@@ -24,8 +24,23 @@
             android:background="#ffffff"
             android:orientation="vertical" >
 
-            <com.dd.CircularProgressButton
-                android:id="@+id/btnWithText1"
+<!--             <com.dd.CircularProgressButton -->
+<!--                 android:id="@+id/btnWithText1" -->
+<!--                 android:layout_width="196dp" -->
+<!--                 android:layout_height="wrap_content" -->
+<!--                 android:layout_alignParentRight="true" -->
+<!--                 android:layout_marginTop="4dp" -->
+<!--                 android:layout_marginRight="@dimen/activity_horizontal_margin" -->
+<!--                 android:layout_marginBottom="4dp" -->
+<!--                 android:paddingRight="@dimen/activity_horizontal_margin" -->
+<!--                 android:textColor="@color/white" -->
+<!--                 android:textSize="18sp" -->
+<!--                 app:textComplete="@string/next" -->
+<!--                 app:textError="@string/error" -->
+<!--                 app:textIdle="@string/done" /> -->
+
+		<Button 
+		     android:id="@+id/btnWithText1" 
                 android:layout_width="196dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -35,9 +50,7 @@
                 android:paddingRight="@dimen/activity_horizontal_margin"
                 android:textColor="@color/white"
                 android:textSize="18sp"
-                app:textComplete="@string/next"
-                app:textError="@string/error"
-                app:textIdle="@string/done" />
+               	android:text="@string/done" />
 
             <TableLayout
                 android:id="@+id/activity_table"

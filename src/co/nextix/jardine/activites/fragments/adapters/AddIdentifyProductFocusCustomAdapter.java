@@ -87,8 +87,6 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 		public TextView product_description;
 		public TextView is_active;
 		public TextView created_by;
-		public TextView edit_txt;
-		public TextView delete_txt;
 		public CheckBox checker;
 
 	}
@@ -164,34 +162,6 @@ public class AddIdentifyProductFocusCustomAdapter extends BaseAdapter {
 			}
 
 			/******** Set Item Click Listener for LayoutInflater for each row ***********/
-			holder.edit_txt.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Edit here", Toast.LENGTH_SHORT).show();
-					CompetitorProductStockCheckRecord tempValues = (CompetitorProductStockCheckRecord) data.get(position);
-
-					// Saving acquired activity details
-					SharedPreferences pref = activity.getApplicationContext().getSharedPreferences("ActivityInfo", 0);
-					Editor editor = pref.edit();
-					editor.putLong("activity_id", tempValues.getId());
-					editor.commit(); // commit changes
-
-					android.support.v4.app.Fragment fragment = new ActivityInfoFragment();
-					android.support.v4.app.FragmentManager fragmentManager = activity.getSupportFragmentManager();
-					fragmentManager.beginTransaction().setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left)
-							.replace(R.id.frame_container, fragment).addToBackStack(null).commit();
-				}
-			});
-
-			holder.delete_txt.setOnClickListener(new OnClickListener() {
-
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(activity.getApplicationContext(), "Delete here", Toast.LENGTH_SHORT).show();
-					showDeleteDialog(position, listView);
-				}
-			});
 
 			if (Constant.addProductFocusRecords.contains(((ProductRecord) data.get(position))))
 				holder.checker.setChecked(true);

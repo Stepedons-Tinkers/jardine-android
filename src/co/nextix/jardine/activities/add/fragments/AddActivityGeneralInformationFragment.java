@@ -211,8 +211,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					ActivityType = 47;
 
 				} else if (activityTypeName
-						.equals("Retail Visits (Traditional Hardware)")
-						|| activityTypeName.equals("Retail Visits (Merienda)")) { // done
+						.equalsIgnoreCase("Retail Visits (Traditional Hardware)")
+						|| activityTypeName.equalsIgnoreCase("Retail Visit (Merienda)")) { // done
 					indexes.add(1);
 					indexes.add(2);
 					indexes.add(3);

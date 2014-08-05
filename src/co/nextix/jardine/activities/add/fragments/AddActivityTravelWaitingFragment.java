@@ -1,12 +1,9 @@
 package co.nextix.jardine.activities.add.fragments;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.List;
 
 import android.animation.ValueAnimator;
 import android.app.ProgressDialog;
-import android.content.SharedPreferences;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -14,7 +11,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,8 +31,6 @@ import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.fragments.StartActivityFragment;
 import co.nextix.jardine.keys.Constant;
 import co.nextix.jardine.keys.Modules;
-import co.nextix.jardine.security.StoreAccount;
-import co.nextix.jardine.security.StoreAccount.Account;
 import co.nextix.jardine.utils.MyDateUtils;
 
 import com.dd.CircularProgressButton;
@@ -112,6 +106,7 @@ public class AddActivityTravelWaitingFragment extends Fragment implements
 					if (reasons != null && !reasons.isEmpty()) {
 						flag = true;
 
+						editTxtReasons.setError(null);
 						new InsertDBTask().execute();
 
 						// new InsertTask("0", pref.getString("crm_no", null),
@@ -145,9 +140,10 @@ public class AddActivityTravelWaitingFragment extends Fragment implements
 
 					} else {
 
+						editTxtReasons.setError("Just give me a reason, just a little bits enough.");
 						flag = false;
 						Toast.makeText(getActivity(),
-								"Please fill up required (RED COLOR) fields",
+								"Please fill up required fields",
 								Toast.LENGTH_SHORT).show();
 
 						Handler handler = new Handler();

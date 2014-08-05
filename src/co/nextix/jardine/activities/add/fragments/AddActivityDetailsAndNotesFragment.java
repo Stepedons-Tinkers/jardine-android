@@ -305,7 +305,15 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 									&& highlights != null
 									&& !highlights.isEmpty()
 									&& nextSteps != null
-									&& !nextSteps.isEmpty()) {
+									&& !nextSteps.isEmpty()
+									&& !((PicklistRecord) sArea.getSelectedItem()).toString().equals("- Select -")
+									&& !((ProvinceRecord) sProvince.getSelectedItem()).toString().equals("- Select -")
+									&& !((CityTownRecord) sCityTown.getSelectedItem()).toString().equals("- Select -")){
+								
+									etObjective.setError(null);
+									etHighlights.setError(null);
+									etNotes.setError(null);
+									etNextSteps.setError(null);
 
 								trapping = true;
 								Editor editor = pref.edit();
@@ -340,11 +348,19 @@ public class AddActivityDetailsAndNotesFragment extends Fragment {
 								}, 1500);
 
 							} else {
-
+								if(objective == null || objective.isEmpty())
+									etObjective.setError("Please provide an objective.");
+								if( highlights == null || highlights.isEmpty())
+									etHighlights.setError("Please provide some highlights.");
+								if(notes == null || notes.isEmpty())
+									etNotes.setError("Please provide some notes.");
+								if(nextSteps == null || nextSteps.isEmpty())
+									etNextSteps.setError("Please provide next step.");
+								
 								trapping = false;
 								Toast.makeText(
 										getActivity(),
-										"Please fill up required (RED COLOR) fields",
+										"Please fill up required fields",
 										Toast.LENGTH_LONG).show();
 
 								Handler handler = new Handler();
