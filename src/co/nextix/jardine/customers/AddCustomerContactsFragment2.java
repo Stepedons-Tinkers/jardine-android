@@ -31,6 +31,8 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activities.add.fragments.ActivitiesConstant;
 import co.nextix.jardine.activities.add.fragments.ActivitiesCustomerContactList;
 import co.nextix.jardine.activities.add.fragments.AddActivityFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateFragment;
 import co.nextix.jardine.database.DatabaseAdapter;
 import co.nextix.jardine.database.records.PicklistRecord;
 import co.nextix.jardine.database.records.UserRecord;
@@ -150,8 +152,12 @@ public class AddCustomerContactsFragment2 extends Fragment implements
 		field6a.setText(MyDateUtils.convertDate(formattedDate));
 		field6b.setOnClickListener(this);
 
-		field8.setText(ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD
-				.getCustomerName());
+		if(UpdateConstants.RECORD != null){
+			field8.setText(UpdateConstants.CUSTOMER_RECORD.getCustomerName());
+		}else{
+			field8.setText(ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD
+					.getCustomerName());
+		}
 
 		UserTable u = DatabaseAdapter.getInstance().getUser();
 		if (u != null) {
@@ -286,8 +292,20 @@ public class AddCustomerContactsFragment2 extends Fragment implements
 		String mobileNo = field5.getText().toString();
 		String birthday = formattedDate;
 		String emailAddress = field7.getText().toString();
-		long customer = ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD.getId();
-		int isActive = 1;
+		int isActive = 1;		
+		long customer = 0;
+		
+		if(UpdateConstants.CUSTOMER_RECORD != null){
+			customer = UpdateConstants.CUSTOMER_RECORD.getId();
+			if(UpdateConstants.CRM_NO != null){
+				crmNo = UpdateConstants.CRM_NO;
+			}
+			if(UpdateConstants.NO != null){
+				no = UpdateConstants.NO;
+			}
+		}else{
+			customer = ActivitiesConstant.ACTIVITY_CUSTOMER_RECORD.getId();
+		}
 
 		String createdTime = MyDateUtils.getCurrentTimeStamp();
 		String modifiedTime = MyDateUtils.getCurrentTimeStamp();

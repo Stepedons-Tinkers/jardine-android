@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import co.nextix.jardine.activites.fragments.PhotosAndAttachmentsFragment;
 import co.nextix.jardine.activites.fragments.ProductFocusFragment;
 import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
 import co.nextix.jardine.activites.fragments.ProjectRequirementsFragment;
+import co.nextix.jardine.activities.add.fragments.ActivitiesCustomerContactList;
 import co.nextix.jardine.database.tables.ActivityTypeTable;
 
 import com.astuetz.PagerSlidingTabStrip;
@@ -42,7 +42,6 @@ public class UpdateFragment extends Fragment {
 	public static ViewPager pager;
 	protected MyPagerAdapter adapter;
 	
-	private long activityID = 0;
 	private int titles;
 
 	@Override
@@ -51,10 +50,10 @@ public class UpdateFragment extends Fragment {
 		
 		Bundle b = getArguments();
 		if(b != null){
-			activityID = b.getLong("activityID");
+			UpdateConstants.ACTIVITY_ID = b.getLong("activityID");
 		}
 		
-		UpdateConstants.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(activityID);
+		UpdateConstants.ACTIVITY_RECORD = JardineApp.DB.getActivity().getById(UpdateConstants.ACTIVITY_ID);
 		
 		List<Fragment> fragment = null;
 		ActivityTypeTable type = JardineApp.DB.getActivityType();
@@ -62,6 +61,8 @@ public class UpdateFragment extends Fragment {
 		if(type != null){
 			UpdateConstants.RECORD = type.getById(UpdateConstants.ACTIVITY_RECORD.getActivityType());
 			if(UpdateConstants.RECORD != null){
+				
+				UpdateConstants.NO = UpdateConstants.ACTIVITY_RECORD.getNo();
 				
 				UpdateConstants.CRM_NO = UpdateConstants.ACTIVITY_RECORD.getCrm();
 				UpdateConstants.ACTIVITY_TYPE = UpdateConstants.ACTIVITY_RECORD.getActivityType();
@@ -88,8 +89,6 @@ public class UpdateFragment extends Fragment {
 				UpdateConstants.FIRST_TIME = UpdateConstants.ACTIVITY_RECORD.getFirstTimeVisit();
 				UpdateConstants.PLANNED = UpdateConstants.ACTIVITY_RECORD.getPlannedVisit();
 				UpdateConstants.FOLLOW_UP_DATE = UpdateConstants.ACTIVITY_RECORD.getFollowUpCommitmentDate();
-				
-				Log.e("province","" + UpdateConstants.PROVINCE);
 				
 				if (UpdateConstants.RECORD.toString().equals("Travel")
 						|| UpdateConstants.RECORD.toString().equals("Waiting")) { // done
@@ -251,9 +250,13 @@ public class UpdateFragment extends Fragment {
 		case 3: // retail visits
 			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
 			flist.add(UpdateDetailsAndNotesFragment.instantiate(getActivity(),UpdateDetailsAndNotesFragment.class.getName()));
-			flist.add(CustomerContactPersonFragment.instantiate(getActivity(),CustomerContactPersonFragment.class.getName()));
+			
+			flist.add(ActivitiesCustomerContactList.instantiate(getActivity(),ActivitiesCustomerContactList.class.getName()));
+			
 			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));
-			flist.add(ProductSupplierFragment.instantiate(getActivity(),ProductSupplierFragment.class.getName()));
+			
+			flist.add(UpdateProductSupplier.instantiate(getActivity(),UpdateProductSupplier.class.getName()));
+			
 			flist.add(JDIMerchandisingCheckFragment.instantiate(getActivity(),JDIMerchandisingCheckFragment.class.getName()));
 			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),CompetitorStockCheckFragment.class.getName()));
 			flist.add(MarketingIntelFragment.instantiate(getActivity(),MarketingIntelFragment.class.getName()));

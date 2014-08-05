@@ -167,15 +167,6 @@ public class ProductSupplierFragment extends Fragment {
 				"JDIProductStockCheck" + String.valueOf(records.size()));
 
 		if (realRecord.size() > 0) {
-			int remainder = realRecord.size() % rowSize;
-			if (remainder > 0) {
-				for (int i = 0; i < rowSize - remainder; i++) {
-					// realRecord.add(new JDIproductStockCheckRecord(i, "", "",
-					// i,
-					// i, i, i, i, i, "", "", i));
-				}
-			}
-
 			this.totalPage = realRecord.size() / rowSize;
 			addItem(currentPage);
 

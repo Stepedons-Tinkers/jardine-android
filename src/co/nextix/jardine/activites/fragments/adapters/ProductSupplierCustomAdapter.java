@@ -20,6 +20,8 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateProductSupplier;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
@@ -96,7 +98,15 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		ProductSupplierFragment sct = (ProductSupplierFragment) frag;
+		
+		ProductSupplierFragment sct = null;
+		UpdateProductSupplier ups = null;
+		
+		if(UpdateConstants.RECORD != null){
+			ups = (UpdateProductSupplier) frag;
+		}else{
+			sct = (ProductSupplierFragment) frag;
+		}
 
 		if (convertView == null) {
 
@@ -122,10 +132,17 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
-
+			if(UpdateConstants.RECORD != null){
+				ups.isListHasNoData();
+			}else{
+				sct.isListHasNoData();
+			}
 		} else {
-			sct.isListHasData();
+			if(UpdateConstants.RECORD != null){
+				ups.isListHasData();
+			}else{
+				sct.isListHasData();
+			}
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (ProductSupplierRecord) this.data.get(position);

@@ -96,6 +96,48 @@ public class ProductSupplierTable {
 		}
 		return list;
 	}
+	
+	public List<ProductSupplierRecord> getAllRecordsByActivity(long activityID) {
+		Cursor c = null;
+		List<ProductSupplierRecord> list = new ArrayList<ProductSupplierRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_PRODUCTSUPPLIER_ACTIVITY + "=" + activityID;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CRMNO));
+					long productBrand = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_PRODUCTBRAND));
+					long supplier = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_SUPPLIER));
+					String othersRemarks = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_OTHERREMARKS));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_ACTIVITY));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CREATEDBY));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_PRODUCTSUPPLIER_MODIFIEDTIME));
+
+					list.add(new ProductSupplierRecord(id, no, crmNo,
+							productBrand, supplier, othersRemarks, activity,
+							createdBy, createdTime, modifiedTime));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
 
 	public List<ProductSupplierRecord> getUnsyncedRecords() {
 		List<ProductSupplierRecord> list = new ArrayList<ProductSupplierRecord>();

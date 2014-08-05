@@ -6,6 +6,8 @@ import co.nextix.jardine.database.records.CustomerRecord;
 
 public class UpdateConstants {
 	
+	public static long ACTIVITY_ID = 0;
+	
 	public static ActivityRecord ACTIVITY_RECORD = null;
 	public static ActivityTypeRecord RECORD = null;
 	public static CustomerRecord CUSTOMER_RECORD = null;
@@ -20,6 +22,8 @@ public class UpdateConstants {
 	public static String NOTES = null;
 	public static String NEXT_STEPS = null;
 	public static String FOLLOW_UP_DATE = null;
+	public static String OTHER_REMARKS = null;
+	public static String NO = null;
 	
 	public static long BUSINESS_UNIT = 0;
 	public static long ACTIVITY_TYPE = 0;
@@ -30,6 +34,8 @@ public class UpdateConstants {
 	public static long PROVINCE = 0;
 	public static long CITY_TOWN = 0;
 	public static long WORKPLAN_ENTRY = 0;
+	public static long PRODUCT_BRAND = 0;
+	public static long SUPPLIER = 0;
 	
 	// boolean: 0 = false : 1 = true
 	public static int FIRST_TIME = 0;

@@ -330,9 +330,6 @@ public class UpdateDetailsAndNotesFragment extends Fragment {
 							public void run() {
 								v.setClickable(true);
 								v.setEnabled(true);
-								
-								getActivity().getSupportFragmentManager();
-								getActivity().getSupportFragmentManager().popBackStack();
 							}
 
 						}, 1500);
@@ -360,6 +357,8 @@ public class UpdateDetailsAndNotesFragment extends Fragment {
 					saveBtn.setProgress(0);
 					v.setClickable(true);
 					v.setEnabled(true);
+					
+					UpdateFragment.pager.setCurrentItem(2);
 				}
 			}
 		});

@@ -8,7 +8,6 @@ import android.animation.ValueAnimator;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -31,8 +30,6 @@ public class UpdateGeneralInformationFragment extends Fragment {
 
 	private View view;
 
-	private ActivityRecord activityRecord = null;
-
 	private ArrayAdapter<ActivityTypeRecord> activityTypeAdapter = null;
 	private ArrayAdapter<BusinessUnitRecord> activityBusinessAdapter = null;
 
@@ -42,13 +39,10 @@ public class UpdateGeneralInformationFragment extends Fragment {
 	private SimpleDateFormat df = null;
 
 	private String formattedDate = null;
-	private String assignedToFname = null;
-	private String assignedToLname = null;
 
 	private int day = 0;
 	private int month = 0;
 	private int year = 0;
-	private int flag = 0;
 
 	private EditText eCreatedBy;
 
