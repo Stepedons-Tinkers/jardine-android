@@ -22,6 +22,8 @@ import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateCompetitorProductStockCheckListFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
@@ -45,6 +47,9 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 	private View vi = null;
 	private ListView listView = null;
 
+	private UpdateCompetitorProductStockCheckListFragment ucsc = null;
+	private CompetitorStockCheckFragment sct = null;
+	
 	/************* CustomAdapter Constructor *****************/
 	public CompetitorProductStockCheckCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
 
@@ -98,7 +103,12 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
+		
+		if(UpdateConstants.RECORD != null){
+			ucsc = (UpdateCompetitorProductStockCheckListFragment) frag;
+		}else{
+			sct = (CompetitorStockCheckFragment) frag;
+		}
 
 		if (convertView == null) {
 
@@ -126,10 +136,17 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
-
+			if(sct != null){
+				sct.isListHasNoData();
+			}else{
+				ucsc.isListHasNoData();
+			}
 		} else {
-			sct.isListHasData();
+			if(sct != null){
+				sct.isListHasData();
+			}else{
+				ucsc.isListHasData();
+			}
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (CompetitorProductStockCheckRecord) this.data.get(position);
@@ -243,8 +260,11 @@ public class CompetitorProductStockCheckCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			CompetitorStockCheckFragment sct = (CompetitorStockCheckFragment) frag;
-			sct.onItemClick(mPosition);
+			if(sct != null){
+				sct.onItemClick(mPosition);
+			}else{
+				ucsc.onItemClick(mPosition);
+			}
 		}
 	}
 

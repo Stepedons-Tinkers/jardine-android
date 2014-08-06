@@ -58,7 +58,12 @@ public class UpdateJDIMerchandisingStockCheckListFragment extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
+				Fragment fragment = new UpdateAddJDIMerchandisingStockCheck();
 				
+				FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+				ft.replace(R.id.update_jdi_fake_layout, fragment);
+				ft.addToBackStack("to_add_jdi");
+				ft.commit();
 			}
 		});
 		

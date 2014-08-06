@@ -23,6 +23,8 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.ActivityInfoFragment;
 import co.nextix.jardine.activites.fragments.CompetitorStockCheckFragment;
 import co.nextix.jardine.activites.fragments.MarketingIntelFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateMarketingIntelListFragment;
 import co.nextix.jardine.database.records.CompetitorProductRecord;
 import co.nextix.jardine.database.records.CompetitorProductStockCheckRecord;
 import co.nextix.jardine.database.records.MarketingIntelRecord;
@@ -43,6 +45,9 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 	private MarketingIntelRecord tempValues = null;
 	private View vi = null;
 	private ListView listView = null;
+	
+	private MarketingIntelFragment sct = null;
+	private UpdateMarketingIntelListFragment umi = null;
 
 	/************* CustomAdapter Constructor *****************/
 	public MarketingIntelCustomAdapter(Context a, FragmentActivity act, ListView listView, ArrayList<?> d, Fragment fragment) {
@@ -95,7 +100,12 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		MarketingIntelFragment sct = (MarketingIntelFragment) frag;
+		
+		if(UpdateConstants.RECORD != null){
+			umi = (UpdateMarketingIntelListFragment) frag;
+		}else{
+			sct = (MarketingIntelFragment) frag;
+		}
 
 		if (convertView == null) {
 
@@ -121,10 +131,17 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
-
+			if(sct != null){
+				sct.isListHasNoData();
+			}else{
+				umi.isListHasNoData();
+			}
 		} else {
-			sct.isListHasData();
+			if(sct != null){
+				sct.isListHasData();
+			}else{
+				umi.isListHasData();
+			}
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (MarketingIntelRecord) this.data.get(position);
@@ -220,8 +237,11 @@ public class MarketingIntelCustomAdapter extends BaseAdapter {
 
 		@Override
 		public void onClick(View arg0) {
-			MarketingIntelFragment sct = (MarketingIntelFragment) frag;
-			sct.onItemClick(mPosition);
+			if(sct != null){
+				sct.onItemClick(mPosition);
+			}else{
+				umi.onItemClick(mPosition);
+			}
 		}
 	}
 

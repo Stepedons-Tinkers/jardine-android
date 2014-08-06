@@ -238,12 +238,13 @@
     <string name="time_gen_info">Time:</string>
     <string name="save">Save</string>
     <string name="error">Error saving</string>
-    <string name="complete">Saved!</string>
+    <string name="complete">Saved</string>
     <string name="cancel">Cancel</string>
     <string name="done">Done</string>
     <string name="add">Add</string>
-    <string name="success">Added Successfully!</string>
-    <string name="complete_cancel">Canceled!</string>
+    <string name="success">Added Successfully</string>
+    <string name="save_succes">Saved Successfully</string>
+    <string name="complete_cancel">Canceled</string>
     <string name="add_activity">Add Activity</string>
 
     <!-- JDI Product Stock Check ListView Details -->

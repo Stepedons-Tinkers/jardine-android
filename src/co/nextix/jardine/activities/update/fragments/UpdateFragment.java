@@ -252,14 +252,12 @@ public class UpdateFragment extends Fragment {
 			
 			flist.add(ActivitiesCustomerContactList.instantiate(getActivity(),ActivitiesCustomerContactList.class.getName()));
 			
-			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));
+			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));		
+			flist.add(UpdateProductSupplierList.instantiate(getActivity(),UpdateProductSupplierList.class.getName()));		
+			flist.add(UpdateJDIMerchandisingStockCheckListFragment.instantiate(getActivity(),UpdateJDIMerchandisingStockCheckListFragment.class.getName()));		
+			flist.add(UpdateCompetitorProductStockCheckListFragment.instantiate(getActivity(),UpdateCompetitorProductStockCheckListFragment.class.getName()));		
+			flist.add(UpdateMarketingIntelListFragment.instantiate(getActivity(),UpdateMarketingIntelListFragment.class.getName()));
 			
-			flist.add(UpdateProductSupplierList.instantiate(getActivity(),UpdateProductSupplierList.class.getName()));
-			
-			flist.add(UpdateJDIMerchandisingStockCheckListFragment.instantiate(getActivity(),UpdateJDIMerchandisingStockCheckListFragment.class.getName()));
-			
-			flist.add(CompetitorStockCheckFragment.instantiate(getActivity(),CompetitorStockCheckFragment.class.getName()));
-			flist.add(MarketingIntelFragment.instantiate(getActivity(),MarketingIntelFragment.class.getName()));
 			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),PhotosAndAttachmentsFragment.class.getName()));
 			break;
 		case 4:

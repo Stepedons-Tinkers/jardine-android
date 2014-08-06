@@ -11,6 +11,7 @@ import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTST
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID;
 import static co.nextix.jardine.database.DatabaseAdapter.KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS;
+import static co.nextix.jardine.database.DatabaseAdapter.KEY_PRODUCTSUPPLIER_ACTIVITY;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,6 +64,62 @@ public class CompetitorProductStockCheckTable {
 		Cursor c = null;
 		List<CompetitorProductStockCheckRecord> list = new ArrayList<CompetitorProductStockCheckRecord>();
 		String MY_QUERY = "SELECT * FROM " + mDatabaseTable;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ROWID));
+					String no = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_NO));
+					String crmNo = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CRMNO));
+					long activity = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY));
+					long competitorProduct = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_COMPETITORPRODUCT));
+					int stockStatus = c
+							.getInt(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_STOCKSTATUS));
+					int loadedOnShelves = c
+							.getInt(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_LOADEDONSHELVES));
+					String otherRemarks = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_OTHERREMARKS));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_MODIFIEDTIME));
+					long createdBy = c
+							.getLong(c
+									.getColumnIndex(KEY_COMPETITORPRODUCTSTOCKCHECK_CREATEDBY));
+
+					list.add(new CompetitorProductStockCheckRecord(id, no,
+							crmNo, activity, competitorProduct, stockStatus,
+							loadedOnShelves, otherRemarks, createdTime,
+							modifiedTime, createdBy));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
+	
+	public List<CompetitorProductStockCheckRecord> getAllRecordsByActivityId(long activityID) {
+		Cursor c = null;
+		List<CompetitorProductStockCheckRecord> list = new ArrayList<CompetitorProductStockCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_COMPETITORPRODUCTSTOCKCHECK_ACTIVITY + "=" + activityID;
 		try {
 			c = mDb.rawQuery(MY_QUERY, null);
 			if (c.moveToFirst()) {

@@ -99,6 +99,51 @@ public class MarketingIntelTable {
 		}
 		return list;
 	}
+	
+	public List<MarketingIntelRecord> getAllRecordsByActivityId(long activityID) {
+		Cursor c = null;
+		List<MarketingIntelRecord> list = new ArrayList<MarketingIntelRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_MARKETINGINTEL_ACTIVITY + "=" + activityID;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_CRMNO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_ACTIVITY));
+					// long competitor = c.getLong(c
+					// .getColumnIndex(KEY_MARKETINGINTEL_COMPETITOR));
+					long competitorProduct = c
+							.getLong(c
+									.getColumnIndex(KEY_MARKETINGINTEL_COMPETITORPRODUCT));
+					String details = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_DETAILS));
+					// String remarks = c.getString(c
+					// .getColumnIndex(KEY_MARKETINGINTEL_REMARKS));
+					String createdTime = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDTIME));
+					String modifiedTime = c.getString(c
+							.getColumnIndex(KEY_MARKETINGINTEL_MODIFIEDTIME));
+					long createdBy = c.getLong(c
+							.getColumnIndex(KEY_MARKETINGINTEL_CREATEDBY));
+
+					list.add(new MarketingIntelRecord(id, no, crmNo, activity,
+							competitorProduct, details, createdTime,
+							modifiedTime, createdBy));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
 
 	// ===========================================================
 	// Public methods
