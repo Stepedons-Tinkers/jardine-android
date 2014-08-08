@@ -19,6 +19,8 @@ import android.widget.Toast;
 import co.nextix.jardine.JardineApp;
 import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
+import co.nextix.jardine.activities.update.fragments.UpdateConstants;
+import co.nextix.jardine.activities.update.fragments.UpdateJDIProductStockCheckListFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
 import co.nextix.jardine.database.records.PicklistRecord;
@@ -40,6 +42,9 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 	private static LayoutInflater inflater = null;
 	private JDIproductStockCheckRecord tempValues = null;
 	private View vi = null;
+	
+	private JDIProductStockFragment sct = null;
+	private UpdateJDIProductStockCheckListFragment ujpsc = null;
 
 	/************* CustomAdapter Constructor *****************/
 	public JDIProductStockCheckCustomAdapter(Context a, FragmentActivity act, ArrayList<?> d, Fragment fragment) {
@@ -92,7 +97,12 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 		this.vi = convertView;
 		final int pos = position;
 		final ViewHolder holder;
-		JDIProductStockFragment sct = (JDIProductStockFragment) frag;
+		
+		if(UpdateConstants.RECORD != null){
+			ujpsc = (UpdateJDIProductStockCheckListFragment) frag;
+		}else{
+			sct = (JDIProductStockFragment) frag;
+		}
 
 		if (convertView == null) {
 
@@ -119,10 +129,17 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 		// Checking of the data gathered
 		if (this.data.size() <= 0) {
-			sct.isListHasNoData();
-
+			if(sct != null){
+				sct.isListHasNoData();
+			}else{
+				ujpsc.isListHasNoData();
+			}
 		} else {
-			sct.isListHasData();
+			if(sct != null){
+				sct.isListHasData();
+			}else{
+				ujpsc.isListHasData();
+			}
 
 			/***** Get each Model object from Arraylist ********/
 			this.tempValues = (JDIproductStockCheckRecord) this.data.get(position);
@@ -244,8 +261,11 @@ public class JDIProductStockCheckCustomAdapter extends BaseAdapter implements On
 
 		@Override
 		public void onClick(View arg0) {
-			JDIProductStockFragment sct = (JDIProductStockFragment) frag;
-			sct.onItemClick(mPosition);
+			if(sct != null){
+				sct.onItemClick(mPosition);
+			}else{
+				ujpsc.onItemClick(mPosition);
+			}
 		}
 	}
 

@@ -27,7 +27,7 @@ import co.nextix.jardine.database.records.UserRecord;
 
 import com.dd.CircularProgressButton;
 
-public class UpdateProductSupplierDetail extends Fragment {
+public class UpdateProductSupplierDetailFragment extends Fragment {
 
 	private View view;
 

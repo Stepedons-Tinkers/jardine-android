@@ -243,22 +243,19 @@ public class UpdateFragment extends Fragment {
 			flist.add(UpdateWithCoSMRFragment.instantiate(getActivity(),UpdateWithCoSMRFragment.class.getName()));
 			break;
 		case 2: // admin works
-			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),ActivityGeneralInfoFragment.class.getName()));
-			flist.add(ActivityAdminWorksFragment.instantiate(getActivity(),ActivityAdminWorksFragment.class.getName()));
+			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
+			flist.add(UpdateAdminWorksFragment.instantiate(getActivity(),UpdateAdminWorksFragment.class.getName()));
 			break;
 		case 3: // retail visits
 			flist.add(UpdateGeneralInformationFragment.instantiate(getActivity(),UpdateGeneralInformationFragment.class.getName()));
-			flist.add(UpdateDetailsAndNotesFragment.instantiate(getActivity(),UpdateDetailsAndNotesFragment.class.getName()));
-			
-			flist.add(ActivitiesCustomerContactList.instantiate(getActivity(),ActivitiesCustomerContactList.class.getName()));
-			
-			flist.add(JDIProductStockFragment.instantiate(getActivity(),JDIProductStockFragment.class.getName()));		
-			flist.add(UpdateProductSupplierList.instantiate(getActivity(),UpdateProductSupplierList.class.getName()));		
+			flist.add(UpdateDetailsAndNotesFragment.instantiate(getActivity(),UpdateDetailsAndNotesFragment.class.getName()));		
+			flist.add(UpdateCustomerContactListFragment.instantiate(getActivity(),UpdateCustomerContactListFragment.class.getName()));				
+			flist.add(UpdateJDIProductStockCheckListFragment.instantiate(getActivity(),UpdateJDIProductStockCheckListFragment.class.getName()));		
+			flist.add(UpdateProductSupplierListFragment.instantiate(getActivity(),UpdateProductSupplierListFragment.class.getName()));		
 			flist.add(UpdateJDIMerchandisingStockCheckListFragment.instantiate(getActivity(),UpdateJDIMerchandisingStockCheckListFragment.class.getName()));		
 			flist.add(UpdateCompetitorProductStockCheckListFragment.instantiate(getActivity(),UpdateCompetitorProductStockCheckListFragment.class.getName()));		
-			flist.add(UpdateMarketingIntelListFragment.instantiate(getActivity(),UpdateMarketingIntelListFragment.class.getName()));
-			
-			flist.add(PhotosAndAttachmentsFragment.instantiate(getActivity(),PhotosAndAttachmentsFragment.class.getName()));
+			flist.add(UpdateMarketingIntelListFragment.instantiate(getActivity(),UpdateMarketingIntelListFragment.class.getName()));	
+			flist.add(UpdatePhotosAndAttachmentsListFragment.instantiate(getActivity(),UpdatePhotosAndAttachmentsListFragment.class.getName()));
 			break;
 		case 4:
 			flist.add(ActivityGeneralInfoFragment.instantiate(getActivity(),

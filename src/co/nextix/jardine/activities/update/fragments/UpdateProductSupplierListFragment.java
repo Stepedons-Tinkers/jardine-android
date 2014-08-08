@@ -23,7 +23,7 @@ import co.nextix.jardine.activities.add.fragments.AddJDIProductStockFragment;
 import co.nextix.jardine.database.records.ProductSupplierRecord;
 import co.nextix.jardine.view.group.utils.ListViewUtility;
 
-public class UpdateProductSupplierList extends Fragment {
+public class UpdateProductSupplierListFragment extends Fragment {
 	
 	private View view;
 	
@@ -51,7 +51,7 @@ public class UpdateProductSupplierList extends Fragment {
 			
 			@Override
 			public void onClick(View v) {
-				Fragment fragment = new UpdateProductSupplierDetail();
+				Fragment fragment = new UpdateProductSupplierDetailFragment();
 				FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 				ft.replace(R.id.update_fake_layout, fragment);
 				ft.addToBackStack("to_add_supplier");
@@ -144,7 +144,7 @@ public class UpdateProductSupplierList extends Fragment {
 		bundle.putString("other_remarks", tempValues.getOthersRemarks());
 		bundle.putLong("created_by", tempValues.getCreatedBy());
 		
-		Fragment fragment = new UpdateProductSupplierDetail();
+		Fragment fragment = new UpdateProductSupplierDetailFragment();
 		fragment.setArguments(bundle);
 		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_left);

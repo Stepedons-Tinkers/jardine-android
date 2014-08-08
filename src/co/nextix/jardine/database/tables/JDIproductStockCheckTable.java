@@ -113,6 +113,62 @@ public class JDIproductStockCheckTable {
 		}
 		return list;
 	}
+	
+	public List<JDIproductStockCheckRecord> getAllRecordsByActivityId(long activityID) {
+		Cursor c = null;
+		List<JDIproductStockCheckRecord> list = new ArrayList<JDIproductStockCheckRecord>();
+		String MY_QUERY = "SELECT * FROM " + mDatabaseTable + " WHERE " + KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY + "=" + activityID;
+		try {
+			c = mDb.rawQuery(MY_QUERY, null);
+			if (c.moveToFirst()) {
+				do {
+					long id = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ROWID));
+					String no = c.getString(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_NO));
+					String crmNo = c.getString(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CRMNO));
+					long activity = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_ACTIVITY));
+					long productBrand = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_PRODUCTBRAND));
+					long stockStatus = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_STOCKSTATUS));
+					// int quantity = c.getInt(c
+					// .getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_QUANTITY));
+					int loadedOnShelves = c
+							.getInt(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_LOADEDONSHELVES));
+					long supplier = c.getLong(c
+							.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_SUPPLIER));
+					String otherRemarks = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_OTHERREMARKS));
+					String createdTime = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDTIME));
+					String modifiedTime = c
+							.getString(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_MODIFIEDTIME));
+					long createdBy = c
+							.getLong(c
+									.getColumnIndex(KEY_JDIPRODUCTSTOCKCHECK_CREATEDBY));
+
+					list.add(new JDIproductStockCheckRecord(id, no, crmNo,
+							activity, productBrand, stockStatus,
+							loadedOnShelves, supplier, otherRemarks,
+							createdTime, modifiedTime, createdBy));
+				} while (c.moveToNext());
+			}
+		} finally {
+			if (c != null) {
+				c.close();
+			}
+		}
+		return list;
+	}
 
 	// ===========================================================
 	// Public methods

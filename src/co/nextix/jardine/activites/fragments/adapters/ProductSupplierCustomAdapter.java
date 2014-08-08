@@ -21,7 +21,7 @@ import co.nextix.jardine.R;
 import co.nextix.jardine.activites.fragments.JDIProductStockFragment;
 import co.nextix.jardine.activites.fragments.ProductSupplierFragment;
 import co.nextix.jardine.activities.update.fragments.UpdateConstants;
-import co.nextix.jardine.activities.update.fragments.UpdateProductSupplierList;
+import co.nextix.jardine.activities.update.fragments.UpdateProductSupplierListFragment;
 import co.nextix.jardine.database.records.ActivityRecord;
 import co.nextix.jardine.database.records.CustomerRecord;
 import co.nextix.jardine.database.records.JDIproductStockCheckRecord;
@@ -100,10 +100,10 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 		final ViewHolder holder;
 		
 		ProductSupplierFragment sct = null;
-		UpdateProductSupplierList ups = null;
+		UpdateProductSupplierListFragment ups = null;
 		
 		if(UpdateConstants.RECORD != null){
-			ups = (UpdateProductSupplierList) frag;
+			ups = (UpdateProductSupplierListFragment) frag;
 		}else{
 			sct = (ProductSupplierFragment) frag;
 		}
@@ -260,7 +260,7 @@ public class ProductSupplierCustomAdapter extends BaseAdapter implements OnClick
 		@Override
 		public void onClick(View arg0) {
 			if(UpdateConstants.RECORD != null){
-				UpdateProductSupplierList ups = (UpdateProductSupplierList) frag;
+				UpdateProductSupplierListFragment ups = (UpdateProductSupplierListFragment) frag;
 				ups.onItemClick(mPosition);
 			}else{
 				ProductSupplierFragment sct = (ProductSupplierFragment) frag;
