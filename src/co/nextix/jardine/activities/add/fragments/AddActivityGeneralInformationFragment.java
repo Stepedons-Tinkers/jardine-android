@@ -371,14 +371,14 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 					// !checkout.isEmpty()) {
 					if (activityType != 0) {
 						trapping = true;
-						Editor editor = pref.edit();
-						editor.putString("crm_no", crmno);
-						editor.putString("check_in", checkin);
-						// editor.putString("check_out", checkout);
-						editor.putLong("activity_type", activityType);
-						editor.putLong("createdBy", createdBy);
-						editor.putLong("business_unit", businessUnit.getId());
-						editor.commit(); // commit changes
+//						Editor editor = pref.edit();
+//						editor.putString("crm_no", crmno);
+//						editor.putString("check_in", checkin);
+//						// editor.putString("check_out", checkout);
+//						editor.putLong("activity_type", activityType);
+//						editor.putLong("createdBy", createdBy);
+//						editor.putLong("business_unit", businessUnit.getId());
+//						editor.commit(); // commit changes
 
 						Constant.activityGeneralInfo = new ActivityRecord();
 						Constant.activityGeneralInfo.setCheckIn(checkin);
@@ -386,7 +386,8 @@ public class AddActivityGeneralInformationFragment extends Fragment {
 								.setActivityType(activityType);
 						Constant.activityGeneralInfo.setCreatedBy(createdBy);
 						Constant.activityGeneralInfo
-								.setBusinessUnit(businessUnit.getId());
+								.setBusinessUnit(((BusinessUnitRecord) sBusinessUnit
+										.getSelectedItem()).getId());
 
 						// Set the button click to true
 						Handler handler = new Handler();
